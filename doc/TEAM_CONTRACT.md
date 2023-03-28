@@ -6,7 +6,13 @@
 ## As a project team, we promise to:
  * respect each other's ideas and work
  * communicate with the team regularly to keep everyone in the loop about the project
- * others based on your team discussion
+ * We all promise to listen to each other’s ideas with respect.
+ * We all promise to do our work as best as we can.
+ * We all promise to do our work on time.
+ * We all promise to ask for help if we need it.
+ * We all promise to let people know in advance if you will be late or unable to attend a meeting or online discussion.
+ * We all promise to follow the Team Project's Individual Responsibilities (https://courses.cs.duke.edu/compsci308/spring23/admin/individual.php)
+
 
 
 ## If someone on our team breaks one or more of these promises, the team may:
@@ -16,32 +22,31 @@
 
 
 ## Team Procedures
- * when and how often to meet (at least once a week)
- * preferred channel of communication (e.g., Zoom, e-mail, WhatsApp, Slack, etc.)
- * preferred GIT workflow
+ * Stand up meeting after Tuesday class, whole team meetings Sunday 3pm, smaller group meetings organized by subgroups
+ * Slack and use the proper channels
+ * Small frequent commits, provide updates frequently and communicate before large pushes to master. Never break master
  
 
 ### Meetings 
- * how to communicate action items made during the meeting
- * policy for a team member to give advance notice of missing a team meeting and work required to make up for it
- * policy for handling disagreements, major decisions, or priorities during the meeting
+ * Identify to-dos and break into smaller more relevant groups to work out details
+ * zooming in is fine as long as the team is aware in advance, in-person meetings are preferred
+ * for major decisions, reach consensus, for smaller decisions, consult with relevant teammates
 
 
 ### Communications
- * decision-making policy (e.g., by consensus? by majority vote?)
- * response policy (e.g., respond within 24 hours)
- * policy for keeping everyone up-to-date on major decisions, changes, or updates 
+ * consensus
+ * respond to messages in slack within 24 hours
+ * communicate tasks and blocks in stand-ups, and communicate as needed in slack
 
 
 ### Commitments
- * what does it mean to work to the "best of your ability"
- * how to set internal deadlines
- * how to provide commitments others on the team can rely on
- * policy for resolving failure to meet commitments
+ * consistent weekly work, complete the tasks you take on
+ * Set goals on a weekly basis
+ * communicate potential missed deadlines before they happen so the team can adjust as needed
 
 
 ### Helping each other
- * best ways to and when to ask for help
- * responses to team member asking for help
- * how to support the team priorities
- * how to suggest design changes for specific pieces of code
+ * Ask on slack whenever problems arise, don't wait
+ * Help teammates when possible
+ * discuss priorities in standups and weekly meetings
+ * suggest code changes by posting issues for them on gitlab

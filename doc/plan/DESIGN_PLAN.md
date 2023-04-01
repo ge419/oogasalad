@@ -90,3 +90,11 @@ The builder will also allow adjustments of the entire game's rules, which can be
 
 These two abstractions will make it easier to develop a method for the player to interact with the games, and it should also provide a clearer path to what these abstractions represent in the backend as well.
 
+
+- GameView: Defines the structure and specifications of the window of the game
+- GameBoard: Defines the methods and properties required for a game board, such as its size, layout, and any components.
+- UserInterface: Defines the methods and properties required for a user interface, such as menus, buttons, and other graphical elements.
+- InputListener: Defines the methods and properties required for an input listener, which listens for user input and triggers appropriate actions.
+- GamePiece: Defines the methods that set the properties of each game piece and controls the use of it
+- Player: Defines the methods and properties required for a player in the game, such as their name, score, and other relevant data.
+

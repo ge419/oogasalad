@@ -1,5 +1,5 @@
 /***
- * Thisclass serves as the core logic for the game, by
+ * This class serves as the core logic for the game, by
  * implementing the game rules and mechanics.
  */
 public class Engine {

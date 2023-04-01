@@ -1,0 +1,26 @@
+{
+  "board": "path_to/sth.png",
+  "choice": "DICE",
+  "tiles": [
+    {
+      "id": 1,
+      "position": [
+        2.09,
+        5.04
+      ],
+      "next": [2],
+      "onLand": [3],
+      "afterTurn": [7]
+    },
+    {
+      "id": 2,
+      "position": [
+        6.07,
+        10.1
+      ],
+      "next": [],
+      "onLand": [2],
+      "afterTurn": [9]
+    }
+  ]
+}

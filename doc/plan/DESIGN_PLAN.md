@@ -7,6 +7,7 @@ The overall goal of a board game authoring platform is to provide a flexible, us
 - Data is encapsulated within a `Metadata` class so that many types of objects can be edited via a generic option pane
 
 ## Design Primary Architecture
+![Main](https://user-images.githubusercontent.com/90667275/229265134-a38ef80b-a7cd-43fd-8ceb-aa34899c8d34.jpg)
 
 
 

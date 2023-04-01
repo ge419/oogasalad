@@ -1,5 +1,5 @@
-# oogasalad
-## TEAM NAME
+# B-CUBED Project: oogasalad
+
 ## NAMES
 
 

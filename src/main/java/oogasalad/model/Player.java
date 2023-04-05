@@ -14,7 +14,11 @@ public class Player implements Constructable {
   Map<String, BAttribute> values;
 
 
-  public Player(Map<String, BAttribute> attributes) {
+  public Player() {
+  }
+
+  @Override
+  public void setAttributes(Map<String, BAttribute> attributes) {
     this.values = attributes;
   }
 
@@ -26,5 +30,10 @@ public class Player implements Constructable {
   @Override
   public boolean getEditableStatus(String key) {
     return this.values.get(key).getEditStatus();
+  }
+
+  @Override
+  public String toString() {
+    return "PlayerOne";
   }
 }

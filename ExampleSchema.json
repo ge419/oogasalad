@@ -1,11 +1,11 @@
 {
-  "Player": {
+
     "name": {
       "key": "name",
       "isEditable": false,
       "defaultValue": "PlayerOne",
       "type": "String",
-      "value": ""
+      "value": "Jay"
     },
 
     "id": {
@@ -23,5 +23,5 @@
       "type": "int",
       "value": 0
     }
-  }
+
 }

@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "description": "Move using die",
+    "function": "MOVE_POSITION"
+  },
+  {
+    "id": 2,
+    "description": "Buy",
+    "function": "BUY"
+  },
+  {
+    "id": 3,
+    "description": "Sell",
+    "function": "SELL"
+  }
+]

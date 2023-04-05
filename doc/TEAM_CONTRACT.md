@@ -1,6 +1,6 @@
 # OOGA Team Contract
-### Team Name
-### Names
+### B-Cubed
+### Aloye Oshotse, Changmin Shin, Chika Dueke-Eze, Dominic Martinez, Jason Fitzpatrick, Jay Yoon, Mathew Traum, Nathaniel Wullar, Trevon Helm, Woonggyu Jin
 
 
 ## As a project team, we promise to:

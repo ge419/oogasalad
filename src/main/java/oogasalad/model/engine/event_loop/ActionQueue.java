@@ -22,4 +22,11 @@ public interface ActionQueue {
    * @return an action, or {@link Optional#empty()} if no actions are present.
    */
   Optional<Action> poll();
+
+  /**
+   * Returns whether the queue is empty.
+   *
+   * @return true if the queue is empty, false otherwise
+   */
+  boolean isEmpty();
 }

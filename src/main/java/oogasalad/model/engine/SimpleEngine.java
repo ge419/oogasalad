@@ -1,5 +1,6 @@
 package oogasalad.model.engine;
 
+import com.google.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 import oogasalad.model.engine.actions.Action;
@@ -24,6 +25,7 @@ public class SimpleEngine implements Engine {
   private final EventHandlerManager manager;
   private boolean gameIsRunning;
 
+  @Inject
   public SimpleEngine(ActionQueue actionQueue, EventHandlerManager manager) {
     this.actionQueue = actionQueue;
     this.manager = manager;

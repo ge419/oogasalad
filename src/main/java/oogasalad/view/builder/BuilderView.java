@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 
 public class BuilderView implements BuilderUtility {
     private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
+    private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
     private static final double PANE_WIDTH = 500;
     private static final double PANE_HEIGHT = 500;
     private static final double SCENE_WIDTH = 800;
@@ -20,11 +21,13 @@ public class BuilderView implements BuilderUtility {
     private ResourceBundle builderResource;
     private ResourceBundle menuBar1Resource;
     private ResourceBundle sideBar1Resource;
+    private String defaultStylesheet;
 
     public BuilderView() {
         builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
         menuBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "MenuBar1");
         sideBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SideBar1");
+        defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET).toExternalForm();
 
         Scene scene = initScene();
         Stage primaryStage = new Stage();
@@ -38,6 +41,7 @@ public class BuilderView implements BuilderUtility {
         VBox root = (VBox) makeVBox("RootContainer", topBar, centralContainer);
 
         Scene newScene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
+        newScene.getStylesheets().add(defaultStylesheet);
         return newScene;
 
     }

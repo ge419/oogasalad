@@ -1,5 +1,6 @@
 package oogasalad.model;
 
+import java.util.Collection;
 import java.util.List;
 
 public class BScheme {
@@ -7,4 +8,8 @@ public class BScheme {
   private String name;
   private List<BAttribute> attributes;
 
+  public BScheme(String name, Collection<BAttribute> attr) {
+    this.name = name;
+    this.attributes = (List<BAttribute>) attr;
+  }
 }

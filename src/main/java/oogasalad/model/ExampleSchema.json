@@ -1,0 +1,27 @@
+{
+  "Player": {
+    "name": {
+      "key": "name",
+      "isEditable": false,
+      "defaultValue": "PlayerOne",
+      "type": "String",
+      "value": ""
+    },
+
+    "id": {
+      "key": "id",
+      "isEditable": false,
+      "defaultValue": "@B0001",
+      "type": "String",
+      "value": ""
+    },
+
+    "score": {
+      "key": "score",
+      "isEditable": true,
+      "defaultValue": 0,
+      "type": "int",
+      "value": 0
+    }
+  }
+}

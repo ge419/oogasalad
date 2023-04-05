@@ -1,0 +1,23 @@
+<Configuration status="INFO">
+  <Appenders>
+    <Console name="console" target="SYSTEM_OUT">
+      <!-- for details about these options: https://logging.apache.org/log4j/2.x/manual/layouts.html#PatternLayout -->
+      <PatternLayout>
+        <Pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</Pattern>
+      </PatternLayout>
+    </Console>
+    <RollingFile name="file" filePattern="logs/app-%d{yyyy-MM-dd-HH}-%i.log"
+      immediateFlush="true" append="true">
+      <SizeBasedTriggeringPolicy size="10 MB" />
+      <PatternLayout>
+        <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+      </PatternLayout>
+      <DirectWriteRolloverStrategy maxFiles="5"/>
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <Root level="all">
+      <AppenderRef ref="file" level="all" />
+    </Root>
+  </Loggers>
+</Configuration>

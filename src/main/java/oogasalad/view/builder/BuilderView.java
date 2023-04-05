@@ -2,14 +2,19 @@ package oogasalad.view.builder;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.Enumeration;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class BuilderView implements BuilderUtility {
@@ -22,7 +27,7 @@ public class BuilderView implements BuilderUtility {
     private ResourceBundle builderResource;
     private ResourceBundle menuBar1Resource;
     private ResourceBundle sideBar1Resource;
-    private Stage currStage;
+    private Pane myBoardPane;
 
     public BuilderView() {
         builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
@@ -34,7 +39,6 @@ public class BuilderView implements BuilderUtility {
         primaryStage.setScene(scene);
         primaryStage.setTitle(builderResource.getString("BuilderTitle"));
         primaryStage.show();
-        currStage = primaryStage;
     }
     private Scene initScene() {
         Node topBar = createTopBar();
@@ -57,6 +61,7 @@ public class BuilderView implements BuilderUtility {
         addButtonsToPane(sideBar1, sideBar1Resource);
 
         Node boardPane = makePane("BoardPane", PANE_WIDTH, PANE_HEIGHT);
+        myBoardPane = (Pane) boardPane;
 
         return (HBox) makeHBox("CentralContainer", sideBar1, boardPane);
     }
@@ -81,14 +86,30 @@ public class BuilderView implements BuilderUtility {
     private void uploadImage(){
         FileChooser chooseFile = new FileChooser();
         chooseFile.setTitle(builderResource.getString("UploadImageTitle"));
-        File file = chooseFile.showOpenDialog(currStage);
+        Optional<File> file = Optional.ofNullable(chooseFile.showOpenDialog(null));
 
-        if (file != null){
-            System.out.println("It works!");
+        if (checkIfImage(file) == true){
+            System.out.println("Got something image from: " + file.get().toPath() );
+            myBoardPane.getChildren().add(turnFileToImage(file.get(), PANE_WIDTH, PANE_HEIGHT));
         }
         else{
-            System.out.println("ruh-roh");
+            System.out.println("Got a non-image or nothing from file.");
         }
+    }
+
+    private boolean checkIfImage(Optional<File> thing){
+        final String IMAGE_FILE_SUFFIXES = String.format(".*\\.(%s)", String.join("|", ImageIO.getReaderFileSuffixes()));
+        return thing.isPresent() && thing.get().getName().matches(IMAGE_FILE_SUFFIXES);
+    }
+
+    private ImageView turnFileToImage(File file, double width, double height){
+        return new ImageView(new Image(
+                file.toURI().toString(),
+                width,
+                height,
+                true,
+                true)
+        );
     }
 
 }

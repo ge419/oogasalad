@@ -25,16 +25,14 @@ public class PlayerDeserializer extends StdDeserializer {
   @Override
   public Constructable deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
       throws IOException, JacksonException {
-    Player player = new Player();
+    //TODO: replace player class with reflection
     ObjectMapper mapper = new ObjectMapper();
     TypeFactory typeFactory = mapper.getTypeFactory();
     MapType mapType = typeFactory.constructMapType(HashMap.class, String.class, BAttribute.class);
-
     //construct attribute map
     HashMap<String, BAttribute> attributes = mapper.readValue(Paths.get("ExampleSchema.json").toFile(), mapType);
-    for (Map.Entry<?, ?> entry : attributes.entrySet()) {
-      System.out.println(entry.getKey() + "=" + entry.getValue());
-    }
+    Player player = new Player();
+    //set the attribute map as class instance variable
     player.setAttributes(attributes);
     return player;
   }

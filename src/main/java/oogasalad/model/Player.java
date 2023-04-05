@@ -12,9 +12,8 @@ import java.util.Map;
 public class Player implements Constructable {
   Map<String, BAttribute> schema;
   Map<String, BAttribute> values;
-
-
   public Player() {
+
   }
 
   @Override
@@ -34,6 +33,6 @@ public class Player implements Constructable {
 
   @Override
   public String toString() {
-    return "PlayerOne";
+    return this.values.get("id").getValue();
   }
 }

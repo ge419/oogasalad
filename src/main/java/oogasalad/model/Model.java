@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 
 public class Model {
   public static void main(String[] args) throws IOException {
+    //TODO: Check File Path and Debug Deeper Placed Files ex. /data
     String filename="ExampleSchema.json";
     Path pathToFile = Paths.get(filename);
     System.out.println(pathToFile.toAbsolutePath());
@@ -20,7 +21,10 @@ public class Model {
     mapper.registerModule(module);
     Player player = mapper.readValue(Paths.get("ExampleSchema.json").toFile(), Player.class);
     System.out.println(player.toString());
-    System.out.println(player.getAttributeValue("name"));
+    System.out.println(player.getAttributeValue("self")); //Bob
+    System.out.println(player.getAttributeValue("name")); //Bob
+    System.out.println(player.getAttributeValue("id"));
+    System.out.println(player.getAttributeValue("score")); //500
   }
 
 }

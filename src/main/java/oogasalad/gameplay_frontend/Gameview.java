@@ -24,6 +24,7 @@ public class Gameview extends Application {
 
     Board gameboard = new Board();
 
+
     UIroot.setCenter(gameboard.render());
 
     Scene scene = new Scene(UIroot);
@@ -35,4 +36,9 @@ public class Gameview extends Application {
     primaryStage.setWidth(VIEW_WIDTH);
     primaryStage.show();
   }
+
+  private void renderTiles() {
+
+  }
+
 }

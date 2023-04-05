@@ -4,6 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -15,8 +16,8 @@ public class BuilderView implements BuilderUtility {
     private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
     private static final double PANE_WIDTH = 500;
     private static final double PANE_HEIGHT = 500;
-    private static final double SCENE_WIDTH = 800;
-    private static final double SCENE_HEIGHT = 800;
+    private static final double SCENE_WIDTH = 700;
+    private static final double SCENE_HEIGHT = 600;
 
     private ResourceBundle builderResource;
     private ResourceBundle menuBar1Resource;

@@ -23,6 +23,10 @@ public class SimpleEventHandlerManager implements EventHandlerManager {
 
   @Override
   public void triggerEvent(EventHandlerParams params) {
+    EventType type = params.event().type();
+
+    if (!handlerMap.containsKey(type)) return;
+
     for (EventHandler handler : handlerMap.get(params.event().type())) {
       handler.handleEvent(params);
     }

@@ -1,5 +1,6 @@
 package oogasalad.model.engine.actions;
 
+import java.util.Objects;
 import oogasalad.model.engine.event_loop.Event;
 import oogasalad.model.engine.event_types.EventType;
 
@@ -8,17 +9,14 @@ import oogasalad.model.engine.event_types.EventType;
  *
  * @author Dominic Martinez
  */
-public class EventAction implements Action {
-  Event event;
-
+public record EventAction(Event event) implements Action {
   public EventAction(EventType type) {
     this(new Event(type));
   }
 
-  public EventAction(Event event) {
-    this.event = event;
+  public EventAction {
+    Objects.requireNonNull(event);
   }
-
 
   @Override
   public void runAction(ActionParams actionParams) {

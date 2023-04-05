@@ -5,8 +5,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.Enumeration;
 import java.util.ResourceBundle;
 
@@ -20,6 +22,7 @@ public class BuilderView implements BuilderUtility {
     private ResourceBundle builderResource;
     private ResourceBundle menuBar1Resource;
     private ResourceBundle sideBar1Resource;
+    private Stage currStage;
 
     public BuilderView() {
         builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
@@ -31,6 +34,7 @@ public class BuilderView implements BuilderUtility {
         primaryStage.setScene(scene);
         primaryStage.setTitle(builderResource.getString("BuilderTitle"));
         primaryStage.show();
+        currStage = primaryStage;
     }
     private Scene initScene() {
         Node topBar = createTopBar();
@@ -73,5 +77,18 @@ public class BuilderView implements BuilderUtility {
     }
     private void test() {
     }
-    
+
+    private void uploadImage(){
+        FileChooser chooseFile = new FileChooser();
+        chooseFile.setTitle(builderResource.getString("UploadImageTitle"));
+        File file = chooseFile.showOpenDialog(currStage);
+
+        if (file != null){
+            System.out.println("It works!");
+        }
+        else{
+            System.out.println("ruh-roh");
+        }
+    }
+
 }

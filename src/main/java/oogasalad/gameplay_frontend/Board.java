@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 
 public class Board{
 
-  //Read in from property file
+  //TODO: refactor to read from property file
   private final int BOARD_SIZE = 700;
   public Board() {
   }

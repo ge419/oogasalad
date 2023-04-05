@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 public class Gameview extends Application {
 
+  //TODO: refactor to read from property file
   private final int VIEW_WIDTH = 1200;
   private final int VIEW_HEIGHT = 800;
 
@@ -26,6 +27,8 @@ public class Gameview extends Application {
     UIroot.setCenter(gameboard.render());
 
     Scene scene = new Scene(UIroot);
+
+    //TODO: refactor to read from property file
     primaryStage.setTitle("Monopoly");
     primaryStage.setScene(scene);
     primaryStage.setHeight(VIEW_HEIGHT);

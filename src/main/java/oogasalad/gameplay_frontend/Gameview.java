@@ -1,32 +1,32 @@
 package oogasalad.gameplay_frontend;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.Set;
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import oogasalad.gameplay_frontend.Tiles.BasicTile;
 
-public class Gameview extends Application {
-
+public class Gameview{
   //TODO: refactor to read from property file
   private final int VIEW_WIDTH = 1200;
   private final int VIEW_HEIGHT = 800;
 
-  public static void main(String[] args) {
-    launch(args);
-  }
+  @JsonProperty("board")
+  private String board;
 
-  @Override
-  public void start(Stage primaryStage) {
+  @JsonProperty("choice")
+  private String choice;
+  private List<BasicTile> tiles;
 
+  public void renderGameview() {
+    Stage primaryStage = new Stage();
     BorderPane UIroot = new BorderPane();
-
-    Board gameboard = new Board();
-
-
-    UIroot.setCenter(gameboard.render());
-
     Scene scene = new Scene(UIroot);
 
     //TODO: refactor to read from property file
@@ -37,8 +37,12 @@ public class Gameview extends Application {
     primaryStage.show();
   }
 
-  private void renderTiles() {
+  private List<BasicTile> renderTiles() {
+    return null;
+  }
 
+  private Board renderBoard() {
+    return null;
   }
 
 }

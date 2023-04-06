@@ -1,21 +1,17 @@
 package oogasalad.gameplay_frontend;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import oogasalad.gameplay_frontend.Pieces.PlayerPiece;
 import oogasalad.gameplay_frontend.Tiles.BasicTile;
-import org.checkerframework.checker.units.qual.A;
 
 public class Gameview {
 
@@ -36,6 +32,12 @@ public class Gameview {
       UIroot.getChildren().add(tile);
     }
     UIroot.setCenter(renderBoard());
+
+    UIroot.getChildren().add(renderDie());
+
+    for (PlayerPiece piece : renderPieces()) {
+      UIroot.getChildren().add(piece);
+    }
 
     Scene scene = new Scene(UIroot);
     //TODO: refactor to read from property file
@@ -77,4 +79,16 @@ public class Gameview {
     Board board = new Board(myBoardPath);
     return board;
   }
+  private Die renderDie() {
+    Die die = new Die();
+    return die;
+  }
+
+  private List<PlayerPiece> renderPieces() {
+    //TODO: add logic that decides how many pieces are parsed and with what images
+    List<PlayerPiece> piecesList = new ArrayList<>();
+    piecesList.add(new PlayerPiece("data/example/piece_1.png", "Bob"));
+    return piecesList;
+  }
+
 }

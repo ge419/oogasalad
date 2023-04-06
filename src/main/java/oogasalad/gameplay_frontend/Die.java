@@ -23,6 +23,8 @@ public class Die extends StackPane {
       dotArray[i] = createDot(dotSize);
       addDot(dotArray[i]);
     }
+    this.setLayoutX(700);
+    this.setLayoutY(700);
   }
 
   private Circle createDot(int size) {

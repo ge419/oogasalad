@@ -6,17 +6,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.Enumeration;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class BuilderView implements BuilderUtility {
     private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
@@ -25,6 +25,7 @@ public class BuilderView implements BuilderUtility {
     private static final double PANE_HEIGHT = 500;
     private static final double SCENE_WIDTH = 700;
     private static final double SCENE_HEIGHT = 600;
+    private static final Logger LOG = LogManager.getLogger(BuilderView.class);
 
     private ResourceBundle builderResource;
     private ResourceBundle menuBar1Resource;

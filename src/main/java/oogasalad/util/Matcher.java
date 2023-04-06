@@ -11,8 +11,9 @@ import java.util.regex.Pattern;
 public abstract class Matcher {
     private final List<Entry<String, Pattern>> map;
 
-    public Matcher() {
+    public Matcher(String function) {
       map = new ArrayList<>();
+      this.setPatterns(function);
     }
 
     private void setPatterns(String function) {

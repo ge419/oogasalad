@@ -29,7 +29,7 @@ public class BFactory {
     MapType mapType = typeFactory.constructMapType(HashMap.class, String.class, BAttribute.class);
     module.addDeserializer(HashMap.class, new AttributeDeserializer());
     mapper.registerModule(module);
-    Path path = Paths.get("ExampleSchema.json");
+    Path path = Paths.get(fileName);
     Map<String, BAttribute> attributes = mapper.readValue(path.toFile(), mapType);
 
     try {

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import java.util.Collections;
 import java.util.List;
 import oogasalad.model.engine.actions.EventAction;
 import oogasalad.model.engine.event_loop.EventHandlerParams;
@@ -65,6 +66,24 @@ class SimpleEngineTest {
     InOrder inOrder = inOrder(startRule, endRule);
     inOrder.verify(startRule, times(1)).onEvent(any());
     inOrder.verify(endRule, times(1)).onEvent(any());
+  }
+
+  @Test
+  void ruleOrdering() {
+    EventRule startRule = spy(new EventRule(EngineEvent.START_GAME, TestEvent.TEST_EVENT_1));
+    EventRule rule1 = spy(new EventRule(TestEvent.TEST_EVENT_1, TestEvent.TEST_EVENT_2));
+    EventRule rule2 = spy(new EventRule(TestEvent.TEST_EVENT_1, TestEvent.TEST_EVENT_3));
+    EventRule rule3 = spy(new EventRule(TestEvent.TEST_EVENT_1, TestEvent.TEST_EVENT_4));
+    EventRule rule4 = spy(new EventRule(TestEvent.TEST_EVENT_1, EngineEvent.END_GAME));
+    List<EventRule> rules = List.of(startRule, rule1, rule2, rule3, rule4);
+
+    engine.run(Collections.unmodifiableList(rules));
+
+    // Rules subscribing to the same event should be triggered in the order they appear in the list
+    InOrder inOrder = inOrder(rules.toArray());
+    for (EventRule rule : rules) {
+      inOrder.verify(rule, times(1)).onEvent(any());
+    }
   }
 
   @Disabled("Subgame test: disabled until #63 is done")

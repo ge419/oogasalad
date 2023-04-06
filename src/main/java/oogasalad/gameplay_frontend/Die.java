@@ -40,8 +40,8 @@ public class Die extends StackPane {
 
   private void setDieFace(int value) {
     removeAllDots();
-    for (Circle dot: dotArray) {
-      addDot(dot);
+    for (int i=0; i<value; i++) {
+      addDot(dotArray[i]);
     }
   }
 

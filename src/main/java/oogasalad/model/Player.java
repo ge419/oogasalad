@@ -1,5 +1,6 @@
 package oogasalad.model;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -13,7 +14,8 @@ public class Player implements Constructable {
   Map<String, BAttribute> schema;
   Map<String, BAttribute> values;
   public Player() {
-
+    schema = new HashMap<>();
+    values = new HashMap<>();
   }
 
   @Override

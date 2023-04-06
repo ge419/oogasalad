@@ -97,7 +97,8 @@ public class BuilderView implements BuilderUtility {
             myBoardPane.getChildren().add(turnFileToImage(file.get(), PANE_WIDTH, PANE_HEIGHT));
         }
         else{
-            System.out.println("Got a non-image or nothing from file.");
+            // todo: make this use an error form.
+            System.out.println("ERROR -- Got a non-image or nothing from file.");
         }
     }
 

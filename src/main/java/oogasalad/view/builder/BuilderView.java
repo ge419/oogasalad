@@ -4,6 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -68,6 +69,7 @@ public class BuilderView implements BuilderUtility {
 
         Node boardPane = makePane("BoardPane", PANE_WIDTH, PANE_HEIGHT);
         myBoardPane = (Pane) boardPane;
+        myBoardPane.setOnMouseClicked(e -> createTile(e));
 
         return (HBox) makeHBox("CentralContainer", sideBar1, boardPane);
     }
@@ -100,6 +102,10 @@ public class BuilderView implements BuilderUtility {
             // todo: make this use an error form.
             System.out.println("ERROR -- Got a non-image or nothing from file.");
         }
+    }
+
+    private void createTile(MouseEvent e){
+        System.out.println("hello, you clicked on x: " + e.getX() + " and y: " + e.getY());
     }
 
     private boolean checkIfImage(Optional<File> thing){

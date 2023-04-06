@@ -27,24 +27,17 @@ public class BFactory {
         new SimpleModule("deserializer", new Version(1, 0, 0, null, null, null));
     TypeFactory typeFactory = mapper.getTypeFactory();
     MapType mapType = typeFactory.constructMapType(HashMap.class, String.class, BAttribute.class);
-
     module.addDeserializer(HashMap.class, new AttributeDeserializer());
     mapper.registerModule(module);
     Path path = Paths.get("ExampleSchema.json");
-
-
     Map<String, BAttribute> attributes = mapper.readValue(path.toFile(), mapType);
-    for (Map.Entry<?, ?> entry : attributes.entrySet()) {
-      System.out.println(entry.getKey() + "=" + entry.getValue());
-    }
-
 
     try {
       Class<?> dataClazz = Class.forName("oogasalad.model.Player");
       Constructor<?> defaultConstructor = dataClazz.getConstructor();
-      Constructable token = (Constructable) defaultConstructor.newInstance();
-      token.setAttributes(attributes);
-      return token;
+      Constructable bConstruct = (Constructable) defaultConstructor.newInstance();
+      bConstruct.setAttributes(attributes);
+      return bConstruct;
     } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException |
              IllegalAccessException | InvocationTargetException e) {
       throw new RuntimeException(e);

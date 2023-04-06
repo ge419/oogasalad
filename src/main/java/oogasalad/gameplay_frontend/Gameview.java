@@ -76,8 +76,7 @@ public class Gameview {
   }
 
   private Board renderBoard() {
-    Board board = new Board(myBoardPath);
-    return board;
+    return new Board(myBoardPath);
   }
   private Die renderDie() {
     Die die = new Die();

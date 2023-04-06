@@ -27,4 +27,5 @@ public class PlayerPiece extends GamePiece {
   public void moveDirectly(Coordinate coor) {
 
   }
+
 }

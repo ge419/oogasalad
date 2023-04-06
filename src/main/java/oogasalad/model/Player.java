@@ -18,6 +18,11 @@ public class Player implements Constructable {
     values = new HashMap<>();
   }
 
+  public void addScore(int delta) {
+    int score = Integer.parseInt(this.getAttributeValue("score"));
+    this.values.get("score").updateValue(String.valueOf(score+delta));
+  }
+
   @Override
   public void setAttributes(Map<String, BAttribute> attributes) {
     this.values = attributes;

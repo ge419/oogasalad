@@ -21,6 +21,7 @@ public class BAttribute {
     this.type = "type";
     this.value = "value";
   }
+
   public BAttribute(String key, boolean isEditable, String defaultValue, String type, String value) {
     this.key = key;
     this.isEditable = isEditable;

@@ -1,5 +1,6 @@
 package oogasalad.model;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -12,9 +13,13 @@ import java.util.Map;
 public class Player implements Constructable {
   Map<String, BAttribute> schema;
   Map<String, BAttribute> values;
+  public Player() {
+    schema = new HashMap<>();
+    values = new HashMap<>();
+  }
 
-
-  public Player(Map<String, BAttribute> attributes) {
+  @Override
+  public void setAttributes(Map<String, BAttribute> attributes) {
     this.values = attributes;
   }
 
@@ -26,5 +31,10 @@ public class Player implements Constructable {
   @Override
   public boolean getEditableStatus(String key) {
     return this.values.get(key).getEditStatus();
+  }
+
+  @Override
+  public String toString() {
+    return this.values.get("id").getValue();
   }
 }

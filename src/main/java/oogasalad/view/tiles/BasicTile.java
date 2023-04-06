@@ -1,4 +1,4 @@
-package oogasalad.gameplay_frontend.tiles;
+package oogasalad.view.tiles;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

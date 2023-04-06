@@ -1,4 +1,7 @@
-package oogasalad.gameplay_frontend;
+package oogasalad.view.gameplay;
+
+
+import oogasalad.view.Coordinate;
 
 public interface Movable {
 

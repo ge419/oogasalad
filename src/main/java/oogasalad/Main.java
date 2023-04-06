@@ -7,10 +7,7 @@ import oogasalad.view.builder.BuilderView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
-import javafx.application.Application;
-import javafx.stage.Stage;
-import oogasalad.gameplay_frontend.Board;
-import oogasalad.gameplay_frontend.Gameview;
+import oogasalad.view.gameplay.Gameview;
 
 /**
  * Feel free to completely change this code or delete it entirely. 

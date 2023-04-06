@@ -1,10 +1,11 @@
-package oogasalad.gameplay_frontend.pieces;
+package oogasalad.view.gameplay.pieces;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import oogasalad.gameplay_frontend.Movable;
+import oogasalad.view.Coordinate;
+import oogasalad.view.gameplay.Movable;
 
 abstract public class GamePiece extends ImageView implements Movable {
   private static double PIECE_SIZE = 100;
@@ -19,4 +20,8 @@ abstract public class GamePiece extends ImageView implements Movable {
       e.printStackTrace();
     }
   }
+
+  public abstract void move(Coordinate[] coorArray);
+
+  public abstract void moveDirectly(Coordinate coor);
 }

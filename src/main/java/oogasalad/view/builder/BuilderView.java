@@ -8,7 +8,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
@@ -34,12 +33,18 @@ public class BuilderView implements BuilderUtility {
     private ResourceBundle sideBar1Resource;
     private Pane myBoardPane;
     private String defaultStylesheet;
+    private Optional<String> myCurrentlyClickedTiletype;
+    //todo: dependency injection
+    private GraphInterface myGraph;
 
     public BuilderView() {
         builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
         menuBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "MenuBar1");
         sideBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SideBar1");
         defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET).toExternalForm();
+
+        myCurrentlyClickedTiletype = Optional.empty();
+        myGraph = new Graph();  // todo: dependency injection
 
         Scene scene = initScene();
         Stage primaryStage = new Stage();
@@ -107,9 +112,13 @@ public class BuilderView implements BuilderUtility {
 
     private void createTile(MouseEvent e){
         System.out.println("hello, you clicked on x: " + e.getSceneX() + " and y: " + e.getSceneY());
-        myBoardPane.getChildren().add(new Tile(e.getX(), e.getY()));
+        if (myCurrentlyClickedTiletype.isPresent()){
+            Tile tile = new Tile(e.getX(), e.getY(), myCurrentlyClickedTiletype.get());
+            myBoardPane.getChildren().add(tile);
+            myGraph.addTile(tile);
+        }
     }
-
+    
     private boolean checkIfImage(Optional<File> thing){
         final String IMAGE_FILE_SUFFIXES = String.format(".*\\.(%s)", String.join("|", ImageIO.getReaderFileSuffixes()));
         return thing.isPresent() && thing.get().getName().matches(IMAGE_FILE_SUFFIXES);

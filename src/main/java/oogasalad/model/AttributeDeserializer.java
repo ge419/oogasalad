@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -16,7 +17,7 @@ public class AttributeDeserializer extends StdDeserializer {
     this(null);
   }
 
-  public AttributeDeserializer(Class vc) {//TODO: Check File Path and Debug Deeper Placed Files ex. /data
+  public AttributeDeserializer(Class vc) {
     super(vc);
   }
 
@@ -27,7 +28,7 @@ public class AttributeDeserializer extends StdDeserializer {
     ObjectMapper mapper = new ObjectMapper();
     TypeFactory typeFactory = mapper.getTypeFactory();
     MapType mapType = typeFactory.constructMapType(HashMap.class, String.class, BAttribute.class);
-    return mapper.readValue(Paths.get("ExampleSchema.json").toFile(), mapType);
+    return mapper.readValue(jsonParser, mapType);
   }
 
 }

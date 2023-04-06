@@ -1,10 +1,10 @@
 package oogasalad.model;
 
-import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -15,6 +15,7 @@ import java.util.Map;
 import oogasalad.util.ClassPathMatcher;
 
 public class BFactory {
+  private static final String CLASS_IDENTIFIER = "self";
   private final ClassPathMatcher pathFinder;
   private final AttributeDeserializer deserializer;
 
@@ -23,30 +24,28 @@ public class BFactory {
     this.pathFinder = new ClassPathMatcher();
   }
 
-  public Constructable generate(String fileName) throws IOException {
+  public Constructable generate(File file) throws IOException {
 
     ObjectMapper mapper = new ObjectMapper();
-    SimpleModule module =
-        new SimpleModule("deserializer", new Version(1, 0, 0, null, null, null));
+    SimpleModule module = new SimpleModule();
     TypeFactory typeFactory = mapper.getTypeFactory();
     MapType mapType = typeFactory.constructMapType(HashMap.class, String.class, BAttribute.class);
     module.addDeserializer(HashMap.class, new AttributeDeserializer());
     mapper.registerModule(module);
-    Path path = Paths.get(fileName);
-    Map<String, BAttribute> attributes = mapper.readValue(path.toFile(), mapType);
+    Map<String, BAttribute> attributes = mapper.readValue(file, mapType);
 
     try {
-      String classPath = pathFinder.getKey(attributes.get("self").getValue());
+      String classPath = pathFinder.getKey(attributes.get(CLASS_IDENTIFIER).getValue());
       Class<?> dataClazz = Class.forName(classPath);
       Constructor<?> defaultConstructor = dataClazz.getConstructor();
       Constructable bConstruct = (Constructable) defaultConstructor.newInstance();
       bConstruct.setAttributes(attributes);
       return bConstruct;
+
     } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException |
              IllegalAccessException | InvocationTargetException e) {
       throw new RuntimeException(e);
     }
 
   }
-
 }

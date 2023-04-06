@@ -1,12 +1,21 @@
-package oogasalad.gameplay_frontend;
+package oogasalad.gameplay_frontend.Pieces;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 abstract public class GamePiece extends ImageView {
+  private static double PIECE_SIZE = 100;
   public GamePiece(String imageURL) {
-    setImage(new Image(imageURL));
+    try {
+      Image image = new Image(new FileInputStream(imageURL));
+      this.setImage(image);
+      this.setFitHeight(PIECE_SIZE);
+      this.setFitWidth(PIECE_SIZE);
+    }
+    catch (IOException e) {
+      e.printStackTrace();
+    }
   }
-
-
 }

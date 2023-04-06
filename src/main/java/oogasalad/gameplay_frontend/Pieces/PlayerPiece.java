@@ -1,4 +1,6 @@
-package oogasalad.gameplay_frontend;
+package oogasalad.gameplay_frontend.Pieces;
+
+import oogasalad.gameplay_frontend.Pieces.GamePiece;
 
 public class PlayerPiece extends GamePiece {
   private String playerName;

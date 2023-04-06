@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 public abstract class Matcher {
+    private static final String RESOURCE_PATH = "engine.";
     private final List<Entry<String, Pattern>> map;
 
     public Matcher(String function) {
@@ -17,14 +18,14 @@ public abstract class Matcher {
     }
 
     private void setPatterns(String function) {
-      ResourceBundle resources = ResourceBundle.getBundle(function);
+      ResourceBundle resources = ResourceBundle.getBundle(RESOURCE_PATH+function);
       for (String key : Collections.list(resources.getKeys())) {
         map.add(new SimpleEntry<>(key,
             Pattern.compile(resources.getString(key), Pattern.CASE_INSENSITIVE)));
       }
     }
 
-    public String getVariableType(String text) {
+    public String getKey(String text) {
       for (Entry<String, Pattern> e : map) {
         if (match(text, e.getValue())) {
           return e.getKey();

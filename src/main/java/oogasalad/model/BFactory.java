@@ -12,12 +12,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import oogasalad.util.ClassPathMatcher;
 
 public class BFactory {
+  private final ClassPathMatcher pathFinder;
   private final AttributeDeserializer deserializer;
 
   public BFactory() {
     this.deserializer = new AttributeDeserializer();
+    this.pathFinder = new ClassPathMatcher();
   }
 
   public Constructable generate(String fileName) throws IOException {
@@ -33,7 +36,8 @@ public class BFactory {
     Map<String, BAttribute> attributes = mapper.readValue(path.toFile(), mapType);
 
     try {
-      Class<?> dataClazz = Class.forName("oogasalad.model.Player");
+      String classPath = pathFinder.getKey(attributes.get("self").getValue());
+      Class<?> dataClazz = Class.forName(classPath);
       Constructor<?> defaultConstructor = dataClazz.getConstructor();
       Constructable bConstruct = (Constructable) defaultConstructor.newInstance();
       bConstruct.setAttributes(attributes);

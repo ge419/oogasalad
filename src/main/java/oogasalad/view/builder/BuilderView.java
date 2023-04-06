@@ -8,6 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
@@ -105,7 +106,8 @@ public class BuilderView implements BuilderUtility {
     }
 
     private void createTile(MouseEvent e){
-        System.out.println("hello, you clicked on x: " + e.getX() + " and y: " + e.getY());
+        System.out.println("hello, you clicked on x: " + e.getSceneX() + " and y: " + e.getSceneY());
+        myBoardPane.getChildren().add(new Tile(e.getX(), e.getY()));
     }
 
     private boolean checkIfImage(Optional<File> thing){

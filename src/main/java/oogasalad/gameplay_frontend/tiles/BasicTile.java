@@ -1,9 +1,7 @@
-package oogasalad.gameplay_frontend.Tiles;
+package oogasalad.gameplay_frontend.tiles;
 
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import org.w3c.dom.css.Rect;
 
 public class BasicTile extends Rectangle {
   private static final double TILE_WIDTH = 50;

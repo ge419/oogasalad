@@ -1,4 +1,4 @@
-package oogasalad.gameplay_frontend.Pieces;
+package oogasalad.gameplay_frontend.pieces;
 
 import java.io.FileInputStream;
 import java.io.IOException;

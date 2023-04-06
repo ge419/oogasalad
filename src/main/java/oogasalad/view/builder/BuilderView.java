@@ -89,12 +89,10 @@ public class BuilderView implements BuilderUtility {
     }
 
     private void uploadImage(){
-        FileChooser chooseFile = new FileChooser();
-        chooseFile.setTitle(builderResource.getString("UploadImageTitle"));
-        Optional<File> file = Optional.ofNullable(chooseFile.showOpenDialog(null));
+        Optional<File> file = loadFile(builderResource, "UploadImageTitle");
 
         if (checkIfImage(file) == true){
-            System.out.println("Got something image from: " + file.get().toPath() );
+            System.out.println("Got an image from: " + file.get().toPath() );
             myBoardPane.getChildren().add(turnFileToImage(file.get(), PANE_WIDTH, PANE_HEIGHT));
         }
         else{

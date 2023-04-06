@@ -10,7 +10,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 
+import java.io.File;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public interface BuilderUtility {
@@ -53,5 +56,11 @@ public interface BuilderUtility {
         hBox.getStyleClass().add("hBox");
         hBox.setId(property);
         return hBox;
+    }
+
+    default Optional<File> loadFile(ResourceBundle resourceBundle, String propertyKey){
+        FileChooser chooseFile = new FileChooser();
+        chooseFile.setTitle(resourceBundle.getString(propertyKey));
+        return Optional.ofNullable(chooseFile.showOpenDialog(null));
     }
 }

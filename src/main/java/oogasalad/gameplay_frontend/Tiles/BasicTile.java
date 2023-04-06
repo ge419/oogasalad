@@ -17,6 +17,7 @@ public class BasicTile extends Rectangle {
   public BasicTile(int id, double[] position, int[] next, int[] onLand, int[] afterTurn) {
     super(position[0], position[1], TILE_WIDTH, TILE_WIDTH);
     this.setFill(Color.LIGHTBLUE);
+    this.setStroke(Color.BLACK);
     this.id = id;
     this.position = position;
     this.next = next;

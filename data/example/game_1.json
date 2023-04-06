@@ -1,4 +1,4 @@
 {
-  "board": "path_to/sth.png",
+  "board": "data/example/monopoly_board.jpg",
   "choice": "DICE"
 }

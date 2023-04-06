@@ -24,7 +24,7 @@ public class Gameview {
   private final int VIEW_HEIGHT = 800;
 
   @JsonProperty("board")
-  public String board;
+  public String myBoardPath;
 
   @JsonProperty("choice")
   public String choice;
@@ -33,10 +33,9 @@ public class Gameview {
     BorderPane UIroot = new BorderPane();
 
     for (BasicTile tile : renderTiles()){
-      System.out.println(tile.getWidth());
-      System.out.println(tile.getX());
       UIroot.getChildren().add(tile);
     }
+    UIroot.setCenter(renderBoard());
 
     Scene scene = new Scene(UIroot);
     //TODO: refactor to read from property file
@@ -75,7 +74,7 @@ public class Gameview {
   }
 
   private Board renderBoard() {
-    return null;
+    Board board = new Board(myBoardPath);
+    return board;
   }
-
 }

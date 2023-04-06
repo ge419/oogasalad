@@ -1,11 +1,8 @@
 package oogasalad.gameplay_frontend;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import oogasalad.gameplay_frontend.Tiles.BasicTile;
 
 public class Board{
   //TODO: refactor to read from property file

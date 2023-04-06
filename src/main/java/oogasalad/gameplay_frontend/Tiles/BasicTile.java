@@ -1,28 +1,46 @@
 package oogasalad.gameplay_frontend.Tiles;
 
-import java.util.List;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import oogasalad.gameplay_frontend.Settable;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import org.w3c.dom.css.Rect;
 
-public class BasicTile extends ImageView implements Settable {
+public class BasicTile extends Rectangle {
+  private static final double TILE_WIDTH = 50;
+
   private int id;
-  private List<Double> position;
-  private List<Integer> next;
-  private List<Integer> onLand;
-  private List<Integer> afterTurn;
-  public BasicTile(double x, double y) {
-    position = List.of(x, y);
-  }
-  @Override
-  public void set(double xCoordinate, double yCoordinate) {
-    this.setX(xCoordinate);
-    this.setY(yCoordinate);
+  private double[] position;
+  private int[] next;
+  private int[] onLand;
+  private int[] afterTurn;
+
+  public BasicTile(int id, double[] position, int[] next, int[] onLand, int[] afterTurn) {
+    super(position[0], position[1], TILE_WIDTH, TILE_WIDTH);
+    this.setFill(Color.LIGHTBLUE);
+    this.id = id;
+    this.position = position;
+    this.next = next;
+    this.onLand = onLand;
+    this.afterTurn = afterTurn;
   }
 
-  @Override
-  public List<Double> getPosition() {
-    return this.position;
+  public int getTileId() {
+    return id;
   }
 
+  public double[] getPosition() {
+    return position;
+  }
+
+  public int[] getNext() {
+    return next;
+  }
+
+  public int[] getOnLand() {
+    return onLand;
+  }
+
+  public int[] getAfterTurn() {
+    return afterTurn;
+  }
 }

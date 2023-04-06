@@ -10,8 +10,8 @@ import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import oogasalad.gameplay_frontend.Pieces.PlayerPiece;
-import oogasalad.gameplay_frontend.Tiles.BasicTile;
+import oogasalad.gameplay_frontend.pieces.PlayerPiece;
+import oogasalad.gameplay_frontend.tiles.BasicTile;
 
 public class Gameview {
 
@@ -76,8 +76,7 @@ public class Gameview {
   }
 
   private Board renderBoard() {
-    Board board = new Board(myBoardPath);
-    return board;
+    return new Board(myBoardPath);
   }
   private Die renderDie() {
     Die die = new Die();

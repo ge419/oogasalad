@@ -1,5 +1,6 @@
 package oogasalad.gameplay_frontend.Pieces;
 
+import oogasalad.gameplay_frontend.Coordinate;
 import oogasalad.gameplay_frontend.Pieces.GamePiece;
 
 public class PlayerPiece extends GamePiece {
@@ -16,5 +17,15 @@ public class PlayerPiece extends GamePiece {
 
   public void changePlayerName(String newName) {
     this.playerName = newName;
+  }
+
+  @Override
+  public void move(Coordinate[] coorArray) {
+
+  }
+
+  @Override
+  public void moveDirectly(Coordinate coor) {
+
   }
 }

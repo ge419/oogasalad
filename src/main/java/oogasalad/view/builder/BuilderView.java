@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import org.apache.logging.log4j.LogManager;
@@ -31,16 +32,19 @@ public class BuilderView implements BuilderUtility {
     private ResourceBundle builderResource;
     private ResourceBundle menuBar1Resource;
     private ResourceBundle sideBar1Resource;
+    private ResourceBundle tileMenuResource;
     private Pane myBoardPane;
     private String defaultStylesheet;
     private Optional<String> myCurrentlyClickedTiletype;
     //todo: dependency injection
     private GraphInterface myGraph;
+    private VBox myLeftSidebar;
 
     public BuilderView() {
         builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
         menuBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "MenuBar1");
         sideBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SideBar1");
+        tileMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "TileMenu");
         defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET).toExternalForm();
 
         myCurrentlyClickedTiletype = Optional.empty();
@@ -72,6 +76,7 @@ public class BuilderView implements BuilderUtility {
     private HBox createCentralContainer() {
         VBox sideBar1 = (VBox) makeVBox("SideBar1");
         addButtonsToPane(sideBar1, sideBar1Resource);
+        myLeftSidebar = sideBar1;
 
         Node boardPane = makePane("BoardPane", PANE_WIDTH, PANE_HEIGHT);
         myBoardPane = (Pane) boardPane;
@@ -95,7 +100,9 @@ public class BuilderView implements BuilderUtility {
         }
     }
     private void test() {
+        myCurrentlyClickedTiletype = Optional.of("Test");
     }
+
 
     private void uploadImage(){
         Optional<File> file = loadFile(builderResource, "UploadImageTitle");
@@ -110,6 +117,12 @@ public class BuilderView implements BuilderUtility {
         }
     }
 
+    private void openTileMenu(){
+//        myLeftSidebar.getChildren().clear();
+//        addButtonsToPane(myLeftSidebar, tileMenuResource);
+        printGraph();
+    }
+
     private void createTile(MouseEvent e){
         System.out.println("hello, you clicked on x: " + e.getSceneX() + " and y: " + e.getSceneY());
         if (myCurrentlyClickedTiletype.isPresent()){
@@ -118,7 +131,8 @@ public class BuilderView implements BuilderUtility {
             myGraph.addTile(tile);
         }
     }
-    
+
+    // -----------------------------------------------------------------------------------------------------------------
     private boolean checkIfImage(Optional<File> thing){
         final String IMAGE_FILE_SUFFIXES = String.format(".*\\.(%s)", String.join("|", ImageIO.getReaderFileSuffixes()));
         return thing.isPresent() && thing.get().getName().matches(IMAGE_FILE_SUFFIXES);
@@ -132,6 +146,16 @@ public class BuilderView implements BuilderUtility {
                 true,
                 true)
         );
+    }
+
+    private void printGraph(){
+        List<Tile> ourTiles = myGraph.getTiles();
+        int index = 0;
+        for (Tile tile: ourTiles){
+            System.out.println("Tile at index " + index + ": " + tile.toString());
+            System.out.println(myGraph.getNextTiles(tile));
+            ++index;
+        }
     }
 
 }

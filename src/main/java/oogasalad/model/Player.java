@@ -11,16 +11,11 @@ import java.util.Map;
  * is stored inside BAttribute instance. This would become more clear as we work with the Builder and Jackson deserializer.
  */
 public class Player implements Constructable {
-  Map<String, BAttribute> schema;
+  Map<String, BMetaData> schema;
   Map<String, BAttribute> values;
   public Player() {
     schema = new HashMap<>();
     values = new HashMap<>();
-  }
-
-  public void addScore(int delta) {
-    int score = Integer.parseInt(this.getAttributeValue("score"));
-    this.values.get("score").updateValue(String.valueOf(score+delta));
   }
 
   @Override

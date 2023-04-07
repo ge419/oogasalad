@@ -63,6 +63,7 @@ public class Die extends StackPane implements Renderable {
   @Override
   public void render(BorderPane pane) {
     Die die = new Die();
+    die.setId(this.getClass().getName());
     pane.getChildren().add(die);
   }
 }

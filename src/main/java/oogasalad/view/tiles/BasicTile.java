@@ -2,8 +2,9 @@ package oogasalad.view.tiles;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import oogasalad.view.Coordinate;
 
-public class BasicTile extends Rectangle {
+public class BasicTile extends Rectangle implements Tile {
   private static final double TILE_WIDTH = 50;
 
   private int id;
@@ -21,6 +22,13 @@ public class BasicTile extends Rectangle {
     this.next = next;
     this.onLand = onLand;
     this.afterTurn = afterTurn;
+  }
+
+  public BasicTile(int id, Coordinate position) {
+    super(position.getXCoor(), position.getYCoor(), TILE_WIDTH, TILE_WIDTH);
+    this.setFill(Color.LIGHTBLUE);
+    this.setStroke(Color.BLACK);
+    this.id = id;
   }
 
   public int getTileId() {

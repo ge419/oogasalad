@@ -16,6 +16,9 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import oogasalad.view.Coordinate;
+import oogasalad.view.tiles.BasicTile;
+import oogasalad.view.tiles.Tile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,6 +43,7 @@ public class BuilderView implements BuilderUtility {
     private GraphInterface myGraph;
     private VBox myLeftSidebar;
     private PopupForm popupForm;
+    private int myTileCount = 0;
 
     public BuilderView() {
         builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
@@ -105,6 +109,10 @@ public class BuilderView implements BuilderUtility {
         }
     }
     private void test() {
+        // temp
+    }
+
+    private void tile(){
         myCurrentlyClickedTiletype = Optional.of("Test");
     }
 
@@ -123,17 +131,25 @@ public class BuilderView implements BuilderUtility {
     }
 
     private void openTileMenu(){
-//        myLeftSidebar.getChildren().clear();
-//        addButtonsToPane(myLeftSidebar, tileMenuResource);
-        printGraph();
+        myLeftSidebar.getChildren().clear();
+
+        addButtonsToPane(myLeftSidebar, tileMenuResource);
+//        printGraph();
+    }
+
+    private void backLeftSide(){
+        myLeftSidebar.getChildren().clear();
+        addButtonsToPane(myLeftSidebar, sideBar1Resource);
     }
 
     private void createTile(MouseEvent e){
         System.out.println("hello, you clicked on x: " + e.getSceneX() + " and y: " + e.getSceneY());
         if (myCurrentlyClickedTiletype.isPresent()){
-            Tile tile = new Tile(e.getX(), e.getY(), myCurrentlyClickedTiletype.get());
+            BasicTile tile = new BasicTile(myTileCount, new Coordinate((int)e.getX(), (int)e.getY()));
+            myTileCount++;
             myBoardPane.getChildren().add(tile);
             myGraph.addTile(tile);
+            myCurrentlyClickedTiletype = Optional.empty();
         }
     }
 

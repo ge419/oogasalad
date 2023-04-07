@@ -1,6 +1,7 @@
 package oogasalad.view.builder;
 
 import java.util.List;
+import oogasalad.view.tiles.Tile;
 
 public interface GraphInterface {
     void addTile(Tile tile);

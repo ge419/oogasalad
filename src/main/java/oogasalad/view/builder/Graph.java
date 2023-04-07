@@ -1,19 +1,14 @@
 package oogasalad.view.builder;
 
 import java.util.*;
+import oogasalad.view.tiles.Tile;
 
-public class Graph implements GraphInterface, Iterable {
+public class Graph implements GraphInterface {
     private final HashMap<Tile, ArrayList<Tile>> myMap;
 
     Graph(){
         myMap = new HashMap<>();
     }
-
-    @Override
-    public Iterator iterator() {
-        return myMap.entrySet().iterator();
-    }
-
     @Override
     public void addTile(Tile tile) {
         initializeIfNonexistent(tile);

@@ -11,7 +11,7 @@ public class Pieces implements Renderable {
   public void render(BorderPane pane) {
     //TODO: add logic that decides how many pieces are parsed and with what images
     PlayerPiece piece = new PlayerPiece("data/example/piece_1.png", "Bob");
-    piece.setId(this.getClass().getName());
+    piece.setId("Pieces");
     pane.getChildren().add(piece);
   }
 }

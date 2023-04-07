@@ -43,7 +43,7 @@ public class Board extends Canvas implements Renderable {
   @Override
   public void render(BorderPane pane) {
     Board board = new Board();
-    board.setId(this.getClass().getName());
+    board.setId("Board");
     pane.setCenter(board);
   }
 

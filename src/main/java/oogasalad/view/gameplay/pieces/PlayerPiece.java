@@ -10,6 +10,7 @@ public class PlayerPiece extends GamePiece{
     this.playerName = playerName;
 
     setOnMouseClicked(event -> {
+      //TODO: remove this and implement a button in GameView that passes in a coordinate
       Coordinate coor = new Coordinate(300, 300);
       moveDirectly(coor);
     });

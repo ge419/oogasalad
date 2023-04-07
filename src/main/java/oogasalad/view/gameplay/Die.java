@@ -26,6 +26,7 @@ public class Die extends StackPane {
     }
 
     setOnMouseClicked(event -> {
+      //TODO: remove this and implement passing in the random die value
       int value = (int) (Math.random() * 6) + 1; // simulate rolling the dice
       rollDice(value);
     });

@@ -42,6 +42,7 @@ public class BuilderView implements BuilderUtility {
     //todo: dependency injection
     private GraphInterface myGraph;
     private VBox myLeftSidebar;
+    private PopupForm popupForm;
     private int myTileCount = 0;
 
     public BuilderView() {
@@ -59,6 +60,10 @@ public class BuilderView implements BuilderUtility {
         primaryStage.setScene(scene);
         primaryStage.setTitle(builderResource.getString("BuilderTitle"));
         primaryStage.show();
+
+        // Example of the popup form using the Tile object
+        //popupForm = new PopupForm(Tile.class, builderResource);
+        //popupForm.displayForm();
     }
     private Scene initScene() {
         Node topBar = createTopBar();

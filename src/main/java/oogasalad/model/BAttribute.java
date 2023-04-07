@@ -21,6 +21,7 @@ public class BAttribute {
   public String getValue() {
     return this.value.toString();
   }
+  public String getKey(){return this.key;}
 
   public void updateValue(BValue val) {
     this.value = val;

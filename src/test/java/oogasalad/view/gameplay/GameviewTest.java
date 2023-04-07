@@ -1,21 +1,14 @@
-package oogasalad.gameplay_frontend;
+package oogasalad.view.gameplay;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.testfx.api.FxAssert.verifyThat;
-import static org.testfx.matcher.base.NodeMatchers.isVisible;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import oogasalad.view.builder.BuilderView;
-import oogasalad.view.gameplay.Board;
 import oogasalad.view.gameplay.Gameview;
 import org.junit.jupiter.api.Test;
-import org.testfx.api.FxAssert;
 import org.testfx.framework.junit5.ApplicationTest;
-import org.testfx.matcher.base.NodeMatchers;
 
 public class GameviewTest extends ApplicationTest {
 

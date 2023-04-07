@@ -58,7 +58,7 @@ public interface BuilderUtility {
         return hBox;
     }
 
-    default Optional<File> loadFile(ResourceBundle resourceBundle, String propertyKey){
+    default Optional<File> fileLoad(ResourceBundle resourceBundle, String propertyKey){
         FileChooser chooseFile = new FileChooser();
         chooseFile.setTitle(resourceBundle.getString(propertyKey));
         return Optional.ofNullable(chooseFile.showOpenDialog(null));

@@ -113,7 +113,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
 
     private void uploadImage(){
-        Optional<File> file = loadFile(builderResource, "UploadImageTitle");
+        Optional<File> file = fileLoad(builderResource, "UploadImageTitle");
 
         if (checkIfImage(file) == true){
             System.out.println("Got an image from: " + file.get().toPath() );
@@ -149,12 +149,12 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     }
 
     @Override
-    public void saveGameFile() {
+    public void saveFile() {
         // todo
     }
 
     @Override
-    public void loadGameFile() {
+    public void loadFile() {
         // todo
     }
 

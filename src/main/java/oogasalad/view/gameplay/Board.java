@@ -15,6 +15,7 @@ public class Board extends Canvas implements Renderable {
 
   public Board() {
     super(BOARD_SIZE, BOARD_SIZE);
+
     File imageFile = new File("data/example/monopoly_board.jpg");
     try {
       Image image = new Image(new FileInputStream(imageFile));
@@ -23,7 +24,7 @@ public class Board extends Canvas implements Renderable {
 
       GraphicsContext gc = this.getGraphicsContext2D();
 
-      double scaleX = (double) BOARD_SIZE/ imageWidth;
+      double scaleX = (double) BOARD_SIZE / imageWidth;
       double scaleY = (double) BOARD_SIZE / imageHeight;
       double scale = Math.min(scaleX, scaleY);
 
@@ -42,6 +43,7 @@ public class Board extends Canvas implements Renderable {
   @Override
   public void render(BorderPane pane) {
     Board board = new Board();
+    board.setId(this.getClass().getName());
     pane.setCenter(board);
   }
 

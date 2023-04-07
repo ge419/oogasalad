@@ -19,7 +19,7 @@ import oogasalad.view.tiles.Tiles;
 
 public class Gameview {
 
-  //TODO: refactor to read from property file
+  //TODO: refactor to read from JSON file
   private final int VIEW_WIDTH = 1200;
   private final int VIEW_HEIGHT = 800;
 
@@ -31,6 +31,10 @@ public class Gameview {
 
   public void renderGameview(Stage primaryStage) {
     BorderPane UIroot = new BorderPane();
+
+    //TODO: retrieve which and how many frontend components there are from builder and loop through
+    // to render each component
+
     Renderable board = new Board();
     board.render(UIroot);
 
@@ -44,6 +48,7 @@ public class Gameview {
     pieces.render(UIroot);
 
     Scene scene = new Scene(UIroot);
+    
     //TODO: refactor to read from property file
     primaryStage.setTitle("Monopoly");
     primaryStage.setScene(scene);

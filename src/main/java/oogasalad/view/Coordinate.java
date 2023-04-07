@@ -1,4 +1,4 @@
-package oogasalad.gameplay_frontend;
+package oogasalad.view;
 
 public class Coordinate {
 

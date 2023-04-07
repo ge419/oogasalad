@@ -6,40 +6,24 @@ public class BAttribute {
   @JsonProperty("key")
   private final String key;
   @JsonProperty("value")
-  private String value;
-  @JsonProperty("type")
-  private String type;
-  @JsonProperty("defaultValue")
-  private String defaultValue;
-  @JsonProperty("isEditable")
-  private boolean isEditable;
+  private BValue value;
 
   public BAttribute() {
     this.key = "key";
-    this.isEditable = true;
-    this.defaultValue = "defaultValue";
-    this.type = "type";
-    this.value = "value";
+    this.value = null;
   }
-  public BAttribute(String key, boolean isEditable, String defaultValue, String type, String value) {
+
+  public BAttribute(String key, BValue value) {
     this.key = key;
-    this.isEditable = isEditable;
-    this.defaultValue = defaultValue;
-    this.type = type;
     this.value = value;
   }
 
   public String getValue() {
-    return this.value;
+    return this.value.toString();
   }
 
-  public void updateValue(String val) {
-    if (!isEditable) throw new UnsupportedOperationException();
+  public void updateValue(BValue val) {
     this.value = val;
-  }
-
-  public boolean getEditStatus() {
-    return this.isEditable;
   }
 
   @Override

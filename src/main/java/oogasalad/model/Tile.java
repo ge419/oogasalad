@@ -3,14 +3,14 @@ package oogasalad.model;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Player implements Constructable {
+public class Tile implements Constructable {
   Map<String, BMetaData> schema;
   Map<String, BAttribute> values;
-  public Player() {
+
+  public Tile() {
     schema = new HashMap<>();
     values = new HashMap<>();
   }
-
   @Override
   public void setAttributes(Map<String, BAttribute> attributes) {
     this.values = attributes;
@@ -28,3 +28,4 @@ public class Player implements Constructable {
     return this.values.get("id").getValue();
   }
 }
+

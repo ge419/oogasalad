@@ -1,4 +1,4 @@
-package oogasalad.gameplay_frontend;
+package oogasalad.view.gameplay;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,15 +6,16 @@ import java.io.IOException;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javax.swing.text.html.ImageView;
+import javafx.scene.layout.BorderPane;
+import oogasalad.view.Renderable;
 
-public class Board extends Canvas {
+public class Board extends Canvas implements Renderable {
   //TODO: refactor to read from property file
   private static final int BOARD_SIZE = 500;
 
-  public Board(String imgPath) {
+  public Board() {
     super(BOARD_SIZE, BOARD_SIZE);
+
     File imageFile = new File("data/example/monopoly_board.jpg");
     try {
       Image image = new Image(new FileInputStream(imageFile));
@@ -23,7 +24,7 @@ public class Board extends Canvas {
 
       GraphicsContext gc = this.getGraphicsContext2D();
 
-      double scaleX = (double) BOARD_SIZE/ imageWidth;
+      double scaleX = (double) BOARD_SIZE / imageWidth;
       double scaleY = (double) BOARD_SIZE / imageHeight;
       double scale = Math.min(scaleX, scaleY);
 
@@ -39,8 +40,12 @@ public class Board extends Canvas {
     }
   }
 
-//  private Image scaleImage(Image) {
-//
-//  }
+  @Override
+  public void render(BorderPane pane) {
+    Board board = new Board();
+    board.setId(this.getClass().getName());
+    pane.setCenter(board);
+  }
+
 }
 

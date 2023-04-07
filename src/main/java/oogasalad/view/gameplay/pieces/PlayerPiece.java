@@ -1,8 +1,8 @@
-package oogasalad.gameplay_frontend.pieces;
+package oogasalad.view.gameplay.pieces;
 
-import oogasalad.gameplay_frontend.Coordinate;
+import oogasalad.view.Coordinate;
 
-public class PlayerPiece extends GamePiece {
+public class PlayerPiece extends GamePiece{
   private String playerName;
 
   public PlayerPiece(String imageURL, String playerName) {

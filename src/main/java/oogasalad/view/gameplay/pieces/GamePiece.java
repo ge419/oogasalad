@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import oogasalad.view.Coordinate;
 import oogasalad.view.gameplay.Movable;
 
 abstract public class GamePiece extends ImageView implements Movable {

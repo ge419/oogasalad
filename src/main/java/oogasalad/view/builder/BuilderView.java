@@ -23,7 +23,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-public class BuilderView implements BuilderUtility {
+public class BuilderView implements BuilderUtility, BuilderAPI {
     private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
     private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
     private static final double PANE_WIDTH = 500;
@@ -148,6 +148,16 @@ public class BuilderView implements BuilderUtility {
         }
     }
 
+    @Override
+    public void saveGameFile() {
+        // todo
+    }
+
+    @Override
+    public void loadGameFile() {
+        // todo
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
     private boolean checkIfImage(Optional<File> thing){
         final String IMAGE_FILE_SUFFIXES = String.format(".*\\.(%s)", String.join("|", ImageIO.getReaderFileSuffixes()));
@@ -173,5 +183,4 @@ public class BuilderView implements BuilderUtility {
             ++index;
         }
     }
-
 }

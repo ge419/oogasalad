@@ -8,6 +8,12 @@ public class PlayerPiece extends GamePiece{
   public PlayerPiece(String imageURL, String playerName) {
     super(imageURL);
     this.playerName = playerName;
+
+    setOnMouseClicked(event -> {
+      Coordinate coor = new Coordinate(300, 300);
+      moveDirectly(coor);
+    });
+
   }
 
   public String getPlayerName() {
@@ -25,7 +31,8 @@ public class PlayerPiece extends GamePiece{
 
   @Override
   public void moveDirectly(Coordinate coor) {
-
+    this.setLayoutX(coor.getXCoor());
+    this.setLayoutY(coor.getYCoor());
   }
 
 }

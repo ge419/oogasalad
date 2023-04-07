@@ -29,7 +29,7 @@ public class Tiles implements Renderable {
         int[] afterTurn = objectMapper.treeToValue(tileNode.get("afterTurn"), int[].class);
 
         BasicTile tile = new BasicTile(id, position, next, onLand, afterTurn);
-        tile.setId(tile.getClass().getName() + i);
+        tile.setId("Tiles");
         pane.getChildren().add(tile);
       }
     }

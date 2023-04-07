@@ -6,8 +6,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import oogasalad.view.Renderable;
-//import javafx.scene.text.Font;
-//import javafx.scene.text.Text;
 
 public class Die extends StackPane implements Renderable {
 
@@ -37,7 +35,7 @@ public class Die extends StackPane implements Renderable {
     this.setLayoutY(700);
   }
 
-  private Circle createDot(int size) {
+  protected Circle createDot(int size) {
     Circle dot = new Circle(size / 2);
     dot.setFill(Color.BLACK);
     return dot;
@@ -51,7 +49,7 @@ public class Die extends StackPane implements Renderable {
   }
 
 
-  private void setDieFace(int value) {
+  protected void setDieFace(int value) {
     removeAllDots();
     double dotSize = dieFace.getWidth() / 8;
     double xCenter = dieFace.getWidth() / 2;
@@ -68,7 +66,6 @@ public class Die extends StackPane implements Renderable {
     }
   }
 
-
   private void addDot(Circle dot) {
     getChildren().add(dot);
     StackPane.setAlignment(dot, javafx.geometry.Pos.CENTER);
@@ -78,6 +75,10 @@ public class Die extends StackPane implements Renderable {
     for (Circle dot: dotArray) {
       getChildren().remove(dot);
     }
+  }
+
+  protected Circle[] getDotArray() {
+    return dotArray;
   }
 
   @Override

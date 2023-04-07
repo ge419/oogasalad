@@ -26,6 +26,7 @@ public abstract class Constructable {
   public void updateAttributeValue(String key, BValue value) {
     this.values.get(key).updateValue(value);
   }
+
   @Override
   public String toString() {
     return this.values.get("id").getValue();

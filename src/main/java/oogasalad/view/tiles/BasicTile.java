@@ -1,7 +1,9 @@
-package oogasalad.gameplay_frontend.tiles;
+package oogasalad.view.tiles;
 
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import oogasalad.view.Renderable;
 
 public class BasicTile extends Rectangle {
   private static final double TILE_WIDTH = 50;
@@ -42,4 +44,5 @@ public class BasicTile extends Rectangle {
   public int[] getAfterTurn() {
     return afterTurn;
   }
+
 }

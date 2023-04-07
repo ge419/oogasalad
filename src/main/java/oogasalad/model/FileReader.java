@@ -2,6 +2,7 @@ package oogasalad.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.Path;
@@ -16,8 +17,9 @@ public class FileReader {
 
 
   public static List<File> readFiles(String path) throws IOException, FileReaderException {
+    URL resource = FileReader.class.getResource(String.format("/%s", path));
     try {
-    return Files.walk(Paths.get(path))
+      return Files.walk(Paths.get(resource.getPath()))
         .filter(Files::isRegularFile)
         .map(Path::toFile)
         .collect(Collectors.toList());

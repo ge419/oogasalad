@@ -29,11 +29,6 @@ public class Player implements Constructable {
   }
 
   @Override
-  public boolean getEditableStatus(String key) {
-    return this.values.get(key).getEditStatus();
-  }
-
-  @Override
   public String toString() {
     return this.values.get("id").getValue();
   }

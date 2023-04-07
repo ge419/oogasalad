@@ -1,33 +1,21 @@
 {
     "self": {
       "key": "self",
-      "isEditable": false,
-      "defaultValue": "",
-      "type": "Class",
       "value": "Player"
     },
 
     "name": {
       "key": "name",
-      "isEditable": false,
-      "defaultValue": "PlayerOne",
-      "type": "String",
       "value": "Bob"
     },
 
     "id": {
       "key": "id",
-      "isEditable": false,
-      "defaultValue": "@B0001",
-      "type": "String",
       "value": "@B0000239027"
     },
 
     "score": {
       "key": "score",
-      "isEditable": true,
-      "defaultValue": 0,
-      "type": "int",
       "value": 500
     }
 

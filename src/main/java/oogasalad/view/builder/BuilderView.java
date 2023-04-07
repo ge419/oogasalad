@@ -104,6 +104,10 @@ public class BuilderView implements BuilderUtility {
         }
     }
     private void test() {
+        // temp
+    }
+
+    private void tile(){
         myCurrentlyClickedTiletype = Optional.of("Test");
     }
 
@@ -123,8 +127,14 @@ public class BuilderView implements BuilderUtility {
 
     private void openTileMenu(){
         myLeftSidebar.getChildren().clear();
+
         addButtonsToPane(myLeftSidebar, tileMenuResource);
 //        printGraph();
+    }
+
+    private void backLeftSide(){
+        myLeftSidebar.getChildren().clear();
+        addButtonsToPane(myLeftSidebar, sideBar1Resource);
     }
 
     private void createTile(MouseEvent e){
@@ -134,6 +144,7 @@ public class BuilderView implements BuilderUtility {
             myTileCount++;
             myBoardPane.getChildren().add(tile);
             myGraph.addTile(tile);
+            myCurrentlyClickedTiletype = Optional.empty();
         }
     }
 

@@ -24,4 +24,12 @@ public class PaneHolder {
         myCurrent = myPrevious.poll();
         return myCurrent;
     }
+
+    public Pane getCurrent(){
+        return myCurrent;
+    }
+
+    public Pane getPrevious(){
+        return myPrevious.element();
+    }
 }

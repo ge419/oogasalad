@@ -1,0 +1,33 @@
+{
+  "board_image": "",
+  "rules": [
+    {
+      "rule_name": "move_to",
+      "attributes": {
+        "move-tile": 80,
+        "cost": 30,
+        "tile-types": [ "street" ]
+      }
+    },
+    {
+      "rule_name": "buy",
+      "buy_prompt": "Buy this",
+      "attributes": {
+
+      }
+    }
+  ],
+  "tiles": [
+    {
+      "id": 1,
+      "tile_type": "street",
+      "attributes": {
+        "name": "Boardwalk",
+        "buyPrice": 200,
+        "color": "#ffffff",
+        "one_house": 200,
+
+      }
+    }
+  ]
+}

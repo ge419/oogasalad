@@ -6,12 +6,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import java.util.List;
+import oogasalad.model.engine.actions.Action;
+import oogasalad.model.engine.actions.ActionParams;
 import oogasalad.model.engine.actions.EventAction;
 import oogasalad.model.engine.event_loop.EventHandlerParams;
 import oogasalad.model.engine.event_loop.EventRegistrar;
 import oogasalad.model.engine.event_loop.MissingActionsException;
 import oogasalad.model.engine.event_types.EngineEvent;
 import oogasalad.model.engine.event_types.EventType;
+import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.Rule;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,10 +39,11 @@ class SimpleEngineTest {
 
   @Test
   void singleRuleGame() {
-    // On START_GAME, immediately emit END_GAME
-    EventRule startRule = spy(new EventRule(EngineEvent.START_GAME, EngineEvent.END_GAME));
+    EventRule startRule = spy(new EventRule(EngineEvent.START_GAME, TestEvent.TEST_EVENT_1));
 
-    engine.run(List.of(startRule));
+    engine.setRules(List.of(startRule));
+    // START_GAME -> TEST_EVENT_1
+    engine.runNextAction(mock(Prompter.class));
 
     InOrder inOrder = inOrder(startRule);
     inOrder.verify(startRule).registerEventHandlers(any());
@@ -48,13 +52,22 @@ class SimpleEngineTest {
 
   @Test
   void dualRuleGame() {
-    // START_GAME -> TEST_EVENT -> END_GAME
+    // START_GAME -> TEST_EVENT1 -> TEST_EVENT2
     EventRule startRule = spy(new EventRule(EngineEvent.START_GAME, TestEvent.TEST_EVENT_1));
-    EventRule endRule = spy(new EventRule(TestEvent.TEST_EVENT_1, EngineEvent.END_GAME));
+    EventRule endRule = spy(new EventRule(TestEvent.TEST_EVENT_1, TestEvent.TEST_EVENT_2));
     // This rule is never called
-    EventRule otherRule = spy(new EventRule(TestEvent.TEST_EVENT_2, EngineEvent.START_GAME));
+    EventRule otherRule = spy(new EventRule(TestEvent.TEST_EVENT_3, EngineEvent.START_GAME));
+    Prompter mockPrompter = mock(Prompter.class);
 
-    engine.run(List.of(startRule, endRule, otherRule));
+    engine.setRules(List.of(startRule, endRule, otherRule));
+    // START_GAME
+    engine.runNextAction(mockPrompter);
+    // TEST_EVENT_1
+    engine.runNextAction(mockPrompter);
+    // TEST_EVENT_2
+    engine.runNextAction(mockPrompter);
+    // No more actions
+    assertThrows(MissingActionsException.class, () -> engine.runNextAction(mockPrompter));
 
     verify(startRule).registerEventHandlers(any());
     verify(endRule).registerEventHandlers(any());
@@ -67,6 +80,20 @@ class SimpleEngineTest {
     inOrder.verify(endRule, times(1)).onEvent(any());
   }
 
+  @Test
+  void promptTest() {
+    DieRule dieRule = new DieRule(EngineEvent.START_GAME);
+    Prompter mockPrompter = mock(Prompter.class);
+
+    engine.setRules(List.of(dieRule));
+    // START_GAME
+    engine.runNextAction(mockPrompter);
+    // dice roll
+    engine.runNextAction(mockPrompter);
+
+    verify(mockPrompter).rollDice(any());
+  }
+
   @Disabled("Subgame test: disabled until #63 is done")
   @Test
   void subgame() {
@@ -75,10 +102,16 @@ class SimpleEngineTest {
 
   @Test
   void throwsOnMissingActions() {
-    // If END_GAME is not emitted and there are no actions, engine should error
+    // If there are no actions and runNextAction is called, engine should error
     EventRule startRule = new EventRule(EngineEvent.START_GAME, TestEvent.TEST_EVENT_1);
-    List<Rule> rules = List.of(startRule);
-    assertThrows(MissingActionsException.class, () -> engine.run(rules));
+    Prompter mockPrompter = mock(Prompter.class);
+
+    engine.setRules(List.of(startRule));
+    // START_GAME
+    engine.runNextAction(mockPrompter);
+    // TEST_EVENT_1
+    engine.runNextAction(mockPrompter);
+    assertThrows(MissingActionsException.class, () -> engine.runNextAction(mockPrompter));
   }
 
   /*
@@ -100,6 +133,31 @@ class SimpleEngineTest {
 
     public void onEvent(EventHandlerParams params) {
       params.actionQueue().add(1, new EventAction(emit));
+    }
+  }
+
+  private static class DieRule implements Rule {
+    EventType listen;
+
+    DieRule(EventType listen) {
+      this.listen = listen;
+    }
+
+    @Override
+    public void registerEventHandlers(EventRegistrar registrar) {
+      registrar.registerHandler(listen, this::onEvent);
+    }
+
+    public void onEvent(EventHandlerParams params) {
+      params.actionQueue().add(0, new DieAction());
+    }
+
+    private static class DieAction implements Action {
+
+      @Override
+      public void runAction(ActionParams actionParams) {
+        actionParams.prompter().rollDice(() -> {});
+      }
     }
   }
 

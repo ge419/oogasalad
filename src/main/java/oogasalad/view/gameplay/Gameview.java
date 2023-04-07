@@ -1,4 +1,4 @@
-package oogasalad.gameplay_frontend;
+package oogasalad.view.gameplay;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -10,8 +10,8 @@ import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import oogasalad.gameplay_frontend.Pieces.PlayerPiece;
-import oogasalad.gameplay_frontend.Tiles.BasicTile;
+import oogasalad.view.gameplay.pieces.PlayerPiece;
+import oogasalad.view.tiles.BasicTile;
 
 public class Gameview {
 
@@ -76,8 +76,7 @@ public class Gameview {
   }
 
   private Board renderBoard() {
-    Board board = new Board(myBoardPath);
-    return board;
+    return new Board(myBoardPath);
   }
   private Die renderDie() {
     Die die = new Die();

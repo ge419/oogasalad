@@ -2,12 +2,10 @@ package oogasalad.model;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.System.Logger.Level;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -29,8 +27,6 @@ public class FileReader {
       // logger.log(Level.ERROR, errorMessage);
       throw new FileReaderException(errorMessage);
     }
-
-
   }
 
 

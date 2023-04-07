@@ -1,7 +1,8 @@
 package oogasalad.model.engine;
 
 import java.util.List;
-import oogasalad.model.engine.event_loop.EventHandler;
+import oogasalad.model.engine.prompt.Prompter;
+import oogasalad.model.engine.event_loop.EventRegistrar;
 import oogasalad.model.engine.event_types.EventType;
 import oogasalad.model.engine.event_loop.MissingActionsException;
 import oogasalad.model.engine.rules.Rule;
@@ -9,27 +10,39 @@ import oogasalad.model.engine.event_types.EngineEvent;
 
 /**
  * Implements the core engine for running a game.
+ *
+ * <p>A game consists of a list of rules, which listens to events that are emitted by actions they
+ * create. The engine supports subgames, which allow a different set of rules to be run temporarily.
+ * Once the subgame has exhausted all actions in its queue, it returns to the parent game with the
+ * original ruleset. Parent rules hear events emitted by the subgame, but actions that they register
+ * do not run until the subgame is complete.
+ *
+ * @author Dominic Martinez
  */
 public interface Engine {
 
   /**
-   * Runs a game via a list of rules. The following special {@link EventType}s are used:
+   * Sets the current list of rules, clearing all currently registered event handlers.
+   * {@link Rule#registerEventHandlers(EventRegistrar)} is called on each rule in order.
+   * In addition to events emitted by actions, the following special {@link EventType}s are emitted:
    * <ul>
    *   <li>
    *     {@link EngineEvent#START_GAME}:
-   *     This event is triggered automatically after rules have registered their listeners to
-   *     bootstrap the system. Emitting this event during a currently running game initiates a
-   *     subgame with rules as defined in the event's attributes.
-   *   </li>
-   *   <li>
-   *     {@link EngineEvent#END_GAME}:
-   *     Emitting this event immediately ends the game.
+   *     This event is triggered automatically the first time {@link Engine#runNextAction(Prompter)}
+   *     is run. Emitting this event during a currently running game initiates a subgame with rules
+   *     as defined in the event's attributes.
    *   </li>
    * </ul>
    *
    * @param rules list of rules for the game
-   * @throws MissingActionsException if no actions are present in the queue after all
-   * {@link EventHandler}s are triggered.
    */
-  void run(List<Rule> rules);
+  void setRules(List<? extends Rule> rules);
+
+  /**
+   * Runs the next available action across this game and all subgames.
+   *
+   * @param prompter may be called to present a user prompt
+   * @throws MissingActionsException if no actions are pending.
+   */
+  void runNextAction(Prompter prompter);
 }

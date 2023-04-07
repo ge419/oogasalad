@@ -8,7 +8,7 @@ import oogasalad.model.engine.event_types.EventType;
 
 public class SimpleEventHandlerManager implements EventHandlerManager {
 
-  private final Map<EventType, List<EventHandler>> handlerMap;
+  private final Map<String, List<EventHandler>> handlerMap;
 
   public SimpleEventHandlerManager() {
     handlerMap = new HashMap<>();
@@ -16,18 +16,18 @@ public class SimpleEventHandlerManager implements EventHandlerManager {
 
   @Override
   public void registerHandler(EventType type, EventHandler handler) {
-    List<EventHandler> handlers = handlerMap.getOrDefault(type, new ArrayList<>());
+    List<EventHandler> handlers = handlerMap.getOrDefault(type.type(), new ArrayList<>());
     handlers.add(handler);
-    handlerMap.put(type, handlers);
+    handlerMap.put(type.type(), handlers);
   }
 
   @Override
   public void triggerEvent(EventHandlerParams params) {
-    EventType type = params.event().type();
+    String type = params.event().type().type();
 
     if (!handlerMap.containsKey(type)) return;
 
-    for (EventHandler handler : handlerMap.get(params.event().type())) {
+    for (EventHandler handler : handlerMap.get(type)) {
       handler.handleEvent(params);
     }
   }

@@ -27,4 +27,20 @@ public class Player implements Constructable {
   public String toString() {
     return this.values.get("id").getValue();
   }
+
+  public Map<String, BMetaData> getSchema() {
+    return schema;
+  }
+
+  public void setSchema(Map<String, BMetaData> schema) {
+    this.schema = schema;
+  }
+
+  public Map<String, BAttribute> getValues() {
+    return values;
+  }
+
+  public void setValues(Map<String, BAttribute> values) {
+    this.values = values;
+  }
 }

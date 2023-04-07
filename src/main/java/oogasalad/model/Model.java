@@ -1,5 +1,6 @@
 package oogasalad.model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 
@@ -23,6 +24,10 @@ public class Model {
     System.out.println(tile.getAttributeValue("self"));
     System.out.println(tile.getAttributeValue("xPosition"));
     System.out.println(tile.getAttributeValue("yPosition"));
+
+
+    factory.constructableToJSON(player);
+
   }
 
 }

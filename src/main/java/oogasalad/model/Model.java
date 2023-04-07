@@ -2,6 +2,8 @@ package oogasalad.model;
 
 import java.io.File;
 import java.io.IOException;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 
 
 public class Model {
@@ -23,9 +25,13 @@ public class Model {
 //    System.out.println(tile.getAttributeValue("self"));
 //    System.out.println(tile.getAttributeValue("xPosition"));
 //    System.out.println(tile.getAttributeValue("yPosition"));
+    ObjectProperty<?> str = new SimpleObjectProperty<>("Hello");
+    System.out.println(str);
+    System.out.println(str.getClass());
     BMetaData metaData = new BMetaData("name", BType.STRING);
     BValue name = new BValue(metaData,"Bob");
     System.out.println(name.getValue(String.class));
+
   }
 
 

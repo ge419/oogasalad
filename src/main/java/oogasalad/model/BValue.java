@@ -1,18 +1,19 @@
 package oogasalad.model;
 
 public class BValue {
-  private String value = "VALUE";
+  //TODO: Replace Object
+  private Object value;
 
   public BValue(String value) {
     this.value = value;
   }
 
-  public BValue(int value) {
-    this.value = String.valueOf(value);
+  public BValue(Integer value) {
+    this.value = value;
   }
 
   public String toString() {
-    return this.value;
+    return this.value.toString();
   }
 
 }

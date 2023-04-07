@@ -8,6 +8,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
@@ -150,12 +152,20 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
     @Override
     public void saveFile() {
-        // todo
+        Optional<File> file = fileSave(builderResource, "SaveGameTitle", new FileChooser.ExtensionFilter("OOGA Files", "*.OOGA"));
+        if (file.isPresent()){
+            DataStorer currentData = new DataStorer(myGraph);
+            // Send file to the controller to properly save.
+        }
+        else{
+            // todo: replace with LOG
+            System.out.println("Ruh-roh, can't save to a file that doesn't exist!");
+        }
     }
 
     @Override
     public void loadFile() {
-        // todo
+        //Optional<File> file = fileLoad(builderResource, "LoadGameTitle");
     }
 
     // -----------------------------------------------------------------------------------------------------------------

@@ -63,4 +63,10 @@ public interface BuilderUtility {
         chooseFile.setTitle(resourceBundle.getString(propertyKey));
         return Optional.ofNullable(chooseFile.showOpenDialog(null));
     }
+
+    default Optional<File> fileSave(ResourceBundle resourceBundle, String propertyKey, FileChooser.ExtensionFilter filter){
+        FileChooser chooseFile = new FileChooser();
+        chooseFile.setTitle(resourceBundle.getString(propertyKey));
+        return Optional.ofNullable(chooseFile.showSaveDialog(null));
+    }
 }

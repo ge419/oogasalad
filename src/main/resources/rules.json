@@ -1,0 +1,17 @@
+[
+  {
+    "rule_name": "move_to",
+    "attributes": {
+      "move-tile": 80,
+      "cost": 30,
+      "tile-types": [ "street" ]
+    }
+  },
+  {
+    "rule_name": "buy",
+    "buy_prompt": "Buy this",
+    "attributes": {
+
+    }
+  }
+]

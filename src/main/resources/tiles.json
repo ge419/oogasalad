@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "tile_type": "street",
+    "next":3,
+    "attributes": {
+      "name": "Boardwalk",
+      "buyPrice": 200,
+      "color": "#ffffff",
+      "one_house": 200,
+      "xPos": 1.2,
+      "yPos": 3.5
+    }
+  },
+  {
+    "id": 2,
+    "tile_type": "street",
+    "next":3,
+    "attributes": {
+      "name": "Boardwalk",
+      "buyPrice": 200,
+      "color": "#ffffff",
+      "one_house": 200,
+      "xPos": 5.2,
+      "yPos": 9.5
+    }
+  }
+
+]

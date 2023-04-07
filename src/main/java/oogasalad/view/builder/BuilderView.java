@@ -118,9 +118,9 @@ public class BuilderView implements BuilderUtility {
     }
 
     private void openTileMenu(){
-//        myLeftSidebar.getChildren().clear();
-//        addButtonsToPane(myLeftSidebar, tileMenuResource);
-        printGraph();
+        myLeftSidebar.getChildren().clear();
+        addButtonsToPane(myLeftSidebar, tileMenuResource);
+//        printGraph();
     }
 
     private void createTile(MouseEvent e){

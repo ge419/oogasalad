@@ -16,6 +16,9 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import oogasalad.view.Coordinate;
+import oogasalad.view.tiles.BasicTile;
+import oogasalad.view.tiles.Tile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -39,6 +42,7 @@ public class BuilderView implements BuilderUtility {
     //todo: dependency injection
     private GraphInterface myGraph;
     private VBox myLeftSidebar;
+    private int myTileCount = 0;
 
     public BuilderView() {
         builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
@@ -126,7 +130,8 @@ public class BuilderView implements BuilderUtility {
     private void createTile(MouseEvent e){
         System.out.println("hello, you clicked on x: " + e.getSceneX() + " and y: " + e.getSceneY());
         if (myCurrentlyClickedTiletype.isPresent()){
-            Tile tile = new Tile(e.getX(), e.getY(), myCurrentlyClickedTiletype.get());
+            BasicTile tile = new BasicTile(myTileCount, new Coordinate((int)e.getX(), (int)e.getY()));
+            myTileCount++;
             myBoardPane.getChildren().add(tile);
             myGraph.addTile(tile);
         }

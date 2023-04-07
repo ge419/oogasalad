@@ -11,9 +11,11 @@ abstract public class GamePiece extends ImageView implements Movable {
   private static double PIECE_SIZE = 100;
   private double xCoor;
   private double yCoor;
+  protected Image image;
   public GamePiece(String imageURL) {
+
     try {
-      Image image = new Image(new FileInputStream(imageURL));
+      image = new Image(new FileInputStream(imageURL));
       this.setImage(image);
       this.setFitHeight(PIECE_SIZE);
       this.setFitWidth(PIECE_SIZE);
@@ -27,11 +29,8 @@ abstract public class GamePiece extends ImageView implements Movable {
     xCoor = value;
   }
 
-  protected void setPieceSize(double value) {
+  protected void setyCoor(double value) {
     yCoor = value;
   }
 
-  public abstract void move(Coordinate[] coorArray);
-
-  public abstract void moveDirectly(Coordinate coor);
 }

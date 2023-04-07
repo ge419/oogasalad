@@ -1,4 +1,4 @@
-package oogasalad.gameplay_frontend;
+package oogasalad.view.gameplay;
 
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;

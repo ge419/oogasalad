@@ -1,4 +1,4 @@
-package oogasalad.gameplay_frontend;
+package oogasalad.view.gameplay;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,8 +6,6 @@ import java.io.IOException;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javax.swing.text.html.ImageView;
 
 public class Board extends Canvas {
   //TODO: refactor to read from property file

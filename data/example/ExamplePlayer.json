@@ -1,0 +1,22 @@
+{
+    "self": {
+      "key": "self",
+      "value": "Player"
+    },
+
+    "name": {
+      "key": "name",
+      "value": "Bob"
+    },
+
+    "id": {
+      "key": "id",
+      "value": "@B0000239027"
+    },
+
+    "score": {
+      "key": "score",
+      "value": 500
+    }
+
+}

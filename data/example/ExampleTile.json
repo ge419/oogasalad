@@ -1,0 +1,22 @@
+{
+  "self": {
+    "key": "self",
+    "value": "Tile"
+  },
+
+  "xPosition": {
+    "key": "xPosition",
+    "value": 102
+  },
+
+  "yPosition": {
+    "key": "yPosition",
+    "value": 205
+  },
+
+  "rule": {
+    "key": "rule",
+    "value": "rule-01"
+  }
+
+}

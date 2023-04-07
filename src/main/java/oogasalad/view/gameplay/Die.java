@@ -1,13 +1,15 @@
 package oogasalad.view.gameplay;
 
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import oogasalad.view.Renderable;
 //import javafx.scene.text.Font;
 //import javafx.scene.text.Text;
 
-public class Die extends StackPane {
+public class Die extends StackPane implements Renderable {
 
   private final Rectangle dieFace;
   private final Circle[] dotArray = new Circle[6];
@@ -78,4 +80,10 @@ public class Die extends StackPane {
     }
   }
 
+  @Override
+  public void render(BorderPane pane) {
+    Die die = new Die();
+    die.setId("Die");
+    pane.getChildren().add(die);
+  }
 }

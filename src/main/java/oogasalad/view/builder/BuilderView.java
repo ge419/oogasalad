@@ -139,10 +139,12 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         addButtonsToPane(myLeftSidebar, sideBar1Resource);
     }
 
+    // todo: support different tile types.
     private void createTile(MouseEvent e){
         System.out.println("hello, you clicked on x: " + e.getSceneX() + " and y: " + e.getSceneY());
         if (myCurrentlyClickedTiletype.isPresent()){
             BasicTile tile = new BasicTile(myTileCount, new Coordinate((int)e.getX(), (int)e.getY()));
+            tile.setOnMouseClicked(tile_e->{myBoardPane.getChildren().remove(tile);});
             myTileCount++;
             myBoardPane.getChildren().add(tile);
             myGraph.addTile(tile);

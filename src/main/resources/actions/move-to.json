@@ -1,0 +1,25 @@
+{
+  "name": "MOVE_TO",
+  "description": "moves a piece to a particular tile",
+  "schema": [
+    {
+      "name": "move-tile",
+      "description": "Tile to move to on landing",
+      "isEditable": 1,
+      "isViewable": 1,
+      "defaultValue": 80,
+      "type": "number"
+    },
+    {
+      "name": "cost",
+      "description": "How much it costs to move tiles",
+      "isEditable": 1,
+      "isViewable": 1,
+      "defaultValue": 30
+    },
+    {
+      "name": "tile-types",
+      "type": "list-of-tiles"
+    }
+  ]
+}

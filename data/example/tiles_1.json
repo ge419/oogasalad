@@ -1,0 +1,24 @@
+{
+  "tiles": [
+    {
+      "id": 1,
+      "position": [
+        100,
+        100
+      ],
+      "next": [2],
+      "onLand": [3],
+      "afterTurn": [7]
+    },
+    {
+      "id": 2,
+      "position": [
+        150,
+        100
+      ],
+      "next": [],
+      "onLand": [2],
+      "afterTurn": [9]
+    }
+  ]
+}

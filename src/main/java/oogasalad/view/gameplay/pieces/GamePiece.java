@@ -9,6 +9,8 @@ import oogasalad.view.gameplay.Movable;
 
 abstract public class GamePiece extends ImageView implements Movable {
   private static double PIECE_SIZE = 100;
+  private double xCoor;
+  private double yCoor;
   public GamePiece(String imageURL) {
     try {
       Image image = new Image(new FileInputStream(imageURL));
@@ -19,6 +21,14 @@ abstract public class GamePiece extends ImageView implements Movable {
     catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  protected void setxCoor(double value) {
+    xCoor = value;
+  }
+
+  protected void setPieceSize(double value) {
+    yCoor = value;
   }
 
   public abstract void move(Coordinate[] coorArray);

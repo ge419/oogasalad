@@ -7,27 +7,27 @@ import java.util.Optional;
 import oogasalad.model.engine.actions.Action;
 import oogasalad.model.engine.actions.ActionParams;
 import oogasalad.model.engine.actions.EventAction;
+import oogasalad.model.engine.events.EngineEvent;
 import oogasalad.model.engine.prompt.Prompter;
-import oogasalad.model.engine.event_loop.ActionQueue;
-import oogasalad.model.engine.event_loop.Event;
-import oogasalad.model.engine.event_loop.EventHandlerManager;
-import oogasalad.model.engine.event_loop.EventHandlerParams;
-import oogasalad.model.engine.event_loop.MissingActionsException;
 import oogasalad.model.engine.rules.Rule;
-import oogasalad.model.engine.event_types.EngineEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/***
- * This class serves as the core logic for the game, by
- * implementing the game rules and mechanics.
+/**
+ * This class serves as the core logic for the game, by implementing the game rules and mechanics.
+ *
+ * @author Dominic Martinez
  */
 public class SimpleEngine implements Engine {
+
   private static final Logger log = LogManager.getLogger(SimpleEngine.class);
   private final ActionQueue actionQueue;
   private final Provider<EventHandlerManager> managerProvider;
   private EventHandlerManager currentManager;
 
+  /**
+   * Create a new concrete game engine.
+   */
   @Inject
   public SimpleEngine(ActionQueue actionQueue, Provider<EventHandlerManager> managerProvider) {
     this.actionQueue = actionQueue;

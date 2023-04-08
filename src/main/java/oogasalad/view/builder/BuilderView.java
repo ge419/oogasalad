@@ -29,15 +29,15 @@ public class BuilderView implements BuilderUtility {
     private static final double SCENE_HEIGHT = 600;
     private static final Logger LOG = LogManager.getLogger(BuilderView.class);
 
-    private ResourceBundle builderResource;
-    private ResourceBundle menuBar1Resource;
-    private ResourceBundle sideBar1Resource;
-    private ResourceBundle tileMenuResource;
+    private final ResourceBundle builderResource;
+    private final ResourceBundle menuBar1Resource;
+    private final ResourceBundle sideBar1Resource;
+    private final ResourceBundle tileMenuResource;
     private Pane myBoardPane;
-    private String defaultStylesheet;
+    private final String defaultStylesheet;
     private Optional<String> myCurrentlyClickedTiletype;
     //todo: dependency injection
-    private GraphInterface myGraph;
+    private final GraphInterface myGraph;
     private VBox myLeftSidebar;
 
     public BuilderView() {
@@ -107,7 +107,7 @@ public class BuilderView implements BuilderUtility {
     private void uploadImage(){
         Optional<File> file = loadFile(builderResource, "UploadImageTitle");
 
-        if (checkIfImage(file) == true){
+        if (checkIfImage(file)){
             System.out.println("Got an image from: " + file.get().toPath() );
             myBoardPane.getChildren().add(turnFileToImage(file.get(), PANE_WIDTH, PANE_HEIGHT));
         }

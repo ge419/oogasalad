@@ -5,17 +5,13 @@ import java.util.Map;
 import oogasalad.model.attribute.Attribute;
 import oogasalad.model.attribute.AttributeMetadata;
 
-public class Player implements Constructable {
+public class Tile implements Constructable {
   Map<String, AttributeMetadata<?>> schema;
   Map<String, Attribute> values;
-  public Player() {
+
+  public Tile() {
     schema = new HashMap<>();
     values = new HashMap<>();
-  }
-
-  @Override
-  public void setAttributes(Map<String, Attribute> attributes) {
-    this.values = attributes;
   }
 
   @Override
@@ -23,6 +19,10 @@ public class Player implements Constructable {
     return values;
   }
 
+  @Override
+  public void setAttributes(Map<String, Attribute> attributes) {
+    this.values = attributes;
+  }
   @Override
   public Attribute getAttribute(String key) {
     return this.values.get(key);
@@ -33,3 +33,4 @@ public class Player implements Constructable {
     return getAttribute("id").toString();
   }
 }
+

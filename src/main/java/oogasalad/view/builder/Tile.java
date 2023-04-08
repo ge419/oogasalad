@@ -7,7 +7,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 public class Tile extends Rectangle {
-    private String myType;
+    private final String myType;
     Tile (double X, double Y, String type) {
         this.setFill(Color.WHITE);
         this.setStroke(Color.BLACK);

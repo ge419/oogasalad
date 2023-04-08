@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class AttributeSerializer extends StdSerializer<Constructable> {
 
-  protected AttributeSerializer(Class t) {
+  public AttributeSerializer(Class t) {
     super(t);
   }
 

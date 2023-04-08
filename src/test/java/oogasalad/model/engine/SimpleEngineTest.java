@@ -91,6 +91,32 @@ class SimpleEngineTest {
     verify(mockPrompter).rollDice(any());
   }
 
+  @Test
+  void orderTest() {
+    EventRule rule1 = spy(new EventRule(EngineEvent.START_GAME, TestEvent.TEST_EVENT_1));
+    EventRule rule2 = spy(new EventRule(EngineEvent.START_GAME, TestEvent.TEST_EVENT_2));
+    EventRule rule3 = spy(new EventRule(EngineEvent.START_GAME, TestEvent.TEST_EVENT_2));
+    EventRule rule4 = spy(new EventRule(EngineEvent.START_GAME, TestEvent.TEST_EVENT_2));
+    EventRule rule5 = spy(new EventRule(TestEvent.TEST_EVENT_1, TestEvent.TEST_EVENT_2));
+    EventRule rule6 = spy(new EventRule(TestEvent.TEST_EVENT_1, TestEvent.TEST_EVENT_2));
+    EventRule rule7 = spy(new EventRule(TestEvent.TEST_EVENT_1, TestEvent.TEST_EVENT_2));
+    EventRule rule8 = spy(new EventRule(TestEvent.TEST_EVENT_1, TestEvent.TEST_EVENT_2));
+    Prompter mockPrompter = mock(Prompter.class);
+    List<EventRule> rules = List.of(
+        rule1, rule2, rule3, rule4, rule5, rule6, rule7, rule8
+    );
+
+    engine.setRules(rules);
+    for (int i = 0; i < rules.size() + 1; i++) {
+      engine.runNextAction(mockPrompter);
+    }
+
+    InOrder inOrder = inOrder(rules.toArray());
+    for (EventRule rule : rules) {
+      inOrder.verify(rule, times(1)).onEvent(any());
+    }
+  }
+
   @Disabled("Subgame test: disabled until #63 is done")
   @Test
   void subgame() {

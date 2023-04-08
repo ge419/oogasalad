@@ -1,12 +1,12 @@
-package oogasalad.view.builder;
+package oogasalad.view.builder.graphs;
 
 import java.util.*;
 import oogasalad.view.tiles.Tile;
 
-public class Graph implements GraphInterface {
+public class Graph implements GraphInterface, MutableGraph {
     private final HashMap<Tile, ArrayList<Tile>> myMap;
 
-    Graph(){
+    public Graph(){
         myMap = new HashMap<>();
     }
     @Override
@@ -22,6 +22,16 @@ public class Graph implements GraphInterface {
         }
         else{
             myMap.get(tile).add(nextTile);
+        }
+    }
+    @Override
+    public void removeTile(Tile tile) {
+        if (myMap.containsKey(tile)){
+            myMap.get(tile).clear();
+            myMap.remove(tile);
+        }
+        else{
+            //todo: LOG that we tried to remove a tile that doesn't exist from the graph.
         }
     }
 

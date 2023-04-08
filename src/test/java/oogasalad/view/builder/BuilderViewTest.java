@@ -28,4 +28,15 @@ public class BuilderViewTest extends DukeApplicationTest {
         clickOn(lookup("#UploadImage").query());
         // TODO: we need to figure out how to simulate the filechooser to upload an image with DependencyInjection maybe?
     }
+
+    @Test
+    void testPlaceTile(){
+
+    }
+
+    @Test
+    void testSetNextTile(){
+
+    }
+
 }

@@ -14,10 +14,11 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import oogasalad.view.Coordinate;
+import oogasalad.view.builder.graphs.Graph;
+import oogasalad.view.builder.graphs.GraphInterface;
 import oogasalad.view.tiles.BasicTile;
 import oogasalad.view.tiles.Tile;
 import org.apache.logging.log4j.LogManager;
@@ -41,7 +42,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     private String defaultStylesheet;
     private Optional<String> myCurrentlyClickedTiletype;
     //todo: dependency injection
-    private GraphInterface myGraph;
+    private Graph myGraph;
     private VBox myLeftSidebar;
     private PopupForm popupForm;
     private int myTileCount = 0;
@@ -160,6 +161,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
                 handleTileClick(tile);
             });
             //tile.setOnDragDone(tile_e_two-> {tile.setPosition(new Coordinate((int) tile_e_two.getX(), (int) tile_e_two.getY()));});
+            tile.setId("Tile" + myTileCount);
             myTileCount++;
             myBoardPane.getChildren().add(tile);
             myGraph.addTile(tile);

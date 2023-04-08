@@ -1,6 +1,9 @@
 {
-  "name":"RENT_COST",
-  "isEditable": 1,
-  "isViewable": 0,
-  "value": 0
+  "key": "color",
+  "type": "String",
+  "name":"COLOR",
+  "description": "but do we even need color",
+  "editable": true,
+  "viewable": true,
+  "defaultVal": "RED"
 }

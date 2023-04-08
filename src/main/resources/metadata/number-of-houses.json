@@ -1,6 +1,9 @@
 {
-  "name":"NUMBER_OF_HOUSES",
-  "isEditable": 1,
-  "isViewable": 1,
-  "value": 0
+  "key": "color",
+  "type": "String",
+  "name":"COLOR",
+  "description": "but do we even need color",
+  "editable": true,
+  "viewable": true,
+  "defaultVal": "RED"
 }

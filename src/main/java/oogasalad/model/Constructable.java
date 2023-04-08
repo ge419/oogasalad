@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Constructable {
-
   private Map<String, BAttribute> values;
 
   public Constructable() {
@@ -23,7 +22,7 @@ public abstract class Constructable {
     return this.values.get(key).getValue();
   }
 
-  public void updateAttributeValue(String key, BValue value) {
+  public void updateAttributeValue(String key, String value) {
     this.values.get(key).updateValue(value);
   }
 

@@ -1,6 +1,9 @@
 {
+  "key": "color",
+  "type": "String",
   "name":"COLOR",
-  "isEditable": 1,
-  "isViewable": 1,
-  "defaultValue": "RED"
+  "description": "but do we even need color",
+  "editable": true,
+  "viewable": true,
+  "defaultVal": "RED"
 }

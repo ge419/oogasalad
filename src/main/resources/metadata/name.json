@@ -1,6 +1,9 @@
 {
-  "name":"NAME",
-  "isEditable": 1,
-  "isViewable": 1,
-  "defaultValue": "new_tile"
+  "key": "color",
+  "type": "String",
+  "name":"COLOR",
+  "description": "but do we even need color",
+  "editable": true,
+  "viewable": true,
+  "defaultVal": "RED"
 }

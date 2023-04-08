@@ -28,9 +28,9 @@ public class Model {
     ObjectProperty<?> str = new SimpleObjectProperty<>("Hello");
     System.out.println(str);
     System.out.println(str.getClass());
-    BMetaData metaData = new BMetaData("name", BType.STRING);
-    BValue name = new BValue(metaData,"Bob");
-    System.out.println(name.getValue(String.class));
+//    BMetaData metaData = new BMetaData("name", BType.STRING);
+//    BValue name = new BValue(metaData,"Bob");
+//    System.out.println(name.getValue(String.class));
 
   }
 

@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import oogasalad.model.exception.FileReaderException;
 
 
 public class FileReader {

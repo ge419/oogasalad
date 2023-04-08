@@ -6,14 +6,14 @@ public class BAttribute {
   @JsonProperty("key")
   private final String key;
   @JsonProperty("value")
-  private BValue value;
+  private String value;
 
   public BAttribute() {
     this.key = "key";
     this.value = null;
   }
 
-  public BAttribute(String key, BValue value) {
+  public BAttribute(String key, String value) {
     this.key = key;
     this.value = value;
   }
@@ -22,7 +22,7 @@ public class BAttribute {
     return this.value.toString();
   }
 
-  public void updateValue(BValue val) {
+  public void updateValue(String val) {
     this.value = val;
   }
 

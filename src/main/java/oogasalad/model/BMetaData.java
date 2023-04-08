@@ -12,74 +12,102 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class BMetaData {
+  @JsonProperty("key")
   private String key;
-  private final BType type;
-  private final StringProperty name;
-  private final StringProperty description;
-  private final BooleanProperty editable;
-  private final BooleanProperty viewable;
-  private final ObjectProperty<?> defaultVal;
+  @JsonProperty("type")
+  private final String type;
+  @JsonProperty("name")
+  private final String name;
+  @JsonProperty("description")
+  private final String description;
+  @JsonProperty("editable")
+  private final Boolean editable;
+  @JsonProperty("viewable")
+  private final Boolean viewable;
+  @JsonProperty("defaultVal")
+  private final Object defaultVal;
 
-  public BMetaData(String key, BType type) {
+  public  BMetaData() {
+    this.key = "key";
+    this.type = "type";
+    name = "name";
+    description = "description";
+    editable = false;
+    viewable = true;
+    defaultVal = null;
+  }
+
+//  public BMetaData(String key, String type) {
+//    this.key = key;
+//    this.type = type;
+//    name = new SimpleStringProperty();
+//    description = new SimpleStringProperty();
+//    editable = new SimpleBooleanProperty();
+//    viewable = new SimpleBooleanProperty();
+//    defaultVal = new SimpleObjectProperty<>();
+//  }
+
+  public BMetaData(String key, String type, String name, String description,
+      boolean editable, boolean viewable, String defaultVal) {
     this.key = key;
     this.type = type;
-    name = new SimpleStringProperty();
-    description = new SimpleStringProperty();
-    editable = new SimpleBooleanProperty();
-    viewable = new SimpleBooleanProperty();
-    defaultVal = new SimpleObjectProperty<>();
+    this.name = name;
+    this.description = description;
+    this.editable = editable;
+    this.viewable = viewable;
+    this.defaultVal = defaultVal;
   }
 
   public String getKey() {
     return key;
   }
 
-  public BType getType() {
+  public String getType() {
     return type;
   }
 
   public String getName() {
-    return name.get();
-  }
-
-  public ReadOnlyStringProperty nameProperty() {
     return name;
   }
 
-  public String getDescription() {
-    return description.get();
-  }
+//  public ReadOnlyStringProperty nameProperty() {
+//    return name;
+//  }
 
-  public ReadOnlyStringProperty descriptionProperty() {
-    return description;
-  }
+//  public String getDescription() {
+//    return description.get();
+//  }
 
-  public boolean isEditable() {
-    return editable.get();
-  }
+//  public ReadOnlyStringProperty descriptionProperty() {
+//    return description;
+//  }
 
-  public ReadOnlyBooleanProperty editableProperty() {
-    return editable;
-  }
+//  public boolean isEditable() {
+//    return editable.get();
+//  }
 
-  public boolean isViewable() {
-    return viewable.get();
-  }
+//  public ReadOnlyBooleanProperty editableProperty() {
+//    return editable;
+//  }
 
-  public ReadOnlyBooleanProperty viewableProperty() {
-    return viewable;
-  }
+//  public boolean isViewable() {
+//    return viewable.get();
+//  }
 
-  public <T> T getDefaultValue(Class<? extends T> clazz) {
-    return defaultValueProperty(clazz).getValue();
-  }
+//  public ReadOnlyBooleanProperty viewableProperty() {
+//    return viewable;
+//  }
 
-  public <T> ReadOnlyObjectProperty<T> defaultValueProperty(Class<? extends T> clazz) {
-    if (!clazz.isAssignableFrom(defaultVal.get().getClass())) {
-      throw new IllegalArgumentException("invalid value cast");
-    }
+//  public <T> T getDefaultValue(Class<? extends T> clazz) {
+//    return defaultValueProperty(clazz).getValue();
+//  }
 
-    return (ReadOnlyObjectProperty<T>) defaultVal;
-  }
+//  public <T> ReadOnlyObjectProperty<T> defaultValueProperty(Class<? extends T> clazz) {
+//    if (!clazz.isAssignableFrom(defaultVal.get().getClass())) {
+//      throw new IllegalArgumentException("invalid value cast");
+//    }
+//
+//    return (ReadOnlyObjectProperty<T>) defaultVal;
+//  }
 
 }

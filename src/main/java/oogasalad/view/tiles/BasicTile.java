@@ -50,4 +50,15 @@ public class BasicTile extends Rectangle implements Tile {
   public int[] getAfterTurn() {
     return afterTurn;
   }
+
+  @Override
+  public void setColor(Color color) {
+    this.setFill(color);
+  }
+
+  @Override
+  public void setPosition(Coordinate coord) {
+    this.setX(coord.getXCoor());
+    this.setY(coord.getYCoor());
+  }
 }

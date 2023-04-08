@@ -10,4 +10,5 @@ public interface GraphInterface {
     int numberOfNextTiles(Tile desiredTile);
     List<Tile> getNextTiles(Tile desiredTile);
     List<Tile> getTiles();
+    void print();
 }

@@ -56,6 +56,17 @@ public class Graph implements GraphInterface {
         return new ArrayList<>(myMap.keySet());
     }
 
+    @Override
+    public void print() {
+        List<Tile> ourTiles = this.getTiles();
+        int index = 0;
+        for (Tile tile: ourTiles){
+            System.out.println("Tile at index " + index + ": " + tile.toString());
+            System.out.println(this.getNextTiles(tile));
+            ++index;
+        }
+    }
+
     private void initializeIfNonexistent(Tile tile){
         myMap.putIfAbsent(tile, new ArrayList<>());
     }

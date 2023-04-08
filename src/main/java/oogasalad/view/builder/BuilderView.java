@@ -8,8 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
@@ -46,6 +45,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     private VBox myLeftSidebar;
     private PopupForm popupForm;
     private int myTileCount = 0;
+    private Optional<Tile> myCurrentTile;
 
     public BuilderView() {
         builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
@@ -56,6 +56,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
         myCurrentlyClickedTiletype = Optional.empty();
         myGraph = new Graph();  // todo: dependency injection
+        myCurrentTile = Optional.empty();
 
         Scene scene = initScene();
         Stage primaryStage = new Stage();
@@ -148,8 +149,17 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     private void createTile(MouseEvent e){
         System.out.println("hello, you clicked on x: " + e.getSceneX() + " and y: " + e.getSceneY());
         if (myCurrentlyClickedTiletype.isPresent()){
-            BasicTile tile = new BasicTile(myTileCount, new Coordinate((int)e.getX(), (int)e.getY()));
-            tile.setOnMouseClicked(tile_e->{myBoardPane.getChildren().remove(tile);});
+            Coordinate tileCoord = new Coordinate((int)e.getX(), (int)e.getY());
+            double[] pos = {tileCoord.getXCoor(), tileCoord.getYCoor()};
+            //BasicTile tile = new BasicTile(myTileCount, pos, new int[0], new int[0], new int[0]);
+            BasicTile tile = new BasicTile(myTileCount, tileCoord);
+            //tile.setOnMouseClicked(tile_e->{myBoardPane.getChildren().remove(tile);});
+            tile.setOnMouseClicked(tile_e->{
+//                popupForm = new PopupForm(BasicTile.class, builderResource);
+//                popupForm.displayForm();
+                handleTileClick(tile);
+            });
+            //tile.setOnDragDone(tile_e_two-> {tile.setPosition(new Coordinate((int) tile_e_two.getX(), (int) tile_e_two.getY()));});
             myTileCount++;
             myBoardPane.getChildren().add(tile);
             myGraph.addTile(tile);
@@ -161,7 +171,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     public void saveFile() {
         Optional<File> file = fileSave(builderResource, "SaveGameTitle");
         if (file.isPresent()){
-            DataStorer currentData = new DataStorer(myGraph);
+            //DataStorer currentData = new DataStorer(myGraph);
             // Send file to the controller to properly save.
         }
         else{
@@ -172,7 +182,33 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
     @Override
     public void loadFile() {
+        myGraph.print();
         //Optional<File> file = fileLoad(builderResource, "LoadGameTitle");
+    }
+
+    private void handleTileClick(Tile tile){
+        if (myCurrentTile.isPresent()){
+            tile.setColor(Color.LIGHTGREEN);
+            myGraph.addTileNext(myCurrentTile.get(), tile);
+            myCurrentTile.get().setColor(Color.LIGHTBLUE);
+            myCurrentTile = Optional.empty();
+            tile.setColor(Color.LIGHTBLUE);
+        }
+        else{
+            myCurrentTile = Optional.ofNullable(tile);
+            myCurrentTile.get().setColor(Color.BLUE);
+        }
+    }
+
+    private void deleteTile(){
+        if (myCurrentTile.isPresent()){
+            myBoardPane.getChildren().remove(myCurrentTile.get());
+            myCurrentTile = Optional.empty();
+        }
+        else{
+            // todo: log that we tried to delete a non-existing tile.
+            System.out.println("No tile selected to delete-- click the tile first, then delete!");
+        }
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -189,15 +225,5 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
                 true,
                 true)
         );
-    }
-
-    private void printGraph(){
-        List<Tile> ourTiles = myGraph.getTiles();
-        int index = 0;
-        for (Tile tile: ourTiles){
-            System.out.println("Tile at index " + index + ": " + tile.toString());
-            System.out.println(myGraph.getNextTiles(tile));
-            ++index;
-        }
     }
 }

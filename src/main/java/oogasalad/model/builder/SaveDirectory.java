@@ -1,8 +1,10 @@
 package oogasalad.model.builder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
 
 public class SaveDirectory implements SaveGame{
 
@@ -28,7 +30,12 @@ public class SaveDirectory implements SaveGame{
    */
   @Override
   public void save(Object o) throws IOException {
+
     ObjectMapper mapper = new ObjectMapper();
+    SimpleModule module = new SimpleModule();
+    //TODO: figure out what goes in the parameter for AttributeSerializer
+    //module.addSerializer(new AttributeSerializer(o));
+    mapper.registerModule(module);
     mapper.writeValue(new File("data/title/*.json"), o);
   }
 }

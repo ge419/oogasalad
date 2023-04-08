@@ -1,22 +1,26 @@
 package oogasalad;
 
 
+import javafx.application.Application;
+import javafx.stage.Stage;
+import oogasalad.view.builder.BuilderView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
-import javafx.application.Application;
-import javafx.stage.Stage;
-import oogasalad.gameplay_frontend.Board;
-import oogasalad.gameplay_frontend.Gameview;
+import oogasalad.view.gameplay.Gameview;
 
 /**
  * Feel free to completely change this code or delete it entirely. 
  */
 public class Main extends Application {
     /**
-     * Start of the program.
+     * A method to test (and a joke :).
      */
-    public static void main (String[] args) {
+    public double getVersion () {
+        return 0.001;
+    }
+
+    public static void main(String[] args) {
         launch(args);
     }
 
@@ -31,6 +35,6 @@ public class Main extends Application {
         catch (IOException e){
             e.printStackTrace();
         }
-
+        new BuilderView();
     }
 }

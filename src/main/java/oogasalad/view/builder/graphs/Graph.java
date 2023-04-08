@@ -1,19 +1,14 @@
-package oogasalad.view.builder;
+package oogasalad.view.builder.graphs;
 
 import java.util.*;
+import oogasalad.view.tiles.Tile;
 
-public class Graph implements GraphInterface, Iterable {
+public class Graph implements GraphInterface, MutableGraph {
     private final HashMap<Tile, ArrayList<Tile>> myMap;
 
-    Graph(){
+    public Graph(){
         myMap = new HashMap<>();
     }
-
-    @Override
-    public Iterator iterator() {
-        return myMap.entrySet().iterator();
-    }
-
     @Override
     public void addTile(Tile tile) {
         initializeIfNonexistent(tile);
@@ -27,6 +22,16 @@ public class Graph implements GraphInterface, Iterable {
         }
         else{
             myMap.get(tile).add(nextTile);
+        }
+    }
+    @Override
+    public void removeTile(Tile tile) {
+        if (myMap.containsKey(tile)){
+            myMap.get(tile).clear();
+            myMap.remove(tile);
+        }
+        else{
+            //todo: LOG that we tried to remove a tile that doesn't exist from the graph.
         }
     }
 
@@ -59,6 +64,17 @@ public class Graph implements GraphInterface, Iterable {
     @Override
     public List<Tile> getTiles() {
         return new ArrayList<>(myMap.keySet());
+    }
+
+    @Override
+    public void print() {
+        List<Tile> ourTiles = this.getTiles();
+        int index = 0;
+        for (Tile tile: ourTiles){
+            System.out.println("Tile at index " + index + ": " + tile.toString());
+            System.out.println(this.getNextTiles(tile));
+            ++index;
+        }
     }
 
     private void initializeIfNonexistent(Tile tile){

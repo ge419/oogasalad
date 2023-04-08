@@ -25,7 +25,35 @@ public class BuilderViewTest extends DukeApplicationTest {
         String badImage = "view/builder/BAD_IMAGE.png";
         String nothing = "";
 
-        clickOn(lookup("#UploadImage").query());
+        //clickOn(lookup("#UploadImage").query());
         // TODO: we need to figure out how to simulate the filechooser to upload an image with DependencyInjection maybe?
     }
+
+    @Test
+    void testPlaceTile(){
+        createTiles();
+
+
+
+    }
+
+    @Test
+    void testSetNextTile(){
+        createTiles();
+
+        clickOn(lookup("#BoardPane").query(), 165, 165);
+        clickOn(lookup("#BoardPane").query(), 315, 315);
+
+        // todo: use dependency injection to check graph
+    }
+
+    private void createTiles(){
+        clickOn(lookup("#AddTile").query());
+        clickOn(lookup("Property").query());
+        clickOn(lookup("#BoardPane").query(), 150, 150);
+
+        clickOn(lookup("Property").query());
+        clickOn(lookup("#BoardPane").query(), 300, 300);
+    }
+
 }

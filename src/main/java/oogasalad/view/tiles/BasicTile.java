@@ -61,4 +61,11 @@ public class BasicTile extends Rectangle implements Tile {
     this.setX(coord.getXCoor());
     this.setY(coord.getYCoor());
   }
+
+  @Override
+  public boolean equals(Object o){
+    if (o == null || getClass() != o.getClass()) return false;
+    return this.getTileId() == ((BasicTile) o).getTileId();
+  }
+
 }

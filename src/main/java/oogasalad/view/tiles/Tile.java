@@ -15,4 +15,5 @@ public interface Tile {
   public int[] getAfterTurn();
   public void setColor(Color color);
   public void setPosition(Coordinate coord);
+
 }

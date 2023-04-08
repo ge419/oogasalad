@@ -1,9 +1,11 @@
-package oogasalad.model.engine.event_loop;
+package oogasalad.model.engine;
 
-import oogasalad.model.engine.event_types.EventType;
+import oogasalad.model.engine.events.EventType;
 
 /**
  * Provides registration for game events.
+ *
+ * @author Dominic Martinez
  */
 @FunctionalInterface
 public interface EventRegistrar {

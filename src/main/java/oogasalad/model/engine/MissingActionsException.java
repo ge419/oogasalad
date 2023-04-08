@@ -1,4 +1,4 @@
-package oogasalad.model.engine.event_loop;
+package oogasalad.model.engine;
 
 /**
  * Thrown when a rule list fails to register any actions.

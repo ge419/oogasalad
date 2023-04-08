@@ -1,7 +1,9 @@
-package oogasalad.model.engine.event_loop;
+package oogasalad.model.engine;
 
 /**
  * Both registers handlers and triggers them.
+ *
+ * @author Dominic Martinez
  */
 public interface EventHandlerManager extends EventRegistrar {
 

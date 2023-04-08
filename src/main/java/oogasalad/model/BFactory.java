@@ -42,7 +42,7 @@ public class BFactory {
       Class<?> dataClazz = Class.forName(classPath);
       Constructor<?> defaultConstructor = dataClazz.getConstructor();
       Constructable bConstruct = (Constructable) defaultConstructor.newInstance();
-      bConstruct.setAttributes(attributes);
+      bConstruct.setValues(attributes);
       return bConstruct;
 
     } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException |

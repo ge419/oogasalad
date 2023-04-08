@@ -1,11 +1,12 @@
 package oogasalad.model.engine;
 
 import com.google.inject.AbstractModule;
-import oogasalad.model.engine.event_loop.ActionQueue;
-import oogasalad.model.engine.event_loop.EventHandlerManager;
-import oogasalad.model.engine.event_loop.SimpleActionQueue;
-import oogasalad.model.engine.event_loop.SimpleEventHandlerManager;
 
+/**
+ * Guice module for the {@link Engine}.
+ *
+ * @author Dominic Martinez
+ */
 public class EngineModule extends AbstractModule {
 
   @Override

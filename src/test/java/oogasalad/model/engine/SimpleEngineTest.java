@@ -9,11 +9,8 @@ import java.util.List;
 import oogasalad.model.engine.actions.Action;
 import oogasalad.model.engine.actions.ActionParams;
 import oogasalad.model.engine.actions.EventAction;
-import oogasalad.model.engine.event_loop.EventHandlerParams;
-import oogasalad.model.engine.event_loop.EventRegistrar;
-import oogasalad.model.engine.event_loop.MissingActionsException;
-import oogasalad.model.engine.event_types.EngineEvent;
-import oogasalad.model.engine.event_types.EventType;
+import oogasalad.model.engine.events.EngineEvent;
+import oogasalad.model.engine.events.EventType;
 import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.Rule;
 import org.junit.jupiter.api.BeforeAll;
@@ -92,6 +89,32 @@ class SimpleEngineTest {
     engine.runNextAction(mockPrompter);
 
     verify(mockPrompter).rollDice(any());
+  }
+
+  @Test
+  void orderTest() {
+    EventRule rule1 = spy(new EventRule(EngineEvent.START_GAME, TestEvent.TEST_EVENT_1));
+    EventRule rule2 = spy(new EventRule(EngineEvent.START_GAME, TestEvent.TEST_EVENT_2));
+    EventRule rule3 = spy(new EventRule(EngineEvent.START_GAME, TestEvent.TEST_EVENT_2));
+    EventRule rule4 = spy(new EventRule(EngineEvent.START_GAME, TestEvent.TEST_EVENT_2));
+    EventRule rule5 = spy(new EventRule(TestEvent.TEST_EVENT_1, TestEvent.TEST_EVENT_2));
+    EventRule rule6 = spy(new EventRule(TestEvent.TEST_EVENT_1, TestEvent.TEST_EVENT_2));
+    EventRule rule7 = spy(new EventRule(TestEvent.TEST_EVENT_1, TestEvent.TEST_EVENT_2));
+    EventRule rule8 = spy(new EventRule(TestEvent.TEST_EVENT_1, TestEvent.TEST_EVENT_2));
+    Prompter mockPrompter = mock(Prompter.class);
+    List<EventRule> rules = List.of(
+        rule1, rule2, rule3, rule4, rule5, rule6, rule7, rule8
+    );
+
+    engine.setRules(rules);
+    for (int i = 0; i < rules.size() + 1; i++) {
+      engine.runNextAction(mockPrompter);
+    }
+
+    InOrder inOrder = inOrder(rules.toArray());
+    for (EventRule rule : rules) {
+      inOrder.verify(rule, times(1)).onEvent(any());
+    }
   }
 
   @Disabled("Subgame test: disabled until #63 is done")

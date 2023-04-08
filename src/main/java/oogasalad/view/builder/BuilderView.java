@@ -159,7 +159,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
     @Override
     public void saveFile() {
-        Optional<File> file = fileSave(builderResource, "SaveGameTitle", new FileChooser.ExtensionFilter("OOGA Files", "*.OOGA"));
+        Optional<File> file = fileSave(builderResource, "SaveGameTitle");
         if (file.isPresent()){
             DataStorer currentData = new DataStorer(myGraph);
             // Send file to the controller to properly save.

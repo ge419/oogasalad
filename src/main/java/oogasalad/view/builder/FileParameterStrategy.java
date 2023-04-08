@@ -18,7 +18,7 @@ class FileParameterStrategy implements ParameterStrategy, BuilderUtility {
         Node element = makeButton("UploadFileTitle", resourceBundle, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                file = loadFile(resourceBundle, "UploadFileTitle");
+                file = fileLoad(resourceBundle, "UploadFileTitle");
             }
         });
         return makeHBox(String.format("%sFileInput", name), textLabel, element);

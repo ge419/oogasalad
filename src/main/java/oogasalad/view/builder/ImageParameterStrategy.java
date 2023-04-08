@@ -21,7 +21,7 @@ class ImageParameterStrategy implements ParameterStrategy, BuilderUtility {
         Node element = makeButton("UploadFileTitle", resourceBundle, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Optional<File> file = loadFile(resourceBundle, "UploadFileTitle");
+                Optional<File> file = fileLoad(resourceBundle, "UploadFileTitle");
                 try {
                     image = new Image(new FileInputStream(file.get().getPath()));
                 } catch (FileNotFoundException e) {

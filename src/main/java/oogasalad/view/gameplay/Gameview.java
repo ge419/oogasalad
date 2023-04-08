@@ -10,7 +10,6 @@ import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import oogasalad.model.Tile;
 import oogasalad.view.Renderable;
 import oogasalad.view.gameplay.pieces.Pieces;
 import oogasalad.view.gameplay.pieces.PlayerPiece;

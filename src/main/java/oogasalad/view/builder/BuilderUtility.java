@@ -5,10 +5,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
@@ -58,15 +61,31 @@ public interface BuilderUtility {
         return hBox;
     }
 
-    default Optional<File> fileLoad(ResourceBundle resourceBundle, String propertyKey){
-        FileChooser chooseFile = new FileChooser();
-        chooseFile.setTitle(resourceBundle.getString(propertyKey));
+    default Node makeTextField(String property) {
+        TextField textField = new TextField();
+        textField.setId(property);
+        return textField;
+    }
+    default Node makeColorPicker(String property) {
+        ColorPicker colorPicker = new ColorPicker();
+        colorPicker.setId(property);
+        return colorPicker;
+    }
+    default FileChooser makeFileChooser(String property, ResourceBundle resourceBundle) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(resourceBundle.getString(property));
+        return fileChooser;
+    }
+    default Node makeFileSelectButton(String property, ResourceBundle resourceBundle, FileChooser fileChooser) {
+        return makeButton(property, resourceBundle, e->Optional.ofNullable(fileChooser.showOpenDialog(null)));
+    }
+    default Optional<File> fileLoad(ResourceBundle resourceBundle, String property){
+        FileChooser chooseFile = makeFileChooser(property, resourceBundle);
         return Optional.ofNullable(chooseFile.showOpenDialog(null));
     }
 
-    default Optional<File> fileSave(ResourceBundle resourceBundle, String propertyKey, FileChooser.ExtensionFilter filter){
-        FileChooser chooseFile = new FileChooser();
-        chooseFile.setTitle(resourceBundle.getString(propertyKey));
+    default Optional<File> fileSave(ResourceBundle resourceBundle, String property){
+        FileChooser chooseFile = makeFileChooser(property, resourceBundle);
         return Optional.ofNullable(chooseFile.showSaveDialog(null));
     }
 }

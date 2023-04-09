@@ -182,10 +182,12 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
     @Override
     public void saveFile() {
-        Optional<File> file = fileSave(builderResource, "SaveGameTitle");
+        Optional<File> file = directoryGet(builderResource, "SaveGameTitle");
         if (file.isPresent()){
             GameInterface game = createGameHolder();
+            String givenDirectory = file.get().getPath();
             // Send file to the controller to properly save.
+            System.out.println(givenDirectory);
         }
         else{
             // todo: replace with LOG

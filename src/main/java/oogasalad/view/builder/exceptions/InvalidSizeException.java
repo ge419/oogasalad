@@ -1,11 +1,17 @@
 package oogasalad.view.builder.exceptions;
 
-public class InvalidSizeException extends RuntimeException{
-  public InvalidSizeException(String errorMessage, Throwable originalError){
+/**
+ * InvalidSizeException will occur whenever a thing is an invalid/illegal size.
+ *
+ * @author tmh85
+ */
+public class InvalidSizeException extends RuntimeException {
+
+  public InvalidSizeException(String errorMessage, Throwable originalError) {
     super(errorMessage, originalError);
   }
 
-  public InvalidSizeException(String errorMessage){
+  public InvalidSizeException(String errorMessage) {
     super(errorMessage);
   }
 }

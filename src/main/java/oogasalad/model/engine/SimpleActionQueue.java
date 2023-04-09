@@ -6,7 +6,6 @@ import java.util.PriorityQueue;
 import oogasalad.model.engine.actions.Action;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Implements a <em>stable</em> priority queue for actions.
@@ -53,7 +52,7 @@ public class SimpleActionQueue implements ActionQueue {
       implements Comparable<PriorityAction> {
 
     @Override
-    public int compareTo(@NotNull PriorityAction o) {
+    public int compareTo(PriorityAction o) {
       Comparator<PriorityAction> comp =
           Comparator.comparingInt(PriorityAction::priority)
               .thenComparingLong(PriorityAction::counter);

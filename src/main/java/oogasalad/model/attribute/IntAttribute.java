@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class IntAttribute extends Attribute {
   private final IntegerProperty value;
 
-  protected IntAttribute(String key, int value) {
+  public IntAttribute(String key, int value) {
     super(key);
     this.value = new SimpleIntegerProperty(value);
   }

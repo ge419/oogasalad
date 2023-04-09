@@ -11,6 +11,8 @@ import oogasalad.view.Renderable;
 
 public class Tiles implements Renderable {
 
+  private final List<Tile> tileList = new ArrayList<>();
+
   @Override
   public void render(BorderPane pane) {
     File file = new File("data/example/tiles_1.json");
@@ -31,10 +33,19 @@ public class Tiles implements Renderable {
         BasicTile tile = new BasicTile(id, position, next, onLand, afterTurn);
         tile.setId("Tiles");
         pane.getChildren().add(tile);
+        tileList.add(tile);
       }
     }
     catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  public Tile getTile(int id) {
+    for (Tile tile : tileList) {
+      if (tile.getTileId() == id) return tile;
+    }
+
+    throw new IllegalArgumentException("No tile with id " + id);
   }
 }

@@ -5,7 +5,7 @@ import javax.inject.Provider;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.actions.RollDieAndMoveAction;
-import oogasalad.model.engine.events.TurnEvent;
+import oogasalad.model.engine.events.MonopolyEvent;
 
 public class DieRule implements Rule {
 
@@ -18,7 +18,7 @@ public class DieRule implements Rule {
 
   @Override
   public void registerEventHandlers(EventRegistrar registrar) {
-    registrar.registerHandler(TurnEvent.START_TURN, this::rollDie);
+    registrar.registerHandler(MonopolyEvent.START_TURN, this::rollDie);
   }
 
   private void rollDie(EventHandlerParams eventHandlerParams) {

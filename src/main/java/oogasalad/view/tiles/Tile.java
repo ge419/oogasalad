@@ -16,4 +16,7 @@ public interface Tile {
   public void setColor(Color color);
   public void setPosition(Coordinate coord);
 
+  void setOwned(boolean owned);
+  boolean isOwned();
+
 }

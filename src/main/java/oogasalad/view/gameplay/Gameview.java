@@ -1,19 +1,19 @@
 package oogasalad.view.gameplay;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Queue;
 import java.util.function.Consumer;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import oogasalad.model.attribute.IntAttribute;
@@ -21,16 +21,16 @@ import oogasalad.model.engine.Engine;
 import oogasalad.model.engine.EngineModule;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
-import oogasalad.model.engine.events.TurnEvent;
+import oogasalad.model.engine.events.MonopolyEvent;
 import oogasalad.model.engine.prompt.PromptOption;
 import oogasalad.model.engine.prompt.Prompter;
+import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.model.engine.rules.DieRule;
 import oogasalad.model.engine.rules.Rule;
 import oogasalad.model.engine.rules.TurnRule;
 import oogasalad.view.Renderable;
 import oogasalad.view.gameplay.pieces.Pieces;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
-import oogasalad.view.tiles.BasicTile;
 import oogasalad.view.tiles.Tiles;
 
 public class Gameview {
@@ -88,6 +88,7 @@ public class Gameview {
         List.of(
             injector.getInstance(TurnRule.class),
             injector.getInstance(DieRule.class),
+            injector.getInstance(BuyTileRule.class),
             new SetDieRule()
         )
     );
@@ -124,7 +125,7 @@ public class Gameview {
 
     @Override
     public void registerEventHandlers(EventRegistrar registrar) {
-      registrar.registerHandler(TurnEvent.DIE_ROLLED, this::setDie);
+      registrar.registerHandler(MonopolyEvent.DIE_ROLLED, this::setDie);
     }
 
     private void setDie(EventHandlerParams eventHandlerParams) {
@@ -142,6 +143,25 @@ public class Gameview {
             callback.run();
             afterPresent.run();
           }));
+    }
+
+    @Override
+    public void yesNoDialog(Consumer<Boolean> callback) {
+      ButtonType yes = new ButtonType("Yes", ButtonData.YES);
+      ButtonType no = new ButtonType("No", ButtonData.NO);
+      Alert alert = new Alert(AlertType.CONFIRMATION,
+          "Would you like to buy the property?",
+          yes,
+          no);
+
+      alert.setTitle("Buy property?");
+
+      effects.add((Runnable afterPresent) -> {
+        Optional<ButtonType> result = alert.showAndWait();
+        boolean answer = result.orElse(no) == yes;
+        callback.accept(answer);
+        afterPresent.run();
+      });
     }
 
     @Override

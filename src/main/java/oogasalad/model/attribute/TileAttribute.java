@@ -10,13 +10,13 @@ import oogasalad.model.Tile;
 public class TileAttribute extends Attribute {
   private final IntegerProperty value;
 
-  protected TileAttribute(String key, int value) {
+  public TileAttribute(String key, int value) {
     super(key);
     this.value = new SimpleIntegerProperty(value);
   }
 
-  public static IntAttribute from(Attribute attr) {
-    return Attribute.getAttributeAs(attr, IntAttribute.class);
+  public static TileAttribute from(Attribute attr) {
+    return Attribute.getAttributeAs(attr, TileAttribute.class);
   }
 
   public int getValue() {

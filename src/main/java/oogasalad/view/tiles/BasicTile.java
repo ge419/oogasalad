@@ -14,6 +14,7 @@ public class BasicTile extends Rectangle implements Tile {
   private int[] next;
   private int[] onLand;
   private int[] afterTurn;
+  private boolean owned;
 
   public BasicTile(int id, double[] position, int[] next, int[] onLand, int[] afterTurn) {
     super(position[0], position[1], TILE_WIDTH, TILE_WIDTH);
@@ -56,6 +57,21 @@ public class BasicTile extends Rectangle implements Tile {
   @Override
   public void setColor(Color color) {
     this.setFill(color);
+  }
+
+  @Override
+  public void setOwned(boolean owned) {
+    this.owned = owned;
+    if (owned) {
+      setColor(Color.RED);
+    } else {
+      setColor(Color.LIGHTBLUE);
+    }
+  }
+
+  @Override
+  public boolean isOwned() {
+    return owned;
   }
 
   @Override

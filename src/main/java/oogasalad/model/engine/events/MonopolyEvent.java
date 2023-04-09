@@ -1,11 +1,11 @@
 package oogasalad.model.engine.events;
 
-public enum TurnEvent implements EventType {
-  START_TURN("start-turn"), DIE_ROLLED("die-roll");
+public enum MonopolyEvent implements EventType {
+  START_TURN("start-turn"), DIE_ROLLED("die-roll"), LANDED("landed");
 
   private final String type;
 
-  TurnEvent(String type) {
+  MonopolyEvent(String type) {
     this.type = type;
   }
 

@@ -1,5 +1,6 @@
 package oogasalad.view.builder;
 
+import java.awt.Dimension;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -17,8 +18,14 @@ import java.util.Enumeration;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import oogasalad.view.Coordinate;
+import oogasalad.view.builder.board.BoardInfo;
+import oogasalad.view.builder.board.ImmutableBoardInfo;
+import oogasalad.view.builder.gameholder.GameHolder;
+import oogasalad.view.builder.gameholder.GameInterface;
+import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.builder.graphs.Graph;
 import oogasalad.view.builder.graphs.GraphInterface;
+import oogasalad.view.builder.graphs.ImmutableGraph;
 import oogasalad.view.tiles.BasicTile;
 import oogasalad.view.tiles.Tile;
 import org.apache.logging.log4j.LogManager;
@@ -47,6 +54,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     private PopupForm popupForm;
     private int myTileCount = 0;
     private Optional<Tile> myCurrentTile;
+    private BoardInfo myBoardInfo;
 
     public BuilderView() {
         builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
@@ -58,6 +66,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         myCurrentlyClickedTiletype = Optional.empty();
         myGraph = new Graph();  // todo: dependency injection
         myCurrentTile = Optional.empty();
+        myBoardInfo = new BoardInfo(builderResource);
 
         Scene scene = initScene();
         Stage primaryStage = new Stage();
@@ -92,6 +101,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         myLeftSidebar = sideBar1;
 
         Node boardPane = makePane("BoardPane", PANE_WIDTH, PANE_HEIGHT);
+        myBoardInfo.setBoardSize(new Dimension((int)PANE_WIDTH, (int)PANE_HEIGHT));
         myBoardPane = (Pane) boardPane;
         myBoardPane.setOnMouseClicked(e -> createTile(e));
 
@@ -127,6 +137,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         if (checkIfImage(file) == true){
             System.out.println("Got an image from: " + file.get().toPath() );
             myBoardPane.getChildren().add(turnFileToImage(file.get(), PANE_WIDTH, PANE_HEIGHT));
+            myBoardInfo.addImage(file.get().getPath(), new Coordinate(0,0), new Dimension((int) PANE_WIDTH, (int)PANE_HEIGHT));
         }
         else{
             // todo: make this use an error form.
@@ -173,7 +184,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     public void saveFile() {
         Optional<File> file = fileSave(builderResource, "SaveGameTitle");
         if (file.isPresent()){
-            //DataStorer currentData = new DataStorer(myGraph);
+            GameInterface game = createGameHolder();
             // Send file to the controller to properly save.
         }
         else{
@@ -227,5 +238,12 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
                 true,
                 true)
         );
+    }
+
+    private ImmutableGameHolder createGameHolder(){
+        GameHolder game = new GameHolder();
+        game.setBoardInfo(new ImmutableBoardInfo(myBoardInfo));
+        game.setTileGraph(new ImmutableGraph(myGraph));
+        return new ImmutableGameHolder(game);
     }
 }

@@ -9,11 +9,11 @@ import oogasalad.view.Coordinate;
 public class BasicTile extends Rectangle implements Tile {
   private static final double TILE_WIDTH = 50;
 
-  private int id;
-  private double[] position;
-  private int[] next;
-  private int[] onLand;
-  private int[] afterTurn;
+  private final int id;
+  private final double[] position;
+  private final int[] next;
+  private final int[] onLand;
+  private final int[] afterTurn;
 
   public BasicTile(int id, double[] position, int[] next, int[] onLand, int[] afterTurn) {
     super(position[0], position[1], TILE_WIDTH, TILE_WIDTH);

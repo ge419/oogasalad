@@ -3,6 +3,11 @@ package oogasalad.view.builder.graphs;
 import java.util.*;
 import oogasalad.view.tiles.Tile;
 
+/**
+ * Basic implementation of AbstractGraph using HashMaps.
+ *
+ * @author tmh85
+ */
 public class Graph extends AbstractGraph {
     private final HashMap<Tile, ArrayList<Tile>> myMap;
 

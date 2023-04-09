@@ -5,6 +5,6 @@ import oogasalad.view.Coordinate;
 
 public interface MutableBoardInfo {
 
-  void setImage(String path, Coordinate startLocation, Dimension imageSize);
+  void addImage(String path, Coordinate startLocation, Dimension imageSize);
   void setBoardSize(Dimension size);
 }

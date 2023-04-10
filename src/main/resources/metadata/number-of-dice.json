@@ -1,0 +1,9 @@
+{
+  "name": "number-of-dice",
+  "type": "Integer",
+  "name": "NUMBER-OF-DICE",
+  "description": "The number of dice to be rolled",
+  "editable": true,
+  "viewable": true,
+  "defaultVal": 1
+}

@@ -1,0 +1,9 @@
+{
+  "name": "move-to-cost",
+  "type": "Integer",
+  "name": "MOVE-TO-COST",
+  "description": "How much it costs to move tile",
+  "editable": true,
+  "viewable": true,
+  "defaultVal": 80
+}

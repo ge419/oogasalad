@@ -1,0 +1,7 @@
+{
+  "name": "ROLL-DICE",
+  "description": "rolls dice",
+  "schema": [
+    "number-of-dice"
+  ]
+}

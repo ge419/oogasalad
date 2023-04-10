@@ -1,0 +1,9 @@
+{
+  "key": "move-tile",
+  "type": "Integer",
+  "name": "MOVE_TILE",
+  "description": "Tile to move to on landing",
+  "editable": true,
+  "viewable": true,
+  "defaultVal": 80
+}

@@ -1,9 +1,9 @@
 {
-  "key": "color",
-  "type": "String",
-  "name":"COLOR",
+  "key": "rentCost",
+  "type": "Integer",
+  "name":"RENT_COST",
   "description": "but do we even need color",
   "editable": true,
   "viewable": true,
-  "defaultVal": "RED"
+  "defaultVal": 300
 }

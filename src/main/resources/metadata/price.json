@@ -1,9 +1,9 @@
 {
-  "key": "color",
-  "type": "String",
-  "name":"COLOR",
+  "key": "price",
+  "type": "Integer",
+  "name":"PRICE",
   "description": "but do we even need color",
   "editable": true,
   "viewable": true,
-  "defaultVal": "RED"
+  "defaultVal": 3
 }

@@ -1,5 +1,5 @@
 {
-  "name": "MOVE_TO",
+  "name": "MOVE-TO",
   "description": "moves a piece to a particular tile",
   "schema": [
     {

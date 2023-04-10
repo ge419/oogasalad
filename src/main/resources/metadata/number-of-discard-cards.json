@@ -1,0 +1,9 @@
+{
+  "name": "number-of-discard-cards",
+  "type": "Integer",
+  "name": "NUMBER-OF-DISCARD-CARDS",
+  "description": "The number of cards to be discarded",
+  "editable": true,
+  "viewable": true,
+  "defaultVal": 1
+}

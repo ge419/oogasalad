@@ -1,4 +1,7 @@
 {
-  "name": "PLAY_CARD",
-  "description": "play card and "
+  "name": "PLAY-CARD",
+  "description": "play card and ",
+  "schema": [
+    "number-of-cards"
+  ]
 }

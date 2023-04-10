@@ -3,7 +3,12 @@ package oogasalad.view.builder.graphs;
 import java.util.*;
 import oogasalad.view.tiles.Tile;
 
-public class Graph implements GraphInterface, MutableGraph {
+/**
+ * Basic implementation of AbstractGraph using HashMaps.
+ *
+ * @author tmh85
+ */
+public class Graph extends AbstractGraph {
     private final HashMap<Tile, ArrayList<Tile>> myMap;
 
     public Graph(){
@@ -66,7 +71,6 @@ public class Graph implements GraphInterface, MutableGraph {
         return new ArrayList<>(myMap.keySet());
     }
 
-    @Override
     public void print() {
         List<Tile> ourTiles = this.getTiles();
         int index = 0;

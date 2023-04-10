@@ -1,24 +1,30 @@
 package oogasalad.view.builder.gameholder;
 
-import oogasalad.view.builder.board.BoardInfoInterface;
-import oogasalad.view.builder.graphs.GraphInterface;
+import oogasalad.view.builder.board.ImmutableBoardInfo;
+import oogasalad.view.builder.graphs.ImmutableGraph;
 
-public class ImmutableGameHolder implements GameInterface{
+/**
+ * A basic implementation of an Immutable game object.
+ *
+ * @author tmh85
+ */
+public class ImmutableGameHolder implements GameInterface {
 
-  private BoardInfoInterface myBoardInfo;
-  private GraphInterface myGraph;
+  private ImmutableBoardInfo myBoardInfo;
+  private ImmutableGraph myGraph;
 
-  public ImmutableGameHolder(GameInterface game){
+  public ImmutableGameHolder(GameInterface game) {
     myBoardInfo = game.getBoardInfo();
     myGraph = game.getTileGraph();
   }
+
   @Override
-  public GraphInterface getTileGraph() {
+  public ImmutableGraph getTileGraph() {
     return myGraph;
   }
 
   @Override
-  public BoardInfoInterface getBoardInfo() {
+  public ImmutableBoardInfo getBoardInfo() {
     return myBoardInfo;
   }
 }

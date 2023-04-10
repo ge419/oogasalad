@@ -26,6 +26,7 @@ import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.builder.graphs.Graph;
 import oogasalad.view.builder.graphs.GraphInterface;
 import oogasalad.view.builder.graphs.ImmutableGraph;
+import oogasalad.view.builder.panefeatures.Dragger;
 import oogasalad.view.tiles.BasicTile;
 import oogasalad.view.tiles.Tile;
 import org.apache.logging.log4j.LogManager;
@@ -37,6 +38,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
     private static final double PANE_WIDTH = 500;
     private static final double PANE_HEIGHT = 500;
+    private static final double DEFAULT_IMAGE_WIDTH = 100;
+    private static final double DEFAULT_IMAGE_HEIGHT = 100;
     private static final double SCENE_WIDTH = 700;
     private static final double SCENE_HEIGHT = 600;
     private static final Logger LOG = LogManager.getLogger(BuilderView.class);
@@ -103,7 +106,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         Node boardPane = makePane("BoardPane", PANE_WIDTH, PANE_HEIGHT);
         myBoardInfo.setBoardSize(new Dimension((int)PANE_WIDTH, (int)PANE_HEIGHT));
         myBoardPane = (Pane) boardPane;
-        myBoardPane.setOnMouseClicked(e -> createTile(e));
+        myBoardPane.setOnMouseClicked(e -> handleBoardClick(e));
 
         return (HBox) makeHBox("CentralContainer", sideBar1, boardPane);
     }
@@ -122,6 +125,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
             pane.getChildren().add(btn);
         }
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
     private void test() {
         // temp
     }
@@ -136,7 +142,11 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
         if (checkIfImage(file) == true){
             System.out.println("Got an image from: " + file.get().toPath() );
-            myBoardPane.getChildren().add(turnFileToImage(file.get(), PANE_WIDTH, PANE_HEIGHT));
+            ImageView ourImage = turnFileToImage(file.get(), DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT, new Coordinate(0,0));
+            Dragger imageDragger = new Dragger(ourImage, true);
+            myBoardPane.getChildren().add(ourImage);
+            //myBoardPane.getChildren().add
+
             myBoardInfo.addImage(file.get().getPath(), new Coordinate(0,0), new Dimension((int) PANE_WIDTH, (int)PANE_HEIGHT));
         }
         else{
@@ -159,25 +169,22 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
     // todo: support different tile types.
     private void createTile(MouseEvent e){
-        System.out.println("hello, you clicked on x: " + e.getSceneX() + " and y: " + e.getSceneY());
-        if (myCurrentlyClickedTiletype.isPresent()){
-            Coordinate tileCoord = new Coordinate((int)e.getX(), (int)e.getY());
-            double[] pos = {tileCoord.getXCoor(), tileCoord.getYCoor()};
-            //BasicTile tile = new BasicTile(myTileCount, pos, new int[0], new int[0], new int[0]);
-            BasicTile tile = new BasicTile(myTileCount, tileCoord);
-            //tile.setOnMouseClicked(tile_e->{myBoardPane.getChildren().remove(tile);});
-            tile.setOnMouseClicked(tile_e->{
+        Coordinate tileCoord = new Coordinate((int)e.getX(), (int)e.getY());
+        double[] pos = {tileCoord.getXCoor(), tileCoord.getYCoor()};
+        //BasicTile tile = new BasicTile(myTileCount, pos, new int[0], new int[0], new int[0]);
+        BasicTile tile = new BasicTile(myTileCount, tileCoord);
+        //tile.setOnMouseClicked(tile_e->{myBoardPane.getChildren().remove(tile);});
+        tile.setOnMouseClicked(tile_e->{
 //                popupForm = new PopupForm(BasicTile.class, builderResource);
 //                popupForm.displayForm();
-                handleTileClick(tile);
-            });
-            //tile.setOnDragDone(tile_e_two-> {tile.setPosition(new Coordinate((int) tile_e_two.getX(), (int) tile_e_two.getY()));});
-            tile.setId("Tile" + myTileCount);
-            myTileCount++;
-            myBoardPane.getChildren().add(tile);
-            myGraph.addTile(tile);
-            myCurrentlyClickedTiletype = Optional.empty();
-        }
+            handleTileClick(tile);
+        });
+        //tile.setOnDragDone(tile_e_two-> {tile.setPosition(new Coordinate((int) tile_e_two.getX(), (int) tile_e_two.getY()));});
+        tile.setId("Tile" + myTileCount);
+        myTileCount++;
+        myBoardPane.getChildren().add(tile);
+        myGraph.addTile(tile);
+        myCurrentlyClickedTiletype = Optional.empty();
     }
 
     @Override
@@ -200,6 +207,14 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     public void loadFile() {
         myGraph.print();
         //Optional<File> file = fileLoad(builderResource, "LoadGameTitle");
+    }
+
+    private void handleBoardClick(MouseEvent e){
+        System.out.println("hello, you clicked on x: " + e.getSceneX() + " and y: " + e.getSceneY());
+        System.out.println("relative x: " + e.getX() + " and y: " + e.getY());
+        if (myCurrentlyClickedTiletype.isPresent()){
+            createTile(e);
+        }
     }
 
     private void handleTileClick(Tile tile){
@@ -233,14 +248,21 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         return thing.isPresent() && thing.get().getName().matches(IMAGE_FILE_SUFFIXES);
     }
 
-    private ImageView turnFileToImage(File file, double width, double height){
-        return new ImageView(new Image(
-                file.toURI().toString(),
-                width,
-                height,
-                true,
-                true)
+    private ImageView turnFileToImage(File file, double width, double height, Coordinate location){
+        ImageView image = new ImageView(new Image(
+            file.toURI().toString(),
+            width,
+            height,
+            true,
+            true
+        )
         );
+
+        image.setPreserveRatio(true);
+        image.setSmooth(true);
+        image.setLayoutX(location.getXCoor());
+        image.setLayoutY(location.getYCoor());
+        return image;
     }
 
     private ImmutableGameHolder createGameHolder(){

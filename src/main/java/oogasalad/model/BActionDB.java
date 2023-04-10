@@ -31,9 +31,6 @@ public class BActionDB {
                     throw new RuntimeException(e);
                   }
                 });
-                while (!completableFuture.isDone()) {
-                  System.out.println("CompletableFuture is not finished yet...");
-                }
                 BAction result = completableFuture.get();
                 this.actionMap.put(result.getName().toLowerCase(), result);
               } catch (ExecutionException | InterruptedException e) {

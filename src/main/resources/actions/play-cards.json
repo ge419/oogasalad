@@ -3,5 +3,7 @@
   "description": "play card and ",
   "schema": [
     "number-of-cards"
-  ]
+  ],
+  "tile-types": []
+
 }

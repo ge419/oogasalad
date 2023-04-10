@@ -3,5 +3,7 @@
   "description": "rolls dice",
   "schema": [
     "number-of-dice"
-  ]
+  ],
+  "tile-types": []
+
 }

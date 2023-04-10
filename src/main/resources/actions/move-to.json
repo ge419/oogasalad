@@ -3,5 +3,7 @@
   "description": "moves a piece to a particular tile",
   "schema": [
     "move-tile", "cost"
-  ]
+  ],
+  "tile-types": []
+
 }

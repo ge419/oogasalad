@@ -31,7 +31,8 @@ import oogasalad.view.tiles.Tile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
+// assumptions made so far: board pane cannot be dragged (if it was, this would break dragging for
+// all other tiles unfortunately. eventual fix maybe.)
 public class BuilderView implements BuilderUtility, BuilderAPI {
     private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
     private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
@@ -61,6 +62,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     private NodeStorer myNodeHolder;
     private boolean myDraggableObjectsToggle = true;
     private boolean myDeleteToggle = false;
+    private Coordinate myBoardPaneStartingLocation;
 
 
     public BuilderView() {
@@ -73,6 +75,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         myCurrentlyClickedTiletype = Optional.empty();
         myGraph = new Graph();  // todo: dependency injection
         myNodeHolder = new NodeStorer();
+        myBoardPaneStartingLocation = new Coordinate(0,0);
         myCurrentTile = Optional.empty();
         myBoardInfo = new BoardInfo(builderResource);
 
@@ -189,7 +192,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     private void createTile(MouseEvent e){
         Coordinate tileCoord = new Coordinate((int)e.getX(), (int)e.getY());
         BasicTile tile = new BasicTile(myTileCount, tileCoord);
-        //createTileFeaturesForObject(tile);
+        createTileFeaturesForObject(tile);
         tile.setOnMouseClicked(tile_e->{
 //                popupForm = new PopupForm(BasicTile.class, builderResource);
 //                popupForm.displayForm();
@@ -218,6 +221,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     private void handleBoardClick(MouseEvent e){
         System.out.println("hello, you clicked on x: " + e.getSceneX() + " and y: " + e.getSceneY());
         System.out.println("relative x: " + e.getX() + " and y: " + e.getY());
+        myBoardPaneStartingLocation.setXCoor((int) (e.getSceneX() - e.getX()));
+        myBoardPaneStartingLocation.setYCoor((int) (e.getSceneY() - e.getY()));
+
         if (myCurrentlyClickedTiletype.isPresent()){
             createTile(e);
         }
@@ -307,7 +313,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     }
 
     private void createTileFeaturesForObject(Node node){
-        Dragger nodeDragger = new Dragger(node, myDraggableObjectsToggle);
+        Dragger nodeDragger = new Dragger(node, myDraggableObjectsToggle, myBoardPaneStartingLocation);
         myNodeHolder.addDragger(nodeDragger);
     }
 }

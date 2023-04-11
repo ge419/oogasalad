@@ -1,10 +1,12 @@
 package oogasalad.view.builder.panefeatures;
 
+import java.awt.Dimension;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
+import oogasalad.view.Coordinate;
 
 /**
  * Implementation of the DraggerAPI, which commits to creating an object that will allow any
@@ -20,20 +22,30 @@ public class Dragger implements DraggerAPI {
   private BooleanProperty myDraggable;
   private int myCycleStatus;
   private EventHandler<MouseEvent> myAnchoredEvent;
-  private double myRelativeSceneInitialX;
-  private double myRelativeSceneInitialY;
+  private double myRelativeToSceneInitialX;
+  private double myRelativeToSceneInitialY;
+  private double myMouseOffsetX;
+  private double myMouseOffsetY;
   private EventHandler<MouseEvent> myPositionUpdater;
   private EventHandler<MouseEvent> myFinalPositionSetter;
+  private double myInitialLayoutX = 0;
+  private double myInitialLayoutY = 0;
+  private double mySceneOffsetX = 0;
+  private double mySceneOffsetY = 0;
+
+  private Dimension myParentSize;
   private static final int ACTIVE = 1;
   private static final int INACTIVE = 0;
 
 
   public Dragger(Node ourObject){
-    this(ourObject, false);
+    this(ourObject, false, new Coordinate(0,0));
   }
 
-  public Dragger(Node ourObject, boolean canWeDrag){
+  public Dragger(Node ourObject, boolean canWeDrag, Coordinate offset){
     myNode = ourObject;
+    mySceneOffsetX = offset.getXCoor();
+    mySceneOffsetY = offset.getYCoor();
     createEventHandlers();
     initializeDraggableProperty();
     setDraggable(canWeDrag);
@@ -64,24 +76,40 @@ public class Dragger implements DraggerAPI {
     myAnchoredEvent = e1 -> {
       if (checkIfDragButtonIsPressed(e1)){
         myCycleStatus = ACTIVE;
-        myRelativeSceneInitialX = e1.getSceneX();
-        myRelativeSceneInitialY = e1.getSceneY();
+        myInitialLayoutX = myNode.getLayoutX();
+        myInitialLayoutY = myNode.getLayoutY();
+        myRelativeToSceneInitialX = e1.getSceneX();
+        myRelativeToSceneInitialY = e1.getSceneY();
+        myMouseOffsetX = e1.getX();
+        myMouseOffsetY = e1.getY();
+        System.out.println(e1.getX() + " " + e1.getY());
+        System.out.println(e1.getSceneX() + " " + e1.getSceneY());
       }
     };
     myPositionUpdater = e2 ->{
       if (myCycleStatus != INACTIVE){
-        myNode.setTranslateX(e2.getSceneX() - myRelativeSceneInitialX);
-        myNode.setTranslateY(e2.getSceneY() - myRelativeSceneInitialY);
+        myNode.setTranslateX(e2.getSceneX() - myRelativeToSceneInitialX);
+        myNode.setTranslateY(e2.getSceneY() - myRelativeToSceneInitialY);
       }
     };
     myFinalPositionSetter = e3 -> {
       if (myCycleStatus != INACTIVE){
-        myNode.relocate(myNode.getLayoutX() + myNode.getTranslateX(),
-            myNode.getLayoutY() + myNode.getTranslateY());
+        System.out.println(String.format("Relative x and y: (%f,%f)\tScene x and y: (%f,%f)\tWindow x and y: (%f,%f)",
+            e3.getX(), e3.getY(), e3.getSceneX(), e3.getSceneY(), e3.getScreenX(), e3.getScreenY()));
+        System.out.println(String.format("Current translations: (%f,%f)", myNode.getTranslateX(), myNode.getTranslateY()));
+        System.out.println(String.format("Mouse offset: (%f, %f)", myMouseOffsetX, myMouseOffsetY));
+        System.out.println(String.format("Scene offset: (%f,%f)", mySceneOffsetX, mySceneOffsetY));
+
+//        myNode.relocate(myInitialLayoutX + myNode.getTranslateX(),
+//            myInitialLayoutY + myNode.getTranslateY());
         myNode.setTranslateX(0);
         myNode.setTranslateY(0);
-//        System.out.println(String.format("Relative x and y: (%f,%f)\tScene x and y: (%f,%f)\tWindow x and y: (%f,%f)",
-//            e3.getX(), e3.getY(), e3.getSceneX(), e3.getSceneY(), e3.getScreenX(), e3.getScreenY()));
+//        myNode.setLayoutX(0);
+//        myNode.setLayoutY(0);
+        myNode.relocate(calculateNodeLocation(e3.getSceneX(), myMouseOffsetX, mySceneOffsetX),
+            calculateNodeLocation(e3.getSceneY(), myMouseOffsetY, mySceneOffsetY));
+//        myNode.relocate(0,
+//            0);
       }
     };
   }
@@ -102,5 +130,11 @@ public class Dragger implements DraggerAPI {
         myNode.removeEventFilter(MouseEvent.MOUSE_RELEASED, myFinalPositionSetter);
       }
     });
+  }
+
+  private double calculateNodeLocation(double sceneCoord, double mouseOffset, double parentNodeStartingLocation){
+    System.out.println(String.format("%f -%f - %f = %f", sceneCoord, mouseOffset,
+        parentNodeStartingLocation, sceneCoord-mouseOffset-parentNodeStartingLocation));
+    return sceneCoord - mouseOffset - parentNodeStartingLocation;
   }
 }

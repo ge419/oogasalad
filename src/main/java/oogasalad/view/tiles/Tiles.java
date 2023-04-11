@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import oogasalad.view.Coordinate;
 import oogasalad.view.Renderable;
 
 public class Tiles implements Renderable {
@@ -32,6 +34,8 @@ public class Tiles implements Renderable {
         tile.setId("Tiles");
         pane.getChildren().add(tile);
       }
+      StreetTile tile = new StreetTile(1, new Coordinate(100,100), Color.BLUE,  "Park Place", "$350", 100, 200);
+      pane.getChildren().add(tile);
     }
     catch (IOException e) {
       e.printStackTrace();

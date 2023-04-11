@@ -15,6 +15,9 @@ import javafx.scene.text.Text;
 import oogasalad.view.Coordinate;
 
 public class StreetTile extends StackPane implements Tile {
+  private static final double STREET_SCALE = 1.3;
+  private static final double PRICE_SCALE = 3;
+
   private int id;
   private Coordinate position;
   private Color color;
@@ -38,39 +41,37 @@ public class StreetTile extends StackPane implements Tile {
 
   private void createTile() {
     VBox tileBox = new VBox();
-
-    Rectangle topBar = new Rectangle(tileWidth, tileHeight / 6);
-    topBar.setFill(this.color);
-    topBar.setStroke(Color.BLACK);
-    topBar.setStrokeWidth(1);
-    tileBox.getChildren().add(topBar);
-
-    Rectangle bottomBar = new Rectangle(tileWidth, 5 * tileHeight / 6);
-    bottomBar.setFill(Color.WHITE);
-    bottomBar.setStroke(Color.BLACK);
-    bottomBar.setStrokeWidth(1);
-    tileBox.getChildren().add(bottomBar);
+    Rectangle topBar = createBar(tileWidth, tileHeight / 6, this.color);
+    Rectangle bottomBar = createBar(tileWidth, 5 * tileHeight / 6, Color.WHITE);
+    tileBox.getChildren().addAll(topBar, bottomBar);
 
     VBox textBox = new VBox();
     Text streetText = new Text(this.name);
-    Bounds streetTextBounds = streetText.getBoundsInLocal();
-    double streetTextScale = this.tileWidth / streetTextBounds.getWidth() / 1.3;
-    streetText.setScaleX(streetTextScale);
-    streetText.setScaleY(streetTextScale);
+    resizeText(streetText, STREET_SCALE);
     textBox.setMargin(streetText, new Insets(20, 0, 50, 0));
-
     Text priceText = new Text(this.price);
-    Bounds priceTextBounds = priceText.getBoundsInLocal();
-
-    double priceTextScale = this.tileWidth / priceTextBounds.getWidth() / 3;
-    priceText.setScaleX(priceTextScale);
-    priceText.setScaleY(priceTextScale);
+    resizeText(priceText, PRICE_SCALE);
     textBox.setAlignment(Pos.CENTER);
-
     textBox.getChildren().addAll(streetText, priceText);
 
     getChildren().addAll(tileBox, textBox);
+  }
 
+  private Rectangle createBar(double width, double height, Color color) {
+    Rectangle bar = new Rectangle();
+    bar.setWidth(width);
+    bar.setHeight(height);
+    bar.setFill(color);
+    bar.setStroke(Color.BLACK);
+    bar.setStrokeWidth(1);
+    return bar;
+  }
+
+  private void resizeText(Text text, double scale) {
+    Bounds textBounds = text.getBoundsInLocal();
+    double textScale = this.tileWidth / textBounds.getWidth() / scale;
+    text.setScaleX(textScale);
+    text.setScaleY(textScale);
   }
 
   @Override
@@ -102,6 +103,8 @@ public class StreetTile extends StackPane implements Tile {
   public void setColor(Color color) {
 
   }
+
+
 
   @Override
   public void setPosition(Coordinate coord) {

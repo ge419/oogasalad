@@ -1,8 +1,13 @@
 package oogasalad.view.tiles;
 
+import java.util.Stack;
+import javafx.geometry.Bounds;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -20,39 +25,52 @@ public class StreetTile extends StackPane implements Tile {
 
   public StreetTile(int id, Coordinate position, Color color, String name, String price,
       double width, double height) {
+    this.setPrefSize(width, height);
     this.color = color;
     this.name = name;
     this.price = price;
     this.tileWidth = width;
     this.tileHeight = height;
+    this.position = position;
     createTile();
     setPosition(position);
   }
 
   private void createTile() {
-    Rectangle rectangle = new Rectangle(tileWidth, tileHeight);
-    rectangle.setFill(color);
-    rectangle.setStroke(Color.BLACK);
-    rectangle.setStrokeWidth(2);
+    VBox tileBox = new VBox();
 
-    Label label = new Label();
-    label.setPrefSize(50, 50); // Set the preferred width and height of the label
-    label.setWrapText(true); // Enable text wrapping to multiple lines if necessary
-    label.setText("This is some long text that may not fit within the label."); // Set the text of the label
+    Rectangle topBar = new Rectangle(tileWidth, tileHeight / 6);
+    topBar.setFill(this.color);
+    topBar.setStroke(Color.BLACK);
+    topBar.setStrokeWidth(1);
+    tileBox.getChildren().add(topBar);
 
-    Text text = new Text(label.getText());
-    text.setFont(label.getFont());
+    Rectangle bottomBar = new Rectangle(tileWidth, 5 * tileHeight / 6);
+    bottomBar.setFill(Color.WHITE);
+    bottomBar.setStroke(Color.BLACK);
+    bottomBar.setStrokeWidth(1);
+    tileBox.getChildren().add(bottomBar);
 
-    double fontSize = 12; // Start with a small font size
+    VBox textBox = new VBox();
+    Text streetText = new Text(this.name);
+    Bounds streetTextBounds = streetText.getBoundsInLocal();
+    double streetTextScale = this.tileWidth / streetTextBounds.getWidth() / 1.3;
+    streetText.setScaleX(streetTextScale);
+    streetText.setScaleY(streetTextScale);
+    textBox.setMargin(streetText, new Insets(20, 0, 50, 0));
 
-    while (text.getBoundsInLocal().getWidth() < label.getPrefWidth() && fontSize < 100) {
-      // Increase the font size until the text width exceeds the label width or a maximum font size is reached
-      fontSize++;
-      text.setFont(Font.font(label.getFont().getFamily(), fontSize));
-    }
-    label.setFont(Font.font(label.getFont().getFamily(), fontSize));
+    Text priceText = new Text(this.price);
+    Bounds priceTextBounds = priceText.getBoundsInLocal();
 
-    getChildren().addAll(rectangle, label);
+    double priceTextScale = this.tileWidth / priceTextBounds.getWidth() / 3;
+    priceText.setScaleX(priceTextScale);
+    priceText.setScaleY(priceTextScale);
+    textBox.setAlignment(Pos.CENTER);
+
+    textBox.getChildren().addAll(streetText, priceText);
+
+    getChildren().addAll(tileBox, textBox);
+
   }
 
   @Override

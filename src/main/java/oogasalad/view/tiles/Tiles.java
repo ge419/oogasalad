@@ -34,7 +34,7 @@ public class Tiles implements Renderable {
         tile.setId("Tiles");
         pane.getChildren().add(tile);
       }
-      StreetTile tile = new StreetTile(1, new Coordinate(100,100), Color.BLUE,  "Park Place", "$350", 100, 200);
+      StreetTile tile = new StreetTile(1, new Coordinate(200,200), Color.BLUE,  "Park Place", "$350", 80, 120);
       pane.getChildren().add(tile);
     }
     catch (IOException e) {

@@ -1,13 +1,22 @@
 package oogasalad.model.builder;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.util.List;
+import javafx.scene.image.Image;
+import oogasalad.controller.BuilderController;
 import oogasalad.model.AttributeSerializer;
+import oogasalad.model.Constructable;
+import oogasalad.view.builder.board.BoardImage;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.builder.graphs.ImmutableGraph;
+import oogasalad.view.tiles.Tile;
+import oogasalad.view.tiles.Tiles;
 
 public class BBuilder implements BBuilderAPI{
 
@@ -15,11 +24,17 @@ public class BBuilder implements BBuilderAPI{
 //  private final ? tiles;
 //  private final ? rules;
 //  private final ? ...
+  private BuilderController controller;
+  private ImmutableGameHolder holder;
+  private List<Tile> tileList;
+  private List<BoardImage> imageList;
+  private String title;
 
   /**
    * takes DataStorer datastorer as parameter
    */
-  public BBuilder() {
+  public BBuilder(BuilderController controller) {
+    this.controller = controller;
 //    this.title = datastorer.title();
 //    this.tiles = datastorer.tiles();
 //    this.rules = datastorer.rules();
@@ -31,17 +46,67 @@ public class BBuilder implements BBuilderAPI{
    */
   @Override
   public void save(ImmutableGameHolder holder) {
-    //TODO: get title?
-    ImmutableBoardInfo boardInfo =  holder.getBoardInfo();
-    ImmutableGraph graph = holder.getTileGraph();
-    boardInfo.getBoardSize();
-    boardInfo.getBoardImages();
-    graph.getTiles();
+    extractData(holder);
 
     //serialize
     //create JSON files
     //save assets
     //once saved added to GameLauncher
+  }
+
+  private void extractData(ImmutableGameHolder holder) {
+    ImmutableBoardInfo boardInfo =  holder.getBoardInfo();
+    ImmutableGraph graph = holder.getTileGraph();
+    //title = boardInfo.getTitle();
+    int height = boardInfo.getBoardSize().height;
+    int width = boardInfo.getBoardSize().width;
+    imageList = boardInfo.getBoardImages();
+    tileList = graph.getTiles();
+
+  }
+
+  /**
+   * settings.json
+   * tiles.json
+   * rules.json
+   * players.json ?
+   */
+
+  private void saveSettings() {
+    //serialize data for settings.json
+  }
+
+  private void saveTiles() throws IOException {
+    //serialize data for tiles
+    ObjectMapper mapper = new ObjectMapper();
+    String json = mapper.writeValueAsString(tileList);
+    System.out.println(json);
+    mapper.writeValue(new File("data/" + title + "/" + title + "Tiles.json"), tileList);
+
+//    ObjectMapper mapper = new ObjectMapper();
+//    SimpleModule module = new SimpleModule();
+//    TODO: create a TileSerializer?
+//    module.addSerializer(new AttributeSerializer(Constructable.class));
+//    mapper.registerModule(module);
+//    StringWriter writer = new StringWriter();
+//    mapper.writeValue(new File("data/PlayerTest.json"), );
+  }
+
+  private void saveAsset() {
+    //save images in the given directory
+    String filePath = "data/" + title + "/*.json";
+  }
+
+
+  /**
+   * Takes the data imported from frontend, changes data ready for serialization
+   */
+  private void toSerialization() {
+
+  }
+
+  private void toDeserialization() {
+
   }
 
   /**

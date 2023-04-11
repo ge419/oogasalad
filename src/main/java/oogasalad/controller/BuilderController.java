@@ -16,7 +16,7 @@ public class BuilderController implements BuilderControllerInterface{
     //initialize frontend builder
     front = new BuilderView();
     //initialize backend builder
-    back = new BBuilder();
+    back = new BBuilder(this);
   }
 
   /**

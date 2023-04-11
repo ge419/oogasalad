@@ -31,6 +31,7 @@ import oogasalad.view.tiles.Tile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+// https://stackoverflow.com/questions/31148690/get-real-position-of-a-node-in-javafx
 // assumptions made so far: board pane cannot be dragged (if it was, this would break dragging for
 // all other tiles unfortunately. eventual fix maybe.)
 public class BuilderView implements BuilderUtility, BuilderAPI {
@@ -75,7 +76,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         myCurrentlyClickedTiletype = Optional.empty();
         myGraph = new Graph();  // todo: dependency injection
         myNodeHolder = new NodeStorer();
-        myBoardPaneStartingLocation = new Coordinate(0,0);
         myCurrentTile = Optional.empty();
         myBoardInfo = new BoardInfo(builderResource);
 
@@ -84,6 +84,12 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         primaryStage.setScene(scene);
         primaryStage.setTitle(builderResource.getString("BuilderTitle"));
         primaryStage.show();
+        System.out.println(myBoardPane.getBoundsInParent().getMinX() + " | " + myBoardPane.getBoundsInParent().getMaxX());
+        System.out.println(myBoardPane.getBoundsInParent().getMinY() + " | " + myBoardPane.getBoundsInParent().getMaxY());
+        myBoardPaneStartingLocation = new Coordinate(
+            (int) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinX(),
+            (int) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinY()
+        );
 
         // Example of the popup form using the Tile object
         //popupForm = new PopupForm(Tile.class, builderResource);
@@ -221,8 +227,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     private void handleBoardClick(MouseEvent e){
         System.out.println("hello, you clicked on x: " + e.getSceneX() + " and y: " + e.getSceneY());
         System.out.println("relative x: " + e.getX() + " and y: " + e.getY());
-        myBoardPaneStartingLocation.setXCoor((int) (e.getSceneX() - e.getX()));
-        myBoardPaneStartingLocation.setYCoor((int) (e.getSceneY() - e.getY()));
 
         if (myCurrentlyClickedTiletype.isPresent()){
             createTile(e);

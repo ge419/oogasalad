@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -317,7 +318,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     }
 
     private void createTileFeaturesForObject(Node node){
-        Dragger nodeDragger = new Dragger(node, myDraggableObjectsToggle, myBoardPaneStartingLocation);
+        Dragger nodeDragger = new Dragger(node, myDraggableObjectsToggle, myBoardPaneStartingLocation, MouseButton.PRIMARY);
         myNodeHolder.addDragger(nodeDragger);
     }
 }

@@ -4,6 +4,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import oogasalad.view.Coordinate;
 
@@ -14,8 +15,7 @@ import oogasalad.view.Coordinate;
  * node to be draggable based on a simple boolean statement.</p>
  *
  * <p>Again, this was heavily inspired by <a href="https://edencoding.com/drag-shapes-javafx/">this
- * tutorial</a> by Ed Eden-Rump.
- * Thank you!</p>
+ * tutorial</a> by Ed Eden-Rump. Thank you!</p>
  *
  * @author tmh85
  */
@@ -36,19 +36,21 @@ public class Dragger implements DraggerAPI {
 
   private static final int ACTIVE = 1;
   private static final int INACTIVE = 0;
+  private final MouseButton myDragButton;
 
 
   public Dragger(Node ourObject) {
-    this(ourObject, false, new Coordinate(0, 0));
+    this(ourObject, false, new Coordinate(0, 0), MouseButton.PRIMARY);
   }
 
-  public Dragger(Node ourObject, boolean canWeDrag, Coordinate offset) {
+  public Dragger(Node ourObject, boolean canWeDrag, Coordinate offset, MouseButton dragButton) {
     myNode = (Node) ourObject;
     mySceneOffsetX = offset.getXCoor();
     mySceneOffsetY = offset.getYCoor();
     createEventHandlers();
     initializeDraggableProperty();
     setDraggable(canWeDrag);
+    myDragButton = dragButton;
   }
 
   @Override
@@ -74,7 +76,7 @@ public class Dragger implements DraggerAPI {
    */
   private void createEventHandlers() {
     myAnchoredEvent = e1 -> {
-      if (checkIfDragButtonIsPressed(e1)) {
+      if (e1.getButton() == myDragButton) {
         myCycleStatus = ACTIVE;
         myRelativeToSceneInitialX = e1.getSceneX();
         myRelativeToSceneInitialY = e1.getSceneY();

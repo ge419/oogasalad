@@ -1,0 +1,69 @@
+{
+  "tiles": [
+    {
+      "type": "street",
+      "id": 1,
+      "coordinate": [
+        400,
+        575
+      ],
+      "color": "0000FF",
+      "name": "Park Place",
+      "price": "$350",
+      "width": 80,
+      "height": 120
+    },
+    {
+      "type": "street",
+      "id": 2,
+      "coordinate": [
+        480,
+        575
+      ],
+      "color": "0000FF",
+      "name": "New York Avenue",
+      "price": "$450",
+      "width": 80,
+      "height": 120
+    },
+    {
+      "type": "street",
+      "id": 2,
+      "coordinate": [
+        560,
+        575
+      ],
+      "color": "0000FF",
+      "name": "Tennessee Avenue",
+      "price": "$500",
+      "width": 80,
+      "height": 120
+    },
+    {
+      "type": "street",
+      "id": 2,
+      "coordinate": [
+        640,
+        575
+      ],
+      "color": "0000FF",
+      "name": "Illinois Avenue",
+      "price": "$550",
+      "width": 80,
+      "height": 120
+    },
+    {
+      "type": "street",
+      "id": 2,
+      "coordinate": [
+        720,
+        575
+      ],
+      "color": "0000FF",
+      "name": "Indiana Avenue",
+      "price": "$600",
+      "width": 80,
+      "height": 120
+    }
+  ]
+}

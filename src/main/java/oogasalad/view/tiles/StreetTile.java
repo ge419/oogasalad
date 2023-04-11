@@ -1,22 +1,17 @@
 package oogasalad.view.tiles;
 
-import java.util.Stack;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import oogasalad.view.Coordinate;
 
 public class StreetTile extends StackPane implements Tile {
-  private static final double STREET_SCALE = 1.3;
-  private static final double PRICE_SCALE = 3;
+  private static final double TEXT_SCALE = 8;
 
   private int id;
   private Coordinate position;
@@ -29,6 +24,7 @@ public class StreetTile extends StackPane implements Tile {
   public StreetTile(int id, Coordinate position, Color color, String name, String price,
       double width, double height) {
     this.setPrefSize(width, height);
+    this.id = id;
     this.color = color;
     this.name = name;
     this.price = price;
@@ -47,10 +43,10 @@ public class StreetTile extends StackPane implements Tile {
 
     VBox textBox = new VBox();
     Text streetText = new Text(this.name);
-    resizeText(streetText, STREET_SCALE);
-    textBox.setMargin(streetText, new Insets(20, 0, 50, 0));
+    resizeText(streetText);
+    textBox.setMargin(streetText, new Insets(this.tileHeight / 6, 0, this.tileHeight / 3, 0));
     Text priceText = new Text(this.price);
-    resizeText(priceText, PRICE_SCALE);
+    resizeText(priceText);
     textBox.setAlignment(Pos.CENTER);
     textBox.getChildren().addAll(streetText, priceText);
 
@@ -67,9 +63,10 @@ public class StreetTile extends StackPane implements Tile {
     return bar;
   }
 
-  private void resizeText(Text text, double scale) {
+  private void resizeText(Text text) {
+    //TODO: resize text in the case that it doesn't fit in one line. possibly using space delimiting
     Bounds textBounds = text.getBoundsInLocal();
-    double textScale = this.tileWidth / textBounds.getWidth() / scale;
+    double textScale = this.tileHeight / textBounds.getHeight() / TEXT_SCALE;
     text.setScaleX(textScale);
     text.setScaleY(textScale);
   }
@@ -103,8 +100,6 @@ public class StreetTile extends StackPane implements Tile {
   public void setColor(Color color) {
 
   }
-
-
 
   @Override
   public void setPosition(Coordinate coord) {

@@ -2,6 +2,7 @@ package oogasalad.view.tiles;
 
 import javafx.scene.paint.Color;
 import oogasalad.view.Coordinate;
+import oogasalad.view.Renderable;
 
 public interface Tile {
   public int getTileId();

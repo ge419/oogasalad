@@ -1,5 +1,6 @@
 package oogasalad.controller;
 
+import java.io.IOException;
 import oogasalad.model.builder.BBuilder;
 import oogasalad.view.builder.BuilderView;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;
@@ -16,7 +17,7 @@ public class BuilderController implements BuilderControllerInterface{
     //initialize frontend builder
     front = new BuilderView();
     //initialize backend builder
-    back = new BBuilder(this);
+    back = new BBuilder();
   }
 
   /**
@@ -24,7 +25,7 @@ public class BuilderController implements BuilderControllerInterface{
    * @param holder
    */
   @Override
-  public void save(ImmutableGameHolder holder) {
+  public void save(ImmutableGameHolder holder) throws IOException {
     //take holder as parameter
     back.save(holder);
   }

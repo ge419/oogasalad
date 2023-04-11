@@ -5,7 +5,7 @@ import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 
 public interface BBuilderAPI {
 
-  void save(ImmutableGameHolder holder);
+  void save(ImmutableGameHolder holder) throws IOException;
 
   void load();
 

@@ -32,9 +32,10 @@ public class BBuilder implements BBuilderAPI{
 
   /**
    * takes DataStorer datastorer as parameter
+   * TODO: BuilderController controller as parameter
    */
-  public BBuilder(BuilderController controller) {
-    this.controller = controller;
+  public BBuilder() {
+//    this.controller = controller;
 //    this.title = datastorer.title();
 //    this.tiles = datastorer.tiles();
 //    this.rules = datastorer.rules();
@@ -45,8 +46,9 @@ public class BBuilder implements BBuilderAPI{
    * save JSON files and assets using serializer
    */
   @Override
-  public void save(ImmutableGameHolder holder) {
+  public void save(ImmutableGameHolder holder) throws IOException {
     extractData(holder);
+    //saveTiles();
 
     //serialize
     //create JSON files
@@ -54,15 +56,15 @@ public class BBuilder implements BBuilderAPI{
     //once saved added to GameLauncher
   }
 
-  private void extractData(ImmutableGameHolder holder) {
+  protected void extractData(ImmutableGameHolder holder) {
     ImmutableBoardInfo boardInfo =  holder.getBoardInfo();
+
     ImmutableGraph graph = holder.getTileGraph();
     //title = boardInfo.getTitle();
     int height = boardInfo.getBoardSize().height;
     int width = boardInfo.getBoardSize().width;
     imageList = boardInfo.getBoardImages();
     tileList = graph.getTiles();
-
   }
 
   /**
@@ -76,12 +78,19 @@ public class BBuilder implements BBuilderAPI{
     //serialize data for settings.json
   }
 
-  private void saveTiles() throws IOException {
+  /**
+   * Made to return String just for testing purposes.
+   * TODO: do not return String, write json file.
+   * @return
+   * @throws IOException
+   */
+  protected String saveTiles(List<Tile> tileList) throws IOException {
     //serialize data for tiles
     ObjectMapper mapper = new ObjectMapper();
-    String json = mapper.writeValueAsString(tileList);
-    System.out.println(json);
-    mapper.writeValue(new File("data/" + title + "/" + title + "Tiles.json"), tileList);
+    String tileJson = mapper.writeValueAsString(tileList);
+    return tileJson;
+//    System.out.println(tileJson);
+//    mapper.writeValue(new File("data/" + title + "/" + title + "Tiles.json"), tileList);
 
 //    ObjectMapper mapper = new ObjectMapper();
 //    SimpleModule module = new SimpleModule();
@@ -94,7 +103,7 @@ public class BBuilder implements BBuilderAPI{
 
   private void saveAsset() {
     //save images in the given directory
-    String filePath = "data/" + title + "/*.json";
+    String directoryPath = "data/" + title + "/";
   }
 
 

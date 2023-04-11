@@ -6,7 +6,7 @@ import oogasalad.model.attribute.Attribute;
 import oogasalad.model.attribute.AttributeMetadata;
 
 public class Player implements Constructable {
-  Map<String, AttributeMetadata<?>> schema;
+  Map<String, AttributeMetadata> schema;
   Map<String, Attribute> values;
   public Player() {
     schema = new HashMap<>();

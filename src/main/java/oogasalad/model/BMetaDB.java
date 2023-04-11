@@ -19,7 +19,7 @@ import oogasalad.model.exception.FileReaderException;
  * */
 public class BMetaDB {
   Logger logger = Logger.getLogger(String.valueOf(FileReader.class));
-  private Map<String, AttributeMetadata<?>> metaMap = new HashMap<>();
+  private Map<String, AttributeMetadata> metaMap = new HashMap<>();
 
   public BMetaDB() {
 
@@ -30,7 +30,7 @@ public class BMetaDB {
       List<File> files = FileReader.readFiles("metadata");
       files.iterator().forEachRemaining(file -> {
             try {
-              CompletableFuture<AttributeMetadata<?>> completableFuture = CompletableFuture.supplyAsync(() -> {
+              CompletableFuture<AttributeMetadata> completableFuture = CompletableFuture.supplyAsync(() -> {
                 try {
                   return createData(file);
                 } catch (IOException e) {
@@ -40,7 +40,8 @@ public class BMetaDB {
               while (!completableFuture.isDone()) {
                 System.out.println("CompletableFuture is not finished yet...");
               }
-              AttributeMetadata<?> result = completableFuture.get();
+              System.out.println(file.getName());
+              AttributeMetadata result = completableFuture.get();
               this.metaMap.put(file.getName(), result);
             } catch (ExecutionException e) {
               throw new RuntimeException(e);
@@ -60,9 +61,9 @@ public class BMetaDB {
 //    });
 //  }
 
-  private AttributeMetadata<?> createData(File file) throws IOException {
+  private AttributeMetadata createData(File file) throws IOException {
     ObjectMapper objectMapper = new ObjectMapper();
-    AttributeMetadata<?> data = objectMapper.readValue(file, AttributeMetadata.class);
+    AttributeMetadata data = objectMapper.readValue(file, AttributeMetadata.class);
     return data;
   }
 

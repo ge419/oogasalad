@@ -31,7 +31,7 @@ public class BBuilderTest {
     listTile.add(tile3);
     String tileString = builder.saveTiles(listTile);
 
-    // assertEquals();
+    //assertEquals();
   }
 
 }

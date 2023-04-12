@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.image.Image;
 import oogasalad.controller.BuilderController;
@@ -18,6 +19,7 @@ import oogasalad.view.builder.graphs.ImmutableGraph;
 import oogasalad.view.tiles.Tile;
 import oogasalad.view.tiles.Tiles;
 
+//TODO: add logger
 public class BBuilder implements BBuilderAPI{
 
   //  private final String title;
@@ -76,6 +78,13 @@ public class BBuilder implements BBuilderAPI{
 
   private void saveSettings() {
     //serialize data for settings.json
+
+
+    List<String> pathList = new ArrayList<>();
+    for(BoardImage b: imageList) {
+      pathList.add(b.imagePath());
+    }
+
   }
 
   /**

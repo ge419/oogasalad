@@ -3,10 +3,13 @@ package oogasalad.controller;
 import java.io.IOException;
 import oogasalad.model.builder.BBuilder;
 import oogasalad.view.builder.BuilderView;
+import oogasalad.view.builder.board.ImmutableBoardInfo;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;
+import oogasalad.view.builder.graphs.ImmutableGraph;
 
 /**
  * Temporary controller for front and backend builder
+ * TODO: add logger
  */
 public class BuilderController implements BuilderControllerInterface{
 
@@ -38,5 +41,16 @@ public class BuilderController implements BuilderControllerInterface{
   public void load(ImmutableGameHolder holder) {
     //take holder as parameter?
     front.loadFile();
+  }
+
+  protected void extractData(ImmutableGameHolder holder) {
+    ImmutableBoardInfo boardInfo =  holder.getBoardInfo();
+
+    ImmutableGraph graph = holder.getTileGraph();
+    //title = boardInfo.getTitle();
+    int height = boardInfo.getBoardSize().height;
+    int width = boardInfo.getBoardSize().width;
+//    imageList = boardInfo.getBoardImages();
+//    tileList = graph.getTiles();
   }
 }

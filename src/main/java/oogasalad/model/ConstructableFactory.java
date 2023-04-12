@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -19,9 +20,11 @@ public class ConstructableFactory {
   private static final String CLASS_IDENTIFIER = "self";
   private final ClassPathMatcher pathFinder;
   private final AttributeDeserializer deserializer;
+  private AttributeSerializer serializer;
 
   public ConstructableFactory() {
     this.deserializer = new AttributeDeserializer();
+    this.serializer = new AttributeSerializer(null);
     this.pathFinder = new ClassPathMatcher();
   }
 
@@ -48,6 +51,17 @@ public class ConstructableFactory {
              IllegalAccessException | InvocationTargetException e) {
       throw new RuntimeException(e);
     }
+
+  }
+
+  public void constructableToJSON(Constructable constructable) throws IOException {
+    ObjectMapper mapper = new ObjectMapper();
+    SimpleModule module = new SimpleModule();
+    //TODO: figure out what goes in the parameter for AttributeSerializer
+    module.addSerializer(new AttributeSerializer(Constructable.class));
+    mapper.registerModule(module);
+    StringWriter writer = new StringWriter();
+    mapper.writeValue(writer, constructable);
 
   }
 }

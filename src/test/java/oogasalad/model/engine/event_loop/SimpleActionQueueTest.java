@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import oogasalad.model.engine.EngineModule;
+import oogasalad.model.engine.SimpleActionQueue;
 import oogasalad.model.engine.TestEvent;
 import oogasalad.model.engine.actions.Action;
 import oogasalad.model.engine.actions.EventAction;

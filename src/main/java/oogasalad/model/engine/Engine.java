@@ -1,12 +1,10 @@
 package oogasalad.model.engine;
 
 import java.util.List;
+import oogasalad.model.engine.events.EngineEvent;
+import oogasalad.model.engine.events.EventType;
 import oogasalad.model.engine.prompt.Prompter;
-import oogasalad.model.engine.event_loop.EventRegistrar;
-import oogasalad.model.engine.event_types.EventType;
-import oogasalad.model.engine.event_loop.MissingActionsException;
 import oogasalad.model.engine.rules.Rule;
-import oogasalad.model.engine.event_types.EngineEvent;
 
 /**
  * Implements the core engine for running a game.
@@ -23,8 +21,8 @@ public interface Engine {
 
   /**
    * Sets the current list of rules, clearing all currently registered event handlers.
-   * {@link Rule#registerEventHandlers(EventRegistrar)} is called on each rule in order.
-   * In addition to events emitted by actions, the following special {@link EventType}s are emitted:
+   * {@link Rule#registerEventHandlers(EventRegistrar)} is called on each rule in order. In addition
+   * to events emitted by actions, the following special {@link EventType}s are emitted:
    * <ul>
    *   <li>
    *     {@link EngineEvent#START_GAME}:

@@ -5,64 +5,68 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.TreeMap;
 
 public class AttributeSchema {
   private final String name;
-  private final List<AttributeMetadata> metadataList;
+  private final Map<String, Metadata> metadataMap;
 
   public AttributeSchema(String name) {
     this.name = name;
-    this.metadataList = new ArrayList<>();
+    this.metadataMap = new TreeMap<>();
   }
 
   @JsonCreator
   public AttributeSchema(
       @JsonProperty("name") String name,
-      @JsonProperty("fields") List<AttributeMetadata> metadata
+      @JsonProperty("fields") Collection<Metadata> metadataList
   ) {
     this.name = name;
-    this.metadataList = new ArrayList<>(metadata);
+    this.metadataMap = new TreeMap<>();
+    for (Metadata metadata : metadataList) {
+      metadataMap.put(metadata.getKey(), metadata);
+    }
   }
 
   @JsonGetter("fields")
-  public List<AttributeMetadata> getAllMetadata() {
-    return metadataList;
+  public List<Metadata> getAllMetadata() {
+    return metadataMap.values().stream().toList();
   }
 
   @JsonIgnore
-  public Optional<AttributeMetadata> getMetadata(String key) {
-    for (AttributeMetadata metadata : metadataList) {
-      if (metadata.getKey().equals(key)) {
-        return Optional.of(metadata);
-      }
-    }
-
-    return Optional.empty();
+  public Optional<Metadata> getMetadata(String key) {
+    return Optional.ofNullable(metadataMap.get(key));
   }
 
   public String getName() {
     return name;
   }
 
-  public AttributeList makeAllAttributes() {
+  public List<Attribute> makeAllAttributes() {
     List<Attribute> list = new ArrayList<>();
-    for (AttributeMetadata metadata : metadataList) {
+    for (Metadata metadata : getAllMetadata()) {
       Attribute attr = metadata.makeAttribute();
       Objects.requireNonNull(attr);
       list.add(attr);
     }
 
-    return new AttributeList(list);
+    return list;
+  }
+
+  public boolean containsKey(String key) {
+    return metadataMap.containsKey(key);
   }
 
   @Override
   public String toString() {
     return "AttributeSchema{" +
         "name='" + name + '\'' +
-        ", metadataList=" + metadataList +
+        ", metadataList=" + metadataMap +
         '}';
   }
 
@@ -75,12 +79,12 @@ public class AttributeSchema {
       return false;
     }
     AttributeSchema schema = (AttributeSchema) o;
-    return Objects.equals(name, schema.name) && Objects.equals(metadataList,
-        schema.metadataList);
+    return Objects.equals(name, schema.name) && Objects.equals(metadataMap,
+        schema.metadataMap);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, metadataList);
+    return Objects.hash(name, metadataMap);
   }
 }

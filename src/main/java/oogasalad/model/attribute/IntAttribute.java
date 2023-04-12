@@ -10,13 +10,13 @@ public class IntAttribute extends Attribute {
   private final IntegerProperty value;
 
   @JsonCreator
-  protected IntAttribute(@JsonProperty("key") String key, @JsonProperty("value") int value) {
+  public IntAttribute(@JsonProperty("key") String key, @JsonProperty("value") int value) {
     super(key);
     this.value = new SimpleIntegerProperty(value);
   }
 
   public static IntAttribute from(Attribute attr) {
-    return Attribute.getAttributeAs(attr, IntAttribute.class);
+    return Attribute.getAs(attr, IntAttribute.class);
   }
 
   public int getValue() {

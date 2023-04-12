@@ -1,6 +1,11 @@
 /**
  * An API for building dynamic, type-safe, serializable data.
  *
- * <p>An attribute is a single key/value pair, with a value defined by the concrete class.
+ * <p>An {@link oogasalad.model.attribute.Attribute} is a single key/value pair, with a value
+ * defined by the concrete class.
+ * {@link oogasalad.model.attribute.Metadata} describes editing information for a field, such as if
+ * it can be edited and min/max values. {@link oogasalad.model.attribute.AttributeSchema} defines
+ * all the fields a type has and how to edit them, and allows generation of the appropriate
+ * {@link oogasalad.model.attribute.AttributeList}.
  */
 package oogasalad.model.attribute;

@@ -6,12 +6,13 @@ import java.util.Objects;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class StringAttributeMetadata extends AttributeMetadata {
+public class StringMetadata extends Metadata {
 
+  public static final Class<StringAttribute> ATTRIBUTE_CLASS = StringAttribute.class;
   private final StringProperty defaultValue;
 
   @JsonCreator
-  public StringAttributeMetadata(@JsonProperty("key") String key) {
+  public StringMetadata(@JsonProperty("key") String key) {
     super(key);
     this.defaultValue = new SimpleStringProperty("");
   }
@@ -19,6 +20,11 @@ public class StringAttributeMetadata extends AttributeMetadata {
   @Override
   public Attribute makeAttribute() {
     return makeStringAttribute();
+  }
+
+  @Override
+  public Class<? extends Attribute> getAttributeClass() {
+    return ATTRIBUTE_CLASS;
   }
 
   public StringAttribute makeStringAttribute() {
@@ -55,7 +61,7 @@ public class StringAttributeMetadata extends AttributeMetadata {
     if (!super.equals(o)) {
       return false;
     }
-    StringAttributeMetadata that = (StringAttributeMetadata) o;
+    StringMetadata that = (StringMetadata) o;
     return Objects.equals(getDefaultValue(), that.getDefaultValue());
   }
 

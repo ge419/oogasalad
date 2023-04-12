@@ -6,13 +6,15 @@ import java.util.Objects;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class IntAttributeMetadata extends AttributeMetadata {
+public class IntMetadata extends Metadata {
+
+  public static final Class<IntAttribute> ATTRIBUTE_CLASS = IntAttribute.class;
   private final IntegerProperty defaultValue;
   private final IntegerProperty minValue;
   private final IntegerProperty maxValue;
 
   @JsonCreator
-  public IntAttributeMetadata(@JsonProperty("key") String key) {
+  public IntMetadata(@JsonProperty("key") String key) {
     super(key);
     defaultValue = new SimpleIntegerProperty(0);
     minValue = new SimpleIntegerProperty(Integer.MIN_VALUE);
@@ -22,6 +24,11 @@ public class IntAttributeMetadata extends AttributeMetadata {
   @Override
   public Attribute makeAttribute() {
     return makeIntAttribute();
+  }
+
+  @Override
+  public Class<? extends Attribute> getAttributeClass() {
+    return ATTRIBUTE_CLASS;
   }
 
   public IntAttribute makeIntAttribute() {
@@ -84,7 +91,7 @@ public class IntAttributeMetadata extends AttributeMetadata {
     if (!super.equals(o)) {
       return false;
     }
-    IntAttributeMetadata that = (IntAttributeMetadata) o;
+    IntMetadata that = (IntMetadata) o;
     return Objects.equals(getDefaultValue(), that.getDefaultValue()) && Objects.equals(
         getMinValue(), that.getMinValue()) && Objects.equals(getMaxValue(), that.getMaxValue());
   }

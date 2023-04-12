@@ -1,22 +1,20 @@
-package oogasalad.model;
+package oogasalad.model.constructable;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.HashMap;
-import java.util.Map;
 import javax.inject.Inject;
-import oogasalad.model.attribute.Attribute;
-import oogasalad.model.attribute.AttributeList;
+import oogasalad.model.attribute.SchemaDatabase;
 
-public class Tile extends Constructable {
+public class Tile extends AttributeObject {
+
+  public static final String BASE_SCHEMA_NAME = "basicTile";
 
   @Inject
-  @JsonCreator
-  public Tile(
-      @JsonProperty("type") String schemaName,
-      SchemaDatabase database,
-      @JsonProperty("attributes") AttributeList attributeList) {
-    super(schemaName, database, attributeList);
+  public Tile(SchemaDatabase database) {
+    super(BASE_SCHEMA_NAME, database);
+    // TODO tile types
   }
+
+
 }
 

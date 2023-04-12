@@ -1,18 +1,17 @@
-package oogasalad.model;
+package oogasalad.model.constructable;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.inject.Inject;
-import oogasalad.model.attribute.AttributeList;
+import oogasalad.model.attribute.SchemaDatabase;
 
-public class Player extends Constructable {
+public class Player extends AttributeObject {
 
   @Inject
   @JsonCreator
   public Player(
       @JsonProperty("type") String schemaName,
-      SchemaDatabase database,
-      @JsonProperty("attributes") AttributeList attributeList) {
-    super(schemaName, database, attributeList);
+      SchemaDatabase database) {
+    super(schemaName, database);
   }
 }

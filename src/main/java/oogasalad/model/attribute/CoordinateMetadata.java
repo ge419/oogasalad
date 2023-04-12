@@ -6,12 +6,14 @@ import java.util.Objects;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
-public class CoordinateAttributeMetadata extends AttributeMetadata {
+public class CoordinateMetadata extends Metadata {
+
+  public static final Class<CoordinateAttribute> ATTRIBUTE_CLASS = CoordinateAttribute.class;
   private final DoubleProperty defaultX;
   private final DoubleProperty defaultY;
 
   @JsonCreator
-  public CoordinateAttributeMetadata(@JsonProperty("key") String key) {
+  public CoordinateMetadata(@JsonProperty("key") String key) {
     super(key);
     defaultX = new SimpleDoubleProperty(0);
     defaultY = new SimpleDoubleProperty(0);
@@ -21,6 +23,12 @@ public class CoordinateAttributeMetadata extends AttributeMetadata {
   public Attribute makeAttribute() {
     return makeCoordinateAttribute();
   }
+
+  @Override
+  public Class<? extends Attribute> getAttributeClass() {
+    return ATTRIBUTE_CLASS;
+  }
+
 
   public CoordinateAttribute makeCoordinateAttribute() {
     return new CoordinateAttribute(getKey(), getDefaultX(), getDefaultY());
@@ -69,7 +77,7 @@ public class CoordinateAttributeMetadata extends AttributeMetadata {
     if (!super.equals(o)) {
       return false;
     }
-    CoordinateAttributeMetadata that = (CoordinateAttributeMetadata) o;
+    CoordinateMetadata that = (CoordinateMetadata) o;
     return Objects.equals(getDefaultX(), that.getDefaultX()) && Objects.equals(getDefaultY(),
         that.getDefaultY());
   }

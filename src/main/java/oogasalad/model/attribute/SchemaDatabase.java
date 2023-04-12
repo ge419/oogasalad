@@ -1,4 +1,4 @@
-package oogasalad.model;
+package oogasalad.model.attribute;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import oogasalad.model.attribute.AttributeSchema;
+import oogasalad.model.ResourceReadException;
 import oogasalad.model.exception.FileReaderException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,5 +51,9 @@ public class SchemaDatabase {
 
   public Optional<AttributeSchema> getSchema(String name) {
     return Optional.ofNullable(schemaMap.get(name));
+  }
+
+  public boolean containsSchema(String name) {
+    return schemaMap.containsKey(name);
   }
 }

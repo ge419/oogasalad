@@ -9,14 +9,14 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 @JsonTypeInfo(use= Id.CLASS)
-public abstract class AttributeMetadata {
+public abstract class Metadata {
   private final String key;
   private final StringProperty name;
   private final StringProperty description;
   private final BooleanProperty editable;
   private final BooleanProperty viewable;
 
-  protected AttributeMetadata(String key) {
+  protected Metadata(String key) {
     this.key = key;
     name = new SimpleStringProperty("");
     description = new SimpleStringProperty("");
@@ -25,6 +25,10 @@ public abstract class AttributeMetadata {
   }
 
   public abstract Attribute makeAttribute();
+  public abstract Class<? extends Attribute> getAttributeClass();
+  public boolean isCorrectType(Attribute attribute) {
+    return getAttributeClass().isAssignableFrom(attribute.getClass());
+  }
 
   public String getKey() {
     return key;
@@ -97,7 +101,7 @@ public abstract class AttributeMetadata {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AttributeMetadata metadata = (AttributeMetadata) o;
+    Metadata metadata = (Metadata) o;
     return Objects.equals(key, metadata.key) && Objects.equals(getName(),
         metadata.getName()) && Objects.equals(getDescription(), metadata.getDescription())
         && Objects.equals(isEditable(), metadata.isEditable()) && Objects.equals(isViewable(),

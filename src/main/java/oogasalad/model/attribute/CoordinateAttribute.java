@@ -16,7 +16,7 @@ public class CoordinateAttribute extends Attribute {
   private final DoubleProperty y;
 
   @JsonCreator
-  protected CoordinateAttribute(
+  public CoordinateAttribute(
       @JsonProperty("key") String key,
       @JsonProperty("x") double x,
       @JsonProperty("y") double y
@@ -27,7 +27,7 @@ public class CoordinateAttribute extends Attribute {
   }
 
   public static CoordinateAttribute from(Attribute attr) {
-    return Attribute.getAttributeAs(attr, CoordinateAttribute.class);
+    return Attribute.getAs(attr, CoordinateAttribute.class);
   }
 
   public double getX() {

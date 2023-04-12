@@ -16,7 +16,7 @@ public class StringAttribute extends Attribute {
   }
 
   public static StringAttribute from(Attribute attr) {
-    return Attribute.getAttributeAs(attr, StringAttribute.class);
+    return Attribute.getAs(attr, StringAttribute.class);
   }
 
   public String getValue() {

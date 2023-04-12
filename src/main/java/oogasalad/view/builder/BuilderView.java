@@ -18,9 +18,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.graphs.Graph;
-import oogasalad.view.builder.graphs.GraphInterface;
 import oogasalad.view.tiles.BasicTile;
-import oogasalad.view.tiles.Tile;
+import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -46,7 +45,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     private VBox myLeftSidebar;
     private PopupForm popupForm;
     private int myTileCount = 0;
-    private Optional<Tile> myCurrentTile;
+    private Optional<ViewTile> myCurrentTile;
 
     public BuilderView() {
         builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
@@ -188,7 +187,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         //Optional<File> file = fileLoad(builderResource, "LoadGameTitle");
     }
 
-    private void handleTileClick(Tile tile){
+    private void handleTileClick(ViewTile tile){
         if (myCurrentTile.isPresent()){
             tile.setColor(Color.LIGHTGREEN);
             myGraph.addTileNext(myCurrentTile.get(), tile);

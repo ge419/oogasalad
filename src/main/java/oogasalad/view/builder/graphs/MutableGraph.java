@@ -1,11 +1,11 @@
 package oogasalad.view.builder.graphs;
 
-import oogasalad.view.tiles.Tile;
+import oogasalad.view.tiles.ViewTile;
 
 public interface MutableGraph {
-  void addTile(Tile tile);
-  void addTileNext(Tile tile, Tile nextTile);
-  void removeTile(Tile tile);
-  void removeNextTile(Tile tile, Tile nextTile);
-  int numberOfNextTiles(Tile desiredTile);
+  void addTile(ViewTile tile);
+  void addTileNext(ViewTile tile, ViewTile nextTile);
+  void removeTile(ViewTile tile);
+  void removeNextTile(ViewTile tile, ViewTile nextTile);
+  int numberOfNextTiles(ViewTile desiredTile);
 }

@@ -17,5 +17,4 @@ public abstract class Attribute {
   public String getKey() {
     return this.name;
   }
-
 }

@@ -3,7 +3,6 @@ package oogasalad.view.builder;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.graphs.Graph;
 import oogasalad.view.tiles.BasicTile;
-import oogasalad.view.tiles.Tile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;

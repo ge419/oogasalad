@@ -1,12 +1,12 @@
 package oogasalad.model.engine.actions;
 
-import oogasalad.view.tiles.Tile;
+import oogasalad.view.tiles.ViewTile;
 
 public class BuyAction implements Action {
 
-  private final Tile tile;
+  private final ViewTile tile;
 
-  public BuyAction(Tile tile) {
+  public BuyAction(ViewTile tile) {
     this.tile = tile;
   }
 

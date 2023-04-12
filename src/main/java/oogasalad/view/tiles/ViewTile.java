@@ -3,10 +3,10 @@ package oogasalad.view.tiles;
 import javafx.scene.paint.Color;
 import oogasalad.view.Coordinate;
 
-public interface Tile {
+public interface ViewTile {
   public int getTileId();
 
-  public double[] getPosition();
+  public Double[] getPosition();
 
   public int[] getNext();
 

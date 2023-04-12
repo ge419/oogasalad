@@ -7,7 +7,7 @@ import oogasalad.model.attribute.TileAttribute;
 import oogasalad.model.engine.Event;
 import oogasalad.model.engine.events.MonopolyEvent;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
-import oogasalad.view.tiles.Tile;
+import oogasalad.view.tiles.ViewTile;
 import oogasalad.view.tiles.Tiles;
 
 public class RollDieAndMoveAction implements Action {
@@ -31,7 +31,7 @@ public class RollDieAndMoveAction implements Action {
     int value = (int) (Math.random() * 6) + 1; // simulate rolling the dice
     actionParams.emitter().emit(new Event(
         MonopolyEvent.DIE_ROLLED, Map.of("value", new IntAttribute("value", value))));
-    Tile tile = piece.getCurrentTile();
+    ViewTile tile = piece.getCurrentTile();
 
     for (int i = 0; i < value; i++) {
       int nextTileId = tile.getNext()[0];

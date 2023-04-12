@@ -41,6 +41,9 @@ public class Model {
     File file = new File("data/player.json");
     Player PD = objectMapper.readValue(file, Player.class);
     System.out.println(PD.getAttribute("name").getClass());
+
+
+
   }
 
 

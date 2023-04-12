@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import oogasalad.model.attribute.Attribute;
 import oogasalad.model.attribute.MetaData;
-import oogasalad.model.constructable.Constructable;
 
 public class Tile implements Constructable {
   Map<String, MetaData> schema;

@@ -9,7 +9,7 @@ public class IntAttribute extends Attribute {
   private final IntegerProperty value;
 
   @JsonCreator
-  public IntAttribute(@JsonProperty("key") String key, @JsonProperty("value") int value) {
+  public IntAttribute(@JsonProperty("key") String key, @JsonProperty("value") Integer value) {
     super(key);
     this.value = new SimpleIntegerProperty(value);
   }

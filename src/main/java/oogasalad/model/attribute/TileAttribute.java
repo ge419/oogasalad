@@ -9,7 +9,7 @@ public class TileAttribute extends Attribute {
   private final IntegerProperty value;
 
   @JsonCreator
-  public TileAttribute(@JsonProperty("key") String key, @JsonProperty("value") int value) {
+  public TileAttribute(@JsonProperty("key") String key, @JsonProperty("value") Integer value) {
     super(key);
     this.value = new SimpleIntegerProperty(value);
   }

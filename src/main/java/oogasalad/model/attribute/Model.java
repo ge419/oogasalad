@@ -3,6 +3,7 @@ package oogasalad.model.attribute;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.beans.property.ObjectProperty;
@@ -15,12 +16,14 @@ public class Model {
   public static String printClass(Object ob) {
     return ob.getClass().toString();
   }
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args)
+      throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
     ObjectMapper objectMapper = new ObjectMapper();
     //List of attributes should be returned by attribute factory using metadata information
-    Attribute name = new StringAttribute("name", "Bob");
-    Attribute score = new IntAttribute("score", 100);
-    Attribute tile = new TileAttribute("tile", 3);
+    AttributeFactory af = new AttributeFactory();
+    Attribute name = af.generate("string", "name", "Bob");
+    Attribute score = af.generate("int", "score", 100);
+    Attribute tile = af.generate("tile", "tile", 3);
     //Place these attribute objects into String, Attribute Map
     Map<String, Attribute> attrs = new HashMap<>();
     attrs.put(name.getKey(), name);
@@ -31,7 +34,7 @@ public class Model {
 
     Player p = new Player();
     p.setAttributes(attrs);
-    System.out.println(printClass(p));
+    System.out.println(p.getAttribute("name"));
 
     objectMapper.writeValue(new File("data/player.json"), p);
 

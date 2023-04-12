@@ -1,10 +1,12 @@
-package oogasalad.model.engine.event_loop;
+package oogasalad.model.engine;
 
 import java.util.Optional;
 import oogasalad.model.engine.actions.Action;
 
 /**
- * A priority queue of {@link Action}s.
+ * A <em>stable</em> priority queue of {@link Action}s.
+ *
+ * @author Dominic Martinez
  */
 public interface ActionQueue {
 
@@ -12,7 +14,7 @@ public interface ActionQueue {
    * Adds an action to the queue.
    *
    * @param priority priority in ascending order; the smallest numerical priority is taken first
-   * @param action action to add to the queue.
+   * @param action   action to add to the queue.
    */
   void add(int priority, Action action);
 

@@ -1,4 +1,4 @@
-package oogasalad.model.engine.event_loop;
+package oogasalad.model.engine;
 
 import java.util.Comparator;
 import java.util.Optional;
@@ -6,13 +6,19 @@ import java.util.PriorityQueue;
 import oogasalad.model.engine.actions.Action;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
+/**
+ * Implements a <em>stable</em> priority queue for actions.
+ *
+ * @author Dominic Martinez
+ */
 public class SimpleActionQueue implements ActionQueue {
-  private static final Logger log = LogManager.getLogger(SimpleActionQueue.class);
 
-  private long counter;
+  private static final Logger log = LogManager.getLogger(SimpleActionQueue.class);
   private final PriorityQueue<PriorityAction> queue;
-  
+  private long counter;
+
   public SimpleActionQueue() {
     queue = new PriorityQueue<>();
     counter = 0;
@@ -47,7 +53,7 @@ public class SimpleActionQueue implements ActionQueue {
       implements Comparable<PriorityAction> {
 
     @Override
-    public int compareTo(PriorityAction o) {
+    public int compareTo(@NotNull PriorityAction o) {
       Comparator<PriorityAction> comp =
           Comparator.comparingInt(PriorityAction::priority)
               .thenComparingLong(PriorityAction::counter);

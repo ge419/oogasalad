@@ -1,7 +1,9 @@
-package oogasalad.model.engine.event_loop;
+package oogasalad.model.engine;
 
 /**
  * Defines handlers called when an {@link Event} is triggered.
+ *
+ * @author Dominic Martinez
  */
 @FunctionalInterface
 public interface EventHandler {

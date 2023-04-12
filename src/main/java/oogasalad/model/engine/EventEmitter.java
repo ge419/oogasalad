@@ -1,7 +1,9 @@
-package oogasalad.model.engine.event_loop;
+package oogasalad.model.engine;
 
 /**
  * Emits events to the current event loop.
+ *
+ * @author Dominic Martinez
  */
 @FunctionalInterface
 public interface EventEmitter {

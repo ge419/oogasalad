@@ -1,11 +1,17 @@
-package oogasalad.model.engine.event_loop;
+package oogasalad.model.engine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import oogasalad.model.engine.event_types.EventType;
+import oogasalad.model.engine.events.EventType;
 
+/**
+ * A simple {@link HashMap} based event handler implementation. Handlers are called in the order
+ * they are registered for the given event.
+ *
+ * @author Dominic Martinez
+ */
 public class SimpleEventHandlerManager implements EventHandlerManager {
 
   private final Map<String, List<EventHandler>> handlerMap;
@@ -25,7 +31,9 @@ public class SimpleEventHandlerManager implements EventHandlerManager {
   public void triggerEvent(EventHandlerParams params) {
     String type = params.event().type().type();
 
-    if (!handlerMap.containsKey(type)) return;
+    if (!handlerMap.containsKey(type)) {
+      return;
+    }
 
     for (EventHandler handler : handlerMap.get(type)) {
       handler.handleEvent(params);

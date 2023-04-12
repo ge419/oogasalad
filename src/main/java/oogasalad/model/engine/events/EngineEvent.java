@@ -1,8 +1,11 @@
-package oogasalad.model.engine.event_types;
+package oogasalad.model.engine.events;
 
 import oogasalad.model.engine.Engine;
 
 /**
+ * Enumerates built-in events recognized by the {@link Engine}.
+ *
+ * @author Dominic Martinez
  * @see Engine
  */
 public enum EngineEvent implements EventType {

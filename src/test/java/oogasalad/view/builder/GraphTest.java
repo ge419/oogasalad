@@ -2,6 +2,7 @@ package oogasalad.view.builder;
 
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.graphs.Graph;
+import oogasalad.view.builder.graphs.ImmutableGraph;
 import oogasalad.view.tiles.BasicTile;
 import oogasalad.view.tiles.Tile;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,8 +41,10 @@ public class GraphTest extends DukeApplicationTest {
     myGraph.addTileNext(myBasic, basic2);
     myGraph.addTileNext(myBasic, basic3);
 
-    assertEquals(myGraph.getNextTiles(myBasic).size(), 2);
-    assertEquals(myGraph.getNextTiles(myBasic).get(0).getTileId(), 1);
-    assertEquals(myGraph.getNextTiles(myBasic).get(1).getTileId(), 2);
+    ImmutableGraph immutGraph = new ImmutableGraph(myGraph);
+
+    assertEquals(immutGraph.getNextTiles(myBasic).size(), 2);
+    assertEquals(immutGraph.getNextTiles(myBasic).get(0).getTileId(), 1);
+    assertEquals(immutGraph.getNextTiles(myBasic).get(1).getTileId(), 2);
   }
 }

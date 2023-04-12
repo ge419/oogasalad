@@ -1,5 +1,6 @@
 package oogasalad.view.builder;
 
+import oogasalad.view.builder.graphs.ImmutableGraph;
 import java.awt.Dimension;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -18,6 +19,7 @@ import java.io.File;
 import java.util.Enumeration;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javax.swing.text.View;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.board.BoardInfo;
 import oogasalad.view.builder.board.NodeStorer;
@@ -25,10 +27,10 @@ import oogasalad.view.builder.board.ImmutableBoardInfo;
 import oogasalad.view.builder.gameholder.GameHolder;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.builder.graphs.Graph;
-import oogasalad.view.builder.graphs.ImmutableGraph;
 import oogasalad.view.builder.panefeatures.Dragger;
 import oogasalad.view.tiles.BasicTile;
 import oogasalad.view.tiles.Tile;
+import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -59,7 +61,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     private PopupForm popupForm;
     private int myTileCount = 0;
     private int myImageCount = 0;
-    private Optional<Tile> myCurrentTile;
+    private Optional<ViewTile> myCurrentTile;
     private BoardInfo myBoardInfo;
     private NodeStorer myNodeHolder;
     private boolean myDraggableObjectsToggle = true;
@@ -230,7 +232,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         }
     }
 
-    private void handleTileClick(Tile tile){
+    private void handleTileClick(ViewTile tile){
         if (myDeleteToggle){
             deleteTile(tile);
         }
@@ -254,7 +256,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         }
     }
 
-    private void deleteTile(Tile tile){
+    private void deleteTile(ViewTile tile){
         if (myDeleteToggle){
             myBoardPane.getChildren().remove(tile);
             myCurrentTile = Optional.empty();

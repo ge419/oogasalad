@@ -64,6 +64,19 @@
       "price": "$600",
       "width": 80,
       "height": 120
+    },
+    {
+      "type": "image",
+      "id": 2,
+      "coordinate": [
+        800,
+        575
+      ],
+      "image": "data/example/jail.png",
+      "text": "GO TO JAIL",
+      "width": 120,
+      "height": 120
     }
+
   ]
 }

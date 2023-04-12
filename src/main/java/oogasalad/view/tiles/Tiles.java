@@ -40,6 +40,10 @@ public class Tiles implements Renderable {
           pane.getChildren().add(streetTile);
         }
 
+        else if (tileNode.get("type").asText().equals("street")) {
+
+        }
+
         else {
           int id = tileNode.get("id").asInt();
           double[] position = objectMapper.treeToValue(tileNode.get("position"), double[].class);

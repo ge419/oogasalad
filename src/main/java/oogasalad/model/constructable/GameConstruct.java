@@ -1,5 +1,7 @@
 package oogasalad.model.constructable;
 
+import com.fasterxml.jackson.annotation.JacksonInject;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -33,12 +35,6 @@ public abstract class GameConstruct {
   private final SchemaDatabase database;
   private final Map<String, Attribute> attributeMap;
 
-  public GameConstruct(String schemaName) {
-    this.schemaName = schemaName;
-    database = null;
-    attributeMap = new TreeMap<>();
-  }
-
   public GameConstruct(String schemaName, SchemaDatabase database) {
     // TODO ??
     this.schemaName = schemaName;
@@ -54,10 +50,7 @@ public abstract class GameConstruct {
 
   @JsonSetter("attributes")
   public void setAllAttributes(List<Attribute> attributeList) {
-    attributeMap.clear();
-    for (Attribute attribute : attributeList) {
-      attributeMap.put(attribute.getKey(), attribute);
-    }
+    migrateAttributes(attributeList);
   }
 
   @JsonIgnore
@@ -96,7 +89,7 @@ public abstract class GameConstruct {
     return schemaName;
   }
 
-  @JsonSetter("schema")
+  @JsonIgnore
   public void loadSchema(String newSchemaName) {
     if (!database.containsSchema(newSchemaName)) {
       LOGGER.error("schema does not exist {}", newSchemaName);
@@ -106,6 +99,14 @@ public abstract class GameConstruct {
     ObjectSchema newSchema = database.getSchema(schemaName).get();
     setAllAttributes(newSchema.makeAllAttributes());
     migrateAttributes(attributeMap);
+  }
+
+  private void migrateAttributes(List<Attribute> oldAttributes) {
+    Map<String, Attribute> attrMap = new TreeMap<>();
+    for (Attribute attribute : oldAttributes) {
+      attrMap.put(attribute.getKey(), attribute);
+    }
+    migrateAttributes(attrMap);
   }
 
   /**

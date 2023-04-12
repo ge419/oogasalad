@@ -45,4 +45,12 @@ public class PositionAttribute extends Attribute {
   public DoubleProperty yProperty() {
     return y;
   }
+
+  @Override
+  public String toString() {
+    return "PositionAttribute{" +
+        "x=" + getX() +
+        ", y=" + getY() +
+        '}';
+  }
 }

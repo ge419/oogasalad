@@ -1,26 +1,26 @@
 package oogasalad.model.constructable;
 
+import com.fasterxml.jackson.annotation.JacksonInject;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.inject.Inject;
-import oogasalad.model.attribute.IntAttribute;
 import oogasalad.model.attribute.PositionAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
 
 public class Tile extends GameConstruct {
 
-  @JsonCreator
-  public Tile(@JsonProperty("schema") String tileType) {
-    super(tileType);
-  }
-  public Tile(String tileType, SchemaDatabase database) {
-    super(tileType, database);
+  public static final String BASE_SCHEMA_NAME = "basicTile";
+
+  @Inject
+  public Tile(@JacksonInject SchemaDatabase database) {
+    super(BASE_SCHEMA_NAME, database);
   }
 
-  //TODO: Replace with Tile ID
   @Override
   public String toString() {
-    return String.format("This is Tile X %.2f", PositionAttribute.from(getAttribute("position")).getX());
+    return "Tile={ "
+    + PositionAttribute.from(getAttribute("position")).toString()
+        + " }";
   }
 
 

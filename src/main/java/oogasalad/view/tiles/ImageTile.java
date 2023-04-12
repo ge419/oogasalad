@@ -28,7 +28,7 @@ public class ImageTile extends StackPane implements Tile, Textable, Imageable {
     Rectangle tileBackground = tileBackground(width, height);
     ImageView tileImage = createImage(width, imgPath);
 
-    VBox content = new VBox(height / MARGIN_SCALE, tileImage, createTextBox(textMap, height));
+    VBox content = new VBox(height / MARGIN_SCALE, tileImage, createTextBox(textMap, height, width));
     content.setAlignment(Pos.CENTER);
     getChildren().addAll(tileBackground, content);
   }
@@ -42,11 +42,11 @@ public class ImageTile extends StackPane implements Tile, Textable, Imageable {
   }
 
   @Override
-  public VBox createTextBox(Map<String, String> textMap, double height) {
+  public VBox createTextBox(Map<String, String> textMap, double height, double width) {
     VBox textBox = new VBox();
     for (String key : textMap.keySet()) {
       Text text = new Text(textMap.get(key));
-      resizeText(text, height, TEXT_SCALE);
+      resizeText(text, height, TEXT_SCALE, width);
       textBox.getChildren().add(text);
     }
     textBox.setAlignment(Pos.CENTER);

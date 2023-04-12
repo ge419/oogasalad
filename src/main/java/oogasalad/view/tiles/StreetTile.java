@@ -23,7 +23,7 @@ public class StreetTile extends StackPane implements Tile, Textable {
     textMap.put("name", name);
     textMap.put("price", price);
 
-    getChildren().addAll((createBarBox(width, height, color)), createTextBox(textMap, height));
+    getChildren().addAll((createBarBox(width, height, color)), createTextBox(textMap, height, width));
     setPosition(position);
   }
 
@@ -46,13 +46,13 @@ public class StreetTile extends StackPane implements Tile, Textable {
   }
 
   @Override
-  public VBox createTextBox(Map<String, String> textMap, double height) {
+  public VBox createTextBox(Map<String, String> textMap, double height, double width) {
     VBox textBox = new VBox();
     Text streetText = new Text(textMap.get("name"));
-    resizeText(streetText, height, TEXT_SCALE);
+    resizeText(streetText, height, TEXT_SCALE, width);
     textBox.setMargin(streetText, new Insets(height / 6, 0, height / 3, 0));
     Text priceText = new Text(textMap.get("price"));
-    resizeText(priceText, height, TEXT_SCALE);
+    resizeText(priceText, height, TEXT_SCALE, width);
     textBox.setAlignment(Pos.CENTER);
     textBox.getChildren().addAll(streetText, priceText);
     return textBox;

@@ -112,6 +112,19 @@
       "text": "COMMUNITY",
       "width": 80,
       "height": 120
+    },
+    {
+      "type": "utility",
+      "id": 2,
+      "coordinate": [
+        1160,
+        575
+      ],
+      "image": "example/train.jpg",
+      "name": "KINGS CROSS STATION",
+      "price": "$800",
+      "width": 80,
+      "height": 120
     }
   ]
 }

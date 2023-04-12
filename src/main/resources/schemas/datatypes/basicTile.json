@@ -12,24 +12,24 @@
       "defaultY": 0
     },
     {
-      "@class": "oogasalad.model.attribute.IntMetadata",
+      "@class": "oogasalad.model.attribute.DoubleMetadata",
       "key": "width",
       "name": "Width",
       "description": "Width of the tile.",
       "editable": true,
       "viewable": true,
-      "defaultValue": 10,
+      "defaultValue": 50,
       "minValue": -2147483648,
       "maxValue": 2147483647
     },
     {
-      "@class": "oogasalad.model.attribute.IntMetadata",
+      "@class": "oogasalad.model.attribute.DoubleMetadata",
       "key": "height",
       "name": "Height",
       "description": "Height of the tile.",
       "editable": true,
       "viewable": true,
-      "defaultValue": 10,
+      "defaultValue": 50,
       "minValue": -2147483648,
       "maxValue": 2147483647
     },

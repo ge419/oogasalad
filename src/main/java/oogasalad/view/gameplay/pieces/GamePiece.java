@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 import oogasalad.view.gameplay.Movable;
 
 abstract public class GamePiece extends ImageView implements Movable {
-  private static double PIECE_SIZE = 100;
+  private static double PIECE_SIZE = 20;
   private double xCoor;
   private double yCoor;
   protected Image image;

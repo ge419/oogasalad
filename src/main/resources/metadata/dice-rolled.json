@@ -1,0 +1,9 @@
+{
+  "@class": "oogasalad.model.attribute.IntAttributeMetadata",
+  "key": "diceRolled",
+  "name": "Dice roll",
+  "description": "Dice roll value",
+  "editable": true,
+  "viewable": true,
+  "defaultValue": 1
+}

@@ -19,6 +19,7 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import oogasalad.view.Coordinate;
 
 public interface BuilderUtility {
     default Node makeText(String property, ResourceBundle resourceBundle) {
@@ -98,5 +99,10 @@ public interface BuilderUtility {
     default Optional<File> directoryGet(ResourceBundle resourceBundle, String property){
         DirectoryChooser directFile = makeDirectoryChooser(property, resourceBundle);
         return Optional.ofNullable(directFile.showDialog(null));
+    }
+
+    default void setNodeLocation(Node node, Coordinate coord){
+        node.setLayoutX(coord.getXCoor());
+        node.setLayoutY(coord.getYCoor());
     }
 }

@@ -1,0 +1,19 @@
+{
+  "@class" : "oogasalad.model.constructable.Tile",
+  "@id" : 1,
+  "schema" : "basicTile",
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "height",
+    "value" : 10
+  }, {
+    "@class" : "oogasalad.model.attribute.PositionAttribute",
+    "key" : "position",
+    "x" : 100.0,
+    "y" : 100.0
+  }, {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "width",
+    "value" : 10
+  } ]
+}

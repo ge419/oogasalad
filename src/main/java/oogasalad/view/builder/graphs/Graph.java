@@ -1,26 +1,21 @@
 package oogasalad.view.builder.graphs;
 
 import java.util.*;
-import oogasalad.view.tiles.Tile;
+import oogasalad.view.tiles.ViewTile;
 
-/**
- * Basic implementation of AbstractGraph using HashMaps.
- *
- * @author tmh85
- */
-public class Graph extends AbstractGraph {
-    private final HashMap<Tile, ArrayList<Tile>> myMap;
+public class Graph implements GraphInterface, MutableGraph {
+    private final HashMap<ViewTile, ArrayList<ViewTile>> myMap;
 
     public Graph(){
         myMap = new HashMap<>();
     }
     @Override
-    public void addTile(Tile tile) {
+    public void addTile(ViewTile tile) {
         initializeIfNonexistent(tile);
     }
 
     @Override
-    public void addTileNext(Tile tile, Tile nextTile) {
+    public void addTileNext(ViewTile tile, ViewTile nextTile) {
         initializeIfNonexistent(tile);
         if (myMap.get(tile).contains(nextTile)){
             // todo: log that we tried to add a tile that already exists.
@@ -30,10 +25,13 @@ public class Graph extends AbstractGraph {
         }
     }
     @Override
-    public void removeTile(Tile tile) {
+    public void removeTile(ViewTile tile) {
         if (myMap.containsKey(tile)){
             myMap.get(tile).clear();
             myMap.remove(tile);
+            for (Tile otherTile : getTiles()){
+                myMap.get(otherTile).remove(tile);
+            }
         }
         else{
             //todo: LOG that we tried to remove a tile that doesn't exist from the graph.
@@ -41,7 +39,7 @@ public class Graph extends AbstractGraph {
     }
 
     @Override
-    public void removeNextTile(Tile tile, Tile nextTile) {
+    public void removeNextTile(ViewTile tile, ViewTile nextTile) {
         initializeIfNonexistent(tile);
         if (myMap.get(tile).contains(nextTile)){
             myMap.get(tile).remove(nextTile);
@@ -52,13 +50,13 @@ public class Graph extends AbstractGraph {
     }
 
     @Override
-    public int numberOfNextTiles(Tile desiredTile) {
+    public int numberOfNextTiles(ViewTile desiredTile) {
         initializeIfNonexistent(desiredTile);
         return myMap.get(desiredTile).size();
     }
 
     @Override
-    public List<Tile> getNextTiles(Tile desiredTile) {
+    public List<ViewTile> getNextTiles(ViewTile desiredTile) {
         if (!myMap.containsKey(desiredTile)){
             // todo: create error for this.
             throw new RuntimeException();
@@ -67,21 +65,22 @@ public class Graph extends AbstractGraph {
     }
 
     @Override
-    public List<Tile> getTiles() {
+    public List<ViewTile> getTiles() {
         return new ArrayList<>(myMap.keySet());
     }
 
+    @Override
     public void print() {
-        List<Tile> ourTiles = this.getTiles();
+        List<ViewTile> ourTiles = this.getTiles();
         int index = 0;
-        for (Tile tile: ourTiles){
+        for (ViewTile tile: ourTiles){
             System.out.println("Tile at index " + index + ": " + tile.toString());
             System.out.println(this.getNextTiles(tile));
             ++index;
         }
     }
 
-    private void initializeIfNonexistent(Tile tile){
+    private void initializeIfNonexistent(ViewTile tile){
         myMap.putIfAbsent(tile, new ArrayList<>());
     }
 }

@@ -3,6 +3,7 @@ package oogasalad.model.constructable;
 import com.fasterxml.jackson.annotation.JacksonInject;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import javax.inject.Inject;
 import oogasalad.model.attribute.PositionAttribute;
 import oogasalad.model.attribute.SchemaDatabase;

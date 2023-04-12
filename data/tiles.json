@@ -1,7 +1,7 @@
 {
   "tiles" : [ {
     "@class" : "oogasalad.model.constructable.Tile",
-    "@id" : 1,
+    "uuid" : "ccdf4be9-f653-4082-b98a-1ea64ba4ea65",
     "schema" : "basicTile",
     "attributes" : [ {
       "@class" : "oogasalad.model.attribute.IntAttribute",
@@ -19,7 +19,7 @@
     } ]
   }, {
     "@class" : "oogasalad.model.constructable.Tile",
-    "@id" : 2,
+    "uuid" : "13111438-91b3-499f-8aa1-791e95796ec8",
     "schema" : "basicTile",
     "attributes" : [ {
       "@class" : "oogasalad.model.attribute.IntAttribute",
@@ -37,7 +37,7 @@
     } ]
   }, {
     "@class" : "oogasalad.model.constructable.Tile",
-    "@id" : 3,
+    "uuid" : "3e03536c-d47f-4104-af1f-aa06192f4302",
     "schema" : "basicTile",
     "attributes" : [ {
       "@class" : "oogasalad.model.attribute.IntAttribute",
@@ -55,7 +55,7 @@
     } ]
   }, {
     "@class" : "oogasalad.model.constructable.Tile",
-    "@id" : 4,
+    "uuid" : "aab8feb8-cda5-45a3-bc66-3d50909daf7f",
     "schema" : "basicTile",
     "attributes" : [ {
       "@class" : "oogasalad.model.attribute.IntAttribute",
@@ -73,7 +73,7 @@
     } ]
   }, {
     "@class" : "oogasalad.model.constructable.Tile",
-    "@id" : 5,
+    "uuid" : "024bb3da-bbfa-4171-8a02-317a56ba52c4",
     "schema" : "basicTile",
     "attributes" : [ {
       "@class" : "oogasalad.model.attribute.IntAttribute",
@@ -91,7 +91,7 @@
     } ]
   }, {
     "@class" : "oogasalad.model.constructable.Tile",
-    "@id" : 6,
+    "uuid" : "a531fc55-5b3e-4d98-9f7f-2baa2e666305",
     "schema" : "basicTile",
     "attributes" : [ {
       "@class" : "oogasalad.model.attribute.IntAttribute",
@@ -109,7 +109,7 @@
     } ]
   }, {
     "@class" : "oogasalad.model.constructable.Tile",
-    "@id" : 7,
+    "uuid" : "29cb68b2-86fa-4571-87fe-297092a5f155",
     "schema" : "basicTile",
     "attributes" : [ {
       "@class" : "oogasalad.model.attribute.IntAttribute",
@@ -127,7 +127,7 @@
     } ]
   }, {
     "@class" : "oogasalad.model.constructable.Tile",
-    "@id" : 8,
+    "uuid" : "a9f01972-0724-41b3-93c9-83e0207c2f02",
     "schema" : "basicTile",
     "attributes" : [ {
       "@class" : "oogasalad.model.attribute.IntAttribute",

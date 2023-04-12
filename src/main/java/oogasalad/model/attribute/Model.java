@@ -48,7 +48,7 @@ public class Model {
     Board board = new Board(tiles);
     objectMapper.writeValue(new File("data/tiles.json"), board);
 
-    File file = new File("data/example/tiles.json");
+    File file = new File("data/tiles.json");
     Board bd = objectMapper.readValue(file, Board.class);
     System.out.println(bd.getTiles());
 

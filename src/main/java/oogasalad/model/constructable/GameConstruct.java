@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
+import java.util.UUID;
 import oogasalad.model.attribute.Attribute;
 import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.Metadata;
@@ -26,21 +27,29 @@ import org.apache.logging.log4j.Logger;
  * The available attributes are defined by the schema.
  */
 @JsonTypeInfo(use= Id.CLASS)
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public abstract class GameConstruct {
   private static final Logger LOGGER = LogManager.getLogger(GameConstruct.class);
   @JsonProperty("schema")
   private String schemaName;
+  private String uuid;
   @JsonIgnore
   private final SchemaDatabase database;
   private final Map<String, Attribute> attributeMap;
 
-  public GameConstruct(String schemaName, SchemaDatabase database) {
-    // TODO ??
+  protected GameConstruct(String schemaName, SchemaDatabase database) {
+    this.uuid = UUID.randomUUID().toString();
     this.schemaName = schemaName;
     this.database = database;
     this.attributeMap = new TreeMap<>();
     this.loadSchema(schemaName);
+  }
+
+  public String getUuid() {
+    return uuid;
+  }
+
+  public void setUuid(String uuid) {
+    this.uuid = uuid;
   }
 
   @JsonGetter("attributes")

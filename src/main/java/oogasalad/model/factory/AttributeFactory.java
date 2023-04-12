@@ -1,7 +1,8 @@
-package oogasalad.model.attribute;
+package oogasalad.model.factory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import oogasalad.model.attribute.Attribute;
 import oogasalad.util.ClassPathMatcher;
 
 public class AttributeFactory {
@@ -15,7 +16,6 @@ public class AttributeFactory {
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
     String classPath = pathFinder.getKey(type);
     Class<?> dataClazz = Class.forName(classPath);
-    System.out.println(value.getClass());
     Constructor<?> constructor = dataClazz.getConstructor(String.class, value.getClass());
     Attribute attribute = (Attribute) constructor.newInstance(key, value);
     return attribute;

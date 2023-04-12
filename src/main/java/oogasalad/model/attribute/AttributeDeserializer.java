@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import java.io.IOException;
 import java.util.HashMap;
 
+@Deprecated
 public class AttributeDeserializer extends StdDeserializer {
 
   public AttributeDeserializer() {

@@ -4,7 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import oogasalad.model.constructable.Constructable;
 import oogasalad.model.constructable.Player;
@@ -27,14 +30,17 @@ public class Model {
     Attribute name = af.generate("string", "name", "Bob");
     Attribute score = af.generate("int", "score", 100);
     Attribute tile = af.generate("tile", "tile", 3);
+    List<Double> list = new ArrayList<>(Arrays.asList(10.0, 20.0));
+    Attribute pos = af.generate("position", "coordinates", list);
     //Place these attribute objects into String, Attribute Map
     Map<String, Attribute> attrs = new HashMap<>();
     attrs.put(name.getKey(), name);
     attrs.put(score.getKey(), score);
     attrs.put(tile.getKey(), tile);
+    attrs.put(pos.getKey(), pos);
 
     Constructable p = cf.generate("player", attrs);
-    System.out.println(p.getAttribute("name"));
+    System.out.println(p.getAttribute("coordinates"));
 
     objectMapper.writeValue(new File("data/player.json"), p);
 

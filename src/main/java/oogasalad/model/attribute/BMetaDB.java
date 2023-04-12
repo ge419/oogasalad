@@ -16,11 +16,7 @@ import oogasalad.model.exception.FileReaderException;
  * */
 public class BMetaDB {
   Logger logger = Logger.getLogger(String.valueOf(FileReader.class));
-  private Map<String, MetaData> metaMap = new HashMap<>();
-
-  public BMetaDB() {
-
-  }
+  private final Map<String, MetaData> metaMap = new HashMap<>();
 
   private void readFiles() {
     try{

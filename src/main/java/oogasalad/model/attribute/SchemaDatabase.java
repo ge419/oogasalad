@@ -23,14 +23,13 @@ public class SchemaDatabase {
 
   public SchemaDatabase() {
     schemaMap = new HashMap<>();
-    readResourceSchemaFiles();
+    this.readResourceSchemaFiles();
   }
 
   private void readResourceSchemaFiles() {
     try {
-      ObjectMapper mapper = new ObjectMapper();
       for (File file : FileReader.readFiles(SCHEMA_RESOURCE_PATH)) {
-        readSchemaFile(mapper, file);
+        readSchemaFile(file);
       }
     } catch (IOException | FileReaderException e) {
       logger.fatal("Failed to read resource schema file", e);
@@ -38,14 +37,14 @@ public class SchemaDatabase {
     }
   }
 
-  private void readSchemaFile(ObjectMapper mapper, File file) throws IOException {
+  private void readSchemaFile(File file) throws IOException {
+    ObjectMapper mapper = new ObjectMapper();
     AttributeSchema schema = mapper.readValue(file, AttributeSchema.class);
     String schemaName = schema.getName();
 
     if (schemaMap.containsKey(schemaName)) {
       logger.error("Duplicate schema name {}", schemaName);
     }
-
     schemaMap.put(schemaName, schema);
   }
 

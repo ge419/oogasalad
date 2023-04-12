@@ -19,7 +19,7 @@ public abstract class Attribute {
     return key;
   }
 
-  protected static <T extends Attribute> T getAs(Attribute attr, Class<T> clazz) {
+  public static <T extends Attribute> T getAs(Attribute attr, Class<T> clazz) {
     try {
       return clazz.cast(attr);
     } catch (ClassCastException e) {

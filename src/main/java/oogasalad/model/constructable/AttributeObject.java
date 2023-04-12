@@ -27,7 +27,6 @@ import org.apache.logging.log4j.Logger;
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public abstract class AttributeObject {
   private static final Logger LOGGER = LogManager.getLogger(AttributeObject.class);
-  // Primary schema for object
   @JsonProperty("schema")
   private String schemaName;
   @JsonIgnore
@@ -39,7 +38,7 @@ public abstract class AttributeObject {
     this.schemaName = schemaName;
     this.database = database;
     this.attributeMap = new TreeMap<>();
-    setSchemaName(schemaName);
+    this.loadSchema(schemaName);
   }
 
   @JsonGetter("attributes")
@@ -56,8 +55,8 @@ public abstract class AttributeObject {
   }
 
   @JsonIgnore
-  public Optional<Attribute> getAttribute(String key) {
-    return Optional.ofNullable(attributeMap.get(key));
+  public Attribute getAttribute(String key) {
+    return attributeMap.get(key);
   }
 
   @JsonIgnore
@@ -92,16 +91,14 @@ public abstract class AttributeObject {
   }
 
   @JsonSetter("schema")
-  public void setSchemaName(String newSchemaName) {
+  public void loadSchema(String newSchemaName) {
     if (!database.containsSchema(newSchemaName)) {
-      LOGGER.error("invalid schema name {}", newSchemaName);
+      LOGGER.error("schema does not exist {}", newSchemaName);
       throw new IllegalArgumentException("invalid schema");
     }
-
     this.schemaName = newSchemaName;
     AttributeSchema newSchema = database.getSchema(schemaName).get();
     setAllAttributes(newSchema.makeAllAttributes());
-
     migrateAttributes(attributeMap);
   }
 
@@ -120,12 +117,10 @@ public abstract class AttributeObject {
   public AttributeSchema getSchema() {
     // TODO: Add rule schemas
     Optional<AttributeSchema> schema = database.getSchema(getSchemaName());
-
     if (schema.isEmpty()) {
       LOGGER.error("contained schema name {} is not in database", getSchemaName());
       throw new IllegalStateException("invalid contained schema");
     }
-
     return schema.get();
   }
 }

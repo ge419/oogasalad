@@ -4,6 +4,7 @@
     {
       "@class": "oogasalad.model.attribute.CoordinateMetadata",
       "key": "position",
+      "type": "int",
       "name": "Position",
       "description": "Position of tile on board.",
       "editable": true,
@@ -14,22 +15,24 @@
     {
       "@class": "oogasalad.model.attribute.IntMetadata",
       "key": "width",
+      "type": "int",
       "name": "Width",
       "description": "Width of the tile.",
       "editable": true,
       "viewable": true,
-      "defaultValue": 0,
+      "defaultValue": 10,
       "minValue": -2147483648,
       "maxValue": 2147483647
     },
     {
       "@class": "oogasalad.model.attribute.IntMetadata",
       "key": "height",
+      "type": "int",
       "name": "Height",
       "description": "Height of the tile.",
       "editable": true,
       "viewable": true,
-      "defaultValue": 0,
+      "defaultValue": 10,
       "minValue": -2147483648,
       "maxValue": 2147483647
     }

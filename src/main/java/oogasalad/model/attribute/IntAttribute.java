@@ -32,13 +32,6 @@ public class IntAttribute extends Attribute {
   }
 
   @Override
-  public String toString() {
-    return "IntAttribute{" +
-        "value=" + value +
-        '}';
-  }
-
-  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;

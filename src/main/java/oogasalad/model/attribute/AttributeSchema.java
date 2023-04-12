@@ -14,33 +14,35 @@ import java.util.TreeMap;
 
 public class AttributeSchema {
   private final String name;
-  private final Map<String, Metadata> metadataMap;
+  private final Map<String, Metadata> fields;
+
+
 
   public AttributeSchema(String name) {
     this.name = name;
-    this.metadataMap = new TreeMap<>();
+    this.fields = new TreeMap<>();
   }
 
   @JsonCreator
   public AttributeSchema(
       @JsonProperty("name") String name,
-      @JsonProperty("fields") Collection<Metadata> metadataList
+      @JsonProperty("fields") Collection<Metadata> metaCollection
   ) {
     this.name = name;
-    this.metadataMap = new TreeMap<>();
-    for (Metadata metadata : metadataList) {
-      metadataMap.put(metadata.getKey(), metadata);
+    this.fields = new TreeMap<>();
+    for (Metadata metadata : metaCollection) {
+      this.fields.put(metadata.getKey(), metadata);
     }
   }
 
   @JsonGetter("fields")
   public List<Metadata> getAllMetadata() {
-    return metadataMap.values().stream().toList();
+    return this.fields.values().stream().toList();
   }
 
   @JsonIgnore
   public Optional<Metadata> getMetadata(String key) {
-    return Optional.ofNullable(metadataMap.get(key));
+    return Optional.ofNullable(this.fields.get(key));
   }
 
   public String getName() {
@@ -49,7 +51,7 @@ public class AttributeSchema {
 
   public List<Attribute> makeAllAttributes() {
     List<Attribute> list = new ArrayList<>();
-    for (Metadata metadata : getAllMetadata()) {
+    for (Metadata metadata : this.getAllMetadata()) {
       Attribute attr = metadata.makeAttribute();
       Objects.requireNonNull(attr);
       list.add(attr);
@@ -58,15 +60,11 @@ public class AttributeSchema {
     return list;
   }
 
-  public boolean containsKey(String key) {
-    return metadataMap.containsKey(key);
-  }
-
   @Override
   public String toString() {
     return "AttributeSchema{" +
         "name='" + name + '\'' +
-        ", metadataList=" + metadataMap +
+        ", metadataList=" + this.fields +
         '}';
   }
 
@@ -79,12 +77,12 @@ public class AttributeSchema {
       return false;
     }
     AttributeSchema schema = (AttributeSchema) o;
-    return Objects.equals(name, schema.name) && Objects.equals(metadataMap,
-        schema.metadataMap);
+    return Objects.equals(name, schema.name) && Objects.equals(this.fields,
+        schema.fields);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, metadataMap);
+    return Objects.hash(name, this.fields);
   }
 }

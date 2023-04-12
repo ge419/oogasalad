@@ -1,5 +1,6 @@
 package oogasalad.model.attribute;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import java.util.Objects;
@@ -10,7 +11,10 @@ import javafx.beans.property.StringProperty;
 
 @JsonTypeInfo(use= Id.CLASS)
 public abstract class Metadata {
+  @JsonProperty("key")
   private final String key;
+  @JsonProperty("type")
+  private final String type;
   private final StringProperty name;
   private final StringProperty description;
   private final BooleanProperty editable;
@@ -18,6 +22,7 @@ public abstract class Metadata {
 
   protected Metadata(String key) {
     this.key = key;
+    this.type = "";
     name = new SimpleStringProperty("");
     description = new SimpleStringProperty("");
     editable = new SimpleBooleanProperty(true);
@@ -32,6 +37,10 @@ public abstract class Metadata {
 
   public String getKey() {
     return key;
+  }
+
+  public String getType() {
+    return this.type;
   }
 
   public String getName() {

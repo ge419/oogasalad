@@ -18,6 +18,8 @@ public interface Prompter {
    */
   void rollDice(Runnable callback);
 
+  void yesNoDialog(Consumer<Boolean> callback);
+
   /**
    * Prompts the user to select a single option.
    *

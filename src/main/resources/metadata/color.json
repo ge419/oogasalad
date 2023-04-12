@@ -4,6 +4,5 @@
   "name":"Color",
   "description": "Color of a tile",
   "editable": true,
-  "viewable": true,
-  "defaultVal": "RED"
+  "viewable": true
 }

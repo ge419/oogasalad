@@ -1,0 +1,8 @@
+{
+  "key": "afterTurn",
+  "type": "tile",
+  "name": "afterTurn",
+  "description": "specifies tiles after the turn options",
+  "editable": true,
+  "viewable": false
+}

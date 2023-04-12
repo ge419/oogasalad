@@ -16,7 +16,67 @@
         150,
         100
       ],
-      "next": [],
+      "next": [3],
+      "onLand": [2],
+      "afterTurn": [9]
+    },
+    {
+      "id": 3,
+      "position": [
+        200,
+        100
+      ],
+      "next": [4],
+      "onLand": [2],
+      "afterTurn": [9]
+    },
+    {
+      "id": 4,
+      "position": [
+        200,
+        150
+      ],
+      "next": [5],
+      "onLand": [2],
+      "afterTurn": [9]
+    },
+    {
+      "id": 5,
+      "position": [
+        200,
+        200
+      ],
+      "next": [6],
+      "onLand": [2],
+      "afterTurn": [9]
+    },
+    {
+      "id": 6,
+      "position": [
+        150,
+        200
+      ],
+      "next": [7],
+      "onLand": [2],
+      "afterTurn": [9]
+    },
+    {
+      "id": 7,
+      "position": [
+        100,
+        200
+      ],
+      "next": [8],
+      "onLand": [2],
+      "afterTurn": [9]
+    },
+    {
+      "id": 8,
+      "position": [
+        100,
+        150
+      ],
+      "next": [1],
       "onLand": [2],
       "afterTurn": [9]
     }

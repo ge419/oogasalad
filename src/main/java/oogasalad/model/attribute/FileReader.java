@@ -1,4 +1,4 @@
-package oogasalad.model;
+package oogasalad.model.attribute;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,0 +1,8 @@
+{
+  "key": "nextTile",
+  "type": "tile",
+  "name": "nextTile",
+  "description": "specifies next tile",
+  "editable": true,
+  "viewable": true
+}

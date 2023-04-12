@@ -1,0 +1,8 @@
+{
+  "key": "id",
+  "type": "int",
+  "name": "ID",
+  "description": "object identifier",
+  "editable": false,
+  "viewable": true
+}

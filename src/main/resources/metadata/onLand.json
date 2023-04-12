@@ -1,0 +1,8 @@
+{
+  "key": "onLand",
+  "type": "tile",
+  "name": "onLand",
+  "description": "specifies tiles on land option",
+  "editable": true,
+  "viewable": false
+}

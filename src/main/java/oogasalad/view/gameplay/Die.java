@@ -25,14 +25,16 @@ public class Die extends StackPane implements Renderable {
       addDot(dotArray[i]);
     }
 
-    setOnMouseClicked(event -> {
-      //TODO: remove this and implement passing in the random die value
-      int value = (int) (Math.random() * 6) + 1; // simulate rolling the dice
-      rollDice(value);
-    });
-
     this.setLayoutX(700);
     this.setLayoutY(700);
+  }
+
+  public void setCallback(Runnable runnable) {
+    setOnMouseClicked(event -> {
+      System.out.println("Clicked die");
+      System.out.println("Running callback");
+      runnable.run();
+    });
   }
 
   protected Circle createDot(int size) {
@@ -83,8 +85,7 @@ public class Die extends StackPane implements Renderable {
 
   @Override
   public void render(BorderPane pane) {
-    Die die = new Die();
-    die.setId("Die");
-    pane.getChildren().add(die);
+    setId("Die");
+    pane.getChildren().add(this);
   }
 }

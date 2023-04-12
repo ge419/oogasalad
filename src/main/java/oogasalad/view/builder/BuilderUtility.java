@@ -13,7 +13,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -77,11 +76,6 @@ public interface BuilderUtility {
         fileChooser.setTitle(resourceBundle.getString(property));
         return fileChooser;
     }
-    default DirectoryChooser makeDirectoryChooser(String property, ResourceBundle resourceBundle){
-        DirectoryChooser directChooser = new DirectoryChooser();
-        directChooser.setTitle(resourceBundle.getString(property));
-        return directChooser;
-    }
     default Node makeFileSelectButton(String property, ResourceBundle resourceBundle, FileChooser fileChooser) {
         return makeButton(property, resourceBundle, e->Optional.ofNullable(fileChooser.showOpenDialog(null)));
     }
@@ -93,10 +87,5 @@ public interface BuilderUtility {
     default Optional<File> fileSave(ResourceBundle resourceBundle, String property){
         FileChooser chooseFile = makeFileChooser(property, resourceBundle);
         return Optional.ofNullable(chooseFile.showSaveDialog(null));
-    }
-
-    default Optional<File> directoryGet(ResourceBundle resourceBundle, String property){
-        DirectoryChooser directFile = makeDirectoryChooser(property, resourceBundle);
-        return Optional.ofNullable(directFile.showDialog(null));
     }
 }

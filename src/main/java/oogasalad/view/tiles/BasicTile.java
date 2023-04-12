@@ -2,6 +2,7 @@ package oogasalad.view.tiles;
 
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import oogasalad.view.Renderable;
 import oogasalad.view.Coordinate;
@@ -62,6 +63,11 @@ public class BasicTile extends Rectangle implements Tile {
   public void setPosition(Coordinate coord) {
     this.setX(coord.getXCoor());
     this.setY(coord.getYCoor());
+  }
+
+  @Override
+  public Paint getColor() {
+    return this.getFill();
   }
 
   @Override

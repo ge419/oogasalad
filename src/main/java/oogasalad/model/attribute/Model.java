@@ -11,6 +11,10 @@ import oogasalad.model.constructable.Player;
 
 
 public class Model {
+
+  public static String printClass(Object ob) {
+    return ob.getClass().toString();
+  }
   public static void main(String[] args) throws IOException {
     ObjectMapper objectMapper = new ObjectMapper();
     //List of attributes should be returned by attribute factory using metadata information
@@ -23,8 +27,11 @@ public class Model {
     attrs.put(score.getKey(), score);
     attrs.put(tile.getKey(), tile);
 
+
+
     Player p = new Player();
     p.setAttributes(attrs);
+    System.out.println(printClass(p));
 
     objectMapper.writeValue(new File("data/player.json"), p);
 

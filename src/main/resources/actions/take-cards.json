@@ -1,0 +1,7 @@
+{
+  "name": "TAKE-CARDS",
+  "description": "give up a number of cards",
+  "schema": [
+    "number-of-discard-cards"
+  ]
+}

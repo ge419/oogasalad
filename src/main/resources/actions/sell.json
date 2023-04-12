@@ -1,0 +1,7 @@
+{
+  "name": "SELL",
+  "description": "sell a property",
+  "schema": [
+    "cost"
+  ]
+}

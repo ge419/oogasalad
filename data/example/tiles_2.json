@@ -72,11 +72,22 @@
         800,
         575
       ],
-      "image": "data/example/jail.png",
+      "image": "example/jail.jpg",
       "text": "GO TO JAIL",
-      "width": 120,
-      "height": 120
+      "width": 100,
+      "height": 100
+    },
+    {
+      "type": "image",
+      "id": 2,
+      "coordinate": [
+        900,
+        575
+      ],
+      "image": "example/parking.jpg",
+      "text": "FREE PARKING",
+      "width": 100,
+      "height": 100
     }
-
   ]
 }

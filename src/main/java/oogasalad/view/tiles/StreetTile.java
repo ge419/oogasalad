@@ -9,8 +9,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import oogasalad.view.Coordinate;
+import oogasalad.view.gameplay.Textable;
 
-public class StreetTile extends StackPane implements Tile {
+public class StreetTile extends StackPane implements Tile, Textable {
   private static final double TEXT_SCALE = 8;
 
   private int id;
@@ -43,10 +44,10 @@ public class StreetTile extends StackPane implements Tile {
 
     VBox textBox = new VBox();
     Text streetText = new Text(this.name);
-    resizeText(streetText);
+    resizeText(streetText, this.tileHeight, TEXT_SCALE);
     textBox.setMargin(streetText, new Insets(this.tileHeight / 6, 0, this.tileHeight / 3, 0));
     Text priceText = new Text(this.price);
-    resizeText(priceText);
+    resizeText(priceText, this.tileHeight, TEXT_SCALE);
     textBox.setAlignment(Pos.CENTER);
     textBox.getChildren().addAll(streetText, priceText);
 
@@ -61,14 +62,6 @@ public class StreetTile extends StackPane implements Tile {
     bar.setStroke(Color.BLACK);
     bar.setStrokeWidth(1);
     return bar;
-  }
-
-  private void resizeText(Text text) {
-    //TODO: resize text in the case that it doesn't fit in one line. possibly using space delimiting
-    Bounds textBounds = text.getBoundsInLocal();
-    double textScale = this.tileHeight / textBounds.getHeight() / TEXT_SCALE;
-    text.setScaleX(textScale);
-    text.setScaleY(textScale);
   }
 
   @Override

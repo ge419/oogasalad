@@ -40,8 +40,16 @@ public class Tiles implements Renderable {
           pane.getChildren().add(streetTile);
         }
 
-        else if (tileNode.get("type").asText().equals("street")) {
-
+        else if (tileNode.get("type").asText().equals("image")) {
+          int id = tileNode.get("id").asInt();
+          double[] position = objectMapper.treeToValue(tileNode.get("coordinate"), double[].class);
+          Coordinate tileCoord = new Coordinate(position[0], position[1]);
+          String imgPath = tileNode.get("image").asText();
+          String textStr = tileNode.get("text").asText();
+          int tileWidth = tileNode.get("width").asInt();
+          int tileHeight = tileNode.get("height").asInt();
+          ImageTile imageTile = new ImageTile(id, tileCoord, imgPath, textStr, tileWidth, tileHeight);
+          pane.getChildren().add(imageTile);
         }
 
         else {
@@ -56,8 +64,6 @@ public class Tiles implements Renderable {
         }
 
       }
-      StreetTile tile = new StreetTile(1, new Coordinate(200,230), Color.BLUE,  "Park Place", "$350", 80, 120);
-      pane.getChildren().add(tile);
     }
     catch (IOException e) {
       e.printStackTrace();

@@ -2,7 +2,6 @@ package oogasalad.model.attribute;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.type.CollectionType;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -11,11 +10,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import oogasalad.model.constructable.Board;
-import oogasalad.model.constructable.Constructable;
-import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Tile;
 import oogasalad.model.factory.AttributeFactory;
 import oogasalad.model.factory.ConstructableFactory;
@@ -28,6 +22,9 @@ public class Model {
   }
   public static void main(String[] args)
       throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    MetaLoad db = new MetaLoad();
+    System.out.println(db.getAttributeType("id"));
+
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
     //List of attributes should be returned by attribute factory using metadata information
@@ -75,12 +72,10 @@ public class Model {
     for (Tile t : tiles) {
       System.out.println(t.getAttribute("id"));
     }
-//    CollectionType type = objectMapper.getTypeFactory().constructCollectionType(List.class, Tile.class);
     objectMapper.writeValue(new File("data/tiles.json"), tiles);
 
     File file = new File("data/tiles.json");
     Tile[] PD = objectMapper.readValue(file, Tile[].class);
-    System.out.println(PD[0].getAttribute("id"));
   }
 
 

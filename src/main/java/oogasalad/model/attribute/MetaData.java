@@ -15,8 +15,6 @@ public class MetaData {
   private final Boolean editable;
   @JsonProperty("viewable")
   private final Boolean viewable;
-  @JsonProperty("defaultVal")
-  private final String defaultAttr;
 
   public MetaData() {
     key = null;
@@ -25,13 +23,11 @@ public class MetaData {
     description = null;
     editable = null;
     viewable = null;
-    defaultAttr = null;
   }
 
   public MetaData(String key, String type, String name, String description, boolean editable, boolean viewable, String defaultVal) {
     this.key = key;
     this.type = type;
-    this.defaultAttr = defaultVal;
     this.name = name;
     this.description = description;
     this.editable = editable;
@@ -39,8 +35,9 @@ public class MetaData {
   }
 
   public String getKey() {
-    return key;
+    return this. key;
   }
+  public String getType() { return this.type; }
 
 //  public T getDefaultAttr() {
 //    return defaultAttr;

@@ -16,11 +16,26 @@ public class ImageTile extends StackPane implements Tile, Textable {
 
   public ImageTile(int id, Coordinate coordinate, String imgPath, String text, double width,
       double height) {
+    this.setLayoutX(coordinate.getXCoor());
+    this.setLayoutY(coordinate.getYCoor());
+    Rectangle tileBackground = tileBackground(width, height);
+    ImageView tileImage = tileImage(width, imgPath);
+    Text tileText = new Text(text);
+    resizeText(tileText, height, 8);
+    VBox content = new VBox(height / 10, tileImage, tileText);
+    content.setAlignment(Pos.CENTER);
+    getChildren().addAll(tileBackground, content);
+  }
+
+  private Rectangle tileBackground(double width, double height) {
     Rectangle background = new Rectangle(width, height);
     background.setFill(Color.WHITE);
     background.setStroke(Color.BLACK);
     background.setStrokeWidth(1);
+    return background;
+  }
 
+  private ImageView tileImage(double width, String imgPath) {
     ImageView imageView = new ImageView();
     Image policeImg = new Image(imgPath);
     imageView.setImage(policeImg);
@@ -28,18 +43,8 @@ public class ImageTile extends StackPane implements Tile, Textable {
     imageView.setFitWidth(width / 1.5);
     imageView.setSmooth(true);
     imageView.setCache(true);
-
-    Text tileText = new Text(text);
-    resizeText(tileText, height, 8);
-
-    VBox content = new VBox(height / 10, imageView, tileText);
-    content.setAlignment(Pos.CENTER);
-
-    this.setLayoutX(coordinate.getXCoor());
-    this.setLayoutY(coordinate.getYCoor());
-    getChildren().addAll(background, content);
+    return imageView;
   }
-
 
   @Override
   public int getTileId() {

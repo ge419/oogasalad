@@ -46,7 +46,7 @@ public class Model {
       tiles.add(t);
     }
     Board board = new Board(tiles);
-    objectMapper.writeValue(new File("data/example/tiles.json"), board);
+    objectMapper.writeValue(new File("data/tiles.json"), board);
 
     File file = new File("data/example/tiles.json");
     Board bd = objectMapper.readValue(file, Board.class);

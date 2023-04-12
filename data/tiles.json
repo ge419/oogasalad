@@ -1,225 +1,147 @@
-[ {
-  "attributes" : {
-    "coordinate" : {
-      "class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "coordinate",
-      "value" : [ 100.0, 100.0 ]
-    },
-    "onLand" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "onLand",
-      "value" : 3
-    },
-    "nextTile" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "nextTile",
-      "value" : 2
-    },
-    "afterTurn" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "afterTurn",
-      "value" : 7
-    },
-    "id" : {
-      "class" : "oogasalad.model.attribute.IntAttribute",
-      "key" : "id",
-      "value" : 1
-    }
-  }
-}, {
-  "attributes" : {
-    "coordinate" : {
-      "class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "coordinate",
-      "value" : [ 150.0, 100.0 ]
-    },
-    "onLand" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "onLand",
-      "value" : 2
-    },
-    "nextTile" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "nextTile",
-      "value" : 3
-    },
-    "afterTurn" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "afterTurn",
-      "value" : 9
-    },
-    "id" : {
-      "class" : "oogasalad.model.attribute.IntAttribute",
-      "key" : "id",
-      "value" : 2
-    }
-  }
-}, {
-  "attributes" : {
-    "coordinate" : {
-      "class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "coordinate",
-      "value" : [ 200.0, 100.0 ]
-    },
-    "onLand" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "onLand",
-      "value" : 2
-    },
-    "nextTile" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "nextTile",
-      "value" : 4
-    },
-    "afterTurn" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "afterTurn",
-      "value" : 9
-    },
-    "id" : {
-      "class" : "oogasalad.model.attribute.IntAttribute",
-      "key" : "id",
-      "value" : 3
-    }
-  }
-}, {
-  "attributes" : {
-    "coordinate" : {
-      "class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "coordinate",
-      "value" : [ 200.0, 150.0 ]
-    },
-    "onLand" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "onLand",
-      "value" : 2
-    },
-    "nextTile" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "nextTile",
-      "value" : 5
-    },
-    "afterTurn" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "afterTurn",
-      "value" : 9
-    },
-    "id" : {
-      "class" : "oogasalad.model.attribute.IntAttribute",
-      "key" : "id",
-      "value" : 4
-    }
-  }
-}, {
-  "attributes" : {
-    "coordinate" : {
-      "class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "coordinate",
-      "value" : [ 200.0, 200.0 ]
-    },
-    "onLand" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "onLand",
-      "value" : 2
-    },
-    "nextTile" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "nextTile",
-      "value" : 6
-    },
-    "afterTurn" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "afterTurn",
-      "value" : 9
-    },
-    "id" : {
-      "class" : "oogasalad.model.attribute.IntAttribute",
-      "key" : "id",
-      "value" : 5
-    }
-  }
-}, {
-  "attributes" : {
-    "coordinate" : {
-      "class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "coordinate",
-      "value" : [ 150.0, 200.0 ]
-    },
-    "onLand" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "onLand",
-      "value" : 2
-    },
-    "nextTile" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "nextTile",
-      "value" : 7
-    },
-    "afterTurn" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "afterTurn",
-      "value" : 9
-    },
-    "id" : {
-      "class" : "oogasalad.model.attribute.IntAttribute",
-      "key" : "id",
-      "value" : 6
-    }
-  }
-}, {
-  "attributes" : {
-    "coordinate" : {
-      "class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "coordinate",
-      "value" : [ 100.0, 200.0 ]
-    },
-    "onLand" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "onLand",
-      "value" : 2
-    },
-    "nextTile" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "nextTile",
-      "value" : 8
-    },
-    "afterTurn" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "afterTurn",
-      "value" : 9
-    },
-    "id" : {
-      "class" : "oogasalad.model.attribute.IntAttribute",
-      "key" : "id",
-      "value" : 7
-    }
-  }
-}, {
-  "attributes" : {
-    "coordinate" : {
-      "class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "coordinate",
-      "value" : [ 100.0, 150.0 ]
-    },
-    "onLand" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "onLand",
-      "value" : 2
-    },
-    "nextTile" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "nextTile",
-      "value" : 1
-    },
-    "afterTurn" : {
-      "class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "afterTurn",
-      "value" : 9
-    },
-    "id" : {
-      "class" : "oogasalad.model.attribute.IntAttribute",
-      "key" : "id",
-      "value" : 8
-    }
-  }
-} ]
+{
+  "tiles" : [ {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "@id" : 1,
+    "schema" : "basicTile",
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.IntAttribute",
+      "key" : "height",
+      "value" : 10
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 100.0,
+      "y" : 100.0
+    }, {
+      "@class" : "oogasalad.model.attribute.IntAttribute",
+      "key" : "width",
+      "value" : 10
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "@id" : 2,
+    "schema" : "basicTile",
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.IntAttribute",
+      "key" : "height",
+      "value" : 10
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 150.0,
+      "y" : 100.0
+    }, {
+      "@class" : "oogasalad.model.attribute.IntAttribute",
+      "key" : "width",
+      "value" : 10
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "@id" : 3,
+    "schema" : "basicTile",
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.IntAttribute",
+      "key" : "height",
+      "value" : 10
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 200.0,
+      "y" : 150.0
+    }, {
+      "@class" : "oogasalad.model.attribute.IntAttribute",
+      "key" : "width",
+      "value" : 10
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "@id" : 4,
+    "schema" : "basicTile",
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.IntAttribute",
+      "key" : "height",
+      "value" : 10
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 250.0,
+      "y" : 200.0
+    }, {
+      "@class" : "oogasalad.model.attribute.IntAttribute",
+      "key" : "width",
+      "value" : 10
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "@id" : 5,
+    "schema" : "basicTile",
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.IntAttribute",
+      "key" : "height",
+      "value" : 10
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 300.0,
+      "y" : 250.0
+    }, {
+      "@class" : "oogasalad.model.attribute.IntAttribute",
+      "key" : "width",
+      "value" : 10
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "@id" : 6,
+    "schema" : "basicTile",
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.IntAttribute",
+      "key" : "height",
+      "value" : 10
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 350.0,
+      "y" : 300.0
+    }, {
+      "@class" : "oogasalad.model.attribute.IntAttribute",
+      "key" : "width",
+      "value" : 10
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "@id" : 7,
+    "schema" : "basicTile",
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.IntAttribute",
+      "key" : "height",
+      "value" : 10
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 400.0,
+      "y" : 350.0
+    }, {
+      "@class" : "oogasalad.model.attribute.IntAttribute",
+      "key" : "width",
+      "value" : 10
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "@id" : 8,
+    "schema" : "basicTile",
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.IntAttribute",
+      "key" : "height",
+      "value" : 10
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 450.0,
+      "y" : 400.0
+    }, {
+      "@class" : "oogasalad.model.attribute.IntAttribute",
+      "key" : "width",
+      "value" : 10
+    } ]
+  } ]
+}

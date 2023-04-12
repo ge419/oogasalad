@@ -2,6 +2,7 @@ package oogasalad.view.gameplay;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.module.guice.ObjectMapperModule;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -22,6 +23,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import oogasalad.model.attribute.IntAttribute;
+import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.Engine;
 import oogasalad.model.engine.EngineModule;
@@ -70,9 +72,14 @@ public class Gameview {
 
     //TODO: PERHAPS FIND A BETTER PLACE FOR THIS
     File file = new File("data/tiles.json");
-    ObjectMapper objectMapper = new ObjectMapper();
-    Tile[] tileArr = objectMapper.readValue(file, Tile[].class);
-    ArrayList<Tile> t = new ArrayList<>(Arrays.asList(tileArr));
+    SchemaDatabase db = new SchemaDatabase();
+    Injector schemaInjector = Guice.createInjector(
+        new ObjectMapperModule(),
+        binder -> binder.bind(SchemaDatabase.class).toInstance(db)
+    );
+    ObjectMapper objectMapper = schemaInjector.getInstance(ObjectMapper.class);
+    oogasalad.model.constructable.Board bboard = objectMapper.readValue(file, oogasalad.model.constructable.Board.class);
+    ArrayList<Tile> t = new ArrayList<>(bboard.getTiles());
 
     tiles = new Tiles(t);
     tiles.render(UIroot);

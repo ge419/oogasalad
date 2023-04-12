@@ -24,6 +24,6 @@ public class TileMetadata extends Metadata {
 
 
   public TileAttribute makeTileAttribute() {
-    return new TileAttribute(getKey(), -1);
+    return new TileAttribute(getKey(), "");
   }
 }

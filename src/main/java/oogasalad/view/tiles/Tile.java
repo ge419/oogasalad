@@ -4,6 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import oogasalad.view.Coordinate;
+import oogasalad.view.Renderable;
 
 public interface Tile {
 

@@ -1,7 +1,9 @@
 package oogasalad.view.tiles;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javafx.scene.layout.BorderPane;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.Renderable;

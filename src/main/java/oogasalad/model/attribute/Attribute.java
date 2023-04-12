@@ -1,29 +1,21 @@
 package oogasalad.model.attribute;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
+@JsonTypeInfo(use=Id.CLASS, include=As.PROPERTY, property="class")
 public abstract class Attribute {
-  private static final Logger log = LogManager.getLogger(Attribute.class);
-
-  @JsonProperty("key")
-  private final String key;
-
-  protected Attribute(String key) {
-    this.key = key;
+  private final String name;
+  public Attribute(String name) {
+    this.name = name;
   }
-
+  public static <T extends Attribute> T getAs(Attribute attribute, Class<T> attrType) {
+    return attrType.cast(attribute);
+  }
   public String getKey() {
-    return key;
+    return this.name;
   }
 
-  protected static <T extends Attribute> T getAttributeAs(Attribute attr, Class<T> clazz) {
-    try {
-      return clazz.cast(attr);
-    } catch (ClassCastException e) {
-      log.fatal("failed to perform attribute cast", e);
-      throw e;
-    }
-  }
 }

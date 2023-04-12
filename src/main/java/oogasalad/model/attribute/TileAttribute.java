@@ -1,30 +1,25 @@
 package oogasalad.model.attribute;
 
-import java.util.Optional;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import oogasalad.model.Tile;
 
 public class TileAttribute extends Attribute {
   private final IntegerProperty value;
 
-  protected TileAttribute(String key, int value) {
+  @JsonCreator
+  public TileAttribute(@JsonProperty("key") String key, @JsonProperty("value") int value) {
     super(key);
     this.value = new SimpleIntegerProperty(value);
   }
 
-  public static IntAttribute from(Attribute attr) {
-    return Attribute.getAttributeAs(attr, IntAttribute.class);
+  public static TileAttribute from(Attribute attr) {
+    return Attribute.getAs(attr, TileAttribute.class);
   }
 
   public int getValue() {
-    return value.get();
-  }
-
-  public IntegerProperty valueProperty() {
-    return value;
+    return this.value.get();
   }
 
   public void setValue(int value) {

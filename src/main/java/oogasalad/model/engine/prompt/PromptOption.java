@@ -5,7 +5,7 @@ package oogasalad.model.engine.prompt;
  *
  * @author Dominic Martinez
  */
-interface PromptOption {
+public interface PromptOption {
 
   /**
    * Returns prompt to display to user.

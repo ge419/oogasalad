@@ -4,8 +4,7 @@ import java.io.IOException;
 import oogasalad.model.builder.BBuilder;
 import oogasalad.view.builder.BuilderView;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
-import oogasalad.view.builder.gameholder.ImmutableGameHolder;
-import oogasalad.view.builder.graphs.ImmutableGraph;
+
 
 /**
  * Temporary controller for front and backend builder
@@ -25,32 +24,30 @@ public class BuilderController implements BuilderControllerInterface{
 
   /**
    * Take the ImmutableGameHolder from frontend and call on backend to save
-   * @param holder
    */
   @Override
-  public void save(ImmutableGameHolder holder) throws IOException {
+  public void save() throws IOException {
     //take holder as parameter
-    back.save(holder);
+    //back.save(holder);
   }
 
   /**
    * Take the ImmutableGameHolder from backend and call on frontend to load
-   * @param holder
    */
   @Override
-  public void load(ImmutableGameHolder holder) {
+  public void load() {
     //take holder as parameter?
     front.loadFile();
   }
 
-  protected void extractData(ImmutableGameHolder holder) {
-    ImmutableBoardInfo boardInfo =  holder.getBoardInfo();
-
-    ImmutableGraph graph = holder.getTileGraph();
-    //title = boardInfo.getTitle();
-    int height = boardInfo.getBoardSize().height;
-    int width = boardInfo.getBoardSize().width;
-//    imageList = boardInfo.getBoardImages();
-//    tileList = graph.getTiles();
-  }
+//  protected void extractData(ImmutableGameHolder holder) {
+//    ImmutableBoardInfo boardInfo =  holder.getBoardInfo();
+//
+//    ImmutableGraph graph = holder.getTileGraph();
+//    //title = boardInfo.getTitle();
+//    int height = boardInfo.getBoardSize().height;
+//    int width = boardInfo.getBoardSize().width;
+////    imageList = boardInfo.getBoardImages();
+////    tileList = graph.getTiles();
+//  }
 }

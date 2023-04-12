@@ -10,12 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.image.Image;
 import oogasalad.controller.BuilderController;
-import oogasalad.model.AttributeSerializer;
-import oogasalad.model.Constructable;
 import oogasalad.view.builder.board.BoardImage;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
-import oogasalad.view.builder.gameholder.ImmutableGameHolder;
-import oogasalad.view.builder.graphs.ImmutableGraph;
 import oogasalad.view.tiles.Tile;
 import oogasalad.view.tiles.Tiles;
 
@@ -27,7 +23,7 @@ public class BBuilder implements BBuilderAPI{
 //  private final ? rules;
 //  private final ? ...
   private BuilderController controller;
-  private ImmutableGameHolder holder;
+  //private ImmutableGameHolder holder;
   private List<Tile> tileList;
   private List<BoardImage> imageList;
   private String title;
@@ -48,8 +44,8 @@ public class BBuilder implements BBuilderAPI{
    * save JSON files and assets using serializer
    */
   @Override
-  public void save(ImmutableGameHolder holder) throws IOException {
-    extractData(holder);
+  public void save() throws IOException {
+    //extractData(holder);
     //saveTiles();
 
     //serialize
@@ -58,16 +54,16 @@ public class BBuilder implements BBuilderAPI{
     //once saved added to GameLauncher
   }
 
-  protected void extractData(ImmutableGameHolder holder) {
-    ImmutableBoardInfo boardInfo =  holder.getBoardInfo();
-
-    ImmutableGraph graph = holder.getTileGraph();
-    //title = boardInfo.getTitle();
-    int height = boardInfo.getBoardSize().height;
-    int width = boardInfo.getBoardSize().width;
-    imageList = boardInfo.getBoardImages();
-    tileList = graph.getTiles();
-  }
+//  protected void extractData(ImmutableGameHolder holder) {
+//    ImmutableBoardInfo boardInfo =  holder.getBoardInfo();
+//
+//    ImmutableGraph graph = holder.getTileGraph();
+//    //title = boardInfo.getTitle();
+//    int height = boardInfo.getBoardSize().height;
+//    int width = boardInfo.getBoardSize().width;
+//    imageList = boardInfo.getBoardImages();
+//    tileList = graph.getTiles();
+//  }
 
   /**
    * settings.json
@@ -142,7 +138,7 @@ public class BBuilder implements BBuilderAPI{
     ObjectMapper mapper = new ObjectMapper();
     SimpleModule module = new SimpleModule();
     //TODO: figure out what goes in the parameter for AttributeSerializer
-    module.addSerializer(new AttributeSerializer(o.getClass()));
+    //module.addSerializer(new AttributeSerializer(o.getClass()));
     mapper.registerModule(module);
     //TODO: replace "title" or get file path from the frontend?
     mapper.writeValue(new File("data/" + "title" + "/*.json"), o);

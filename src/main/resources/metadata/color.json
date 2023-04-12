@@ -1,8 +1,8 @@
 {
+  "@class": "oogasalad.model.attribute.StringAttributeMetadata",
   "key": "color",
-  "type": "String",
-  "name":"COLOR",
-  "description": "but do we even need color",
+  "name":"Color",
+  "description": "Color of a tile",
   "editable": true,
   "viewable": true,
   "defaultVal": "RED"

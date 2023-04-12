@@ -1,9 +1,0 @@
-{
-  "key": "name",
-  "type": "String",
-  "name":"tile",
-  "description": "but do we even need color",
-  "editable": true,
-  "viewable": true,
-  "defaultVal": "tile"
-}

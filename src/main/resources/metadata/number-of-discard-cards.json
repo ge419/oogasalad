@@ -1,7 +1,7 @@
 {
-  "name": "number-of-discard-cards",
-  "type": "Integer",
-  "name": "NUMBER-OF-DISCARD-CARDS",
+  "@class": "oogasalad.model.attribute.IntAttributeMetadata",
+  "key": "numberOfDiscardCards",
+  "name": "Number of discard cards",
   "description": "The number of cards to be discarded",
   "editable": true,
   "viewable": true,

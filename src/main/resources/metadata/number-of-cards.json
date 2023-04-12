@@ -1,7 +1,7 @@
 {
   "name": "number-of-cards",
   "type": "Integer",
-  "name": "NUMBER-OF-CARDS",
+  "name": "Number of cards",
   "description": "The number of cards to be chosen",
   "editable": true,
   "viewable": true,

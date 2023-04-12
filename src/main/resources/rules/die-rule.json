@@ -1,0 +1,6 @@
+{
+  "name": "dieRule",
+  "fields": [
+    "numberOfDice"
+    ]
+}

@@ -1,9 +1,0 @@
-{
-  "key": "price",
-  "type": "Integer",
-  "name":"PRICE",
-  "description": "but do we even need color",
-  "editable": true,
-  "viewable": true,
-  "defaultVal": 3
-}

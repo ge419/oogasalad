@@ -1,13 +1,6 @@
 {
-  "name": "diceRolledEvent",
+  "name": "startTurnEvent",
   "fields": [
-    {
-      "@class": "oogasalad.model.attribute.TileAttributeMetadata",
-      "key": "tile",
-      "name": "Tile",
-      "description": "Tile that was landed on.",
-      "editable": true,
-      "viewable": true
-    }
+
   ]
 }

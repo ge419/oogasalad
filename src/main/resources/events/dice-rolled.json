@@ -2,12 +2,13 @@
   "name": "diceRolledEvent",
   "fields": [
     {
-      "@class": "oogasalad.model.attribute.TileAttributeMetadata",
-      "key": "tile",
-      "name": "Tile",
-      "description": "Tile that was landed on.",
+      "@class": "oogasalad.model.attribute.IntAttributeMetadata",
+      "key": "diceRolled",
+      "name": "Dice roll",
+      "description": "Dice roll value",
       "editable": true,
-      "viewable": true
+      "viewable": true,
+      "defaultValue": 1
     }
   ]
 }

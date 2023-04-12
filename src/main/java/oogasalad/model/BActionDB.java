@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
+import oogasalad.model.attribute.FileReader;
 import oogasalad.model.exception.FileReaderException;
 
 public class BActionDB {

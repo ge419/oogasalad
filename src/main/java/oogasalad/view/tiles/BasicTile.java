@@ -4,6 +4,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import oogasalad.model.attribute.IntAttribute;
+import oogasalad.model.attribute.PositionAttribute;
 import oogasalad.model.attribute.TileAttribute;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
@@ -18,13 +19,13 @@ public class BasicTile extends Rectangle implements ViewTile {
   private int[] afterTurn;
   private boolean owned;
 
-  public BasicTile(Tile tile) {
-    this.id = 0;
-//    super(PositionAttribute.from(tile.getAttribute("coordinate")).getValue().get(0), PositionAttribute.from(tile.getAttribute("coordinate")).getValue().get(1), TILE_WIDTH, TILE_WIDTH);
-//    this.setFill(Color.LIGHTBLUE);
-//    this.setStroke(Color.BLACK);
+  public BasicTile(Tile tile, int id) {
+    super(PositionAttribute.from(tile.getAttribute("position")).getX(), PositionAttribute.from(tile.getAttribute("position")).getY(), TILE_WIDTH, TILE_WIDTH);
+    this.setFill(Color.LIGHTBLUE);
+    this.setStroke(Color.BLACK);
+    this.id = id;
 //    this.id = IntAttribute.from(tile.getAttribute("id")).getValue();
-//    this.position = PositionAttribute.from(tile.getAttribute("coordinate")).getValue().toArray(new Double[0]);
+    this.position = new Double[]{PositionAttribute.from(tile.getAttribute("position")).getX(), PositionAttribute.from(tile.getAttribute("position")).getY()};
 //    this.next = new int[]{TileAttribute.from(tile.getAttribute("nextTile")).getValue()};
 //    this.onLand = new int[]{TileAttribute.from(tile.getAttribute("onLand")).getValue()};
 //    this.afterTurn = new int[]{TileAttribute.from(tile.getAttribute("afterTurn")).getValue()};
@@ -83,7 +84,6 @@ public class BasicTile extends Rectangle implements ViewTile {
     this.setY(coord.getYCoor());
   }
 
-  @Override
   public Paint getColor() {
     return this.getFill();
   }

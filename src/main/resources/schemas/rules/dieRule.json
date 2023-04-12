@@ -1,0 +1,16 @@
+{
+  "name": "dieRule",
+  "fields": [
+    {
+      "@class": "oogasalad.model.attribute.IntAttributeMetadata",
+      "key": "numberOfDice",
+      "name": "",
+      "description": "",
+      "editable": true,
+      "viewable": true,
+      "defaultValue": 1,
+      "minValue": 1,
+      "maxValue": 2
+    }
+  ]
+}

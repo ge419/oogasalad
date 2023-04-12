@@ -1,36 +1,22 @@
 package oogasalad.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.Map;
+import javax.inject.Inject;
 import oogasalad.model.attribute.Attribute;
-import oogasalad.model.attribute.AttributeMetadata;
+import oogasalad.model.attribute.AttributeList;
 
-public class Tile implements Constructable {
-  Map<String, AttributeMetadata<?>> schema;
-  Map<String, Attribute> values;
+public class Tile extends Constructable {
 
-  public Tile() {
-    schema = new HashMap<>();
-    values = new HashMap<>();
-  }
-
-  @Override
-  public Map<String, Attribute> getAttributes() {
-    return values;
-  }
-
-  @Override
-  public void setAttributes(Map<String, Attribute> attributes) {
-    this.values = attributes;
-  }
-  @Override
-  public Attribute getAttribute(String key) {
-    return this.values.get(key);
-  }
-
-  @Override
-  public String toString() {
-    return getAttribute("id").toString();
+  @Inject
+  @JsonCreator
+  public Tile(
+      @JsonProperty("type") String schemaName,
+      SchemaDatabase database,
+      @JsonProperty("attributes") AttributeList attributeList) {
+    super(schemaName, database, attributeList);
   }
 }
 

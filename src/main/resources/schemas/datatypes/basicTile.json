@@ -1,0 +1,37 @@
+{
+  "name": "basicTile",
+  "fields": [
+    {
+      "@class": "oogasalad.model.attribute.CoordinateAttributeMetadata",
+      "key": "position",
+      "name": "",
+      "description": "",
+      "editable": true,
+      "viewable": true,
+      "defaultX": 0,
+      "defaultY": 0
+    },
+    {
+      "@class": "oogasalad.model.attribute.IntAttributeMetadata",
+      "key": "width",
+      "name": "",
+      "description": "",
+      "editable": true,
+      "viewable": true,
+      "defaultValue": 0,
+      "minValue": -2147483648,
+      "maxValue": 2147483647
+    },
+    {
+      "@class": "oogasalad.model.attribute.IntAttributeMetadata",
+      "key": "height",
+      "name": "",
+      "description": "",
+      "editable": true,
+      "viewable": true,
+      "defaultValue": 0,
+      "minValue": -2147483648,
+      "maxValue": 2147483647
+    }
+  ]
+}

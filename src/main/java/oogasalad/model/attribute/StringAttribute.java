@@ -1,12 +1,16 @@
 package oogasalad.model.attribute;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class StringAttribute extends Attribute {
   private final StringProperty value;
 
-  protected StringAttribute(String key, String value) {
+  @JsonCreator
+  protected StringAttribute(@JsonProperty("key") String key, @JsonProperty("value") String value) {
     super(key);
     this.value = new SimpleStringProperty(value);
   }
@@ -32,5 +36,22 @@ public class StringAttribute extends Attribute {
     return "StringAttribute{" +
         "value=" + value +
         '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    StringAttribute that = (StringAttribute) o;
+    return Objects.equals(value, that.value);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(value);
   }
 }

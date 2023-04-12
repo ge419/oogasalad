@@ -3,6 +3,5 @@
   "description": "buys a property if money is available",
   "schema": [
     "cost"
-  ],
-  "tile-types": []
+  ]
 }

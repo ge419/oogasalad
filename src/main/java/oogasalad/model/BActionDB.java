@@ -54,9 +54,5 @@ public class BActionDB {
     BActionDB db = new BActionDB();
     db.readFiles();
     System.out.println(db.actionMap.get("buy").getSchema());
-//    BMetaDB db1 = new BMetaDB();
-//    db1.readFiles();
-//    System.out.println(db1.metaMap.get("color.json").getKey());
-
   }
 }

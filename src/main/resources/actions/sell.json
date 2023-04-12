@@ -3,6 +3,5 @@
   "description": "sell a property",
   "schema": [
     "cost"
-  ],
-  "tile-types": []
+  ]
 }

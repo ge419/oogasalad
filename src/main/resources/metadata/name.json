@@ -1,8 +1,0 @@
-{
-  "key": "color",
-  "type": "String",
-  "name":"COLOR",
-  "description": "but do we even need color",
-  "editable": true,
-  "viewable": true
-}

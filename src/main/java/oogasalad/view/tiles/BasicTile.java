@@ -1,6 +1,7 @@
 package oogasalad.view.tiles;
 
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import oogasalad.model.attribute.IntAttribute;
 import oogasalad.model.attribute.TileAttribute;
@@ -80,6 +81,11 @@ public class BasicTile extends Rectangle implements ViewTile {
   public void setPosition(Coordinate coord) {
     this.setX(coord.getXCoor());
     this.setY(coord.getYCoor());
+  }
+
+  @Override
+  public Paint getColor() {
+    return this.getFill();
   }
 
   @Override

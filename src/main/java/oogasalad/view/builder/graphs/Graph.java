@@ -29,6 +29,9 @@ public class Graph implements GraphInterface, MutableGraph {
         if (myMap.containsKey(tile)){
             myMap.get(tile).clear();
             myMap.remove(tile);
+            for (Tile otherTile : getTiles()){
+                myMap.get(otherTile).remove(tile);
+            }
         }
         else{
             //todo: LOG that we tried to remove a tile that doesn't exist from the graph.

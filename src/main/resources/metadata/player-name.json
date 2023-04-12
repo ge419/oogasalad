@@ -1,0 +1,9 @@
+{
+  "@class": "oogasalad.model.attribute.StringAttributeMetadata",
+  "key": "playerName",
+  "name":"Name of Player",
+  "description": "Holds the name of a player",
+  "editable": true,
+  "viewable": true,
+  "defaultVal": "Max"
+}

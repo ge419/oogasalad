@@ -1,9 +1,11 @@
 package oogasalad.view.builder;
 
+import java.awt.Dimension;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -17,18 +19,29 @@ import java.util.Enumeration;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import oogasalad.view.Coordinate;
+import oogasalad.view.builder.board.BoardInfo;
+import oogasalad.view.builder.board.NodeStorer;
+import oogasalad.view.builder.board.ImmutableBoardInfo;
+import oogasalad.view.builder.gameholder.GameHolder;
+import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.builder.graphs.Graph;
+import oogasalad.view.builder.graphs.ImmutableGraph;
+import oogasalad.view.builder.panefeatures.Dragger;
 import oogasalad.view.tiles.BasicTile;
-import oogasalad.view.tiles.ViewTile;
+import oogasalad.view.tiles.Tile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
+// https://stackoverflow.com/questions/31148690/get-real-position-of-a-node-in-javafx
+// assumptions made so far: board pane cannot be dragged (if it was, this would break dragging for
+// all other tiles unfortunately. eventual fix maybe.)
 public class BuilderView implements BuilderUtility, BuilderAPI {
     private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
     private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
     private static final double PANE_WIDTH = 500;
     private static final double PANE_HEIGHT = 500;
+    private static final double DEFAULT_IMAGE_WIDTH = 100;
+    private static final double DEFAULT_IMAGE_HEIGHT = 100;
     private static final double SCENE_WIDTH = 700;
     private static final double SCENE_HEIGHT = 600;
     private static final Logger LOG = LogManager.getLogger(BuilderView.class);
@@ -45,7 +58,14 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     private VBox myLeftSidebar;
     private PopupForm popupForm;
     private int myTileCount = 0;
-    private Optional<ViewTile> myCurrentTile;
+    private int myImageCount = 0;
+    private Optional<Tile> myCurrentTile;
+    private BoardInfo myBoardInfo;
+    private NodeStorer myNodeHolder;
+    private boolean myDraggableObjectsToggle = true;
+    private boolean myDeleteToggle = false;
+    private Coordinate myBoardPaneStartingLocation;
+
 
     public BuilderView() {
         builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
@@ -56,13 +76,21 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
         myCurrentlyClickedTiletype = Optional.empty();
         myGraph = new Graph();  // todo: dependency injection
+        myNodeHolder = new NodeStorer();
         myCurrentTile = Optional.empty();
+        myBoardInfo = new BoardInfo(builderResource);
 
         Scene scene = initScene();
         Stage primaryStage = new Stage();
         primaryStage.setScene(scene);
         primaryStage.setTitle(builderResource.getString("BuilderTitle"));
         primaryStage.show();
+        System.out.println(myBoardPane.getBoundsInParent().getMinX() + " | " + myBoardPane.getBoundsInParent().getMaxX());
+        System.out.println(myBoardPane.getBoundsInParent().getMinY() + " | " + myBoardPane.getBoundsInParent().getMaxY());
+        myBoardPaneStartingLocation = new Coordinate(
+            (int) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinX(),
+            (int) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinY()
+        );
 
         // Example of the popup form using the Tile object
         //popupForm = new PopupForm(Tile.class, builderResource);
@@ -91,8 +119,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         myLeftSidebar = sideBar1;
 
         Node boardPane = makePane("BoardPane", PANE_WIDTH, PANE_HEIGHT);
+        myBoardInfo.setBoardSize(new Dimension((int)PANE_WIDTH, (int)PANE_HEIGHT));
         myBoardPane = (Pane) boardPane;
-        myBoardPane.setOnMouseClicked(e -> createTile(e));
+        myBoardPane.setOnMouseClicked(e -> handleBoardClick(e));
 
         return (HBox) makeHBox("CentralContainer", sideBar1, boardPane);
     }
@@ -111,69 +140,22 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
             pane.getChildren().add(btn);
         }
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
     private void test() {
         // temp
     }
 
-    private void tile(){
-        myCurrentlyClickedTiletype = Optional.of("Test");
-    }
-
-
-    private void uploadImage(){
-        Optional<File> file = fileLoad(builderResource, "UploadImageTitle");
-
-        if (checkIfImage(file) == true){
-            System.out.println("Got an image from: " + file.get().toPath() );
-            myBoardPane.getChildren().add(turnFileToImage(file.get(), PANE_WIDTH, PANE_HEIGHT));
-        }
-        else{
-            // todo: make this use an error form.
-            System.out.println("ERROR -- Got a non-image or nothing from file.");
-        }
-    }
-
-    private void openTileMenu(){
-        myLeftSidebar.getChildren().clear();
-
-        addButtonsToPane(myLeftSidebar, tileMenuResource);
-//        printGraph();
-    }
-
-    private void backLeftSide(){
-        myLeftSidebar.getChildren().clear();
-        addButtonsToPane(myLeftSidebar, sideBar1Resource);
-    }
-
-    // todo: support different tile types.
-    private void createTile(MouseEvent e){
-        System.out.println("hello, you clicked on x: " + e.getSceneX() + " and y: " + e.getSceneY());
-        if (myCurrentlyClickedTiletype.isPresent()){
-            Coordinate tileCoord = new Coordinate((int)e.getX(), (int)e.getY());
-            double[] pos = {tileCoord.getXCoor(), tileCoord.getYCoor()};
-            //BasicTile tile = new BasicTile(myTileCount, pos, new int[0], new int[0], new int[0]);
-            BasicTile tile = new BasicTile(myTileCount, tileCoord);
-            //tile.setOnMouseClicked(tile_e->{myBoardPane.getChildren().remove(tile);});
-            tile.setOnMouseClicked(tile_e->{
-//                popupForm = new PopupForm(BasicTile.class, builderResource);
-//                popupForm.displayForm();
-                handleTileClick(tile);
-            });
-            //tile.setOnDragDone(tile_e_two-> {tile.setPosition(new Coordinate((int) tile_e_two.getX(), (int) tile_e_two.getY()));});
-            tile.setId("Tile" + myTileCount);
-            myTileCount++;
-            myBoardPane.getChildren().add(tile);
-            myGraph.addTile(tile);
-            myCurrentlyClickedTiletype = Optional.empty();
-        }
-    }
-
     @Override
     public void saveFile() {
-        Optional<File> file = fileSave(builderResource, "SaveGameTitle");
+        Optional<File> file = directoryGet(builderResource, "SaveGameTitle");
         if (file.isPresent()){
-            //DataStorer currentData = new DataStorer(myGraph);
+            ImmutableGameHolder game = createGameHolder();
+            String givenDirectory = file.get().getPath();
             // Send file to the controller to properly save.
+            //Controller.save(ImmutableGameHolder);
+            System.out.println(givenDirectory);
         }
         else{
             // todo: replace with LOG
@@ -187,7 +169,71 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         //Optional<File> file = fileLoad(builderResource, "LoadGameTitle");
     }
 
-    private void handleTileClick(ViewTile tile){
+    private void tile(){
+        myCurrentlyClickedTiletype = Optional.of("Test");
+    }
+
+
+    private void uploadImage(){
+        Optional<File> file = fileLoad(builderResource, "UploadImageTitle");
+
+        if (checkIfImage(file) == true){
+            System.out.println("Got an image from: " + file.get().getPath() );
+            ImageView ourImage = turnFileToImage(file.get(), DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT, new Coordinate(0,0));
+            ourImage.setId("Image" + myImageCount);
+            ourImage.setOnMouseClicked(e->handleImageClick(ourImage));
+            createTileFeaturesForObject(ourImage);
+            myNodeHolder.addNode(ourImage, file.get().getPath());
+            myBoardPane.getChildren().add(ourImage);
+            myImageCount++;
+            // Add to board info at the end.
+            //myBoardInfo.addImage(file.get().getPath(), new Coordinate(0,0), new Dimension((int) PANE_WIDTH, (int)PANE_HEIGHT));
+        }
+        else{
+            // todo: make this use an error form.
+            System.out.println("ERROR -- Got a non-image or nothing from file.");
+        }
+    }
+
+    // todo: support different tile types.
+    private void createTile(MouseEvent e){
+        Coordinate tileCoord = new Coordinate((int)e.getX(), (int)e.getY());
+        BasicTile tile = new BasicTile(myTileCount, tileCoord);
+        createTileFeaturesForObject(tile);
+        tile.setOnMouseClicked(tile_e->{ handleTileClick(tile);});
+        tile.setId("Tile" + myTileCount);
+        myTileCount++;
+        myBoardPane.getChildren().add(tile);
+        myGraph.addTile(tile);
+        myCurrentlyClickedTiletype = Optional.empty();
+    }
+
+    private void openTileMenu(){
+        addNewButtonsToPane(myLeftSidebar, tileMenuResource);
+    }
+
+    private void backLeftSide(){
+        addNewButtonsToPane(myLeftSidebar, sideBar1Resource);
+    }
+
+    private void addNewButtonsToPane(Pane pane, ResourceBundle resourceBundle){
+        pane.getChildren().clear();
+        addButtonsToPane(pane, resourceBundle);
+    }
+
+    private void handleBoardClick(MouseEvent e){
+        System.out.println("hello, you clicked on x: " + e.getSceneX() + " and y: " + e.getSceneY());
+        System.out.println("relative x: " + e.getX() + " and y: " + e.getY());
+
+        if (myCurrentlyClickedTiletype.isPresent()){
+            createTile(e);
+        }
+    }
+
+    private void handleTileClick(Tile tile){
+        if (myDeleteToggle){
+            deleteTile(tile);
+        }
         if (myCurrentTile.isPresent()){
             tile.setColor(Color.LIGHTGREEN);
             myGraph.addTileNext(myCurrentTile.get(), tile);
@@ -201,16 +247,44 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         }
     }
 
-    private void deleteTile(){
-        if (myCurrentTile.isPresent()){
-            myBoardPane.getChildren().remove(myCurrentTile.get());
+    private void handleImageClick(Node node){
+        if (myDeleteToggle){
+            myImageCount = deleteNode(node, myImageCount);
+            return;
+        }
+    }
+
+    private void deleteTile(Tile tile){
+        if (myDeleteToggle){
+            myBoardPane.getChildren().remove(tile);
             myCurrentTile = Optional.empty();
+            myGraph.removeTile(tile);
+            myTileCount--;
+            myDeleteToggle = false;
         }
         else{
             // todo: log that we tried to delete a non-existing tile.
-            System.out.println("No tile selected to delete-- click the tile first, then delete!");
+            System.out.println("Not in delete mode; how were you trying to delete??");
         }
     }
+
+    private void deleteToggle(){
+        myDeleteToggle = !myDeleteToggle;
+    }
+
+    private int deleteNode(Node node, int objCounter){
+        if (myDeleteToggle){
+            myBoardPane.getChildren().remove(node);
+            myDeleteToggle = false;
+            return objCounter--;
+        }
+        else{
+            // todo: log that we somehow tried to delete without being in delete mode.
+            System.out.println("Not in delete mode... how were you trying to delete??");
+            return objCounter;
+        }
+    }
+
 
     // -----------------------------------------------------------------------------------------------------------------
     private boolean checkIfImage(Optional<File> thing){
@@ -218,13 +292,29 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         return thing.isPresent() && thing.get().getName().matches(IMAGE_FILE_SUFFIXES);
     }
 
-    private ImageView turnFileToImage(File file, double width, double height){
-        return new ImageView(new Image(
-                file.toURI().toString(),
-                width,
-                height,
-                true,
-                true)
+    private ImageView turnFileToImage(File file, double width, double height, Coordinate location){
+        ImageView image = new ImageView(new Image(
+            file.toURI().toString(),
+            width,
+            height,
+            true,
+            true
+        )
         );
+
+        setNodeLocation(image, location);
+        return image;
+    }
+
+    private ImmutableGameHolder createGameHolder(){
+        GameHolder game = new GameHolder();
+        game.setBoardInfo(new ImmutableBoardInfo(myBoardInfo));
+        game.setTileGraph(new ImmutableGraph(myGraph));
+        return new ImmutableGameHolder(game);
+    }
+
+    private void createTileFeaturesForObject(Node node){
+        Dragger nodeDragger = new Dragger(node, myDraggableObjectsToggle, myBoardPaneStartingLocation, MouseButton.PRIMARY);
+        myNodeHolder.addDragger(nodeDragger);
     }
 }

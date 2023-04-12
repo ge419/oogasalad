@@ -2,7 +2,7 @@
   "name": "basicTile",
   "fields": [
     {
-      "@class": "oogasalad.model.attribute.CoordinateMetadata",
+      "@class": "oogasalad.model.attribute.PositionMetadata",
       "key": "position",
       "type": "int",
       "name": "Position",

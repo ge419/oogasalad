@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import oogasalad.model.attribute.Attribute;
-import oogasalad.model.constructable.AttributeObject;
+import oogasalad.model.constructable.GameConstruct;
 import oogasalad.util.ClassPathMatcher;
 
 public class BoardObjectFactory {
@@ -14,12 +14,12 @@ public class BoardObjectFactory {
     this.pathFinder = new ClassPathMatcher();
   }
 
-  public AttributeObject generate(String type, Map<String, Attribute> attributes)
+  public GameConstruct generate(String type, Map<String, Attribute> attributes)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
     String classPath = pathFinder.getKey(type);
     Class<?> dataClazz = Class.forName(classPath);
-    Constructor<?> defaultConstructor = dataClazz.getConstructor();
-    AttributeObject bConstruct = (AttributeObject) defaultConstructor.newInstance();
+    Constructor<?> constructor = dataClazz.getConstructor();
+    GameConstruct bConstruct = (GameConstruct) constructor.newInstance();
 
     return null;
   }

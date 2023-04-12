@@ -28,9 +28,7 @@ public class TileAttribute extends Attribute {
 
   @Override
   public String toString() {
-    return "TileAttribute{" +
-        "value=" + value +
-        '}';
+    return String.format("Tile Attribute {value: %s}", this.value);
   }
 }
 

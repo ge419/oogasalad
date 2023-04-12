@@ -12,19 +12,17 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeMap;
 
-public class AttributeSchema {
+public class ObjectSchema {
   private final String name;
   private final Map<String, Metadata> fields;
 
-
-
-  public AttributeSchema(String name) {
+  public ObjectSchema(String name) {
     this.name = name;
     this.fields = new TreeMap<>();
   }
 
   @JsonCreator
-  public AttributeSchema(
+  public ObjectSchema(
       @JsonProperty("name") String name,
       @JsonProperty("fields") Collection<Metadata> metaCollection
   ) {
@@ -56,16 +54,7 @@ public class AttributeSchema {
       Objects.requireNonNull(attr);
       list.add(attr);
     }
-
     return list;
-  }
-
-  @Override
-  public String toString() {
-    return "AttributeSchema{" +
-        "name='" + name + '\'' +
-        ", metadataList=" + this.fields +
-        '}';
   }
 
   @Override
@@ -76,7 +65,7 @@ public class AttributeSchema {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AttributeSchema schema = (AttributeSchema) o;
+    ObjectSchema schema = (ObjectSchema) o;
     return Objects.equals(name, schema.name) && Objects.equals(this.fields,
         schema.fields);
   }
@@ -84,5 +73,10 @@ public class AttributeSchema {
   @Override
   public int hashCode() {
     return Objects.hash(name, this.fields);
+  }
+
+  @Override
+  public String toString() {
+    return String.format("%s Schema with MetaData", this.name);
   }
 }

@@ -10,13 +10,13 @@ import javafx.beans.property.SimpleDoubleProperty;
  *
  * @author Dominic Martinez
  */
-public class CoordinateAttribute extends Attribute {
+public class PositionAttribute extends Attribute {
   // TODO: Combine with frontend Coordinate class
   private final DoubleProperty x;
   private final DoubleProperty y;
 
   @JsonCreator
-  public CoordinateAttribute(
+  public PositionAttribute(
       @JsonProperty("key") String key,
       @JsonProperty("x") double x,
       @JsonProperty("y") double y
@@ -26,8 +26,8 @@ public class CoordinateAttribute extends Attribute {
     this.y = new SimpleDoubleProperty(y);
   }
 
-  public static CoordinateAttribute from(Attribute attr) {
-    return Attribute.getAs(attr, CoordinateAttribute.class);
+  public static PositionAttribute from(Attribute attr) {
+    return Attribute.getAs(attr, PositionAttribute.class);
   }
 
   public double getX() {

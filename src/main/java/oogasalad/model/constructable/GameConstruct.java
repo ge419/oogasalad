@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 import oogasalad.model.attribute.Attribute;
-import oogasalad.model.attribute.AttributeSchema;
+import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.Metadata;
 import oogasalad.model.attribute.SchemaDatabase;
 import org.apache.logging.log4j.LogManager;
@@ -25,15 +25,21 @@ import org.apache.logging.log4j.Logger;
  */
 @JsonTypeInfo(use= Id.CLASS)
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
-public abstract class AttributeObject {
-  private static final Logger LOGGER = LogManager.getLogger(AttributeObject.class);
+public abstract class GameConstruct {
+  private static final Logger LOGGER = LogManager.getLogger(GameConstruct.class);
   @JsonProperty("schema")
   private String schemaName;
   @JsonIgnore
   private final SchemaDatabase database;
   private final Map<String, Attribute> attributeMap;
 
-  protected AttributeObject(String schemaName, SchemaDatabase database) {
+  public GameConstruct(String schemaName) {
+    this.schemaName = schemaName;
+    database = null;
+    attributeMap = new TreeMap<>();
+  }
+
+  public GameConstruct(String schemaName, SchemaDatabase database) {
     // TODO ??
     this.schemaName = schemaName;
     this.database = database;
@@ -61,7 +67,7 @@ public abstract class AttributeObject {
 
   @JsonIgnore
   public void setAttribute(String key, Attribute value) {
-    AttributeSchema schema = getSchema();
+    ObjectSchema schema = getSchema();
     Optional<Metadata> optionalMetadata = schema.getMetadata(key);
 
     if (optionalMetadata.isEmpty()) {
@@ -97,7 +103,7 @@ public abstract class AttributeObject {
       throw new IllegalArgumentException("invalid schema");
     }
     this.schemaName = newSchemaName;
-    AttributeSchema newSchema = database.getSchema(schemaName).get();
+    ObjectSchema newSchema = database.getSchema(schemaName).get();
     setAllAttributes(newSchema.makeAllAttributes());
     migrateAttributes(attributeMap);
   }
@@ -114,9 +120,9 @@ public abstract class AttributeObject {
     }
   }
 
-  public AttributeSchema getSchema() {
+  public ObjectSchema getSchema() {
     // TODO: Add rule schemas
-    Optional<AttributeSchema> schema = database.getSchema(getSchemaName());
+    Optional<ObjectSchema> schema = database.getSchema(getSchemaName());
     if (schema.isEmpty()) {
       LOGGER.error("contained schema name {} is not in database", getSchemaName());
       throw new IllegalStateException("invalid contained schema");

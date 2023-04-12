@@ -1,4 +1,4 @@
-package oogasalad.model;
+package oogasalad.model.exception;
 
 public class ResourceReadException extends RuntimeException {
 

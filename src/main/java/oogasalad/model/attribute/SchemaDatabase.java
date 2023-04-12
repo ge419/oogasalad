@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import oogasalad.model.ResourceReadException;
+import oogasalad.model.exception.ResourceReadException;
 import oogasalad.model.exception.FileReaderException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +18,7 @@ public class SchemaDatabase {
 
   private static final Logger logger = LogManager.getLogger(SchemaDatabase.class);
   public static final String SCHEMA_RESOURCE_PATH = "schemas";
-  private final Map<String, AttributeSchema> schemaMap;
+  private final Map<String, ObjectSchema> schemaMap;
 
 
   public SchemaDatabase() {
@@ -39,7 +39,7 @@ public class SchemaDatabase {
 
   private void readSchemaFile(File file) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
-    AttributeSchema schema = mapper.readValue(file, AttributeSchema.class);
+    ObjectSchema schema = mapper.readValue(file, ObjectSchema.class);
     String schemaName = schema.getName();
 
     if (schemaMap.containsKey(schemaName)) {
@@ -48,7 +48,7 @@ public class SchemaDatabase {
     schemaMap.put(schemaName, schema);
   }
 
-  public Optional<AttributeSchema> getSchema(String name) {
+  public Optional<ObjectSchema> getSchema(String name) {
     return Optional.ofNullable(schemaMap.get(name));
   }
 

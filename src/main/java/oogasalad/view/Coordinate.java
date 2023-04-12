@@ -2,25 +2,25 @@ package oogasalad.view;
 
 public class Coordinate {
 
-  private int xCoor;
-  private int yCoor;
-  public Coordinate(int x, int y) {
+  private double xCoor;
+  private double yCoor;
+  public Coordinate(double x, double y) {
     //TODO: add error handling for bounds of board/tiles
     xCoor = x;
     yCoor = y;
   }
 
-  public void setXCoor(int x) {
+  public void setXCoor(double x) {
     xCoor = x;
   }
 
-  public void setYCoor(int y) {
+  public void setYCoor(double y) {
     yCoor = y;
   }
 
-  public int getXCoor() {return xCoor;}
+  public double getXCoor() {return xCoor;}
 
-  public int getYCoor() {return yCoor;}
+  public double getYCoor() {return yCoor;}
 
   @Override
   public boolean equals(Object o) {

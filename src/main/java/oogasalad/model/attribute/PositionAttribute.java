@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import oogasalad.view.Coordinate;
 
 /**
  * Holds a 2D coordinate.
@@ -44,6 +45,10 @@ public class PositionAttribute extends Attribute {
 
   public DoubleProperty yProperty() {
     return y;
+  }
+
+  public Coordinate getCoordinate() {
+    return new Coordinate(getX(), getY());
   }
 
   @Override

@@ -24,8 +24,9 @@ public class BuyTileRule implements Rule {
   }
 
   private void tryBuyProp(EventHandlerParams eventHandlerParams) {
-    int tileId = TileAttribute.from(eventHandlerParams.event().attributeMap().get("tile"))
-        .getValue();
+    int tileId = 1;
+//    int tileId = TileAttribute.from(eventHandlerParams.event().attributeMap().get("tile"))
+//        .getValue();
     ViewTile tile = tiles.getTile(tileId);
     if (!tile.isOwned()) {
       eventHandlerParams.actionQueue().add(1, new BuyAction(tile));

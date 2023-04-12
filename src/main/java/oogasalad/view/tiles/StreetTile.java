@@ -50,10 +50,10 @@ public class StreetTile extends StackPane implements Tile, Textable {
     VBox textBox = new VBox();
     Text streetText = new Text(textMap.get("name"));
     resizeText(streetText, height, TEXT_SCALE, width);
-    textBox.setMargin(streetText, new Insets(height / 6, 0, height / 3, 0));
+    streetText.setLayoutY(this.getLayoutY());
     Text priceText = new Text(textMap.get("price"));
     resizeText(priceText, height, TEXT_SCALE, width);
-    textBox.setAlignment(Pos.CENTER);
+    textBox.setMargin(priceText, new Insets(height / 6, 0, 0 , 0));
     textBox.getChildren().addAll(streetText, priceText);
     return textBox;
   }

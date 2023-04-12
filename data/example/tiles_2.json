@@ -10,8 +10,8 @@
       "color": "0000FF",
       "name": "Park Place",
       "price": "$350",
-      "width": 80,
-      "height": 120
+      "width": 120,
+      "height": 160
     },
     {
       "type": "street",
@@ -20,7 +20,7 @@
         480,
         575
       ],
-      "color": "0000FF",
+      "color": "FF0000",
       "name": "New York Avenue",
       "price": "$450",
       "width": 80,
@@ -74,8 +74,8 @@
       ],
       "image": "example/jail.jpg",
       "text": "GO TO JAIL",
-      "width": 100,
-      "height": 100
+      "width": 150,
+      "height": 150
     },
     {
       "type": "image",

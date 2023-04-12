@@ -12,7 +12,7 @@ import oogasalad.view.Coordinate;
 public class BasicTile extends Rectangle implements ViewTile {
   private static final double TILE_WIDTH = 50;
 
-  private final int id;
+  private final String id;
   private Double[] position;
   private int[] next;
   private int[] onLand;
@@ -38,7 +38,7 @@ public class BasicTile extends Rectangle implements ViewTile {
     this.id = id;
   }
 
-  public int getTileId() {
+  public String getTileId() {
     return id;
   }
 

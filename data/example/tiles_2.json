@@ -88,6 +88,30 @@
       "text": "FREE PARKING",
       "width": 100,
       "height": 100
+    },
+    {
+      "type": "image",
+      "id": 2,
+      "coordinate": [
+        1000,
+        575
+      ],
+      "image": "example/chance.jpg",
+      "text": "CHANCE",
+      "width": 80,
+      "height": 120
+    },
+    {
+      "type": "image",
+      "id": 2,
+      "coordinate": [
+        1080,
+        575
+      ],
+      "image": "example/community.jpg",
+      "text": "COMMUNITY",
+      "width": 80,
+      "height": 120
     }
   ]
 }

@@ -7,22 +7,23 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import oogasalad.view.Coordinate;
 import oogasalad.view.gameplay.Textable;
 
 public class ImageTile extends StackPane implements Tile, Textable {
+  private static final double TEXT_SCALE = 8;
+  private static final double IMG_SCALE = 1.5;
+  private static final double MARGIN_SCALE = 10;
 
   public ImageTile(int id, Coordinate coordinate, String imgPath, String text, double width,
       double height) {
-    this.setLayoutX(coordinate.getXCoor());
-    this.setLayoutY(coordinate.getYCoor());
+    this.setPosition(coordinate);
     Rectangle tileBackground = tileBackground(width, height);
     ImageView tileImage = tileImage(width, imgPath);
     Text tileText = new Text(text);
-    resizeText(tileText, height, 8);
-    VBox content = new VBox(height / 10, tileImage, tileText);
+    resizeText(tileText, height, TEXT_SCALE);
+    VBox content = new VBox(height / MARGIN_SCALE, tileImage, tileText);
     content.setAlignment(Pos.CENTER);
     getChildren().addAll(tileBackground, content);
   }
@@ -40,7 +41,7 @@ public class ImageTile extends StackPane implements Tile, Textable {
     Image policeImg = new Image(imgPath);
     imageView.setImage(policeImg);
     imageView.setPreserveRatio(true);
-    imageView.setFitWidth(width / 1.5);
+    imageView.setFitWidth(width / IMG_SCALE);
     imageView.setSmooth(true);
     imageView.setCache(true);
     return imageView;
@@ -78,6 +79,7 @@ public class ImageTile extends StackPane implements Tile, Textable {
 
   @Override
   public void setPosition(Coordinate coord) {
-
+    this.setLayoutX(coord.getXCoor());
+    this.setLayoutY(coord.getYCoor());
   }
 }

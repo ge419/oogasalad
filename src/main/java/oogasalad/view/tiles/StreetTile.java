@@ -1,6 +1,5 @@
 package oogasalad.view.tiles;
 
-import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
@@ -14,44 +13,10 @@ import oogasalad.view.gameplay.Textable;
 public class StreetTile extends StackPane implements Tile, Textable {
   private static final double TEXT_SCALE = 8;
 
-  private int id;
-  private Coordinate position;
-  private Color color;
-  private String name;
-  private String price;
-  private double tileWidth;
-  private double tileHeight;
-
   public StreetTile(int id, Coordinate position, Color color, String name, String price,
       double width, double height) {
-    this.setPrefSize(width, height);
-    this.id = id;
-    this.color = color;
-    this.name = name;
-    this.price = price;
-    this.tileWidth = width;
-    this.tileHeight = height;
-    this.position = position;
-    createTile();
+    getChildren().addAll((createBarBox(width, height, color)), createTextBox(name, price, height));
     setPosition(position);
-  }
-
-  private void createTile() {
-    VBox tileBox = new VBox();
-    Rectangle topBar = createBar(tileWidth, tileHeight / 6, this.color);
-    Rectangle bottomBar = createBar(tileWidth, 5 * tileHeight / 6, Color.WHITE);
-    tileBox.getChildren().addAll(topBar, bottomBar);
-
-    VBox textBox = new VBox();
-    Text streetText = new Text(this.name);
-    resizeText(streetText, this.tileHeight, TEXT_SCALE);
-    textBox.setMargin(streetText, new Insets(this.tileHeight / 6, 0, this.tileHeight / 3, 0));
-    Text priceText = new Text(this.price);
-    resizeText(priceText, this.tileHeight, TEXT_SCALE);
-    textBox.setAlignment(Pos.CENTER);
-    textBox.getChildren().addAll(streetText, priceText);
-
-    getChildren().addAll(tileBox, textBox);
   }
 
   private Rectangle createBar(double width, double height, Color color) {
@@ -62,6 +27,26 @@ public class StreetTile extends StackPane implements Tile, Textable {
     bar.setStroke(Color.BLACK);
     bar.setStrokeWidth(1);
     return bar;
+  }
+
+  private VBox createBarBox(double width, double height, Color color) {
+    VBox barBox = new VBox();
+    Rectangle topBar = createBar(width, height / 6, color);
+    Rectangle bottomBar = createBar(width, 5 * height / 6, Color.WHITE);
+    barBox.getChildren().addAll(topBar, bottomBar);
+    return barBox;
+  }
+
+  private VBox createTextBox(String name, String price, double height) {
+    VBox textBox = new VBox();
+    Text streetText = new Text(name);
+    resizeText(streetText, height, TEXT_SCALE);
+    textBox.setMargin(streetText, new Insets(height / 6, 0, height / 3, 0));
+    Text priceText = new Text(price);
+    resizeText(priceText, height, TEXT_SCALE);
+    textBox.setAlignment(Pos.CENTER);
+    textBox.getChildren().addAll(streetText, priceText);
+    return textBox;
   }
 
   @Override

@@ -1,5 +1,8 @@
 package oogasalad.view.tiles;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
@@ -8,14 +11,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import oogasalad.view.Coordinate;
-import oogasalad.view.gameplay.Textable;
+import oogasalad.view.Textable;
 
 public class StreetTile extends StackPane implements Tile, Textable {
   private static final double TEXT_SCALE = 8;
 
   public StreetTile(int id, Coordinate position, Color color, String name, String price,
       double width, double height) {
-    getChildren().addAll((createBarBox(width, height, color)), createTextBox(name, price, height));
+    //TODO: delete once we get backend tile
+    Map<String, String> textMap = new HashMap<>();
+    textMap.put("name", name);
+    textMap.put("price", price);
+
+    getChildren().addAll((createBarBox(width, height, color)), createTextBox(textMap, height));
     setPosition(position);
   }
 
@@ -37,12 +45,13 @@ public class StreetTile extends StackPane implements Tile, Textable {
     return barBox;
   }
 
-  private VBox createTextBox(String name, String price, double height) {
+  @Override
+  public VBox createTextBox(Map<String, String> textMap, double height) {
     VBox textBox = new VBox();
-    Text streetText = new Text(name);
+    Text streetText = new Text(textMap.get("name"));
     resizeText(streetText, height, TEXT_SCALE);
     textBox.setMargin(streetText, new Insets(height / 6, 0, height / 3, 0));
-    Text priceText = new Text(price);
+    Text priceText = new Text(textMap.get("price"));
     resizeText(priceText, height, TEXT_SCALE);
     textBox.setAlignment(Pos.CENTER);
     textBox.getChildren().addAll(streetText, priceText);

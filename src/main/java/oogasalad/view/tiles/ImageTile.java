@@ -1,5 +1,7 @@
 package oogasalad.view.tiles;
 
+import java.util.HashMap;
+import java.util.Map;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,7 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import oogasalad.view.Coordinate;
-import oogasalad.view.gameplay.Textable;
+import oogasalad.view.Textable;
 
 public class ImageTile extends StackPane implements Tile, Textable {
   private static final double TEXT_SCALE = 8;
@@ -19,11 +21,15 @@ public class ImageTile extends StackPane implements Tile, Textable {
   public ImageTile(int id, Coordinate coordinate, String imgPath, String text, double width,
       double height) {
     this.setPosition(coordinate);
+    //TODO: take this code out once we get backend tile
+    Map<String, String> textMap = new HashMap<>();
+    textMap.put("text", text);
+
+
     Rectangle tileBackground = tileBackground(width, height);
     ImageView tileImage = tileImage(width, imgPath);
-    Text tileText = new Text(text);
-    resizeText(tileText, height, TEXT_SCALE);
-    VBox content = new VBox(height / MARGIN_SCALE, tileImage, tileText);
+
+    VBox content = new VBox(height / MARGIN_SCALE, tileImage, createTextBox(textMap, height));
     content.setAlignment(Pos.CENTER);
     getChildren().addAll(tileBackground, content);
   }
@@ -45,6 +51,16 @@ public class ImageTile extends StackPane implements Tile, Textable {
     imageView.setSmooth(true);
     imageView.setCache(true);
     return imageView;
+  }
+
+  @Override
+  public VBox createTextBox(Map<String, String> textMap, double height) {
+    VBox textBox = new VBox();
+    Text tileText = new Text(textMap.get("text"));
+    resizeText(tileText, height, TEXT_SCALE);
+    textBox.setAlignment(Pos.CENTER);
+    textBox.getChildren().addAll(tileText);
+    return textBox;
   }
 
   @Override

@@ -1,6 +1,10 @@
-package oogasalad.view.gameplay;
+package oogasalad.view;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javafx.geometry.Bounds;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public interface Textable {
@@ -13,4 +17,6 @@ public interface Textable {
     text.setScaleY(textScale);
   }
 
+  //TODO: once we get backend tile, change it to using that instead of textMap
+  VBox createTextBox(Map<String, String> textMap, double height);
 }

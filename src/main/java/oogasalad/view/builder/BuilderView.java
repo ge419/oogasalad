@@ -200,11 +200,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         Coordinate tileCoord = new Coordinate((int)e.getX(), (int)e.getY());
         BasicTile tile = new BasicTile(myTileCount, tileCoord);
         createTileFeaturesForObject(tile);
-        tile.setOnMouseClicked(tile_e->{
-//                popupForm = new PopupForm(BasicTile.class, builderResource);
-//                popupForm.displayForm();
-            handleTileClick(tile);
-        });
+        tile.setOnMouseClicked(tile_e->{ handleTileClick(tile);});
         tile.setId("Tile" + myTileCount);
         myTileCount++;
         myBoardPane.getChildren().add(tile);
@@ -253,7 +249,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
     private void handleImageClick(Node node){
         if (myDeleteToggle){
-            deleteNode(node, myImageCount);
+            myImageCount = deleteNode(node, myImageCount);
             return;
         }
     }

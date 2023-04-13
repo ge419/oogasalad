@@ -1,15 +1,21 @@
 package oogasalad.model.builder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javafx.scene.image.Image;
+import javax.imageio.ImageIO;
 import oogasalad.controller.BuilderController;
 import oogasalad.model.constructable.Board;
+import oogasalad.model.constructable.Player;
 import oogasalad.view.builder.board.BoardImage;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;
@@ -27,22 +33,17 @@ public class BBuilder implements BBuilderAPI{
 
   /**
    * save JSON files and assets using serializer
+   * TODO: should the BBuilder trigger the GameLauncher to add newly saved game?
    */
   @Override
   public void save(ImmutableGameHolder holder, Board board) throws IOException {
     Map<String, Object> dataMap = extractData(holder, board);
     String filePath = dataMap.get("Path").toString();
     saveSettings(dataMap, filePath);
-    saveTiles((List<Tile>) dataMap.get("Tiles"));
-//    savePlayers();
-//    saveImages();
-
-
-
-    //serialize
-    //create JSON files
-    //save assets
-    //once saved added to GameLauncher
+    saveTiles((List<Tile>) dataMap.get("Tiles"), filePath);
+    savePlayers((List<Player>) dataMap.get("Players"), filePath);
+    saveAsset((List<BoardImage>) dataMap.get("Images"), filePath);
+    //once saved trigger GameLauncher to
   }
 
   /**
@@ -82,24 +83,29 @@ public class BBuilder implements BBuilderAPI{
     serialize(settingsMap, path, "settings");
   }
 
-  /**
-   * Made to return String just for testing purposes.
-   * TODO: do not return String, write json file.
-   * @return
-   * @throws IOException
-   */
-  protected String saveTiles(List<Tile> tileList) throws IOException {
+  protected void saveTiles(List<Tile> tileList, String path) throws IOException {
     //serialize data for tiles
-    ObjectMapper mapper = new ObjectMapper();
-    String tileJson = mapper.writeValueAsString(tileList);
-    return tileJson;
-//    System.out.println(tileJson);
-//    mapper.writeValue(new File("data/" + title + "/" + title + "Tiles.json"), tileList);
+    serialize(tileList, path, "tiles");
   }
 
-  private void saveAsset() {
-    //save images in the given directory
-//    String directoryPath = "data/" + title + "/";
+  private void savePlayers(List<Player> playersList, String path) throws IOException {
+    serialize(playersList, path, "players");
+  }
+
+  /**
+   * Code for reading and writing image files from link below:
+   * https://mkyong.com/java/how-to-write-an-image-to-file-imageio/
+   * @param path
+   */
+  private void saveAsset(List<BoardImage> imageList, String path) throws IOException {
+    if (imageList.isEmpty()) {
+      return;
+    }
+    for (BoardImage image : imageList) {
+      Path imagePath = Paths.get(image.imagePath());
+      BufferedImage bufferedImage = ImageIO.read(new File(image.imagePath()));
+      ImageIO.write(bufferedImage , "png", new File(path + "/images/" + imagePath.getFileName() + ".png"));
+    }
   }
 
 

@@ -1,7 +1,14 @@
 package oogasalad.model.engine;
 
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -13,7 +20,6 @@ import oogasalad.model.engine.events.AttributeEvent;
 import oogasalad.model.engine.events.StartGameEvent;
 import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.Rule;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -21,26 +27,28 @@ import org.mockito.InOrder;
 
 class SimpleEngineTest {
 
+  Injector injector;
   SimpleEngine engine;
-  static Injector injector;
-
-  @BeforeAll
-  static void initClass() {
-    injector = Guice.createInjector(new EngineModule());
-  }
+  Prompter mockPrompter;
 
   @BeforeEach
   void setUp() {
+    mockPrompter = mock(Prompter.class);
+    injector = Guice.createInjector(
+        new EngineModule(),
+        binder -> binder.bind(Prompter.class).toInstance(mockPrompter)
+    );
     engine = injector.getInstance(SimpleEngine.class);
   }
 
   @Test
   void singleRuleGame() {
-    EventRule startRule = spy(new EventRule(className(StartGameEvent.class), TestEvent.TEST_EVENT_1));
+    EventRule startRule = spy(
+        new EventRule(className(StartGameEvent.class), TestEvent.TEST_EVENT_1));
 
     engine.setRules(List.of(startRule));
     // START_GAME -> TEST_EVENT_1
-    engine.runNextAction(mock(Prompter.class));
+    engine.runNextAction();
 
     InOrder inOrder = inOrder(startRule);
     inOrder.verify(startRule).registerEventHandlers(any());
@@ -50,21 +58,21 @@ class SimpleEngineTest {
   @Test
   void dualRuleGame() {
     // START_GAME -> TEST_EVENT1 -> TEST_EVENT2
-    EventRule startRule = spy(new EventRule(className(StartGameEvent.class), TestEvent.TEST_EVENT_1));
+    EventRule startRule = spy(
+        new EventRule(className(StartGameEvent.class), TestEvent.TEST_EVENT_1));
     EventRule endRule = spy(new EventRule(TestEvent.TEST_EVENT_1, TestEvent.TEST_EVENT_2));
     // This rule is never called
     EventRule otherRule = spy(new EventRule(TestEvent.TEST_EVENT_3, TestEvent.TEST_EVENT_3));
-    Prompter mockPrompter = mock(Prompter.class);
 
     engine.setRules(List.of(startRule, endRule, otherRule));
     // START_GAME
-    engine.runNextAction(mockPrompter);
+    engine.runNextAction();
     // TEST_EVENT_1
-    engine.runNextAction(mockPrompter);
+    engine.runNextAction();
     // TEST_EVENT_2
-    engine.runNextAction(mockPrompter);
+    engine.runNextAction();
     // No more actions
-    assertThrows(MissingActionsException.class, () -> engine.runNextAction(mockPrompter));
+    assertThrows(MissingActionsException.class, () -> engine.runNextAction());
 
     verify(startRule).registerEventHandlers(any());
     verify(endRule).registerEventHandlers(any());
@@ -80,13 +88,12 @@ class SimpleEngineTest {
   @Test
   void promptTest() {
     DieRule<StartGameEvent> dieRule = new DieRule<>(StartGameEvent.class);
-    Prompter mockPrompter = mock(Prompter.class);
 
     engine.setRules(List.of(dieRule));
     // START_GAME
-    engine.runNextAction(mockPrompter);
+    engine.runNextAction();
     // dice roll
-    engine.runNextAction(mockPrompter);
+    engine.runNextAction();
 
     verify(mockPrompter).rollDice(any());
   }
@@ -101,14 +108,13 @@ class SimpleEngineTest {
     EventRule rule6 = spy(new EventRule(TestEvent.TEST_EVENT_1, TestEvent.TEST_EVENT_2));
     EventRule rule7 = spy(new EventRule(TestEvent.TEST_EVENT_1, TestEvent.TEST_EVENT_2));
     EventRule rule8 = spy(new EventRule(TestEvent.TEST_EVENT_1, TestEvent.TEST_EVENT_2));
-    Prompter mockPrompter = mock(Prompter.class);
     List<EventRule> rules = List.of(
         rule1, rule2, rule3, rule4, rule5, rule6, rule7, rule8
     );
 
     engine.setRules(rules);
     for (int i = 0; i < rules.size() + 1; i++) {
-      engine.runNextAction(mockPrompter);
+      engine.runNextAction();
     }
 
     InOrder inOrder = inOrder(rules.toArray());
@@ -127,14 +133,13 @@ class SimpleEngineTest {
   void throwsOnMissingActions() {
     // If there are no actions and runNextAction is called, engine should error
     EventRule startRule = new EventRule(className(StartGameEvent.class), TestEvent.TEST_EVENT_1);
-    Prompter mockPrompter = mock(Prompter.class);
 
     engine.setRules(List.of(startRule));
     // START_GAME
-    engine.runNextAction(mockPrompter);
+    engine.runNextAction();
     // TEST_EVENT_1
-    engine.runNextAction(mockPrompter);
-    assertThrows(MissingActionsException.class, () -> engine.runNextAction(mockPrompter));
+    engine.runNextAction();
+    assertThrows(MissingActionsException.class, () -> engine.runNextAction());
   }
 
   private String className(Class<?> clazz) {
@@ -145,6 +150,7 @@ class SimpleEngineTest {
    * Helper classes
    */
   private static class EventRule implements Rule {
+
     String listen;
     String emit;
 
@@ -164,6 +170,7 @@ class SimpleEngineTest {
   }
 
   private static class DieRule<T extends Event<T>> implements Rule {
+
     Class<T> listen;
 
     DieRule(Class<T> listen) {
@@ -183,7 +190,8 @@ class SimpleEngineTest {
 
       @Override
       public void runAction(ActionParams actionParams) {
-        actionParams.prompter().rollDice(() -> {});
+        actionParams.prompter().rollDice(() -> {
+        });
       }
     }
   }

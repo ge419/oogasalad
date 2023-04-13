@@ -1,7 +1,6 @@
 package oogasalad.model.engine;
 
 import java.util.List;
-import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.Rule;
 
 /**
@@ -24,7 +23,7 @@ public interface Engine {
    * <ul>
    *   <li>
    *     {@link oogasalad.model.engine.events.StartGameEvent}:
-   *     This event is triggered automatically the first time {@link Engine#runNextAction(Prompter)}
+   *     This event is triggered automatically the first time {@link Engine#runNextAction()}
    *     is run. Emitting this event during a currently running game initiates a subgame with rules
    *     as defined in the event's attributes.
    *   </li>
@@ -37,8 +36,7 @@ public interface Engine {
   /**
    * Runs the next available action across this game and all subgames.
    *
-   * @param prompter may be called to present a user prompt
    * @throws MissingActionsException if no actions are pending.
    */
-  void runNextAction(Prompter prompter);
+  void runNextAction();
 }

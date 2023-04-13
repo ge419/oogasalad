@@ -18,7 +18,7 @@ public interface GameInterface {
    *
    * @return ImmutableGraph
    */
-  public ImmutableGraph getTileGraph();
+  ImmutableGraph getTileGraph();
 
   /**
    * Gets you an immutable board info object, an object that contains all images for a board along
@@ -26,7 +26,7 @@ public interface GameInterface {
    *
    * @return ImmutableBoardInfo
    */
-  public ImmutableBoardInfo getBoardInfo();
+  ImmutableBoardInfo getBoardInfo();
 
   // TODO: IMPLEMENT WAY TO ACCESS RULES
 }

@@ -6,6 +6,7 @@ import oogasalad.model.attribute.Attribute;
 import oogasalad.util.ClassPathMatcher;
 
 public class AttributeFactory {
+
   private final ClassPathMatcher pathFinder;
 
   public AttributeFactory() {

@@ -14,7 +14,7 @@ public class BAction {
   @JsonProperty("schema")
   private List<String> schema;
 
-  public BAction(){
+  public BAction() {
     this.name = "name";
     this.description = "description";
     this.schema = List.of();
@@ -24,7 +24,7 @@ public class BAction {
     return name;
   }
 
-  public List<String> getSchema(){
+  public List<String> getSchema() {
     return schema;
   }
 }

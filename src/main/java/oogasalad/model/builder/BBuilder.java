@@ -1,11 +1,8 @@
 package oogasalad.model.builder;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import java.io.File;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,40 +14,30 @@ import oogasalad.view.builder.board.BoardImage;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.tiles.Tile;
-import oogasalad.view.tiles.Tiles;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-//TODO: add logger
 public class BBuilder implements BBuilderAPI{
 
-  //  private final String title;
-//  private final ? tiles;
-//  private final ? rules;
-//  private final ? ...
-  private BuilderController controller;
-  //private ImmutableGameHolder holder;
-  private List<Tile> tileList;
-  private List<BoardImage> imageList;
-  private String title;
+  private static final Logger log = LogManager.getLogger(BuilderController.class);
 
-  /**
-   * takes DataStorer datastorer as parameter
-   * TODO: BuilderController controller as parameter
-   */
   public BBuilder() {
-//    this.controller = controller;
-//    this.title = datastorer.title();
-//    this.tiles = datastorer.tiles();
-//    this.rules = datastorer.rules();
-//    this... = datastorer...
+
   }
 
   /**
    * save JSON files and assets using serializer
    */
   @Override
-  public void save(ImmutableGameHolder holder) throws IOException {
-    //extractData(holder);
-    //saveTiles();
+  public void save(ImmutableGameHolder holder, Board board) throws IOException {
+    Map<String, Object> dataMap = extractData(holder, board);
+    String filePath = dataMap.get("Path").toString();
+    saveSettings(dataMap, filePath);
+    saveTiles((List<Tile>) dataMap.get("Tiles"));
+//    savePlayers();
+//    saveImages();
+
+
 
     //serialize
     //create JSON files
@@ -69,9 +56,12 @@ public class BBuilder implements BBuilderAPI{
     Map<String, Object> dataMap = new HashMap<>();
     ImmutableBoardInfo boardInfo =  holder.getBoardInfo();
     //title = boardInfo.getTitle();
+    //TODO: ask frontend builder to pass directory path as String
+    //String directoryPath = boardInfo.getPath();
     int height = boardInfo.getBoardSize().height;
     int width = boardInfo.getBoardSize().width;
-    //boardDataMap.put("GameTitle", title);
+    //dataMap.put("GameTitle", title);
+    //dataMap.put("Path", directoryPath);
     dataMap.put("BoardWidth", width);
     dataMap.put("BoardHeight", height);
     dataMap.put("Tiles", board.getTiles());
@@ -80,22 +70,16 @@ public class BBuilder implements BBuilderAPI{
     return dataMap;
   }
 
-  /**
-   * settings.json
-   * tiles.json
-   * rules.json
-   * players.json ?
-   */
-
-  private void saveSettings() {
-    //serialize data for settings.json
-
-
+  private void saveSettings(Map<String, Object> dataMap, String path) throws IOException {
+    Map<String, Object> settingsMap = new HashMap<>();
     List<String> pathList = new ArrayList<>();
-    for(BoardImage b: imageList) {
+    for(BoardImage b: (List<BoardImage>) dataMap.get("Images")) {
       pathList.add(b.imagePath());
     }
-
+    settingsMap.put("BoardWidth", dataMap.get("BoardWidth"));
+    settingsMap.put("BoardHeight", dataMap.get("BoardHeight"));
+    settingsMap.put("ImageFIlePaths", pathList);
+    serialize(settingsMap, path, "settings");
   }
 
   /**
@@ -115,20 +99,9 @@ public class BBuilder implements BBuilderAPI{
 
   private void saveAsset() {
     //save images in the given directory
-    String directoryPath = "data/" + title + "/";
+//    String directoryPath = "data/" + title + "/";
   }
 
-
-  /**
-   * Takes the data imported from frontend, changes data ready for serialization
-   */
-  private void toSerialization() {
-
-  }
-
-  private void toDeserialization() {
-
-  }
 
   /**
    * load using deserializer, translate data into GameHolder, call frontend to pass data
@@ -140,18 +113,12 @@ public class BBuilder implements BBuilderAPI{
     //call controller.load()
   }
 
-  @Override
-  public void serialize(Object o) throws IOException {
+  private void serialize(Object o, String path, String type) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
-    SimpleModule module = new SimpleModule();
-    //module.addSerializer(new AttributeSerializer(o.getClass()));
-    mapper.registerModule(module);
-    //TODO: replace "title" or get file path from the frontend?
-    mapper.writeValue(new File("data/" + "title" + "/*.json"), o);
+    mapper.writeValue(new File(path + "/" + type + ".json"), o);
   }
 
-  @Override
-  public void deserialize(Object o) throws IOException {
+  private void deserialize(Object o) throws IOException {
 
   }
 

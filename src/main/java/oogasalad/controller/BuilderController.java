@@ -45,8 +45,7 @@ public class BuilderController implements BuilderControllerInterface{
 
 //    holder = front.getImmutableGameHolder();
 
-    //TODO: change API to match parameters
-    //back.save(holder, board);
+    back.save(holder, board);
   }
 
   /**

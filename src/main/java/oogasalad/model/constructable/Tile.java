@@ -1,6 +1,7 @@
 package oogasalad.model.constructable;
 
 import com.fasterxml.jackson.annotation.JacksonInject;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 import javax.inject.Inject;
 import oogasalad.view.Coordinate;
@@ -22,26 +23,32 @@ public class Tile extends GameConstruct {
     super(BASE_SCHEMA_NAME, database);
   }
 
+  @JsonIgnore
   public List<String> getNextTileIds() {
     return TileListAttribute.from(getAttribute(NEXT_ATTRIBUTE)).getTileIds();
   }
 
+  @JsonIgnore
   public Coordinate getCoordinate() {
     return PositionAttribute.from(getAttribute(POSITION_ATTRIBUTE)).getCoordinate();
   }
 
+  @JsonIgnore
   public double getX() {
     return getCoordinate().getXCoor();
   }
 
+  @JsonIgnore
   public double getY() {
     return getCoordinate().getYCoor();
   }
 
+  @JsonIgnore
   public double getWidth() {
     return DoubleAttribute.from(getAttribute(WIDTH_ATTRIBUTE)).getValue();
   }
 
+  @JsonIgnore
   public double getHeight() {
     return DoubleAttribute.from(getAttribute(HEIGHT_ATTRIBUTE)).getValue();
   }

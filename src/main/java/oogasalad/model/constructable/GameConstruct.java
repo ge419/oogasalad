@@ -27,8 +27,6 @@ public abstract class GameConstruct {
   private static final Logger LOGGER = LogManager.getLogger(GameConstruct.class);
   @JsonProperty("schema")
   private String schemaName;
-  @JsonProperty("uuid")
-  private String uuid;
   private String id;
   @JsonIgnore
   private final SchemaDatabase database;

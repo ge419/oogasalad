@@ -1,5 +1,7 @@
 package oogasalad.view.builder;
 
+import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.constructable.Tile;
 import oogasalad.view.builder.graphs.ImmutableGraph;
 import java.awt.Dimension;
 import javafx.scene.Node;
@@ -29,7 +31,6 @@ import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.builder.graphs.Graph;
 import oogasalad.view.builder.panefeatures.Dragger;
 import oogasalad.view.tiles.BasicTile;
-import oogasalad.view.tiles.Tile;
 import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -200,7 +201,10 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     // todo: support different tile types.
     private void createTile(MouseEvent e){
         Coordinate tileCoord = new Coordinate((int)e.getX(), (int)e.getY());
-        BasicTile tile = new BasicTile(myTileCount, tileCoord);
+        SchemaDatabase schemas = new SchemaDatabase();
+        Tile t = new Tile(schemas);
+        BasicTile tile = new BasicTile(t);
+        //tile.setCoordinate(tileCoord);
         createTileFeaturesForObject(tile);
         tile.setOnMouseClicked(tile_e->{ handleTileClick(tile);});
         tile.setId("Tile" + myTileCount);

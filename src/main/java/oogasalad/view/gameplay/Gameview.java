@@ -32,7 +32,7 @@ import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.events.MonopolyEvent;
 import oogasalad.model.engine.prompt.PromptOption;
 import oogasalad.model.engine.prompt.Prompter;
-import oogasalad.model.engine.rules.BuyTileRule;
+//import oogasalad.model.engine.rules.BuyTileRule;
 //import oogasalad.model.engine.rules.DieRule;
 import oogasalad.model.engine.rules.Rule;
 import oogasalad.model.engine.rules.TurnRule;
@@ -90,7 +90,7 @@ public class Gameview {
     Pieces pieces = new Pieces();
     pieces.render(UIroot);
     piece = pieces.getPiece();
-    piece.moveToTile(tiles.getTile(1));
+    piece.moveToTile(tiles.getTile(""));
 
     Scene scene = new Scene(UIroot);
     

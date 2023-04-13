@@ -1,6 +1,7 @@
 package oogasalad.model.constructable;
 
 import com.fasterxml.jackson.annotation.JacksonInject;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 import javax.inject.Inject;
 import oogasalad.view.Coordinate;
@@ -22,26 +23,57 @@ public class Tile extends GameConstruct {
     super(BASE_SCHEMA_NAME, database);
   }
 
+  @JsonIgnore
+  public TileListAttribute getNextAttribute() {
+    return TileListAttribute.from(getAttribute(NEXT_ATTRIBUTE));
+  }
+
+  @JsonIgnore
   public List<String> getNextTileIds() {
-    return TileListAttribute.from(getAttribute(NEXT_ATTRIBUTE)).getTileIds();
+    return getNextAttribute().getTileIds();
   }
 
+  @JsonIgnore
+  public PositionAttribute getPositionAttribute() {
+    return PositionAttribute.from(getAttribute(POSITION_ATTRIBUTE));
+  }
+
+  @JsonIgnore
   public Coordinate getCoordinate() {
-    return PositionAttribute.from(getAttribute(POSITION_ATTRIBUTE)).getCoordinate();
+    return getPositionAttribute().getCoordinate();
   }
 
+  @JsonIgnore
+  public void setCoordinate(Coordinate coordinate) {
+    getPositionAttribute().setCoordinate(coordinate);
+  }
+
+  @JsonIgnore
   public double getX() {
     return getCoordinate().getXCoor();
   }
 
+  @JsonIgnore
+  public void setX(double x) {
+    getPositionAttribute().setX(x);
+  }
+
+  @JsonIgnore
   public double getY() {
     return getCoordinate().getYCoor();
   }
 
+  @JsonIgnore
+  public void setY(double y) {
+    getPositionAttribute().setY(y);
+  }
+
+  @JsonIgnore
   public double getWidth() {
     return DoubleAttribute.from(getAttribute(WIDTH_ATTRIBUTE)).getValue();
   }
 
+  @JsonIgnore
   public double getHeight() {
     return DoubleAttribute.from(getAttribute(HEIGHT_ATTRIBUTE)).getValue();
   }

@@ -12,7 +12,6 @@ import oogasalad.view.Coordinate;
  * @author Dominic Martinez
  */
 public class PositionAttribute extends Attribute {
-  // TODO: Combine with frontend Coordinate class
   private final DoubleProperty x;
   private final DoubleProperty y;
 
@@ -39,6 +38,10 @@ public class PositionAttribute extends Attribute {
     return x;
   }
 
+  public void setX(double x) {
+    this.x.set(x);
+  }
+
   public double getY() {
     return y.get();
   }
@@ -47,8 +50,17 @@ public class PositionAttribute extends Attribute {
     return y;
   }
 
+  public void setY(double y) {
+    this.y.set(y);
+  }
+
   public Coordinate getCoordinate() {
     return new Coordinate(getX(), getY());
+  }
+
+  public void setCoordinate(Coordinate coordinate) {
+    setX(coordinate.getXCoor());
+    setY(coordinate.getYCoor());
   }
 
   @Override

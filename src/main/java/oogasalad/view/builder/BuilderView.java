@@ -29,7 +29,6 @@ import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.builder.graphs.Graph;
 import oogasalad.view.builder.panefeatures.Dragger;
 import oogasalad.view.tiles.BasicTile;
-import oogasalad.view.tiles.Tile;
 import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

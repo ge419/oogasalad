@@ -26,7 +26,6 @@ public class TileListMetadata extends Metadata {
 
   public TileListAttribute makeTileListAttribute() {
     ArrayList<String> str = new ArrayList<>();
-    str.add("1");
     return new TileListAttribute(getKey(), str);
   }
 }

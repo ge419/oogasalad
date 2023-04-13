@@ -1,6 +1,7 @@
 package oogasalad.model.attribute;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -47,6 +48,7 @@ public class PositionAttribute extends Attribute {
     return y;
   }
 
+  @JsonIgnore
   public Coordinate getCoordinate() {
     return new Coordinate(getX(), getY());
   }

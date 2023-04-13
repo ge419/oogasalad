@@ -24,6 +24,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import oogasalad.model.attribute.IntAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.Engine;
 import oogasalad.model.engine.EngineModule;
@@ -78,8 +79,8 @@ public class Gameview {
         binder -> binder.bind(SchemaDatabase.class).toInstance(db)
     );
     ObjectMapper objectMapper = schemaInjector.getInstance(ObjectMapper.class);
-    oogasalad.model.constructable.Board bboard = objectMapper.readValue(file, oogasalad.model.constructable.Board.class);
-    ArrayList<Tile> t = new ArrayList<>(bboard.getTiles());
+    BBoard b = objectMapper.readValue(file, BBoard.class);
+    ArrayList<Tile> t = new ArrayList<>(b.getTiles());
 
     tiles = new Tiles(t);
     tiles.render(UIroot);
@@ -90,7 +91,7 @@ public class Gameview {
     Pieces pieces = new Pieces();
     pieces.render(UIroot);
     piece = pieces.getPiece();
-    piece.moveToTile(tiles.getTile(""));
+    piece.moveToTile(tiles.getTile(t.get(0).getId()));
 
     Scene scene = new Scene(UIroot);
     

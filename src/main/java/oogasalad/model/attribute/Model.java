@@ -11,7 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import oogasalad.model.constructable.Board;
+import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.Tile;
 
 
@@ -45,11 +45,11 @@ public class Model {
       x+=50;
       tiles.add(t);
     }
-    Board board = new Board(tiles);
+    BBoard board = new BBoard(tiles);
     objectMapper.writeValue(new File("data/tiles.json"), board);
 
     File file = new File("data/tiles.json");
-    Board bd = objectMapper.readValue(file, Board.class);
+    BBoard bd = objectMapper.readValue(file, BBoard.class);
     System.out.println(bd.getTiles());
 
 

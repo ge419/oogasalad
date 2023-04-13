@@ -67,6 +67,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private final boolean myDraggableObjectsToggle = true;
   private boolean myDeleteToggle = false;
   private final Coordinate myBoardPaneStartingLocation;
+  private final SchemaDatabase schemas;
 
 
   public BuilderView() {
@@ -75,6 +76,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     sideBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SideBar1");
     tileMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "TileMenu");
     defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET).toExternalForm();
+    schemas = new SchemaDatabase();
 
     myCurrentlyClickedTiletype = Optional.empty();
     myGraph = new Graph();  // todo: dependency injection
@@ -208,10 +210,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   // todo: support different tile types.
   private void createTile(MouseEvent e) {
     Coordinate tileCoord = new Coordinate((int) e.getX(), (int) e.getY());
-    SchemaDatabase schemas = new SchemaDatabase();
     Tile t = new Tile(schemas);
+    t.setCoordinate(tileCoord);
     BasicTile tile = new BasicTile(t);
-    //tile.setCoordinate(tileCoord);
     createTileFeaturesForObject(tile);
     tile.setOnMouseClicked(tile_e -> {
       handleTileClick(tile);

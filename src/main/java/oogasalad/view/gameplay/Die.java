@@ -31,8 +31,6 @@ public class Die extends StackPane implements Renderable {
 
   public void setCallback(Runnable runnable) {
     setOnMouseClicked(event -> {
-      System.out.println("Clicked die");
-      System.out.println("Running callback");
       runnable.run();
     });
   }

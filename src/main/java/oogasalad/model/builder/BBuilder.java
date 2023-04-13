@@ -7,11 +7,15 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javafx.scene.image.Image;
 import oogasalad.controller.BuilderController;
+import oogasalad.model.constructable.Board;
 import oogasalad.view.builder.board.BoardImage;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
+import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.tiles.Tile;
 import oogasalad.view.tiles.Tiles;
 
@@ -44,7 +48,7 @@ public class BBuilder implements BBuilderAPI{
    * save JSON files and assets using serializer
    */
   @Override
-  public void save() throws IOException {
+  public void save(ImmutableGameHolder holder) throws IOException {
     //extractData(holder);
     //saveTiles();
 
@@ -54,16 +58,27 @@ public class BBuilder implements BBuilderAPI{
     //once saved added to GameLauncher
   }
 
-//  protected void extractData(ImmutableGameHolder holder) {
-//    ImmutableBoardInfo boardInfo =  holder.getBoardInfo();
-//
-//    ImmutableGraph graph = holder.getTileGraph();
-//    //title = boardInfo.getTitle();
-//    int height = boardInfo.getBoardSize().height;
-//    int width = boardInfo.getBoardSize().width;
-//    imageList = boardInfo.getBoardImages();
-//    tileList = graph.getTiles();
-//  }
+  /**
+   * Extracts data from the frontend builder and backend
+   * @param holder
+   * @param board
+   * @return
+   */
+  protected Map<String, Object> extractData(ImmutableGameHolder holder, Board board) {
+    //List<Map<String, Object>> dataMapList = new ArrayList<>();
+    Map<String, Object> dataMap = new HashMap<>();
+    ImmutableBoardInfo boardInfo =  holder.getBoardInfo();
+    //title = boardInfo.getTitle();
+    int height = boardInfo.getBoardSize().height;
+    int width = boardInfo.getBoardSize().width;
+    //boardDataMap.put("GameTitle", title);
+    dataMap.put("BoardWidth", width);
+    dataMap.put("BoardHeight", height);
+    dataMap.put("Tiles", board.getTiles());
+    //dataMap.put("Players", board.getPlayers());
+    dataMap.put("Images", boardInfo.getBoardImages());
+    return dataMap;
+  }
 
   /**
    * settings.json
@@ -96,14 +111,6 @@ public class BBuilder implements BBuilderAPI{
     return tileJson;
 //    System.out.println(tileJson);
 //    mapper.writeValue(new File("data/" + title + "/" + title + "Tiles.json"), tileList);
-
-//    ObjectMapper mapper = new ObjectMapper();
-//    SimpleModule module = new SimpleModule();
-//    TODO: create a TileSerializer?
-//    module.addSerializer(new AttributeSerializer(Constructable.class));
-//    mapper.registerModule(module);
-//    StringWriter writer = new StringWriter();
-//    mapper.writeValue(new File("data/PlayerTest.json"), );
   }
 
   private void saveAsset() {
@@ -137,7 +144,6 @@ public class BBuilder implements BBuilderAPI{
   public void serialize(Object o) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
     SimpleModule module = new SimpleModule();
-    //TODO: figure out what goes in the parameter for AttributeSerializer
     //module.addSerializer(new AttributeSerializer(o.getClass()));
     mapper.registerModule(module);
     //TODO: replace "title" or get file path from the frontend?

@@ -1,10 +1,11 @@
 package oogasalad.model.builder;
 
 import java.io.IOException;
+import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 
 public interface BBuilderAPI {
 
-  void save() throws IOException;
+  void save(ImmutableGameHolder holder) throws IOException;
 
   void load();
 

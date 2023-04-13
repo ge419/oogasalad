@@ -1,17 +1,11 @@
 package oogasalad.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import oogasalad.model.builder.BBuilder;
-import oogasalad.model.constructable.Board;
-import oogasalad.model.engine.SimpleActionQueue;
+import oogasalad.model.constructable.BBoard;
+import oogasalad.model.exception.FileReaderException;
 import oogasalad.view.builder.BuilderView;
-import oogasalad.view.builder.board.ImmutableBoardInfo;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;
-import oogasalad.view.builder.graphs.ImmutableGraph;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,11 +15,11 @@ import org.apache.logging.log4j.Logger;
  */
 public class BuilderController implements BuilderControllerInterface{
 
-  private static final Logger log = LogManager.getLogger(BuilderController.class);
+  private static final Logger logger = LogManager.getLogger(BuilderController.class);
 
   private BuilderView front;
   private BBuilder back;
-  private Board board;
+  private BBoard board;
 
   public BuilderController() {
     //initialize frontend builder
@@ -36,16 +30,15 @@ public class BuilderController implements BuilderControllerInterface{
     //this will be done in the actual Controller class
   }
 
-  /**
-   * Take the ImmutableGameHolder from frontend and call on backend to save
-   * TODO: remove ImmutableGameHolder parameter, replace by creating getter method in BuildView?
-   */
   @Override
-  public void save(ImmutableGameHolder holder, Board board) throws IOException {
-
-//    holder = front.getImmutableGameHolder();
-
-    back.save(holder, board);
+  public void save(ImmutableGameHolder holder, BBoard board) throws IOException {
+    try {
+      back.save(holder, board);
+    }
+    catch (IOException e) {
+      logger.error("Failed to save custom built game to JSON file");
+      //TODO: popup for error?
+    }
   }
 
   /**

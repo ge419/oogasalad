@@ -25,14 +25,12 @@ public class BBuilder implements BBuilderAPI{
 
   private static final Logger log = LogManager.getLogger(BBuilder.class);
 
+  //TODO: implement load
+  //TODO: implement save for Rules
   public BBuilder() {
 
   }
 
-  /**
-   * save JSON files and assets using serializer
-   * TODO: should the BBuilder trigger the GameLauncher to add newly saved game?
-   */
   @Override
   public void save(ImmutableGameHolder holder, BBoard board) throws IOException {
     Map<String, Object> dataMap = extractData(holder, board);
@@ -41,14 +39,9 @@ public class BBuilder implements BBuilderAPI{
     saveTiles((List<Tile>) dataMap.get("Tiles"), filePath);
     savePlayers((List<Player>) dataMap.get("Players"), filePath);
     saveAsset((List<BoardImage>) dataMap.get("Images"), filePath);
+    //TODO: should the BBuilder trigger the GameLauncher to add newly saved game?
   }
 
-  /**
-   * Extracts data from the frontend builder and backend
-   * @param holder
-   * @param board
-   * @return
-   */
   protected Map<String, Object> extractData(ImmutableGameHolder holder, BBoard board) {
     //List<Map<String, Object>> dataMapList = new ArrayList<>();
     Map<String, Object> dataMap = new HashMap<>();
@@ -101,15 +94,13 @@ public class BBuilder implements BBuilderAPI{
     for (BoardImage image : imageList) {
       Path imagePath = Paths.get(image.imagePath());
       BufferedImage bufferedImage = ImageIO.read(new File(image.imagePath()));
-      ImageIO.write(bufferedImage , "png", new File(path + "/images/" + imagePath.getFileName() + ".png"));
+      ImageIO.write(bufferedImage , "png",
+          new File(path + "/images/" + imagePath.getFileName() + ".png"));
     }
   }
 
-  /**
-   * load using deserializer, translate data into GameHolder, call frontend to pass data
-   */
   @Override
-  public void load() {
+  public void load(String path) {
     //deserialize
     //translate data into GameHolder
     //call controller.load()

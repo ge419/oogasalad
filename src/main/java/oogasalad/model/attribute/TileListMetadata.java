@@ -2,6 +2,7 @@ package oogasalad.model.attribute;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TileListMetadata extends Metadata {
@@ -24,6 +25,7 @@ public class TileListMetadata extends Metadata {
   }
 
   public TileListAttribute makeTileListAttribute() {
-    return new TileListAttribute(getKey(), List.of());
+    ArrayList<String> str = new ArrayList<>();
+    return new TileListAttribute(getKey(), str);
   }
 }

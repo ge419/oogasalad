@@ -1,7 +1,6 @@
 package oogasalad.view.builder.graphs;
 
 import java.util.*;
-import oogasalad.view.tiles.Tile;
 import oogasalad.view.tiles.ViewTile;
 
 public class Graph implements GraphInterface, MutableGraph {

@@ -57,19 +57,6 @@ public class BasicTile extends Rectangle implements ViewTile {
     this.setFill(color);
   }
 
-  public void setOwned(boolean owned) {
-    this.owned = owned;
-    if (owned) {
-      setColor(Color.RED);
-    } else {
-      setColor(Color.LIGHTBLUE);
-    }
-  }
-
-  public boolean isOwned() {
-    return owned;
-  }
-
   @Override
   public void setPosition(Coordinate coord) {
     this.setX(coord.getXCoor());

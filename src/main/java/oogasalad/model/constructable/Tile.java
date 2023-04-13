@@ -24,13 +24,28 @@ public class Tile extends GameConstruct {
   }
 
   @JsonIgnore
+  public TileListAttribute getNextAttribute() {
+    return TileListAttribute.from(getAttribute(NEXT_ATTRIBUTE));
+  }
+
+  @JsonIgnore
   public List<String> getNextTileIds() {
-    return TileListAttribute.from(getAttribute(NEXT_ATTRIBUTE)).getTileIds();
+    return getNextAttribute().getTileIds();
+  }
+
+  @JsonIgnore
+  public PositionAttribute getPositionAttribute() {
+    return PositionAttribute.from(getAttribute(POSITION_ATTRIBUTE));
   }
 
   @JsonIgnore
   public Coordinate getCoordinate() {
-    return PositionAttribute.from(getAttribute(POSITION_ATTRIBUTE)).getCoordinate();
+    return getPositionAttribute().getCoordinate();
+  }
+
+  @JsonIgnore
+  public void setCoordinate(Coordinate coordinate) {
+    getPositionAttribute().setCoordinate(coordinate);
   }
 
   @JsonIgnore
@@ -39,8 +54,18 @@ public class Tile extends GameConstruct {
   }
 
   @JsonIgnore
+  public void setX(double x) {
+    getPositionAttribute().setX(x);
+  }
+
+  @JsonIgnore
   public double getY() {
     return getCoordinate().getYCoor();
+  }
+
+  @JsonIgnore
+  public void setY(double y) {
+    getPositionAttribute().setY(y);
   }
 
   @JsonIgnore

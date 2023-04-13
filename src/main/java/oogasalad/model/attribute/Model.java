@@ -41,7 +41,8 @@ public class Model {
     for (int i=0; i<8; i++) {
       Tile t = injector.getInstance(Tile.class);
       if (x>=200.0) y+=50.0;
-      t.setAttribute("position", new PositionAttribute("position", x, y));
+      t.setX(x);
+      t.setY(y);
       x+=50;
       tiles.add(t);
     }

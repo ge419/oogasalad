@@ -9,7 +9,6 @@ import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.Event;
 import oogasalad.model.engine.events.MonopolyEvent;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
-import oogasalad.view.tiles.ViewTile;
 import oogasalad.view.tiles.Tiles;
 
 public class RollDieAndMoveAction implements Action {
@@ -38,7 +37,7 @@ public class RollDieAndMoveAction implements Action {
 
     for (int i = 0; i < value; i++) {
       String nextTileId = tile.getNextTileIds().get(0);
-      tile = tiles.getTile(nextTileId);
+      tile = tiles.getTile(nextTileId).getTile();
     }
 
     piece.moveToTile(tile);

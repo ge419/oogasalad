@@ -4,18 +4,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 
 public class TileListAttribute extends Attribute {
-  private final ListProperty<String> tileIds;
+  @JsonProperty
+  private List<String> tileIds;
 
   @JsonCreator
   public TileListAttribute(@JsonProperty("key") String key, @JsonProperty("ids") List<String> tileIds) {
     super(key);
-    this.tileIds = new SimpleListProperty<>();
-    this.tileIds.addAll(tileIds);
+    this.tileIds = new ArrayList<>(tileIds);
   }
 
   public static TileListAttribute from(Attribute attr) {
@@ -24,16 +25,16 @@ public class TileListAttribute extends Attribute {
 
   @JsonGetter("ids")
   public List<String> getTileIds() {
-    return tileIds.get();
+    return tileIds;
   }
 
-  public ListProperty<String> tileIdsProperty() {
+  public List<String> tileIdsProperty() {
     return tileIds;
   }
 
   @JsonSetter("ids")
   public void setTileIds(List<String> tileIds) {
-    this.tileIds.setAll(tileIds);
+    this.tileIds = tileIds;
   }
 
   @Override

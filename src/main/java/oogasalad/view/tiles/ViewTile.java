@@ -2,6 +2,7 @@ package oogasalad.view.tiles;
 
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
 
 public interface ViewTile {
@@ -10,7 +11,7 @@ public interface ViewTile {
    * Returns the integer id for a given tile.
    * @return id
    */
-  public int getTileId();
+  public String getTileId();
 
   /**
    * <p>Returns the position of the tile as a double array.</p>
@@ -18,7 +19,7 @@ public interface ViewTile {
    * <p>Note that 0,0 is the top left corner of the tile</p>
    * @return double of size 2 with x and y position
    */
-  public double[] getPosition();
+  public Double[] getPosition();
 
   /**
    * <p>Sets the position of the tile.</p>
@@ -38,5 +39,6 @@ public interface ViewTile {
    * @param color color you want the tile to be.
    */
   public void setColor(Color color);
+  public Tile getTile();
 
 }

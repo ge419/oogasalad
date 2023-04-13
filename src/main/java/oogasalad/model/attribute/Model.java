@@ -11,11 +11,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import oogasalad.model.constructable.Board;
+import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.Tile;
 
 
 public class Model {
+  public static ArrayList<String> nextIds = new ArrayList<>();
 
   public static void main(String[] args)
       throws IOException {
@@ -46,16 +47,16 @@ public class Model {
       x+=50;
       tiles.add(t);
     }
-    Board board = new Board(tiles);
+    for (int i=0; i<tiles.size()-1; i++) {
+      tiles.get(i).getNextTileIds().add(tiles.get(i+1).getId());
+    }
+    tiles.get(7).getNextTileIds().add(tiles.get(0).getId());
+    BBoard board = new BBoard(tiles);
     objectMapper.writeValue(new File("data/tiles.json"), board);
 
     File file = new File("data/tiles.json");
-    Board bd = objectMapper.readValue(file, Board.class);
+    BBoard bd = objectMapper.readValue(file, BBoard.class);
     System.out.println(bd.getTiles());
-
-//    File file = new File("data/example/tiles.json");
-//    Tile[] TD = objectMapper.readValue(file, Tile[].class);
-//    System.out.println(TD);
 
 
 

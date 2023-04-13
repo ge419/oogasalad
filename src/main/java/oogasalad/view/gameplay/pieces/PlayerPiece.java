@@ -1,9 +1,12 @@
 package oogasalad.view.gameplay.pieces;
 
+import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
+import oogasalad.view.tiles.ViewTile;
 
 public class PlayerPiece extends GamePiece{
   private String playerName;
+  private Tile currentTile;
 
   public PlayerPiece(String imageURL, String playerName) {
     super(imageURL);
@@ -28,6 +31,15 @@ public class PlayerPiece extends GamePiece{
   @Override
   public void move(Coordinate[] coorArray) {
 
+  }
+
+  public void moveToTile(Tile tile) {
+    this.currentTile = tile;
+    moveDirectly(tile.getCoordinate());
+  }
+
+  public Tile getCurrentTile() {
+    return currentTile;
   }
 
   @Override

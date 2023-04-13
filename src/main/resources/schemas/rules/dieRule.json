@@ -1,0 +1,16 @@
+{
+  "name": "dieRule",
+  "fields": [
+    {
+      "@class": "oogasalad.model.attribute.IntMetadata",
+      "key": "numberOfDice",
+      "name": "Number of dice",
+      "description": "Number of dice to be rolled at the start of each turn.",
+      "editable": true,
+      "viewable": true,
+      "defaultValue": 1,
+      "minValue": 1,
+      "maxValue": 2
+    }
+  ]
+}

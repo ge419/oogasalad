@@ -1,7 +1,7 @@
 package oogasalad.view.builder.gameholder;
 
-import oogasalad.view.builder.board.ImmutableBoardInfo;
 import oogasalad.view.builder.graphs.ImmutableGraph;
+import oogasalad.view.builder.board.ImmutableBoardInfo;
 
 /**
  * A basic implementation of an Immutable game object.

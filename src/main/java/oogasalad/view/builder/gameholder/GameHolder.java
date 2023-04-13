@@ -3,9 +3,9 @@ package oogasalad.view.builder.gameholder;
 import oogasalad.view.builder.board.BoardInfo;
 import oogasalad.view.builder.board.BoardInfoInterface;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
+import oogasalad.view.builder.graphs.ImmutableGraph;
 import oogasalad.view.builder.graphs.Graph;
 import oogasalad.view.builder.graphs.GraphInterface;
-import oogasalad.view.builder.graphs.ImmutableGraph;
 import oogasalad.view.gameplay.Board;
 
 public class GameHolder implements GameInterface, MutableGameInterface{

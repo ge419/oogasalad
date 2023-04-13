@@ -3,6 +3,7 @@ package oogasalad.view.builder.gameholder;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
 import oogasalad.view.builder.graphs.ImmutableGraph;
 
+
 /**
  * The GameInterface will implement the API of Game objects that allows you to receive data directly
  * related to the game and how it functions.

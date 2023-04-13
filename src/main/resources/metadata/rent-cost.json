@@ -1,9 +1,9 @@
 {
-  "key": "color",
-  "type": "String",
-  "name":"COLOR",
+  "@class": "oogasalad.model.attribute.IntAttributeMetadata",
+  "key": "rentCost",
+  "name":"Rent Cost",
   "description": "but do we even need color",
   "editable": true,
   "viewable": true,
-  "defaultVal": "RED"
+  "defaultVal": 300
 }

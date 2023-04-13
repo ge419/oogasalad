@@ -5,7 +5,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import oogasalad.view.tiles.Tile;
+import javax.swing.text.View;
+import oogasalad.view.tiles.ViewTile;
 
 /**
  * Implementation of just the GraphInterface. Note that this Graph is immutable, meaning that no
@@ -16,7 +17,7 @@ import oogasalad.view.tiles.Tile;
  */
 public class ImmutableGraph implements GraphInterface {
 
-  private final HashMap<Tile, List<Tile>> myStruct;
+  private final HashMap<ViewTile, List<ViewTile>> myStruct;
 
   /**
    * Constructs an Immutable version of a given graph
@@ -25,16 +26,16 @@ public class ImmutableGraph implements GraphInterface {
    */
   public ImmutableGraph(GraphInterface graph) {
     myStruct = new HashMap<>();
-    for (Tile tile : graph.getTiles()) {
+    for (ViewTile tile : graph.getTiles()) {
       myStruct.put(tile, graph.getNextTiles(tile));
     }
   }
 
   /**
-   * @see GraphInterface#getNextTiles(Tile)
+//   * @see GraphInterface#getNextTiles(Tile)
    */
   @Override
-  public List<Tile> getNextTiles(Tile desiredTile) {
+  public List<ViewTile> getNextTiles(ViewTile desiredTile) {
     return myStruct.get(desiredTile);
   }
 
@@ -42,16 +43,13 @@ public class ImmutableGraph implements GraphInterface {
    * @see GraphInterface#getTiles()
    */
   @Override
-  public List<Tile> getTiles() {
+  public List<ViewTile> getTiles() {
     return new ArrayList<>(myStruct.keySet());
   }
 
-  /**
-   * @see GraphInterface#numberOfNextTiles(Tile)
-   */
   @Override
-  public int numberOfNextTiles(Tile desiredTile) {
-    return myStruct.get(desiredTile).size();
+  public void print() {
+
   }
 
   /**
@@ -60,7 +58,7 @@ public class ImmutableGraph implements GraphInterface {
   @Override
   public String toString() {
     StringBuilder stringMaker = new StringBuilder();
-    for (Tile tile : getTiles()) {
+    for (ViewTile tile : getTiles()) {
       stringMaker.append("Tile ").append(tile.getTileId()).append(": ")
           .append(Arrays.asList(getNextTiles(tile)));
       // same as stringMaker.append("Tile " + tile.getTileId() + ": " + Arrays.asList(getNextTiles(tile)));
@@ -87,7 +85,7 @@ public class ImmutableGraph implements GraphInterface {
    * @return false if there are any differences, true if not.
    */
   private boolean compareTilesAndNexts(GraphInterface obj) {
-    for (Tile tile : getTiles()) {
+    for (ViewTile tile : getTiles()) {
       if (!obj.getTiles().contains(tile)) {
         return false;
       }
@@ -99,3 +97,10 @@ public class ImmutableGraph implements GraphInterface {
   }
 
 }
+
+
+
+
+
+
+

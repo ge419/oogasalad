@@ -1,44 +1,42 @@
 package oogasalad.view.tiles;
 
-import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import oogasalad.view.Renderable;
+import oogasalad.model.attribute.IntAttribute;
+import oogasalad.model.attribute.PositionAttribute;
+import oogasalad.model.attribute.StringAttribute;
+import oogasalad.model.attribute.TileAttribute;
+import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
 
-public class BasicTile extends Rectangle implements Tile {
+public class BasicTile extends Rectangle implements ViewTile {
   private static final double TILE_WIDTH = 50;
 
-  private int id;
-  private double[] position;
+  private final String id;
+  private Double[] position;
   private int[] next;
   private int[] onLand;
   private int[] afterTurn;
+  private boolean owned;
 
-  public BasicTile(int id, double[] position, int[] next, int[] onLand, int[] afterTurn) {
-    super(position[0], position[1], TILE_WIDTH, TILE_WIDTH);
+  public BasicTile(Tile tile) {
+    super(PositionAttribute.from(tile.getAttribute("position")).getX(), PositionAttribute.from(tile.getAttribute("position")).getY(), TILE_WIDTH, TILE_WIDTH);
     this.setFill(Color.LIGHTBLUE);
     this.setStroke(Color.BLACK);
-    this.id = id;
-    this.position = position;
-    this.next = next;
-    this.onLand = onLand;
-    this.afterTurn = afterTurn;
+    this.id = tile.getId();
+    this.position = new Double[]{PositionAttribute.from(tile.getAttribute("position")).getX(), PositionAttribute.from(tile.getAttribute("position")).getY()};
+//    this.next = new int[]{TileAttribute.from(tile.getAttribute("nextTile")).getValue()};
+//    this.onLand = new int[]{TileAttribute.from(tile.getAttribute("onLand")).getValue()};
+//    this.afterTurn = new int[]{TileAttribute.from(tile.getAttribute("afterTurn")).getValue()};
   }
 
-  public BasicTile(int id, Coordinate position) {
-    super(position.getXCoor(), position.getYCoor(), TILE_WIDTH, TILE_WIDTH);
-    this.setFill(Color.LIGHTBLUE);
-    this.setStroke(Color.BLACK);
-    this.id = id;
+
+  public String getTileId() {
+    return this.id;
   }
 
-  public int getTileId() {
-    return id;
-  }
-
-  public double[] getPosition() {
+  public Double[] getPosition() {
     return position;
   }
 
@@ -65,7 +63,6 @@ public class BasicTile extends Rectangle implements Tile {
     this.setY(coord.getYCoor());
   }
 
-  @Override
   public Paint getColor() {
     return this.getFill();
   }

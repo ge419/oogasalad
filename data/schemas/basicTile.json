@@ -1,0 +1,39 @@
+{
+  "name" : "basicTile",
+  "fields" : [ {
+    "@class" : "oogasalad.model.attribute.IntMetadata",
+    "key" : "height",
+    "name" : "Height",
+    "description" : "Height of the tile.",
+    "editable" : true,
+    "viewable" : true,
+    "defaultValue" : 10,
+    "minValue" : -2147483648,
+    "maxValue" : 2147483647,
+    "attributeClass" : "oogasalad.model.attribute.IntAttribute",
+    "type" : "int"
+  }, {
+    "@class" : "oogasalad.model.attribute.CoordinateMetadata",
+    "key" : "position",
+    "name" : "Position",
+    "description" : "Position of tile on board.",
+    "editable" : true,
+    "viewable" : true,
+    "defaultX" : 0.0,
+    "defaultY" : 0.0,
+    "attributeClass" : "oogasalad.model.attribute.CoordinateAttribute",
+    "type" : "int"
+  }, {
+    "@class" : "oogasalad.model.attribute.IntMetadata",
+    "key" : "width",
+    "name" : "Width",
+    "description" : "Width of the tile.",
+    "editable" : true,
+    "viewable" : true,
+    "defaultValue" : 10,
+    "minValue" : -2147483648,
+    "maxValue" : 2147483647,
+    "attributeClass" : "oogasalad.model.attribute.IntAttribute",
+    "type" : "int"
+  } ]
+}

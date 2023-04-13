@@ -12,6 +12,15 @@
       "defaultY": 0
     },
     {
+      "@class": "oogasalad.model.attribute.BooleanMetadata",
+      "key": "owned",
+      "name": "Owned",
+      "description": "Whether or not tile is owned.",
+      "editable": true,
+      "viewable": false,
+      "defaultValue": false
+    },
+    {
       "@class": "oogasalad.model.attribute.DoubleMetadata",
       "key": "width",
       "name": "Width",

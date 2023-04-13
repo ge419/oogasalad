@@ -30,11 +30,9 @@ import oogasalad.model.engine.Engine;
 import oogasalad.model.engine.EngineModule;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
-import oogasalad.model.engine.events.MonopolyEvent;
+import oogasalad.model.engine.events.DieRolledEvent;
 import oogasalad.model.engine.prompt.PromptOption;
 import oogasalad.model.engine.prompt.Prompter;
-//import oogasalad.model.engine.rules.BuyTileRule;
-//import oogasalad.model.engine.rules.DieRule;
 import oogasalad.model.engine.rules.DieRule;
 import oogasalad.model.engine.rules.Rule;
 import oogasalad.model.engine.rules.TurnRule;
@@ -146,12 +144,11 @@ public class Gameview {
 
     @Override
     public void registerEventHandlers(EventRegistrar registrar) {
-      registrar.registerHandler(MonopolyEvent.DIE_ROLLED, this::setDie);
+      registrar.registerHandler(DieRolledEvent.class, this::setDie);
     }
 
-    private void setDie(EventHandlerParams eventHandlerParams) {
-      IntAttribute attr = IntAttribute.from(eventHandlerParams.event().attributeMap().get("value"));
-      die.rollDice(attr.getValue());
+    private void setDie(EventHandlerParams<DieRolledEvent> eventHandlerParams) {
+      die.rollDice(eventHandlerParams.event().getNumberRolled());
     }
   }
 

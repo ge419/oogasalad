@@ -16,8 +16,8 @@ public class BooleanAttribute extends Attribute {
     this.value = new SimpleBooleanProperty(value);
   }
 
-  public static IntAttribute from(Attribute attr) {
-    return Attribute.getAs(attr, IntAttribute.class);
+  public static BooleanAttribute from(Attribute attr) {
+    return Attribute.getAs(attr, BooleanAttribute.class);
   }
 
   public boolean getValue() {

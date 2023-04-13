@@ -16,7 +16,6 @@ import oogasalad.model.constructable.Tile;
 
 
 public class Model {
-  public static ArrayList<String> nextIds = new ArrayList<>();
 
   public static void main(String[] args)
       throws IOException {
@@ -46,11 +45,11 @@ public class Model {
       t.setY(y);
       x+=50;
       tiles.add(t);
+      if (i != 0) {
+        t.getNextTileIds().add(tiles.get(i-1).getId());
+      }
     }
-    for (int i=0; i<tiles.size()-1; i++) {
-      tiles.get(i).getNextTileIds().add(tiles.get(i+1).getId());
-    }
-    tiles.get(7).getNextTileIds().add(tiles.get(0).getId());
+    tiles.get(8).getNextTileIds().add(tiles.get(0).getId());
     BBoard board = new BBoard(tiles);
     objectMapper.writeValue(new File("data/tiles.json"), board);
 

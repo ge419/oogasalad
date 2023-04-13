@@ -9,8 +9,8 @@ import java.util.List;
 import oogasalad.model.engine.actions.Action;
 import oogasalad.model.engine.actions.ActionParams;
 import oogasalad.model.engine.actions.EventAction;
-import oogasalad.model.engine.events.EngineEvent;
-import oogasalad.model.engine.events.EventType;
+import oogasalad.model.engine.events.AttributeEvent;
+import oogasalad.model.engine.events.StartGameEvent;
 import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.Rule;
 import org.junit.jupiter.api.BeforeAll;
@@ -36,7 +36,7 @@ class SimpleEngineTest {
 
   @Test
   void singleRuleGame() {
-    EventRule startRule = spy(new EventRule(EngineEvent.START_GAME, TestEvent.TEST_EVENT_1));
+    EventRule startRule = spy(new EventRule(className(StartGameEvent.class), TestEvent.TEST_EVENT_1));
 
     engine.setRules(List.of(startRule));
     // START_GAME -> TEST_EVENT_1
@@ -50,10 +50,10 @@ class SimpleEngineTest {
   @Test
   void dualRuleGame() {
     // START_GAME -> TEST_EVENT1 -> TEST_EVENT2
-    EventRule startRule = spy(new EventRule(EngineEvent.START_GAME, TestEvent.TEST_EVENT_1));
+    EventRule startRule = spy(new EventRule(className(StartGameEvent.class), TestEvent.TEST_EVENT_1));
     EventRule endRule = spy(new EventRule(TestEvent.TEST_EVENT_1, TestEvent.TEST_EVENT_2));
     // This rule is never called
-    EventRule otherRule = spy(new EventRule(TestEvent.TEST_EVENT_3, EngineEvent.START_GAME));
+    EventRule otherRule = spy(new EventRule(TestEvent.TEST_EVENT_3, TestEvent.TEST_EVENT_3));
     Prompter mockPrompter = mock(Prompter.class);
 
     engine.setRules(List.of(startRule, endRule, otherRule));
@@ -79,7 +79,7 @@ class SimpleEngineTest {
 
   @Test
   void promptTest() {
-    DieRule dieRule = new DieRule(EngineEvent.START_GAME);
+    DieRule<StartGameEvent> dieRule = new DieRule<>(StartGameEvent.class);
     Prompter mockPrompter = mock(Prompter.class);
 
     engine.setRules(List.of(dieRule));
@@ -93,10 +93,10 @@ class SimpleEngineTest {
 
   @Test
   void orderTest() {
-    EventRule rule1 = spy(new EventRule(EngineEvent.START_GAME, TestEvent.TEST_EVENT_1));
-    EventRule rule2 = spy(new EventRule(EngineEvent.START_GAME, TestEvent.TEST_EVENT_2));
-    EventRule rule3 = spy(new EventRule(EngineEvent.START_GAME, TestEvent.TEST_EVENT_2));
-    EventRule rule4 = spy(new EventRule(EngineEvent.START_GAME, TestEvent.TEST_EVENT_2));
+    EventRule rule1 = spy(new EventRule(className(StartGameEvent.class), TestEvent.TEST_EVENT_1));
+    EventRule rule2 = spy(new EventRule(className(StartGameEvent.class), TestEvent.TEST_EVENT_2));
+    EventRule rule3 = spy(new EventRule(className(StartGameEvent.class), TestEvent.TEST_EVENT_2));
+    EventRule rule4 = spy(new EventRule(className(StartGameEvent.class), TestEvent.TEST_EVENT_2));
     EventRule rule5 = spy(new EventRule(TestEvent.TEST_EVENT_1, TestEvent.TEST_EVENT_2));
     EventRule rule6 = spy(new EventRule(TestEvent.TEST_EVENT_1, TestEvent.TEST_EVENT_2));
     EventRule rule7 = spy(new EventRule(TestEvent.TEST_EVENT_1, TestEvent.TEST_EVENT_2));
@@ -126,7 +126,7 @@ class SimpleEngineTest {
   @Test
   void throwsOnMissingActions() {
     // If there are no actions and runNextAction is called, engine should error
-    EventRule startRule = new EventRule(EngineEvent.START_GAME, TestEvent.TEST_EVENT_1);
+    EventRule startRule = new EventRule(className(StartGameEvent.class), TestEvent.TEST_EVENT_1);
     Prompter mockPrompter = mock(Prompter.class);
 
     engine.setRules(List.of(startRule));
@@ -137,14 +137,18 @@ class SimpleEngineTest {
     assertThrows(MissingActionsException.class, () -> engine.runNextAction(mockPrompter));
   }
 
+  private String className(Class<?> clazz) {
+    return clazz.getName();
+  }
+
   /*
    * Helper classes
    */
   private static class EventRule implements Rule {
-    EventType listen;
-    EventType emit;
+    String listen;
+    String emit;
 
-    EventRule(EventType listen, EventType emit) {
+    EventRule(String listen, String emit) {
       this.listen = listen;
       this.emit = emit;
     }
@@ -154,15 +158,15 @@ class SimpleEngineTest {
       registrar.registerHandler(listen, this::onEvent);
     }
 
-    public void onEvent(EventHandlerParams params) {
-      params.actionQueue().add(1, new EventAction(emit));
+    public void onEvent(EventHandlerParams<AttributeEvent> params) {
+      params.actionQueue().add(1, new EventAction(new AttributeEvent(emit)));
     }
   }
 
-  private static class DieRule implements Rule {
-    EventType listen;
+  private static class DieRule<T extends Event<T>> implements Rule {
+    Class<T> listen;
 
-    DieRule(EventType listen) {
+    DieRule(Class<T> listen) {
       this.listen = listen;
     }
 
@@ -171,7 +175,7 @@ class SimpleEngineTest {
       registrar.registerHandler(listen, this::onEvent);
     }
 
-    public void onEvent(EventHandlerParams params) {
+    public void onEvent(EventHandlerParams<T> params) {
       params.actionQueue().add(0, new DieAction());
     }
 

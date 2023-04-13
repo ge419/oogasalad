@@ -7,6 +7,6 @@ package oogasalad.model.engine;
  * @param actionQueue used to register new events
  * @author Dominic Martinez
  */
-public record EventHandlerParams(Event event, ActionQueue actionQueue) {
+public record EventHandlerParams<T extends Event<T>>(T event, ActionQueue actionQueue) {
 
 }

@@ -11,5 +11,5 @@ public interface EventEmitter {
   /**
    * Synchronously emits an event.
    */
-  void emit(Event event);
+  void emit(Event<?> event);
 }

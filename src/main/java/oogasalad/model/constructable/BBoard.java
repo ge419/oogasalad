@@ -2,19 +2,18 @@ package oogasalad.model.constructable;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Board {
+public class BBoard {
   private final List<Tile> tiles;
 
-  public Board() {
+  public BBoard() {
     this.tiles = new ArrayList<>();
   }
 
   @JsonCreator
-  public Board(@JsonProperty("tiles") List<Tile> t) {
+  public BBoard(@JsonProperty("tiles") List<Tile> t) {
     this.tiles = new ArrayList<>(t);
   }
 

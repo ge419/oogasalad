@@ -1,0 +1,8 @@
+{
+  "key": "coordinate",
+  "type": "position",
+  "name": "coordinate",
+  "description": "specifies X and Y coordinate of object on board",
+  "editable": true,
+  "viewable": true
+}

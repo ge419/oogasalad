@@ -1,0 +1,8 @@
+{
+  "@class": "oogasalad.model.attribute.StringAttributeMetadata",
+  "key": "color",
+  "name":"Color",
+  "description": "Color of a tile",
+  "editable": true,
+  "viewable": true
+}

@@ -1,0 +1,8 @@
+{
+  "name": "PLAY-CARD",
+  "description": "play card and ",
+  "schema": [
+    "number-of-cards"
+  ]
+
+}

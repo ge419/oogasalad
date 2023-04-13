@@ -18,7 +18,7 @@ public class BooleanMetadata extends Metadata {
 
   @Override
   public Attribute makeAttribute() {
-    return null;
+    return makeBooleanAttribute();
   }
 
   @Override

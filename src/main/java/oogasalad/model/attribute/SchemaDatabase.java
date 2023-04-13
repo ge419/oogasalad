@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import oogasalad.model.exception.ResourceReadException;
@@ -54,5 +55,9 @@ public class SchemaDatabase {
 
   public boolean containsSchema(String name) {
     return schemaMap.containsKey(name);
+  }
+
+  public List<String> getAllSchemaNames() {
+    return schemaMap.keySet().stream().toList();
   }
 }

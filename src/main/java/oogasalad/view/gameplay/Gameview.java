@@ -33,6 +33,7 @@ import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.events.DieRolledEvent;
 import oogasalad.model.engine.prompt.PromptOption;
 import oogasalad.model.engine.prompt.Prompter;
+import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.model.engine.rules.DieRule;
 import oogasalad.model.engine.rules.Rule;
 import oogasalad.model.engine.rules.TurnRule;
@@ -107,9 +108,10 @@ public class Gameview {
         List.of(
             injector.getInstance(TurnRule.class),
             injector.getInstance(DieRule.class),
-//            injector.getInstance(BuyTileRule.class),
+            injector.getInstance(BuyTileRule.class),
             new SetDieRule()
         )
+        
     );
     prompter = new MyPrompter();
     run();

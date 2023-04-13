@@ -3,58 +3,46 @@ package oogasalad.view.tiles;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import oogasalad.model.attribute.BooleanAttribute;
 import oogasalad.model.attribute.IntAttribute;
 import oogasalad.model.attribute.PositionAttribute;
 import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.attribute.TileAttribute;
 import oogasalad.model.constructable.Tile;
+import oogasalad.model.engine.actions.BuyAction;
 import oogasalad.view.Coordinate;
 
 public class BasicTile extends Rectangle implements ViewTile {
-  private static final double TILE_WIDTH = 50;
-
-  private final String id;
-  private Double[] position;
-  private int[] next;
-  private int[] onLand;
-  private int[] afterTurn;
-  private boolean owned;
-  private Tile modelTile;
+  private final Tile modelTile;
 
   public BasicTile(Tile tile) {
     super(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
+    this.modelTile = tile;
     this.setFill(Color.LIGHTBLUE);
     this.setStroke(Color.BLACK);
-    this.modelTile = tile;
-    this.id = tile.getId();
-    this.position = new Double[]{PositionAttribute.from(tile.getAttribute("position")).getX(), PositionAttribute.from(tile.getAttribute("position")).getY()};
-//    this.next = new int[]{TileAttribute.from(tile.getAttribute("nextTile")).getValue()};
-//    this.onLand = new int[]{TileAttribute.from(tile.getAttribute("onLand")).getValue()};
-//    this.afterTurn = new int[]{TileAttribute.from(tile.getAttribute("afterTurn")).getValue()};
+
+    BooleanAttribute ownedAttribute =
+        BooleanAttribute.from(modelTile.getAttribute(BuyAction.OWNED_ATTRIBUTE));
+    ownedAttribute.valueProperty().addListener(((observable, oldValue, isOwned) -> {
+      if (Boolean.TRUE.equals(isOwned)) {
+        this.setFill(Color.RED);
+      } else {
+        this.setFill(Color.LIGHTBLUE);
+      }
+    }));
   }
 
-  public Tile getTile() {return this.modelTile;}
+  public Tile getTile() {
+    return this.modelTile;
+  }
 
   public String getTileId() {
-    return this.id;
+    return this.modelTile.getId();
   }
 
-  public Double[] getPosition() {
-    return position;
+  public Coordinate getPosition() {
+    return modelTile.getCoordinate();
   }
-
-  public int[] getNext() {
-    return next;
-  }
-
-  public int[] getOnLand() {
-    return onLand;
-  }
-
-  public int[] getAfterTurn() {
-    return afterTurn;
-  }
-
   @Override
   public void setColor(Color color) {
     this.setFill(color);

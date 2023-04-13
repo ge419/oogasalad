@@ -10,5 +10,5 @@ public interface EventHandlerManager extends EventRegistrar {
   /**
    * Trigger an event on all relevant {@link EventHandler}s.
    */
-  void triggerEvent(EventHandlerParams params);
+  void triggerEvent(EventHandlerParams<?> params);
 }

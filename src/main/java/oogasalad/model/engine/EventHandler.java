@@ -6,10 +6,10 @@ package oogasalad.model.engine;
  * @author Dominic Martinez
  */
 @FunctionalInterface
-public interface EventHandler {
+public interface EventHandler<T extends Event<T>> {
 
   /**
    * Handles an event, possibly adding actions to the queue.
    */
-  void handleEvent(EventHandlerParams params);
+  void handleEvent(EventHandlerParams<T> params);
 }

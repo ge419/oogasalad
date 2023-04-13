@@ -37,7 +37,13 @@ public abstract class GameConstruct {
     this.schemaName = schemaName;
     this.database = database;
     this.attributeMap = new TreeMap<>();
-    this.loadSchema(schemaName);
+    // TODO: put this somewhere else?
+    try {
+      this.loadSchema(schemaName);
+    } catch (Exception e) {
+      LOGGER.fatal("failed to construct schema {}", schemaName);
+      throw e;
+    }
   }
 
   public String getId() {

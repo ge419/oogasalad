@@ -1,13 +1,14 @@
 package oogasalad.model.engine;
 
-import java.util.Map;
-import oogasalad.model.attribute.Attribute;
-import oogasalad.model.engine.events.EventType;
-
 /**
- * A specific game event.
+ * Represents a game-specific event.
+ *
+ * @author Dominic Martinez
  */
-// TODO attributes
-public record Event(EventType type, Map<String, Attribute> attributeMap) {
-  // TODO: Add attributes
+public interface Event<T extends Event<T>> {
+
+  Class<T> eventClass();
+  default String type() {
+    return eventClass().getName();
+  }
 }

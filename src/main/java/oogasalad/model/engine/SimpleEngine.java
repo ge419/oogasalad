@@ -7,7 +7,7 @@ import java.util.Optional;
 import oogasalad.model.engine.actions.Action;
 import oogasalad.model.engine.actions.ActionParams;
 import oogasalad.model.engine.actions.EventAction;
-import oogasalad.model.engine.events.EngineEvent;
+import oogasalad.model.engine.events.StartGameEvent;
 import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.Rule;
 import org.apache.logging.log4j.LogManager;
@@ -33,7 +33,7 @@ public class SimpleEngine implements Engine {
     this.actionQueue = actionQueue;
     this.managerProvider = managerProvider;
 
-    EventAction startGameAction = new EventAction(EngineEvent.START_GAME);
+    EventAction startGameAction = new EventAction(new StartGameEvent());
     actionQueue.add(0, startGameAction);
   }
 
@@ -62,7 +62,7 @@ public class SimpleEngine implements Engine {
     action.runAction(new ActionParams(this::triggerEvent, prompter));
   }
 
-  private void triggerEvent(Event event) {
+  private void triggerEvent(Event<?> event) {
     log.trace("triggering event {}", event);
     currentManager.triggerEvent(new EventHandlerParams(event, actionQueue));
   }

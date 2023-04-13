@@ -35,6 +35,7 @@ import oogasalad.model.engine.prompt.PromptOption;
 import oogasalad.model.engine.prompt.Prompter;
 //import oogasalad.model.engine.rules.BuyTileRule;
 //import oogasalad.model.engine.rules.DieRule;
+import oogasalad.model.engine.rules.DieRule;
 import oogasalad.model.engine.rules.Rule;
 import oogasalad.model.engine.rules.TurnRule;
 import oogasalad.view.Renderable;
@@ -91,7 +92,7 @@ public class Gameview {
     Pieces pieces = new Pieces();
     pieces.render(UIroot);
     piece = pieces.getPiece();
-    piece.moveToTile(tiles.getTile(t.get(0).getId()));
+    piece.moveToTile(t.get(0));
 
     Scene scene = new Scene(UIroot);
     
@@ -102,34 +103,34 @@ public class Gameview {
     primaryStage.setWidth(VIEW_WIDTH);
     primaryStage.show();
 
-//    Injector injector = Guice.createInjector(new GameviewModule());
-//    engine = injector.getInstance(Engine.class);
-//    engine.setRules(
-//        List.of(
-//            injector.getInstance(TurnRule.class),
-//            injector.getInstance(DieRule.class),
+    Injector injector = Guice.createInjector(new GameviewModule());
+    engine = injector.getInstance(Engine.class);
+    engine.setRules(
+        List.of(
+            injector.getInstance(TurnRule.class),
+            injector.getInstance(DieRule.class),
 //            injector.getInstance(BuyTileRule.class),
-//            new SetDieRule()
-//        )
-//    );
-//    prompter = new MyPrompter();
-//    run();
+            new SetDieRule()
+        )
+    );
+    prompter = new MyPrompter();
+    run();
   }
 
-//  void run() {
-//    engine.runNextAction(prompter);
-//    doEffect();
-//  }
+  void run() {
+    engine.runNextAction(prompter);
+    doEffect();
+  }
 
-//  void doEffect() {
-//    if (!effects.isEmpty()) {
-//      // If there is a pending effect, perform it and do the next one once done
-//      effects.poll().present(this::doEffect);
-//    } else {
-//      // Otherwise run the next action
-//      run();
-//    }
-//  }
+  void doEffect() {
+    if (!effects.isEmpty()) {
+      // If there is a pending effect, perform it and do the next one once done
+      effects.poll().present(this::doEffect);
+    } else {
+      // Otherwise run the next action
+      run();
+    }
+  }
 
 
   private class GameviewModule extends AbstractModule {

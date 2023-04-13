@@ -19,11 +19,13 @@ public class BasicTile extends Rectangle implements ViewTile {
   private int[] onLand;
   private int[] afterTurn;
   private boolean owned;
+  private Tile modelTile;
 
   public BasicTile(Tile tile) {
-    super(PositionAttribute.from(tile.getAttribute("position")).getX(), PositionAttribute.from(tile.getAttribute("position")).getY(), TILE_WIDTH, TILE_WIDTH);
+    super(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
     this.setFill(Color.LIGHTBLUE);
     this.setStroke(Color.BLACK);
+    this.modelTile = tile;
     this.id = tile.getId();
     this.position = new Double[]{PositionAttribute.from(tile.getAttribute("position")).getX(), PositionAttribute.from(tile.getAttribute("position")).getY()};
 //    this.next = new int[]{TileAttribute.from(tile.getAttribute("nextTile")).getValue()};
@@ -31,6 +33,7 @@ public class BasicTile extends Rectangle implements ViewTile {
 //    this.afterTurn = new int[]{TileAttribute.from(tile.getAttribute("afterTurn")).getValue()};
   }
 
+  public Tile getTile() {return this.modelTile;}
 
   public String getTileId() {
     return this.id;

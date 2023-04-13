@@ -11,13 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
-import oogasalad.model.constructable.Board;
+import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.GameConstruct;
 import oogasalad.model.constructable.Player;
+import oogasalad.model.constructable.Tile;
 import oogasalad.view.builder.board.BoardImage;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;
-import oogasalad.view.tiles.Tile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,7 +34,7 @@ public class BBuilder implements BBuilderAPI{
    * TODO: should the BBuilder trigger the GameLauncher to add newly saved game?
    */
   @Override
-  public void save(ImmutableGameHolder holder, Board board) throws IOException {
+  public void save(ImmutableGameHolder holder, BBoard board) throws IOException {
     Map<String, Object> dataMap = extractData(holder, board);
     String filePath = dataMap.get("Path").toString();
     saveSettings(dataMap, filePath);
@@ -49,7 +49,7 @@ public class BBuilder implements BBuilderAPI{
    * @param board
    * @return
    */
-  protected Map<String, Object> extractData(ImmutableGameHolder holder, Board board) {
+  protected Map<String, Object> extractData(ImmutableGameHolder holder, BBoard board) {
     //List<Map<String, Object>> dataMapList = new ArrayList<>();
     Map<String, Object> dataMap = new HashMap<>();
     ImmutableBoardInfo boardInfo =  holder.getBoardInfo();

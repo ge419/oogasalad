@@ -1,9 +1,7 @@
 package oogasalad.view.tiles;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javafx.scene.layout.BorderPane;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.Renderable;
@@ -19,8 +17,9 @@ public class Tiles implements Renderable {
 
   @Override
   public void render(BorderPane pane) {
+    ViewTileFactory viewTileFactory = new ViewTileFactory();
     for (Tile t : BTiles) {
-      BasicTile tile = new BasicTile(t);
+      ViewTile tile = viewTileFactory.createTile("tile id", t);
       tile.setId("Tiles");
       pane.getChildren().add(tile);
       tileList.add(tile);

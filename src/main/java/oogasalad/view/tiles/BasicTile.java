@@ -21,8 +21,8 @@ public class BasicTile extends Rectangle implements ViewTile {
   public BasicTile(Tile tile) {
     this.id = 0;
 //    super(PositionAttribute.from(tile.getAttribute("coordinate")).getValue().get(0), PositionAttribute.from(tile.getAttribute("coordinate")).getValue().get(1), TILE_WIDTH, TILE_WIDTH);
-//    this.setFill(Color.LIGHTBLUE);
-//    this.setStroke(Color.BLACK);
+    this.setFill(Color.LIGHTBLUE);
+    this.setStroke(Color.BLACK);
 //    this.id = IntAttribute.from(tile.getAttribute("id")).getValue();
 //    this.position = PositionAttribute.from(tile.getAttribute("coordinate")).getValue().toArray(new Double[0]);
 //    this.next = new int[]{TileAttribute.from(tile.getAttribute("nextTile")).getValue()};
@@ -81,11 +81,6 @@ public class BasicTile extends Rectangle implements ViewTile {
   public void setPosition(Coordinate coord) {
     this.setX(coord.getXCoor());
     this.setY(coord.getYCoor());
-  }
-
-  @Override
-  public Paint getColor() {
-    return this.getFill();
   }
 
   @Override

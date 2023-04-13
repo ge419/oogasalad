@@ -4,17 +4,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javafx.scene.image.Image;
 import javax.imageio.ImageIO;
-import oogasalad.controller.BuilderController;
 import oogasalad.model.constructable.Board;
+import oogasalad.model.constructable.GameConstruct;
 import oogasalad.model.constructable.Player;
 import oogasalad.view.builder.board.BoardImage;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
@@ -25,7 +23,7 @@ import org.apache.logging.log4j.Logger;
 
 public class BBuilder implements BBuilderAPI{
 
-  private static final Logger log = LogManager.getLogger(BuilderController.class);
+  private static final Logger log = LogManager.getLogger(BBuilder.class);
 
   public BBuilder() {
 
@@ -43,7 +41,6 @@ public class BBuilder implements BBuilderAPI{
     saveTiles((List<Tile>) dataMap.get("Tiles"), filePath);
     savePlayers((List<Player>) dataMap.get("Players"), filePath);
     saveAsset((List<BoardImage>) dataMap.get("Images"), filePath);
-    //once saved trigger GameLauncher to
   }
 
   /**
@@ -108,7 +105,6 @@ public class BBuilder implements BBuilderAPI{
     }
   }
 
-
   /**
    * load using deserializer, translate data into GameHolder, call frontend to pass data
    */
@@ -124,8 +120,10 @@ public class BBuilder implements BBuilderAPI{
     mapper.writeValue(new File(path + "/" + type + ".json"), o);
   }
 
-  private void deserialize(Object o) throws IOException {
-
+  private GameConstruct deserialize(File file) throws IOException {
+    ObjectMapper mapper = new ObjectMapper();
+    GameConstruct constructableObject = mapper.readValue(file, GameConstruct.class);
+    return constructableObject;
   }
 
 

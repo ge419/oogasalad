@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import oogasalad.view.Coordinate;
 import oogasalad.view.tiles.BasicTile;
-import oogasalad.view.tiles.Tile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

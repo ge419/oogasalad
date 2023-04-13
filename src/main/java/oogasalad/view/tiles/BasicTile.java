@@ -4,15 +4,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import oogasalad.model.attribute.BooleanAttribute;
-import oogasalad.model.attribute.IntAttribute;
-import oogasalad.model.attribute.PositionAttribute;
-import oogasalad.model.attribute.StringAttribute;
-import oogasalad.model.attribute.TileAttribute;
 import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.actions.BuyAction;
 import oogasalad.view.Coordinate;
 
 public class BasicTile extends Rectangle implements ViewTile {
+
   private final Tile modelTile;
 
   public BasicTile(Tile tile) {
@@ -43,10 +40,6 @@ public class BasicTile extends Rectangle implements ViewTile {
   public Coordinate getPosition() {
     return modelTile.getCoordinate();
   }
-  @Override
-  public void setColor(Color color) {
-    this.setFill(color);
-  }
 
   @Override
   public void setPosition(Coordinate coord) {
@@ -59,8 +52,15 @@ public class BasicTile extends Rectangle implements ViewTile {
   }
 
   @Override
-  public boolean equals(Object o){
-    if (o == null || getClass() != o.getClass()) return false;
+  public void setColor(Color color) {
+    this.setFill(color);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     return this.getTileId() == ((BasicTile) o).getTileId();
   }
 }

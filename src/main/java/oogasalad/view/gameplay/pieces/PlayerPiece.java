@@ -2,9 +2,9 @@ package oogasalad.view.gameplay.pieces;
 
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
-import oogasalad.view.tiles.ViewTile;
 
-public class PlayerPiece extends GamePiece{
+public class PlayerPiece extends GamePiece {
+
   private String playerName;
   private Tile currentTile;
 

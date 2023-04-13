@@ -1,16 +1,14 @@
 package oogasalad.view.gameplay;
 
+import static org.testfx.api.FxAssert.verifyThat;
+import static org.testfx.matcher.base.NodeMatchers.isVisible;
+
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import oogasalad.view.gameplay.pieces.GamePiece;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
-
-import static org.testfx.api.FxAssert.verifyThat;
-import static org.testfx.matcher.base.NodeMatchers.isVisible;
 
 public class PlayerPieceTest extends ApplicationTest {
 

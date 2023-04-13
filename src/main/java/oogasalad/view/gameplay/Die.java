@@ -20,7 +20,7 @@ public class Die extends StackPane implements Renderable {
     getChildren().add(dieFace);
 
     int dotSize = DICE_SIZE / 8;
-    for (int i=0; i<6; i++) {
+    for (int i = 0; i < 6; i++) {
       dotArray[i] = createDot(dotSize);
       addDot(dotArray[i]);
     }
@@ -43,7 +43,7 @@ public class Die extends StackPane implements Renderable {
     return dot;
   }
 
-  public void rollDice (int value) throws IllegalArgumentException {
+  public void rollDice(int value) throws IllegalArgumentException {
     if (value < 1 || value > 6) {
       throw new IllegalArgumentException("Invalid entry. Value must be between 1 and 6");
     }
@@ -74,7 +74,7 @@ public class Die extends StackPane implements Renderable {
   }
 
   private void removeAllDots() {
-    for (Circle dot: dotArray) {
+    for (Circle dot : dotArray) {
       getChildren().remove(dot);
     }
   }

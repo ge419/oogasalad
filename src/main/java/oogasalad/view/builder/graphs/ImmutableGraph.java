@@ -1,11 +1,10 @@
 package oogasalad.view.builder.graphs;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import javax.swing.text.View;
 import oogasalad.view.tiles.ViewTile;
 
 /**
@@ -32,7 +31,7 @@ public class ImmutableGraph implements GraphInterface {
   }
 
   /**
-//   * @see GraphInterface#getNextTiles(Tile)
+   * //   * @see GraphInterface#getNextTiles(Tile)
    */
   @Override
   public List<ViewTile> getNextTiles(ViewTile desiredTile) {
@@ -60,7 +59,7 @@ public class ImmutableGraph implements GraphInterface {
     StringBuilder stringMaker = new StringBuilder();
     for (ViewTile tile : getTiles()) {
       stringMaker.append("Tile ").append(tile.getTileId()).append(": ")
-          .append(Arrays.asList(getNextTiles(tile)));
+          .append(Collections.singletonList(getNextTiles(tile)));
       // same as stringMaker.append("Tile " + tile.getTileId() + ": " + Arrays.asList(getNextTiles(tile)));
     }
 

@@ -34,10 +34,11 @@ public interface DraggerAPI {
 
   /**
    * Checks if a button (or combination) is pressed for a current event handler.
+   *
    * @param e MouseEvent handler
    * @return true if button is pressed, false if not.
    */
-  default boolean checkIfDragButtonIsPressed(MouseEvent e){
+  default boolean checkIfDragButtonIsPressed(MouseEvent e) {
     return e.isPrimaryButtonDown();
   }
 

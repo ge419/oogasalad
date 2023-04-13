@@ -1,27 +1,27 @@
 package oogasalad;
 
 
-import javafx.application.Application;
-import javafx.stage.Stage;
-import oogasalad.view.builder.BuilderView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
+import javafx.application.Application;
+import javafx.stage.Stage;
 import oogasalad.view.gameplay.Gameview;
 
 /**
- * Feel free to completely change this code or delete it entirely. 
+ * Feel free to completely change this code or delete it entirely.
  */
 public class Main extends Application {
-    /**
-     * A method to test (and a joke :).
-     */
-    public double getVersion () {
-        return 0.001;
-    }
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    /**
+     * A method to test (and a joke :).
+     */
+    public double getVersion() {
+        return 0.001;
     }
 
     @Override
@@ -31,10 +31,8 @@ public class Main extends Application {
         try {
             Gameview gameview = objectMapper.readValue(jsonFile, Gameview.class);
             gameview.renderGameview(primaryStage);
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        // new BuilderView();
     }
 }

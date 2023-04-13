@@ -64,7 +64,7 @@ public abstract class GameConstruct {
   }
 
   @JsonIgnore
-  public void setAttribute(String key, Attribute value) {
+  protected void setAttribute(String key, Attribute value) {
     ObjectSchema schema = getSchema();
     Optional<Metadata> optionalMetadata = schema.getMetadata(key);
 

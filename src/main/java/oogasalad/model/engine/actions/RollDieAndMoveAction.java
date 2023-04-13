@@ -1,9 +1,11 @@
 package oogasalad.model.engine.actions;
 
 import java.util.Map;
+import java.util.Random;
 import javax.inject.Inject;
 import oogasalad.model.attribute.IntAttribute;
 import oogasalad.model.attribute.TileAttribute;
+import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.Event;
 import oogasalad.model.engine.events.MonopolyEvent;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
@@ -14,9 +16,11 @@ public class RollDieAndMoveAction implements Action {
 
   private final Tiles tiles;
   private final PlayerPiece piece;
+  private final Random random;
 
   @Inject
-  public RollDieAndMoveAction(Tiles tiles, PlayerPiece piece) {
+  public RollDieAndMoveAction(Random random, Tiles tiles, PlayerPiece piece) {
+    this.random = random;
     this.tiles = tiles;
     this.piece = piece;
   }
@@ -27,20 +31,19 @@ public class RollDieAndMoveAction implements Action {
   }
 
   private void afterDieRolled(ActionParams actionParams) {
-    System.out.println("Die rolled");
-    int value = (int) (Math.random() * 6) + 1; // simulate rolling the dice
+    int value = random.nextInt(1, 7); // simulate rolling the dice
     actionParams.emitter().emit(new Event(
         MonopolyEvent.DIE_ROLLED, Map.of("value", new IntAttribute("value", value))));
-    ViewTile tile = piece.getCurrentTile();
+    Tile tile = piece.getCurrentTile();
 
     for (int i = 0; i < value; i++) {
-      int nextTileId = tile.getNext()[0];
+      String nextTileId = tile.getNextTileIds().get(0);
       tile = tiles.getTile(nextTileId);
     }
 
     piece.moveToTile(tile);
     actionParams.emitter().emit(new Event(
-        MonopolyEvent.LANDED, Map.of("tile", new TileAttribute("tile", tile.getTileId()))
+        MonopolyEvent.LANDED, Map.of("tile", new TileAttribute("tile", tile.getId()))
     ));
   }
 }

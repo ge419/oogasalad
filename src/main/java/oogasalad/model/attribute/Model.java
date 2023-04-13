@@ -16,6 +16,7 @@ import oogasalad.model.constructable.Tile;
 
 
 public class Model {
+  public static ArrayList<String> nextIds = new ArrayList<>();
 
   public static void main(String[] args)
       throws IOException {
@@ -34,22 +35,44 @@ public class Model {
     ObjectMapper objectMapper = injector.getInstance(ObjectMapper.class);
     objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
-    double x = 100.0;
-    double y = 100.0;
+    double x = 350.0;
+    double y = 85.0;
 
     List<Tile> tiles = new ArrayList<>();
-    for (int i=0; i<8; i++) {
+    for (int i=0; i<11; i++) {
       Tile t = injector.getInstance(Tile.class);
-      if (x>=200.0) y+=50.0;
+//      if (x>=200.0) y+=50.0;
       t.setX(x);
       t.setY(y);
       x+=50;
       tiles.add(t);
-      if (i != 0) {
-        t.getNextTileIds().add(tiles.get(i-1).getId());
-      }
     }
-    tiles.get(8).getNextTileIds().add(tiles.get(0).getId());
+    for (int i=0; i<12; i++) {
+      Tile t = injector.getInstance(Tile.class);
+      t.setX(850);
+      t.setY(y);
+      y+=50.0;
+      tiles.add(t);
+    }
+    for (int i=0; i<12; i++) {
+      Tile t = injector.getInstance(Tile.class);
+      t.setY(tiles.get(tiles.size()-1).getY());
+      x-=50;
+      t.setX(x);
+      tiles.add(t);
+    }
+    for (int i=0; i<12; i++) {
+      Tile t = injector.getInstance(Tile.class);
+      y-=50;
+      t.setY(y);
+      t.setX(x);
+      tiles.add(t);
+    }
+
+    for (int i=0; i<tiles.size()-1; i++) {
+      tiles.get(i).getNextTileIds().add(tiles.get(i+1).getId());
+    }
+    tiles.get(tiles.size()-1).getNextTileIds().add(tiles.get(0).getId());
     BBoard board = new BBoard(tiles);
     objectMapper.writeValue(new File("data/tiles.json"), board);
 
@@ -58,6 +81,15 @@ public class Model {
     System.out.println(bd.getTiles());
 
 
+    //onPressNewTile() SchemaDatabase db = new SchemaDatabase()
+    //Tile t = new Tile(db);
+    //tiles.add(t) 보드에 타일 더하기
+    //return t;
+
+    //onEditAttribute(value)
+    //t.setAttribute(변형값, 실제값)
+
+    //tiles
 
   }
 

@@ -12,32 +12,39 @@ import java.util.Optional;
 import java.util.TreeMap;
 import java.util.UUID;
 import oogasalad.model.attribute.Attribute;
-import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.Metadata;
+import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.SchemaDatabase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Superclass for all objects that contain attributes.
- * The available attributes are defined by the schema.
+ * Superclass for all objects that contain attributes. The available attributes are defined by the
+ * schema.
  */
-@JsonTypeInfo(use= Id.CLASS)
+@JsonTypeInfo(use = Id.CLASS)
 public abstract class GameConstruct {
+
   private static final Logger LOGGER = LogManager.getLogger(GameConstruct.class);
-  @JsonProperty("schema")
-  private String schemaName;
-  private String id;
   @JsonIgnore
   private final SchemaDatabase database;
   private final Map<String, Attribute> attributeMap;
+  @JsonProperty("schema")
+  private String schemaName;
+  private String id;
 
   protected GameConstruct(String schemaName, SchemaDatabase database) {
     this.id = UUID.randomUUID().toString();
     this.schemaName = schemaName;
     this.database = database;
     this.attributeMap = new TreeMap<>();
-    this.loadSchema(schemaName);
+    // TODO: put this somewhere else?
+    try {
+      this.loadSchema(schemaName);
+    } catch (Exception e) {
+      LOGGER.fatal("failed to construct schema {}", schemaName);
+      throw e;
+    }
   }
 
   public String getId() {

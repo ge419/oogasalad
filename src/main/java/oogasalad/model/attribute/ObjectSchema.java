@@ -13,6 +13,7 @@ import java.util.Optional;
 import java.util.TreeMap;
 
 public class ObjectSchema {
+
   private final String name;
   private final Map<String, Metadata> fields;
 

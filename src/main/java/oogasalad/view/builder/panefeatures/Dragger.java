@@ -21,7 +21,10 @@ import oogasalad.view.Coordinate;
  */
 public class Dragger implements DraggerAPI {
 
+  private static final int ACTIVE = 1;
+  private static final int INACTIVE = 0;
   private final Node myNode;
+  private final MouseButton myDragButton;
   private BooleanProperty myDraggable;
   private int myCycleStatus;
   private EventHandler<MouseEvent> myAnchoredEvent;
@@ -34,17 +37,13 @@ public class Dragger implements DraggerAPI {
   private double mySceneOffsetX = 0;
   private double mySceneOffsetY = 0;
 
-  private static final int ACTIVE = 1;
-  private static final int INACTIVE = 0;
-  private final MouseButton myDragButton;
-
 
   public Dragger(Node ourObject) {
     this(ourObject, false, new Coordinate(0, 0), MouseButton.PRIMARY);
   }
 
   public Dragger(Node ourObject, boolean canWeDrag, Coordinate offset, MouseButton dragButton) {
-    myNode = (Node) ourObject;
+    myNode = ourObject;
     mySceneOffsetX = offset.getXCoor();
     mySceneOffsetY = offset.getYCoor();
     createEventHandlers();

@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import oogasalad.view.Renderable;
 
 public class Board extends Canvas implements Renderable {
+
   //TODO: refactor to read from property file
   private static final int BOARD_SIZE = 500;
 

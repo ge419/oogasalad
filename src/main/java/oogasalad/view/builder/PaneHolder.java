@@ -1,35 +1,34 @@
 package oogasalad.view.builder;
 
-import javafx.scene.layout.Pane;
-
 import java.util.LinkedList;
 import java.util.Queue;
+import javafx.scene.layout.Pane;
 
 public class PaneHolder {
 
-    private Queue<Pane> myPrevious;
-    private Pane myCurrent;
+  private final Queue<Pane> myPrevious;
+  private Pane myCurrent;
 
-    PaneHolder(Pane current){
-        myPrevious = new LinkedList<>();
-        myCurrent = current;
-    }
+  PaneHolder(Pane current) {
+    myPrevious = new LinkedList<>();
+    myCurrent = current;
+  }
 
-    public void addPane(Pane pane){
-        myPrevious.add(myCurrent);
-        myCurrent = pane;
-    }
+  public void addPane(Pane pane) {
+    myPrevious.add(myCurrent);
+    myCurrent = pane;
+  }
 
-    public Pane restorePreviousPane(){
-        myCurrent = myPrevious.poll();
-        return myCurrent;
-    }
+  public Pane restorePreviousPane() {
+    myCurrent = myPrevious.poll();
+    return myCurrent;
+  }
 
-    public Pane getCurrent(){
-        return myCurrent;
-    }
+  public Pane getCurrent() {
+    return myCurrent;
+  }
 
-    public Pane getPrevious(){
-        return myPrevious.element();
-    }
+  public Pane getPrevious() {
+    return myPrevious.element();
+  }
 }

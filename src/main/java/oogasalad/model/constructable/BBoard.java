@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BBoard {
+
   private final List<Tile> tiles;
 
   public BBoard() {

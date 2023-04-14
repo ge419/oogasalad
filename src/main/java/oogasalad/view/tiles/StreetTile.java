@@ -8,15 +8,16 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Textable;
 
-public class StreetTile extends StackPane implements Tile, Textable {
+public class StreetTile extends StackPane implements ViewTile, Textable {
   private static final double TEXT_SCALE = 8;
 
-  public StreetTile(int id, Coordinate position, Color color, String name, String price,
+  public StreetTile(int id, Coordinate coordinate, Color color, String name, String price,
       double width, double height) {
     //TODO: delete once we get backend tile
     Map<String, String> textMap = new HashMap<>();
@@ -24,7 +25,7 @@ public class StreetTile extends StackPane implements Tile, Textable {
     textMap.put("price", price);
 
     getChildren().addAll((createBarBox(width, height, color)), createTextBox(textMap, height, width));
-    setPosition(position);
+    setPosition(coordinate);
   }
 
   private Rectangle createBar(double width, double height, Color color) {
@@ -59,13 +60,18 @@ public class StreetTile extends StackPane implements Tile, Textable {
   }
 
   @Override
+  public void setColor(Color color) {
+
+  }
+
+  @Override
   public int getTileId() {
     return 0;
   }
 
   @Override
-  public double[] getPosition() {
-    return new double[0];
+  public Double[] getPosition() {
+    return new Double[0];
   }
 
   @Override
@@ -74,23 +80,19 @@ public class StreetTile extends StackPane implements Tile, Textable {
   }
 
   @Override
-  public int[] getOnLand() {
-    return new int[0];
-  }
-
-  @Override
-  public int[] getAfterTurn() {
-    return new int[0];
-  }
-
-  @Override
-  public void setColor(Color color) {
-
-  }
-
-  @Override
   public void setPosition(Coordinate coord) {
     this.setLayoutX(coord.getXCoor());
     this.setLayoutY(coord.getYCoor());
   }
+
+  @Override
+  public void setOwned(boolean owned) {
+
+  }
+
+  @Override
+  public boolean isOwned() {
+    return false;
+  }
+
 }

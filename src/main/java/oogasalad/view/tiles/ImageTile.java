@@ -10,13 +10,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Imageable;
 import oogasalad.view.Textable;
 
-public class ImageTile extends StackPane implements Tile, Textable, Imageable {
+public class ImageTile extends StackPane implements ViewTile, Textable, Imageable {
   private static final double TEXT_SCALE = 8;
   private static final double MARGIN_SCALE = 10;
 
@@ -53,28 +54,19 @@ public class ImageTile extends StackPane implements Tile, Textable, Imageable {
     return textBox;
   }
 
+
   @Override
   public int getTileId() {
     return 0;
   }
 
   @Override
-  public double[] getPosition() {
-    return new double[0];
+  public Double[] getPosition() {
+    return new Double[0];
   }
 
   @Override
   public int[] getNext() {
-    return new int[0];
-  }
-
-  @Override
-  public int[] getOnLand() {
-    return new int[0];
-  }
-
-  @Override
-  public int[] getAfterTurn() {
     return new int[0];
   }
 
@@ -88,4 +80,15 @@ public class ImageTile extends StackPane implements Tile, Textable, Imageable {
     this.setLayoutX(coord.getXCoor());
     this.setLayoutY(coord.getYCoor());
   }
+
+  @Override
+  public void setOwned(boolean owned) {
+
+  }
+
+  @Override
+  public boolean isOwned() {
+    return false;
+  }
+
 }

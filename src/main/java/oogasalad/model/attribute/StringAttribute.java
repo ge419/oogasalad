@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class StringAttribute extends Attribute {
+
   private final StringProperty value;
 
   @JsonCreator
@@ -23,12 +24,12 @@ public class StringAttribute extends Attribute {
     return value.get();
   }
 
-  public StringProperty valueProperty() {
-    return value;
-  }
-
   public void setValue(String value) {
     this.value.set(value);
+  }
+
+  public StringProperty valueProperty() {
+    return value;
   }
 
   @Override

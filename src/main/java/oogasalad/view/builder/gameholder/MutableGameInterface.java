@@ -16,14 +16,14 @@ public interface MutableGameInterface {
    *
    * @param graph an immutable graph object
    */
-  public void setTileGraph(ImmutableGraph graph);
+  void setTileGraph(ImmutableGraph graph);
 
   /**
    * Sets the BoardInfo object for this game. Note that we require this BoardInfo to be immutable.
    *
    * @param board an immutable BoardInfo object
    */
-  public void setBoardInfo(ImmutableBoardInfo board);
+  void setBoardInfo(ImmutableBoardInfo board);
 
   // TODO: IMPLEMENT WAY TO MODIFY RULES
 }

@@ -9,8 +9,9 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-@JsonTypeInfo(use= Id.CLASS)
+@JsonTypeInfo(use = Id.CLASS)
 public abstract class Metadata {
+
   @JsonProperty("key")
   private final String key;
   @JsonProperty("type")
@@ -30,7 +31,9 @@ public abstract class Metadata {
   }
 
   public abstract Attribute makeAttribute();
+
   public abstract Class<? extends Attribute> getAttributeClass();
+
   public boolean isCorrectType(Attribute attribute) {
     return getAttributeClass().isAssignableFrom(attribute.getClass());
   }
@@ -47,48 +50,48 @@ public abstract class Metadata {
     return name.get();
   }
 
-  public StringProperty nameProperty() {
-    return name;
-  }
-
   public void setName(String name) {
     this.name.set(name);
+  }
+
+  public StringProperty nameProperty() {
+    return name;
   }
 
   public String getDescription() {
     return description.get();
   }
 
-  public StringProperty descriptionProperty() {
-    return description;
-  }
-
   public void setDescription(String description) {
     this.description.set(description);
+  }
+
+  public StringProperty descriptionProperty() {
+    return description;
   }
 
   public boolean isEditable() {
     return editable.get();
   }
 
-  public BooleanProperty editableProperty() {
-    return editable;
-  }
-
   public void setEditable(boolean editable) {
     this.editable.set(editable);
+  }
+
+  public BooleanProperty editableProperty() {
+    return editable;
   }
 
   public boolean isViewable() {
     return viewable.get();
   }
 
-  public BooleanProperty viewableProperty() {
-    return viewable;
-  }
-
   public void setViewable(boolean viewable) {
     this.viewable.set(viewable);
+  }
+
+  public BooleanProperty viewableProperty() {
+    return viewable;
   }
 
   @Override

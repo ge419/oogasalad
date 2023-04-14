@@ -11,7 +11,8 @@ public class BooleanAttribute extends Attribute {
   private final BooleanProperty value;
 
   @JsonCreator
-  protected BooleanAttribute(@JsonProperty("key") String key, @JsonProperty("value") boolean value) {
+  protected BooleanAttribute(@JsonProperty("key") String key,
+      @JsonProperty("value") boolean value) {
     super(key);
     this.value = new SimpleBooleanProperty(value);
   }
@@ -24,12 +25,12 @@ public class BooleanAttribute extends Attribute {
     return value.get();
   }
 
-  public BooleanProperty valueProperty() {
-    return value;
-  }
-
   public void setValue(boolean value) {
     this.value.set(value);
+  }
+
+  public BooleanProperty valueProperty() {
+    return value;
   }
 
   @Override

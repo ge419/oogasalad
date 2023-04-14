@@ -6,17 +6,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-@JsonTypeInfo(use= Id.CLASS)
+@JsonTypeInfo(use = Id.CLASS)
 public abstract class Attribute {
+
   private static final Logger LOGGER = LogManager.getLogger(Attribute.class);
   private final String key;
 
   protected Attribute(String key) {
     this.key = key;
-  }
-
-  public String getKey() {
-    return key;
   }
 
   public static <T extends Attribute> T getAs(Attribute attr, Class<T> clazz) {
@@ -26,5 +23,9 @@ public abstract class Attribute {
       LOGGER.fatal("failed to perform attribute cast", e);
       throw e;
     }
+  }
+
+  public String getKey() {
+    return key;
   }
 }

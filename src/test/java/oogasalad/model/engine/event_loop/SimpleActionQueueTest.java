@@ -1,6 +1,7 @@
 package oogasalad.model.engine.event_loop;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -16,8 +17,8 @@ import org.junit.jupiter.api.Test;
 
 class SimpleActionQueueTest {
 
-  SimpleActionQueue queue;
   static Injector injector;
+  SimpleActionQueue queue;
 
   @BeforeAll
   static void initClass() {

@@ -13,47 +13,48 @@ import oogasalad.model.attribute.FileReader;
 import oogasalad.model.exception.FileReaderException;
 
 public class BActionDB {
-   Logger logger = Logger.getLogger(String.valueOf(FileReader.class));
-    private Map<String, BAction> actionMap = new HashMap<>();
 
-    public BActionDB() {
+  Logger logger = Logger.getLogger(String.valueOf(FileReader.class));
+  private final Map<String, BAction> actionMap = new HashMap<>();
 
-    }
+  public BActionDB() {
 
-    private void readFiles() {
-      try{
-        List<File> files = FileReader.readFiles("actions");
-        files.iterator().forEachRemaining(file -> {
-              try {
-                CompletableFuture<BAction> completableFuture = CompletableFuture.supplyAsync(() -> {
-                  try {
-                    return createData(file);
-                  } catch (IOException e) {
-                    throw new RuntimeException(e);
-                  }
-                });
-                BAction result = completableFuture.get();
-                this.actionMap.put(result.getName().toLowerCase(), result);
-              } catch (ExecutionException | InterruptedException e) {
-                throw new RuntimeException(e);
-              }
-            }
-        );
-      } catch (IOException e){
-      } catch (FileReaderException e) {
-        logger.info("Failed to read attributes file");
-      }
-    }
-
-    private BAction createData(File file) throws IOException {
-      ObjectMapper objectMapper = new ObjectMapper();
-      BAction data = objectMapper.readValue(file, BAction.class);
-      return data;
-    }
+  }
 
   public static void main(String[] args) throws IOException, FileReaderException {
     BActionDB db = new BActionDB();
     db.readFiles();
     System.out.println(db.actionMap.get("buy").getSchema());
+  }
+
+  private void readFiles() {
+    try {
+      List<File> files = FileReader.readFiles("actions");
+      files.iterator().forEachRemaining(file -> {
+            try {
+              CompletableFuture<BAction> completableFuture = CompletableFuture.supplyAsync(() -> {
+                try {
+                  return createData(file);
+                } catch (IOException e) {
+                  throw new RuntimeException(e);
+                }
+              });
+              BAction result = completableFuture.get();
+              this.actionMap.put(result.getName().toLowerCase(), result);
+            } catch (ExecutionException | InterruptedException e) {
+              throw new RuntimeException(e);
+            }
+          }
+      );
+    } catch (IOException e) {
+    } catch (FileReaderException e) {
+      logger.info("Failed to read attributes file");
+    }
+  }
+
+  private BAction createData(File file) throws IOException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    BAction data = objectMapper.readValue(file, BAction.class);
+    return data;
   }
 }

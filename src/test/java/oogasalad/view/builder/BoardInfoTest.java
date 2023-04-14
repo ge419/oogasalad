@@ -1,6 +1,7 @@
 package oogasalad.view.builder;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -18,15 +19,14 @@ import util.DukeApplicationTest;
 
 public class BoardInfoTest extends DukeApplicationTest {
 
-  private BoardInfo myInfo;
   private static final String BASE_RESOURCE_PACKAGE = "main.resources.view.builder.";
+  private BoardInfo myInfo;
 
 //  @Mock
 //  ResourceBundle myResource;
 
-
   @BeforeEach
-  void setUp(){
+  void setUp() {
     ResourceBundle myResource = mock(ResourceBundle.class);
     assertNotNull(myResource);
     when(myResource.getString(any())).thenReturn("we done errored correctly");
@@ -34,7 +34,7 @@ public class BoardInfoTest extends DukeApplicationTest {
   }
 
   @Test
-  void testImageCreation(){
+  void testImageCreation() {
     String path = "Totally/A/Path";
     String dummyString = "";
 
@@ -55,24 +55,21 @@ public class BoardInfoTest extends DukeApplicationTest {
     myInfo.addImage(dummyString, dummyCoord, dummySize);
     myInfo.addImage(path, coord, size);
 
-    for (Coordinate bad : badCoords){
-      try{
+    for (Coordinate bad : badCoords) {
+      try {
         myInfo.addImage(dummyString, bad, size);
-      }
-      catch(RuntimeException err){
+      } catch (RuntimeException err) {
         dummyErrorMessage(err);
       }
     }
 
-    for (Dimension badSize : badSizes){
-      try{
+    for (Dimension badSize : badSizes) {
+      try {
         myInfo.addImage(dummyString, coord, badSize);
-      }
-      catch (RuntimeException err){
+      } catch (RuntimeException err) {
         dummyErrorMessage(err);
       }
     }
-
 
     ImmutableBoardInfo immutInfo = new ImmutableBoardInfo(myInfo);
     ArrayList<BoardImage> test = new ArrayList<>(immutInfo.getBoardImages());
@@ -84,7 +81,7 @@ public class BoardInfoTest extends DukeApplicationTest {
   }
 
   @Test
-  void testAddingSize(){
+  void testAddingSize() {
     Dimension notused = new Dimension(100, 100);
     Dimension actual = new Dimension(100, 200);
     Dimension bad = new Dimension(-75, 200);
@@ -94,18 +91,15 @@ public class BoardInfoTest extends DukeApplicationTest {
 
     myInfo.setBoardSize(actual);
 
-
-    try{
+    try {
       myInfo.setBoardSize(bad);
-    }
-    catch (RuntimeException err){
+    } catch (RuntimeException err) {
       dummyErrorMessage(err);
     }
 
     try {
       myInfo.setBoardSize(otherBad);
-    }
-    catch (RuntimeException err){
+    } catch (RuntimeException err) {
       dummyErrorMessage(err);
     }
 
@@ -115,7 +109,7 @@ public class BoardInfoTest extends DukeApplicationTest {
     assertEquals(returnedSize, actual);
   }
 
-  private void dummyErrorMessage(RuntimeException err){
+  private void dummyErrorMessage(RuntimeException err) {
     System.out.println(err.getMessage() + " : " + err.getCause());
   }
 

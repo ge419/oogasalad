@@ -1,7 +1,5 @@
 package oogasalad.view.gameplay.pieces;
 
-import java.util.ArrayList;
-import java.util.List;
 import javafx.scene.layout.BorderPane;
 import oogasalad.view.Renderable;
 

@@ -12,14 +12,14 @@ public class BBuilderTester {
   public static void main(String[] args) {
     BBuilder builder = new BBuilder();
     GameHolder gameHolder = new GameHolder();
-    gameHolder.setBoardInfo();
+//    gameHolder.setBoardInfo();
     ImmutableGameHolder holder = new ImmutableGameHolder(new GameHolder());
 
     List<Tile> tiles = new ArrayList<>();
-    tiles.add(new Tile())
+//    tiles.add(new Tile())
     BBoard board = new BBoard(tiles);
 
-    builder.save();
+//    builder.save();
 
   }
 

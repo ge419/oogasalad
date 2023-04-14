@@ -1,8 +1,5 @@
 package oogasalad.view.tiles;
 
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.text.View;
 import oogasalad.model.constructable.Tile;
 
 public class ViewTileFactory {

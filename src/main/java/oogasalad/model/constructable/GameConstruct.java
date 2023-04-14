@@ -1,15 +1,11 @@
 package oogasalad.model.constructable;
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -31,25 +27,31 @@ public abstract class GameConstruct {
   private static final Logger LOGGER = LogManager.getLogger(GameConstruct.class);
   @JsonProperty("schema")
   private String schemaName;
-  private String uuid;
+  private String id;
   @JsonIgnore
   private final SchemaDatabase database;
   private final Map<String, Attribute> attributeMap;
 
   protected GameConstruct(String schemaName, SchemaDatabase database) {
-    this.uuid = UUID.randomUUID().toString();
+    this.id = UUID.randomUUID().toString();
     this.schemaName = schemaName;
     this.database = database;
     this.attributeMap = new TreeMap<>();
-    this.loadSchema(schemaName);
+    // TODO: put this somewhere else?
+    try {
+      this.loadSchema(schemaName);
+    } catch (Exception e) {
+      LOGGER.fatal("failed to construct schema {}", schemaName);
+      throw e;
+    }
   }
 
-  public String getUuid() {
-    return uuid;
+  public String getId() {
+    return id;
   }
 
-  public void setUuid(String uuid) {
-    this.uuid = uuid;
+  public void setId(String id) {
+    this.id = id;
   }
 
   @JsonGetter("attributes")
@@ -68,7 +70,7 @@ public abstract class GameConstruct {
   }
 
   @JsonIgnore
-  public void setAttribute(String key, Attribute value) {
+  protected void setAttribute(String key, Attribute value) {
     ObjectSchema schema = getSchema();
     Optional<Metadata> optionalMetadata = schema.getMetadata(key);
 

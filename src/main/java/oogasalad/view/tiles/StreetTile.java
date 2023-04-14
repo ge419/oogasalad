@@ -1,16 +1,15 @@
 package oogasalad.view.tiles;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Textable;
 
@@ -65,18 +64,19 @@ public class StreetTile extends StackPane implements ViewTile, Textable {
   }
 
   @Override
-  public int getTileId() {
-    return 0;
+  public Tile getTile() {
+    return null;
+  }
+
+
+  @Override
+  public String getTileId() {
+    return null;
   }
 
   @Override
-  public Double[] getPosition() {
-    return new Double[0];
-  }
-
-  @Override
-  public int[] getNext() {
-    return new int[0];
+  public Coordinate getPosition() {
+    return null;
   }
 
   @Override
@@ -86,13 +86,8 @@ public class StreetTile extends StackPane implements ViewTile, Textable {
   }
 
   @Override
-  public void setOwned(boolean owned) {
-
-  }
-
-  @Override
-  public boolean isOwned() {
-    return false;
+  public Paint getColor() {
+    return null;
   }
 
 }

@@ -29,7 +29,7 @@ public class Graph implements GraphInterface, MutableGraph {
         if (myMap.containsKey(tile)){
             myMap.get(tile).clear();
             myMap.remove(tile);
-            for (Tile otherTile : getTiles()){
+            for (ViewTile otherTile : getTiles()){
                 myMap.get(otherTile).remove(tile);
             }
         }

@@ -1,8 +1,6 @@
 package oogasalad.model.engine;
 
 import java.util.List;
-import oogasalad.model.engine.events.EngineEvent;
-import oogasalad.model.engine.events.EventType;
 import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.Rule;
 
@@ -22,10 +20,10 @@ public interface Engine {
   /**
    * Sets the current list of rules, clearing all currently registered event handlers.
    * {@link Rule#registerEventHandlers(EventRegistrar)} is called on each rule in order. In addition
-   * to events emitted by actions, the following special {@link EventType}s are emitted:
+   * to events emitted by actions, the following special {@link Event}s are emitted:
    * <ul>
    *   <li>
-   *     {@link EngineEvent#START_GAME}:
+   *     {@link oogasalad.model.engine.events.StartGameEvent}:
    *     This event is triggered automatically the first time {@link Engine#runNextAction(Prompter)}
    *     is run. Emitting this event during a currently running game initiates a subgame with rules
    *     as defined in the event's attributes.

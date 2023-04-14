@@ -10,11 +10,11 @@ public class Coordinate {
     yCoor = y;
   }
 
-  public void setXCoor(int x) {
+  public void setXCoor(double x) {
     xCoor = x;
   }
 
-  public void setYCoor(int y) {
+  public void setYCoor(double y) {
     yCoor = y;
   }
 

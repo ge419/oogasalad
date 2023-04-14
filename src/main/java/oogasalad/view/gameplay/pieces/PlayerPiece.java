@@ -1,11 +1,12 @@
 package oogasalad.view.gameplay.pieces;
 
+import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
 import oogasalad.view.tiles.ViewTile;
 
 public class PlayerPiece extends GamePiece{
   private String playerName;
-  private ViewTile currentTile;
+  private Tile currentTile;
 
   public PlayerPiece(String imageURL, String playerName) {
     super(imageURL);
@@ -32,12 +33,12 @@ public class PlayerPiece extends GamePiece{
 
   }
 
-  public void moveToTile(ViewTile tile) {
+  public void moveToTile(Tile tile) {
     this.currentTile = tile;
-    moveDirectly(new Coordinate((int)(double)tile.getPosition()[0], (int)(double)tile.getPosition()[1]));
+    moveDirectly(tile.getCoordinate());
   }
 
-  public ViewTile getCurrentTile() {
+  public Tile getCurrentTile() {
     return currentTile;
   }
 

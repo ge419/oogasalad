@@ -3,84 +3,59 @@ package oogasalad.view.tiles;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import oogasalad.model.attribute.BooleanAttribute;
 import oogasalad.model.attribute.IntAttribute;
+import oogasalad.model.attribute.PositionAttribute;
+import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.attribute.TileAttribute;
 import oogasalad.model.constructable.Tile;
+import oogasalad.model.engine.actions.BuyAction;
 import oogasalad.view.Coordinate;
 
 public class BasicTile extends Rectangle implements ViewTile {
-  private static final double TILE_WIDTH = 50;
-
-  private final int id;
-  private Double[] position;
-  private int[] next;
-  private int[] onLand;
-  private int[] afterTurn;
-  private boolean owned;
+  private final Tile modelTile;
 
   public BasicTile(Tile tile) {
-    this.id = 0;
-//    super(PositionAttribute.from(tile.getAttribute("coordinate")).getValue().get(0), PositionAttribute.from(tile.getAttribute("coordinate")).getValue().get(1), TILE_WIDTH, TILE_WIDTH);
+    super(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
+    this.modelTile = tile;
     this.setFill(Color.LIGHTBLUE);
     this.setStroke(Color.BLACK);
-//    this.id = IntAttribute.from(tile.getAttribute("id")).getValue();
-//    this.position = PositionAttribute.from(tile.getAttribute("coordinate")).getValue().toArray(new Double[0]);
-//    this.next = new int[]{TileAttribute.from(tile.getAttribute("nextTile")).getValue()};
-//    this.onLand = new int[]{TileAttribute.from(tile.getAttribute("onLand")).getValue()};
-//    this.afterTurn = new int[]{TileAttribute.from(tile.getAttribute("afterTurn")).getValue()};
+
+    BooleanAttribute ownedAttribute =
+        BooleanAttribute.from(modelTile.getAttribute(BuyAction.OWNED_ATTRIBUTE));
+    ownedAttribute.valueProperty().addListener(((observable, oldValue, isOwned) -> {
+      if (Boolean.TRUE.equals(isOwned)) {
+        this.setFill(Color.RED);
+      } else {
+        this.setFill(Color.LIGHTBLUE);
+      }
+    }));
   }
 
-  public BasicTile(int id, Coordinate position) {
-    super(position.getXCoor(), position.getYCoor(), TILE_WIDTH, TILE_WIDTH);
-    this.setFill(Color.LIGHTBLUE);
-    this.setStroke(Color.BLACK);
-    this.id = id;
+  public Tile getTile() {
+    return this.modelTile;
   }
 
-  public int getTileId() {
-    return id;
+  public String getTileId() {
+    return this.modelTile.getId();
   }
 
-  public Double[] getPosition() {
-    return position;
+  public Coordinate getPosition() {
+    return modelTile.getCoordinate();
   }
-
-  public int[] getNext() {
-    return next;
-  }
-
-  public int[] getOnLand() {
-    return onLand;
-  }
-
-  public int[] getAfterTurn() {
-    return afterTurn;
-  }
-
   @Override
   public void setColor(Color color) {
     this.setFill(color);
   }
 
   @Override
-  public void setOwned(boolean owned) {
-    this.owned = owned;
-    if (owned) {
-      setColor(Color.RED);
-    } else {
-      setColor(Color.LIGHTBLUE);
-    }
-  }
-
-  @Override
-  public boolean isOwned() {
-    return owned;
-  }
-
-  @Override
   public void setPosition(Coordinate coord) {
     this.setX(coord.getXCoor());
     this.setY(coord.getYCoor());
+  }
+
+  public Paint getColor() {
+    return this.getFill();
   }
 
   @Override

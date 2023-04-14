@@ -1,12 +1,15 @@
 package oogasalad.model.engine.actions;
 
-import oogasalad.view.tiles.ViewTile;
+import oogasalad.model.attribute.BooleanAttribute;
+import oogasalad.model.constructable.Tile;
 
 public class BuyAction implements Action {
 
-  private final ViewTile tile;
+  public static final String OWNED_ATTRIBUTE = "owned";
 
-  public BuyAction(ViewTile tile) {
+  private final Tile tile;
+
+  public BuyAction(Tile tile) {
     this.tile = tile;
   }
 
@@ -15,9 +18,10 @@ public class BuyAction implements Action {
     actionParams.prompter().yesNoDialog(this::maybeBuy);
   }
 
-  private void maybeBuy(Boolean shouldBuy) {
+  private void maybeBuy(boolean shouldBuy) {
     if (shouldBuy) {
-      tile.setOwned(true);
+      BooleanAttribute ownedAttribute = BooleanAttribute.from(tile.getAttribute(OWNED_ATTRIBUTE));
+      ownedAttribute.setValue(true);
     }
   }
 }

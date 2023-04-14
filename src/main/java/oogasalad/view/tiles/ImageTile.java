@@ -1,11 +1,7 @@
 package oogasalad.view.tiles;
 
-import java.awt.Label;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javafx.geometry.Pos;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -13,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Imageable;
 import oogasalad.view.Textable;
@@ -54,25 +51,24 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
     return textBox;
   }
 
-
-  @Override
-  public int getTileId() {
-    return 0;
-  }
-
-  @Override
-  public Double[] getPosition() {
-    return new Double[0];
-  }
-
-  @Override
-  public int[] getNext() {
-    return new int[0];
-  }
-
   @Override
   public void setColor(Color color) {
 
+  }
+
+  @Override
+  public Tile getTile() {
+    return null;
+  }
+
+  @Override
+  public String getTileId() {
+    return null;
+  }
+
+  @Override
+  public Coordinate getPosition() {
+    return null;
   }
 
   @Override
@@ -82,13 +78,9 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
   }
 
   @Override
-  public void setOwned(boolean owned) {
-
+  public Paint getColor() {
+    return null;
   }
 
-  @Override
-  public boolean isOwned() {
-    return false;
-  }
 
 }

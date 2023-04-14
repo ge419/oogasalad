@@ -24,12 +24,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import oogasalad.model.attribute.IntAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.Engine;
 import oogasalad.model.engine.EngineModule;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
-import oogasalad.model.engine.events.MonopolyEvent;
+import oogasalad.model.engine.events.DieRolledEvent;
 import oogasalad.model.engine.prompt.PromptOption;
 import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.BuyTileRule;
@@ -78,8 +79,8 @@ public class Gameview {
         binder -> binder.bind(SchemaDatabase.class).toInstance(db)
     );
     ObjectMapper objectMapper = schemaInjector.getInstance(ObjectMapper.class);
-    oogasalad.model.constructable.Board bboard = objectMapper.readValue(file, oogasalad.model.constructable.Board.class);
-    ArrayList<Tile> t = new ArrayList<>(bboard.getTiles());
+    BBoard b = objectMapper.readValue(file, BBoard.class);
+    ArrayList<Tile> t = new ArrayList<>(b.getTiles());
 
     tiles = new Tiles(t);
     tiles.render(UIroot);
@@ -90,7 +91,7 @@ public class Gameview {
     Pieces pieces = new Pieces();
     pieces.render(UIroot);
     piece = pieces.getPiece();
-    piece.moveToTile(tiles.getTile(1));
+    piece.moveToTile(t.get(0));
 
     Scene scene = new Scene(UIroot);
     
@@ -110,6 +111,7 @@ public class Gameview {
             injector.getInstance(BuyTileRule.class),
             new SetDieRule()
         )
+        
     );
     prompter = new MyPrompter();
     run();
@@ -144,12 +146,11 @@ public class Gameview {
 
     @Override
     public void registerEventHandlers(EventRegistrar registrar) {
-      registrar.registerHandler(MonopolyEvent.DIE_ROLLED, this::setDie);
+      registrar.registerHandler(DieRolledEvent.class, this::setDie);
     }
 
-    private void setDie(EventHandlerParams eventHandlerParams) {
-      IntAttribute attr = IntAttribute.from(eventHandlerParams.event().attributeMap().get("value"));
-      die.rollDice(attr.getValue());
+    private void setDie(EventHandlerParams<DieRolledEvent> eventHandlerParams) {
+      die.rollDice(eventHandlerParams.event().getNumberRolled());
     }
   }
 

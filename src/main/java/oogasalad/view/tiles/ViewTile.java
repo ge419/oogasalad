@@ -47,4 +47,5 @@ public interface ViewTile {
 
   Tile getTile();
 
+  void setId(String tiles);
 }

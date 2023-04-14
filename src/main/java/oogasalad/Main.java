@@ -3,7 +3,6 @@ package oogasalad;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import oogasalad.view.builder.BuilderView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;

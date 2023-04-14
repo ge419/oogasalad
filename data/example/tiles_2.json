@@ -1,0 +1,130 @@
+{
+  "tiles": [
+    {
+      "type": "street",
+      "id": 1,
+      "coordinate": [
+        400,
+        575
+      ],
+      "color": "0000FF",
+      "name": "Park Place",
+      "price": "$350",
+      "width": 120,
+      "height": 160
+    },
+    {
+      "type": "street",
+      "id": 2,
+      "coordinate": [
+        480,
+        575
+      ],
+      "color": "FF0000",
+      "name": "New York Avenue",
+      "price": "$450",
+      "width": 80,
+      "height": 120
+    },
+    {
+      "type": "street",
+      "id": 2,
+      "coordinate": [
+        560,
+        575
+      ],
+      "color": "0000FF",
+      "name": "Tennessee Avenue",
+      "price": "$500",
+      "width": 80,
+      "height": 120
+    },
+    {
+      "type": "street",
+      "id": 2,
+      "coordinate": [
+        640,
+        575
+      ],
+      "color": "0000FF",
+      "name": "Illinois Avenue",
+      "price": "$550",
+      "width": 80,
+      "height": 120
+    },
+    {
+      "type": "street",
+      "id": 2,
+      "coordinate": [
+        720,
+        575
+      ],
+      "color": "0000FF",
+      "name": "Indiana Avenue",
+      "price": "$600",
+      "width": 80,
+      "height": 120
+    },
+    {
+      "type": "image",
+      "id": 2,
+      "coordinate": [
+        800,
+        575
+      ],
+      "image": "example/jail.jpg",
+      "text": "GO TO JAIL",
+      "width": 150,
+      "height": 150
+    },
+    {
+      "type": "image",
+      "id": 2,
+      "coordinate": [
+        900,
+        575
+      ],
+      "image": "example/parking.jpg",
+      "text": "FREE PARKING",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "type": "image",
+      "id": 2,
+      "coordinate": [
+        1000,
+        575
+      ],
+      "image": "example/chance.jpg",
+      "text": "CHANCE",
+      "width": 80,
+      "height": 120
+    },
+    {
+      "type": "image",
+      "id": 2,
+      "coordinate": [
+        1080,
+        575
+      ],
+      "image": "example/community.jpg",
+      "text": "COMMUNITY",
+      "width": 80,
+      "height": 120
+    },
+    {
+      "type": "utility",
+      "id": 2,
+      "coordinate": [
+        1160,
+        575
+      ],
+      "image": "example/train.jpg",
+      "name": "KINGS CROSS STATION",
+      "price": "$800",
+      "width": 80,
+      "height": 120
+    }
+  ]
+}

@@ -7,10 +7,12 @@ import javafx.scene.image.ImageView;
 import oogasalad.view.gameplay.Movable;
 
 abstract public class GamePiece extends ImageView implements Movable {
-  private static double PIECE_SIZE = 20;
+
+  private static final double PIECE_SIZE = 20;
+  protected Image image;
   private double xCoor;
   private double yCoor;
-  protected Image image;
+
   public GamePiece(String imageURL) {
 
     try {
@@ -18,8 +20,7 @@ abstract public class GamePiece extends ImageView implements Movable {
       this.setImage(image);
       this.setFitHeight(PIECE_SIZE);
       this.setFitWidth(PIECE_SIZE);
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }

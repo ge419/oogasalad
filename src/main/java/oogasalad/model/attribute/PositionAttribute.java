@@ -13,6 +13,7 @@ import oogasalad.view.Coordinate;
  * @author Dominic Martinez
  */
 public class PositionAttribute extends Attribute {
+
   private final DoubleProperty x;
   private final DoubleProperty y;
 
@@ -35,24 +36,24 @@ public class PositionAttribute extends Attribute {
     return x.get();
   }
 
-  public DoubleProperty xProperty() {
-    return x;
-  }
-
   public void setX(double x) {
     this.x.set(x);
+  }
+
+  public DoubleProperty xProperty() {
+    return x;
   }
 
   public double getY() {
     return y.get();
   }
 
-  public DoubleProperty yProperty() {
-    return y;
-  }
-
   public void setY(double y) {
     this.y.set(y);
+  }
+
+  public DoubleProperty yProperty() {
+    return y;
   }
 
   @JsonIgnore

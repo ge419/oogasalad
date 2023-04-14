@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JacksonInject;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 import javax.inject.Inject;
-import oogasalad.view.Coordinate;
 import oogasalad.model.attribute.DoubleAttribute;
 import oogasalad.model.attribute.PositionAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.attribute.TileListAttribute;
+import oogasalad.view.Coordinate;
 
 public class Tile extends GameConstruct {
 

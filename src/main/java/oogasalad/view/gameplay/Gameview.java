@@ -9,7 +9,6 @@ import com.google.inject.Injector;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +21,6 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import oogasalad.model.attribute.IntAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.Tile;
@@ -30,11 +28,10 @@ import oogasalad.model.engine.Engine;
 import oogasalad.model.engine.EngineModule;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
-import oogasalad.model.engine.events.MonopolyEvent;
+import oogasalad.model.engine.events.DieRolledEvent;
 import oogasalad.model.engine.prompt.PromptOption;
 import oogasalad.model.engine.prompt.Prompter;
-//import oogasalad.model.engine.rules.BuyTileRule;
-//import oogasalad.model.engine.rules.DieRule;
+import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.model.engine.rules.DieRule;
 import oogasalad.model.engine.rules.Rule;
 import oogasalad.model.engine.rules.TurnRule;
@@ -54,12 +51,11 @@ public class Gameview {
 
   @JsonProperty("choice")
   public String choice;
+  Queue<UiEffect> effects = new LinkedList<>();
   private Tiles tiles;
   private Die die;
   private PlayerPiece piece;
-  private boolean waiting = false;
-
-  Queue<UiEffect> effects = new LinkedList<>();
+  private final boolean waiting = false;
   private Engine engine;
   private MyPrompter prompter;
 
@@ -95,7 +91,9 @@ public class Gameview {
     piece.moveToTile(t.get(0));
 
     Scene scene = new Scene(UIroot);
-    
+
+    prompter = new MyPrompter();
+
     //TODO: refactor to read from property file
     primaryStage.setTitle("Monopoly");
     primaryStage.setScene(scene);
@@ -109,16 +107,16 @@ public class Gameview {
         List.of(
             injector.getInstance(TurnRule.class),
             injector.getInstance(DieRule.class),
-//            injector.getInstance(BuyTileRule.class),
+            injector.getInstance(BuyTileRule.class),
             new SetDieRule()
         )
+
     );
-    prompter = new MyPrompter();
     run();
   }
 
   void run() {
-    engine.runNextAction(prompter);
+    engine.runNextAction();
     doEffect();
   }
 
@@ -133,12 +131,21 @@ public class Gameview {
   }
 
 
+  @FunctionalInterface
+  interface UiEffect {
+
+    // Present the UI effect, then call the callback once done:
+    void present(Runnable callback);
+  }
+
   private class GameviewModule extends AbstractModule {
+
     @Override
     protected void configure() {
       install(new EngineModule());
       bind(PlayerPiece.class).toInstance(piece);
       bind(Tiles.class).toInstance(tiles);
+      bind(Prompter.class).toInstance(prompter);
     }
   }
 
@@ -146,12 +153,11 @@ public class Gameview {
 
     @Override
     public void registerEventHandlers(EventRegistrar registrar) {
-      registrar.registerHandler(MonopolyEvent.DIE_ROLLED, this::setDie);
+      registrar.registerHandler(DieRolledEvent.class, this::setDie);
     }
 
-    private void setDie(EventHandlerParams eventHandlerParams) {
-      IntAttribute attr = IntAttribute.from(eventHandlerParams.event().attributeMap().get("value"));
-      die.rollDice(attr.getValue());
+    private void setDie(EventHandlerParams<DieRolledEvent> eventHandlerParams) {
+      die.rollDice(eventHandlerParams.event().getNumberRolled());
     }
   }
 
@@ -196,12 +202,6 @@ public class Gameview {
         Consumer<List<? extends T>> callback) {
 
     }
-  }
-
-  @FunctionalInterface
-  interface UiEffect {
-    // Present the UI effect, then call the callback once done:
-    void present(Runnable callback);
   }
 
 }

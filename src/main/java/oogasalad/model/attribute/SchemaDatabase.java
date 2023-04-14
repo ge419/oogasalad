@@ -4,20 +4,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import oogasalad.model.exception.ResourceReadException;
 import oogasalad.model.exception.FileReaderException;
+import oogasalad.model.exception.ResourceReadException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * This utility class hold all metaData and is useful for determining the parameter type that a BMetaData takes or an
- * */
+ * This utility class hold all metaData and is useful for determining the parameter type that a
+ * BMetaData takes or an
+ */
 public class SchemaDatabase {
 
-  private static final Logger logger = LogManager.getLogger(SchemaDatabase.class);
   public static final String SCHEMA_RESOURCE_PATH = "schemas";
+  private static final Logger logger = LogManager.getLogger(SchemaDatabase.class);
   private final Map<String, ObjectSchema> schemaMap;
 
 
@@ -54,5 +56,9 @@ public class SchemaDatabase {
 
   public boolean containsSchema(String name) {
     return schemaMap.containsKey(name);
+  }
+
+  public List<String> getAllSchemaNames() {
+    return schemaMap.keySet().stream().toList();
   }
 }

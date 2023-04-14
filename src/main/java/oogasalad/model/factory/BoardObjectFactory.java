@@ -8,6 +8,7 @@ import oogasalad.model.constructable.GameConstruct;
 import oogasalad.util.ClassPathMatcher;
 
 public class BoardObjectFactory {
+
   private final ClassPathMatcher pathFinder;
 
   public BoardObjectFactory() {

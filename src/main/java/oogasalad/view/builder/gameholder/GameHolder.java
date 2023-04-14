@@ -1,18 +1,14 @@
 package oogasalad.view.builder.gameholder;
 
-import oogasalad.view.builder.board.BoardInfo;
-import oogasalad.view.builder.board.BoardInfoInterface;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
 import oogasalad.view.builder.graphs.ImmutableGraph;
-import oogasalad.view.builder.graphs.Graph;
-import oogasalad.view.builder.graphs.GraphInterface;
-import oogasalad.view.gameplay.Board;
 
-public class GameHolder implements GameInterface, MutableGameInterface{
+public class GameHolder implements GameInterface, MutableGameInterface {
+
   ImmutableGraph myGraph;
   ImmutableBoardInfo myBoardInfo;
 
-  public GameHolder(){
+  public GameHolder() {
     //myGraph = new Graph();
   }
 
@@ -22,13 +18,13 @@ public class GameHolder implements GameInterface, MutableGameInterface{
   }
 
   @Override
-  public ImmutableBoardInfo getBoardInfo() {
-    return myBoardInfo;
+  public void setTileGraph(ImmutableGraph graph) {
+    myGraph = graph;
   }
 
   @Override
-  public void setTileGraph(ImmutableGraph graph) {
-    myGraph = graph;
+  public ImmutableBoardInfo getBoardInfo() {
+    return myBoardInfo;
   }
 
   @Override

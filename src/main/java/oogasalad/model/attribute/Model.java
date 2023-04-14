@@ -7,8 +7,6 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import oogasalad.model.constructable.BBoard;
@@ -16,6 +14,7 @@ import oogasalad.model.constructable.Tile;
 
 
 public class Model {
+
   public static ArrayList<String> nextIds = new ArrayList<>();
 
   public static void main(String[] args)
@@ -39,47 +38,46 @@ public class Model {
     double y = 85.0;
 
     List<Tile> tiles = new ArrayList<>();
-    for (int i=0; i<11; i++) {
+    for (int i = 0; i < 11; i++) {
       Tile t = injector.getInstance(Tile.class);
 //      if (x>=200.0) y+=50.0;
       t.setX(x);
       t.setY(y);
-      x+=50;
+      x += 50;
       tiles.add(t);
     }
-    for (int i=0; i<12; i++) {
+    for (int i = 0; i < 12; i++) {
       Tile t = injector.getInstance(Tile.class);
       t.setX(850);
       t.setY(y);
-      y+=50.0;
+      y += 50.0;
       tiles.add(t);
     }
-    for (int i=0; i<12; i++) {
+    for (int i = 0; i < 12; i++) {
       Tile t = injector.getInstance(Tile.class);
-      t.setY(tiles.get(tiles.size()-1).getY());
-      x-=50;
+      t.setY(tiles.get(tiles.size() - 1).getY());
+      x -= 50;
       t.setX(x);
       tiles.add(t);
     }
-    for (int i=0; i<12; i++) {
+    for (int i = 0; i < 12; i++) {
       Tile t = injector.getInstance(Tile.class);
-      y-=50;
+      y -= 50;
       t.setY(y);
       t.setX(x);
       tiles.add(t);
     }
 
-    for (int i=0; i<tiles.size()-1; i++) {
-      tiles.get(i).getNextTileIds().add(tiles.get(i+1).getId());
+    for (int i = 0; i < tiles.size() - 1; i++) {
+      tiles.get(i).getNextTileIds().add(tiles.get(i + 1).getId());
     }
-    tiles.get(tiles.size()-1).getNextTileIds().add(tiles.get(0).getId());
+    tiles.get(tiles.size() - 1).getNextTileIds().add(tiles.get(0).getId());
     BBoard board = new BBoard(tiles);
     objectMapper.writeValue(new File("data/tiles.json"), board);
 
     File file = new File("data/tiles.json");
     BBoard bd = objectMapper.readValue(file, BBoard.class);
     System.out.println(bd.getTiles());
-
 
     //onPressNewTile() SchemaDatabase db = new SchemaDatabase()
     //Tile t = new Tile(db);
@@ -92,9 +90,6 @@ public class Model {
     //tiles
 
   }
-
-
-
 
 
 }

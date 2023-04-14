@@ -161,7 +161,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   @Override
-  public void saveFile() {
+  public ImmutableGameHolder saveFile() {
     Optional<File> file = directoryGet(builderResource, "SaveGameTitle");
     if (file.isPresent()) {
       ImmutableGameHolder game = createGameHolder();
@@ -169,6 +169,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       // Send file to the controller to properly save.
       //Controller.save(ImmutableGameHolder);
       System.out.println(givenDirectory);
+      return game;
     } else {
       // todo: replace with LOG
       System.out.println("Ruh-roh, can't save to a file that doesn't exist!");

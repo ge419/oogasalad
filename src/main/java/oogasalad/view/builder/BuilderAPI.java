@@ -1,8 +1,10 @@
 package oogasalad.view.builder;
 
+import oogasalad.view.builder.gameholder.ImmutableGameHolder;
+
 public interface BuilderAPI {
 
-  void saveFile();
+  ImmutableGameHolder saveFile();
 
   void loadFile();
 

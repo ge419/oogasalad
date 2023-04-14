@@ -19,7 +19,7 @@ public class Tiles implements Renderable {
   public void render(BorderPane pane) {
     ViewTileFactory viewTileFactory = new ViewTileFactory();
     for (Tile t : BTiles) {
-      ViewTile tile = viewTileFactory.createTile("tile id", t);
+      BasicTile tile = (BasicTile) viewTileFactory.createTile("tile id", t);
       tile.setId("Tiles");
       pane.getChildren().add(tile);
       tileList.add(tile);

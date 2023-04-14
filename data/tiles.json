@@ -17,7 +17,7 @@
       "key" : "width",
       "value" : 10
     } ]
-  }, {
+  },
     "@class" : "oogasalad.model.constructable.Tile",
     "uuid" : "13111438-91b3-499f-8aa1-791e95796ec8",
     "schema" : "basicTile",

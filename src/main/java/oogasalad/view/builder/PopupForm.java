@@ -10,6 +10,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import oogasalad.model.attribute.Metadata;
+import oogasalad.model.attribute.ObjectSchema;
+import oogasalad.model.constructable.GameConstruct;
 
 import java.io.Console;
 import java.io.File;
@@ -24,69 +27,77 @@ import java.util.List;
 public class PopupForm<T> implements BuilderUtility {
     private static final double POPUP_WIDTH = 300;
     private static final double POPUP_HEIGHT = 300;
-    private Class obj;
     private ResourceBundle resourceBundle;
-    private T generatedObject;
     private Stage stage;
-    public PopupForm(Class obj, ResourceBundle resourceBundle) {
-        this.obj = obj;
+    private GameConstruct gameConstruct;
+    private ObjectSchema objectSchema;
+    private Map<String, ParameterStrategy> strategyMap;
+    private Map<String, Metadata> fieldMap;
+    private Map<Class, Class> strategies;
+    public PopupForm(GameConstruct gameConstruct, ResourceBundle resourceBundle) {
         this.resourceBundle = resourceBundle;
-    }
-//    public boolean validateInput(){
-//        return true;
-//    }
-    public Object getObject() {
-        return generatedObject;
-    }
-    private List<Parameter> getObjectFields() {
-        Class<?> clazz = obj;
-        Constructor<?>[] constructors = obj.getDeclaredConstructors();
-        //Class<?>[] parameterTypes = constructors[0].getParameterTypes();
-        return List.of(constructors[0].getParameters());
+        this.gameConstruct = gameConstruct;
+        objectSchema = gameConstruct.getSchema();
+
+        strategies = defineStrategies();
+        fieldMap = createFieldMap();
+        strategyMap = createStrategyMap();
+
     }
 
-    private void saveInputToObject(Map<String, ParameterStrategy> fieldMap) {
-        try {
-            Constructor<?> constructor = obj.getDeclaredConstructors()[0];
-            List<Parameter> parameters = List.of(constructor.getParameters());
-            Object[] args = parameters.stream()
-                    .map(param -> fieldMap.get(param.getName()).getValue())
-                    .toArray();
+    private Map<Class, Class> defineStrategies() {
+        Map<Class, Class> map = new HashMap<>();
+        map.put(String.class, TextParameterStrategy.class);
+        map.put(int.class, IntegerParameterStrategy.class);
+        map.put(double.class, DoubleParameterStrategy.class);
+        map.put(Color.class, ColorParameterStrategy.class);
+        map.put(File.class, FileParameterStrategy.class);
+        map.put(Image.class, ImageParameterStrategy.class);
+        return map;
+    }
 
-            generatedObject = (T) constructor.newInstance(args);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Unable to save form to object");
+    private Map<String, Metadata> createFieldMap() {
+        Map<String, Metadata> map = new HashMap<>();
+        for (Metadata metadata : objectSchema.getAllMetadata()) {
+            if (metadata.isEditable()) {
+                map.put(metadata.getName(), metadata);
+            }
         }
-        stage.close();
+        return map;
     }
-    public void displayForm() {
-        Map<Class, Class> strategies = new HashMap<>();
-        strategies.put(String.class, TextParameterStrategy.class);
-        strategies.put(int.class, IntegerParameterStrategy.class);
-        strategies.put(double.class, DoubleParameterStrategy.class);
-        strategies.put(Color.class, ColorParameterStrategy.class);
-        strategies.put(File.class, FileParameterStrategy.class);
-        strategies.put(Image.class, ImageParameterStrategy.class);
 
-        List<Parameter> fields = getObjectFields();
-        Map<String, ParameterStrategy> fieldMap = new HashMap<>();
-
-        for (Parameter param : fields) {
+    private Map<String, ParameterStrategy> createStrategyMap() {
+        Map<String, ParameterStrategy> map = new HashMap<>();
+        for (String fieldName : fieldMap.keySet()) {
             try {
-                fieldMap.put(param.getName(), (ParameterStrategy) strategies.get(param.getType()).newInstance());
+                map.put(fieldName, (ParameterStrategy) strategies.get(fieldMap.get(fieldName).getClass()).newInstance());
             } catch (InstantiationException e) {
                 throw new RuntimeException(e);
             } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
+        }
+        return map;
+    }
 
+    private void saveInputToObject() {
+        // iterate over strategyMap
+        // get value of strategy
+        // set the value of the field with a setter on the object
+
+        for (String fieldName : strategyMap.keySet()) {
+            (gameConstruct.getAttribute(fieldName))
         }
+
+        stage.close();
+    }
+    public void displayForm() {
+
         VBox form = new VBox();
-        for (String name : fieldMap.keySet()) {
-            form.getChildren().add(fieldMap.get(name).renderInput(name, resourceBundle));
+        for (String name : strategyMap.keySet()) {
+            form.getChildren().add(strategyMap.get(name).renderInput(name, resourceBundle));
         }
-        form.getChildren().add(makeButton("SubmitForm", resourceBundle, e->saveInputToObject(fieldMap)));
+        form.getChildren().add(makeButton("SubmitForm", resourceBundle, e->saveInputToObject()));
 
         Scene scene = new Scene(form, POPUP_WIDTH, POPUP_HEIGHT);
         stage = new Stage();

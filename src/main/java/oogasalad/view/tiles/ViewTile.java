@@ -41,4 +41,5 @@ public interface ViewTile {
   void setColor(Color color);
   Tile getTile();
 
+  void setId(String tiles);
 }

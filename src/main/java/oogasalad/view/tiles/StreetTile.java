@@ -2,7 +2,9 @@ package oogasalad.view.tiles;
 
 import java.util.HashMap;
 import java.util.Map;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -16,44 +18,43 @@ import oogasalad.view.Textable;
 public class StreetTile extends StackPane implements ViewTile, Textable {
   private static final double TEXT_SCALE = 8;
 
-  public StreetTile(int id, Coordinate coordinate, Color color, String name, String price,
-      double width, double height) {
-    //TODO: delete once we get backend tile
-    Map<String, String> textMap = new HashMap<>();
-    textMap.put("name", name);
-    textMap.put("price", price);
+  public StreetTile(String id, Coordinate coordinate, String color, String info, double width, double height) {
 
-    getChildren().addAll((createBarBox(width, height, color)), createTextBox(textMap, height, width));
+    getChildren().addAll((createBarBox(width, height, color)), createTextBox(info, height, width));
     setPosition(coordinate);
   }
 
-  private Rectangle createBar(double width, double height, Color color) {
+  private Rectangle createBar(double width, double height, String color) {
     Rectangle bar = new Rectangle();
     bar.setWidth(width);
     bar.setHeight(height);
-    bar.setFill(color);
+    bar.setFill(Color.web(color));
     bar.setStroke(Color.BLACK);
     bar.setStrokeWidth(1);
     return bar;
   }
 
-  private VBox createBarBox(double width, double height, Color color) {
+  private VBox createBarBox(double width, double height, String color) {
     VBox barBox = new VBox();
     Rectangle topBar = createBar(width, height / 6, color);
-    Rectangle bottomBar = createBar(width, 5 * height / 6, Color.WHITE);
+    Rectangle bottomBar = createBar(width, 5 * height / 6, "FFFFFF");
     barBox.getChildren().addAll(topBar, bottomBar);
     return barBox;
   }
 
   @Override
-  public VBox createTextBox(Map<String, String> textMap, double height, double width) {
+  public VBox createTextBox(String info, double height, double width) {
     VBox textBox = new VBox();
-    Text streetText = new Text(textMap.get("name"));
+    String[] infoList = info.split(",");
+
+    Text streetText = new Text(infoList[0]);
     resizeText(streetText, height, TEXT_SCALE, width);
+    Bounds streetTextBounds = streetText.getBoundsInLocal();
     streetText.setLayoutY(this.getLayoutY());
-    Text priceText = new Text(textMap.get("price"));
+    Text priceText = new Text(infoList[1]);
     resizeText(priceText, height, TEXT_SCALE, width);
-    textBox.setMargin(priceText, new Insets(height / 6, 0, 0 , 0));
+    textBox.setMargin(priceText, new Insets((height / 4 - streetTextBounds.getMaxY()), 0, 0 , 0));
+    textBox.setAlignment(Pos.CENTER);
     textBox.getChildren().addAll(streetText, priceText);
     return textBox;
   }

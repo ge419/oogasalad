@@ -6,7 +6,7 @@
     "attributes" : [ {
       "@class" : "oogasalad.model.attribute.DoubleAttribute",
       "key" : "height",
-      "value" : 50.0
+      "value" : 120.0
     }, {
       "@class" : "oogasalad.model.attribute.TileListAttribute",
       "key" : "next",
@@ -23,8 +23,23 @@
     }, {
       "@class" : "oogasalad.model.attribute.DoubleAttribute",
       "key" : "width",
-      "value" : 50.0
-    } ]
+      "value" : 80.0
+    },
+      {
+        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "key" : "type",
+        "value" : "street"
+      },
+      {
+        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "key" : "info",
+        "value" : "Park Place,$350"
+      },
+      {
+        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "key" : "color",
+        "value" : "0000FF"
+      }]
   },
     {
       "@class" : "oogasalad.model.constructable.Tile",
@@ -33,7 +48,7 @@
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.DoubleAttribute",
         "key" : "height",
-        "value" : 50.0
+        "value" : 120.0
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
@@ -45,13 +60,71 @@
       }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
-        "x" : 400.0,
+        "x" : 430.0,
         "y" : 85.0
       }, {
         "@class" : "oogasalad.model.attribute.DoubleAttribute",
         "key" : "width",
-        "value" : 50.0
-      } ]
+        "value" : 80.0
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "New York Avenue,$450"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "color",
+          "value" : "FF0000"
+        }]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "8d5ba42e-2467-4957-8a6a-77c5ba159f13",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 120.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "44cd5520-4677-42a5-8169-1e613cc6296b" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 510.0,
+        "y" : 85.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 120.0
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "image"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "GO TO JAIL"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "image",
+          "value" : "view.gameplay/jail.jpg"
+        }
+      ]
     }
   ]
 }

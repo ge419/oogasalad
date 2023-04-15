@@ -2,23 +2,25 @@ package oogasalad.view.tiles;
 
 import java.util.List;
 import javafx.scene.layout.BorderPane;
+import oogasalad.model.attribute.PositionAttribute;
 import oogasalad.model.constructable.Tile;
 
 public class RenderStrategy {
 
-  protected void renderTile(String tileType, Tile BTile, BorderPane pane, List<ViewTile> tileList) {
-    switch (tileType) {
-      // TODO: once we implement schema for other tile types, uncomment
-//      case "street" -> {
-//        return new StreetTile(BTile.getAttribute("id"), BTile.getAttribute("coordinate"),
-//            BTile.getAttribute("color"), BTile.getAttribute("name"), BTile.getAttribute("price"), BTile.getAttribute("width"), BTile.getAttribute("height"));
-//      }
-//      case "image" -> {
-//        Map<String, String> textMap = new HashMap<>();
-//        //TODO: create text map
-//        return new ImageTile(BTile.getAttribute("id"), BTile.getAttribute("coordinate"),
-//            BTile.getAttribute("imgPath"), textMap, BTile.getAttribute("width"), BTile.getAttribute("height"));
-//      }
+  protected void renderTile(Tile BTile, BorderPane pane, List<ViewTile> tileList) {
+    switch (BTile.getType()) {
+      case "street" -> {
+        StreetTile tile = new StreetTile(BTile.getId(), BTile.getCoordinate(),
+            BTile.getColor(), BTile.getInfo(), BTile.getWidth(), BTile.getHeight());
+        pane.getChildren().add(tile);
+        tileList.add(tile);
+      }
+      case "image" -> {
+        ImageTile tile =  new ImageTile(BTile.getId(), BTile.getCoordinate(),
+            BTile.getImage(), BTile.getInfo(), BTile.getWidth(), BTile.getHeight());
+        pane.getChildren().add(tile);
+        tileList.add(tile);
+      }
       default -> {
         BasicTile tile = new BasicTile(BTile);
         pane.getChildren().add(tile);

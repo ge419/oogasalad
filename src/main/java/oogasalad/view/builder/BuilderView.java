@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.Enumeration;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -18,8 +19,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import oogasalad.controller.BuilderController;
-import oogasalad.model.attribute.SchemaDatabase;
-import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.board.BoardInfo;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
@@ -156,7 +155,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   ///////////////////////////////////////////////////////////////////////////////////////////////
 
   private void test() {
-    // temp
+    // temp.java
   }
 
   @Override
@@ -200,14 +199,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       System.out.println("Got an image from: " + file.get().getPath());
       ImageView ourImage = turnFileToImage(file.get(), DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT,
           new Coordinate(0, 0));
-      ourImage.setId("Image" + myImageCount);
-      ourImage.setOnMouseClicked(e -> handleImageClick(ourImage));
-      createTileFeaturesForObject(ourImage);
-      myNodeHolder.addNode(ourImage, file.get().getPath());
-      myBoardPane.getChildren().add(ourImage);
+      initNode(ourImage, "Image" + myImageCount, e->handleImageClick(ourImage));
       myImageCount++;
-      // Add to board info at the end.
-      //myBoardInfo.addImage(file.get().getPath(), new Coordinate(0,0), new Dimension((int) PANE_WIDTH, (int)PANE_HEIGHT));
     } else {
       // todo: make this use an error form.
       System.out.println("ERROR -- Got a non-image or nothing from file.");
@@ -217,12 +210,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   // todo: support different tile types.
   private void createTile(MouseEvent e) {
     BasicTile tile = bc.addTile(e);
-    createTileFeaturesForObject(tile);
-    tile.setOnMouseClicked(tile_e -> {
-      handleTileClick(tile);
-    });
-    myBoardPane.getChildren().add(tile);
-    myGraph.addTile(tile);
+    initNode(tile, "Tile" + myTileCount, tile_e -> handleTileClick(tile));
+    tile.setId("Tile" + myTileCount);
     myCurrentlyClickedTiletype = Optional.empty();
   }
 
@@ -234,7 +223,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     addNewButtonsToPane(myLeftSidebar, tileMenuResource);
   }
 
-  private void backLeftSide() {
+  private void backToSidebarMenu() {
     addNewButtonsToPane(myLeftSidebar, sideBar1Resource);
   }
 
@@ -258,7 +247,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     }
     if (myCurrentTile.isPresent()) {
       tile.setColor(Color.LIGHTGREEN);
-      myGraph.addTileNext(myCurrentTile.get(), tile);
+      bc.addNext(myCurrentTile.get().getTileId(), tile.getTileId());
       myCurrentTile.get().setColor(Color.LIGHTBLUE);
       myCurrentTile = Optional.empty();
       tile.setColor(Color.LIGHTBLUE);
@@ -331,7 +320,14 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     return new ImmutableGameHolder(game);
   }
 
-  private void createTileFeaturesForObject(Node node) {
+  private void initNode(Node node, String identifier, EventHandler<MouseEvent> mouseClickHandle){
+    createEventsForNode(node, mouseClickHandle);
+    node.setId(identifier);
+    myBoardPane.getChildren().add(node);
+  }
+
+  private void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle) {
+    node.setOnMouseClicked(mouseClickHandle);
     Dragger nodeDragger = new Dragger(node, myDraggableObjectsToggle, myBoardPaneStartingLocation,
         MouseButton.PRIMARY);
     myNodeHolder.addDragger(nodeDragger);

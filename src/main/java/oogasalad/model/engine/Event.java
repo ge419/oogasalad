@@ -8,6 +8,7 @@ package oogasalad.model.engine;
 public interface Event<T extends Event<T>> {
 
   Class<T> eventClass();
+
   default String type() {
     return eventClass().getName();
   }

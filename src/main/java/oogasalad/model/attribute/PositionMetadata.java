@@ -38,24 +38,24 @@ public class PositionMetadata extends Metadata {
     return defaultX.get();
   }
 
-  public DoubleProperty defaultXProperty() {
-    return defaultX;
-  }
-
   public void setDefaultX(double defaultX) {
     this.defaultX.set(defaultX);
+  }
+
+  public DoubleProperty defaultXProperty() {
+    return defaultX;
   }
 
   public double getDefaultY() {
     return defaultY.get();
   }
 
-  public DoubleProperty defaultYProperty() {
-    return defaultY;
-  }
-
   public void setDefaultY(double defaultY) {
     this.defaultY.set(defaultY);
+  }
+
+  public DoubleProperty defaultYProperty() {
+    return defaultY;
   }
 
   @Override

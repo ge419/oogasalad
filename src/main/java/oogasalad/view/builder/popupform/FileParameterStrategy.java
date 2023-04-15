@@ -1,5 +1,8 @@
 package oogasalad.view.builder.popupform;
 
+import java.io.File;
+import java.util.Optional;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -7,10 +10,6 @@ import javafx.scene.text.Text;
 import oogasalad.model.attribute.Attribute;
 import oogasalad.model.attribute.Metadata;
 import oogasalad.view.builder.BuilderUtility;
-
-import java.io.File;
-import java.util.Optional;
-import java.util.ResourceBundle;
 
 class FileParameterStrategy implements ParameterStrategy, BuilderUtility {
     private Optional<File> file;

@@ -1,12 +1,11 @@
 package oogasalad.view.builder.popupform;
 
+import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import oogasalad.model.attribute.*;
 import oogasalad.view.builder.BuilderUtility;
-
-import java.util.ResourceBundle;
 
 class DoubleParameterStrategy implements ParameterStrategy, BuilderUtility {
     private TextField element = new TextField();

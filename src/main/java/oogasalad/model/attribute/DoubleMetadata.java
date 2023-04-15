@@ -1,6 +1,7 @@
 package oogasalad.model.attribute;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 import javafx.beans.property.DoubleProperty;
@@ -27,6 +28,7 @@ public class DoubleMetadata extends Metadata {
   }
 
   @Override
+  @JsonIgnore
   public Class<? extends Attribute> getAttributeClass() {
     return ATTRIBUTE_CLASS;
   }
@@ -39,38 +41,37 @@ public class DoubleMetadata extends Metadata {
     return defaultValue.get();
   }
 
-  public DoubleProperty defaultValueProperty() {
-    return defaultValue;
-  }
-
   public void setDefaultValue(double defaultValue) {
     this.defaultValue.set(defaultValue);
+  }
+
+  public DoubleProperty defaultValueProperty() {
+    return defaultValue;
   }
 
   public double getMinValue() {
     return minValue.get();
   }
 
-  public DoubleProperty minValueProperty() {
-    return minValue;
-  }
-
   public void setMinValue(double minValue) {
     this.minValue.set(minValue);
+  }
+
+  public DoubleProperty minValueProperty() {
+    return minValue;
   }
 
   public double getMaxValue() {
     return maxValue.get();
   }
 
-  public DoubleProperty maxValueProperty() {
-    return maxValue;
-  }
-
   public void setMaxValue(double maxValue) {
     this.maxValue.set(maxValue);
   }
 
+  public DoubleProperty maxValueProperty() {
+    return maxValue;
+  }
 
   @Override
   public boolean equals(Object o) {

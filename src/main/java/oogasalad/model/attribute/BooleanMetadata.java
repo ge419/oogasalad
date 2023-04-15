@@ -1,6 +1,7 @@
 package oogasalad.model.attribute;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -22,6 +23,7 @@ public class BooleanMetadata extends Metadata {
   }
 
   @Override
+  @JsonIgnore
   public Class<? extends Attribute> getAttributeClass() {
     return ATTRIBUTE_CLASS;
   }
@@ -34,11 +36,11 @@ public class BooleanMetadata extends Metadata {
     return defaultValue.get();
   }
 
-  public BooleanProperty defaultValueProperty() {
-    return defaultValue;
-  }
-
   public void setDefaultValue(boolean defaultValue) {
     this.defaultValue.set(defaultValue);
+  }
+
+  public BooleanProperty defaultValueProperty() {
+    return defaultValue;
   }
 }

@@ -1,6 +1,5 @@
 package oogasalad.view.builder.graphs;
 
-import java.util.List;
 /**
  * Wrapper class that combines the methods in GraphInterface and MutableGraph.
  *

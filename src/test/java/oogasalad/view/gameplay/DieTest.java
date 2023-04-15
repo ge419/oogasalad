@@ -1,5 +1,7 @@
 package oogasalad.view.gameplay;
 
+import static org.testfx.matcher.base.NodeMatchers.isVisible;
+
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -7,8 +9,6 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxAssert;
 import org.testfx.framework.junit5.ApplicationTest;
-
-import static org.testfx.matcher.base.NodeMatchers.isVisible;
 
 public class DieTest extends ApplicationTest {
 

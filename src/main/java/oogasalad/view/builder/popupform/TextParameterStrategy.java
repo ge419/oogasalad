@@ -1,5 +1,6 @@
 package oogasalad.view.builder.popupform;
 
+import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -8,16 +9,14 @@ import oogasalad.model.attribute.Metadata;
 import oogasalad.model.attribute.StringAttribute;
 import oogasalad.view.builder.BuilderUtility;
 
-import java.util.ResourceBundle;
-
 public class TextParameterStrategy implements ParameterStrategy, BuilderUtility {
-    private TextField element;
 
-    public TextParameterStrategy() {
-        element = new TextField();
-    }
+  private TextField element;
 
-    @Override
+  public TextParameterStrategy() {
+    element = new TextField();
+  }
+   @Override
     public Node renderInput(String name, ResourceBundle resourceBundle) {
         Node textLabel = new Text(name+" (String)");
         element = (TextField) makeTextField(name);

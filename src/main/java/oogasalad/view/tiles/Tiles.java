@@ -17,11 +17,9 @@ public class Tiles implements Renderable {
 
   @Override
   public void render(BorderPane pane) {
+    ViewTileFactory viewTileFactory = new ViewTileFactory();
     for (int i = 0; i < BTiles.size(); i++) {
-      BasicTile tile = new BasicTile(BTiles.get(i));
-      tile.setId("Tiles");
-      pane.getChildren().add(tile);
-      tileList.add(tile);
+      viewTileFactory.renderTile(BTiles.get(i).getSchemaName(), BTiles.get(i), pane, tileList);
     }
   }
 

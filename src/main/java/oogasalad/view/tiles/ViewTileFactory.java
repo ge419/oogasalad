@@ -1,10 +1,13 @@
 package oogasalad.view.tiles;
 
+import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Basic;
+import java.util.List;
+import javafx.scene.layout.BorderPane;
 import oogasalad.model.constructable.Tile;
 
 public class ViewTileFactory {
 
-  public ViewTile createTile(String tileType, Tile BTile) {
+  public void renderTile(String tileType, Tile BTile, BorderPane pane, List<ViewTile> tileList) {
     switch (tileType) {
       // TODO: once we implement schema for other tile types, uncomment
 //      case "street" -> {
@@ -18,7 +21,9 @@ public class ViewTileFactory {
 //            BTile.getAttribute("imgPath"), textMap, BTile.getAttribute("width"), BTile.getAttribute("height"));
 //      }
       default -> {
-        return new BasicTile(BTile);
+        BasicTile tile = new BasicTile(BTile);
+        pane.getChildren().add(tile);
+        tileList.add(tile);
       }
     }
   }

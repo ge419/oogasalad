@@ -11,8 +11,8 @@ import oogasalad.view.builder.BuilderUtility;
 import java.util.ResourceBundle;
 
 class ColorParameterStrategy implements ParameterStrategy, BuilderUtility {
-    public ColorParameterStrategy(){}
     private ColorPicker element = new ColorPicker();
+    public ColorParameterStrategy(){}
     @Override
     public Node renderInput(String name, ResourceBundle resourceBundle) {
         Node textLabel = new Text(name);

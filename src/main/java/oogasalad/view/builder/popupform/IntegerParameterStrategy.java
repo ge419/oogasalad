@@ -9,8 +9,8 @@ import oogasalad.view.builder.BuilderUtility;
 import java.util.ResourceBundle;
 
 class IntegerParameterStrategy implements ParameterStrategy, BuilderUtility {
-    public IntegerParameterStrategy(){}
     private TextField element = new TextField();
+    public IntegerParameterStrategy(){}
     @Override
     public Node renderInput(String name, ResourceBundle resourceBundle) {
         Node textLabel = new Text(name+" (Integer)");

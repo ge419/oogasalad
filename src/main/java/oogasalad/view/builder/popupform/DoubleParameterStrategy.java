@@ -9,8 +9,8 @@ import oogasalad.view.builder.BuilderUtility;
 import java.util.ResourceBundle;
 
 class DoubleParameterStrategy implements ParameterStrategy, BuilderUtility {
-    public DoubleParameterStrategy(){}
     private TextField element = new TextField();
+    public DoubleParameterStrategy(){}
     @Override
     public Node renderInput(String name, ResourceBundle resourceBundle) {
         Node textLabel = new Text(name+" (Double)");

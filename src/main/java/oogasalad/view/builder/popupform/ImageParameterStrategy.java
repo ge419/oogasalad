@@ -16,8 +16,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 class ImageParameterStrategy implements ParameterStrategy, BuilderUtility {
-    public ImageParameterStrategy(){}
     private Image image;
+    public ImageParameterStrategy(){}
     @Override
     public Node renderInput(String name, ResourceBundle resourceBundle) {
         Node textLabel = new Text(name);

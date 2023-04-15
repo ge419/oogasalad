@@ -13,8 +13,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 class FileParameterStrategy implements ParameterStrategy, BuilderUtility {
-    public FileParameterStrategy(){}
     private Optional<File> file;
+    public FileParameterStrategy(){}
     @Override
     public Node renderInput(String name, ResourceBundle resourceBundle) {
         Node textLabel = new Text(name);

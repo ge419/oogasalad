@@ -1,13 +1,12 @@
 package oogasalad.view.tiles;
 
-import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Basic;
 import java.util.List;
 import javafx.scene.layout.BorderPane;
 import oogasalad.model.constructable.Tile;
 
-public class ViewTileFactory {
+public class RenderStrategy {
 
-  public void renderTile(String tileType, Tile BTile, BorderPane pane, List<ViewTile> tileList) {
+  protected void renderTile(String tileType, Tile BTile, BorderPane pane, List<ViewTile> tileList) {
     switch (tileType) {
       // TODO: once we implement schema for other tile types, uncomment
 //      case "street" -> {

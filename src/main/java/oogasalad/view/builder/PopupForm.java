@@ -1,5 +1,6 @@
 package oogasalad.view.builder;
 
+import com.google.inject.internal.asm.$Attribute;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -10,8 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import oogasalad.model.attribute.Metadata;
-import oogasalad.model.attribute.ObjectSchema;
+import oogasalad.model.attribute.*;
 import oogasalad.model.constructable.GameConstruct;
 
 import java.io.Console;
@@ -31,46 +31,37 @@ public class PopupForm<T> implements BuilderUtility {
     private Stage stage;
     private GameConstruct gameConstruct;
     private ObjectSchema objectSchema;
-    private Map<String, ParameterStrategy> strategyMap;
+    private Map<Attribute, ParameterStrategy> strategyMap;
     private Map<String, Metadata> fieldMap;
+    private List<Attribute> attributes;
     private Map<Class, Class> strategies;
     public PopupForm(GameConstruct gameConstruct, ResourceBundle resourceBundle) {
         this.resourceBundle = resourceBundle;
         this.gameConstruct = gameConstruct;
         objectSchema = gameConstruct.getSchema();
+        attributes = gameConstruct.getAllAttributes();
 
         strategies = defineStrategies();
-        fieldMap = createFieldMap();
         strategyMap = createStrategyMap();
 
     }
 
     private Map<Class, Class> defineStrategies() {
         Map<Class, Class> map = new HashMap<>();
-        map.put(String.class, TextParameterStrategy.class);
-        map.put(int.class, IntegerParameterStrategy.class);
-        map.put(double.class, DoubleParameterStrategy.class);
-        map.put(Color.class, ColorParameterStrategy.class);
-        map.put(File.class, FileParameterStrategy.class);
-        map.put(Image.class, ImageParameterStrategy.class);
+        map.put(StringAttribute.class, TextParameterStrategy.class);
+        map.put(IntAttribute.class, IntegerParameterStrategy.class);
+        map.put(DoubleAttribute.class, DoubleParameterStrategy.class);
+        //map.put(Color.class, ColorParameterStrategy.class);
+        //map.put(File.class, FileParameterStrategy.class);
+        //map.put(Image.class, ImageParameterStrategy.class);
         return map;
     }
 
-    private Map<String, Metadata> createFieldMap() {
-        Map<String, Metadata> map = new HashMap<>();
-        for (Metadata metadata : objectSchema.getAllMetadata()) {
-            if (metadata.isEditable()) {
-                map.put(metadata.getName(), metadata);
-            }
-        }
-        return map;
-    }
-
-    private Map<String, ParameterStrategy> createStrategyMap() {
-        Map<String, ParameterStrategy> map = new HashMap<>();
-        for (String fieldName : fieldMap.keySet()) {
+    private Map<Attribute, ParameterStrategy> createStrategyMap() {
+        Map<Attribute, ParameterStrategy> map = new HashMap<>();
+        for (Attribute attribute : attributes) {
             try {
-                map.put(fieldName, (ParameterStrategy) strategies.get(fieldMap.get(fieldName).getClass()).newInstance());
+                map.put(attribute, (ParameterStrategy) strategies.get(attribute.getClass()).newInstance());
             } catch (InstantiationException e) {
                 throw new RuntimeException(e);
             } catch (IllegalAccessException e) {
@@ -81,12 +72,14 @@ public class PopupForm<T> implements BuilderUtility {
     }
 
     private void saveInputToObject() {
-        // iterate over strategyMap
-        // get value of strategy
-        // set the value of the field with a setter on the object
-
-        for (String fieldName : strategyMap.keySet()) {
-            (gameConstruct.getAttribute(fieldName))
+        for (Attribute attribute : strategyMap.keySet()) {
+            if (attribute.getClass().equals(DoubleAttribute.class)) {
+                DoubleAttribute.from(gameConstruct.getAttribute(attribute.getKey())).setValue((double) strategyMap.get(attribute).getValue());
+            } else if (attribute.getClass().equals(IntAttribute.class)) {
+                IntAttribute.from(gameConstruct.getAttribute(attribute.getKey())).setValue((int) strategyMap.get(attribute).getValue());
+            } else if (attribute.getClass().equals(StringAttribute.class)) {
+                StringAttribute.from(gameConstruct.getAttribute(attribute.getKey())).setValue((String) strategyMap.get(attribute).getValue());
+            }
         }
 
         stage.close();
@@ -94,8 +87,15 @@ public class PopupForm<T> implements BuilderUtility {
     public void displayForm() {
 
         VBox form = new VBox();
-        for (String name : strategyMap.keySet()) {
-            form.getChildren().add(strategyMap.get(name).renderInput(name, resourceBundle));
+        for (Attribute attribute : strategyMap.keySet()) {
+            ParameterStrategy strategy = strategyMap.get(attribute);
+            /*
+            use schema to check metadata for min/max, default
+            strategy.setDefault(metadata result);
+            assert min/max??
+             */
+
+            form.getChildren().add(strategy.renderInput(attribute.getKey(), resourceBundle));
         }
         form.getChildren().add(makeButton("SubmitForm", resourceBundle, e->saveInputToObject()));
 

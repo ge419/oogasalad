@@ -598,7 +598,8 @@
       "value" : 50.0
     } ]
   },
-    "@class" : "oogasalad.model.constructable.Tile",
+  {
+      "@class" : "oogasalad.model.constructable.Tile",
     "id" : "c75d3017-862e-4e08-9099-0368ceaa02cc",
     "schema" : "basicTile",
     "attributes" : [ {

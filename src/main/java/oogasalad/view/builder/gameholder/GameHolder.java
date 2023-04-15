@@ -28,6 +28,11 @@ public class GameHolder implements GameInterface, MutableGameInterface {
   }
 
   @Override
+  public String getGameFilePath() {
+    return null;
+  }
+
+  @Override
   public void setBoardInfo(ImmutableBoardInfo board) {
     myBoardInfo = board;
   }

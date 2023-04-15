@@ -28,7 +28,7 @@ public class BuilderController {
   private SchemaDatabase db;
 
   public BuilderController() {
-    builderView = new BuilderView();
+    //builderView = new BuilderView();
     builder = new BBuilder();
     db = new SchemaDatabase();
     board = new BBoard();

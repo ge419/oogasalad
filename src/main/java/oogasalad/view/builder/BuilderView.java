@@ -21,7 +21,7 @@ import java.io.File;
 import java.util.Enumeration;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javax.swing.text.View;
+
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.board.BoardInfo;
 import oogasalad.view.builder.board.NodeStorer;
@@ -30,6 +30,7 @@ import oogasalad.view.builder.gameholder.GameHolder;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.builder.graphs.Graph;
 import oogasalad.view.builder.panefeatures.Dragger;
+import oogasalad.view.builder.popupform.PopupForm;
 import oogasalad.view.tiles.BasicTile;
 import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;

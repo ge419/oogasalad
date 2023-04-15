@@ -27,6 +27,8 @@ public class Model {
 //
 
     SchemaDatabase db = new SchemaDatabase();
+    Tile t2 = new Tile(db);
+
     Injector injector = Guice.createInjector(
         new ObjectMapperModule(),
         binder -> binder.bind(SchemaDatabase.class).toInstance(db)

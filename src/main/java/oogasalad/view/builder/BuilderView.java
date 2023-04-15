@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
+import oogasalad.controller.BuilderController;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
@@ -67,7 +68,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private final boolean myDraggableObjectsToggle = true;
   private boolean myDeleteToggle = false;
   private final Coordinate myBoardPaneStartingLocation;
-  private final SchemaDatabase schemas;
+  private final BuilderController bc = new BuilderController();
 
 
   public BuilderView() {
@@ -76,7 +77,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     sideBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SideBar1");
     tileMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "TileMenu");
     defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET).toExternalForm();
-    schemas = new SchemaDatabase();
 
     myCurrentlyClickedTiletype = Optional.empty();
     myGraph = new Graph();  // todo: dependency injection
@@ -113,7 +113,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     Scene newScene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
     newScene.getStylesheets().add(defaultStylesheet);
     return newScene;
-
   }
 
   private HBox createTopBar() {
@@ -210,19 +209,18 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   // todo: support different tile types.
   private void createTile(MouseEvent e) {
-    Coordinate tileCoord = new Coordinate((int) e.getX(), (int) e.getY());
-    Tile t = new Tile(schemas);
-    t.setCoordinate(tileCoord);
-    BasicTile tile = new BasicTile(t);
+    BasicTile tile = bc.addTile(e);
     createTileFeaturesForObject(tile);
     tile.setOnMouseClicked(tile_e -> {
       handleTileClick(tile);
     });
-    tile.setId("Tile" + myTileCount);
-    myTileCount++;
     myBoardPane.getChildren().add(tile);
     myGraph.addTile(tile);
     myCurrentlyClickedTiletype = Optional.empty();
+  }
+
+  private void setNext(String currentId, String nextId) {
+    bc.addNext(currentId, nextId);
   }
 
   private void openTileMenu() {
@@ -274,7 +272,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       myBoardPane.getChildren().remove(tile);
       myCurrentTile = Optional.empty();
       myGraph.removeTile(tile);
-      myTileCount--;
       myDeleteToggle = false;
     } else {
       // todo: log that we tried to delete a non-existing tile.

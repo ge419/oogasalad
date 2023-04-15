@@ -155,7 +155,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   ///////////////////////////////////////////////////////////////////////////////////////////////
 
   private void test() {
-    // temp.java
+    // nothing
   }
 
   @Override
@@ -211,6 +211,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private void createTile(MouseEvent e) {
     BasicTile tile = bc.addTile(e);
     initNode(tile, "Tile" + myTileCount, tile_e -> handleTileClick(tile));
+    myTileCount++;
     tile.setId("Tile" + myTileCount);
     myCurrentlyClickedTiletype = Optional.empty();
   }
@@ -220,14 +221,14 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void openTileMenu() {
-    addNewButtonsToPane(myLeftSidebar, tileMenuResource);
+    refreshButtonsOnPane(myLeftSidebar, tileMenuResource);
   }
 
   private void backToSidebarMenu() {
-    addNewButtonsToPane(myLeftSidebar, sideBar1Resource);
+    refreshButtonsOnPane(myLeftSidebar, sideBar1Resource);
   }
 
-  private void addNewButtonsToPane(Pane pane, ResourceBundle resourceBundle) {
+  private void refreshButtonsOnPane(Pane pane, ResourceBundle resourceBundle) {
     pane.getChildren().clear();
     addButtonsToPane(pane, resourceBundle);
   }
@@ -264,15 +265,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void deleteTile(ViewTile tile) {
-    if (myDeleteToggle) {
-      myBoardPane.getChildren().remove(tile);
-      myCurrentTile = Optional.empty();
-      myGraph.removeTile(tile);
-      myDeleteToggle = false;
-    } else {
-      // todo: log that we tried to delete a non-existing tile.
-      System.out.println("Not in delete mode; how were you trying to delete??");
-    }
+    myTileCount = deleteNode(tile.asNode(), myTileCount);
+    myCurrentTile = Optional.empty();
+    myGraph.removeTile(tile);
   }
 
   private void deleteToggle() {
@@ -280,15 +275,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private int deleteNode(Node node, int objCounter) {
-    if (myDeleteToggle) {
-      myBoardPane.getChildren().remove(node);
-      myDeleteToggle = false;
-      return objCounter--;
-    } else {
-      // todo: log that we somehow tried to delete without being in delete mode.
-      System.out.println("Not in delete mode... how were you trying to delete??");
-      return objCounter;
-    }
+    myBoardPane.getChildren().remove(node);
+    myDeleteToggle = false;
+    return objCounter--;
   }
 
 

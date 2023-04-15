@@ -23,6 +23,6 @@ public interface BuilderControllerInterface {
   /**
    *
    */
-  void load();
+  void load(String directoryPath);
 
 }

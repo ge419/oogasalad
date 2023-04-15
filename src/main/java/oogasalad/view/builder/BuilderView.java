@@ -179,7 +179,13 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   @Override
   public void loadFile() {
     myGraph.print();
-    //Optional<File> file = fileLoad(builderResource, "LoadGameTitle");
+    Optional<File> file = directoryGet(builderResource, "LoadGameTitle");
+    if (file.isPresent()){
+      bc.load(file.get().getPath());
+    }
+    else{
+      // todo: display error
+    }
   }
 
   private void tile() {

@@ -63,8 +63,7 @@ public class BuilderController {
   /**
    * Take the ImmutableGameHolder from backend and call on frontend to load
    */
-  public void load() {
+  public void load(String directoryPath) {
     //take holder as parameter?
-    builderView.loadFile();
   }
 }

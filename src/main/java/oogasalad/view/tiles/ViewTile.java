@@ -1,5 +1,6 @@
 package oogasalad.view.tiles;
 
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import oogasalad.model.constructable.Tile;
@@ -45,7 +46,24 @@ public interface ViewTile {
    */
   void setColor(Color color);
 
+  /**
+   * Returns the backend tile contained within the frontend tile.
+   * @return backend tile
+   */
   Tile getTile();
 
+  /**
+   * Sets the ID for a given tile.
+   * @param tiles
+   */
   void setId(String tiles);
+
+  /**
+   * <p>Returns the node that encompasses this tile.
+   * (So if this tile extends Rectangle, it will return the Rectangle object.)</p>
+   * <p>For tiles that extend a node, this might seem a little redundant, but this is so that other
+   * objects can just access ViewTiles to manipulate <em>any</em> kind of tile.</p>
+   * @return Node
+   */
+  Node asNode();
 }

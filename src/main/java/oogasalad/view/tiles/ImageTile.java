@@ -2,6 +2,7 @@ package oogasalad.view.tiles;
 
 import java.util.Map;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -59,6 +60,11 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
   @Override
   public Tile getTile() {
     return null;
+  }
+
+  @Override
+  public Node asNode() {
+    return this;
   }
 
   @Override

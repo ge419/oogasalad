@@ -3,6 +3,7 @@ package oogasalad.view.tiles;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -66,6 +67,11 @@ public class StreetTile extends StackPane implements ViewTile, Textable {
   @Override
   public Tile getTile() {
     return null;
+  }
+
+  @Override
+  public Node asNode() {
+    return this;
   }
 
 

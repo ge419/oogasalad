@@ -53,7 +53,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private final String defaultStylesheet;
   private Optional<String> myCurrentlyClickedTiletype;
   //todo: dependency injection
-  private final Graph myGraph;
   private VBox myLeftSidebar;
   private PopupForm popupForm;
   private int myTileCount = 0;
@@ -74,7 +73,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET).toExternalForm();
 
     myCurrentlyClickedTiletype = Optional.empty();
-    myGraph = new Graph();  // todo: dependency injection
     myCurrentTile = Optional.empty();
     myBoardInfo = new BoardInfo(builderResource);
 
@@ -172,9 +170,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   @Override
   public void loadFile() {
-    myGraph.print();
     Optional<File> file = directoryGet(builderResource, "LoadGameTitle");
     if (file.isPresent()){
+      System.out.println("Given directory: " + file.get().getPath());
       myBuilderController.load(file.get().getPath());
     }
     else{
@@ -268,7 +266,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myBuilderController.removeTile(tile.getTileId());
     myTileCount = deleteNode(tile.asNode(), myTileCount);
     myCurrentTile = Optional.empty();
-    myGraph.removeTile(tile);
   }
 
   private void deleteToggle() {
@@ -306,7 +303,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private ImmutableGameHolder createGameHolder() {
     GameHolder game = new GameHolder();
     game.setBoardInfo(new ImmutableBoardInfo(myBoardInfo));
-    game.setTileGraph(new ImmutableGraph(myGraph));
+    //game.setTileGraph(new ImmutableGraph(myGraph));
     return new ImmutableGameHolder(game);
   }
 

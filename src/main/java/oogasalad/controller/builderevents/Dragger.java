@@ -1,4 +1,4 @@
-package oogasalad.view.builder.panefeatures;
+package oogasalad.controller.builderevents;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;

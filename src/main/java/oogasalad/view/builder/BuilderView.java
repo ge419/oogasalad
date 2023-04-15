@@ -10,7 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -22,12 +21,10 @@ import oogasalad.controller.BuilderController;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.board.BoardInfo;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
-import oogasalad.view.builder.board.NodeStorer;
 import oogasalad.view.builder.gameholder.GameHolder;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.builder.graphs.Graph;
 import oogasalad.view.builder.graphs.ImmutableGraph;
-import oogasalad.view.builder.panefeatures.Dragger;
 import oogasalad.view.tiles.BasicTile;
 import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
@@ -63,11 +60,10 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private int myImageCount = 0;
   private Optional<ViewTile> myCurrentTile;
   private final BoardInfo myBoardInfo;
-  private final NodeStorer myNodeHolder;
   private final boolean myDraggableObjectsToggle = true;
   private boolean myDeleteToggle = false;
   private final Coordinate myBoardPaneStartingLocation;
-  private final BuilderController bc = new BuilderController();
+  private final BuilderController myBuilderController = new BuilderController();
 
 
   public BuilderView() {
@@ -79,7 +75,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
     myCurrentlyClickedTiletype = Optional.empty();
     myGraph = new Graph();  // todo: dependency injection
-    myNodeHolder = new NodeStorer();
     myCurrentTile = Optional.empty();
     myBoardInfo = new BoardInfo(builderResource);
 
@@ -180,7 +175,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myGraph.print();
     Optional<File> file = directoryGet(builderResource, "LoadGameTitle");
     if (file.isPresent()){
-      bc.load(file.get().getPath());
+      myBuilderController.load(file.get().getPath());
     }
     else{
       // todo: display error
@@ -209,7 +204,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   // todo: support different tile types.
   private void createTile(MouseEvent e) {
-    BasicTile tile = bc.addTile(e);
+    BasicTile tile = myBuilderController.addTile(e);
     initNode(tile, "Tile" + myTileCount, tile_e -> handleTileClick(tile));
     myTileCount++;
     tile.setId("Tile" + myTileCount);
@@ -217,7 +212,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void setNext(String currentId, String nextId) {
-    bc.addNext(currentId, nextId);
+    myBuilderController.addNext(currentId, nextId);
   }
 
   private void openTileMenu() {
@@ -248,7 +243,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     }
     if (myCurrentTile.isPresent()) {
       tile.setColor(Color.LIGHTGREEN);
-      bc.addNext(myCurrentTile.get().getTileId(), tile.getTileId());
+      setNextTile(myCurrentTile.get(), tile);
       myCurrentTile.get().setColor(Color.LIGHTBLUE);
       myCurrentTile = Optional.empty();
       tile.setColor(Color.LIGHTBLUE);
@@ -258,6 +253,11 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     }
   }
 
+  private void setNextTile(ViewTile origin, ViewTile desiredNext){
+    myBuilderController.addNext(origin.getTileId(), desiredNext.getTileId());
+    // Set guideline between current and next tile?
+  }
+
   private void handleImageClick(Node node) {
     if (myDeleteToggle) {
       myImageCount = deleteNode(node, myImageCount);
@@ -265,6 +265,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void deleteTile(ViewTile tile) {
+    myBuilderController.removeTile(tile.getTileId());
     myTileCount = deleteNode(tile.asNode(), myTileCount);
     myCurrentTile = Optional.empty();
     myGraph.removeTile(tile);
@@ -310,15 +311,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void initNode(Node node, String identifier, EventHandler<MouseEvent> mouseClickHandle){
-    createEventsForNode(node, mouseClickHandle);
+    myBuilderController.createEventsForNode(node, mouseClickHandle, myBoardPaneStartingLocation);
     node.setId(identifier);
     myBoardPane.getChildren().add(node);
-  }
-
-  private void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle) {
-    node.setOnMouseClicked(mouseClickHandle);
-    Dragger nodeDragger = new Dragger(node, myDraggableObjectsToggle, myBoardPaneStartingLocation,
-        MouseButton.PRIMARY);
-    myNodeHolder.addDragger(nodeDragger);
   }
 }

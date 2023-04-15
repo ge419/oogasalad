@@ -19,6 +19,9 @@ class IntegerParameterStrategy implements ParameterStrategy, BuilderUtility {
     }
     @Override
     public boolean validateInput(Metadata metadata) {
+        if (getValue() == null) {
+            return false;
+        }
         IntMetadata intMetadata = (IntMetadata) metadata;
         return getValue() > intMetadata.getMinValue() && getValue() < intMetadata.getMaxValue();
     }
@@ -30,7 +33,7 @@ class IntegerParameterStrategy implements ParameterStrategy, BuilderUtility {
         } catch (NumberFormatException nfe) {
             System.out.println("Integer not provided in integer input");
         }
-        return 0;
+        return null;
     }
     @Override
     public void setValue(Attribute attribute) {

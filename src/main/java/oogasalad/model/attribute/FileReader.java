@@ -19,8 +19,12 @@ public class FileReader {
 
   public static List<File> readFiles(String path) throws IOException, FileReaderException {
     URL resource = FileReader.class.getResource(String.format("/%s", path));
+    String filePath = resource.getPath();
+    if (filePath.substring(1, 2).equals("C")) {
+      filePath = filePath.substring(1);
+    }
     try {
-      return Files.walk(Paths.get(resource.getPath()))
+      return Files.walk(Paths.get(filePath))
           .filter(Files::isRegularFile)
           .map(Path::toFile)
           .collect(Collectors.toList());

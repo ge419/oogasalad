@@ -23,8 +23,6 @@ import oogasalad.view.builder.board.BoardInfo;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
 import oogasalad.view.builder.gameholder.GameHolder;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;
-import oogasalad.view.builder.graphs.Graph;
-import oogasalad.view.builder.graphs.ImmutableGraph;
 import oogasalad.view.tiles.BasicTile;
 import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
@@ -192,7 +190,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       System.out.println("Got an image from: " + file.get().getPath());
       ImageView ourImage = turnFileToImage(file.get(), DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT,
           new Coordinate(0, 0));
-      initNode(ourImage, "Image" + myImageCount, e->handleImageClick(ourImage));
+      initializeNode(ourImage, "Image" + myImageCount, e->handleImageClick(ourImage));
       myImageCount++;
     } else {
       // todo: make this use an error form.
@@ -203,16 +201,11 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   // todo: support different tile types.
   private void createTile(MouseEvent e) {
     BasicTile tile = myBuilderController.addTile(e);
-    initNode(tile, "Tile" + myTileCount, tile_e -> handleTileClick(tile));
+    initializeNode(tile, "Tile" + myTileCount, tile_e -> handleTileClick(tile));
     myTileCount++;
     tile.setId("Tile" + myTileCount);
     myCurrentlyClickedTiletype = Optional.empty();
   }
-
-  private void setNext(String currentId, String nextId) {
-    myBuilderController.addNext(currentId, nextId);
-  }
-
   private void openTileMenu() {
     refreshButtonsOnPane(myLeftSidebar, tileMenuResource);
   }
@@ -278,6 +271,10 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     return objCounter--;
   }
 
+  private void changeAppearanceOnClick(Node node){
+
+  }
+
 
   // -----------------------------------------------------------------------------------------------------------------
   private boolean checkIfImage(Optional<File> thing) {
@@ -307,9 +304,10 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     return new ImmutableGameHolder(game);
   }
 
-  private void initNode(Node node, String identifier, EventHandler<MouseEvent> mouseClickHandle){
+  private void initializeNode(Node node, String identifier, EventHandler<MouseEvent> mouseClickHandle){
     myBuilderController.createEventsForNode(node, mouseClickHandle, myBoardPaneStartingLocation);
     node.setId(identifier);
+    node.getStyleClass().add("clickable");
     myBoardPane.getChildren().add(node);
   }
 }

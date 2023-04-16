@@ -29,3 +29,6 @@
 #sideBar{
     -fx-word-wrap: break-word;
 }
+.clickable{
+    -fx-cursor: hand;
+}

@@ -7,10 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -117,4 +114,14 @@ public interface BuilderUtility {
     node.setLayoutX(coord.getXCoor());
     node.setLayoutY(coord.getYCoor());
   }
+  default Node makeWrappedText(String property, ResourceBundle resourceBundle, double wrappingWidth) {
+    Text text = (Text) makeText(property, resourceBundle);
+    text.setWrappingWidth(wrappingWidth);
+    return text;
+  }
+    default Node makeCheckBox(String property) {
+        CheckBox checkBox = new CheckBox();
+        checkBox.setId(property);
+        return checkBox;
+    }
 }

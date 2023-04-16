@@ -117,4 +117,9 @@ public interface BuilderUtility {
     node.setLayoutX(coord.getXCoor());
     node.setLayoutY(coord.getYCoor());
   }
+  default Node makeWrappedText(String property, ResourceBundle resourceBundle, double wrappingWidth) {
+    Text text = (Text) makeText(property, resourceBundle);
+    text.setWrappingWidth(wrappingWidth);
+    return text;
+  }
 }

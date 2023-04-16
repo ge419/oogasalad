@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
+
 import oogasalad.controller.BuilderController;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.Tile;
@@ -29,6 +30,7 @@ import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.builder.graphs.Graph;
 import oogasalad.view.builder.graphs.ImmutableGraph;
 import oogasalad.view.builder.panefeatures.Dragger;
+import oogasalad.view.builder.popupform.PopupForm;
 import oogasalad.view.tiles.BasicTile;
 import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;

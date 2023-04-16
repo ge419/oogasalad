@@ -73,9 +73,7 @@ public class PopupForm<T> implements BuilderUtility {
       try {
         fieldMap.put(param.getName(),
             (ParameterStrategy) strategies.get(param.getType()).newInstance());
-      } catch (InstantiationException e) {
-        throw new RuntimeException(e);
-      } catch (IllegalAccessException e) {
+      } catch (Exception e) {
         throw new RuntimeException(e);
       }
 

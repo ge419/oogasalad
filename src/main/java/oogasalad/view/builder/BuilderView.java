@@ -171,6 +171,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     } else {
       // todo: replace with LOG
       System.out.println("Ruh-roh, can't save to a file that doesn't exist!");
+      new visualization.PopupError(builderResource, "FileNotFoundError");
     }
   }
 
@@ -203,6 +204,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     } else {
       // todo: make this use an error form.
       System.out.println("ERROR -- Got a non-image or nothing from file.");
+      new visualization.PopupError(builderResource, "EmptyFileError");
     }
   }
 

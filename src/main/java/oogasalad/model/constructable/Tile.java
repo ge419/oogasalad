@@ -20,9 +20,6 @@ public class Tile extends GameConstruct {
   public static final String WIDTH_ATTRIBUTE = "width";
   public static final String HEIGHT_ATTRIBUTE = "height";
   public static final String INFO_ATTRIBUTE = "info";
-  public static final String IMAGE_ATTRIBUTE = "image";
-  public static final String COLOR_ATTRIBUTE = "color";
-
 
   @Inject
   public Tile(@JacksonInject SchemaDatabase database) {
@@ -89,19 +86,10 @@ public class Tile extends GameConstruct {
     return StringAttribute.from(getAttribute(INFO_ATTRIBUTE)).getValue();
   }
 
-  @JsonIgnore
-  public String getImage() {
-    return StringAttribute.from(getAttribute(IMAGE_ATTRIBUTE)).getValue();
-  }
 
   @JsonIgnore
   public String getType() {
     return StringAttribute.from(getAttribute(TYPE_ATTRIBUTE)).getValue();
-  }
-
-  @JsonIgnore
-  public String getColor() {
-    return StringAttribute.from(getAttribute(COLOR_ATTRIBUTE)).getValue();
   }
 
 }

@@ -11,17 +11,23 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Textable;
 
 public class StreetTile extends StackPane implements ViewTile, Textable {
+
   private static final double TEXT_SCALE = 8;
+  public static final String COLOR_ATTRIBUTE = "color";
 
-  public StreetTile(String id, Coordinate coordinate, String color, String info, double width, double height) {
 
-    getChildren().addAll((createBarBox(width, height, color)), createTextBox(info, height, width));
-    setPosition(coordinate);
+  public StreetTile(Tile BTile) {
+
+    getChildren().addAll((createBarBox(BTile.getWidth(), BTile.getHeight(),
+            StringAttribute.from(BTile.getAttribute(COLOR_ATTRIBUTE)).getValue())),
+        createTextBox(BTile.getInfo(), BTile.getHeight(), BTile.getWidth()));
+    setPosition(BTile.getCoordinate());
   }
 
   private Rectangle createBar(double width, double height, String color) {
@@ -53,7 +59,7 @@ public class StreetTile extends StackPane implements ViewTile, Textable {
     streetText.setLayoutY(this.getLayoutY());
     Text priceText = new Text(infoList[1]);
     resizeText(priceText, height, TEXT_SCALE, width);
-    textBox.setMargin(priceText, new Insets((height / 4 - streetTextBounds.getMaxY()), 0, 0 , 0));
+    textBox.setMargin(priceText, new Insets((height / 4 - streetTextBounds.getMaxY()), 0, 0, 0));
     textBox.setAlignment(Pos.CENTER);
     textBox.getChildren().addAll(streetText, priceText);
     return textBox;

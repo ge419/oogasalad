@@ -86,7 +86,7 @@
     {
       "@class" : "oogasalad.model.constructable.Tile",
       "id" : "8d5ba42e-2467-4957-8a6a-77c5ba159f13",
-      "schema" : "basicTile",
+      "schema" : "imageTile",
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.DoubleAttribute",
         "key" : "height",

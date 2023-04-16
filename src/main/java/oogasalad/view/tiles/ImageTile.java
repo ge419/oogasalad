@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.Backgroundable;
 import oogasalad.view.Coordinate;
@@ -16,19 +17,21 @@ import oogasalad.view.Imageable;
 import oogasalad.view.Textable;
 
 public class ImageTile extends StackPane implements ViewTile, Textable, Imageable, Backgroundable {
+
   private static final double TEXT_SCALE = 8;
   private static final double MARGIN_SCALE = 10;
+  public static final String IMAGE_ATTRIBUTE = "image";
 
-  public ImageTile(String id, Coordinate coordinate, String imgPath, String info, double width,
-      double height) {
+  public ImageTile(Tile BTile) {
+    this.setPosition(BTile.getCoordinate());
 
-    this.setPosition(coordinate);
-
-    Rectangle tileBackground = tileBackground(width, height);
+    Rectangle tileBackground = tileBackground(BTile.getWidth(), BTile.getHeight());
     System.out.println(tileBackground.getX());
-    ImageView tileImage = createImage(width, imgPath);
+    ImageView tileImage = createImage(BTile.getWidth(),
+        StringAttribute.from(BTile.getAttribute("image")).getValue());
 
-    VBox content = new VBox(height / MARGIN_SCALE, tileImage, createTextBox(info, height, width));
+    VBox content = new VBox(BTile.getHeight() / MARGIN_SCALE, tileImage,
+        createTextBox(BTile.getInfo(), BTile.getHeight(), BTile.getHeight()));
     content.setAlignment(Pos.CENTER);
     getChildren().addAll(tileBackground, content);
   }
@@ -39,7 +42,7 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
     String[] infoList = info.split(",");
     for (int i = 0; i < infoList.length; i++) {
       Text text = new Text(infoList[i]);
-      resizeText(text, height, TEXT_SCALE, width);
+//      resizeText(text, height, TEXT_SCALE, width);
       textBox.getChildren().add(text);
     }
     textBox.setAlignment(Pos.CENTER);

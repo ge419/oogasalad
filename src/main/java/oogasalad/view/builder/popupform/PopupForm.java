@@ -47,10 +47,8 @@ public class PopupForm<T> implements BuilderUtility {
         for (Attribute attribute : attributes) {
             try {
                 map.put(attribute, (ParameterStrategy) attributeMap.get(attribute.getClass()).newInstance());
-            } catch (InstantiationException e) {
-                throw new RuntimeException(e);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
+            } catch (Exception e) {
+                new visualization.PopupError(resourceBundle, "FormStrategyNotFound");
             }
         }
         return map;
@@ -61,7 +59,7 @@ public class PopupForm<T> implements BuilderUtility {
             Optional<Metadata> metadata = objectSchema.getMetadata(attribute.getKey());
             if (metadata.isPresent() && !strategyMap.get(attribute).validateInput(metadata.get())) {
                 System.out.println(String.format("Input for %s is invalid.", attribute.getKey()));
-                // Should be a popup error here
+                new visualization.PopupError(resourceBundle, "InvalidFormData");
                 return;
             }
             strategyMap.get(attribute).setValue(attribute);

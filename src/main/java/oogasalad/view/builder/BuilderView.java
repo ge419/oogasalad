@@ -52,6 +52,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private Optional<String> myCurrentlyClickedTiletype;
   //todo: dependency injection
   private VBox myLeftSidebar;
+  private Node myInfoText;
+  private HBox myInfoTextBox;
   private PopupForm popupForm;
   private int myTileCount = 0;
   private int myImageCount = 0;
@@ -96,7 +98,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private Scene initScene() {
-    Node topBar = createTopBar();
+    HBox topBar = createTopBar();
     Node centralContainer = createCentralContainer();
     VBox root = (VBox) makeVBox("RootContainer", topBar, centralContainer);
 
@@ -107,10 +109,14 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private HBox createTopBar() {
     Node title = makeText("BuilderHeader", builderResource);
+    Node text = makeText("RegularMode", builderResource);
+    myInfoText = text;
+    HBox textBox = (HBox) makeHBox("TopBar", text);
+    myInfoTextBox = textBox;
     HBox menuBar1 = (HBox) makeHBox("MenuBar1");
     addButtonsToPane(menuBar1, menuBar1Resource);
 
-    return (HBox) makeHBox("TopBar", title, menuBar1);
+    return (HBox) makeHBox("TopBar", title, textBox, menuBar1);
   }
 
   private HBox createCentralContainer() {
@@ -180,6 +186,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private void tile() {
     myCurrentlyClickedTiletype = Optional.of("Test");
+    updateInfoText("TileAdditionMode");
   }
 
 
@@ -205,6 +212,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myTileCount++;
     tile.setId("Tile" + myTileCount);
     myCurrentlyClickedTiletype = Optional.empty();
+    updateInfoText("RegularMode");
   }
   private void openTileMenu() {
     refreshButtonsOnPane(myLeftSidebar, tileMenuResource);
@@ -238,9 +246,11 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       myCurrentTile.get().setColor(Color.LIGHTBLUE);
       myCurrentTile = Optional.empty();
       tile.setColor(Color.LIGHTBLUE);
+      updateInfoText("RegularMode");
     } else {
       myCurrentTile = Optional.ofNullable(tile);
       myCurrentTile.get().setColor(Color.BLUE);
+      updateInfoText("TileNextMode");
     }
   }
 
@@ -263,16 +273,24 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private void deleteToggle() {
     myDeleteToggle = !myDeleteToggle;
+    if (myDeleteToggle){
+      updateInfoText("DeleteMode");
+    }
+    else{
+      updateInfoText("RegularMode");
+    }
   }
 
   private int deleteNode(Node node, int objCounter) {
     myBoardPane.getChildren().remove(node);
-    myDeleteToggle = false;
+    deleteToggle();
     return objCounter--;
   }
 
-  private void changeAppearanceOnClick(Node node){
-
+  private void updateInfoText(String key){
+    myInfoTextBox.getChildren().remove(myInfoText);
+    myInfoText = makeText(key, builderResource);
+    myInfoTextBox.getChildren().add(myInfoText);
   }
 
 

@@ -47,7 +47,6 @@ public class BBuilder implements BBuilderAPI{
     Map<String, Object> dataMap = new HashMap<>();
     ImmutableBoardInfo boardInfo =  holder.getBoardInfo();
     //title = boardInfo.getTitle();
-    //TODO: ask frontend builder to pass directory path as String
     //String directoryPath = boardInfo.getPath();
     int height = boardInfo.getBoardSize().height;
     int width = boardInfo.getBoardSize().width;

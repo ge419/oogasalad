@@ -1,0 +1,123 @@
+package oogasalad.controller.builderevents;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.BiFunction;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.Node;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import oogasalad.view.Coordinate;
+
+public class TrailMaker implements TrailMakerAPI {
+
+  private final Map<String, Line> myMap;
+  private final Pane myPane;
+  private BooleanProperty myEnabledLines;
+  private double myCurrentOpacity = 1.0;
+
+  TrailMaker(Pane parentPane) {
+    myMap = new HashMap<>();
+    myPane = parentPane;
+    initializeEnabler();
+    myEnabledLines.set(false);
+  }
+
+  TrailMaker(Pane parentPane, boolean setEnable) {
+    this(parentPane);
+    myEnabledLines.set(setEnable);
+  }
+
+  @Override
+  public void createTrailBetween(Node entry1, Node entry2, String trailID) {
+    Coordinate startPoint = getCenterPoint(entry1);
+    Coordinate endPoint = getCenterPoint(entry2);
+    Line newLine = new Line(startPoint.getXCoor(), startPoint.getYCoor(),
+        endPoint.getXCoor(), endPoint.getYCoor());
+    newLine.setOpacity(myCurrentOpacity);
+    newLine.setFill(Color.BLACK);
+    myMap.put(trailID, newLine);
+    myPane.getChildren().add(newLine);
+
+    System.out.println("made trail");
+  }
+
+  @Override
+  public void removeTrail(String trailID) {
+    myPane.getChildren().remove(myMap.get(trailID));
+    myMap.remove(trailID);
+  }
+
+  @Override
+  public void setOpacity(String trailID, double opacity) {
+    myMap.get(trailID).setOpacity(opacity);
+  }
+
+  @Override
+  public double getOpacity(String trailID) {
+    return myMap.get(trailID).getOpacity();
+  }
+
+  @Override
+  public void toggleEnable() {
+    this.myEnabledLines.set(!this.myEnabledLines.get());
+  }
+
+  private Coordinate getCenterPoint(Node entry) {
+    return new Coordinate(
+        entry.localToScene(entry.getBoundsInLocal()).getCenterX(),
+        entry.localToScene(entry.getBoundsInLocal()).getCenterY()
+    );
+  }
+
+  private void updateTrailLocation(String trailID, Node updatedNode,
+      BiFunction<String, Coordinate, Integer> pointMethod) {
+    myPane.getChildren().remove(myMap.get(trailID));
+    Coordinate newCenter = getCenterPoint(updatedNode);
+    pointMethod.apply(trailID, newCenter);
+    myPane.getChildren().add(myMap.get(trailID));
+  }
+
+  private void setStartingPoint(String trailID, Coordinate desiredCoordinate) {
+    myMap.get(trailID).setStartX(desiredCoordinate.getXCoor());
+    myMap.get(trailID).setStartY(desiredCoordinate.getYCoor());
+  }
+
+  private void setEndingPoint(String trailID, Coordinate desiredCoordinate) {
+    myMap.get(trailID).setEndX(desiredCoordinate.getXCoor());
+    myMap.get(trailID).setEndY(desiredCoordinate.getYCoor());
+  }
+
+  private void initializeEnabler() {
+    myEnabledLines = new SimpleBooleanProperty();
+    myEnabledLines.addListener(((observable, oldValue, newValue) -> {
+      if (newValue) {
+        myCurrentOpacity = 0.0;
+        changeOpacityOfAllLines(0.0);
+      } else {
+        myCurrentOpacity = 1.0;
+        changeOpacityOfAllLines(1.0);
+      }
+    }));
+  }
+
+  private void changeOpacityOfAllLines(double opacity) {
+    for (String id : myMap.keySet()) {
+      myMap.get(id).setOpacity(opacity);
+    }
+  }
+
+//  private void createListenerOnBounds(Node entry, BiFunction<String, Coordinate, Integer> pointMethod){
+//    entry.localToScene(entry.getBoundsInLocal());
+//    entry.localToSceneTransformProperty().addListener(((observable, oldValue, newValue) -> {
+//      if (newValue){
+//
+//      }
+//      else{
+//
+//      }
+//    }));
+//  }
+}

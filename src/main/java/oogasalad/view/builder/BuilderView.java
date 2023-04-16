@@ -19,6 +19,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import oogasalad.controller.BuilderController;
+import oogasalad.controller.builderevents.TrailMaker;
+import oogasalad.controller.builderevents.TrailMakerAPI;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.board.BoardInfo;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
@@ -61,6 +63,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private int myImageCount = 0;
   private Optional<ViewTile> myCurrentTile;
   private final BoardInfo myBoardInfo;
+  private TrailMakerAPI myTrailMaker;
   private final boolean myDraggableObjectsToggle = true;
   private boolean myDeleteToggle = false;
   private final Coordinate myBoardPaneStartingLocation;
@@ -79,6 +82,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myBoardInfo = new BoardInfo(builderResource);
 
     Scene scene = initScene();
+    myTrailMaker = new TrailMaker(myBoardPane, false);
     Stage primaryStage = new Stage();
     primaryStage.setScene(scene);
     primaryStage.setTitle(builderResource.getString("BuilderTitle"));
@@ -90,8 +94,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         myBoardPane.getBoundsInParent().getMinY() + " | " + myBoardPane.getBoundsInParent()
             .getMaxY());
     myBoardPaneStartingLocation = new Coordinate(
-        (int) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinX(),
-        (int) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinY()
+            (int) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinX(),
+            (int) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinY()
     );
 
     // Example of the popup form using the Tile object
@@ -116,6 +120,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     HBox textBox = (HBox) makeHBox("TopBar", text);
     myInfoTextBox = textBox;
     CheckBox checker = (CheckBox) makeCheckBox("GuidelinesToggle", builderResource);
+    checker.setOnAction(e -> handleGuidelineClick());
     myGuidelinesToggle = checker;
     HBox menuBar1 = (HBox) makeHBox("MenuBar1", checker);
     addButtonsToPane(menuBar1, menuBar1Resource);
@@ -257,8 +262,13 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     }
   }
 
+  private void handleGuidelineClick(){
+    myTrailMaker.toggleEnable();
+  }
+
   private void setNextTile(ViewTile origin, ViewTile desiredNext){
     myBuilderController.addNext(origin.getTileId(), desiredNext.getTileId());
+    myTrailMaker.createTrailBetween(desiredNext.asNode(), origin.asNode(), "test" + myTileCount);
     // Set guideline between current and next tile?
   }
 

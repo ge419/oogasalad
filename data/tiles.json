@@ -598,6 +598,7 @@
       "value" : 50.0
     } ]
   },
+    {
     "@class" : "oogasalad.model.constructable.Tile",
     "id" : "c75d3017-862e-4e08-9099-0368ceaa02cc",
     "schema" : "basicTile",
@@ -623,603 +624,603 @@
       "key" : "width",
       "value" : 50.0
     } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "2b355be9-bcaa-4612-b553-dc50d65b6786",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
     }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "2e35411a-ca24-4692-a2d1-38eb1aad5916" ]
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "2b355be9-bcaa-4612-b553-dc50d65b6786",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "2e35411a-ca24-4692-a2d1-38eb1aad5916" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 800.0,
+        "y" : 635.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
     }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "2e35411a-ca24-4692-a2d1-38eb1aad5916",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "fed99c0b-3f3e-45a4-b552-0fccda830ab4" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 750.0,
+        "y" : 635.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
     }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 800.0,
-      "y" : 635.0
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "fed99c0b-3f3e-45a4-b552-0fccda830ab4",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "2f244616-df17-4f79-89b5-4c0a5fc936c3" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 700.0,
+        "y" : 635.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
     }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "2f244616-df17-4f79-89b5-4c0a5fc936c3",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "8339cbab-7689-4253-9dd5-032595842a21" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 650.0,
+        "y" : 635.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
+    }, {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "8339cbab-7689-4253-9dd5-032595842a21",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "bcdeab11-9178-4236-a25f-89f5e340e77a" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 600.0,
+        "y" : 635.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
+    }, {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "bcdeab11-9178-4236-a25f-89f5e340e77a",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "d1ed7424-8a7d-4606-82b0-6cca0454e55f" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 550.0,
+        "y" : 635.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
+    }, {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "d1ed7424-8a7d-4606-82b0-6cca0454e55f",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "266749eb-e625-4634-a6cc-fe9753a0b810" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 500.0,
+        "y" : 635.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
+    }, {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "266749eb-e625-4634-a6cc-fe9753a0b810",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "af577da6-1c3c-4aef-8746-fd250ff068db" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 450.0,
+        "y" : 635.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
+    }, {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "af577da6-1c3c-4aef-8746-fd250ff068db",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "96239959-9293-4a84-b941-efee08b84461" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 400.0,
+        "y" : 635.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
+    }, {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "96239959-9293-4a84-b941-efee08b84461",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "97dca4b9-8be2-4760-89bd-1a4078d1973d" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 350.0,
+        "y" : 635.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
+    }, {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "97dca4b9-8be2-4760-89bd-1a4078d1973d",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "2f96f869-9ae3-4714-841c-4f36d4dd4844" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 300.0,
+        "y" : 635.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
+    }, {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "2f96f869-9ae3-4714-841c-4f36d4dd4844",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "26b940ec-d0d7-48a7-a3e6-ad3d72ed6bba" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 300.0,
+        "y" : 635.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
+    }, {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "26b940ec-d0d7-48a7-a3e6-ad3d72ed6bba",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "7723dfa1-6674-482b-92d7-8b503f3ade46" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 300.0,
+        "y" : 585.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
+    }, {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "7723dfa1-6674-482b-92d7-8b503f3ade46",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "2292da7f-31a5-4bc5-8c91-d7abc779fc0a" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 300.0,
+        "y" : 535.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
+    }, {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "2292da7f-31a5-4bc5-8c91-d7abc779fc0a",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "f47e52f9-bfad-49a3-8928-799a7b311c51" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 300.0,
+        "y" : 485.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
+    }, {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "f47e52f9-bfad-49a3-8928-799a7b311c51",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "4f4e46b1-33a3-4b50-b031-0abb29c0476b" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 300.0,
+        "y" : 435.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
+    }, {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "4f4e46b1-33a3-4b50-b031-0abb29c0476b",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "d3b1d446-87d7-4112-b327-5733737b041f" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 300.0,
+        "y" : 385.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
+    }, {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "d3b1d446-87d7-4112-b327-5733737b041f",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "e71421c4-a3af-49be-a050-2a7f11ff32b9" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 300.0,
+        "y" : 335.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
+    }, {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "e71421c4-a3af-49be-a050-2a7f11ff32b9",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "a0382243-064b-4e6a-92fb-50f6edab211e" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 300.0,
+        "y" : 285.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
+    }, {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "a0382243-064b-4e6a-92fb-50f6edab211e",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "1beed47c-dd56-4989-a38d-6c8fe505cd42" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 300.0,
+        "y" : 235.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
+    }, {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "1beed47c-dd56-4989-a38d-6c8fe505cd42",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "7c26bd32-e079-47f2-bdde-eae4bce65267" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 300.0,
+        "y" : 185.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
+    }, {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "7c26bd32-e079-47f2-bdde-eae4bce65267",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "f66304ae-d31e-4cdb-99c4-2cf3e3e126a6" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 300.0,
+        "y" : 135.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
+    }, {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "f66304ae-d31e-4cdb-99c4-2cf3e3e126a6",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 50.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "8d5ba42e-2467-4957-8a6a-77c5ba159f13" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 300.0,
+        "y" : 85.0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 50.0
+      } ]
     } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "2e35411a-ca24-4692-a2d1-38eb1aad5916",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "fed99c0b-3f3e-45a4-b552-0fccda830ab4" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 750.0,
-      "y" : 635.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "fed99c0b-3f3e-45a4-b552-0fccda830ab4",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "2f244616-df17-4f79-89b5-4c0a5fc936c3" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 700.0,
-      "y" : 635.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "2f244616-df17-4f79-89b5-4c0a5fc936c3",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "8339cbab-7689-4253-9dd5-032595842a21" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 650.0,
-      "y" : 635.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "8339cbab-7689-4253-9dd5-032595842a21",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "bcdeab11-9178-4236-a25f-89f5e340e77a" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 600.0,
-      "y" : 635.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "bcdeab11-9178-4236-a25f-89f5e340e77a",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "d1ed7424-8a7d-4606-82b0-6cca0454e55f" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 550.0,
-      "y" : 635.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "d1ed7424-8a7d-4606-82b0-6cca0454e55f",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "266749eb-e625-4634-a6cc-fe9753a0b810" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 500.0,
-      "y" : 635.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "266749eb-e625-4634-a6cc-fe9753a0b810",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "af577da6-1c3c-4aef-8746-fd250ff068db" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 450.0,
-      "y" : 635.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "af577da6-1c3c-4aef-8746-fd250ff068db",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "96239959-9293-4a84-b941-efee08b84461" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 400.0,
-      "y" : 635.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "96239959-9293-4a84-b941-efee08b84461",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "97dca4b9-8be2-4760-89bd-1a4078d1973d" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 350.0,
-      "y" : 635.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "97dca4b9-8be2-4760-89bd-1a4078d1973d",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "2f96f869-9ae3-4714-841c-4f36d4dd4844" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 635.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "2f96f869-9ae3-4714-841c-4f36d4dd4844",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "26b940ec-d0d7-48a7-a3e6-ad3d72ed6bba" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 635.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "26b940ec-d0d7-48a7-a3e6-ad3d72ed6bba",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "7723dfa1-6674-482b-92d7-8b503f3ade46" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 585.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "7723dfa1-6674-482b-92d7-8b503f3ade46",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "2292da7f-31a5-4bc5-8c91-d7abc779fc0a" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 535.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "2292da7f-31a5-4bc5-8c91-d7abc779fc0a",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "f47e52f9-bfad-49a3-8928-799a7b311c51" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 485.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "f47e52f9-bfad-49a3-8928-799a7b311c51",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "4f4e46b1-33a3-4b50-b031-0abb29c0476b" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 435.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "4f4e46b1-33a3-4b50-b031-0abb29c0476b",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "d3b1d446-87d7-4112-b327-5733737b041f" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 385.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "d3b1d446-87d7-4112-b327-5733737b041f",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "e71421c4-a3af-49be-a050-2a7f11ff32b9" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 335.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "e71421c4-a3af-49be-a050-2a7f11ff32b9",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "a0382243-064b-4e6a-92fb-50f6edab211e" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 285.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "a0382243-064b-4e6a-92fb-50f6edab211e",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "1beed47c-dd56-4989-a38d-6c8fe505cd42" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 235.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "1beed47c-dd56-4989-a38d-6c8fe505cd42",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "7c26bd32-e079-47f2-bdde-eae4bce65267" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 185.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "7c26bd32-e079-47f2-bdde-eae4bce65267",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "f66304ae-d31e-4cdb-99c4-2cf3e3e126a6" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 135.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "f66304ae-d31e-4cdb-99c4-2cf3e3e126a6",
-    "schema" : "basicTile",
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "8d5ba42e-2467-4957-8a6a-77c5ba159f13" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 85.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  } ]
 }

@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -54,6 +55,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private VBox myLeftSidebar;
   private Node myInfoText;
   private HBox myInfoTextBox;
+  private CheckBox myGuidelinesToggle;
   private PopupForm popupForm;
   private int myTileCount = 0;
   private int myImageCount = 0;
@@ -113,7 +115,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myInfoText = text;
     HBox textBox = (HBox) makeHBox("TopBar", text);
     myInfoTextBox = textBox;
-    HBox menuBar1 = (HBox) makeHBox("MenuBar1");
+    CheckBox checker = (CheckBox) makeCheckBox("GuidelinesToggle", builderResource);
+    myGuidelinesToggle = checker;
+    HBox menuBar1 = (HBox) makeHBox("MenuBar1", checker);
     addButtonsToPane(menuBar1, menuBar1Resource);
 
     return (HBox) makeHBox("TopBar", title, textBox, menuBar1);
@@ -210,7 +214,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     BasicTile tile = myBuilderController.addTile(e);
     initializeNode(tile, "Tile" + myTileCount, tile_e -> handleTileClick(tile));
     myTileCount++;
-    tile.setId("Tile" + myTileCount);
     myCurrentlyClickedTiletype = Optional.empty();
     updateInfoText("RegularMode");
   }

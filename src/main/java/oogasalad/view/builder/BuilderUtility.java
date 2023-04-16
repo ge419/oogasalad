@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -90,6 +91,13 @@ public interface BuilderUtility {
     DirectoryChooser directChooser = new DirectoryChooser();
     directChooser.setTitle(resourceBundle.getString(property));
     return directChooser;
+  }
+
+  default Node makeCheckBox(String property, ResourceBundle resourceBundle){
+    CheckBox checker = new CheckBox(resourceBundle.getString(property));
+    checker.getStyleClass().add("checkbox");
+    checker.setId(property);
+    return checker;
   }
 
   default Node makeFileSelectButton(String property, ResourceBundle resourceBundle,

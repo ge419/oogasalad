@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import oogasalad.view.builder.BuilderView;
 import oogasalad.view.gameplay.Gameview;
 
 /**

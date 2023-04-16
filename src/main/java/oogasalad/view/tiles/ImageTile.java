@@ -42,7 +42,7 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
     String[] infoList = info.split(",");
     for (int i = 0; i < infoList.length; i++) {
       Text text = new Text(infoList[i]);
-//      resizeText(text, height, TEXT_SCALE, width);
+      resizeText(text, height, TEXT_SCALE, width);
       textBox.getChildren().add(text);
     }
     textBox.setAlignment(Pos.CENTER);

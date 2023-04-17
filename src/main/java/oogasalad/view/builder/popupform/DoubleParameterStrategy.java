@@ -4,14 +4,15 @@ import com.google.inject.assistedinject.Assisted;
 import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javax.inject.Inject;
-
-import oogasalad.model.attribute.*;
+import oogasalad.model.attribute.Attribute;
+import oogasalad.model.attribute.DoubleAttribute;
+import oogasalad.model.attribute.DoubleMetadata;
+import oogasalad.model.attribute.Metadata;
 import oogasalad.view.builder.BuilderUtility;
 
-class DoubleParameterStrategy implements ParameterStrategy, BuilderUtility {
+public class DoubleParameterStrategy implements ParameterStrategy, BuilderUtility {
 
     private final DoubleAttribute attr;
     private final DoubleMetadata meta;
@@ -19,8 +20,8 @@ class DoubleParameterStrategy implements ParameterStrategy, BuilderUtility {
 
     @Inject
     public DoubleParameterStrategy(
-            @Assisted Attribute attr,
-            @Assisted Metadata meta) {
+        @Assisted Attribute attr,
+        @Assisted Metadata meta) {
         this.attr = DoubleAttribute.from(attr);
         this.meta = DoubleMetadata.from(meta);
     }
@@ -29,7 +30,8 @@ class DoubleParameterStrategy implements ParameterStrategy, BuilderUtility {
     public Node renderInput(ResourceBundle resourceBundle) {
         String name = meta.getName();
         Node textLabel = new Text(name + " (Double)");
-        element = (Spinner<Double>) makeDoubleSpinner(name, meta.getMinValue(), meta.getMaxValue(), meta.getMaxValue());
+        element = (Spinner<Double>) makeDoubleSpinner(name, meta.getMinValue(), meta.getMaxValue(),
+            attr.getValue());
         return makeHBox(String.format("%sDoubleInput", name), textLabel, element);
     }
 

@@ -1,6 +1,7 @@
 package oogasalad.view.builder.popupform;
 
 import com.google.inject.assistedinject.Assisted;
+import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -10,8 +11,6 @@ import oogasalad.model.attribute.Metadata;
 import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.attribute.StringMetadata;
 import oogasalad.view.builder.BuilderUtility;
-
-import java.util.ResourceBundle;
 
 public class TextParameterStrategy implements ParameterStrategy, BuilderUtility {
 
@@ -33,6 +32,7 @@ public class TextParameterStrategy implements ParameterStrategy, BuilderUtility 
     String name = meta.getName();
     Node textLabel = new Text(name + " (String)");
     element = (TextField) makeTextField(name);
+    element.setText(attr.getValue());
     return makeHBox(String.format("%sTextInput", name), textLabel, element);
   }
 

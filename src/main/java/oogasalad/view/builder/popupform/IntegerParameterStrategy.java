@@ -4,7 +4,6 @@ import com.google.inject.assistedinject.Assisted;
 import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javax.inject.Inject;
 import oogasalad.model.attribute.Attribute;
@@ -13,7 +12,7 @@ import oogasalad.model.attribute.IntMetadata;
 import oogasalad.model.attribute.Metadata;
 import oogasalad.view.builder.BuilderUtility;
 
-class IntegerParameterStrategy implements ParameterStrategy, BuilderUtility {
+public class IntegerParameterStrategy implements ParameterStrategy, BuilderUtility {
 
     private final IntAttribute attr;
     private final IntMetadata meta;
@@ -31,7 +30,8 @@ class IntegerParameterStrategy implements ParameterStrategy, BuilderUtility {
     public Node renderInput(ResourceBundle resourceBundle) {
         String name = meta.getName();
         Node textLabel = new Text(name + " (Integer)");
-        element = (Spinner<Integer>) makeIntSpinner(name, meta.getMinValue(), meta.getMaxValue(), meta.getMaxValue());
+        element = (Spinner<Integer>) makeIntSpinner(name, meta.getMinValue(), meta.getMaxValue(),
+            attr.getValue());
         return makeHBox(String.format("%sIntegerInput", name), textLabel, element);
     }
 

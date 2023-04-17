@@ -19,6 +19,17 @@ public class StringMetadata extends AbstractMetadata {
   }
 
   @Override
+  protected boolean checkPreconditions(Attribute attribute) {
+    String val = StringAttribute.from(attribute).getValue();
+    return isValidValue(val);
+  }
+
+  public boolean isValidValue(String val) {
+    // No preconditions
+    return true;
+  }
+
+  @Override
   public Attribute makeAttribute() {
     return makeStringAttribute();
   }

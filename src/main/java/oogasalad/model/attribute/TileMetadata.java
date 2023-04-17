@@ -13,6 +13,17 @@ public class TileMetadata extends AbstractMetadata {
   }
 
   @Override
+  protected boolean checkPreconditions(Attribute attribute) {
+    String id = TileAttribute.from(attribute).getId();
+    return isValidTileId(id);
+  }
+
+  public boolean isValidTileId(String id) {
+    // No preconditions
+    return true;
+  }
+
+  @Override
   public Attribute makeAttribute() {
     return makeTileAttribute();
   }

@@ -27,10 +27,10 @@ public class PopupForm implements BuilderUtility {
     private static final double POPUP_HEIGHT = 300;
     private static final Logger LOGGER = LogManager.getLogger(PopupForm.class);
     private final ParameterStrategyFactory factory;
-    private ResourceBundle resourceBundle;
+    private final ResourceBundle resourceBundle;
     private Stage stage;
-    private GameConstruct gameConstruct;
-    private VBox form;
+    private final GameConstruct gameConstruct;
+    private final VBox form;
     private final Map<Class<? extends Metadata>, ParameterStrategyCreator> strategyMap;
     private final List<ParameterStrategy> currentParameters;
 
@@ -59,11 +59,15 @@ public class PopupForm implements BuilderUtility {
 
     private void saveInputToObject() {
         for (ParameterStrategy parameter : currentParameters) {
-            if (!parameter.validateInput()) {
+            if (!parameter.isInputValid()) {
                 LOGGER.info("Input for {} is invalid", parameter.getMetadata().getName());
                 new visualization.PopupError(resourceBundle, "InvalidFormData");
                 return;
             }
+        }
+
+        for (ParameterStrategy parameter : currentParameters) {
+            parameter.saveInput();
         }
 
         stage.close();
@@ -77,7 +81,7 @@ public class PopupForm implements BuilderUtility {
             return Optional.empty();
         }
 
-        Attribute attribute = gameConstruct.getAttribute(metadata.getKey()).get();
+        Attribute attribute = gameConstruct.getAttribute(metadata.getKey());
         return Optional.of(creator.build(attribute, metadata));
     }
 

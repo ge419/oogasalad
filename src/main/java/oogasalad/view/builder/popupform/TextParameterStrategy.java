@@ -35,7 +35,26 @@ public class TextParameterStrategy implements ParameterStrategy, BuilderUtility 
   }
 
   @Override
-  public boolean validateInput() {
-    return getValue().getClass().equals(String.class);
+  public void saveInput() {
+    attr.setValue(getFieldValue());
+  }
+
+  @Override
+  public boolean isInputValid() {
+    return meta.isValidValue(getFieldValue());
+  }
+
+  @Override
+  public Metadata getMetadata() {
+    return meta;
+  }
+
+  @Override
+  public Attribute getAttribute() {
+    return attr;
+  }
+
+  private String getFieldValue() {
+    return element.getText();
   }
 }

@@ -11,6 +11,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.UUID;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import oogasalad.model.attribute.AbstractAttribute;
 import oogasalad.model.attribute.Attribute;
 import oogasalad.model.attribute.Metadata;
@@ -34,12 +37,14 @@ public abstract class AbstractGameConstruct implements GameConstruct {
   @JsonProperty("schema")
   private String schemaName;
   private String id;
+  private final ObjectProperty<ObjectSchema> schemaProperty;
 
   protected AbstractGameConstruct(String schemaName, SchemaDatabase database) {
     this.id = UUID.randomUUID().toString();
     this.schemaName = schemaName;
     this.database = database;
     this.attributeMap = new TreeMap<>();
+    this.schemaProperty = new SimpleObjectProperty<>();
     // TODO: put this somewhere else?
     try {
       this.loadSchema(schemaName);
@@ -58,7 +63,6 @@ public abstract class AbstractGameConstruct implements GameConstruct {
     this.id = id;
   }
 
-  @Override
   @JsonGetter("attributes")
   public List<Attribute> getAllAttributes() {
     return attributeMap.values().stream().toList();
@@ -76,12 +80,12 @@ public abstract class AbstractGameConstruct implements GameConstruct {
   }
 
   @JsonIgnore
-  protected void setAttribute(String key, AbstractAttribute value) {
-    SimpleObjectSchema schema = getSchema();
+  protected void setAttribute(String key, Attribute value) {
+    ObjectSchema schema = getSchema();
     Optional<Metadata> optionalMetadata = schema.getMetadata(key);
 
     if (optionalMetadata.isEmpty()) {
-      LOGGER.error("tried to set key {} that is not in schema {}", key, schema.getName());
+      LOGGER.error("tried to set key {} that is not in schema", key);
       throw new IllegalArgumentException("invalid key for schema");
     }
 
@@ -114,6 +118,7 @@ public abstract class AbstractGameConstruct implements GameConstruct {
     }
     this.schemaName = newSchemaName;
     ObjectSchema newSchema = database.getSchema(schemaName).get();
+    this.schemaProperty.setValue(newSchema);
     setAllAttributes(newSchema.makeAllAttributes());
     migrateAttributes(attributeMap);
   }
@@ -139,7 +144,7 @@ public abstract class AbstractGameConstruct implements GameConstruct {
   }
 
   @Override
-  public SimpleObjectSchema getSchema() {
+  public ObjectSchema getSchema() {
     // TODO: Add rule schemas
     Optional<ObjectSchema> schema = database.getSchema(getSchemaName());
     if (schema.isEmpty()) {
@@ -147,5 +152,10 @@ public abstract class AbstractGameConstruct implements GameConstruct {
       throw new IllegalStateException("invalid contained schema");
     }
     return schema.get();
+  }
+
+  @Override
+  public ReadOnlyObjectProperty<ObjectSchema> getSchemaProperty() {
+    return schemaProperty;
   }
 }

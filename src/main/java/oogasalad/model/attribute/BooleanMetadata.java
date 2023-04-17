@@ -19,8 +19,8 @@ public class BooleanMetadata extends AbstractMetadata {
 
   @Override
   protected boolean checkPreconditions(Attribute attribute) {
-    // No preconditions on booleans
-    return true;
+    boolean val = BooleanAttribute.from(attribute).getValue();
+    return isValidValue(val);
   }
 
   @Override
@@ -32,6 +32,11 @@ public class BooleanMetadata extends AbstractMetadata {
   @JsonIgnore
   public Class<? extends Attribute> getAttributeClass() {
     return ATTRIBUTE_CLASS;
+  }
+
+  public boolean isValidValue(boolean value) {
+    // No preconditions on booleans
+    return true;
   }
 
   public static BooleanMetadata from(Metadata meta) {

@@ -37,7 +37,7 @@ class TextParameterStrategyTest extends DukeApplicationTest {
 
     @Test
     void validateInput() {
-        assertEquals(true, textParameterStrategy.validateInput(metadata));
+        assertEquals(true, textParameterStrategy.isInputValid(metadata));
     }
 
     @Test

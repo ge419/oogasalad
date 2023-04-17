@@ -8,7 +8,9 @@ public interface ParameterStrategy {
 
     Node renderInput();
 
-    boolean validateInput();
+    void saveInput();
+
+    boolean isInputValid();
 
     Metadata getMetadata();
 

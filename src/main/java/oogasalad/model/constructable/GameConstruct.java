@@ -5,7 +5,6 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import oogasalad.model.attribute.AbstractAttribute;
 import oogasalad.model.attribute.Attribute;
 import oogasalad.model.attribute.ObjectSchema;
-import oogasalad.model.attribute.SimpleObjectSchema;
 
 /**
  * Represents a game-specific object. {@link GameConstruct}s are:
@@ -14,7 +13,7 @@ import oogasalad.model.attribute.SimpleObjectSchema;
  *   <li>Serializable and deserializable</li>
  * </ul>
  *
- * <p>A {@link GameConstruct} consists of a {@link SimpleObjectSchema} and associated {@link AbstractAttribute}s.
+ * <p>A {@link GameConstruct} consists of a {@link ObjectSchema} and associated {@link AbstractAttribute}s.
  * The schema is a concatenation of:
  * <ul>
  *   <li>The base schema for this object type</li>
@@ -27,7 +26,7 @@ import oogasalad.model.attribute.SimpleObjectSchema;
  * to listen to {@link GameConstruct#getSchemaProperty()} for changes.
  *
  * @author Dominic Martinez
- * @see SimpleObjectSchema
+ * @see ObjectSchema
  * @see AbstractAttribute
  */
 public interface GameConstruct {
@@ -41,20 +40,20 @@ public interface GameConstruct {
    * Returns the attribute associated with a key. Keys present in the current schema will always
    * exist.
    *
-   * @param key appropriate key from the {@link SimpleObjectSchema}
-   * @return an {@link Optional#of(Object)} if the key exists, {@link Optional#empty()} otherwise
+   * @param key appropriate key from the {@link ObjectSchema}
+   * @return an {@link Attribute} if the key exists, null otherwise
    */
-  Optional<Attribute> getAttribute(String key);
+  Attribute getAttribute(String key);
 
   /**
    * Returns the current schema for this {@link GameConstruct}. Note that the schema can change at
    * any point; make sure you really want this method instead of
    * {@link GameConstruct#getSchemaProperty()}.
    */
-  SimpleObjectSchema getSchema();
+  ObjectSchema getSchema();
 
   /**
-   * Returns a property for this object's {@link SimpleObjectSchema}.
+   * Returns a property for this object's {@link ObjectSchema}.
    */
   ReadOnlyObjectProperty<ObjectSchema> getSchemaProperty();
 }

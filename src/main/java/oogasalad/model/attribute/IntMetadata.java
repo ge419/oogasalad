@@ -23,6 +23,12 @@ public class IntMetadata extends AbstractMetadata {
   }
 
   @Override
+  protected boolean checkPreconditions(Attribute attribute) {
+    int val = IntAttribute.from(attribute).getValue();
+    return isValidValue(val);
+  }
+
+  @Override
   public Attribute makeAttribute() {
     return makeIntAttribute();
   }
@@ -31,6 +37,10 @@ public class IntMetadata extends AbstractMetadata {
   @JsonIgnore
   public Class<? extends Attribute> getAttributeClass() {
     return ATTRIBUTE_CLASS;
+  }
+
+  public boolean isValidValue(int value) {
+    return getMinValue() <= value && value <= getMaxValue();
   }
 
   public static IntMetadata from(Metadata meta) {

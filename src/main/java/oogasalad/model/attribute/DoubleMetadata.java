@@ -23,6 +23,12 @@ public class DoubleMetadata extends AbstractMetadata {
   }
 
   @Override
+  protected boolean checkPreconditions(Attribute attribute) {
+    double val = DoubleAttribute.from(attribute).getValue();
+    return isValidValue(val);
+  }
+
+  @Override
   public Attribute makeAttribute() {
     return makeDoubleAttribute();
   }
@@ -31,6 +37,10 @@ public class DoubleMetadata extends AbstractMetadata {
   @JsonIgnore
   public Class<? extends Attribute> getAttributeClass() {
     return ATTRIBUTE_CLASS;
+  }
+
+  public boolean isValidValue(double value) {
+    return getMinValue() <= value && value <= getMaxValue();
   }
 
   public static DoubleMetadata from(Metadata meta) {

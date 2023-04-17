@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
 import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
@@ -90,6 +91,7 @@ public class StreetTile extends StackPane implements ViewTile, Textable {
   public void setPosition(Coordinate coord) {
     this.setLayoutX(coord.getXCoor());
     this.setLayoutY(coord.getYCoor());
+    this.getTransforms().add(new Rotate(coord.getAngle(), Rotate.Z_AXIS));
   }
 
   @Override

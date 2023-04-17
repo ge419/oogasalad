@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
 import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.Backgroundable;
@@ -26,9 +27,9 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
     this.setPosition(BTile.getCoordinate());
 
     Rectangle tileBackground = tileBackground(BTile.getWidth(), BTile.getHeight());
-    System.out.println(tileBackground.getX());
+//    System.out.println(tileBackground.getX());
     ImageView tileImage = createImage(BTile.getWidth(),
-        StringAttribute.from(BTile.getAttribute("image")).getValue());
+        StringAttribute.from(BTile.getAttribute(IMAGE_ATTRIBUTE)).getValue());
 
     VBox content = new VBox(BTile.getHeight() / MARGIN_SCALE, tileImage,
         createTextBox(BTile.getInfo(), BTile.getHeight(), BTile.getHeight()));
@@ -72,8 +73,8 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
   @Override
   public void setPosition(Coordinate coord) {
     this.setLayoutX(coord.getXCoor());
-    System.out.println(this.getLayoutX());
     this.setLayoutY(coord.getYCoor());
+    this.getTransforms().add(new Rotate(coord.getAngle(), Rotate.Z_AXIS));
   }
 
   @Override

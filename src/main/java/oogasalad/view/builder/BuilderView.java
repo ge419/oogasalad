@@ -17,6 +17,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
+
+import oogasalad.controller.BuilderController;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
@@ -28,6 +30,7 @@ import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.builder.graphs.Graph;
 import oogasalad.view.builder.graphs.ImmutableGraph;
 import oogasalad.view.builder.panefeatures.Dragger;
+import oogasalad.view.builder.popupform.PopupForm;
 import oogasalad.view.tiles.BasicTile;
 import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
@@ -67,7 +70,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private final boolean myDraggableObjectsToggle = true;
   private boolean myDeleteToggle = false;
   private final Coordinate myBoardPaneStartingLocation;
-  private final SchemaDatabase schemas;
+  private final BuilderController bc = new BuilderController();
 
 
   public BuilderView() {
@@ -76,7 +79,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     sideBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SideBar1");
     tileMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "TileMenu");
     defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET).toExternalForm();
-    schemas = new SchemaDatabase();
 
     myCurrentlyClickedTiletype = Optional.empty();
     myGraph = new Graph();  // todo: dependency injection
@@ -114,7 +116,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     Scene newScene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
     newScene.getStylesheets().add(defaultStylesheet);
     return newScene;
-
   }
 
   private HBox createTopBar() {
@@ -173,6 +174,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     } else {
       // todo: replace with LOG
       System.out.println("Ruh-roh, can't save to a file that doesn't exist!");
+      new visualization.PopupError(builderResource, "FileNotFoundError");
     }
   }
 
@@ -205,6 +207,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     } else {
       // todo: make this use an error form.
       System.out.println("ERROR -- Got a non-image or nothing from file.");
+      new visualization.PopupError(builderResource, "EmptyFileError");
     }
   }
 
@@ -218,11 +221,13 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     tile.setOnMouseClicked(tile_e -> {
       handleTileClick(tile);
     });
-    tile.setId("Tile" + myTileCount);
-    myTileCount++;
     myBoardPane.getChildren().add(tile);
     myGraph.addTile(tile);
     myCurrentlyClickedTiletype = Optional.empty();
+  }
+
+  private void setNext(String currentId, String nextId) {
+    bc.addNext(currentId, nextId);
   }
 
   private void openTileMenu() {
@@ -274,7 +279,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       myBoardPane.getChildren().remove(tile);
       myCurrentTile = Optional.empty();
       myGraph.removeTile(tile);
-      myTileCount--;
       myDeleteToggle = false;
     } else {
       // todo: log that we tried to delete a non-existing tile.

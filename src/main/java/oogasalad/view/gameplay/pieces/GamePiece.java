@@ -8,7 +8,7 @@ import oogasalad.view.gameplay.Movable;
 
 abstract public class GamePiece extends ImageView implements Movable {
 
-  private static final double PIECE_SIZE = 20;
+  private static final double PIECE_SIZE = 40;
   protected Image image;
   private double xCoor;
   private double yCoor;

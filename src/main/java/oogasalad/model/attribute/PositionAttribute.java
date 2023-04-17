@@ -16,16 +16,20 @@ public class PositionAttribute extends Attribute {
 
   private final DoubleProperty x;
   private final DoubleProperty y;
+  private final DoubleProperty angle;
 
   @JsonCreator
   public PositionAttribute(
       @JsonProperty("key") String key,
       @JsonProperty("x") double x,
-      @JsonProperty("y") double y
+      @JsonProperty("y") double y,
+      @JsonProperty("angle") double angle
+
   ) {
     super(key);
     this.x = new SimpleDoubleProperty(x);
     this.y = new SimpleDoubleProperty(y);
+    this.angle = new SimpleDoubleProperty(angle);
   }
 
   public static PositionAttribute from(Attribute attr) {
@@ -56,15 +60,24 @@ public class PositionAttribute extends Attribute {
     return y;
   }
 
+  public double getAngle() { return angle.get(); };
+
+  public void setAngle(double angle) { this.angle.set(angle);}
+
+  public DoubleProperty angleProperty() {
+    return angle;
+  }
+
   @JsonIgnore
   public Coordinate getCoordinate() {
-    return new Coordinate(getX(), getY());
+    return new Coordinate(getX(), getY(), getAngle());
   }
 
   @JsonIgnore
   public void setCoordinate(Coordinate coordinate) {
     setX(coordinate.getXCoor());
     setY(coordinate.getYCoor());
+    setAngle(coordinate.getAngle());
   }
 
   @Override
@@ -72,6 +85,7 @@ public class PositionAttribute extends Attribute {
     return "PositionAttribute{" +
         "x=" + getX() +
         ", y=" + getY() +
+        ", angle=" + getAngle() +
         '}';
   }
 }

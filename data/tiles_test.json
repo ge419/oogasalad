@@ -1,16 +1,16 @@
 {
   "tiles" : [ {
     "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "8d5ba42e-2467-4957-8a6a-77c5ba159f13",
+    "id" : "1",
     "schema" : "basicTile",
     "attributes" : [ {
       "@class" : "oogasalad.model.attribute.DoubleAttribute",
       "key" : "height",
-      "value" : 120.0
+      "value" : 150.0
     }, {
       "@class" : "oogasalad.model.attribute.TileListAttribute",
       "key" : "next",
-      "ids" : [ "44cd5520-4677-42a5-8169-1e613cc6296b" ]
+      "ids" : [ "2" ]
     }, {
       "@class" : "oogasalad.model.attribute.BooleanAttribute",
       "key" : "owned",
@@ -18,12 +18,13 @@
     }, {
       "@class" : "oogasalad.model.attribute.PositionAttribute",
       "key" : "position",
-      "x" : 350.0,
-      "y" : 85.0
+      "x" : 550.0,
+      "y" : 160.0,
+      "angle" : 180
     }, {
       "@class" : "oogasalad.model.attribute.DoubleAttribute",
       "key" : "width",
-      "value" : 80.0
+      "value" : 100.0
     },
       {
         "@class" : "oogasalad.model.attribute.StringAttribute",
@@ -33,7 +34,7 @@
       {
         "@class" : "oogasalad.model.attribute.StringAttribute",
         "key" : "info",
-        "value" : "Park Place,$350"
+        "value" : "Wellness Center,$350"
       },
       {
         "@class" : "oogasalad.model.attribute.StringAttribute",
@@ -43,16 +44,16 @@
   },
     {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "8d5ba42e-2467-4957-8a6a-77c5ba159f13",
+      "id" : "2",
       "schema" : "basicTile",
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.DoubleAttribute",
         "key" : "height",
-        "value" : 120.0
+        "value" : 150.0
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "44cd5520-4677-42a5-8169-1e613cc6296b" ]
+        "ids" : [ "3" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -60,12 +61,13 @@
       }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
-        "x" : 430.0,
-        "y" : 85.0
+        "x" : 650.0,
+        "y" : 160.0,
+        "angle" : 180
       }, {
         "@class" : "oogasalad.model.attribute.DoubleAttribute",
         "key" : "width",
-        "value" : 80.0
+        "value" : 100.0
       },
         {
           "@class" : "oogasalad.model.attribute.StringAttribute",
@@ -75,26 +77,26 @@
         {
           "@class" : "oogasalad.model.attribute.StringAttribute",
           "key" : "info",
-          "value" : "New York Avenue,$450"
+          "value" : "BC Plaza,$350"
         },
         {
           "@class" : "oogasalad.model.attribute.StringAttribute",
           "key" : "color",
-          "value" : "FF0000"
+          "value" : "0000FF"
         }]
     },
     {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "8d5ba42e-2467-4957-8a6a-77c5ba159f13",
-      "schema" : "imageTile",
+      "id" : "3",
+      "schema" : "basicTile",
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.DoubleAttribute",
         "key" : "height",
-        "value" : 120.0
+        "value" : 150.0
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "44cd5520-4677-42a5-8169-1e613cc6296b" ]
+        "ids" : [ "4" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -102,12 +104,401 @@
       }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
-        "x" : 510.0,
-        "y" : 85.0
+        "x" : 750.0,
+        "y" : 160.0,
+        "angle" : 180
       }, {
         "@class" : "oogasalad.model.attribute.DoubleAttribute",
         "key" : "width",
-        "value" : 120.0
+        "value" : 100.0
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "Perkins,$350"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "color",
+          "value" : "0000FF"
+        }]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "4",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "5" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 850.0,
+        "y" : 160.0,
+        "angle" : 180
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 100.0
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "Bostock,$350"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "color",
+          "value" : "0000FF"
+        }]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "5",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "6" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 950.0,
+        "y" : 160.0,
+        "angle" : 180
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 100.0
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "Wilkinson,$350"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "color",
+          "value" : "0000FF"
+        }]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "6",
+      "schema" : "imageTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "7" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 1075.0,
+        "y" : 160.0,
+        "angle" : 180
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 150
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "image"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "FREE PARKING"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "image",
+          "value" : "view.gameplay/parking.jpg"
+        }
+      ]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "7",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "8" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 1075.0,
+        "y" : 285.0,
+        "angle" : 270
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 100.0
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "Hudson Hall,$450"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "color",
+          "value" : "00FFFF"
+        }]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "8",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "9" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 1075.0,
+        "y" : 385.0,
+        "angle" : 270
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 100.0
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "LRSC,$450"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "color",
+          "value" : "00FFFF"
+        }]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "9",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "10" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 1075.0,
+        "y" : 485.0,
+        "angle" : 270
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 100.0
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "Physics,$450"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "color",
+          "value" : "00FFFF"
+        }]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "10",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "11" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 1075.0,
+        "y" : 585.0,
+        "angle" : 270
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 100.0
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "Biological Sciences,$450"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "color",
+          "value" : "00FFFF"
+        }]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "11",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "12" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 1075.0,
+        "y" : 685.0,
+        "angle" : 270
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 100.0
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "Gross Hall,$450"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "color",
+          "value" : "00FFFF"
+        }]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "12",
+      "schema" : "imageTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "13" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 1075.0,
+        "y" : 810.0,
+        "angle" : 0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 150
       },
         {
           "@class" : "oogasalad.model.attribute.StringAttribute",
@@ -125,6 +516,526 @@
           "value" : "view.gameplay/jail.jpg"
         }
       ]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "13",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "14" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 950.0,
+        "y" : 810.0,
+        "angle" : 0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 100.0
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "Social Sciences,$550"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "color",
+          "value" : "FFFF00"
+        }]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "14",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "15" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 850.0,
+        "y" : 810.0,
+        "angle" : 0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 100.0
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "Reuben-Cooke,$550"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "color",
+          "value" : "FFFF00"
+        }]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "15",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "16" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 750.0,
+        "y" : 810.0,
+        "angle" : 0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 100.0
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "Old Chemistry,$550"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "color",
+          "value" : "FFFF00"
+        }]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "16",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "17" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 650.0,
+        "y" : 810.0,
+        "angle" : 0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 100.0
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "Languages,$550"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "color",
+          "value" : "FFFF00"
+        }]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "17",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "18" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 550.0,
+        "y" : 810.0,
+        "angle" : 0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 100.0
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "Allen,$550"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "color",
+          "value" : "FFFF00"
+        }]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "18",
+      "schema" : "imageTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "19" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 425.0,
+        "y" : 810.0,
+        "angle" : 0
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 150
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "image"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "Collect salary as you pass"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "image",
+          "value" : "view.gameplay/go.jpg"
+        }
+      ]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "19",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "20" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 425.0,
+        "y" : 685.0,
+        "angle" : 90
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 100.0
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "Hollows,$250"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "color",
+          "value" : "FF00FF"
+        }]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "20",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "21" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 425.0,
+        "y" : 585.0,
+        "angle" : 90
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 100.0
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "Few,$250"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "color",
+          "value" : "FF00FF"
+        }]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "21",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "22" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 425.0,
+        "y" : 485.0,
+        "angle" : 90
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 100.0
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "Crowell,$250"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "color",
+          "value" : "FF00FF"
+        }]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "23",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "24" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 425.0,
+        "y" : 385.0,
+        "angle" : 90
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 100.0
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "Craven,$250"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "color",
+          "value" : "FF00FF"
+        }]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "24",
+      "schema" : "basicTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150.0
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "25" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 425.0,
+        "y" : 285.0,
+        "angle" : 90
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 100.0
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "Kilgo,$250"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "color",
+          "value" : "FF00FF"
+        }]
+    },
+    {
+      "@class" : "oogasalad.model.constructable.Tile",
+      "id" : "25",
+      "schema" : "imageTile",
+      "attributes" : [ {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "height",
+        "value" : 150
+      }, {
+        "@class" : "oogasalad.model.attribute.TileListAttribute",
+        "key" : "next",
+        "ids" : [ "26" ]
+      }, {
+        "@class" : "oogasalad.model.attribute.BooleanAttribute",
+        "key" : "owned",
+        "value" : false
+      }, {
+        "@class" : "oogasalad.model.attribute.PositionAttribute",
+        "key" : "position",
+        "x" : 425.0,
+        "y" : 160.0,
+        "angle" : 180
+      }, {
+        "@class" : "oogasalad.model.attribute.DoubleAttribute",
+        "key" : "width",
+        "value" : 150
+      },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "type",
+          "value" : "image"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "info",
+          "value" : "JUST VISITING"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "key" : "image",
+          "value" : "view.gameplay/in_jail.jpg"
+        }
+      ]
     }
+
+
   ]
 }

@@ -4,11 +4,13 @@ public class Coordinate {
 
   private double xCoor;
   private double yCoor;
+  private double tileAngle;
 
-  public Coordinate(double x, double y) {
+  public Coordinate(double x, double y, double angle) {
     //TODO: add error handling for bounds of board/tiles
     xCoor = x;
     yCoor = y;
+    tileAngle = angle;
   }
 
   public double getXCoor() {
@@ -27,6 +29,14 @@ public class Coordinate {
     yCoor = y;
   }
 
+  public double getAngle() {
+    return tileAngle;
+  }
+
+  public void setAngle(double angle) {
+    tileAngle = angle;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -37,12 +47,12 @@ public class Coordinate {
     }
     Coordinate that = (Coordinate) o;
     return xCoor == that.getXCoor() &&
-        yCoor == that.getYCoor();
+        yCoor == that.getYCoor() && tileAngle == that.tileAngle;
   }
 
   @Override
   public String toString() {
-    return "(" + xCoor + "," + yCoor + ")";
+    return "(" + xCoor + "," + yCoor + "), angle is " + tileAngle;
   }
 
 }

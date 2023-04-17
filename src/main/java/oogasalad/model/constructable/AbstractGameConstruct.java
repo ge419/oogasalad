@@ -14,12 +14,10 @@ import java.util.UUID;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import oogasalad.model.attribute.AbstractAttribute;
 import oogasalad.model.attribute.Attribute;
 import oogasalad.model.attribute.Metadata;
 import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.SchemaDatabase;
-import oogasalad.model.attribute.SimpleObjectSchema;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -155,6 +153,7 @@ public abstract class AbstractGameConstruct implements GameConstruct {
   }
 
   @Override
+  @JsonIgnore
   public ReadOnlyObjectProperty<ObjectSchema> getSchemaProperty() {
     return schemaProperty;
   }

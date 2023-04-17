@@ -1,5 +1,7 @@
 package oogasalad.model.attribute;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 
@@ -11,6 +13,7 @@ import javafx.beans.property.StringProperty;
  * @see AbstractAttribute
  * @see ObjectSchema
  */
+@JsonTypeInfo(use = Id.CLASS)
 public interface Metadata {
 
   /**

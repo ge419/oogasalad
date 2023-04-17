@@ -1,5 +1,7 @@
 package oogasalad.model.attribute;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +10,7 @@ import java.util.Optional;
  *
  * @author Dominic Martinez
  */
+@JsonTypeInfo(use = Id.CLASS)
 public interface ObjectSchema {
 
   /**

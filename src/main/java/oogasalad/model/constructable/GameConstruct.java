@@ -1,6 +1,7 @@
 package oogasalad.model.constructable;
 
-import java.util.Optional;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import oogasalad.model.attribute.AbstractAttribute;
 import oogasalad.model.attribute.Attribute;
@@ -29,6 +30,7 @@ import oogasalad.model.attribute.ObjectSchema;
  * @see ObjectSchema
  * @see AbstractAttribute
  */
+@JsonTypeInfo(use = Id.CLASS)
 public interface GameConstruct {
 
   /**

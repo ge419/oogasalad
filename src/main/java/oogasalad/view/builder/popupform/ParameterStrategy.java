@@ -4,9 +4,11 @@ import javafx.scene.Node;
 import oogasalad.model.attribute.Attribute;
 import oogasalad.model.attribute.Metadata;
 
+import java.util.ResourceBundle;
+
 public interface ParameterStrategy {
 
-    Node renderInput();
+    Node renderInput(ResourceBundle resourceBundle);
 
     void saveInput();
 

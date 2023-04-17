@@ -11,6 +11,8 @@ import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.attribute.StringMetadata;
 import oogasalad.view.builder.BuilderUtility;
 
+import java.util.ResourceBundle;
+
 public class TextParameterStrategy implements ParameterStrategy, BuilderUtility {
 
   private final StringAttribute attr;
@@ -27,7 +29,7 @@ public class TextParameterStrategy implements ParameterStrategy, BuilderUtility 
   }
 
   @Override
-  public Node renderInput() {
+  public Node renderInput(ResourceBundle resourceBundle) {
     String name = meta.getName();
     Node textLabel = new Text(name + " (String)");
     element = (TextField) makeTextField(name);

@@ -124,4 +124,16 @@ public interface BuilderUtility {
         checkBox.setId(property);
         return checkBox;
     }
+    default Node makeIntSpinner(int min, int max, int initial) {
+        Spinner<Integer> spinner = new Spinner<Integer>();
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(min, max, initial);
+        spinner.setValueFactory(valueFactory);
+        return spinner;
+    }
+    default Node makeDoubleSpinner(int min, int max, int initial) {
+      Spinner<Double> spinner = new Spinner<Double>();
+      SpinnerValueFactory<Double> valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(min, max, initial);
+      spinner.setValueFactory(valueFactory);
+      return spinner;
+    }
 }

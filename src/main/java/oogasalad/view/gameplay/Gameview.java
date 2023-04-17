@@ -43,8 +43,8 @@ import oogasalad.view.tiles.Tiles;
 public class Gameview {
 
   //TODO: refactor to read from JSON file
-  private final int VIEW_WIDTH = 1200;
-  private final int VIEW_HEIGHT = 800;
+  private final int VIEW_WIDTH = 1500;
+  private final int VIEW_HEIGHT = 1000;
 
   @JsonProperty("board")
   public String myBoardPath;

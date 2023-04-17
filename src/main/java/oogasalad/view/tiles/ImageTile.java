@@ -2,6 +2,7 @@ package oogasalad.view.tiles;
 
 import java.util.Map;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -10,8 +11,10 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
+import oogasalad.model.attribute.BooleanAttribute;
 import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.Tile;
+import oogasalad.model.engine.actions.BuyAction;
 import oogasalad.view.Backgroundable;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Imageable;
@@ -23,8 +26,11 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
   private static final double MARGIN_SCALE = 10;
   public static final String IMAGE_ATTRIBUTE = "image";
 
+  private final Tile modelTile;
+
   public ImageTile(Tile BTile) {
     this.setPosition(BTile.getCoordinate());
+    this.modelTile = BTile;
 
     Rectangle tileBackground = tileBackground(BTile.getWidth(), BTile.getHeight());
 //    System.out.println(tileBackground.getX());
@@ -35,6 +41,19 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
         createTextBox(BTile.getInfo(), BTile.getHeight(), BTile.getHeight()));
     content.setAlignment(Pos.CENTER);
     getChildren().addAll(tileBackground, content);
+
+    //TODO: change this temporary behavior when tile is bought
+    BooleanAttribute ownedAttribute =
+        BooleanAttribute.from(modelTile.getAttribute(BuyAction.OWNED_ATTRIBUTE));
+    ownedAttribute.valueProperty().addListener(((observable, oldValue, isOwned) -> {
+      if (Boolean.TRUE.equals(isOwned)) {
+        for (Node child : this.getChildren()) {
+          child.setStyle("-fx-background-color: red;");
+        }
+      } else {
+        //do nothing
+      }
+    }));
   }
 
   @Override
@@ -57,12 +76,13 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
 
   @Override
   public Tile getTile() {
-    return null;
+    return this.modelTile;
   }
+
 
   @Override
   public String getTileId() {
-    return null;
+    return this.modelTile.getId();
   }
 
   @Override

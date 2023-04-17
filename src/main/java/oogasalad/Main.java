@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import oogasalad.view.builder.BuilderView;
+import oogasalad.controller.BuilderController;
 import oogasalad.view.gameplay.Gameview;
 
 /**
@@ -35,6 +35,6 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        new BuilderView();
+        new BuilderController();
     }
 }

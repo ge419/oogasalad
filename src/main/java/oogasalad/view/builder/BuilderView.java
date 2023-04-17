@@ -17,10 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
-
 import oogasalad.controller.BuilderController;
-import oogasalad.model.attribute.SchemaDatabase;
-import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.board.BoardInfo;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
@@ -70,10 +67,11 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private final boolean myDraggableObjectsToggle = true;
   private boolean myDeleteToggle = false;
   private final Coordinate myBoardPaneStartingLocation;
-  private final BuilderController bc = new BuilderController();
+  private final BuilderController bc;
 
 
-  public BuilderView() {
+  public BuilderView(BuilderController bc) {
+    this.bc = bc;
     builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
     menuBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "MenuBar1");
     sideBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SideBar1");

@@ -1,84 +1,123 @@
 package oogasalad.view.builder.popupform;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import oogasalad.model.attribute.*;
+import oogasalad.model.attribute.Attribute;
+import oogasalad.model.attribute.DoubleMetadata;
+import oogasalad.model.attribute.IntMetadata;
+import oogasalad.model.attribute.Metadata;
+import oogasalad.model.attribute.ObjectSchema;
+import oogasalad.model.attribute.StringMetadata;
 import oogasalad.model.constructable.GameConstruct;
-import oogasalad.view.builder.*;
+import oogasalad.view.builder.BuilderUtility;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.util.*;
-import java.util.List;
+public class PopupForm implements BuilderUtility {
 
-public class PopupForm<T> implements BuilderUtility {
     private static final double POPUP_WIDTH = 300;
     private static final double POPUP_HEIGHT = 300;
-    private ResourceBundle resourceBundle;
+    private static final Logger LOGGER = LogManager.getLogger(PopupForm.class);
+    private final ParameterStrategyFactory factory;
+    private final ResourceBundle resourceBundle;
     private Stage stage;
-    private GameConstruct gameConstruct;
-    private ObjectSchema objectSchema;
-    private Map<Attribute, ParameterStrategy> strategyMap;
-    private List<Attribute> attributes;
-    private Map<Class, Class> attributeMap;
+    private final GameConstruct gameConstruct;
+    private final VBox form;
+    private final Map<Class<? extends Metadata>, ParameterStrategyCreator> strategyMap;
+    private final List<ParameterStrategy> currentParameters;
+
     public PopupForm(GameConstruct gameConstruct, ResourceBundle resourceBundle) {
         this.resourceBundle = resourceBundle;
         this.gameConstruct = gameConstruct;
-        objectSchema = gameConstruct.getSchema();
-        attributes = gameConstruct.getAllAttributes();
-
-        attributeMap = defineStrategies();
+        form = new VBox();
+        // TODO: Create injector in controller
+        Injector injector = Guice.createInjector(new PopupFormModule());
+        this.factory = injector.getInstance(ParameterStrategyFactory.class);
         strategyMap = createStrategyMap();
+        currentParameters = new ArrayList<>();
 
+        createFormFields();
+        this.gameConstruct.getSchemaProperty().addListener(
+            (observable, oldValue, newValue) -> createFormFields());
     }
 
-    private Map<Class, Class> defineStrategies() {
-        Map<Class, Class> map = new HashMap<>();
-        map.put(StringAttribute.class, TextParameterStrategy.class);
-        map.put(IntAttribute.class, IntegerParameterStrategy.class);
-        map.put(DoubleAttribute.class, DoubleParameterStrategy.class);
-        //map.put(Color.class, ColorParameterStrategy.class);
-        //map.put(File.class, FileParameterStrategy.class);
-        //map.put(Image.class, ImageParameterStrategy.class);
-        return map;
-    }
-
-    private Map<Attribute, ParameterStrategy> createStrategyMap() {
-        Map<Attribute, ParameterStrategy> map = new HashMap<>();
-        for (Attribute attribute : attributes) {
-            try {
-                map.put(attribute, (ParameterStrategy) attributeMap.get(attribute.getClass()).newInstance());
-            } catch (Exception e) {
-                new visualization.PopupError(resourceBundle, "FormStrategyNotFound");
-            }
-        }
-        return map;
+    private Map<Class<? extends Metadata>, ParameterStrategyCreator> createStrategyMap() {
+        return Map.of(
+            StringMetadata.class, factory::buildTextParameter,
+            IntMetadata.class, factory::buildIntegerParameter,
+            DoubleMetadata.class, factory::buildDoubleParameter
+        );
     }
 
     private void saveInputToObject() {
-        for (Attribute attribute : strategyMap.keySet()) {
-            Optional<Metadata> metadata = objectSchema.getMetadata(attribute.getKey());
-            if (metadata.isPresent() && !strategyMap.get(attribute).validateInput(metadata.get())) {
-                System.out.println(String.format("Input for %s is invalid.", attribute.getKey()));
+        for (ParameterStrategy parameter : currentParameters) {
+            if (!parameter.isInputValid()) {
+                LOGGER.info("Input for {} is invalid", parameter.getMetadata().getName());
                 new visualization.PopupError(resourceBundle, "InvalidFormData");
                 return;
             }
-            strategyMap.get(attribute).setValue(attribute);
         }
+
+        for (ParameterStrategy parameter : currentParameters) {
+            parameter.saveInput();
+        }
+
         stage.close();
     }
-    public void displayForm() {
-        VBox form = new VBox();
-        for (Attribute attribute : strategyMap.keySet()) {
-            ParameterStrategy strategy = strategyMap.get(attribute);
 
-            form.getChildren().add(strategy.renderInput(attribute.getKey(), resourceBundle));
+    private Optional<ParameterStrategy> createStrategy(Metadata metadata) {
+        ParameterStrategyCreator creator = strategyMap.get(metadata.getClass());
+        if (creator == null) {
+            // TODO: use bundle
+            LOGGER.error("No available strategy for {}", metadata.getClass());
+            return Optional.empty();
         }
-        form.getChildren().add(makeButton("SubmitForm", resourceBundle, e->saveInputToObject()));
 
+        Attribute attribute = gameConstruct.getAttribute(metadata.getKey());
+        return Optional.of(creator.build(attribute, metadata));
+    }
+
+    private void createFormFields() {
+        ObjectSchema schema = gameConstruct.getSchema();
+        form.getChildren().clear();
+        currentParameters.clear();
+
+        for (Metadata metadata : schema.getAllMetadata()) {
+            if (!metadata.isViewable()) {
+                continue;
+            }
+
+            Optional<ParameterStrategy> parameterStrategy = createStrategy(metadata);
+            if (parameterStrategy.isEmpty()) {
+                continue;
+            }
+
+            currentParameters.add(parameterStrategy.get());
+            form.getChildren().add(parameterStrategy.get().renderInput());
+        }
+
+        form.getChildren().add(makeButton("SubmitForm", resourceBundle, e -> saveInputToObject()));
+    }
+
+    public void displayForm() {
         Scene scene = new Scene(form, POPUP_WIDTH, POPUP_HEIGHT);
         stage = new Stage();
         stage.setScene(scene);
         stage.setTitle(resourceBundle.getString("PopupFormTitle"));
         stage.show();
+    }
+
+    @FunctionalInterface
+    private interface ParameterStrategyCreator {
+
+        ParameterStrategy build(Attribute attribute, Metadata metadata);
     }
 }

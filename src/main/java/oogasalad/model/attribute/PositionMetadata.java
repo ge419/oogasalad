@@ -5,8 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import oogasalad.view.Coordinate;
 
-public class PositionMetadata extends Metadata {
+public class PositionMetadata extends AbstractMetadata {
 
   public static final Class<PositionAttribute> ATTRIBUTE_CLASS = PositionAttribute.class;
   private final DoubleProperty defaultX;
@@ -20,6 +21,12 @@ public class PositionMetadata extends Metadata {
   }
 
   @Override
+  protected boolean checkPreconditions(Attribute attribute) {
+    Coordinate coord = PositionAttribute.from(attribute).getCoordinate();
+    return isValidCoordinate(coord);
+  }
+
+  @Override
   public Attribute makeAttribute() {
     return makeCoordinateAttribute();
   }
@@ -29,6 +36,14 @@ public class PositionMetadata extends Metadata {
     return ATTRIBUTE_CLASS;
   }
 
+  public boolean isValidCoordinate(Coordinate coordinate) {
+    // No preconditions on position
+    return true;
+  }
+
+  public static PositionMetadata from(Metadata meta) {
+    return getAs(meta, PositionMetadata.class);
+  }
 
   public PositionAttribute makeCoordinateAttribute() {
     return new PositionAttribute(getKey(), getDefaultX(), getDefaultY());

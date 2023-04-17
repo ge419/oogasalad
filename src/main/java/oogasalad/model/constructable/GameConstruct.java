@@ -1,145 +1,59 @@
 package oogasalad.model.constructable;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.TreeMap;
-import java.util.UUID;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import oogasalad.model.attribute.AbstractAttribute;
 import oogasalad.model.attribute.Attribute;
-import oogasalad.model.attribute.Metadata;
 import oogasalad.model.attribute.ObjectSchema;
-import oogasalad.model.attribute.SchemaDatabase;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
- * Superclass for all objects that contain attributes. The available attributes are defined by the
- * schema.
+ * Represents a game-specific object. {@link GameConstruct}s are:
+ * <ul>
+ *   <li>Editable by the user</li>
+ *   <li>Serializable and deserializable</li>
+ * </ul>
+ *
+ * <p>A {@link GameConstruct} consists of a {@link ObjectSchema} and associated {@link AbstractAttribute}s.
+ * The schema is a concatenation of:
+ * <ul>
+ *   <li>The base schema for this object type</li>
+ *   <li>Factory attributes that determine the object specialization</li>
+ *   <li>Attributes related to the object specialization</li>
+ * </ul>
+ * The available attributes are guaranteed to match up with the current schema, but the schema
+ * may change at any time due to a change in the factory attributes or a
+ * {@link oogasalad.model.engine.rules.Rule}. Objects operating on general schemas are expected
+ * to listen to {@link GameConstruct#getSchemaProperty()} for changes.
+ *
+ * @author Dominic Martinez
+ * @see ObjectSchema
+ * @see AbstractAttribute
  */
-@JsonTypeInfo(use = Id.CLASS)
-public abstract class GameConstruct {
-
-  private static final Logger LOGGER = LogManager.getLogger(GameConstruct.class);
-  @JsonIgnore
-  private final SchemaDatabase database;
-  private final Map<String, Attribute> attributeMap;
-  @JsonProperty("schema")
-  private String schemaName;
-  private String id;
-
-  protected GameConstruct(String schemaName, SchemaDatabase database) {
-    this.id = UUID.randomUUID().toString();
-    this.schemaName = schemaName;
-    this.database = database;
-    this.attributeMap = new TreeMap<>();
-    // TODO: put this somewhere else?
-    try {
-      this.loadSchema(schemaName);
-    } catch (Exception e) {
-      LOGGER.fatal("failed to construct schema {}", schemaName);
-      throw e;
-    }
-  }
-
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  @JsonGetter("attributes")
-  public List<Attribute> getAllAttributes() {
-    return attributeMap.values().stream().toList();
-  }
-
-  @JsonSetter("attributes")
-  public void setAllAttributes(List<Attribute> attributeList) {
-    migrateAttributes(attributeList);
-  }
-
-  @JsonIgnore
-  public Attribute getAttribute(String key) {
-    return attributeMap.get(key);
-  }
-
-  @JsonIgnore
-  protected void setAttribute(String key, Attribute value) {
-    ObjectSchema schema = getSchema();
-    Optional<Metadata> optionalMetadata = schema.getMetadata(key);
-
-    if (optionalMetadata.isEmpty()) {
-      LOGGER.error("tried to set key {} that is not in schema {}", key, schema.getName());
-      throw new IllegalArgumentException("invalid key for schema");
-    }
-
-    Metadata metadata = optionalMetadata.get();
-    if (!metadata.isCorrectType(value)) {
-      LOGGER.error("tried to set {} to {} when schema requires {}",
-          key, value.getClass(), metadata.getAttributeClass());
-      throw new IllegalArgumentException("conflicting keys with different types");
-    }
-
-    if (!metadata.getKey().equals(value.getKey())) {
-      LOGGER.error("metadata key {} and value key {} conflict",
-          metadata.getKey(), value.getKey());
-      throw new IllegalArgumentException("conflicting metadata/value keys");
-    }
-
-    attributeMap.put(key, value);
-  }
-
-  @JsonGetter("schema")
-  public String getSchemaName() {
-    return schemaName;
-  }
-
-  @JsonIgnore
-  public void loadSchema(String newSchemaName) {
-    if (!database.containsSchema(newSchemaName)) {
-      LOGGER.error("schema does not exist {}", newSchemaName);
-      throw new IllegalArgumentException("invalid schema");
-    }
-    this.schemaName = newSchemaName;
-    ObjectSchema newSchema = database.getSchema(schemaName).get();
-    setAllAttributes(newSchema.makeAllAttributes());
-    migrateAttributes(attributeMap);
-  }
-
-  private void migrateAttributes(List<Attribute> oldAttributes) {
-    Map<String, Attribute> attrMap = new TreeMap<>();
-    for (Attribute attribute : oldAttributes) {
-      attrMap.put(attribute.getKey(), attribute);
-    }
-    migrateAttributes(attrMap);
-  }
+public interface GameConstruct {
 
   /**
-   * Migrate attributes from a map if they exist in the current schema.
+   * Returns the unique identifier for this {@link GameConstruct}.
    */
-  private void migrateAttributes(Map<String, Attribute> oldAttributes) {
-    for (Metadata metadata : getSchema().getAllMetadata()) {
-      String key = metadata.getKey();
-      if (oldAttributes.containsKey(key)) {
-        setAttribute(key, oldAttributes.get(key));
-      }
-    }
-  }
+  String getId();
 
-  public ObjectSchema getSchema() {
-    // TODO: Add rule schemas
-    Optional<ObjectSchema> schema = database.getSchema(getSchemaName());
-    if (schema.isEmpty()) {
-      LOGGER.error("contained schema name {} is not in database", getSchemaName());
-      throw new IllegalStateException("invalid contained schema");
-    }
-    return schema.get();
-  }
+  /**
+   * Returns the attribute associated with a key. Keys present in the current schema will always
+   * exist.
+   *
+   * @param key appropriate key from the {@link ObjectSchema}
+   * @return an {@link Attribute} if the key exists, null otherwise
+   */
+  Attribute getAttribute(String key);
+
+  /**
+   * Returns the current schema for this {@link GameConstruct}. Note that the schema can change at
+   * any point; make sure you really want this method instead of
+   * {@link GameConstruct#getSchemaProperty()}.
+   */
+  ObjectSchema getSchema();
+
+  /**
+   * Returns a property for this object's {@link ObjectSchema}.
+   */
+  ReadOnlyObjectProperty<ObjectSchema> getSchemaProperty();
 }

@@ -12,7 +12,7 @@ import oogasalad.view.Coordinate;
  *
  * @author Dominic Martinez
  */
-public class PositionAttribute extends Attribute {
+public class PositionAttribute extends AbstractAttribute {
 
   private final DoubleProperty x;
   private final DoubleProperty y;
@@ -29,7 +29,7 @@ public class PositionAttribute extends Attribute {
   }
 
   public static PositionAttribute from(Attribute attr) {
-    return Attribute.getAs(attr, PositionAttribute.class);
+    return AbstractAttribute.getAs(attr, PositionAttribute.class);
   }
 
   public double getX() {

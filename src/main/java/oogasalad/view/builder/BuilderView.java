@@ -98,8 +98,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         myBoardPane.getBoundsInParent().getMinY() + " | " + myBoardPane.getBoundsInParent()
             .getMaxY());
     myBoardPaneStartingLocation = new Coordinate(
-        (int) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinX(),
-        (int) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinY()
+        (double) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinX(),
+        (double) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinY(),
+        0
     );
 
     // Example of the popup form using the Tile object
@@ -194,7 +195,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     if (checkIfImage(file)) {
       System.out.println("Got an image from: " + file.get().getPath());
       ImageView ourImage = turnFileToImage(file.get(), DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT,
-          new Coordinate(0, 0));
+          new Coordinate(0, 0, 0));
       ourImage.setId("Image" + myImageCount);
       ourImage.setOnMouseClicked(e -> handleImageClick(ourImage));
       createTileFeaturesForObject(ourImage);
@@ -212,7 +213,10 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   // todo: support different tile types.
   private void createTile(MouseEvent e) {
-    BasicTile tile = bc.addTile(e);
+    Coordinate tileCoord = new Coordinate((double) e.getX(), (double) e.getY(), 0);
+    Tile t = new Tile(schemas);
+    t.setCoordinate(tileCoord);
+    BasicTile tile = new BasicTile(t);
     createTileFeaturesForObject(tile);
     tile.setOnMouseClicked(tile_e -> {
       handleTileClick(tile);

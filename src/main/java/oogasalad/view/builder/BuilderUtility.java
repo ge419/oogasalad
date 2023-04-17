@@ -124,16 +124,18 @@ public interface BuilderUtility {
         checkBox.setId(property);
         return checkBox;
     }
-    default Node makeIntSpinner(int min, int max, int initial) {
+    default Node makeIntSpinner(String property, int min, int max, int initial) {
         Spinner<Integer> spinner = new Spinner<>();
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(min, max, initial);
         spinner.setValueFactory(valueFactory);
+        spinner.setId(property);
         return spinner;
     }
-    default Node makeDoubleSpinner(double min, double max, double initial) {
+    default Node makeDoubleSpinner(String property, double min, double max, double initial) {
       Spinner<Double> spinner = new Spinner<>();
       SpinnerValueFactory<Double> valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(min, max, initial);
       spinner.setValueFactory(valueFactory);
+      spinner.setId(property);
       return spinner;
     }
 }

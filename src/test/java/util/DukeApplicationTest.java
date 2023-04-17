@@ -5,14 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.ButtonBase;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextInputControl;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -138,6 +131,24 @@ public class DukeApplicationTest extends ApplicationTest {
     });
   }
 
+  /**
+   * Simulate setting the value of an integer spinner
+   */
+  protected void setValue(Spinner<Integer> sp, int value) {
+    simulateAction(sp, () -> {
+      sp.getValueFactory().setValue(value);
+      sp.fireEvent(new ActionEvent());
+    });
+  }
+  /**
+   * Simulate setting the value of a double spinner
+   */
+  protected void setValue(Spinner<Double> sp, double value) {
+    simulateAction(sp, () -> {
+      sp.getValueFactory().setValue(value);
+      sp.fireEvent(new ActionEvent());
+    });
+  }
 
   /**
    * Simulate selecting given value from a ComboBox

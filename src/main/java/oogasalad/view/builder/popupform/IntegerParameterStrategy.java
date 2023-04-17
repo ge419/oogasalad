@@ -31,7 +31,7 @@ class IntegerParameterStrategy implements ParameterStrategy, BuilderUtility {
     public Node renderInput(ResourceBundle resourceBundle) {
         String name = meta.getName();
         Node textLabel = new Text(name + " (Integer)");
-        element = (Spinner<Integer>) makeIntSpinner(meta.getMinValue(), meta.getMaxValue(), meta.getMaxValue());
+        element = (Spinner<Integer>) makeIntSpinner(name, meta.getMinValue(), meta.getMaxValue(), meta.getMaxValue());
         return makeHBox(String.format("%sIntegerInput", name), textLabel, element);
     }
 

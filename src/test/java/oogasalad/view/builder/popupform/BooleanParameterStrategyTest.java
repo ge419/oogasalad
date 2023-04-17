@@ -55,12 +55,11 @@ class BooleanParameterStrategyTest extends DukeApplicationTest {
     void saveInput() {
         CheckBox field = lookup("#attr").query();
         clickOn(field);
-        BooleanAttribute booleanAttr = (BooleanAttribute) booleanParameterStrategy.getAttribute();
         booleanParameterStrategy.saveInput();
-        assertEquals(true, booleanAttr.getValue());
+        assertEquals(true, attr.getValue());
         clickOn(field);
         booleanParameterStrategy.saveInput();
-        assertEquals(false, booleanAttr.getValue());
+        assertEquals(false, attr.getValue());
     }
     @Test
     void getMetadata() {

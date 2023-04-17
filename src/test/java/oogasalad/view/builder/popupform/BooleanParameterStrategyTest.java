@@ -4,6 +4,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import oogasalad.model.attribute.Attribute;
+import oogasalad.model.attribute.BooleanAttribute;
 import oogasalad.model.attribute.BooleanMetadata;
 import oogasalad.model.attribute.Metadata;
 import org.junit.jupiter.api.Test;
@@ -20,10 +22,12 @@ class BooleanParameterStrategyTest extends DukeApplicationTest {
     @Override
     public void start(Stage stage) {
         ResourceBundle resourceBundle = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
-        String key = "attr";
-        booleanParameterStrategy = new BooleanParameterStrategy();
-        metadata = new BooleanMetadata(key);
-        VBox root = new VBox(booleanParameterStrategy.renderInput(key, resourceBundle));
+        String attributeKey = "attr";
+        BooleanMetadata meta = new BooleanMetadata(attributeKey);
+        meta.setName(attributeKey);
+        BooleanAttribute attr = meta.makeBooleanAttribute();
+        booleanParameterStrategy = new BooleanParameterStrategy(attr, meta);
+        VBox root = new VBox(booleanParameterStrategy.renderInput(resourceBundle));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -41,22 +45,30 @@ class BooleanParameterStrategyTest extends DukeApplicationTest {
     void validateInput() {
         CheckBox field = lookup("#attr").query();
         clickOn(field);
-        assertEquals(true, booleanParameterStrategy.validateInput(metadata));
+        assertEquals(true, booleanParameterStrategy.isInputValid());
 
         clickOn(field);
-        assertEquals(true, booleanParameterStrategy.validateInput(metadata));
+        assertEquals(true, booleanParameterStrategy.isInputValid());
     }
 
     @Test
     void getValue() {
         CheckBox field = lookup("#attr").query();
         clickOn(field);
-        assertEquals(true, booleanParameterStrategy.getValue());
+        assertEquals(true, field.isSelected());
         clickOn(field);
-        assertEquals(false, booleanParameterStrategy.getValue());
+        assertEquals(false, field.isSelected());
     }
 
     @Test
     void setValue() {
+        CheckBox field = lookup("#attr").query();
+        clickOn(field);
+        BooleanAttribute booleanAttr = (BooleanAttribute) booleanParameterStrategy.getAttribute();
+        booleanParameterStrategy.saveInput();
+        assertEquals(true, booleanAttr.getValue());
+        clickOn(field);
+        booleanParameterStrategy.saveInput();
+        assertEquals(false, booleanAttr.getValue());
     }
 }

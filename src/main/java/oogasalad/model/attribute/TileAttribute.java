@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class TileAttribute extends Attribute {
+public class TileAttribute extends AbstractAttribute {
 
   private final StringProperty id;
 
@@ -16,7 +16,7 @@ public class TileAttribute extends Attribute {
   }
 
   public static TileAttribute from(Attribute attr) {
-    return Attribute.getAs(attr, TileAttribute.class);
+    return AbstractAttribute.getAs(attr, TileAttribute.class);
   }
 
   public String getId() {

@@ -1,21 +1,38 @@
 package oogasalad.view.builder.popupform;
 
+import com.google.inject.assistedinject.Assisted;
 import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import oogasalad.model.attribute.*;
+import javax.inject.Inject;
+import oogasalad.model.attribute.Attribute;
+import oogasalad.model.attribute.IntAttribute;
+import oogasalad.model.attribute.IntMetadata;
+import oogasalad.model.attribute.Metadata;
 import oogasalad.view.builder.BuilderUtility;
 
 class IntegerParameterStrategy implements ParameterStrategy, BuilderUtility {
+
+    private final Attribute attr;
+    private final Metadata meta;
     private TextField element = new TextField();
-    public IntegerParameterStrategy(){}
+
+    @Inject
+    public IntegerParameterStrategy(
+        @Assisted Attribute attr,
+        @Assisted Metadata meta) {
+        this.attr = attr;
+        this.meta = meta;
+    }
+
     @Override
     public Node renderInput(String name, ResourceBundle resourceBundle) {
-        Node textLabel = new Text(name+" (Integer)");
+        Node textLabel = new Text(name + " (Integer)");
         element = (TextField) makeTextField(name);
         return makeHBox(String.format("%sIntegerInput", name), textLabel, element);
     }
+
     @Override
     public boolean validateInput(Metadata metadata) {
         if (getValue() == null) {

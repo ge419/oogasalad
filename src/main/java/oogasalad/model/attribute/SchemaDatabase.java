@@ -41,7 +41,7 @@ public class SchemaDatabase {
 
   private void readSchemaFile(File file) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
-    ObjectSchema schema = mapper.readValue(file, ObjectSchema.class);
+    SimpleObjectSchema schema = mapper.readValue(file, SimpleObjectSchema.class);
     String schemaName = schema.getName();
 
     if (schemaMap.containsKey(schemaName)) {

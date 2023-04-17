@@ -10,7 +10,7 @@ import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.attribute.TileListAttribute;
 import oogasalad.view.Coordinate;
 
-public class Tile extends GameConstruct {
+public class Tile extends AbstractGameConstruct {
 
   public static final String BASE_SCHEMA_NAME = "basicTile";
   public static final String NEXT_ATTRIBUTE = "next";

@@ -1,127 +1,85 @@
 package oogasalad.model.attribute;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
-import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-@JsonTypeInfo(use = Id.CLASS)
-public abstract class Metadata {
+/**
+ * Represents the information about a particular {@link ObjectSchema} field. Metadata specifies the
+ * field type, and editing information for the field, but not the value.
+ *
+ * @author Dominic Martinez
+ * @see AbstractAttribute
+ * @see ObjectSchema
+ */
+public interface Metadata {
 
-  @JsonProperty("key")
-  private final String key;
-  @JsonProperty("type")
-  private final String type;
-  private final StringProperty name;
-  private final StringProperty description;
-  private final BooleanProperty editable;
-  private final BooleanProperty viewable;
+  /**
+   * @return an attribute matching this metadata type, with the appropriate default value.
+   */
+  Attribute makeAttribute();
 
-  protected Metadata(String key) {
-    this.key = key;
-    this.type = "";
-    name = new SimpleStringProperty("");
-    description = new SimpleStringProperty("");
-    editable = new SimpleBooleanProperty(true);
-    viewable = new SimpleBooleanProperty(true);
-  }
+  /**
+   * @return the {@link Class} that would be returned by {@link Metadata#makeAttribute()}
+   */
+  Class<? extends Attribute> getAttributeClass();
 
-  public abstract Attribute makeAttribute();
+  /**
+   * Returns whether the provided attribute is a valid assignment for this metadata.
+   *
+   * @return true if attribute is valid, false otherwise.
+   */
+  boolean isValid(Attribute attribute);
 
-  public abstract Class<? extends Attribute> getAttributeClass();
+  /**
+   * @param attribute concrete attribute to check against metadata
+   * @return true if attribute type matches metadata, false otherwise
+   */
+  boolean isCorrectType(Attribute attribute);
 
-  public boolean isCorrectType(Attribute attribute) {
-    return getAttributeClass().isAssignableFrom(attribute.getClass());
-  }
+  /**
+   * Returns the key associated with this field. The key is constant.
+   */
+  String getKey();
 
-  public String getKey() {
-    return key;
-  }
+  /**
+   * @return UI name for field
+   */
+  String getName();
 
-  public String getType() {
-    return this.type;
-  }
+  /**
+   * @return UI name property for field
+   */
+  StringProperty nameProperty();
 
-  public String getName() {
-    return name.get();
-  }
+  /**
+   * @return UI description for field
+   */
+  String getDescription();
 
-  public void setName(String name) {
-    this.name.set(name);
-  }
+  /**
+   * @return UI description property for field
+   */
+  StringProperty descriptionProperty();
 
-  public StringProperty nameProperty() {
-    return name;
-  }
+  /**
+   * @return true if user should be able to edit field, false otherwise
+   */
+  boolean isEditable();
 
-  public String getDescription() {
-    return description.get();
-  }
+  /**
+   * @return property for editable value
+   * @see Metadata#isEditable()
+   */
+  BooleanProperty editableProperty();
 
-  public void setDescription(String description) {
-    this.description.set(description);
-  }
+  /**
+   * @return true if field should be shown on the editing form, false otherwise
+   */
+  boolean isViewable();
 
-  public StringProperty descriptionProperty() {
-    return description;
-  }
-
-  public boolean isEditable() {
-    return editable.get();
-  }
-
-  public void setEditable(boolean editable) {
-    this.editable.set(editable);
-  }
-
-  public BooleanProperty editableProperty() {
-    return editable;
-  }
-
-  public boolean isViewable() {
-    return viewable.get();
-  }
-
-  public void setViewable(boolean viewable) {
-    this.viewable.set(viewable);
-  }
-
-  public BooleanProperty viewableProperty() {
-    return viewable;
-  }
-
-  @Override
-  public String toString() {
-    return "AttributeMetadata{" +
-        "key='" + key + '\'' +
-        ", name=" + name +
-        ", description=" + description +
-        ", editable=" + editable +
-        ", viewable=" + viewable +
-        '}';
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Metadata metadata = (Metadata) o;
-    return Objects.equals(key, metadata.key) && Objects.equals(getName(),
-        metadata.getName()) && Objects.equals(getDescription(), metadata.getDescription())
-        && Objects.equals(isEditable(), metadata.isEditable()) && Objects.equals(isViewable(),
-        metadata.isViewable());
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(key, name, description, editable, viewable);
-  }
+  /**
+   * @return property for viewable value
+   * @see Metadata#isViewable()
+   */
+  BooleanProperty viewableProperty();
 }

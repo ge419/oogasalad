@@ -6,7 +6,7 @@ import java.util.Objects;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
-public class PositionMetadata extends Metadata {
+public class PositionMetadata extends AbstractMetadata {
 
   public static final Class<PositionAttribute> ATTRIBUTE_CLASS = PositionAttribute.class;
   private final DoubleProperty defaultX;
@@ -29,6 +29,9 @@ public class PositionMetadata extends Metadata {
     return ATTRIBUTE_CLASS;
   }
 
+  public static PositionMetadata from(Metadata meta) {
+    return getAs(meta, PositionMetadata.class);
+  }
 
   public PositionAttribute makeCoordinateAttribute() {
     return new PositionAttribute(getKey(), getDefaultX(), getDefaultY());

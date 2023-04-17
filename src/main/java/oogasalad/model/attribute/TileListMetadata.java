@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 
-public class TileListMetadata extends Metadata {
+public class TileListMetadata extends AbstractMetadata {
 
   public static final Class<TileListAttribute> ATTRIBUTE_CLASS = TileListAttribute.class;
 
@@ -23,6 +23,10 @@ public class TileListMetadata extends Metadata {
   @JsonIgnore
   public Class<? extends Attribute> getAttributeClass() {
     return ATTRIBUTE_CLASS;
+  }
+
+  public static TileListMetadata from(Metadata meta) {
+    return getAs(meta, TileListMetadata.class);
   }
 
   public TileListAttribute makeTileListAttribute() {

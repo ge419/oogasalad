@@ -7,7 +7,7 @@ import java.util.Objects;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class StringMetadata extends Metadata {
+public class StringMetadata extends AbstractMetadata {
 
   public static final Class<StringAttribute> ATTRIBUTE_CLASS = StringAttribute.class;
   private final StringProperty defaultValue;
@@ -27,6 +27,10 @@ public class StringMetadata extends Metadata {
   @JsonIgnore
   public Class<? extends Attribute> getAttributeClass() {
     return ATTRIBUTE_CLASS;
+  }
+
+  public static StringMetadata from(Metadata meta) {
+    return getAs(meta, StringMetadata.class);
   }
 
   public StringAttribute makeStringAttribute() {

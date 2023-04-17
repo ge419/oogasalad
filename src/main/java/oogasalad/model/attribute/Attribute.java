@@ -1,31 +1,19 @@
 package oogasalad.model.attribute;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+/**
+ * Represents a key-value pair to store a piece of information. The value cannot be accessed via the
+ * interface. Consumers are required to know the attribute type from the {@link ObjectSchema} and
+ * cast the attribute with the appropriate static {@code from} method, e.g.
+ * {@link IntAttribute#from(Attribute)}.
+ *
+ * @author Dominic Martinez
+ * @see Metadata
+ * @see ObjectSchema
+ */
+public interface Attribute {
 
-
-@JsonTypeInfo(use = Id.CLASS)
-public abstract class Attribute {
-
-  private static final Logger LOGGER = LogManager.getLogger(Attribute.class);
-  private final String key;
-
-  protected Attribute(String key) {
-    this.key = key;
-  }
-
-  public static <T extends Attribute> T getAs(Attribute attr, Class<T> clazz) {
-    try {
-      return clazz.cast(attr);
-    } catch (ClassCastException e) {
-      LOGGER.fatal("failed to perform attribute cast", e);
-      throw e;
-    }
-  }
-
-  public String getKey() {
-    return key;
-  }
+  /**
+   * @return the key for this attribute.
+   */
+  String getKey();
 }

@@ -101,7 +101,7 @@ public class PopupForm implements BuilderUtility {
             }
 
             currentParameters.add(parameterStrategy.get());
-            form.getChildren().add(parameterStrategy.get().renderInput());
+            form.getChildren().add(parameterStrategy.get().renderInput(resourceBundle));
         }
 
         form.getChildren().add(makeButton("SubmitForm", resourceBundle, e -> saveInputToObject()));

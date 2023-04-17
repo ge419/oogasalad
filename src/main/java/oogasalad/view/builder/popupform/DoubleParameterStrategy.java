@@ -3,54 +3,58 @@ package oogasalad.view.builder.popupform;
 import com.google.inject.assistedinject.Assisted;
 import java.util.ResourceBundle;
 import javafx.scene.Node;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javax.inject.Inject;
-import oogasalad.model.attribute.Attribute;
-import oogasalad.model.attribute.DoubleAttribute;
-import oogasalad.model.attribute.DoubleMetadata;
-import oogasalad.model.attribute.Metadata;
+
+import oogasalad.model.attribute.*;
 import oogasalad.view.builder.BuilderUtility;
 
 class DoubleParameterStrategy implements ParameterStrategy, BuilderUtility {
 
-    private final Attribute attr;
-    private final Metadata meta;
-    private TextField element = new TextField();
+    private final DoubleAttribute attr;
+    private final DoubleMetadata meta;
+    private Spinner<Double> element;
 
     @Inject
     public DoubleParameterStrategy(
-        @Assisted Attribute attr,
-        @Assisted Metadata meta) {
-        this.attr = attr;
-        this.meta = meta;
+            @Assisted Attribute attr,
+            @Assisted Metadata meta) {
+        this.attr = DoubleAttribute.from(attr);
+        this.meta = DoubleMetadata.from(meta);
     }
 
     @Override
-    public Node renderInput(String name, ResourceBundle resourceBundle) {
+    public Node renderInput(ResourceBundle resourceBundle) {
+        String name = meta.getName();
         Node textLabel = new Text(name + " (Double)");
-        element = (TextField) makeTextField(name);
+        element = (Spinner<Double>) makeDoubleSpinner(meta.getMinValue(), meta.getMaxValue(), meta.getMaxValue());
         return makeHBox(String.format("%sDoubleInput", name), textLabel, element);
     }
 
     @Override
-    public boolean validateInput(Metadata metadata) {
-        DoubleMetadata doubleMetadata = (DoubleMetadata) metadata;
-        return getValue() > doubleMetadata.getMinValue() && getValue() < doubleMetadata.getMaxValue();
+    public void saveInput() {
+        attr.setValue(getFieldValue());
     }
+
     @Override
-    public Double getValue() {
-        try {
-            double num = Double.parseDouble(element.getText());
-            return num;
-        } catch (NumberFormatException nfe) {
-            System.out.println("Double not provided in double input");
-            // should be a log and popup error
-        }
-        return 0.0;
+    public boolean isInputValid() {
+        return meta.isValidValue(getFieldValue());
     }
+
     @Override
-    public void setValue(Attribute attribute) {
-        DoubleAttribute.from(attribute).setValue(getValue());
+    public Metadata getMetadata() {
+        return meta;
+    }
+
+    @Override
+    public Attribute getAttribute() {
+        return attr;
+    }
+
+    private double getFieldValue() {
+        return element.getValue();
     }
 }
+

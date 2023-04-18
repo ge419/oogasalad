@@ -70,6 +70,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private final boolean myDraggableObjectsToggle = true;
   private boolean myDeleteToggle = false;
   private final Coordinate myBoardPaneStartingLocation;
+  private final SchemaDatabase schemas;
   private final BuilderController bc = new BuilderController();
 
 
@@ -79,6 +80,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     sideBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SideBar1");
     tileMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "TileMenu");
     defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET).toExternalForm();
+    schemas = new SchemaDatabase();
 
     myCurrentlyClickedTiletype = Optional.empty();
     myGraph = new Graph();  // todo: dependency injection

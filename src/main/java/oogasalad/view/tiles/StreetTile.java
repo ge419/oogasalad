@@ -2,58 +2,84 @@ package oogasalad.view.tiles;
 
 import java.util.HashMap;
 import java.util.Map;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
+import oogasalad.model.attribute.BooleanAttribute;
+import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.Tile;
+import oogasalad.model.engine.actions.BuyAction;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Textable;
 
 public class StreetTile extends StackPane implements ViewTile, Textable {
+
   private static final double TEXT_SCALE = 8;
+  public static final String COLOR_ATTRIBUTE = "color";
+  private final Tile modelTile;
 
-  public StreetTile(int id, Coordinate coordinate, Color color, String name, String price,
-      double width, double height) {
-    //TODO: delete once we get backend tile
-    Map<String, String> textMap = new HashMap<>();
-    textMap.put("name", name);
-    textMap.put("price", price);
 
-    getChildren().addAll((createBarBox(width, height, color)), createTextBox(textMap, height, width));
-    setPosition(coordinate);
+  public StreetTile(Tile BTile) {
+    this.modelTile = BTile;
+
+    getChildren().addAll((createBarBox(BTile.getWidth(), BTile.getHeight(),
+            StringAttribute.from(BTile.getAttribute(COLOR_ATTRIBUTE)).getValue())),
+        createTextBox(BTile.getInfo(), BTile.getHeight(), BTile.getWidth()));
+    setPosition(BTile.getCoordinate());
+
+    //TODO: change this temporary behavior when tile is bought
+    BooleanAttribute ownedAttribute =
+        BooleanAttribute.from(modelTile.getAttribute(BuyAction.OWNED_ATTRIBUTE));
+    ownedAttribute.valueProperty().addListener(((observable, oldValue, isOwned) -> {
+      if (Boolean.TRUE.equals(isOwned)) {
+        for (Node child : this.getChildren()) {
+          child.setStyle("-fx-background-color: red;");
+        }
+      } else {
+        //do nothing
+      }
+    }));
+
   }
-
-  private Rectangle createBar(double width, double height, Color color) {
+  private Rectangle createBar(double width, double height, String color) {
     Rectangle bar = new Rectangle();
     bar.setWidth(width);
     bar.setHeight(height);
-    bar.setFill(color);
+    bar.setFill(Color.web(color));
     bar.setStroke(Color.BLACK);
     bar.setStrokeWidth(1);
     return bar;
   }
 
-  private VBox createBarBox(double width, double height, Color color) {
+  private VBox createBarBox(double width, double height, String color) {
     VBox barBox = new VBox();
     Rectangle topBar = createBar(width, height / 6, color);
-    Rectangle bottomBar = createBar(width, 5 * height / 6, Color.WHITE);
+    Rectangle bottomBar = createBar(width, 5 * height / 6, "FFFFFF");
     barBox.getChildren().addAll(topBar, bottomBar);
     return barBox;
   }
 
   @Override
-  public VBox createTextBox(Map<String, String> textMap, double height, double width) {
+  public VBox createTextBox(String info, double height, double width) {
     VBox textBox = new VBox();
-    Text streetText = new Text(textMap.get("name"));
+    String[] infoList = info.split(",");
+
+    Text streetText = new Text(infoList[0]);
     resizeText(streetText, height, TEXT_SCALE, width);
+    Bounds streetTextBounds = streetText.getBoundsInLocal();
     streetText.setLayoutY(this.getLayoutY());
-    Text priceText = new Text(textMap.get("price"));
+    Text priceText = new Text(infoList[1]);
     resizeText(priceText, height, TEXT_SCALE, width);
-    textBox.setMargin(priceText, new Insets(height / 6, 0, 0 , 0));
+    textBox.setMargin(priceText, new Insets((height / 4 - streetTextBounds.getMaxY()), 0, 0, 0));
+    textBox.setAlignment(Pos.CENTER);
     textBox.getChildren().addAll(streetText, priceText);
     return textBox;
   }
@@ -65,13 +91,13 @@ public class StreetTile extends StackPane implements ViewTile, Textable {
 
   @Override
   public Tile getTile() {
-    return null;
+    return this.modelTile;
   }
 
 
   @Override
   public String getTileId() {
-    return null;
+    return this.modelTile.getId();
   }
 
   @Override
@@ -83,6 +109,7 @@ public class StreetTile extends StackPane implements ViewTile, Textable {
   public void setPosition(Coordinate coord) {
     this.setLayoutX(coord.getXCoor());
     this.setLayoutY(coord.getYCoor());
+    this.getTransforms().add(new Rotate(coord.getAngle(), Rotate.Z_AXIS));
   }
 
   @Override

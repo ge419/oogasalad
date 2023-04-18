@@ -7,16 +7,19 @@ import javax.inject.Inject;
 import oogasalad.model.attribute.DoubleAttribute;
 import oogasalad.model.attribute.PositionAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.attribute.TileListAttribute;
 import oogasalad.view.Coordinate;
 
 public class Tile extends AbstractGameConstruct {
 
   public static final String BASE_SCHEMA_NAME = "basicTile";
+  public static final String TYPE_ATTRIBUTE = "type";
   public static final String NEXT_ATTRIBUTE = "next";
   public static final String POSITION_ATTRIBUTE = "position";
   public static final String WIDTH_ATTRIBUTE = "width";
   public static final String HEIGHT_ATTRIBUTE = "height";
+  public static final String INFO_ATTRIBUTE = "info";
 
   @Inject
   public Tile(@JacksonInject SchemaDatabase database) {
@@ -97,5 +100,17 @@ public class Tile extends AbstractGameConstruct {
   public void setHeight(double height) {
     heightAttribute().setValue(height);
   }
+
+  @JsonIgnore
+  public String getInfo() {
+    return StringAttribute.from(getAttribute(INFO_ATTRIBUTE)).getValue();
+  }
+
+
+  @JsonIgnore
+  public String getType() {
+    return StringAttribute.from(getAttribute(TYPE_ATTRIBUTE)).getValue();
+  }
+
 }
 

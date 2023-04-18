@@ -12,12 +12,14 @@ public class PositionMetadata extends AbstractMetadata {
   public static final Class<PositionAttribute> ATTRIBUTE_CLASS = PositionAttribute.class;
   private final DoubleProperty defaultX;
   private final DoubleProperty defaultY;
+  private final DoubleProperty defaultAngle;
 
   @JsonCreator
   public PositionMetadata(@JsonProperty("key") String key) {
     super(key);
     defaultX = new SimpleDoubleProperty(0);
     defaultY = new SimpleDoubleProperty(0);
+    defaultAngle = new SimpleDoubleProperty(0);
   }
 
   @Override
@@ -46,7 +48,7 @@ public class PositionMetadata extends AbstractMetadata {
   }
 
   public PositionAttribute makeCoordinateAttribute() {
-    return new PositionAttribute(getKey(), getDefaultX(), getDefaultY());
+    return new PositionAttribute(getKey(), getDefaultX(), getDefaultY(), getDefaultAngle());
   }
 
   public double getDefaultX() {
@@ -73,11 +75,24 @@ public class PositionMetadata extends AbstractMetadata {
     return defaultY;
   }
 
+  public double getDefaultAngle() {
+    return defaultAngle.get();
+  }
+
+  public void setDefaultAngle(double defaultAngle) {
+    this.defaultAngle.set(defaultAngle);
+  }
+
+  public DoubleProperty defaultYAngle() {
+    return defaultAngle;
+  }
+
   @Override
   public String toString() {
     return "CoordinateAttributeMetadata{" +
         "defaultX=" + defaultX +
         ", defaultY=" + defaultY +
+        ", defaultAngle=" + defaultAngle +
         '}';
   }
 
@@ -94,11 +109,11 @@ public class PositionMetadata extends AbstractMetadata {
     }
     PositionMetadata that = (PositionMetadata) o;
     return Objects.equals(getDefaultX(), that.getDefaultX()) && Objects.equals(getDefaultY(),
-        that.getDefaultY());
+        that.getDefaultY()) && Objects.equals(getDefaultAngle(), that.defaultAngle) ;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode(), defaultX, defaultY);
+    return Objects.hash(super.hashCode(), defaultX, defaultY, defaultAngle);
   }
 }

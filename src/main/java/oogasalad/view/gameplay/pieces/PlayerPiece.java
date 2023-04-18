@@ -14,7 +14,7 @@ public class PlayerPiece extends GamePiece {
 
     setOnMouseClicked(event -> {
       //TODO: remove this and implement a button in GameView that passes in a coordinate
-      Coordinate coor = new Coordinate(300, 300);
+      Coordinate coor = new Coordinate(300.0, 300.0, 0);
       moveDirectly(coor);
     });
 

@@ -191,6 +191,10 @@ public class Gameview {
       effects.add((Runnable afterPresent) -> {
         Optional<ButtonType> result = alert.showAndWait();
         boolean answer = result.orElse(no) == yes;
+        if (answer) {
+          // Call the updateScore() method on the viewPlayer object if the user selects "Yes"
+          viewPlayer.updateScore(-100);
+        }
         callback.accept(answer);
         afterPresent.run();
       });

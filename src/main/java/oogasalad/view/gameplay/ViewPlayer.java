@@ -1,7 +1,5 @@
 package oogasalad.view.gameplay;
 
-import javafx.geometry.Bounds;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -20,6 +18,8 @@ public class ViewPlayer extends StackPane implements Textable, Backgroundable, R
 
   public ViewPlayer(String username, double score) {
     this.setPrefSize(PLAYER_WIDTH, PLAYER_HEIGHT);
+
+    //TODO: calculate based on height and width of gameview
     this.setLayoutX(750);
     this.setLayoutY(950);
     getChildren().addAll(tileBackground(PLAYER_WIDTH, PLAYER_HEIGHT),
@@ -45,5 +45,12 @@ public class ViewPlayer extends StackPane implements Textable, Backgroundable, R
   @Override
   public void render(BorderPane pane) {
     pane.getChildren().add(this);
+  }
+
+  public void updateScore(double amount) {
+    VBox textBox = (VBox) getChildren().get(1);
+    Text scoreText = (Text) textBox.getChildren().get(1);
+    double currScore = Double.parseDouble(scoreText.getText());
+    scoreText.setText(Double.toString(currScore + amount));
   }
 }

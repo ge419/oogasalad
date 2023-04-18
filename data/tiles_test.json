@@ -907,7 +907,7 @@
     },
     {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "23",
+      "id" : "22",
       "schema" : "basicTile",
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.DoubleAttribute",
@@ -916,7 +916,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "24" ]
+        "ids" : [ "23" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -950,7 +950,7 @@
     },
     {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "24",
+      "id" : "23",
       "schema" : "basicTile",
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.DoubleAttribute",
@@ -959,7 +959,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "25" ]
+        "ids" : [ "24" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -993,7 +993,7 @@
     },
     {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "25",
+      "id" : "24",
       "schema" : "imageTile",
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.DoubleAttribute",
@@ -1002,7 +1002,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "26" ]
+        "ids" : [ "25" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",

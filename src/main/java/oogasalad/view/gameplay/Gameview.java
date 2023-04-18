@@ -23,6 +23,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
+import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.Engine;
 import oogasalad.model.engine.EngineModule;
@@ -36,6 +37,8 @@ import oogasalad.model.engine.rules.DieRule;
 import oogasalad.model.engine.rules.Rule;
 import oogasalad.model.engine.rules.TurnRule;
 import oogasalad.view.Renderable;
+import oogasalad.view.gameplay.Players.PlayerUI;
+import oogasalad.view.gameplay.Players.ViewPlayers;
 import oogasalad.view.gameplay.pieces.Pieces;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
 import oogasalad.view.tiles.Tiles;
@@ -58,7 +61,7 @@ public class Gameview {
   private final boolean waiting = false;
   private Engine engine;
   private MyPrompter prompter;
-  private ViewPlayer viewPlayer;
+  private ViewPlayers players;
 
   public void renderGameview(Stage primaryStage) throws IOException {
     BorderPane UIroot = new BorderPane();
@@ -92,8 +95,8 @@ public class Gameview {
     piece.moveToTile(t.get(0));
 
     //TODO: take in backend player when appropriate attributes are implemented
-    viewPlayer = new ViewPlayer("Player 1", 200);
-    viewPlayer.render(UIroot);
+    players = new ViewPlayers();
+    players.render(UIroot);
 
     Scene scene = new Scene(UIroot);
 
@@ -191,10 +194,11 @@ public class Gameview {
       effects.add((Runnable afterPresent) -> {
         Optional<ButtonType> result = alert.showAndWait();
         boolean answer = result.orElse(no) == yes;
-        if (answer) {
-          // Call the updateScore() method on the viewPlayer object if the user selects "Yes"
-          viewPlayer.updateScore(-100);
-        }
+//        if (answer) {
+//          // Update PlayerUI on the viewPlayer object if the user selects "Yes"
+//          //TODO: update logic that includes who presses yes
+//          playerUI.decrementScore(100);
+//        }
         callback.accept(answer);
         afterPresent.run();
       });

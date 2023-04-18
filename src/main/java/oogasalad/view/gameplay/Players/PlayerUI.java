@@ -1,24 +1,35 @@
 package oogasalad.view.gameplay.Players;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import oogasalad.view.Backgroundable;
 import oogasalad.view.Coordinate;
+import oogasalad.view.Imageable;
 import oogasalad.view.Textable;
 
-public class PlayerUI extends StackPane implements Textable, Backgroundable {
+public class PlayerUI extends StackPane implements Textable, Backgroundable, Imageable {
 
-  private double PLAYER_WIDTH = 200;
-  private double PLAYER_HEIGHT = 50;
-  private double USERNAME_TEXT_SCALE = 2.5;
-  private double SCORE_TEXT_SCALE = 3;
+  private static final double PLAYER_WIDTH = 200;
+  private static final double PLAYER_HEIGHT = 50;
+  private static final double USERNAME_TEXT_SCALE = 2.5;
+  private static final double SCORE_TEXT_SCALE = 3;
+  private static final double IMAGE_SCALE = 6;
+  private static final Color UI_BACKGROUND = Color.WHITE;
+  private static final Color UI_STROKE_COLOR = Color.BLACK;
+
+
   private int id;
 
   //TODO: take in backend player once implemented
-  public PlayerUI(int id, String username, double score, Coordinate coordinate) {
+  public PlayerUI(int id, String username, double score, Coordinate coordinate, String imagePath,
+      Color playerColor) {
     this.id = id;
     this.setPrefSize(PLAYER_WIDTH, PLAYER_HEIGHT);
 
@@ -27,8 +38,13 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable {
     this.setLayoutY(coordinate.getYCoor());
     this.getTransforms().add(new Rotate(coordinate.getAngle(), Rotate.Z_AXIS));
 
-    getChildren().addAll(tileBackground(PLAYER_WIDTH, PLAYER_HEIGHT),
-        createTextBox(username + "," + Double.toString(score), PLAYER_HEIGHT, PLAYER_WIDTH));
+    ImageView playerIcon = createImage(PLAYER_WIDTH, imagePath, IMAGE_SCALE);
+
+    getChildren().addAll(
+        createBackground(PLAYER_WIDTH, PLAYER_HEIGHT, playerColor, UI_STROKE_COLOR),
+        createTextBox(username + "," + Double.toString(score), PLAYER_HEIGHT, PLAYER_WIDTH),
+        playerIcon);
+    this.setMargin(playerIcon, new Insets(0, PLAYER_WIDTH / 2, 0, 0));
   }
 
   @Override

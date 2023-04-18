@@ -35,7 +35,7 @@ public class BuilderController {
   }
 
   public BasicTile addTile(MouseEvent e) {
-    Coordinate pos = new Coordinate((int) e.getX(), (int) e.getY());
+    Coordinate pos = new Coordinate((double) e.getX(), (double) e.getY(), 0);
     Tile t = new Tile(db);
     t.setCoordinate(pos);
     board.addTile(t);

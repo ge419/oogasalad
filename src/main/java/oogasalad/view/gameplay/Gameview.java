@@ -58,6 +58,7 @@ public class Gameview {
   private final boolean waiting = false;
   private Engine engine;
   private MyPrompter prompter;
+  private ViewPlayer viewPlayer;
 
   public void renderGameview(Stage primaryStage) throws IOException {
     BorderPane UIroot = new BorderPane();
@@ -89,6 +90,10 @@ public class Gameview {
     pieces.render(UIroot);
     piece = pieces.getPiece();
     piece.moveToTile(t.get(0));
+
+    //TODO: take in backend player when appropriate attributes are implemented
+    viewPlayer = new ViewPlayer("Player 1", 200);
+    viewPlayer.render(UIroot);
 
     Scene scene = new Scene(UIroot);
 

@@ -7,6 +7,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public class IntAttribute extends Attribute {
+
   private final IntegerProperty value;
 
   @JsonCreator
@@ -23,12 +24,12 @@ public class IntAttribute extends Attribute {
     return value.get();
   }
 
-  public IntegerProperty valueProperty() {
-    return value;
-  }
-
   public void setValue(int value) {
     this.value.set(value);
+  }
+
+  public IntegerProperty valueProperty() {
+    return value;
   }
 
   @Override

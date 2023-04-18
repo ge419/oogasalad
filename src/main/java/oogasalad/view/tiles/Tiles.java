@@ -17,17 +17,17 @@ public class Tiles implements Renderable {
 
   @Override
   public void render(BorderPane pane) {
-    for (int i=0; i<BTiles.size(); i++) {
-      BasicTile tile = new BasicTile(BTiles.get(i));
-      tile.setId("Tiles");
-      pane.getChildren().add(tile);
-      tileList.add(tile);
+    RenderStrategy renderStrategy = new RenderStrategy();
+    for (int i = 0; i < BTiles.size(); i++) {
+      renderStrategy.renderTile(BTiles.get(i), pane, tileList);
     }
   }
 
   public ViewTile getTile(String id) {
     for (ViewTile tile : tileList) {
-      if (tile.getTileId().equals(id)) return tile;
+      if (tile.getTileId().equals(id)) {
+        return tile;
+      }
     }
     throw new IllegalArgumentException("No tile with id " + id);
   }

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javafx.scene.Node;
-import javafx.scene.image.ImageView;
 import oogasalad.view.builder.panefeatures.DraggerAPI;
 
 /**
@@ -15,8 +14,8 @@ import oogasalad.view.builder.panefeatures.DraggerAPI;
  */
 public class NodeStorer {
 
-  private Map<String, Node> myMap;
-  private List<DraggerAPI> myDraggers;
+  private final Map<String, Node> myMap;
+  private final List<DraggerAPI> myDraggers;
 
   public NodeStorer() {
     myMap = new HashMap<>();

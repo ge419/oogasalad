@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import javafx.stage.Stage;
-import oogasalad.view.gameplay.Gameview;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
@@ -19,8 +18,7 @@ public class GameviewTest extends ApplicationTest {
     try {
       Gameview gameview = objectMapper.readValue(jsonFile, Gameview.class);
       gameview.renderGameview(primaryStage);
-    }
-    catch (IOException e){
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }

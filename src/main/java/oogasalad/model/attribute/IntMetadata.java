@@ -1,6 +1,7 @@
 package oogasalad.model.attribute;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 import javafx.beans.property.IntegerProperty;
@@ -27,6 +28,7 @@ public class IntMetadata extends Metadata {
   }
 
   @Override
+  @JsonIgnore
   public Class<? extends Attribute> getAttributeClass() {
     return ATTRIBUTE_CLASS;
   }
@@ -39,36 +41,36 @@ public class IntMetadata extends Metadata {
     return defaultValue.get();
   }
 
-  public IntegerProperty defaultValueProperty() {
-    return defaultValue;
-  }
-
   public void setDefaultValue(int defaultValue) {
     this.defaultValue.set(defaultValue);
+  }
+
+  public IntegerProperty defaultValueProperty() {
+    return defaultValue;
   }
 
   public int getMinValue() {
     return minValue.get();
   }
 
-  public IntegerProperty minValueProperty() {
-    return minValue;
-  }
-
   public void setMinValue(int minValue) {
     this.minValue.set(minValue);
+  }
+
+  public IntegerProperty minValueProperty() {
+    return minValue;
   }
 
   public int getMaxValue() {
     return maxValue.get();
   }
 
-  public IntegerProperty maxValueProperty() {
-    return maxValue;
-  }
-
   public void setMaxValue(int maxValue) {
     this.maxValue.set(maxValue);
+  }
+
+  public IntegerProperty maxValueProperty() {
+    return maxValue;
   }
 
   @Override

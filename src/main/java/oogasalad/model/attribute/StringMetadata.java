@@ -1,6 +1,7 @@
 package oogasalad.model.attribute;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 import javafx.beans.property.SimpleStringProperty;
@@ -23,6 +24,7 @@ public class StringMetadata extends Metadata {
   }
 
   @Override
+  @JsonIgnore
   public Class<? extends Attribute> getAttributeClass() {
     return ATTRIBUTE_CLASS;
   }
@@ -35,12 +37,12 @@ public class StringMetadata extends Metadata {
     return defaultValue.get();
   }
 
-  public StringProperty defaultValueProperty() {
-    return defaultValue;
-  }
-
   public void setDefaultValue(String defaultValue) {
     this.defaultValue.set(defaultValue);
+  }
+
+  public StringProperty defaultValueProperty() {
+    return defaultValue;
   }
 
   @Override

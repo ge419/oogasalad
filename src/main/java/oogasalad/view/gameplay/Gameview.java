@@ -9,7 +9,6 @@ import com.google.inject.Injector;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +21,6 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import oogasalad.model.attribute.IntAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.Tile;
@@ -45,20 +43,19 @@ import oogasalad.view.tiles.Tiles;
 public class Gameview {
 
   //TODO: refactor to read from JSON file
-  private final int VIEW_WIDTH = 1200;
-  private final int VIEW_HEIGHT = 800;
+  private final int VIEW_WIDTH = 1500;
+  private final int VIEW_HEIGHT = 1000;
 
   @JsonProperty("board")
   public String myBoardPath;
 
   @JsonProperty("choice")
   public String choice;
+  Queue<UiEffect> effects = new LinkedList<>();
   private Tiles tiles;
   private Die die;
   private PlayerPiece piece;
-  private boolean waiting = false;
-
-  Queue<UiEffect> effects = new LinkedList<>();
+  private final boolean waiting = false;
   private Engine engine;
   private MyPrompter prompter;
 
@@ -72,7 +69,7 @@ public class Gameview {
     board.render(UIroot);
 
     //TODO: PERHAPS FIND A BETTER PLACE FOR THIS
-    File file = new File("data/tiles.json");
+    File file = new File("data/tiles_test.json");
     SchemaDatabase db = new SchemaDatabase();
     Injector schemaInjector = Guice.createInjector(
         new ObjectMapperModule(),
@@ -94,7 +91,9 @@ public class Gameview {
     piece.moveToTile(t.get(0));
 
     Scene scene = new Scene(UIroot);
-    
+
+    prompter = new MyPrompter();
+
     //TODO: refactor to read from property file
     primaryStage.setTitle("Monopoly");
     primaryStage.setScene(scene);
@@ -111,14 +110,13 @@ public class Gameview {
             injector.getInstance(BuyTileRule.class),
             new SetDieRule()
         )
-        
+
     );
-    prompter = new MyPrompter();
     run();
   }
 
   void run() {
-    engine.runNextAction(prompter);
+    engine.runNextAction();
     doEffect();
   }
 
@@ -133,12 +131,21 @@ public class Gameview {
   }
 
 
+  @FunctionalInterface
+  interface UiEffect {
+
+    // Present the UI effect, then call the callback once done:
+    void present(Runnable callback);
+  }
+
   private class GameviewModule extends AbstractModule {
+
     @Override
     protected void configure() {
       install(new EngineModule());
       bind(PlayerPiece.class).toInstance(piece);
       bind(Tiles.class).toInstance(tiles);
+      bind(Prompter.class).toInstance(prompter);
     }
   }
 
@@ -195,12 +202,6 @@ public class Gameview {
         Consumer<List<? extends T>> callback) {
 
     }
-  }
-
-  @FunctionalInterface
-  interface UiEffect {
-    // Present the UI effect, then call the callback once done:
-    void present(Runnable callback);
   }
 
 }

@@ -1,7 +1,7 @@
 package oogasalad.view.builder.gameholder;
 
-import oogasalad.view.builder.graphs.ImmutableGraph;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
+import oogasalad.view.builder.graphs.ImmutableGraph;
 
 /**
  * A basic implementation of an Immutable game object.
@@ -10,8 +10,8 @@ import oogasalad.view.builder.board.ImmutableBoardInfo;
  */
 public class ImmutableGameHolder implements GameInterface {
 
-  private ImmutableBoardInfo myBoardInfo;
-  private ImmutableGraph myGraph;
+  private final ImmutableBoardInfo myBoardInfo;
+  private final ImmutableGraph myGraph;
 
   public ImmutableGameHolder(GameInterface game) {
     myBoardInfo = game.getBoardInfo();

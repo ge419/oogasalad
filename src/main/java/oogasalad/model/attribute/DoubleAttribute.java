@@ -4,11 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 
 public class DoubleAttribute extends Attribute {
+
   private final DoubleProperty value;
 
   @JsonCreator
@@ -25,14 +24,13 @@ public class DoubleAttribute extends Attribute {
     return value.get();
   }
 
-  public DoubleProperty valueProperty() {
-    return value;
-  }
-
   public void setValue(double value) {
     this.value.set(value);
   }
 
+  public DoubleProperty valueProperty() {
+    return value;
+  }
 
   @Override
   public boolean equals(Object o) {

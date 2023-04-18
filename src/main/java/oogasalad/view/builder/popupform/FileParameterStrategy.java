@@ -1,17 +1,19 @@
-package oogasalad.view.builder;
-
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
-import javafx.scene.text.Text;
+package oogasalad.view.builder.popupform;
 
 import java.io.File;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.text.Text;
+import oogasalad.model.attribute.Attribute;
+import oogasalad.model.attribute.Metadata;
+import oogasalad.view.builder.BuilderUtility;
 
 class FileParameterStrategy implements ParameterStrategy, BuilderUtility {
-    public FileParameterStrategy(){}
     private Optional<File> file;
+    public FileParameterStrategy(){}
     @Override
     public Node renderInput(String name, ResourceBundle resourceBundle) {
         Node textLabel = new Text(name);
@@ -26,5 +28,15 @@ class FileParameterStrategy implements ParameterStrategy, BuilderUtility {
     @Override
     public File getValue() {
         return file.get();
+    }
+
+    @Override
+    public boolean validateInput(Metadata metadata) {
+        return getValue().getClass().equals(File.class);
+    }
+
+    @Override
+    public void setValue(Attribute attribute) {
+        //FileAttribute.from(attribute).setValue(getValue());
     }
 }

@@ -17,6 +17,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import oogasalad.controller.BuilderController;
+import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.board.BoardInfo;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
@@ -67,6 +69,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private boolean myDeleteToggle = false;
   private final Coordinate myBoardPaneStartingLocation;
   private final BuilderController bc;
+  private final SchemaDatabase schemas;
 
 
   public BuilderView(BuilderController bc) {
@@ -76,6 +79,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     sideBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SideBar1");
     tileMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "TileMenu");
     defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET).toExternalForm();
+    schemas = new SchemaDatabase();
 
     myCurrentlyClickedTiletype = Optional.empty();
     myGraph = new Graph();  // todo: dependency injection

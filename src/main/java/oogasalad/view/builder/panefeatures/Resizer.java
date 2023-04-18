@@ -6,6 +6,10 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Scale;
+
+// TODO: will be refactored to resize using mouse drag
 
 public class Resizer implements ResizerAPI{
 
@@ -20,10 +24,14 @@ public class Resizer implements ResizerAPI{
   private EventHandler<MouseEvent> mySizeUpdater;
   private EventHandler<MouseEvent> myFinalSizeSetter;
 
-  // TODO: add width and height info
-  public Resizer(Node object, boolean resizable, MouseButton resizeButton) {
-    myNode = object;
+  // TODO: Size set as 100 * 100 by default, needs to be changed
+  public Resizer(Node object) {
+    this(object, false, new Size(20, 20), MouseButton.PRIMARY);
+  }
 
+  public Resizer(Node object, boolean resizable, Size size, MouseButton resizeButton) {
+    myNode = object;
+    setResizable(resizable);
     myResizeButton = resizeButton;
   }
 
@@ -38,6 +46,13 @@ public class Resizer implements ResizerAPI{
   public boolean getResizeStatus(){
     return myResizable.get();
   }
+
+  private void updateSize(Size size) {
+    myNode.resize(size.width(), size.height());
+  }
+
+  ///////////////////////////////////////////////////////////
+  // Code below not used as of now
 
   private void createEventHandlers() {
     myAnchoredEvent = e1 -> {

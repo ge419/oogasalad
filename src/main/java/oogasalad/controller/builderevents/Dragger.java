@@ -81,8 +81,8 @@ public class Dragger implements DraggerAPI {
         myRelativeToSceneInitialY = e1.getSceneY();
         myOriginalMouseOffsetX = e1.getX();
         myOriginalMouseOffsetY = e1.getY();
-        System.out.println(e1.getX() + " " + e1.getY());
-        System.out.println(e1.getSceneX() + " " + e1.getSceneY());
+//        System.out.println(String.format("Mouse click relative to node: {%f,%f}", e1.getX(), e1.getY()));
+//        System.out.println(String.format("Mouse click relative to scene: {%f,%f}", e1.getSceneX(), e1.getSceneY()));
       }
     };
     myPositionUpdater = e2 -> {
@@ -93,10 +93,12 @@ public class Dragger implements DraggerAPI {
     };
     myFinalPositionSetter = e3 -> {
       if (myCycleStatus != INACTIVE) {
-        myNode.setLayoutX(
-            calculateNodeLocation(e3.getSceneX(), myOriginalMouseOffsetX, mySceneOffsetX));
-        myNode.setLayoutY(
-            calculateNodeLocation(e3.getSceneY(), myOriginalMouseOffsetY, mySceneOffsetY));
+//        myNode.setLayoutX(
+//            calculateNodeLocation(e3.getSceneX(), myOriginalMouseOffsetX, mySceneOffsetX));
+//        myNode.setLayoutY(
+//            calculateNodeLocation(e3.getSceneY(), myOriginalMouseOffsetY, mySceneOffsetY));
+        //System.out.println(String.format("What my local x, y says: {%f,%f}", myNode.getBoundsInParent().getMinX(), myNode.getBoundsInParent().getMinY()));
+        myNode.relocate(myNode.getBoundsInParent().getMinX(), myNode.getBoundsInParent().getMinY());
         myNode.setTranslateX(0);
         myNode.setTranslateY(0);
       }
@@ -125,15 +127,17 @@ public class Dragger implements DraggerAPI {
 
   private double calculateNodeLocation(double sceneCoord, double mouseOffset,
       double parentNodeStartingLocation) {
-    return getLocationRelativeToParent(sceneCoord, parentNodeStartingLocation) - convertInt(
-        mouseOffset);
+    double ans = getLocationRelativeToParent(sceneCoord, parentNodeStartingLocation);
+    System.out.println(String.format("Given Scene value: %f | Given mouse offset: %f | Given board pane starting location: %f", sceneCoord, mouseOffset, parentNodeStartingLocation));
+    System.out.println("Calculated end point: " + ans);
+    return ans;
   }
 
   private int convertInt(double value) {
     return (int) (value + 0.5);
   }
 
-  private int getLocationRelativeToParent(double sceneValue, double offset) {
-    return convertInt(sceneValue) - convertInt(offset);
+  private double getLocationRelativeToParent(double sceneValue, double offset) {
+    return sceneValue - offset;
   }
 }

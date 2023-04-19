@@ -16,17 +16,13 @@ public class TrailMaker implements TrailMakerAPI {
   private final Map<String, Line> myMap;
   private final Pane myPane;
   private BooleanProperty myEnabledLines;
-  private double myCurrentOpacity = 1.0;
+  private double myCurrentOpacity;
 
-  TrailMaker(Pane parentPane) {
+  public TrailMaker(Pane parentPane, boolean setEnable) {
     myMap = new HashMap<>();
     myPane = parentPane;
+    myCurrentOpacity = setEnable ? 1.0 : 0.0;
     initializeEnabler();
-    myEnabledLines.set(false);
-  }
-
-  TrailMaker(Pane parentPane, boolean setEnable) {
-    this(parentPane);
     myEnabledLines.set(setEnable);
   }
 
@@ -34,6 +30,7 @@ public class TrailMaker implements TrailMakerAPI {
   public void createTrailBetween(Node entry1, Node entry2, String trailID) {
     Coordinate startPoint = getCenterPoint(entry1);
     Coordinate endPoint = getCenterPoint(entry2);
+//    Line newLine = new Line(0, 0, 25, 25);
     Line newLine = new Line(startPoint.getXCoor(), startPoint.getYCoor(),
         endPoint.getXCoor(), endPoint.getYCoor());
     newLine.setOpacity(myCurrentOpacity);
@@ -67,8 +64,8 @@ public class TrailMaker implements TrailMakerAPI {
 
   private Coordinate getCenterPoint(Node entry) {
     return new Coordinate(
-        entry.localToScene(entry.getBoundsInLocal()).getCenterX(),
-        entry.localToScene(entry.getBoundsInLocal()).getCenterY()
+        (entry.getBoundsInParent().getMinX() + entry.getBoundsInParent().getMaxX()) * 0.5,
+        (entry.getBoundsInParent().getMinY() + entry.getBoundsInParent().getMaxY()) * 0.5
     );
   }
 
@@ -94,9 +91,11 @@ public class TrailMaker implements TrailMakerAPI {
     myEnabledLines = new SimpleBooleanProperty();
     myEnabledLines.addListener(((observable, oldValue, newValue) -> {
       if (newValue) {
+        System.out.println("CHANGED OPACITY IN ENABLER");
         myCurrentOpacity = 0.0;
         changeOpacityOfAllLines(0.0);
       } else {
+        System.out.println("CHANGED OPACITY IN ENABLER");
         myCurrentOpacity = 1.0;
         changeOpacityOfAllLines(1.0);
       }

@@ -2,13 +2,22 @@ package oogasalad.model.engine.prompt;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Queue;
 import java.util.function.Consumer;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import oogasalad.view.gameplay.Die;
+import oogasalad.view.gameplay.Gameview.UiEffect;
 
 public class DualPrompter implements Prompter {
+  private Queue<UiEffect> effects;
+  private Die die;
+
+  public DualPrompter(Queue<UiEffect> effects, Die die) {
+
+  }
 
   @Override
   public void rollDice(Runnable callback) {

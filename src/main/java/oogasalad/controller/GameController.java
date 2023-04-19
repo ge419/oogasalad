@@ -11,8 +11,33 @@ import java.util.List;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.Tile;
+import oogasalad.model.engine.Engine;
+import oogasalad.model.engine.rules.BuyTileRule;
+import oogasalad.model.engine.rules.DieRule;
+import oogasalad.model.engine.rules.SetDieRule;
+import oogasalad.model.engine.rules.TurnRule;
+import oogasalad.view.gameplay.Die;
+import oogasalad.view.gameplay.Gameview;
 
 public class GameController {
+  private Engine engine;
+  private Gameview gv;
+
+
+  public GameController(Die die) {
+    gv = new Gameview();
+    Injector injector = Guice.createInjector(new GameControllerModule());
+    engine = injector.getInstance(Engine.class);
+    engine.setRules(
+        List.of(
+            injector.getInstance(TurnRule.class),
+            injector.getInstance(DieRule.class),
+            injector.getInstance(BuyTileRule.class),
+            new SetDieRule(die)
+        )
+    );
+    run();
+  }
 
   public List<Tile> loadTiles(String filePath) throws IOException {
     File file = new File(filePath);
@@ -26,4 +51,12 @@ public class GameController {
     return new ArrayList<>(b.getTiles());
   }
 
+  public void run() {
+    engine.runNextAction();
+    gv.doEffect();
+  }
+
+
+
 }
+

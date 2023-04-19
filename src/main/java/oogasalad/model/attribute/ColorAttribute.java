@@ -10,4 +10,8 @@ public class ColorAttribute extends StringAttribute{
     super(key, value);
   }
 
+  public static ColorAttribute from(Attribute attr) {
+    return Attribute.getAs(attr, ColorAttribute.class);
+  }
+
 }

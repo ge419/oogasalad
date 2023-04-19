@@ -20,7 +20,7 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
   private static final double PLAYER_HEIGHT = 50;
   private static final double USERNAME_TEXT_SCALE = 2.5;
   private static final double SCORE_TEXT_SCALE = 3;
-//  private static final double IMAGE_SCALE = 6;
+  private static final double IMAGE_SCALE = 6;
   private static final Color UI_STROKE_COLOR = Color.BLACK;
   private final Player modelPlayer;
 
@@ -34,15 +34,13 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
     this.setLayoutY(coordinate.getYCoor());
     this.getTransforms().add(new Rotate(coordinate.getAngle(), Rotate.Z_AXIS));
 
-    // TODO: implement once image attribute is created
-//    ImageView playerIcon = createImage(PLAYER_WIDTH, imagePath, IMAGE_SCALE);
+    ImageView playerIcon = createImage(PLAYER_WIDTH, BPlayer.getImage(), IMAGE_SCALE);
 
     getChildren().addAll(
-    // TODO: implement once color attribute is created
-//     createBackground(PLAYER_WIDTH, PLAYER_HEIGHT, BPlayer.getColor(), UI_STROKE_COLOR),
-      createBackground(PLAYER_WIDTH, PLAYER_HEIGHT, Color.WHITE, UI_STROKE_COLOR),
+     createBackground(PLAYER_WIDTH, PLAYER_HEIGHT, Color.web(BPlayer.getColor()), UI_STROKE_COLOR),
+        playerIcon,
         createTextBox(BPlayer.getName() + "," + Double.toString(BPlayer.getScore()), PLAYER_HEIGHT, PLAYER_WIDTH));
-//    this.setMargin(playerIcon, new Insets(0, PLAYER_WIDTH / 2, 0, 0));
+    this.setMargin(playerIcon, new Insets(0, PLAYER_WIDTH / 2, 0, 0));
   }
 
   @Override
@@ -60,14 +58,7 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
     return textBox;
   }
 
-
-  public void incrementScore(double amount) {
-    VBox textBox = (VBox) getChildren().get(1);
-    Text scoreText = (Text) textBox.getChildren().get(1);
-    double currScore = Double.parseDouble(scoreText.getText());
-    scoreText.setText(Double.toString(currScore + amount));
-  }
-
+  //TODO: delete this once we update backend player info (gonna bind)
   public void decrementScore(double amount) {
     VBox textBox = (VBox) getChildren().get(1);
     Text scoreText = (Text) textBox.getChildren().get(1);

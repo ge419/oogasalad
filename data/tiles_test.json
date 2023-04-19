@@ -14,6 +14,16 @@
           "@class": "oogasalad.model.attribute.DoubleAttribute",
           "key": "score",
           "value": 200
+        },
+        {
+          "@class": "oogasalad.model.attribute.ImageAttribute",
+          "key": "image",
+          "value": "view.gameplay/piece_1.png"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "0000FF"
         }
       ]
     },
@@ -31,6 +41,16 @@
           "@class": "oogasalad.model.attribute.DoubleAttribute",
           "key": "score",
           "value": 200
+        },
+        {
+          "@class": "oogasalad.model.attribute.ImageAttribute",
+          "key": "image",
+          "value": "view.gameplay/piece_2.png"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "00FF00"
         }
       ]
     },
@@ -48,6 +68,16 @@
           "@class": "oogasalad.model.attribute.DoubleAttribute",
           "key": "score",
           "value": 200
+        },
+        {
+          "@class": "oogasalad.model.attribute.ImageAttribute",
+          "key": "image",
+          "value": "view.gameplay/piece_3.png"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "FF0000"
         }
       ]
     }
@@ -305,7 +335,7 @@
           "value" : "FREE PARKING"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ImageAttribute",
           "key" : "image",
           "value" : "view.gameplay/parking.jpg"
         }
@@ -564,7 +594,7 @@
           "value" : "GO TO JAIL"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ImageAttribute",
           "key" : "image",
           "value" : "view.gameplay/jail.jpg"
         }
@@ -823,7 +853,7 @@
           "value" : "Collect salary as you pass"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ImageAttribute",
           "key" : "image",
           "value" : "view.gameplay/go.jpg"
         }
@@ -1082,7 +1112,7 @@
           "value" : "JUST VISITING"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ImageAttribute",
           "key" : "image",
           "value" : "view.gameplay/in_jail.jpg"
         }

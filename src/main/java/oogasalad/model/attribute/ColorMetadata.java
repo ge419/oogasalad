@@ -15,4 +15,8 @@ public class ColorMetadata extends StringMetadata{
     super(key);
     this.defaultValue = new SimpleStringProperty("FFFFFF");
   }
+
+  public ColorAttribute makeColorAttribute() {
+    return new ColorAttribute(getKey(), getDefaultValue());
+  }
 }

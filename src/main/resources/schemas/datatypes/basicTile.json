@@ -75,7 +75,7 @@
       "viewable": true
     },
     {
-      "@class": "oogasalad.model.attribute.StringMetadata",
+      "@class": "oogasalad.model.attribute.ImageMetadata",
       "key": "image",
       "name": "Image",
       "description": "Path to image of tile",

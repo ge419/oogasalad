@@ -81,9 +81,6 @@ public class Gameview {
         binder -> binder.bind(SchemaDatabase.class).toInstance(db)
     );
 
-    File playerFile = new File("data/player_test.json");
-
-
     ObjectMapper objectMapper = schemaInjector.getInstance(ObjectMapper.class);
     BBoard b = objectMapper.readValue(tileFile, BBoard.class);
 

@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.inject.Inject;
+import oogasalad.model.attribute.ColorAttribute;
 import oogasalad.model.attribute.DoubleAttribute;
+import oogasalad.model.attribute.ImageAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.attribute.StringAttribute;
 
@@ -14,7 +16,7 @@ public class Player extends GameConstruct {
   public static final String BASE_SCHEMA_NAME = "player";
   public static final String NAME_ATTRIBUTE = "name";
   public static final String SCORE_ATTRIBUTE = "score";
-  public static final String ICON_ATTRIBUTE = "icon";
+  public static final String ICON_ATTRIBUTE = "image";
   public static final String COLOR_ATTRIBUTE = "color";
 
   @Inject
@@ -33,6 +35,16 @@ public class Player extends GameConstruct {
   }
 
   @JsonIgnore
+  public ImageAttribute getImageAttribute() {
+    return ImageAttribute.from(getAttribute(ICON_ATTRIBUTE));
+  }
+
+  @JsonIgnore
+  public ColorAttribute getColorAttribute() {
+    return ColorAttribute.from(getAttribute(COLOR_ATTRIBUTE));
+  }
+
+  @JsonIgnore
   public String getName() {
     return getNameAttribute().getValue();
   }
@@ -42,16 +54,14 @@ public class Player extends GameConstruct {
     return getScoreAttribute().getValue();
   }
 
-  // TODO: Uncomment once ImageAttribute and ColorAttribute are in place
-//  @JsonIgnore
-//  public ImageAttribute getImageAttribute() {
-//    return ImageAttribute.from(getAttribute(ICON_ATTRIBUTE));
-//  }
-//
-//  @JsonIgnore
-//  public ColorAttribute getColorAttribute() {
-//    return ColorAttribute.from(getAttribute(COLOR_ATTRIBUTE));
-//  }
+  @JsonIgnore
+  public String getColor() {
+    return getColorAttribute().getValue();
+  }
 
+  @JsonIgnore
+  public String getImage() {
+    return getImageAttribute().getValue();
+  }
 
 }

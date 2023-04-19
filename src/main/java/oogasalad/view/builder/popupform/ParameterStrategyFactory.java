@@ -10,4 +10,5 @@ public interface ParameterStrategyFactory {
   IntegerParameterStrategy buildIntegerParameter(Attribute attr, Metadata meta);
 
   DoubleParameterStrategy buildDoubleParameter(Attribute attr, Metadata meta);
+  PositionParameterStrategy buildPositionParameter(Attribute attr, Metadata meta);
 }

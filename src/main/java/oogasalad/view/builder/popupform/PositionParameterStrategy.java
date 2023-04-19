@@ -17,9 +17,9 @@ public class PositionParameterStrategy implements ParameterStrategy, BuilderUtil
 
     private final PositionAttribute attr;
     private final PositionMetadata meta;
-    private Spinner<Integer> xElement;
-    private Spinner<Integer> yElement;
-    private Spinner<Integer> angleElement;
+    private Spinner<Double> xElement;
+    private Spinner<Double> yElement;
+    private Spinner<Double> angleElement;
 
     @Inject
     public PositionParameterStrategy(
@@ -34,12 +34,12 @@ public class PositionParameterStrategy implements ParameterStrategy, BuilderUtil
         String name = meta.getName();
         Node textLabel = new Text(name + " (Position)");
         Node xLabel = new Text("X (Integer)");
-        xElement = (Spinner<Integer>) makeIntSpinner(name, -999, 999, 0);
+        xElement = (Spinner<Double>) makeDoubleSpinner(name+"X", -999, 999, 0);
         Node yLabel = new Text("Y (Integer)");
-        yElement = (Spinner<Integer>) makeIntSpinner(name, -999, 999, 0);
-        Node anlgeLabel = new Text("Angle (Integer)");
-        angleElement = (Spinner<Integer>) makeIntSpinner(name, -360, 360, 0);
-        VBox elementContainer = new VBox(new HBox(xLabel, xElement), new HBox(yLabel, yElement), new HBox(anlgeLabel, angleElement));
+        yElement = (Spinner<Double>) makeDoubleSpinner(name+"Y", -999, 999, 0);
+        Node angleLabel = new Text("Angle (Integer)");
+        angleElement = (Spinner<Double>) makeDoubleSpinner(name+"Angle", -360, 360, 0);
+        VBox elementContainer = new VBox(new HBox(xLabel, xElement), new HBox(yLabel, yElement), new HBox(angleLabel, angleElement));
         return makeHBox(String.format("%sPositionInput", name), textLabel, elementContainer);
     }
 

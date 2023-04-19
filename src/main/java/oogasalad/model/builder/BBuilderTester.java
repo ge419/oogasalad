@@ -17,7 +17,7 @@ public class BBuilderTester {
 
     List<Tile> tiles = new ArrayList<>();
 //    tiles.add(new Tile())
-    BBoard board = new BBoard(tiles);
+    BBoard board = new BBoard(tiles, List.of());
 
 //    builder.save();
 

@@ -39,7 +39,7 @@ public class Dragger implements DraggerAPI {
 
 
   public Dragger(Node ourObject) {
-    this(ourObject, false, new Coordinate(0, 0), MouseButton.PRIMARY);
+    this(ourObject, false, new Coordinate(0, 0, 0), MouseButton.PRIMARY);
   }
 
   public Dragger(Node ourObject, boolean canWeDrag, Coordinate offset, MouseButton dragButton) {

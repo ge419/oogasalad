@@ -12,6 +12,7 @@ import java.util.List;
 import oogasalad.model.attribute.IntMetadata;
 import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.attribute.SimpleObjectSchema;
 import oogasalad.model.attribute.StringMetadata;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ public class SerializationTest {
     StringMetadata m2 = new StringMetadata("myStr");
     m2.setDefaultValue("teststr");
 
-    ObjectSchema schema = new ObjectSchema("simple-schema", List.of(m1, m2));
+    ObjectSchema schema = new SimpleObjectSchema("simple-schema", List.of(m1, m2));
     return schema;
   }
 
@@ -46,7 +47,7 @@ public class SerializationTest {
   void attributeSchemaSerialization() throws JsonProcessingException {
     ObjectSchema schema = getSchema();
     String json = mapper.writeValueAsString(schema);
-    ObjectSchema actualSchema = mapper.readValue(json, ObjectSchema.class);
+    ObjectSchema actualSchema = mapper.readValue(json, SimpleObjectSchema.class);
 
     assertEquals(schema, actualSchema);
   }

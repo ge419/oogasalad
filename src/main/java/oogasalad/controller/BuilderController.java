@@ -10,7 +10,6 @@ import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.builder.BBuilder;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.Tile;
-import oogasalad.model.exception.FileReaderException;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.BuilderView;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;
@@ -32,14 +31,14 @@ public class BuilderController {
   private SchemaDatabase db;
 
   public BuilderController() {
-    //builderView = new BuilderView();
+    builderView = new BuilderView(this);
     builder = new BBuilder();
     db = new SchemaDatabase();
     board = new BBoard();
   }
 
   public BasicTile addTile(MouseEvent e) {
-    Coordinate pos = new Coordinate((int) e.getX(), (int) e.getY());
+    Coordinate pos = new Coordinate((double) e.getX(), (double) e.getY(), 0);
     Tile t = new Tile(db);
     t.setCoordinate(pos);
     board.addTile(t);
@@ -82,5 +81,9 @@ public class BuilderController {
   public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Coordinate startLocation) {
     node.setOnMouseClicked(mouseClickHandle);
     Dragger nodeDragger = new Dragger(node, true, startLocation, MouseButton.PRIMARY);
+  }
+
+  public BuilderView getBuilderView() {
+    return builderView;
   }
 }

@@ -43,8 +43,8 @@ import oogasalad.view.tiles.Tiles;
 public class Gameview {
 
   //TODO: refactor to read from JSON file
-  private final int VIEW_WIDTH = 1200;
-  private final int VIEW_HEIGHT = 800;
+  private final int VIEW_WIDTH = 1500;
+  private final int VIEW_HEIGHT = 1000;
 
   @JsonProperty("board")
   public String myBoardPath;
@@ -69,7 +69,7 @@ public class Gameview {
     board.render(UIroot);
 
     //TODO: PERHAPS FIND A BETTER PLACE FOR THIS
-    File file = new File("data/tiles.json");
+    File file = new File("data/tiles_test.json");
     SchemaDatabase db = new SchemaDatabase();
     Injector schemaInjector = Guice.createInjector(
         new ObjectMapperModule(),

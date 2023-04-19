@@ -11,8 +11,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -136,4 +137,31 @@ public interface BuilderUtility {
     node.setLayoutX(coord.getXCoor());
     node.setLayoutY(coord.getYCoor());
   }
+  default Node makeWrappedText(String property, ResourceBundle resourceBundle, double wrappingWidth) {
+    Text text = (Text) makeText(property, resourceBundle);
+    text.setWrappingWidth(wrappingWidth);
+    return text;
+  }
+    default Node makeCheckBox(String property) {
+        CheckBox checkBox = new CheckBox();
+        checkBox.setId(property);
+        return checkBox;
+    }
+    default Node makeIntSpinner(String property, int min, int max, int initial) {
+      Spinner<Integer> spinner = new Spinner<>();
+      SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(
+          min, max, initial);
+      spinner.setValueFactory(valueFactory);
+      spinner.setId(property);
+      spinner.setEditable(true);
+      return spinner;
+    }
+    default Node makeDoubleSpinner(String property, double min, double max, double initial) {
+      Spinner<Double> spinner = new Spinner<>();
+      SpinnerValueFactory<Double> valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(min, max, initial);
+      spinner.setValueFactory(valueFactory);
+      spinner.setId(property);
+      spinner.setEditable(true);
+      return spinner;
+    }
 }

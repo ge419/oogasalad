@@ -1,0 +1,36 @@
+[
+  {
+    "@class": "oogasalad.model.constructable.Player",
+    "id": "1",
+    "schema": "player",
+    "attributes": [
+      {
+        "@class": "oogasalad.model.attribute.StringAttribute",
+        "key": "name",
+        "value": "Player 1"
+      },
+      {
+        "@class": "oogasalad.model.attribute.DoubleAttribute",
+        "key": "score",
+        "value": 200
+      }
+    ]
+  },
+  {
+    "@class": "oogasalad.model.constructable.Player",
+    "id": "2",
+    "schema": "player",
+    "attributes": [
+      {
+        "@class": "oogasalad.model.attribute.StringAttribute",
+        "key": "name",
+        "value": "Player 2"
+      },
+      {
+        "@class": "oogasalad.model.attribute.DoubleAttribute",
+        "key": "score",
+        "value": 200
+      }
+    ]
+  }
+]

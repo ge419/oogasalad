@@ -27,7 +27,6 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
   public static final String COLOR_ATTRIBUTE = "color";
   private final Tile modelTile;
 
-
   public StreetTile(Tile BTile) {
     this.modelTile = BTile;
 
@@ -64,9 +63,7 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
 
     VBox barBox = new VBox();
     Rectangle topBar = createBackground(width, height / 6, Color.web(color), Color.BLACK);
-//    Rectangle topBar = createBar(width, height / 6, color);
     Rectangle bottomBar = createBackground(width, 5 * height / 6, Color.WHITE, Color.BLACK);
-//    Rectangle bottomBar = createBar(width, 5 * height / 6, "FFFFFF");
     barBox.getChildren().addAll(topBar, bottomBar);
     return barBox;
   }

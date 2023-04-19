@@ -6,7 +6,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import oogasalad.model.constructable.Player;
 import oogasalad.view.Coordinate;
-import oogasalad.view.Imageable;
 import oogasalad.view.Renderable;
 
 public class ViewPlayers implements Renderable {
@@ -14,12 +13,8 @@ public class ViewPlayers implements Renderable {
   List<Player> BPlayers;
   private final List<PlayerUI> playerList = new ArrayList<>();
 
-  public ViewPlayers(ArrayList<Player> p) {
+  public ViewPlayers(List<Player> p) {
     this.BPlayers = p;
-  }
-
-  //TODO: delete empty constructor after backend player
-  public ViewPlayers() {
   }
 
   public PlayerUI getPlayer(int id) {
@@ -33,11 +28,9 @@ public class ViewPlayers implements Renderable {
 
   @Override
   public void render(BorderPane pane) {
-    for (int i = 0; i < 4; i++) {
-//    for (int i = 0; i < BPlayers.size(); i++) {
+    for (int i = 0; i < BPlayers.size(); i++) {
       //TODO: take in backend player
-//      Coordinate playerCoordinate = playerPosition(i, BPlayers.size(), 1500, 1000);
-      Coordinate playerCoordinate = playerPosition(i, 4, 1500, 1000);
+      Coordinate playerCoordinate = playerPosition(i, BPlayers.size(), 1500, 1000);
       PlayerUI playerUI = new PlayerUI(i, "Player " + i, 500, playerCoordinate,
           "view.gameplay/piece_1.png", Color.ORANGE);
       playerList.add(playerUI);

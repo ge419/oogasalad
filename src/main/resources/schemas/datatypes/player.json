@@ -1,0 +1,24 @@
+{
+  "name": "player",
+  "fields": [
+    {
+      "@class": "oogasalad.model.attribute.StringMetadata",
+      "key": "name",
+      "name": "Name",
+      "description": "Name of player",
+      "editable": true,
+      "viewable": true
+    },
+    {
+      "@class": "oogasalad.model.attribute.DoubleMetadata",
+      "key": "score",
+      "name": "Score",
+      "description": "Score of player",
+      "editable": true,
+      "viewable": true,
+      "defaultValue": 0,
+      "minValue": -2147483648,
+      "maxValue": 2147483647
+    }
+  ]
+}

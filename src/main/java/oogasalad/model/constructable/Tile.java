@@ -86,7 +86,6 @@ public class Tile extends GameConstruct {
     return StringAttribute.from(getAttribute(INFO_ATTRIBUTE)).getValue();
   }
 
-
   @JsonIgnore
   public String getType() {
     return StringAttribute.from(getAttribute(TYPE_ATTRIBUTE)).getValue();

@@ -1,6 +1,7 @@
 package oogasalad.view.gameplay;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.guice.ObjectMapperModule;
 import com.google.inject.AbstractModule;
@@ -73,14 +74,24 @@ public class Gameview {
     board.render(UIroot);
 
     //TODO: PERHAPS FIND A BETTER PLACE FOR THIS
-    File file = new File("data/tiles_test.json");
+    File tileFile = new File("data/tiles_test.json");
     SchemaDatabase db = new SchemaDatabase();
     Injector schemaInjector = Guice.createInjector(
         new ObjectMapperModule(),
         binder -> binder.bind(SchemaDatabase.class).toInstance(db)
     );
+
+    File playerFile = new File("data/player_test.json");
+
+
     ObjectMapper objectMapper = schemaInjector.getInstance(ObjectMapper.class);
-    BBoard b = objectMapper.readValue(file, BBoard.class);
+    BBoard b = objectMapper.readValue(tileFile, BBoard.class);
+
+    //TODO: change if there's a way to read in two files to create instance of BBoard
+    List<Player> BPlayers = objectMapper.readValue(playerFile, new TypeReference<List<Player>>() {});
+
+    b.addAllPlayers(BPlayers);
+
     ArrayList<Tile> t = new ArrayList<>(b.getTiles());
 
     tiles = new Tiles(t);
@@ -95,10 +106,7 @@ public class Gameview {
     piece.moveToTile(t.get(0));
 
     //TODO: take in backend player when appropriate attributes are implemented
-
-
-
-    players = new ViewPlayers();
+    players = new ViewPlayers(BPlayers);
     players.render(UIroot);
 
     Scene scene = new Scene(UIroot);

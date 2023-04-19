@@ -6,7 +6,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import oogasalad.view.Backgroundable;
@@ -21,7 +20,6 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
   private static final double USERNAME_TEXT_SCALE = 2.5;
   private static final double SCORE_TEXT_SCALE = 3;
   private static final double IMAGE_SCALE = 6;
-  private static final Color UI_BACKGROUND = Color.WHITE;
   private static final Color UI_STROKE_COLOR = Color.BLACK;
 
 

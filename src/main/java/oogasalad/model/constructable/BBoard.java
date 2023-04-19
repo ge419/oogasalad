@@ -3,8 +3,11 @@ package oogasalad.model.constructable;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import oogasalad.model.attribute.ColorAttribute;
+import oogasalad.model.attribute.ColorMetadata;
 
 public class BBoard {
 
@@ -15,6 +18,7 @@ public class BBoard {
     this.tiles = new ArrayList<>();
     this.players = new ArrayList<>();
   }
+
 
   @JsonCreator
   public BBoard(

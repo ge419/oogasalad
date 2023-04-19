@@ -90,7 +90,7 @@
         "value" : "Wellness Center,$350"
       },
       {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : "0000FF"
       }]
@@ -133,7 +133,7 @@
           "value" : "BC Plaza,$350"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "0000FF"
         }]
@@ -176,7 +176,7 @@
           "value" : "Perkins,$350"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "0000FF"
         }]
@@ -219,7 +219,7 @@
           "value" : "Bostock,$350"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "0000FF"
         }]
@@ -262,7 +262,7 @@
           "value" : "Wilkinson,$350"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "0000FF"
         }]
@@ -349,7 +349,7 @@
           "value" : "Hudson Hall,$450"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "00FFFF"
         }]
@@ -392,7 +392,7 @@
           "value" : "LRSC,$450"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "00FFFF"
         }]
@@ -435,7 +435,7 @@
           "value" : "Physics,$450"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "00FFFF"
         }]
@@ -478,7 +478,7 @@
           "value" : "Biological Sciences,$450"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "00FFFF"
         }]
@@ -521,7 +521,7 @@
           "value" : "Gross Hall,$450"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "00FFFF"
         }]
@@ -608,7 +608,7 @@
           "value" : "Social Sciences,$550"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "FFFF00"
         }]
@@ -651,7 +651,7 @@
           "value" : "Reuben-Cooke,$550"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "FFFF00"
         }]
@@ -694,7 +694,7 @@
           "value" : "Old Chemistry,$550"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "FFFF00"
         }]
@@ -737,7 +737,7 @@
           "value" : "Languages,$550"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "FFFF00"
         }]
@@ -780,7 +780,7 @@
           "value" : "Allen,$550"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "FFFF00"
         }]
@@ -867,7 +867,7 @@
           "value" : "Hollows,$250"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "FF00FF"
         }]
@@ -910,7 +910,7 @@
           "value" : "Few,$250"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "FF00FF"
         }]
@@ -953,7 +953,7 @@
           "value" : "Crowell,$250"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "FF00FF"
         }]
@@ -996,7 +996,7 @@
           "value" : "Craven,$250"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "FF00FF"
         }]
@@ -1039,7 +1039,7 @@
           "value" : "Kilgo,$250"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "FF00FF"
         }]

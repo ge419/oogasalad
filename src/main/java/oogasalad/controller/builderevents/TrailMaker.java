@@ -1,5 +1,6 @@
 package oogasalad.controller.builderevents;
 
+import com.sun.jdi.InconsistentDebugInfoException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
@@ -13,6 +14,8 @@ import oogasalad.view.Coordinate;
 
 public class TrailMaker implements TrailMakerAPI {
 
+  private static final double INVISIBLE = 0.0;
+  private static final double VISIBLE = 1.0;
   private final Map<String, Line> myMap;
   private final Pane myPane;
   private BooleanProperty myEnabledLines;
@@ -59,6 +62,7 @@ public class TrailMaker implements TrailMakerAPI {
 
   @Override
   public void toggleEnable() {
+    System.out.println("Lines currently visible: " + this.myEnabledLines.get());
     this.myEnabledLines.set(!this.myEnabledLines.get());
   }
 
@@ -91,13 +95,9 @@ public class TrailMaker implements TrailMakerAPI {
     myEnabledLines = new SimpleBooleanProperty();
     myEnabledLines.addListener(((observable, oldValue, newValue) -> {
       if (newValue) {
-        System.out.println("CHANGED OPACITY IN ENABLER");
-        myCurrentOpacity = 0.0;
-        changeOpacityOfAllLines(0.0);
+        updateOpacity(VISIBLE);
       } else {
-        System.out.println("CHANGED OPACITY IN ENABLER");
-        myCurrentOpacity = 1.0;
-        changeOpacityOfAllLines(1.0);
+        updateOpacity(INVISIBLE);
       }
     }));
   }
@@ -106,6 +106,11 @@ public class TrailMaker implements TrailMakerAPI {
     for (String id : myMap.keySet()) {
       myMap.get(id).setOpacity(opacity);
     }
+  }
+  private void updateOpacity(double opacity){
+    System.out.println("Making Opacity " + opacity);
+    myCurrentOpacity = opacity;
+    changeOpacityOfAllLines(opacity);
   }
 
 //  private void createListenerOnBounds(Node entry, BiFunction<String, Coordinate, Integer> pointMethod){

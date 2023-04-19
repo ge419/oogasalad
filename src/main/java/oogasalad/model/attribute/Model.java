@@ -74,7 +74,7 @@ public class Model {
       tiles.get(i).getNextTileIds().add(tiles.get(i + 1).getId());
     }
     tiles.get(tiles.size() - 1).getNextTileIds().add(tiles.get(0).getId());
-    BBoard board = new BBoard(tiles);
+    BBoard board = new BBoard(tiles, List.of());
     objectMapper.writeValue(new File("data/tiles.json"), board);
 
     File file = new File("data/tiles.json");

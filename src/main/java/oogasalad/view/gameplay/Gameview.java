@@ -88,9 +88,9 @@ public class Gameview {
     BBoard b = objectMapper.readValue(tileFile, BBoard.class);
 
     //TODO: change if there's a way to read in two files to create instance of BBoard
-    List<Player> BPlayers = objectMapper.readValue(playerFile, new TypeReference<List<Player>>() {});
-
-    b.addAllPlayers(BPlayers);
+//    List<Player> BPlayers = objectMapper.readValue(playerFile, new TypeReference<List<Player>>() {});
+//
+//    b.addAllPlayers(BPlayers);
 
     ArrayList<Tile> t = new ArrayList<>(b.getTiles());
 
@@ -106,7 +106,7 @@ public class Gameview {
     piece.moveToTile(t.get(0));
 
     //TODO: take in backend player when appropriate attributes are implemented
-    players = new ViewPlayers(BPlayers);
+    players = new ViewPlayers(b.getPlayers());
     players.render(UIroot);
 
     Scene scene = new Scene(UIroot);

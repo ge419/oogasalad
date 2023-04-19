@@ -1,6 +1,7 @@
 package oogasalad.model.constructable;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,15 +17,19 @@ public class BBoard {
   }
 
   @JsonCreator
-  public BBoard(@JsonProperty("tiles") List<Tile> t) {
+  public BBoard(
+      @JsonProperty("tiles") List<Tile> t,
+      @JsonProperty("players") List<Player> p
+  ) {
     this.tiles = new ArrayList<>(t);
-    this.players = new ArrayList<>();
+    this.players = new ArrayList<>(p);
   }
 
   public List<Tile> getTiles() {
     return tiles;
   }
 
+  @JsonIgnore
   public int getTileCount() {
     return this.tiles.size();
   }
@@ -33,6 +38,7 @@ public class BBoard {
     return players;
   }
 
+  @JsonIgnore
   public int getPlayerCount() {
     return this.players.size();
   }

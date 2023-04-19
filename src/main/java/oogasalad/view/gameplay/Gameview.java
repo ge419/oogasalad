@@ -48,7 +48,6 @@ public class Gameview {
 
   @JsonProperty("board")
   public String myBoardPath;
-
   @JsonProperty("choice")
   public String choice;
   Queue<UiEffect> effects = new LinkedList<>();

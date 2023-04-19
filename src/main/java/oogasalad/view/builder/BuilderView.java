@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -175,7 +176,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     } else {
       // todo: replace with LOG
       System.out.println("Ruh-roh, can't save to a file that doesn't exist!");
-      new visualization.PopupError(builderResource, "FileNotFoundError");
+      new Alert(Alert.AlertType.ERROR, builderResource.getString("FileNotFoundError"));
     }
   }
 
@@ -208,7 +209,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     } else {
       // todo: make this use an error form.
       System.out.println("ERROR -- Got a non-image or nothing from file.");
-      new visualization.PopupError(builderResource, "EmptyFileError");
+      new Alert(Alert.AlertType.ERROR, builderResource.getString("EmptyFileError"));
     }
   }
 

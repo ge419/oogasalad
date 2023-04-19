@@ -9,6 +9,9 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -104,9 +107,10 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private Scene initScene() {
+    VBox topMenu = createTopMenu();
     HBox topBar = createTopBar();
     Node centralContainer = createCentralContainer();
-    VBox root = (VBox) makeVBox("RootContainer", topBar, centralContainer);
+    VBox root = (VBox) makeVBox("RootContainer", topMenu, topBar, centralContainer);
 
     Scene newScene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
     newScene.getStylesheets().add(defaultStylesheet);
@@ -156,6 +160,40 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       });
       pane.getChildren().add(btn);
     }
+  }
+
+  // todo: this is VERY similar to addButtonsToPane... any way to consolidate?
+  private void addMenuItemsToMenu(Menu menu, ResourceBundle resource){
+    Enumeration<String> enumeration = resource.getKeys();
+    while (enumeration.hasMoreElements()){
+      String key = enumeration.nextElement();
+      MenuItem item = makeMenuItem(key, builderResource, e-> {
+        try{
+          BuilderView.this.getClass().getDeclaredMethod(resource.getString(key))
+              .invoke(BuilderView.this);
+        } catch (Exception ex) {
+          ex.printStackTrace();
+          throw new RuntimeException(ex);
+        }
+      });
+      menu.getItems().add(item);
+    }
+  }
+
+  private void createMenus(){
+
+  }
+
+  private VBox createTopMenu(){
+    MenuBar topMenu = new MenuBar();
+    MenuItem item1 = new MenuItem(builderResource.getString("Save"));
+    MenuItem item2 = new MenuItem(builderResource.getString("Load"));
+    Menu menuLabel = new Menu("File");
+    menuLabel.getItems().add(item1);
+    menuLabel.getItems().add(item2);
+    topMenu.getMenus().add(menuLabel);
+    return new VBox(topMenu);
+
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////////////

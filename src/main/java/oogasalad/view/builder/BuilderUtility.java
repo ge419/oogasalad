@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -46,6 +48,15 @@ public interface BuilderUtility {
     btn.getStyleClass().add("button");
     btn.setId(property);
     return btn;
+  }
+
+  default MenuItem makeMenuItem(String property, ResourceBundle resourceBundle,
+      EventHandler<ActionEvent> event){
+    MenuItem item = new MenuItem(resourceBundle.getString(property));
+    item.setOnAction(event);
+    item.getStyleClass().add("menuItem");
+    item.setId(property);
+    return item;
   }
 
   default Node makePane(String property, double width, double height) {

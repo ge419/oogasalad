@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileListAttribute extends Attribute {
+public class TileListAttribute extends AbstractAttribute {
 
   @JsonProperty
   private List<String> tileIds;
@@ -20,7 +20,7 @@ public class TileListAttribute extends Attribute {
   }
 
   public static TileListAttribute from(Attribute attr) {
-    return Attribute.getAs(attr, TileListAttribute.class);
+    return AbstractAttribute.getAs(attr, TileListAttribute.class);
   }
 
   @JsonGetter("ids")

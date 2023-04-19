@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.inject.Inject;
 import oogasalad.model.attribute.SchemaDatabase;
 
-public class Player extends GameConstruct {
+public class Player extends AbstractGameConstruct {
 
   @Inject
   @JsonCreator

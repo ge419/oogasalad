@@ -6,7 +6,7 @@ import java.util.Objects;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class IntAttribute extends Attribute {
+public class IntAttribute extends AbstractAttribute {
 
   private final IntegerProperty value;
 
@@ -17,7 +17,7 @@ public class IntAttribute extends Attribute {
   }
 
   public static IntAttribute from(Attribute attr) {
-    return Attribute.getAs(attr, IntAttribute.class);
+    return AbstractAttribute.getAs(attr, IntAttribute.class);
   }
 
   public int getValue() {

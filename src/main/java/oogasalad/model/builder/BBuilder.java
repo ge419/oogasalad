@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
+import oogasalad.model.constructable.AbstractGameConstruct;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.GameConstruct;
 import oogasalad.model.constructable.Player;
@@ -113,7 +114,7 @@ public class BBuilder implements BBuilderAPI{
 
   private GameConstruct deserialize(File file) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
-    GameConstruct constructableObject = mapper.readValue(file, GameConstruct.class);
+    GameConstruct constructableObject = mapper.readValue(file, AbstractGameConstruct.class);
     return constructableObject;
   }
 

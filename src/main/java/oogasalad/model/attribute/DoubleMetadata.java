@@ -7,7 +7,7 @@ import java.util.Objects;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
-public class DoubleMetadata extends Metadata {
+public class DoubleMetadata extends AbstractMetadata {
 
   public static final Class<DoubleAttribute> ATTRIBUTE_CLASS = DoubleAttribute.class;
   private final DoubleProperty defaultValue;
@@ -23,6 +23,12 @@ public class DoubleMetadata extends Metadata {
   }
 
   @Override
+  protected boolean checkPreconditions(Attribute attribute) {
+    double val = DoubleAttribute.from(attribute).getValue();
+    return isValidValue(val);
+  }
+
+  @Override
   public Attribute makeAttribute() {
     return makeDoubleAttribute();
   }
@@ -31,6 +37,14 @@ public class DoubleMetadata extends Metadata {
   @JsonIgnore
   public Class<? extends Attribute> getAttributeClass() {
     return ATTRIBUTE_CLASS;
+  }
+
+  public boolean isValidValue(double value) {
+    return getMinValue() <= value && value <= getMaxValue();
+  }
+
+  public static DoubleMetadata from(Metadata meta) {
+    return getAs(meta, DoubleMetadata.class);
   }
 
   public DoubleAttribute makeDoubleAttribute() {

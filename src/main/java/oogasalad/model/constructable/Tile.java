@@ -7,16 +7,19 @@ import javax.inject.Inject;
 import oogasalad.model.attribute.DoubleAttribute;
 import oogasalad.model.attribute.PositionAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.attribute.TileListAttribute;
 import oogasalad.view.Coordinate;
 
-public class Tile extends GameConstruct {
+public class Tile extends AbstractGameConstruct {
 
   public static final String BASE_SCHEMA_NAME = "basicTile";
+  public static final String TYPE_ATTRIBUTE = "type";
   public static final String NEXT_ATTRIBUTE = "next";
   public static final String POSITION_ATTRIBUTE = "position";
   public static final String WIDTH_ATTRIBUTE = "width";
   public static final String HEIGHT_ATTRIBUTE = "height";
+  public static final String INFO_ATTRIBUTE = "info";
 
   @Inject
   public Tile(@JacksonInject SchemaDatabase database) {
@@ -24,28 +27,28 @@ public class Tile extends GameConstruct {
   }
 
   @JsonIgnore
-  public TileListAttribute getNextAttribute() {
+  public TileListAttribute nextAttribute() {
     return TileListAttribute.from(getAttribute(NEXT_ATTRIBUTE));
   }
 
   @JsonIgnore
   public List<String> getNextTileIds() {
-    return getNextAttribute().getTileIds();
+    return nextAttribute().getTileIds();
   }
 
   @JsonIgnore
-  public PositionAttribute getPositionAttribute() {
+  public PositionAttribute positionAttribute() {
     return PositionAttribute.from(getAttribute(POSITION_ATTRIBUTE));
   }
 
   @JsonIgnore
   public Coordinate getCoordinate() {
-    return getPositionAttribute().getCoordinate();
+    return positionAttribute().getCoordinate();
   }
 
   @JsonIgnore
   public void setCoordinate(Coordinate coordinate) {
-    getPositionAttribute().setCoordinate(coordinate);
+    positionAttribute().setCoordinate(coordinate);
   }
 
   @JsonIgnore
@@ -55,7 +58,7 @@ public class Tile extends GameConstruct {
 
   @JsonIgnore
   public void setX(double x) {
-    getPositionAttribute().setX(x);
+    positionAttribute().setX(x);
   }
 
   @JsonIgnore
@@ -65,17 +68,49 @@ public class Tile extends GameConstruct {
 
   @JsonIgnore
   public void setY(double y) {
-    getPositionAttribute().setY(y);
+    positionAttribute().setY(y);
+  }
+
+  @JsonIgnore
+  public DoubleAttribute widthAttribute() {
+    return DoubleAttribute.from(getAttribute(WIDTH_ATTRIBUTE));
+  }
+
+  @JsonIgnore
+  public DoubleAttribute heightAttribute() {
+    return DoubleAttribute.from(getAttribute(HEIGHT_ATTRIBUTE));
   }
 
   @JsonIgnore
   public double getWidth() {
-    return DoubleAttribute.from(getAttribute(WIDTH_ATTRIBUTE)).getValue();
+    return widthAttribute().getValue();
   }
 
   @JsonIgnore
   public double getHeight() {
-    return DoubleAttribute.from(getAttribute(HEIGHT_ATTRIBUTE)).getValue();
+    return heightAttribute().getValue();
   }
+
+  @JsonIgnore
+  public void setWidth(double width) {
+    widthAttribute().setValue(width);
+  }
+
+  @JsonIgnore
+  public void setHeight(double height) {
+    heightAttribute().setValue(height);
+  }
+
+  @JsonIgnore
+  public String getInfo() {
+    return StringAttribute.from(getAttribute(INFO_ATTRIBUTE)).getValue();
+  }
+
+
+  @JsonIgnore
+  public String getType() {
+    return StringAttribute.from(getAttribute(TYPE_ATTRIBUTE)).getValue();
+  }
+
 }
 

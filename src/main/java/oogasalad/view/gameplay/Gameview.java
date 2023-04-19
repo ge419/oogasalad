@@ -205,9 +205,8 @@ public class Gameview {
         Optional<ButtonType> result = alert.showAndWait();
         boolean answer = result.orElse(no) == yes;
         if (answer) {
-          // Update PlayerUI on the viewPlayer object if the user selects "Yes"
           //TODO: update logic that includes who presses yes
-          players.getPlayer(1).decrementScore(100);
+          players.getPlayer("1").decrementScore(100);
         }
         callback.accept(answer);
         afterPresent.run();

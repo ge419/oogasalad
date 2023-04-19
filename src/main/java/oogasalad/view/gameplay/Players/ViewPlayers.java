@@ -17,9 +17,9 @@ public class ViewPlayers implements Renderable {
     this.BPlayers = p;
   }
 
-  public PlayerUI getPlayer(int id) {
+  public PlayerUI getPlayer(String id) {
     for (PlayerUI player : playerList) {
-      if (player.getPlayerId() == id) {
+      if (player.getPlayerId().equals(id)) {
         return player;
       }
     }
@@ -31,8 +31,7 @@ public class ViewPlayers implements Renderable {
     for (int i = 0; i < BPlayers.size(); i++) {
       //TODO: take in backend player
       Coordinate playerCoordinate = playerPosition(i, BPlayers.size(), 1500, 1000);
-      PlayerUI playerUI = new PlayerUI(i, "Player " + i, 500, playerCoordinate,
-          "view.gameplay/piece_1.png", Color.ORANGE);
+      PlayerUI playerUI = new PlayerUI(BPlayers.get(i), playerCoordinate);
       playerList.add(playerUI);
       pane.getChildren().add(playerUI);
     }

@@ -8,6 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
+import oogasalad.model.constructable.Player;
 import oogasalad.view.Backgroundable;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Imageable;
@@ -19,30 +20,29 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
   private static final double PLAYER_HEIGHT = 50;
   private static final double USERNAME_TEXT_SCALE = 2.5;
   private static final double SCORE_TEXT_SCALE = 3;
-  private static final double IMAGE_SCALE = 6;
+//  private static final double IMAGE_SCALE = 6;
   private static final Color UI_STROKE_COLOR = Color.BLACK;
-
-
-  private int id;
+  private final Player modelPlayer;
 
   //TODO: take in backend player once implemented
-  public PlayerUI(int id, String username, double score, Coordinate coordinate, String imagePath,
-      Color playerColor) {
-    this.id = id;
+  public PlayerUI(Player BPlayer, Coordinate coordinate) {
+    modelPlayer = BPlayer;
+
     this.setPrefSize(PLAYER_WIDTH, PLAYER_HEIGHT);
 
-    //TODO: calculate based on height and width of gameview
     this.setLayoutX(coordinate.getXCoor());
     this.setLayoutY(coordinate.getYCoor());
     this.getTransforms().add(new Rotate(coordinate.getAngle(), Rotate.Z_AXIS));
 
-    ImageView playerIcon = createImage(PLAYER_WIDTH, imagePath, IMAGE_SCALE);
+    // TODO: implement once image attribute is created
+//    ImageView playerIcon = createImage(PLAYER_WIDTH, imagePath, IMAGE_SCALE);
 
     getChildren().addAll(
-        createBackground(PLAYER_WIDTH, PLAYER_HEIGHT, playerColor, UI_STROKE_COLOR),
-        createTextBox(username + "," + Double.toString(score), PLAYER_HEIGHT, PLAYER_WIDTH),
-        playerIcon);
-    this.setMargin(playerIcon, new Insets(0, PLAYER_WIDTH / 2, 0, 0));
+    // TODO: implement once color attribute is created
+//     createBackground(PLAYER_WIDTH, PLAYER_HEIGHT, BPlayer.getColor(), UI_STROKE_COLOR),
+      createBackground(PLAYER_WIDTH, PLAYER_HEIGHT, Color.WHITE, UI_STROKE_COLOR),
+        createTextBox(BPlayer.getName() + "," + Double.toString(BPlayer.getScore()), PLAYER_HEIGHT, PLAYER_WIDTH));
+//    this.setMargin(playerIcon, new Insets(0, PLAYER_WIDTH / 2, 0, 0));
   }
 
   @Override
@@ -75,7 +75,7 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
     scoreText.setText(Double.toString(currScore - amount));
   }
 
-  public int getPlayerId() {
-    return id;
+  public String getPlayerId() {
+    return this.modelPlayer.getId();
   }
 }

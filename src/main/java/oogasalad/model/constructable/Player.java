@@ -32,6 +32,16 @@ public class Player extends GameConstruct {
     return DoubleAttribute.from(getAttribute(SCORE_ATTRIBUTE));
   }
 
+  @JsonIgnore
+  public String getName() {
+    return getNameAttribute().getValue();
+  }
+
+  @JsonIgnore
+  public Double getScore() {
+    return getScoreAttribute().getValue();
+  }
+
   // TODO: Uncomment once ImageAttribute and ColorAttribute are in place
 //  @JsonIgnore
 //  public ImageAttribute getImageAttribute() {

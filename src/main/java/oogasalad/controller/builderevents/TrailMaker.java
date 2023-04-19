@@ -75,7 +75,8 @@ public class TrailMaker implements TrailMakerAPI {
   private Coordinate getCenterPoint(Node entry) {
     return new Coordinate(
         (entry.getBoundsInParent().getMinX() + entry.getBoundsInParent().getMaxX()) * 0.5,
-        (entry.getBoundsInParent().getMinY() + entry.getBoundsInParent().getMaxY()) * 0.5
+        (entry.getBoundsInParent().getMinY() + entry.getBoundsInParent().getMaxY()) * 0.5,
+        0
     );
   }
 

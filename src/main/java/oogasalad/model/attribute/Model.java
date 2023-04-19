@@ -19,15 +19,7 @@ public class Model {
 
   public static void main(String[] args)
       throws IOException {
-//
-//    File file = new File("src/main/resources/schemas/datatypes/basicTile.json");
-//    AttributeSchema tile = objectMapper.readValue(file, AttributeSchema.class);
-//
-//    System.out.println(tile);
-//
-
     SchemaDatabase db = new SchemaDatabase();
-    Tile t2 = new Tile(db);
 
     Injector injector = Guice.createInjector(
         new ObjectMapperModule(),
@@ -42,7 +34,6 @@ public class Model {
     List<Tile> tiles = new ArrayList<>();
     for (int i = 0; i < 11; i++) {
       Tile t = injector.getInstance(Tile.class);
-//      if (x>=200.0) y+=50.0;
       t.setX(x);
       t.setY(y);
       x += 50;
@@ -80,16 +71,6 @@ public class Model {
     File file = new File("data/tiles.json");
     BBoard bd = objectMapper.readValue(file, BBoard.class);
     System.out.println(bd.getTiles());
-
-    //onPressNewTile() SchemaDatabase db = new SchemaDatabase()
-    //Tile t = new Tile(db);
-    //tiles.add(t) 보드에 타일 더하기
-    //return t;
-
-    //onEditAttribute(value)
-    //t.setAttribute(변형값, 실제값)
-
-    //tiles
 
   }
 

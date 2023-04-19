@@ -2,11 +2,16 @@ package oogasalad;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.module.guice.ObjectMapperModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import oogasalad.controller.BuilderController;
+import oogasalad.controller.GameController;
+import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.view.builder.BuilderView;
 import oogasalad.view.gameplay.Gameview;
 
@@ -28,14 +33,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        File jsonFile = new File("data/example/game_1.json");
+        GameController controller = new GameController();
         try {
-            Gameview gameview = objectMapper.readValue(jsonFile, Gameview.class);
+            Gameview gameview = controller.loadGV();
             gameview.renderGameview(primaryStage);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        new BuilderView(new BuilderController());
+//        new BuilderView(new BuilderController());
     }
 }

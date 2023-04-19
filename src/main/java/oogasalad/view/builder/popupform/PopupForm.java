@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oogasalad.model.attribute.Attribute;
@@ -61,7 +62,7 @@ public class PopupForm implements BuilderUtility {
         for (ParameterStrategy parameter : currentParameters) {
             if (!parameter.isInputValid()) {
                 LOGGER.info("Input for {} is invalid", parameter.getMetadata().getName());
-                new visualization.PopupError(resourceBundle, "InvalidFormData");
+                new Alert(Alert.AlertType.ERROR, resourceBundle.getString("InvalidFormData"));
                 return;
             }
         }

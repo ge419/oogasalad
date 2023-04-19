@@ -14,10 +14,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
-
 import oogasalad.controller.BuilderController;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.Tile;
@@ -70,11 +68,12 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private final boolean myDraggableObjectsToggle = true;
   private boolean myDeleteToggle = false;
   private final Coordinate myBoardPaneStartingLocation;
+  private final BuilderController bc;
   private final SchemaDatabase schemas;
-  private final BuilderController bc = new BuilderController();
 
 
-  public BuilderView() {
+  public BuilderView(BuilderController bc) {
+    this.bc = bc;
     builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
     menuBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "MenuBar1");
     sideBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SideBar1");
@@ -257,17 +256,21 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private void handleTileClick(ViewTile tile) {
     if (myDeleteToggle) {
       deleteTile(tile);
-    }
-    if (myCurrentTile.isPresent()) {
-      tile.setColor(Color.LIGHTGREEN);
-      myGraph.addTileNext(myCurrentTile.get(), tile);
-      myCurrentTile.get().setColor(Color.LIGHTBLUE);
-      myCurrentTile = Optional.empty();
-      tile.setColor(Color.LIGHTBLUE);
     } else {
-      myCurrentTile = Optional.ofNullable(tile);
-      myCurrentTile.get().setColor(Color.BLUE);
+      new PopupForm(tile.getTile(), builderResource).displayForm();
     }
+
+    // TODO: Graph is no longer used
+//    if (myCurrentTile.isPresent()) {
+//      tile.setColor(Color.LIGHTGREEN);
+//      myGraph.addTileNext(myCurrentTile.get(), tile);
+//      myCurrentTile.get().setColor(Color.LIGHTBLUE);
+//      myCurrentTile = Optional.empty();
+//      tile.setColor(Color.LIGHTBLUE);
+//    } else {
+//      myCurrentTile = Optional.ofNullable(tile);
+//      myCurrentTile.get().setColor(Color.BLUE);
+//    }
   }
 
   private void handleImageClick(Node node) {

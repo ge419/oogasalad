@@ -6,7 +6,6 @@ import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.builder.BBuilder;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.Tile;
-import oogasalad.model.exception.FileReaderException;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.BuilderView;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;
@@ -28,7 +27,7 @@ public class BuilderController {
   private SchemaDatabase db;
 
   public BuilderController() {
-    builderView = new BuilderView();
+    builderView = new BuilderView(this);
     builder = new BBuilder();
     db = new SchemaDatabase();
     board = new BBoard();
@@ -66,5 +65,9 @@ public class BuilderController {
   public void load() {
     //take holder as parameter?
     builderView.loadFile();
+  }
+
+  public BuilderView getBuilderView() {
+    return builderView;
   }
 }

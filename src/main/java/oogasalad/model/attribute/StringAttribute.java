@@ -6,7 +6,7 @@ import java.util.Objects;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class StringAttribute extends Attribute {
+public class StringAttribute extends AbstractAttribute {
 
   private final StringProperty value;
 
@@ -17,7 +17,7 @@ public class StringAttribute extends Attribute {
   }
 
   public static StringAttribute from(Attribute attr) {
-    return Attribute.getAs(attr, StringAttribute.class);
+    return AbstractAttribute.getAs(attr, StringAttribute.class);
   }
 
   public String getValue() {

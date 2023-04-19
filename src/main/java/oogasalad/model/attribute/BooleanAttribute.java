@@ -6,7 +6,7 @@ import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
-public class BooleanAttribute extends Attribute {
+public class BooleanAttribute extends AbstractAttribute {
 
   private final BooleanProperty value;
 
@@ -18,7 +18,7 @@ public class BooleanAttribute extends Attribute {
   }
 
   public static BooleanAttribute from(Attribute attr) {
-    return Attribute.getAs(attr, BooleanAttribute.class);
+    return AbstractAttribute.getAs(attr, BooleanAttribute.class);
   }
 
   public boolean getValue() {

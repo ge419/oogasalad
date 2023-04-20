@@ -25,7 +25,6 @@ import javax.imageio.ImageIO;
 import oogasalad.controller.BuilderController;
 import oogasalad.controller.builderevents.TrailMaker;
 import oogasalad.controller.builderevents.TrailMakerAPI;
-import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.board.BoardInfo;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
@@ -53,9 +52,10 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private static final Logger LOG = LogManager.getLogger(BuilderView.class);
 
   private final ResourceBundle builderResource;
-  private final ResourceBundle menuBar1Resource;
+  private final ResourceBundle topBarResource;
   private final ResourceBundle sideBar1Resource;
   private final ResourceBundle tileMenuResource;
+  private final ResourceBundle fileMenuResource;
   private Pane myBoardPane;
   private final String defaultStylesheet;
   private Optional<String> myCurrentlyClickedTiletype;
@@ -74,17 +74,15 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private boolean myDeleteToggle = false;
   private final Coordinate myBoardPaneStartingLocation;
   private final BuilderController bc;
-  private final SchemaDatabase schemas;
-
 
   public BuilderView(BuilderController bc) {
     this.bc = bc;
     builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
-    menuBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "MenuBar1");
+    topBarResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "TopBar");
     sideBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SideBar1");
     tileMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "TileMenu");
+    fileMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "FileMenu");
     defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET).toExternalForm();
-    schemas = new SchemaDatabase();
 
     myCurrentlyClickedTiletype = Optional.empty();
     myCurrentTile = Optional.empty();
@@ -133,8 +131,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     CheckBox checker = (CheckBox) makeCheckBox("GuidelinesToggle", builderResource);
     checker.setOnAction(e -> handleGuidelineClick());
     myGuidelinesToggle = checker;
-    HBox menuBar1 = (HBox) makeHBox("MenuBar1", checker);
-    addButtonsToPane(menuBar1, menuBar1Resource);
+    HBox menuBar1 = (HBox) makeHBox("TopBar", checker);
+    addButtonsToPane(menuBar1, topBarResource);
 
     return (HBox) makeHBox("TopBar", title, textBox, menuBar1);
   }

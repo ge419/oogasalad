@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.guice.ObjectMapperModule;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 import java.io.File;
 import java.io.IOException;
@@ -38,6 +39,7 @@ import oogasalad.model.engine.rules.DieRule;
 import oogasalad.model.engine.rules.Rule;
 import oogasalad.model.engine.rules.TurnRule;
 import oogasalad.view.Renderable;
+import oogasalad.view.builder.gameholder.GameHolder;
 import oogasalad.view.gameplay.pieces.Pieces;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
 import oogasalad.view.tiles.Tiles;
@@ -47,22 +49,15 @@ public class Gameview {
   //TODO: refactor to read from JSON file
   private final int VIEW_WIDTH = 1500;
   private final int VIEW_HEIGHT = 1000;
-
-  @JsonProperty("board")
-  public String myBoardPath;
-
-  @JsonProperty("choice")
-  public String choice;
   Queue<UiEffect> effects = new LinkedList<>();
   private Tiles tiles;
   private Die die;
   private PlayerPiece piece;
   private final boolean waiting = false;
-  private Engine engine;
   private MyPrompter prompter;
   private final GameController gc;
 
-  public Gameview(@JacksonInject GameController gc) {
+  public Gameview(GameController gc) {
     this.gc = gc;
   }
 
@@ -88,7 +83,6 @@ public class Gameview {
     piece.moveToTile(t.get(0));
 
     Scene scene = new Scene(UIroot);
-
     prompter = new MyPrompter();
 
     //TODO: refactor to read from property file
@@ -98,31 +92,21 @@ public class Gameview {
     primaryStage.setWidth(VIEW_WIDTH);
     primaryStage.show();
 
-    Injector injector = Guice.createInjector(new GameviewModule());
-    engine = injector.getInstance(Engine.class);
-    engine.setRules(
-        List.of(
-            injector.getInstance(TurnRule.class),
-            injector.getInstance(DieRule.class),
-            injector.getInstance(BuyTileRule.class),
-            new SetDieRule()
-        )
-    );
-    run();
+//    Injector injector = Guice.createInjector(new GameviewModule());
   }
 
-  void run() {
-    engine.runNextAction();
-    doEffect();
-  }
+//  void run() {
+//    engine.runNextAction();
+//    doEffect();
+//  }
 
-  void doEffect() {
+  public void doEffect() {
     if (!effects.isEmpty()) {
       // If there is a pending effect, perform it and do the next one once done
       effects.poll().present(this::doEffect);
     } else {
       // Otherwise run the next action
-      run();
+//      gc.run();
     }
   }
 
@@ -138,7 +122,6 @@ public class Gameview {
 
     @Override
     protected void configure() {
-      install(new EngineModule());
       bind(PlayerPiece.class).toInstance(piece);
       bind(Tiles.class).toInstance(tiles);
       bind(Prompter.class).toInstance(prompter);

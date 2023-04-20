@@ -1,17 +1,14 @@
 package oogasalad;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.guice.ObjectMapperModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import oogasalad.controller.BuilderController;
 import oogasalad.controller.GameController;
-import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.controller.GameControllerModule;
 import oogasalad.view.builder.BuilderView;
 import oogasalad.view.gameplay.Gameview;
 
@@ -33,7 +30,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        GameController controller = new GameController();
+        Injector injector = Guice.createInjector(new GameControllerModule());
+        GameController controller = injector.getInstance(GameController.class);
         try {
             Gameview gameview = controller.loadGV();
             gameview.renderGameview(primaryStage);

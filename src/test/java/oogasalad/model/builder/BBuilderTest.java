@@ -10,14 +10,14 @@ import oogasalad.view.tiles.BasicTile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class BBuilderTest {
-
-  BBuilder builder;
-
-  @BeforeEach
-  void setup() {
-    builder = new BBuilder();
-  }
+//public class BBuilderTest {
+//
+//  BBuilder builder;
+//
+//  @BeforeEach
+//  void setup() {
+//    builder = new BBuilder();
+//  }
 
 //  @Test
 //  void testSaveTiles() throws IOException {
@@ -33,4 +33,4 @@ public class BBuilderTest {
 //    assertEquals();
 //  }
 
-}
+//}

@@ -2,7 +2,7 @@ package oogasalad.model.builder;
 
 import java.io.IOException;
 import oogasalad.model.constructable.BBoard;
-import oogasalad.view.builder.gameholder.ImmutableGameHolder;
+import oogasalad.view.builder.gameholder.GameHolder;
 
 
 public interface BBuilderAPI {
@@ -13,7 +13,7 @@ public interface BBuilderAPI {
    * @param board     Data stored in the backend
    * @throws IOException  Serialization
    */
-  void save(ImmutableGameHolder holder, BBoard board) throws IOException;
+  void save(GameHolder holder, BBoard board) throws IOException;
 
   /**
    * Loads a pre-built game from a directory of JSON files and images

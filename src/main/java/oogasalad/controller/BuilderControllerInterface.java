@@ -2,7 +2,7 @@ package oogasalad.controller;
 
 import java.io.IOException;
 import oogasalad.model.constructable.BBoard;
-import oogasalad.view.builder.gameholder.ImmutableGameHolder;
+import oogasalad.view.builder.gameholder.GameHolder;
 
 /**
  * Temporary mediator between frontend and backend builders
@@ -18,7 +18,7 @@ public interface BuilderControllerInterface {
    * @param board     Data stored in the backend
    * @throws IOException  Serialization
    */
-  void save(ImmutableGameHolder holder, BBoard board) throws IOException;
+  void save(GameHolder holder, BBoard board) throws IOException;
 
   /**
    *

@@ -1,10 +1,12 @@
 package oogasalad.view.gameplay.pieces;
 
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Holdable;
 
-public class Cards extends GamePiece implements Holdable {
+public class Cards extends GamePiece {
 
   public Cards (String imageURL) {
     super(imageURL);
@@ -34,13 +36,4 @@ public class Cards extends GamePiece implements Holdable {
     return getBoundsInParent().getWidth();
   }
 
-  @Override
-  public void showHand() {
-
-  }
-
-  @Override
-  public void hideHand() {
-
-  }
 }

@@ -18,10 +18,20 @@ public class CardPopup extends Popups {
     BorderPane cardBack = new BorderPane();
     cardBack.setCenter(card);
     ((BorderPane)popup.getContent().get(0)).setCenter(cardBack);
+
+    popup.setOnHidden(event -> {
+      hideHand();
+    });
+    popup.setAutoHide(true);
+    popup.setHideOnEscape(true);
+  }
+
+  public void setSelected(boolean selected) {
+    card.setSelected(selected);
   }
 
   @Override
-  public void show(Node anchor, Point2D offset) {
+  public void showHand(Node anchor, Point2D offset) {
     double sceneWidth = anchor.getScene().getWindow().getWidth();
     double sceneHeight = anchor.getScene().getWindow().getHeight();
     double popupX = sceneWidth / 4 + offset.getX();
@@ -29,7 +39,8 @@ public class CardPopup extends Popups {
     popup.show(anchor.getScene().getWindow(), popupX, popupY);
   }
 
-  public void setSelected(boolean selected) {
-    card.setSelected(selected);
+  @Override
+  public void hideHand() {
+    popup.hide();
   }
 }

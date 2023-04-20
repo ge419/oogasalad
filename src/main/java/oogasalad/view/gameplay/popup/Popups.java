@@ -1,12 +1,11 @@
 package oogasalad.view.gameplay.popup;
 
-import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Popup;
+import oogasalad.view.Holdable;
 
-public abstract class Popups {
+public abstract class Popups implements Holdable {
 
   private Popup popup;
 
@@ -30,7 +29,6 @@ public abstract class Popups {
     initPopup();
     return popup;
   }
-  public abstract void show(Node anchor, Point2D offset);
 
   public void hide() {
     popup.hide();

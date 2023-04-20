@@ -108,7 +108,7 @@ public class Gameview {
 
     button.setOnAction(event -> {
       Point2D offset = new Point2D(button.getScene().getX(), button.getScene().getY());
-      popup.show(button, offset);
+      popup.showHand(button, offset);
     });
 
     Scene scene = new Scene(UIroot);

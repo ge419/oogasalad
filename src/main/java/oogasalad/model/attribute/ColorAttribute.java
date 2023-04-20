@@ -11,7 +11,7 @@ public class ColorAttribute extends StringAttribute{
   }
 
   public static ColorAttribute from(Attribute attr) {
-    return Attribute.getAs(attr, ColorAttribute.class);
+    return AbstractAttribute.getAs(attr, ColorAttribute.class);
   }
 
 }

@@ -3,6 +3,8 @@ package oogasalad.view.builder;
 import java.awt.Dimension;
 import java.io.File;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
@@ -51,11 +53,15 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private static final double SCENE_HEIGHT = 600;
   private static final Logger LOG = LogManager.getLogger(BuilderView.class);
 
-  private final ResourceBundle builderResource;
+  private ResourceBundle builderResource;
   private final ResourceBundle topBarResource;
   private final ResourceBundle sideBar1Resource;
   private final ResourceBundle tileMenuResource;
   private final ResourceBundle fileMenuResource;
+  private final ResourceBundle aboutMenuResource;
+  private final ResourceBundle appearanceMenuResource;
+  private final ResourceBundle settingsMenuResource;
+  private final ResourceBundle toggleMenuResource;
   private Pane myBoardPane;
   private final String defaultStylesheet;
   private Optional<String> myCurrentlyClickedTiletype;
@@ -77,11 +83,17 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   public BuilderView(BuilderController bc) {
     this.bc = bc;
+    // todo: clean this up. instance blocks maybe?
     builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
     topBarResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "TopBar");
     sideBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SideBar1");
     tileMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "TileMenu");
     fileMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "FileMenu");
+    appearanceMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "AppearanceMenu");
+    aboutMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "AboutMenu");
+    settingsMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SettingsMenu");
+    toggleMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "ToggleMenu");
+
     defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET).toExternalForm();
 
     myCurrentlyClickedTiletype = Optional.empty();
@@ -112,7 +124,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private Scene initScene() {
-    VBox topMenu = createTopMenu();
+    VBox topMenu = createMenus();
     HBox topBar = createTopBar();
     Node centralContainer = createCentralContainer();
     VBox root = (VBox) makeVBox("RootContainer", topMenu, topBar, centralContainer);
@@ -185,8 +197,23 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     }
   }
 
-  private void createMenus(){
+  private VBox createMenus(){
+    MenuBar topMenu = new MenuBar();
+    Map<String, ResourceBundle> bundleList = Map.of(
+        "FileMenu", fileMenuResource,
+        "ToggleMenu", toggleMenuResource,
+        "AppearanceMenu", appearanceMenuResource,
+        "SettingsMenu", settingsMenuResource,
+        "AboutMenu", aboutMenuResource
+    );
+    for (String menuLabel : bundleList.keySet()){
+      Menu menuType = new Menu(builderResource.getString(menuLabel));
+      menuType.setId(menuLabel);
+      addMenuItemsToMenu(menuType, bundleList.get(menuLabel));
+      topMenu.getMenus().add(menuType);
+    }
 
+    return (VBox) makeVBox("menuBar", topMenu);
   }
 
   private VBox createTopMenu(){
@@ -205,6 +232,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private void test() {
     // nothing
+    System.out.println("why that button sure did do nothing!");
   }
 
   @Override
@@ -323,6 +351,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private void handleGuidelineClick(){
     myTrailMaker.toggleEnable();
+  }
+  private void handleDraggableClick(){
+    // todo
   }
 
   private void setNextTile(ViewTile origin, ViewTile desiredNext){

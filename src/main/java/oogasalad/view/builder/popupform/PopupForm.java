@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oogasalad.model.attribute.*;
@@ -26,14 +27,15 @@ public class PopupForm implements BuilderUtility {
     private final ResourceBundle resourceBundle;
     private Stage stage;
     private final GameConstruct gameConstruct;
-    private final VBox form;
+    private final Pane form;
     private final Map<Class<? extends Metadata>, ParameterStrategyCreator> strategyMap;
     private final List<ParameterStrategy> currentParameters;
 
-    public PopupForm(GameConstruct gameConstruct, ResourceBundle resourceBundle) {
+    public PopupForm(GameConstruct gameConstruct, ResourceBundle resourceBundle, Pane form) {
         this.resourceBundle = resourceBundle;
         this.gameConstruct = gameConstruct;
-        form = new VBox();
+        //form = new VBox();
+        this.form = form;
         // TODO: Create injector in controller
         Injector injector = Guice.createInjector(new PopupFormModule());
         this.factory = injector.getInstance(ParameterStrategyFactory.class);

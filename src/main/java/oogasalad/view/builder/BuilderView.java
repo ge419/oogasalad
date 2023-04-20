@@ -71,7 +71,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private final Coordinate myBoardPaneStartingLocation;
   private final BuilderController bc;
   private final SchemaDatabase schemas;
-
+  private VBox sidePane;
 
   public BuilderView(BuilderController bc) {
     this.bc = bc;
@@ -135,7 +135,10 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myBoardPane = (Pane) boardPane;
     myBoardPane.setOnMouseClicked(e -> handleBoardClick(e));
 
-    return (HBox) makeHBox("CentralContainer", sideBar1, boardPane);
+    sidePane = new VBox();
+    sidePane.setPrefWidth(300);
+
+    return (HBox) makeHBox("CentralContainer", sideBar1, boardPane, sidePane);
   }
 
   private void addButtonsToPane(Pane pane, ResourceBundle resource) {
@@ -255,7 +258,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     if (myDeleteToggle) {
       deleteTile(tile);
     } else {
-      new PopupForm(tile.getTile(), builderResource).displayForm();
+      new PopupForm(tile.getTile(), builderResource, sidePane);
     }
 
     // TODO: Graph is no longer used

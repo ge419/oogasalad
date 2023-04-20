@@ -1,9 +1,11 @@
 package oogasalad.view.gameplay.popup;
 
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Popup;
 import oogasalad.view.gameplay.pieces.Cards;
 
@@ -11,19 +13,18 @@ public class HandDisplayPopup extends Popups {
 
   private final Cards[] cards;
   private Popup popup;
-  private FlowPane hand;
+  private HBox hand;
 
   public HandDisplayPopup(Cards[] cards) {
     super();
     this.cards = cards;
     popup = getPopup();
-    hand = new FlowPane();
+    hand = new HBox();
     for (Cards card : cards) {
       hand.getChildren().add(card);
     }
-    for (Cards card: cards) {
-      ((BorderPane)popup.getContent().get(0)).setCenter(card);
-    }
+    ((BorderPane)popup.getContent().get(0)).setCenter(hand);
+    hand.setAlignment(Pos.CENTER);
 
     popup.setOnHidden(event -> {
       hideHand();

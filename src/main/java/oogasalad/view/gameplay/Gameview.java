@@ -98,7 +98,9 @@ public class Gameview {
     //TODO: take this out when cards are implemented
     Button button = new Button("Show Card Popup");
     Cards card = new Cards("data/example/chance.jpg");
-    Cards[] cards = {card};
+    Cards card2 = new Cards("data/example/chance.jpg");
+    Cards card3 = new Cards("data/example/chance.jpg");
+    Cards[] cards = {card, card2, card3};
     HandDisplayPopup popup = new HandDisplayPopup(cards);
 
     HBox hbox = new HBox();

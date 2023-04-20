@@ -17,8 +17,6 @@ public class Cards extends GamePiece implements Backgroundable, Textable, Imagea
 
   public Cards (String imageURL) {
     super(imageURL);
-//    StackPane cardBack = new StackPane();
-//    cardBack.setCenter(this);
     //TODO: take this next part out
     imageURL = "view.gameplay/go.jpg";
     ImageView cardImage = createImage(150, imageURL);

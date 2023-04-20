@@ -294,6 +294,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private void handleTileClick(ViewTile tile) {
     if (myDeleteToggle) {
       deleteTile(tile);
+      return;
     }
     if (myCurrentTile.isPresent()) {
       tile.setColor(Color.LIGHTGREEN);
@@ -340,6 +341,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private void deleteTile(ViewTile tile) {
     bc.removeTile(tile.getTileId());
+    myTrailMaker.removeTrail(tile.asNode());
     myTileCount = deleteNode(tile.asNode(), myTileCount);
     myCurrentTile = Optional.empty();
   }

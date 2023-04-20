@@ -55,6 +55,17 @@ public class TrailMaker implements TrailMakerAPI {
   }
 
   @Override
+  public void removeTrail(Node node){
+    for (LineHolder trail : myMap.values()){
+      if (trail.startNode().equals(node) || trail.endNode().equals(node)){
+        myPane.getChildren().remove(trail.line());
+        System.out.println("removed trail");
+        myMap.remove(getTrailID(trail.startNode(), trail.endNode()));
+      }
+    }
+  }
+
+  @Override
   public void setOpacity(String trailID, double opacity) {
     myMap.get(trailID).line().setOpacity(opacity);
   }

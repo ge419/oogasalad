@@ -30,6 +30,12 @@ public interface TrailMakerAPI {
   void removeTrail(String trailID);
 
   /**
+   * Removes the trail corresponding to a given node from the parent pane.
+   * @param node Node whose trail you would like to remove
+   */
+  void removeTrail(Node node);
+
+  /**
    * Sets the opacity of a given trail.
    *
    * @param trailID given trail ID

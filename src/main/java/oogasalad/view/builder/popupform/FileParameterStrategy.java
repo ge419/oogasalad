@@ -3,40 +3,64 @@ package oogasalad.view.builder.popupform;
 import java.io.File;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import com.google.inject.assistedinject.Assisted;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.text.Text;
 import oogasalad.model.attribute.Attribute;
+import oogasalad.model.attribute.BooleanAttribute;
+import oogasalad.model.attribute.BooleanMetadata;
 import oogasalad.model.attribute.Metadata;
 import oogasalad.view.builder.BuilderUtility;
 
-class FileParameterStrategy implements ParameterStrategy, BuilderUtility {
-    private Optional<File> file;
-    public FileParameterStrategy(){}
-    @Override
-    public Node renderInput(String name, ResourceBundle resourceBundle) {
-        Node textLabel = new Text(name);
-        Node element = makeButton("UploadFileTitle", resourceBundle, new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                file = fileLoad(resourceBundle, "UploadFileTitle");
-            }
-        });
-        return makeHBox(String.format("%sFileInput", name), textLabel, element);
-    }
-    @Override
-    public File getValue() {
-        return file.get();
-    }
+import javax.inject.Inject;
 
-    @Override
-    public boolean validateInput(Metadata metadata) {
-        return getValue().getClass().equals(File.class);
-    }
-
-    @Override
-    public void setValue(Attribute attribute) {
-        //FileAttribute.from(attribute).setValue(getValue());
-    }
-}
+//class FileParameterStrategy implements ParameterStrategy, BuilderUtility {
+//    private final FileAttribute attr;
+//    private final FileMetadata meta;
+//    private Optional<File> file;
+//    @Inject
+//    public FileParameterStrategy(
+//            @Assisted Attribute attr,
+//            @Assisted Metadata meta) {
+//        this.attr = FileAttribute.from(attr);
+//        this.meta = FileMetadata.from(meta);
+//    }
+//    @Override
+//    public Node renderInput(ResourceBundle resourceBundle) {
+//        String name = meta.getName();
+//        Node textLabel = new Text(name);
+//        Node element = makeButton("UploadFileTitle", resourceBundle, new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+//                file = fileLoad(resourceBundle, "UploadFileTitle");
+//            }
+//        });
+//        return makeHBox(String.format("%sFileInput", name), textLabel, element);
+//    }
+//    @Override
+//    public void saveInput() {
+//        attr.setValue(getFieldValue());
+//    }
+//
+//    @Override
+//    public boolean isInputValid() {
+//        return meta.isValidValue(getFieldValue());
+//    }
+//
+//    @Override
+//    public Metadata getMetadata() {
+//        return meta;
+//    }
+//
+//    @Override
+//    public Attribute getAttribute() {
+//        return attr;
+//    }
+//
+//    private File getFieldValue() {
+//        return file;
+//    }
+//}

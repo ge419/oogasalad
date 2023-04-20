@@ -2,7 +2,9 @@ package oogasalad.view.tiles;
 
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import oogasalad.model.attribute.BooleanAttribute;
 import oogasalad.model.constructable.Tile;
+import oogasalad.model.engine.actions.BuyAction;
 import oogasalad.view.Coordinate;
 
 public interface ViewTile {

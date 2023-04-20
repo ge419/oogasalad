@@ -2,6 +2,7 @@ package oogasalad.view.builder;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import oogasalad.controller.BuilderController;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -15,7 +16,7 @@ public class BuilderViewTest extends DukeApplicationTest {
 
   @Override
   public void start(Stage stage) {
-    myView = new BuilderView();
+    myView = new BuilderController().getBuilderView();
   }
 
   @Test

@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -14,10 +15,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
-
 import oogasalad.controller.BuilderController;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.Tile;
@@ -70,15 +69,18 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private final boolean myDraggableObjectsToggle = true;
   private boolean myDeleteToggle = false;
   private final Coordinate myBoardPaneStartingLocation;
-  private final BuilderController bc = new BuilderController();
+  private final BuilderController bc;
+  private final SchemaDatabase schemas;
 
 
-  public BuilderView() {
+  public BuilderView(BuilderController bc) {
+    this.bc = bc;
     builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
     menuBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "MenuBar1");
     sideBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SideBar1");
     tileMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "TileMenu");
     defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET).toExternalForm();
+    schemas = new SchemaDatabase();
 
     myCurrentlyClickedTiletype = Optional.empty();
     myGraph = new Graph();  // todo: dependency injection
@@ -98,8 +100,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         myBoardPane.getBoundsInParent().getMinY() + " | " + myBoardPane.getBoundsInParent()
             .getMaxY());
     myBoardPaneStartingLocation = new Coordinate(
-        (int) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinX(),
-        (int) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinY()
+        (double) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinX(),
+        (double) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinY(),
+        0
     );
 
     // Example of the popup form using the Tile object
@@ -173,7 +176,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     } else {
       // todo: replace with LOG
       System.out.println("Ruh-roh, can't save to a file that doesn't exist!");
-      new visualization.PopupError(builderResource, "FileNotFoundError");
+      new Alert(Alert.AlertType.ERROR, builderResource.getString("FileNotFoundError"));
     }
   }
 
@@ -194,7 +197,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     if (checkIfImage(file)) {
       System.out.println("Got an image from: " + file.get().getPath());
       ImageView ourImage = turnFileToImage(file.get(), DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT,
-          new Coordinate(0, 0));
+          new Coordinate(0, 0, 0));
       ourImage.setId("Image" + myImageCount);
       ourImage.setOnMouseClicked(e -> handleImageClick(ourImage));
       createTileFeaturesForObject(ourImage);
@@ -206,13 +209,16 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     } else {
       // todo: make this use an error form.
       System.out.println("ERROR -- Got a non-image or nothing from file.");
-      new visualization.PopupError(builderResource, "EmptyFileError");
+      new Alert(Alert.AlertType.ERROR, builderResource.getString("EmptyFileError"));
     }
   }
 
   // todo: support different tile types.
   private void createTile(MouseEvent e) {
-    BasicTile tile = bc.addTile(e);
+    Coordinate tileCoord = new Coordinate((double) e.getX(), (double) e.getY(), 0);
+    Tile t = new Tile(schemas);
+    t.setCoordinate(tileCoord);
+    BasicTile tile = new BasicTile(t);
     createTileFeaturesForObject(tile);
     tile.setOnMouseClicked(tile_e -> {
       handleTileClick(tile);
@@ -251,17 +257,21 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private void handleTileClick(ViewTile tile) {
     if (myDeleteToggle) {
       deleteTile(tile);
-    }
-    if (myCurrentTile.isPresent()) {
-      tile.setColor(Color.LIGHTGREEN);
-      myGraph.addTileNext(myCurrentTile.get(), tile);
-      myCurrentTile.get().setColor(Color.LIGHTBLUE);
-      myCurrentTile = Optional.empty();
-      tile.setColor(Color.LIGHTBLUE);
     } else {
-      myCurrentTile = Optional.ofNullable(tile);
-      myCurrentTile.get().setColor(Color.BLUE);
+      new PopupForm(tile.getTile(), builderResource).displayForm();
     }
+
+    // TODO: Graph is no longer used
+//    if (myCurrentTile.isPresent()) {
+//      tile.setColor(Color.LIGHTGREEN);
+//      myGraph.addTileNext(myCurrentTile.get(), tile);
+//      myCurrentTile.get().setColor(Color.LIGHTBLUE);
+//      myCurrentTile = Optional.empty();
+//      tile.setColor(Color.LIGHTBLUE);
+//    } else {
+//      myCurrentTile = Optional.ofNullable(tile);
+//      myCurrentTile.get().setColor(Color.BLUE);
+//    }
   }
 
   private void handleImageClick(Node node) {

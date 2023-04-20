@@ -1,41 +1,61 @@
 package oogasalad.view.builder.popupform;
 
+import com.google.inject.assistedinject.Assisted;
 import java.util.ResourceBundle;
 import javafx.scene.Node;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Spinner;
 import javafx.scene.text.Text;
-import oogasalad.model.attribute.*;
+import javax.inject.Inject;
+import oogasalad.model.attribute.Attribute;
+import oogasalad.model.attribute.IntAttribute;
+import oogasalad.model.attribute.IntMetadata;
+import oogasalad.model.attribute.Metadata;
 import oogasalad.view.builder.BuilderUtility;
 
-class IntegerParameterStrategy implements ParameterStrategy, BuilderUtility {
-    private TextField element = new TextField();
-    public IntegerParameterStrategy(){}
+public class IntegerParameterStrategy implements ParameterStrategy, BuilderUtility {
+
+    private final IntAttribute attr;
+    private final IntMetadata meta;
+    private Spinner<Integer> element;
+
+    @Inject
+    public IntegerParameterStrategy(
+        @Assisted Attribute attr,
+        @Assisted Metadata meta) {
+        this.attr = IntAttribute.from(attr);
+        this.meta = IntMetadata.from(meta);
+    }
+
     @Override
-    public Node renderInput(String name, ResourceBundle resourceBundle) {
-        Node textLabel = new Text(name+" (Integer)");
-        element = (TextField) makeTextField(name);
+    public Node renderInput(ResourceBundle resourceBundle) {
+        String name = meta.getName();
+        Node textLabel = new Text(name + " (Integer)");
+        element = (Spinner<Integer>) makeIntSpinner(name, meta.getMinValue(), meta.getMaxValue(),
+            attr.getValue());
         return makeHBox(String.format("%sIntegerInput", name), textLabel, element);
     }
+
     @Override
-    public boolean validateInput(Metadata metadata) {
-        if (getValue() == null) {
-            return false;
-        }
-        IntMetadata intMetadata = (IntMetadata) metadata;
-        return getValue() > intMetadata.getMinValue() && getValue() < intMetadata.getMaxValue();
+    public void saveInput() {
+        attr.setValue(getFieldValue());
     }
+
     @Override
-    public Integer getValue() {
-        try {
-            int num = Integer.parseInt(element.getText());
-            return num;
-        } catch (NumberFormatException nfe) {
-            System.out.println("Integer not provided in integer input");
-        }
-        return null;
+    public boolean isInputValid() {
+        return meta.isValidValue(getFieldValue());
     }
+
     @Override
-    public void setValue(Attribute attribute) {
-        IntAttribute.from(attribute).setValue(getValue());
+    public Metadata getMetadata() {
+        return meta;
+    }
+
+    @Override
+    public Attribute getAttribute() {
+        return attr;
+    }
+
+    private int getFieldValue() {
+        return element.getValue();
     }
 }

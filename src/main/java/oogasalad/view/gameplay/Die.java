@@ -25,7 +25,7 @@ public class Die extends StackPane implements Renderable {
       addDot(dotArray[i]);
     }
 
-    this.setLayoutX(700);
+    this.setLayoutX(1200);
     this.setLayoutY(700);
   }
 

@@ -1,6 +1,7 @@
 package oogasalad.view.gameplay;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.guice.ObjectMapperModule;
 import com.google.inject.AbstractModule;
@@ -23,6 +24,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
+import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.Engine;
 import oogasalad.model.engine.EngineModule;
@@ -36,6 +38,8 @@ import oogasalad.model.engine.rules.DieRule;
 import oogasalad.model.engine.rules.Rule;
 import oogasalad.model.engine.rules.TurnRule;
 import oogasalad.view.Renderable;
+import oogasalad.view.gameplay.Players.PlayerUI;
+import oogasalad.view.gameplay.Players.ViewPlayers;
 import oogasalad.view.gameplay.pieces.Pieces;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
 import oogasalad.view.tiles.Tiles;
@@ -58,6 +62,7 @@ public class Gameview {
   private final boolean waiting = false;
   private Engine engine;
   private MyPrompter prompter;
+  private ViewPlayers players;
 
   public void renderGameview(Stage primaryStage) throws IOException {
     BorderPane UIroot = new BorderPane();
@@ -69,14 +74,21 @@ public class Gameview {
     board.render(UIroot);
 
     //TODO: PERHAPS FIND A BETTER PLACE FOR THIS
-    File file = new File("data/tiles_test.json");
+    File tileFile = new File("data/tiles_test.json");
     SchemaDatabase db = new SchemaDatabase();
     Injector schemaInjector = Guice.createInjector(
         new ObjectMapperModule(),
         binder -> binder.bind(SchemaDatabase.class).toInstance(db)
     );
+
     ObjectMapper objectMapper = schemaInjector.getInstance(ObjectMapper.class);
-    BBoard b = objectMapper.readValue(file, BBoard.class);
+    BBoard b = objectMapper.readValue(tileFile, BBoard.class);
+
+    //TODO: change if there's a way to read in two files to create instance of BBoard
+//    List<Player> BPlayers = objectMapper.readValue(playerFile, new TypeReference<List<Player>>() {});
+//
+//    b.addAllPlayers(BPlayers);
+
     ArrayList<Tile> t = new ArrayList<>(b.getTiles());
 
     tiles = new Tiles(t);
@@ -89,6 +101,10 @@ public class Gameview {
     pieces.render(UIroot);
     piece = pieces.getPiece();
     piece.moveToTile(t.get(0));
+
+    //TODO: take in backend player when appropriate attributes are implemented
+    players = new ViewPlayers(b.getPlayers());
+    players.render(UIroot);
 
     Scene scene = new Scene(UIroot);
 
@@ -110,7 +126,6 @@ public class Gameview {
             injector.getInstance(BuyTileRule.class),
             new SetDieRule()
         )
-
     );
     run();
   }
@@ -186,6 +201,10 @@ public class Gameview {
       effects.add((Runnable afterPresent) -> {
         Optional<ButtonType> result = alert.showAndWait();
         boolean answer = result.orElse(no) == yes;
+        if (answer) {
+          //TODO: update logic that includes who presses yes
+          players.getPlayer("1").decrementScore(100);
+        }
         callback.accept(answer);
         afterPresent.run();
       });

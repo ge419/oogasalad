@@ -16,15 +16,18 @@ public class GameHolder {
   Optional<List<Player>> players;
   // Optional<List<Card>> cards;
 
+  //TODO: fix parameters (remove immutable classes, make generic)
   public GameHolder(ImmutableGraph myGraph, ImmutableBoardInfo myBoardInfo, BBoard board,
       Optional<List<Player>> players) {
 //    this.myGraph = myGraph;
 //    this.myBoardInfo = myBoardInfo;
     this.board = board;
     this.players = players;
+//    this.cards = cards
   }
 
-  public GameHolder() {
+  public GameHolder(GameHolderBuilder builder) {
+
   }
 
 //  @Override
@@ -55,4 +58,8 @@ public class GameHolder {
   public Optional<List<Player>> getPlayers() {
     return players;
   }
+
+//  public Optional<List<Card>> getCards() {
+//    return cards;
+//  }
 }

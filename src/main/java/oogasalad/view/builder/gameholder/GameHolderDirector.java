@@ -7,7 +7,7 @@ import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.Player;
 
 public class GameHolderDirector {
-  //TODO: make the parameters as list
+  //TODO: make the parameters as list?
   //TODO: use reflection to initialize GameHolderBuilder in GameHolder
 
   BBoard board;

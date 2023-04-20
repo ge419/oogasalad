@@ -8,6 +8,8 @@ import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.BuilderView;
+import oogasalad.view.builder.gameholder.GameHolder;
+import oogasalad.view.builder.gameholder.GameHolderBuilder;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.tiles.BasicTile;
 import org.apache.logging.log4j.LogManager;
@@ -70,4 +72,8 @@ public class BuilderController {
   public BuilderView getBuilderView() {
     return builderView;
   }
+
+//  public GameHolder getGameHolder() {
+//    return new GameHolderBuilder<>().
+//  }
 }

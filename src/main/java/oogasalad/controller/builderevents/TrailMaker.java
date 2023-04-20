@@ -2,19 +2,23 @@ package oogasalad.controller.builderevents;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.transform.Transform;
+import javafx.scene.paint.Paint;
 import oogasalad.view.Coordinate;
+import oogasalad.view.builder.Arrow;
 
+/**
+ * Basic implementation of TrailMaker using arrows.
+ *
+ * @author tmh85
+ * @author dcm67
+ */
 public class TrailMaker implements TrailMakerAPI {
 
   private static final double INVISIBLE = 0.0;
@@ -23,31 +27,25 @@ public class TrailMaker implements TrailMakerAPI {
   private final Pane myPane;
   private BooleanProperty myEnabledLines;
   private double myCurrentOpacity;
-  private ReadOnlyObjectProperty<Bounds> myTest;
 
   public TrailMaker(Pane parentPane, boolean setEnable) {
     myMap = new HashMap<>();
     myPane = parentPane;
-    myCurrentOpacity = setEnable ? 1.0 : 0.0;
+    myCurrentOpacity = setEnable ? VISIBLE : INVISIBLE;
     initializeEnabler();
     myEnabledLines.set(setEnable);
   }
 
   @Override
   public void createTrailBetween(Node entry1, Node entry2, String trailID) {
-    Coordinate startPoint = getCenterPoint(entry1);
-    Coordinate endPoint = getCenterPoint(entry2);
-    Line newLine = new Line(startPoint.getXCoor(), startPoint.getYCoor(),
-        endPoint.getXCoor(), endPoint.getYCoor());
+    Arrow newLine = createTrail(entry1, entry2);
     LineHolder trail = new LineHolder(newLine, entry1, entry2);
-    //initializeFirstNodeListener(trail);
-    //initializeSecondNodeListener(trail);
     newLine.setOpacity(myCurrentOpacity);
     newLine.setFill(Color.BLACK);
     myMap.put(trailID, trail);
     myPane.getChildren().add(newLine);
 
-    System.out.println("made trail");
+    //System.out.println("made trail");
   }
 
   @Override
@@ -68,34 +66,77 @@ public class TrailMaker implements TrailMakerAPI {
 
   @Override
   public void toggleEnable() {
-    System.out.println("Lines currently visible: " + this.myEnabledLines.get());
+    //System.out.println("Is this line currently visible: " + this.myEnabledLines.get());
     this.myEnabledLines.set(!this.myEnabledLines.get());
   }
 
-  private Coordinate getCenterPoint(Node entry) {
+  @Override
+  public String getTrailID(Node entry1, Node entry2) {
+    for (String ID : myMap.keySet()) {
+      if (myMap.get(ID).startNode().equals(entry1)) {
+        if (myMap.get(ID).endNode().equals(entry2)) {
+          return ID;
+        }
+      }
+    }
+    return null;
+  }
+
+  @Override
+  public void setColor(String trailID, Color color) {
+    myMap.get(trailID).line().setFill(color);
+  }
+
+  @Override
+  public void setAllColors(Color color) {
+    for (String ID : myMap.keySet()) {
+      setColor(ID, color);
+    }
+  }
+
+  @Override
+  public Paint getColor(String trailID) {
+    return myMap.get(trailID).line().getFill();
+  }
+
+  private Coordinate getCenterPoint(Bounds bounds) {
     return new Coordinate(
-        (entry.getBoundsInParent().getMinX() + entry.getBoundsInParent().getMaxX()) * 0.5,
-        (entry.getBoundsInParent().getMinY() + entry.getBoundsInParent().getMaxY()) * 0.5,
+        (bounds.getMinX() + bounds.getMaxX()) * 0.5,
+        (bounds.getMinY() + bounds.getMaxY()) * 0.5,
         0
     );
   }
 
-  private void updateTrailLocation(String trailID, Node updatedNode,
-      BiFunction<String, Coordinate, Integer> pointMethod) {
-    myPane.getChildren().remove(myMap.get(trailID));
-    Coordinate newCenter = getCenterPoint(updatedNode);
-    pointMethod.apply(trailID, newCenter);
-    myPane.getChildren().add(myMap.get(trailID).line());
+  private void bindLine(Node entry, DoubleProperty x, DoubleProperty y) {
+    setPoints(entry.getBoundsInParent(), x, y);
+
+    entry.boundsInParentProperty().addListener(((observable, oldValue, newValue) -> {
+      setPoints(newValue, x, y);
+    }));
   }
 
-  private void setStartingPoint(Line line, double newX, double newY) {
-    line.setStartX(newX);
-    line.setStartY(newY);
+  private void setPoints(Bounds bounds, DoubleProperty x, DoubleProperty y) {
+    Coordinate point = getCenterPoint(bounds);
+    x.set(point.getXCoor());
+    y.set(point.getYCoor());
   }
 
-  private void setEndingPoint(Line line, double newX, double newY) {
-    line.setEndX(newX);
-    line.setEndY(newY);
+  private Arrow createTrail(Node entry1, Node entry2) {
+    Arrow newLine = new Arrow();
+    bindLine(entry2, newLine.startXProperty(), newLine.startYProperty());
+    bindLine(entry1, newLine.endXProperty(), newLine.endYProperty());
+    return newLine;
+  }
+
+  private void updateAllTrailLocation() {
+    for (String ID : myMap.keySet()) {
+      removeTrail(ID);
+      Node copy1 = myMap.get(ID).startNode();
+      Node copy2 = myMap.get(ID).endNode();
+      Arrow newLine = createTrail(myMap.get(ID).startNode(), myMap.get(ID).endNode());
+      myMap.remove(ID);
+      myMap.put(ID, new LineHolder(newLine, copy1, copy2));
+    }
   }
 
   private void initializeEnabler() {
@@ -109,48 +150,26 @@ public class TrailMaker implements TrailMakerAPI {
     }));
   }
 
-  private void initializeFirstNodeListener(LineHolder trail){
-    myTest = trail.startNode().layoutBoundsProperty();
-    myTest.addListener( ((observable, oldValue, newValue) -> {
-      if (newValue.getMinX() != oldValue.getMinX() || newValue.getMinY() != oldValue.getMinY()){
-        System.out.println("DOING THE MOVE");
-        setStartingPoint(
-            trail.line(),
-            trail.startNode().getBoundsInParent().getMinX(),
-            trail.startNode().getBoundsInParent().getMinY()
-        );
-      }
-    }));
-  }
-
-  private void changeOpacityOfAllLines(double opacity) {
+  private void changeOpacityOfAllTrails(double opacity) {
     for (String id : myMap.keySet()) {
       myMap.get(id).line().setOpacity(opacity);
     }
   }
-  private void updateOpacity(double opacity){
-//    System.out.println("Making Opacity " + opacity);
+
+  private void updateOpacity(double opacity) {
     myCurrentOpacity = opacity;
-    changeOpacityOfAllLines(opacity);
+    changeOpacityOfAllTrails(opacity);
   }
 
-//  private void createListenerOnBounds(Node entry, BiFunction<String, Coordinate, Integer> pointMethod){
-//    entry.localToScene(entry.getBoundsInLocal());
-//    entry.localToSceneTransformProperty().addListener(((observable, oldValue, newValue) -> {
-//      if (newValue){
-//
-//      }
-//      else{
-//
-//      }
-//    }));
-//  }
 }
 
 /**
  * LineHolder record will be used to link together a line and it's corresponding nodes.
- * @param line line that is the trail between the two nodes
+ *
+ * @param line      line that is the trail between the two nodes
  * @param startNode the first node clicked-- the starting point
- * @param endNode the second node clicked-- the ending point.
+ * @param endNode   the second node clicked-- the ending point.
  */
-record LineHolder(Line line, Node startNode, Node endNode){ };
+record LineHolder(Arrow line, Node startNode, Node endNode) {
+
+};

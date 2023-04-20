@@ -67,7 +67,7 @@
       "viewable": true
     },
     {
-      "@class": "oogasalad.model.attribute.StringMetadata",
+      "@class": "oogasalad.model.attribute.ColorMetadata",
       "key": "color",
       "name": "Color",
       "description": "Color of tile",
@@ -75,7 +75,7 @@
       "viewable": true
     },
     {
-      "@class": "oogasalad.model.attribute.StringMetadata",
+      "@class": "oogasalad.model.attribute.ImageMetadata",
       "key": "image",
       "name": "Image",
       "description": "Path to image of tile",

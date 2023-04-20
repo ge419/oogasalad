@@ -17,15 +17,15 @@ import oogasalad.model.attribute.BooleanAttribute;
 import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.actions.BuyAction;
+import oogasalad.view.Backgroundable;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Textable;
 
-public class StreetTile extends StackPane implements ViewTile, Textable {
+public class StreetTile extends StackPane implements ViewTile, Textable, Backgroundable {
 
   private static final double TEXT_SCALE = 8;
   public static final String COLOR_ATTRIBUTE = "color";
   private final Tile modelTile;
-
 
   public StreetTile(Tile BTile) {
     this.modelTile = BTile;
@@ -60,9 +60,10 @@ public class StreetTile extends StackPane implements ViewTile, Textable {
   }
 
   private VBox createBarBox(double width, double height, String color) {
+
     VBox barBox = new VBox();
-    Rectangle topBar = createBar(width, height / 6, color);
-    Rectangle bottomBar = createBar(width, 5 * height / 6, "FFFFFF");
+    Rectangle topBar = createBackground(width, height / 6, Color.web(color), Color.BLACK);
+    Rectangle bottomBar = createBackground(width, 5 * height / 6, Color.WHITE, Color.BLACK);
     barBox.getChildren().addAll(topBar, bottomBar);
     return barBox;
   }

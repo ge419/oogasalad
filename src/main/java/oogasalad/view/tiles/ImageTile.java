@@ -1,6 +1,5 @@
 package oogasalad.view.tiles;
 
-import java.util.Map;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
@@ -24,7 +23,12 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
 
   private static final double TEXT_SCALE = 8;
   private static final double MARGIN_SCALE = 10;
+  private static final double IMAGE_SCALE = 1.5;
+  private static final Color TILE_BACKGROUND = Color.WHITE;
+  private static final Color TILE_STROKE_COLOR = Color.BLACK;
+
   public static final String IMAGE_ATTRIBUTE = "image";
+
 
   private final Tile modelTile;
 
@@ -32,10 +36,10 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
     this.setPosition(BTile.getCoordinate());
     this.modelTile = BTile;
 
-    Rectangle tileBackground = tileBackground(BTile.getWidth(), BTile.getHeight());
-//    System.out.println(tileBackground.getX());
+    Rectangle tileBackground = createBackground(BTile.getWidth(), BTile.getHeight(), TILE_BACKGROUND, TILE_STROKE_COLOR);
+//    System.out.println(createBackground.getX());
     ImageView tileImage = createImage(BTile.getWidth(),
-        StringAttribute.from(BTile.getAttribute(IMAGE_ATTRIBUTE)).getValue());
+        StringAttribute.from(BTile.getAttribute(IMAGE_ATTRIBUTE)).getValue(), IMAGE_SCALE);
 
     VBox content = new VBox(BTile.getHeight() / MARGIN_SCALE, tileImage,
         createTextBox(BTile.getInfo(), BTile.getHeight(), BTile.getHeight()));

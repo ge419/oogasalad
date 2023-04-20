@@ -3,21 +3,27 @@ package oogasalad.view.gameplay.popup;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.Popup;
 import oogasalad.view.gameplay.pieces.Cards;
 
-public class CardPopup extends Popups {
+public class HandDisplayPopup extends Popups {
 
-  private final Cards card;
+  private final Cards[] cards;
   private Popup popup;
+  private FlowPane hand;
 
-  public CardPopup(Cards card) {
+  public HandDisplayPopup(Cards[] cards) {
     super();
-    this.card = card;
+    this.cards = cards;
     popup = getPopup();
-    BorderPane cardBack = new BorderPane();
-    cardBack.setCenter(card);
-    ((BorderPane)popup.getContent().get(0)).setCenter(cardBack);
+    hand = new FlowPane();
+    for (Cards card : cards) {
+      hand.getChildren().add(card);
+    }
+    for (Cards card: cards) {
+      ((BorderPane)popup.getContent().get(0)).setCenter(card);
+    }
 
     popup.setOnHidden(event -> {
       hideHand();
@@ -27,7 +33,10 @@ public class CardPopup extends Popups {
   }
 
   public void setSelected(boolean selected) {
-    card.setSelected(selected);
+    // TODO: add a hover feature to each individual card to make it seens as "selected"
+    for (Cards card : cards) {
+      card.setSelected(selected);
+    }
   }
 
   @Override

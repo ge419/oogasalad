@@ -42,7 +42,7 @@ import oogasalad.view.Renderable;
 import oogasalad.view.gameplay.pieces.Cards;
 import oogasalad.view.gameplay.pieces.Pieces;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
-import oogasalad.view.gameplay.popup.CardPopup;
+import oogasalad.view.gameplay.popup.HandDisplayPopup;
 import oogasalad.view.tiles.Tiles;
 
 public class Gameview {
@@ -98,7 +98,8 @@ public class Gameview {
     //TODO: take this out when cards are implemented
     Button button = new Button("Show Card Popup");
     Cards card = new Cards("data/example/chance.jpg");
-    CardPopup popup = new CardPopup(card);
+    Cards[] cards = {card};
+    HandDisplayPopup popup = new HandDisplayPopup(cards);
 
     HBox hbox = new HBox();
     hbox.getChildren().addAll(button);

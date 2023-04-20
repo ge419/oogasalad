@@ -21,8 +21,8 @@ public class Cards extends GamePiece implements Backgroundable, Textable, Imagea
 //    cardBack.setCenter(this);
     //TODO: take this next part out
     imageURL = "view.gameplay/go.jpg";
-    ImageView cardImage = createImage(50, imageURL);
-    Rectangle background = tileBackground(50,70);
+    ImageView cardImage = createImage(150, imageURL);
+    Rectangle background = tileBackground(150,190);
     VBox content = new VBox(70/10, cardImage, createTextBox("Test Text", 70, 50));
     content.setAlignment(Pos.CENTER);
     getChildren().addAll(background, content);

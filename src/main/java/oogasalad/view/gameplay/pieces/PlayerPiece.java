@@ -28,17 +28,11 @@ public class PlayerPiece extends GamePiece {
 
   public void moveToTile(Tile tile) {
     this.currentTile = tile;
-    moveDirectly(tile.getCoordinate());
+    moveDirectly(tile.getCoordinate(), this);
   }
 
   public Tile getCurrentTile() {
     return currentTile;
-  }
-
-  @Override
-  public void moveDirectly(Coordinate coor) {
-    this.setLayoutX(coor.getXCoor());
-    this.setLayoutY(coor.getYCoor());
   }
 
 }

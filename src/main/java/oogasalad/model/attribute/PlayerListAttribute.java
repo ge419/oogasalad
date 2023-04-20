@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerListAttribute extends Attribute {
+public class PlayerListAttribute extends AbstractAttribute {
 
   @JsonProperty
   private List<String> playerIds;

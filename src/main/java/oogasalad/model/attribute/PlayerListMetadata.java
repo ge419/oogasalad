@@ -4,13 +4,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 
-public class PlayerListMetadata extends Metadata{
+public class PlayerListMetadata extends AbstractMetadata{
 
   public static final Class<PlayerListAttribute> ATTRIBUTE_CLASS = PlayerListAttribute.class;
 
   @JsonCreator
   protected PlayerListMetadata(@JsonProperty("key") String key) {
     super(key);
+  }
+
+  @Override
+  protected boolean checkPreconditions(Attribute attribute) {
+    return false;
   }
 
   @Override

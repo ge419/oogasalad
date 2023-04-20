@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class PlayerAttribute extends Attribute {
+public class PlayerAttribute extends AbstractAttribute {
 
   private final StringProperty id;
   public PlayerAttribute(@JsonProperty("key") String key, @JsonProperty("id") String id) {
@@ -13,7 +13,7 @@ public class PlayerAttribute extends Attribute {
   }
 
   public static PlayerAttribute from(Attribute attr) {
-    return Attribute.getAs(attr, PlayerAttribute.class);
+    return AbstractAttribute.getAs(attr, PlayerAttribute.class);
   }
 
   public String getId() {

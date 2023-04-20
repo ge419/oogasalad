@@ -14,12 +14,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Queue;
 import java.util.function.Consumer;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
@@ -36,8 +39,10 @@ import oogasalad.model.engine.rules.DieRule;
 import oogasalad.model.engine.rules.Rule;
 import oogasalad.model.engine.rules.TurnRule;
 import oogasalad.view.Renderable;
+import oogasalad.view.gameplay.pieces.Cards;
 import oogasalad.view.gameplay.pieces.Pieces;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
+import oogasalad.view.gameplay.popup.CardPopup;
 import oogasalad.view.tiles.Tiles;
 
 public class Gameview {
@@ -89,6 +94,22 @@ public class Gameview {
     pieces.render(UIroot);
     piece = pieces.getPiece();
     piece.moveToTile(t.get(0));
+
+    //TODO: take this out when cards are implemented
+    Button button = new Button("Show Card Popup");
+    Cards card = new Cards("data/example/jail.jpg");
+    CardPopup popup = new CardPopup(card);
+
+    HBox hbox = new HBox();
+    hbox.getChildren().addAll(button);
+
+    button.setId("Button");
+    UIroot.setTop(hbox);
+
+    button.setOnAction(event -> {
+      Point2D offset = new Point2D(button.getScene().getX(), button.getScene().getY());
+      popup.show(button, offset);
+    });
 
     Scene scene = new Scene(UIroot);
 

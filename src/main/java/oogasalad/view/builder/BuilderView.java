@@ -105,9 +105,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         0
     );
 
-    // Example of the popup form using the Tile object
-    //popupForm = new PopupForm(Tile.class, builderResource);
-    //popupForm.displayForm();
   }
 
   private Scene initScene() {

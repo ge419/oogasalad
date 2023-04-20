@@ -7,20 +7,9 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerListAttribute extends AbstractAttribute {
+public class PlayerListAttribute extends GameConstructListAttribute {
 
-  @JsonProperty
-  private List<String> playerIds;
-  @JsonCreator
-  public PlayerListAttribute(@JsonProperty("key") String key,
-      @JsonProperty("ids") List<String> playerIds) {
-    super(key);
-    this.playerIds = new ArrayList<>(playerIds);
+  public PlayerListAttribute(String key, List<String> playerIds) {
+    super(key, playerIds);
   }
-
-  @JsonGetter("ids")
-  public List<String> getPlayerIds(){return playerIds;}
-
-  @JsonSetter("ids")
-  public void setPlayerIds(List<String> playerIds){this.playerIds = playerIds;}
 }

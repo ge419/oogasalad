@@ -18,7 +18,7 @@ public interface BuilderControllerInterface {
    * @param board     Data stored in the backend
    * @throws IOException  Serialization
    */
-  void save(GameHolder holder, BBoard board) throws IOException;
+  void save(GameHolder holder) throws IOException;
 
   /**
    *

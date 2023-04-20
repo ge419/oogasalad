@@ -1,6 +1,7 @@
 package oogasalad.controller;
 
 import java.io.IOException;
+import java.util.Optional;
 import javafx.scene.input.MouseEvent;
 import oogasalad.model.attribute.SchemaDatabase;
 //import oogasalad.model.builder.BBuilder;
@@ -22,16 +23,23 @@ public class BuilderController {
 
   private static final Logger logger = LogManager.getLogger(BuilderController.class);
 
+  private String FILE_PATH  = "HARDCODE FILE PATH HERE";
   private BuilderView builderView;
 //  private BBuilder builder;
   private BBoard board;
   private SchemaDatabase db;
+  private GameHolder gameHolder;
+  private GameHolderBuilder gameHolderBuilder;
 
   public BuilderController() {
+    //TODO: use dependency injection
     builderView = new BuilderView(this);
 //    builder = new BBuilder();
     db = new SchemaDatabase();
     board = new BBoard();
+    gameHolderBuilder = new GameHolderBuilder();
+    gameHolder = gameHolderBuilder.setBoard(board).setPlayers(
+        Optional.ofNullable(board.getPlayers())).build();
   }
 
   public BasicTile addTile(MouseEvent e) {

@@ -26,6 +26,7 @@ import oogasalad.view.builder.board.ImmutableBoardInfo;
 import oogasalad.view.builder.board.NodeStorer;
 import oogasalad.view.builder.gameholder.GameHolder;
 //import oogasalad.view.builder.gameholder.ImmutableGameHolder;
+import oogasalad.view.builder.gameholder.GameHolderBuilder;
 import oogasalad.view.builder.graphs.Graph;
 import oogasalad.view.builder.graphs.ImmutableGraph;
 import oogasalad.view.builder.panefeatures.Dragger;
@@ -329,13 +330,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     setNodeLocation(image, location);
     return image;
   }
-
-//  private ImmutableGameHolder createGameHolder() {
-//    GameHolder game = new GameHolder();
-//    game.setBoardInfo(new ImmutableBoardInfo(myBoardInfo));
-//    game.setTileGraph(new ImmutableGraph(myGraph));
-//    return new ImmutableGameHolder(game);
-//  }
 
   private void createTileFeaturesForObject(Node node) {
     Dragger nodeDragger = new Dragger(node, myDraggableObjectsToggle, myBoardPaneStartingLocation,

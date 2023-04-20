@@ -41,7 +41,7 @@ public class GameHolderBuilder {
     holder.players = this.players;
 //    holder.cards = this.cards;
 
-    GameHolder gameholder = setBoard(board).setPlayers(players).build();
+//    GameHolder gameholder = setBoard(board).setPlayers(players).build();
     return holder;
   }
 }

@@ -53,7 +53,8 @@ public class PopupForm implements BuilderUtility {
             IntMetadata.class, factory::buildIntegerParameter,
             DoubleMetadata.class, factory::buildDoubleParameter,
             PositionMetadata.class, factory::buildPositionParameter,
-            TileMetadata.class, factory::buildTileParameter
+            TileMetadata.class, factory::buildTileParameter,
+            TileListMetadata.class, factory::buildTileListParameter
         );
     }
 

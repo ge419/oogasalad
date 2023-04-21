@@ -17,14 +17,15 @@ import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.Engine;
 import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.model.engine.rules.DieRule;
+import oogasalad.model.engine.rules.SetDieRule;
 import oogasalad.model.engine.rules.TurnRule;
 import oogasalad.view.gameplay.Gameview;
 
 public class GameController {
 
-  private Engine engine;
-  private Gameview gv;
-  private GameHolder game;
+  private final Engine engine;
+  private final Gameview gv;
+  private final GameHolder game;
 
   @Inject
   public GameController(
@@ -49,10 +50,11 @@ public class GameController {
         List.of(
             injector.getInstance(TurnRule.class),
             injector.getInstance(DieRule.class),
-            injector.getInstance(BuyTileRule.class)
+            injector.getInstance(BuyTileRule.class),
+            new SetDieRule(gv.getDie())
         )
     );
-//    run();
+    run();
     return gv;
   }
 

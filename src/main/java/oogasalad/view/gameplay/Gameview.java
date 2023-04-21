@@ -119,6 +119,10 @@ public class Gameview {
     }
   }
 
+  public Die getDie() {
+    return this.die;
+  }
+
   public class MyPrompter implements Prompter {
 
     @Override

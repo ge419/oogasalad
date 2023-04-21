@@ -18,6 +18,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -101,17 +102,17 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myBoardInfo = new BoardInfo(builderResource);
 
     Scene scene = initScene();
-    myTrailMaker = new TrailMaker(myBoardPane, false);
+    myTrailMaker = new TrailMaker(myBoardPane, true);
     Stage primaryStage = new Stage();
     primaryStage.setScene(scene);
     primaryStage.setTitle(builderResource.getString("BuilderTitle"));
     primaryStage.show();
-    System.out.println(
-        myBoardPane.getBoundsInParent().getMinX() + " | " + myBoardPane.getBoundsInParent()
-            .getMaxX());
-    System.out.println(
-        myBoardPane.getBoundsInParent().getMinY() + " | " + myBoardPane.getBoundsInParent()
-            .getMaxY());
+//    System.out.println(
+//        myBoardPane.getBoundsInParent().getMinX() + " | " + myBoardPane.getBoundsInParent()
+//            .getMaxX());
+//    System.out.println(
+//        myBoardPane.getBoundsInParent().getMinY() + " | " + myBoardPane.getBoundsInParent()
+//            .getMaxY());
     myBoardPaneStartingLocation = new Coordinate(
         (double) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinX(),
         (double) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinY(),
@@ -125,7 +126,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private Scene initScene() {
     VBox topMenu = createMenus();
-    HBox topBar = createTopBar();
+    BorderPane topBar = createTopBar();
     Node centralContainer = createCentralContainer();
     VBox root = (VBox) makeVBox("RootContainer", topMenu, topBar, centralContainer);
 
@@ -134,19 +135,28 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     return newScene;
   }
 
-  private HBox createTopBar() {
+  private BorderPane createTopBar() {
+    BorderPane topBar = new BorderPane();
     Node title = makeText("BuilderHeader", builderResource);
     Node text = makeText("RegularMode", builderResource);
     myInfoText = text;
-    HBox textBox = (HBox) makeHBox("TopBar", text);
+    HBox textBox = (HBox) makeHBox("TextBox", text);
     myInfoTextBox = textBox;
-    CheckBox checker = (CheckBox) makeCheckBox("GuidelinesToggle", builderResource);
-    checker.setOnAction(e -> handleGuidelineClick());
-    myGuidelinesToggle = checker;
-    HBox menuBar1 = (HBox) makeHBox("TopBar", checker);
-    addButtonsToPane(menuBar1, topBarResource);
+//    CheckBox checker = (CheckBox) makeCheckBox("GuidelinesToggle", builderResource);
+//    checker.setOnAction(e -> handleGuidelineClick());
+//    myGuidelinesToggle = checker;
+    HBox buttonBox = (HBox) makeHBox("TopBar");
+    addButtonsToPane(buttonBox, topBarResource);
 
-    return (HBox) makeHBox("TopBar", title, textBox, menuBar1);
+    topBar.setLeft(title);
+    topBar.setCenter(myInfoTextBox);
+    topBar.setCenter(myInfoText);
+    topBar.setRight(buttonBox);
+    topBar.setId("TopBar");
+    topBar.getStyleClass().add("topBar");
+    // (HBox) makeHBox("TopBar", title, textBox, menuBar1);
+
+    return topBar;
   }
 
   private HBox createCentralContainer() {
@@ -225,7 +235,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     menuLabel.getItems().add(item2);
     topMenu.getMenus().add(menuLabel);
     return new VBox(topMenu);
-
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -336,17 +345,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       updateInfoText("TileNextMode");
     }
 
-    // TODO: Graph is no longer used
-//    if (myCurrentTile.isPresent()) {
-//      tile.setColor(Color.LIGHTGREEN);
-//      myGraph.addTileNext(myCurrentTile.get(), tile);
-//      myCurrentTile.get().setColor(Color.LIGHTBLUE);
-//      myCurrentTile = Optional.empty();
-//      tile.setColor(Color.LIGHTBLUE);
-//    } else {
-//      myCurrentTile = Optional.ofNullable(tile);
-//      myCurrentTile.get().setColor(Color.BLUE);
-//    }
   }
 
   private void handleGuidelineClick(){

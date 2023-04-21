@@ -12,11 +12,9 @@ public class Player extends AbstractGameConstruct {
   public static final String POSITION_ATTRIBUTE = "currentTile";
 
   @Inject
-  @JsonCreator
   public Player(
-      @JsonProperty("type") String schemaName,
       SchemaDatabase database) {
-    super(schemaName, database);
+    super(BASE_SCHEMA_NAME, database);
   }
 
   public TileAttribute tileAttribute() {

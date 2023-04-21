@@ -1,1 +1,15 @@
-{"attributes":{"score":{"class":"oogasalad.model.attribute.IntAttribute","key":"score","value":100},"name":{"class":"oogasalad.model.attribute.StringAttribute","key":"name","value":"Bob"},"tile":{"class":"oogasalad.model.attribute.TileAttribute","key":"tile","value":3},"coordinates":{"class":"oogasalad.model.attribute.PositionAttribute","key":"coordinates","value":[10.0,20.0]}}}
+{
+  "@class" : "oogasalad.model.constructable.Player",
+  "id" : "431c60d9-af12-4812-92ba-bfc32943184b",
+  "currentTile" : "",
+  "schema" : "basicPlayer",
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.TileAttribute",
+    "key" : "currentTile",
+    "id" : ""
+  }, {
+    "@class" : "oogasalad.model.attribute.StringAttribute",
+    "key" : "name",
+    "value" : "Bob"
+  } ]
+}

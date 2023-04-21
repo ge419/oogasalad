@@ -10,6 +10,7 @@ import oogasalad.model.attribute.DoubleAttribute;
 import oogasalad.model.attribute.ImageAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.attribute.StringAttribute;
+import oogasalad.model.attribute.TileAttribute;
 
 public class Player extends AbstractGameConstruct {
 
@@ -18,6 +19,7 @@ public class Player extends AbstractGameConstruct {
   public static final String SCORE_ATTRIBUTE = "score";
   public static final String ICON_ATTRIBUTE = "image";
   public static final String COLOR_ATTRIBUTE = "color";
+  public static final String POSITION_ATTRIBUTE = "currentTile";
 
   @Inject
   public Player(@JacksonInject SchemaDatabase database) {
@@ -28,6 +30,20 @@ public class Player extends AbstractGameConstruct {
   public StringAttribute getNameAttribute() {
     return StringAttribute.from(getAttribute(NAME_ATTRIBUTE));
   }
+  @JsonIgnore
+  public TileAttribute tileAttribute() {
+    return TileAttribute.from(getAttribute(POSITION_ATTRIBUTE));
+  }
+
+  @JsonIgnore
+  public String getCurrentTile() {
+    return tileAttribute().getId();
+  }
+  @JsonIgnore
+  public void moveToTile(String id) {
+    tileAttribute().setId(id);
+  }
+
 
   @JsonIgnore
   public DoubleAttribute getScoreAttribute() {

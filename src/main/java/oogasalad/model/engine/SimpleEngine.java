@@ -23,7 +23,6 @@ public class SimpleEngine implements Engine {
   private static final Logger log = LogManager.getLogger(SimpleEngine.class);
   private final ActionQueue actionQueue;
   private final Provider<EventHandlerManager> managerProvider;
-  private final Prompter prompter;
   private EventHandlerManager currentManager;
 
   /**
@@ -32,12 +31,10 @@ public class SimpleEngine implements Engine {
   @Inject
   public SimpleEngine(
       ActionQueue actionQueue,
-      Provider<EventHandlerManager> managerProvider,
-      Prompter prompter
+      Provider<EventHandlerManager> managerProvider
   ) {
     this.actionQueue = actionQueue;
     this.managerProvider = managerProvider;
-    this.prompter = prompter;
 
     EventAction startGameAction = new EventAction(new StartGameEvent());
     actionQueue.add(0, startGameAction);
@@ -55,7 +52,7 @@ public class SimpleEngine implements Engine {
   }
 
   @Override
-  public void runNextAction() {
+  public void runNextAction(Prompter prompter) {
     Optional<Action> optAction = actionQueue.poll();
 
     if (optAction.isEmpty()) {

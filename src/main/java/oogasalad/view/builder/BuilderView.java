@@ -24,7 +24,6 @@ import oogasalad.view.Coordinate;
 import oogasalad.view.builder.board.BoardInfo;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
 import oogasalad.view.builder.board.NodeStorer;
-import oogasalad.view.builder.gameholder.GameHolder;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.builder.graphs.Graph;
 import oogasalad.view.builder.graphs.ImmutableGraph;
@@ -168,7 +167,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   public void saveFile() {
     Optional<File> file = directoryGet(builderResource, "SaveGameTitle");
     if (file.isPresent()) {
-      ImmutableGameHolder game = createGameHolder();
+//      ImmutableGameHolder game = createGameHolder();
       String givenDirectory = file.get().getPath();
       // Send file to the controller to properly save.
       //Controller.save(ImmutableGameHolder);
@@ -330,12 +329,12 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     return image;
   }
 
-  private ImmutableGameHolder createGameHolder() {
-    GameHolder game = new GameHolder();
-    game.setBoardInfo(new ImmutableBoardInfo(myBoardInfo));
-    game.setTileGraph(new ImmutableGraph(myGraph));
-    return new ImmutableGameHolder(game);
-  }
+//  private ImmutableGameHolder createGameHolder() {
+//    GameHolder game = new GameHolder();
+//    game.setBoardInfo(new ImmutableBoardInfo(myBoardInfo));
+//    game.setTileGraph(new ImmutableGraph(myGraph));
+//    return new ImmutableGameHolder(game);
+//  }
 
   private void createTileFeaturesForObject(Node node) {
     Dragger nodeDragger = new Dragger(node, myDraggableObjectsToggle, myBoardPaneStartingLocation,

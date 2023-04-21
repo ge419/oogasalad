@@ -1,16 +1,17 @@
 package oogasalad.view.gameplay.pieces;
 
+import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
 
 public class PlayerPiece extends GamePiece {
 
-  private String playerName;
-  private Tile currentTile;
+  private final Player modelPlayer;
 
-  public PlayerPiece(String imageURL, String playerName) {
-    super(imageURL);
-    this.playerName = playerName;
+  public PlayerPiece(Player player) {
+    //TODO: image getter for player, create image attribute
+    super("data/example/piece_1.png");
+    this.modelPlayer = player;
 
     setOnMouseClicked(event -> {
       //TODO: remove this and implement a button in GameView that passes in a coordinate
@@ -21,12 +22,12 @@ public class PlayerPiece extends GamePiece {
   }
 
   public String getPlayerName() {
-    return playerName;
+    return modelPlayer.getName();
   }
 
-  public void changePlayerName(String newName) {
-    this.playerName = newName;
-  }
+//  public void changePlayerName(String newName) {
+//    modelPlayer.setName(newName);
+//  }
 
   @Override
   public void move(Coordinate[] coorArray) {
@@ -34,12 +35,7 @@ public class PlayerPiece extends GamePiece {
   }
 
   public void moveToTile(Tile tile) {
-    this.currentTile = tile;
     moveDirectly(tile.getCoordinate());
-  }
-
-  public Tile getCurrentTile() {
-    return currentTile;
   }
 
   @Override

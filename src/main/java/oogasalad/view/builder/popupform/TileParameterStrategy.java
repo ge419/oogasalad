@@ -18,6 +18,7 @@ import oogasalad.view.builder.events.TileEvent;
 
 import javax.inject.Inject;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class TileParameterStrategy implements ParameterStrategy, BuilderUtility {
     private static final String ROOT_ID = "#BoardPane";
@@ -32,12 +33,15 @@ public class TileParameterStrategy implements ParameterStrategy, BuilderUtility 
         this.attr = TileAttribute.from(attr);
         this.meta = TileMetadata.from(meta);
 
-        element = new Button("Select Tile");
-
-        Scene scene = element.getScene();
-        this.root = (Pane) scene.lookup(ROOT_ID);
+        if (this.attr.getId() == null) {
+            element = new Button("Select Tiles");
+        } else {
+            element = new Button(String.format("Selected: %s", this.attr.getId()));
+        }
 
         element.setOnAction(e -> {
+            Scene scene = element.getScene();
+            this.root = (Pane) scene.lookup(ROOT_ID);
             addHandlerToRoot();
         });
     }

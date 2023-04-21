@@ -14,6 +14,7 @@ import oogasalad.view.builder.BuilderView;
 import oogasalad.view.builder.events.TileEvent;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -22,7 +23,7 @@ public class TileListParameterStrategy implements ParameterStrategy, BuilderUtil
     private static final String ROOT_ID = "#BoardPane";
     private final TileListAttribute attr;
     private final TileListMetadata meta;
-    private List<Tile> tiles;
+    private List<Tile> tiles = new ArrayList<>();
     private Pane root;
     private Button element;
 
@@ -31,12 +32,15 @@ public class TileListParameterStrategy implements ParameterStrategy, BuilderUtil
         this.attr = TileListAttribute.from(attr);
         this.meta = TileListMetadata.from(meta);
 
-        element = new Button("Select Tiles");
-
-        Scene scene = element.getScene();
-        this.root = (Pane) scene.lookup(ROOT_ID);
+        if (this.attr.getTileIds().isEmpty()) {
+            element = new Button("Select Tiles");
+        } else {
+            element = new Button(String.format("Selected: %s", this.attr.getTileIds().stream().collect(Collectors.joining(","))));
+        }
 
         element.setOnAction(e -> {
+            Scene scene = element.getScene();
+            root = (Pane) scene.lookup(ROOT_ID);
             addHandlerToRoot();
         });
     }

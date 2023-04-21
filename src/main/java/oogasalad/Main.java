@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import oogasalad.controller.BuilderController;
 import oogasalad.controller.GameController;
 import oogasalad.controller.GameControllerModule;
+import oogasalad.model.engine.EngineModule;
 import oogasalad.view.builder.BuilderView;
 import oogasalad.view.gameplay.Gameview;
 

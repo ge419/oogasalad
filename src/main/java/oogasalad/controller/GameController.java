@@ -19,12 +19,16 @@ import oogasalad.model.engine.rules.TurnRule;
 import oogasalad.view.gameplay.Gameview;
 
 public class GameController {
+
   private Engine engine;
   private Gameview gv;
 
   @Inject
-  public GameController(Engine engine) {
+  public GameController(
+      Engine engine
+  ) {
     gv = new Gameview(this);
+    this.engine = engine;
   }
 
   public Gameview loadGV() throws IOException {

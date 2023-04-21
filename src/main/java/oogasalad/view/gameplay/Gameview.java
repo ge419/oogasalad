@@ -140,7 +140,7 @@ public class Gameview {
     }
   }
 
-  private class MyPrompter implements Prompter {
+  public class MyPrompter implements Prompter {
 
     @Override
     public void rollDice(Runnable callback) {

@@ -16,4 +16,5 @@ public class GameHolder {
   public Optional<List<Player>> getPlayers() {
     return players;
   }
+  public Player getPlayer() { return players.get().get(0); }
 }

@@ -11,7 +11,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import oogasalad.model.attribute.*;
+import oogasalad.model.attribute.Attribute;
+import oogasalad.model.attribute.DoubleMetadata;
+import oogasalad.model.attribute.IntMetadata;
+import oogasalad.model.attribute.Metadata;
+import oogasalad.model.attribute.ObjectSchema;
+import oogasalad.model.attribute.PositionMetadata;
+import oogasalad.model.attribute.StringMetadata;
 import oogasalad.model.constructable.GameConstruct;
 import oogasalad.view.builder.BuilderUtility;
 import org.apache.logging.log4j.LogManager;
@@ -41,7 +47,7 @@ public class PopupForm implements BuilderUtility {
         currentParameters = new ArrayList<>();
 
         createFormFields();
-        this.gameConstruct.getSchemaProperty().addListener(
+        this.gameConstruct.schemaProperty().addListener(
             (observable, oldValue, newValue) -> createFormFields());
     }
 

@@ -1,5 +1,6 @@
 package oogasalad.model.engine.rules;
 
+import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import oogasalad.model.attribute.SchemaDatabase;
@@ -16,7 +17,7 @@ public class DieRule extends AbstractGameConstruct implements EditableRule {
 
   @Inject
   public DieRule(SchemaDatabase db, Provider<RollDieAndMoveAction> dieActionProvider) {
-    super(SCHEMA_NAME, db);
+    super(List.of(SCHEMA_NAME), db);
     this.dieActionProvider = dieActionProvider;
   }
 

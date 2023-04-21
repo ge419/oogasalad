@@ -24,7 +24,7 @@ import oogasalad.model.attribute.ObjectSchema;
  * The available attributes are guaranteed to match up with the current schema, but the schema
  * may change at any time due to a change in the factory attributes or a
  * {@link oogasalad.model.engine.rules.Rule}. Objects operating on general schemas are expected
- * to listen to {@link GameConstruct#getSchemaProperty()} for changes.
+ * to listen to {@link GameConstruct#schemaProperty()} for changes.
  *
  * @author Dominic Martinez
  * @see ObjectSchema
@@ -50,12 +50,12 @@ public interface GameConstruct {
   /**
    * Returns the current schema for this {@link GameConstruct}. Note that the schema can change at
    * any point; make sure you really want this method instead of
-   * {@link GameConstruct#getSchemaProperty()}.
+   * {@link GameConstruct#schemaProperty()}.
    */
   ObjectSchema getSchema();
 
   /**
    * Returns a property for this object's {@link ObjectSchema}.
    */
-  ReadOnlyObjectProperty<ObjectSchema> getSchemaProperty();
+  ReadOnlyObjectProperty<ObjectSchema> schemaProperty();
 }

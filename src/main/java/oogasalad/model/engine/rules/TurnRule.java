@@ -1,5 +1,6 @@
 package oogasalad.model.engine.rules;
 
+import java.util.List;
 import javax.inject.Inject;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.AbstractGameConstruct;
@@ -15,7 +16,7 @@ public class TurnRule extends AbstractGameConstruct implements EditableRule {
 
   @Inject
   public TurnRule(SchemaDatabase database) {
-    super(SCHEMA_NAME, database);
+    super(List.of(SCHEMA_NAME), database);
   }
 
   @Override

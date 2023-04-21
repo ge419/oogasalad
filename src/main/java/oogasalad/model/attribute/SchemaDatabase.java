@@ -1,12 +1,23 @@
 package oogasalad.model.attribute;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.inject.Singleton;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.Set;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.MapProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleMapProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import oogasalad.model.engine.rules.Rule;
 import oogasalad.model.exception.FileReaderException;
 import oogasalad.model.exception.ResourceReadException;
 import org.apache.logging.log4j.LogManager;
@@ -16,16 +27,47 @@ import org.apache.logging.log4j.Logger;
  * This utility class hold all metaData and is useful for determining the parameter type that a
  * BMetaData takes or an
  */
+@Singleton
 public class SchemaDatabase {
 
   public static final String SCHEMA_RESOURCE_PATH = "schemas";
   private static final Logger logger = LogManager.getLogger(SchemaDatabase.class);
-  private final Map<String, ObjectSchema> schemaMap;
+  private final Map<String, ObjectSchema> resourceSchemaMap;
+  private final MapProperty<String, ObjectSchema> generatedSchemaMapProperty;
+  private final ListProperty<Rule> ruleListProperty;
 
 
   public SchemaDatabase() {
-    schemaMap = new HashMap<>();
-    this.readResourceSchemaFiles();
+    resourceSchemaMap = new HashMap<>();
+    generatedSchemaMapProperty = new SimpleMapProperty<>(FXCollections.observableHashMap());
+    ruleListProperty = new SimpleListProperty<>();
+    readResourceSchemaFiles();
+    generateSchemas();
+  }
+
+  public Optional<ObjectSchema> getSchema(String name) {
+    return Optional.ofNullable(generatedSchemaMapProperty.get().get(name));
+  }
+
+  public boolean containsSchema(String name) {
+    return generatedSchemaMapProperty.get().containsKey(name);
+  }
+
+  public List<String> getAllSchemaNames() {
+    return generatedSchemaMapProperty.get().keySet().stream().toList();
+  }
+
+  public MapProperty<String, ObjectSchema> databaseProperty() {
+    return generatedSchemaMapProperty;
+  }
+
+  public void setRuleListProperty(ObservableList<Rule> ruleListProperty) {
+    this.ruleListProperty.set(ruleListProperty);
+    this.ruleListProperty.addListener((observable, oldValue, newValue) -> generateSchemas());
+    for (Rule rule : this.ruleListProperty) {
+      rule.appliedSchemasProperty()
+          .addListener((observable, oldValue, newValue) -> generateSchemas());
+    }
   }
 
   private void readResourceSchemaFiles() {
@@ -44,21 +86,54 @@ public class SchemaDatabase {
     SimpleObjectSchema schema = mapper.readValue(file, SimpleObjectSchema.class);
     String schemaName = schema.getName();
 
-    if (schemaMap.containsKey(schemaName)) {
+    if (resourceSchemaMap.containsKey(schemaName)) {
       logger.error("Duplicate schema name {}", schemaName);
     }
-    schemaMap.put(schemaName, schema);
+    resourceSchemaMap.put(schemaName, schema);
   }
 
-  public Optional<ObjectSchema> getSchema(String name) {
-    return Optional.ofNullable(schemaMap.get(name));
+  private void generateSchemas() {
+    Map<String, Set<String>> boundSchemaMap = mapSchemasToResources();
+    Map<String, ObjectSchema> generatedSchemaMap = new HashMap<>();
+
+    for (Entry<String, Set<String>> entry : boundSchemaMap.entrySet()) {
+      List<ObjectSchema> appliedSchemas =
+          entry.getValue().stream().map(resourceSchemaMap::get).toList();
+
+      ObjectSchema schema = SchemaUtilities.concatenateSchemas(entry.getKey(), appliedSchemas);
+      generatedSchemaMap.put(entry.getKey(), schema);
+    }
+
+    generatedSchemaMapProperty.set(FXCollections.observableMap(generatedSchemaMap));
   }
 
-  public boolean containsSchema(String name) {
-    return schemaMap.containsKey(name);
+  private Map<String, Set<String>> mapSchemasToResources() {
+    Map<String, Set<String>> schemasToResources = new HashMap<>();
+
+    // Resource schemas are always present
+    for (String resourceSchema : resourceSchemaMap.keySet()) {
+      schemasToResources.put(resourceSchema, new HashSet<>());
+    }
+
+    // Bind sources to sinks
+    for (Rule rule : ruleListProperty) {
+      for (SchemaBinding binding : rule.getAppliedSchemas()) {
+        schemasToResources.getOrDefault(binding.sink(), new HashSet<>()).add(binding.source());
+      }
+    }
+
+    // Traverse intermediaries
+    for (String key : schemasToResources.keySet()) {
+      traverseKey(key, schemasToResources);
+    }
+
+    return schemasToResources;
   }
 
-  public List<String> getAllSchemaNames() {
-    return schemaMap.keySet().stream().toList();
+  private void traverseKey(String key, Map<String, Set<String>> schemasToResources) {
+    for (String childKey : schemasToResources.get(key)) {
+      traverseKey(childKey, schemasToResources);
+      schemasToResources.get(key).addAll(schemasToResources.get(childKey));
+    }
   }
 }

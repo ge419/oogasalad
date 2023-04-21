@@ -37,7 +37,7 @@
         "value" : "Wellness Center,$350"
       },
       {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : "0000FF"
       }]
@@ -80,7 +80,7 @@
           "value" : "BC Plaza,$350"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "0000FF"
         }]
@@ -123,7 +123,7 @@
           "value" : "Perkins,$350"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "0000FF"
         }]
@@ -166,7 +166,7 @@
           "value" : "Bostock,$350"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "0000FF"
         }]
@@ -209,7 +209,7 @@
           "value" : "Wilkinson,$350"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "0000FF"
         }]
@@ -252,7 +252,7 @@
           "value" : "FREE PARKING"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ImageAttribute",
           "key" : "image",
           "value" : "view.gameplay/parking.jpg"
         }
@@ -296,7 +296,7 @@
           "value" : "Hudson Hall,$450"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "00FFFF"
         }]
@@ -339,7 +339,7 @@
           "value" : "LRSC,$450"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "00FFFF"
         }]
@@ -382,7 +382,7 @@
           "value" : "Physics,$450"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "00FFFF"
         }]
@@ -425,7 +425,7 @@
           "value" : "Biological Sciences,$450"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "00FFFF"
         }]
@@ -468,7 +468,7 @@
           "value" : "Gross Hall,$450"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "00FFFF"
         }]
@@ -511,7 +511,7 @@
           "value" : "GO TO JAIL"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ImageAttribute",
           "key" : "image",
           "value" : "view.gameplay/jail.jpg"
         }
@@ -555,7 +555,7 @@
           "value" : "Social Sciences,$550"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "FFFF00"
         }]
@@ -598,7 +598,7 @@
           "value" : "Reuben-Cooke,$550"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "FFFF00"
         }]
@@ -641,7 +641,7 @@
           "value" : "Old Chemistry,$550"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "FFFF00"
         }]
@@ -684,7 +684,7 @@
           "value" : "Languages,$550"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "FFFF00"
         }]
@@ -727,7 +727,7 @@
           "value" : "Allen,$550"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "FFFF00"
         }]
@@ -770,7 +770,7 @@
           "value" : "Collect salary as you pass"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ImageAttribute",
           "key" : "image",
           "value" : "view.gameplay/go.jpg"
         }
@@ -814,7 +814,7 @@
           "value" : "Hollows,$250"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "FF00FF"
         }]
@@ -857,7 +857,7 @@
           "value" : "Few,$250"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "FF00FF"
         }]
@@ -900,14 +900,14 @@
           "value" : "Crowell,$250"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "FF00FF"
         }]
     },
     {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "23",
+      "id" : "22",
       "schema" : "basicTile",
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.DoubleAttribute",
@@ -916,7 +916,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "24" ]
+        "ids" : [ "23" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -943,14 +943,14 @@
           "value" : "Craven,$250"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "FF00FF"
         }]
     },
     {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "24",
+      "id" : "23",
       "schema" : "basicTile",
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.DoubleAttribute",
@@ -959,7 +959,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "25" ]
+        "ids" : [ "24" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -986,14 +986,14 @@
           "value" : "Kilgo,$250"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ColorAttribute",
           "key" : "color",
           "value" : "FF00FF"
         }]
     },
     {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "25",
+      "id" : "24",
       "schema" : "imageTile",
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.DoubleAttribute",
@@ -1002,7 +1002,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "26" ]
+        "ids" : [ "25" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1029,7 +1029,7 @@
           "value" : "JUST VISITING"
         },
         {
-          "@class" : "oogasalad.model.attribute.StringAttribute",
+          "@class" : "oogasalad.model.attribute.ImageAttribute",
           "key" : "image",
           "value" : "view.gameplay/in_jail.jpg"
         }

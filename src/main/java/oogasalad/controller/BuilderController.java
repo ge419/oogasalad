@@ -70,4 +70,8 @@ public class BuilderController {
   public BuilderView getBuilderView() {
     return builderView;
   }
+
+//  public GameHolder getGameHolder() {
+//    return new GameHolderBuilder<>().
+//  }
 }

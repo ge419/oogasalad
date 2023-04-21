@@ -5,18 +5,31 @@ import java.util.List;
 import java.util.function.Consumer;
 import javax.inject.Inject;
 import oogasalad.controller.Effect;
+import oogasalad.view.gameplay.DieClickedEvent;
+import oogasalad.view.gameplay.Gameview;
 
 public class DualPrompter implements Prompter {
   private final Consumer<Effect> doEffect;
+  private final Gameview gameview;
 
   @Inject
-  public DualPrompter(@Assisted Consumer<Effect> doEffect) {
+  public DualPrompter(
+      @Assisted Consumer<Effect> doEffect,
+      @Assisted Gameview gameview
+  ) {
     this.doEffect = doEffect;
+    this.gameview = gameview;
   }
 
   @Override
   public void rollDice(Runnable callback) {
-
+    doEffect.accept(afterEffect -> {
+      gameview.addEventHandler(DieClickedEvent.DIE_CLICKED,
+          event -> {
+            callback.run();
+            afterEffect.run();
+          });
+    });
   }
 
   @Override

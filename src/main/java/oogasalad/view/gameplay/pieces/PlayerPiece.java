@@ -25,9 +25,9 @@ public class PlayerPiece extends GamePiece {
     return modelPlayer.getName();
   }
 
-  public void changePlayerName(String newName) {
-    modelPlayer.setName(newName);
-  }
+//  public void changePlayerName(String newName) {
+//    modelPlayer.setName(newName);
+//  }
 
   @Override
   public void move(Coordinate[] coorArray) {

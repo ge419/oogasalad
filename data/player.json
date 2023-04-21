@@ -1,16 +1,24 @@
 {
   "players" : [ {
     "@class" : "oogasalad.model.constructable.Player",
-    "id" : "766598e0-d5b5-4fea-b19b-180438decf9b",
-    "schema" : "basicPlayer",
+    "id" : "334a287b-e97f-406d-b248-1fd15d2b0be0",
+    "schema" : "player",
     "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.TileAttribute",
-      "key" : "currentTile",
-      "id" : ""
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "color",
+      "value" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "image",
+      "value" : ""
     }, {
       "@class" : "oogasalad.model.attribute.StringAttribute",
       "key" : "name",
-      "value" : "Bob"
+      "value" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "score",
+      "value" : 0.0
     } ]
   } ]
 }

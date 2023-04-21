@@ -31,13 +31,12 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         GameHolder gameHolderInstance = new GameHolder();
         Injector injector = Guice.createInjector(new GameControllerModule(gameHolderInstance));
-//        GameController controller = injector.getInstance(GameController.class);
-//        try {
-//            Gameview gameview = controller.loadGV();
-//            gameview.renderGameview(primaryStage);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        GameController controller = injector.getInstance(GameController.class);
+        try {
+            controller.setGame(primaryStage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 //        new BuilderView(new BuilderController());
     }
 }

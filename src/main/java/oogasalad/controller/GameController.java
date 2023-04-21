@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import javafx.stage.Stage;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.Player;
@@ -45,11 +46,12 @@ public class GameController {
     this.game = game;
     this.prompterFactory = prompterFactory;
     this.prompter = prompterFactory.makeDualPrompter(
-        effect -> effects.add(effect)
+        effect -> effects.add(effect),
+        gv
     );
   }
 
-  public Gameview loadGV() throws IOException {
+  public void setGame(Stage stage) throws IOException {
 //    File jsonFile = new File(filePath);
 //    Injector injector = Guice.createInjector(
 //        new ObjectMapperModule(),
@@ -57,20 +59,17 @@ public class GameController {
 //    );
 //    ObjectMapper objectMapper = injector.getInstance(ObjectMapper.class);
 //    gv = objectMapper.readValue(jsonFile, Gameview.class);
-//    Injector injector = Guice.createInjector(new GameControllerModule(game));
-//    engine.setRules(
-//        List.of(
-//            injector.getInstance(TurnRule.class),
-//            injector.getInstance(DieRule.class),
-//            injector.getInstance(BuyTileRule.class),
-//            new SetDieRule(gv.getDie())
-//        )
-//    );
-//    engine.runNextAction(prompterFactory.makeDualPrompter(
-//        effect -> effects.add(effect))
-//    );
+    gv.renderGameview(stage);
+    Injector injector = Guice.createInjector(new GameControllerModule(game));
+    engine.setRules(
+        List.of(
+            injector.getInstance(TurnRule.class),
+            injector.getInstance(DieRule.class),
+            injector.getInstance(BuyTileRule.class),
+            new SetDieRule(gv.getDie())
+        )
+    );
     this.run();
-    return gv;
   }
 
   public List<Tile> loadTiles(String filePath) throws IOException {

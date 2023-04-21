@@ -1,24 +1,16 @@
 package oogasalad.view.gameplay;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Queue;
-import java.util.function.Consumer;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import oogasalad.controller.Effect;
 import oogasalad.controller.GameController;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Tile;
-import oogasalad.model.engine.prompt.PromptOption;
-import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.view.Renderable;
 import oogasalad.view.gameplay.pieces.Pieces;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
@@ -34,6 +26,8 @@ public class Gameview {
   private PlayerPiece piece;
   private final boolean waiting = false;
   private final GameController gc;
+  private List<Player> players;
+  private Scene scene;
 
   public Gameview(GameController gc) {
     this.gc = gc;
@@ -61,7 +55,11 @@ public class Gameview {
     piece = pieces.getPiece();
     piece.moveToTile(t.get(0));
 
-    Scene scene = new Scene(UIroot);
+    //TODO: take in backend player when appropriate attributes are implemented
+//    players = new ViewPlayers(b.getPlayers());
+//    players.render(UIroot);
+
+    scene = new Scene(UIroot);
 
     //TODO: refactor to read from property file
     primaryStage.setTitle("Monopoly");
@@ -71,6 +69,9 @@ public class Gameview {
     primaryStage.show();
   }
 
+  public <T extends Event> void addEventHandler(EventType<T> type, EventHandler<T> action) {
+    scene.addEventHandler(type, action);
+  }
 
   public Die getDie() {
     return this.die;

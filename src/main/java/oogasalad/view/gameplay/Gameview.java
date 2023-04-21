@@ -1,16 +1,7 @@
 package oogasalad.view.gameplay;
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.guice.ObjectMapperModule;
 import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +24,6 @@ import oogasalad.model.engine.prompt.PromptOption;
 import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.Rule;
 import oogasalad.view.Renderable;
-import oogasalad.view.builder.gameholder.GameHolder;
 import oogasalad.view.gameplay.pieces.Pieces;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
 import oogasalad.view.tiles.Tiles;
@@ -86,8 +76,6 @@ public class Gameview {
     primaryStage.setHeight(VIEW_HEIGHT);
     primaryStage.setWidth(VIEW_WIDTH);
     primaryStage.show();
-
-//    Injector injector = Guice.createInjector(new GameviewModule());
   }
 
 

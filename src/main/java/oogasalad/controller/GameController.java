@@ -69,7 +69,6 @@ public class GameController {
   }
 
   public List<Player> loadPlayers(String filePath) throws IOException {
-    //TODO: ObjectMapper should deserialize List of Multiple Players
     File file = new File(filePath);
     SchemaDatabase db = new SchemaDatabase();
     Injector schemaInjector = Guice.createInjector(

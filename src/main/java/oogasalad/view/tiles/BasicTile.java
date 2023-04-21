@@ -1,5 +1,6 @@
 package oogasalad.view.tiles;
 
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -35,6 +36,11 @@ public class BasicTile extends Rectangle implements ViewTile {
 
   public Tile getTile() {
     return this.modelTile;
+  }
+
+  @Override
+  public Node asNode() {
+    return this;
   }
 
   public String getTileId() {

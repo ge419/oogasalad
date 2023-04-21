@@ -94,6 +94,11 @@ public class StreetTile extends StackPane implements ViewTile, Textable {
     return this.modelTile;
   }
 
+  @Override
+  public Node asNode() {
+    return this;
+  }
+
 
   @Override
   public String getTileId() {

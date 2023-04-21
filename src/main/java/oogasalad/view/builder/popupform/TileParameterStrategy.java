@@ -42,7 +42,7 @@ public class TileParameterStrategy implements ParameterStrategy, BuilderUtility 
         });
     }
     private void addHandlerToRoot() {
-        root.addEventHandler(TileEvent.CLICK_TILE, event -> {
+        root.addEventHandler(TileEvent.SELECT_TILE, event -> {
             tile = event.getTile();
         });
     }

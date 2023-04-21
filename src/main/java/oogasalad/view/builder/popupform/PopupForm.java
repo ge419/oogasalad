@@ -68,8 +68,6 @@ public class PopupForm implements BuilderUtility {
         for (ParameterStrategy parameter : currentParameters) {
             parameter.saveInput();
         }
-
-        stage.close();
     }
 
     private Optional<ParameterStrategy> createStrategy(Metadata metadata) {
@@ -106,13 +104,13 @@ public class PopupForm implements BuilderUtility {
         form.getChildren().add(makeButton("SubmitForm", resourceBundle, e -> saveInputToObject()));
     }
 
-    public void displayForm() {
-        Scene scene = new Scene(form, POPUP_WIDTH, POPUP_HEIGHT);
-        stage = new Stage();
-        stage.setScene(scene);
-        stage.setTitle(resourceBundle.getString("PopupFormTitle"));
-        stage.show();
-    }
+//    public void displayForm() {
+//        Scene scene = new Scene(form, POPUP_WIDTH, POPUP_HEIGHT);
+//        stage = new Stage();
+//        stage.setScene(scene);
+//        stage.setTitle(resourceBundle.getString("PopupFormTitle"));
+//        stage.show();
+//    }
 
     @FunctionalInterface
     private interface ParameterStrategyCreator {

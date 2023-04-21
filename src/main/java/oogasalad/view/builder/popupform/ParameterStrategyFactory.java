@@ -11,4 +11,6 @@ public interface ParameterStrategyFactory {
 
   DoubleParameterStrategy buildDoubleParameter(Attribute attr, Metadata meta);
   PositionParameterStrategy buildPositionParameter(Attribute attr, Metadata meta);
+  TileParameterStrategy buildTileParameter(Attribute attr, Metadata meta);
+  TileListParameterStrategy buildTileListParameter(Attribute attr, Metadata meta);
 }

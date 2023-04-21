@@ -27,9 +27,12 @@ import javax.imageio.ImageIO;
 import oogasalad.controller.BuilderController;
 import oogasalad.controller.builderevents.TrailMaker;
 import oogasalad.controller.builderevents.TrailMakerAPI;
+import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.board.BoardInfo;
 import oogasalad.view.builder.board.ImmutableBoardInfo;
+import oogasalad.view.builder.events.TileEvent;
 import oogasalad.view.builder.gameholder.GameHolder;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.builder.popupform.PopupForm;
@@ -80,6 +83,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private boolean myDeleteToggle = false;
   private final Coordinate myBoardPaneStartingLocation;
   private final BuilderController bc;
+  private VBox sidePane;
+
 
   public BuilderView(BuilderController bc) {
     this.bc = bc;
@@ -118,9 +123,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         0
     );
 
-    // Example of the popup form using the Tile object
-    //popupForm = new PopupForm(Tile.class, builderResource);
-    //popupForm.displayForm();
   }
 
   private Scene initScene() {
@@ -158,8 +160,15 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myBoardInfo.setBoardSize(new Dimension((int) PANE_WIDTH, (int) PANE_HEIGHT));
     myBoardPane = (Pane) boardPane;
     myBoardPane.setOnMouseClicked(e -> handleBoardClick(e));
+    myBoardPane.addEventFilter(TileEvent.DELETE_TILE, e -> deleteTile(e));
+    myBoardPane.addEventFilter(TileEvent.SET_NEXT_TILE, e -> createTilePath(e));
+    myBoardPane.addEventFilter(TileEvent.SHOW_FORM, e -> displayTileForm(e));
+    myBoardPane.addEventFilter(TileEvent.SELECT_TILE, e -> selectTile(e));
 
-    return (HBox) makeHBox("CentralContainer", sideBar1, boardPane);
+    sidePane = new VBox();
+    sidePane.setPrefWidth(300);
+
+    return (HBox) makeHBox("CentralContainer", sideBar1, boardPane, sidePane);
   }
 
   private void addButtonsToPane(Pane pane, ResourceBundle resource) {
@@ -319,21 +328,17 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private void handleTileClick(ViewTile tile) {
     if (myDeleteToggle) {
-      deleteTile(tile);
-      return;
-    }
-    if (myCurrentTile.isPresent()) {
-      tile.setColor(Color.LIGHTGREEN);
-      setNextTile(myCurrentTile.get(), tile);
-      myCurrentTile.get().setColor(Color.LIGHTBLUE);
-      myCurrentTile = Optional.empty();
-      tile.setColor(Color.LIGHTBLUE);
-      new PopupForm(tile.getTile(), builderResource).displayForm();
-      updateInfoText("RegularMode");
-    } else {
-      myCurrentTile = Optional.ofNullable(tile);
-      myCurrentTile.get().setColor(Color.BLUE);
-      updateInfoText("TileNextMode");
+      TileEvent event = new TileEvent(TileEvent.DELETE_TILE, tile);
+      myBoardPane.fireEvent(event);
+    } else if (myCurrentTile.isPresent() && myCurrentTile.get() != tile) {
+      TileEvent event = new TileEvent(TileEvent.SET_NEXT_TILE, tile);
+      myBoardPane.fireEvent(event);
+    } else if (myCurrentTile.isPresent() && myCurrentTile.get() == tile) {
+      TileEvent event = new TileEvent(TileEvent.SHOW_FORM, tile);
+      myBoardPane.fireEvent(event);
+    } else if (myCurrentTile.isEmpty()) {
+      TileEvent event = new TileEvent(TileEvent.SELECT_TILE, tile);
+      myBoardPane.fireEvent(event);
     }
 
     // TODO: Graph is no longer used
@@ -347,6 +352,31 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 //      myCurrentTile = Optional.ofNullable(tile);
 //      myCurrentTile.get().setColor(Color.BLUE);
 //    }
+  }
+  private void deleteTile(TileEvent event) {
+    bc.removeTile(event.getViewTile().getTileId());
+    myTrailMaker.removeTrail(event.getViewTile().asNode());
+    myTileCount = deleteNode(event.getViewTile().asNode(), myTileCount);
+    myCurrentTile = Optional.empty();
+  }
+  private void createTilePath(TileEvent event) {
+    event.getViewTile().setColor(Color.LIGHTGREEN);
+    setNextTile(myCurrentTile.get(), event.getViewTile());
+    myCurrentTile.get().setColor(Color.LIGHTBLUE);
+    myCurrentTile = Optional.empty();
+    event.getViewTile().setColor(Color.LIGHTBLUE);
+    updateInfoText("RegularMode");
+  }
+  private void displayTileForm(TileEvent event) {
+    myCurrentTile = Optional.empty();
+    event.getViewTile().setColor(Color.LIGHTBLUE);
+    new PopupForm(event.getTile(), builderResource, sidePane);
+    updateInfoText("RegularMode");
+  }
+  private void selectTile(TileEvent event) {
+    myCurrentTile = Optional.ofNullable(event.getViewTile());
+    myCurrentTile.get().setColor(Color.BLUE);
+    updateInfoText("TileNextMode");
   }
 
   private void handleGuidelineClick(){
@@ -367,14 +397,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       myImageCount = deleteNode(node, myImageCount);
     }
   }
-
-  private void deleteTile(ViewTile tile) {
-    bc.removeTile(tile.getTileId());
-    myTrailMaker.removeTrail(tile.asNode());
-    myTileCount = deleteNode(tile.asNode(), myTileCount);
-    myCurrentTile = Optional.empty();
-  }
-
   private void deleteToggle() {
     myDeleteToggle = !myDeleteToggle;
     if (myDeleteToggle){

@@ -29,7 +29,7 @@ public class DoubleParameterStrategy implements ParameterStrategy, BuilderUtilit
     @Override
     public Node renderInput(ResourceBundle resourceBundle) {
         String name = meta.getName();
-        Node textLabel = new Text(name + " (Double)");
+        Node textLabel = new Text(name);
         element = (Spinner<Double>) makeDoubleSpinner(name, meta.getMinValue(), meta.getMaxValue(),
             attr.getValue());
         return makeHBox(String.format("%sDoubleInput", name), textLabel, element);

@@ -1,23 +1,25 @@
 package oogasalad.model.engine.prompt;
 
+import com.google.inject.assistedinject.Assisted;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Queue;
 import java.util.function.Consumer;
+import javax.inject.Inject;
+import oogasalad.controller.Effect;
 import oogasalad.view.gameplay.Die;
-import oogasalad.view.gameplay.Gameview.UiEffect;
 
 public class DualPrompter implements Prompter {
-  private Queue<UiEffect> effects;
-  private Die die;
+  private final Consumer<Effect> doEffect;
+
+  @Inject
+  public DualPrompter(@Assisted Consumer<Effect> doEffect) {
+    this.doEffect = doEffect;
+  }
 
   @Override
   public void rollDice(Runnable callback) {
-    effects.add((Runnable afterPresent) ->
-        die.setCallback(() -> {
-          callback.run();
-          afterPresent.run();
-        }));
+
   }
 
   @Override

@@ -13,6 +13,7 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import oogasalad.controller.Effect;
 import oogasalad.controller.GameController;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Tile;
@@ -28,12 +29,10 @@ public class Gameview {
   //TODO: refactor to read from JSON file
   private final int VIEW_WIDTH = 1500;
   private final int VIEW_HEIGHT = 1000;
-  Queue<UiEffect> effects = new LinkedList<>();
   private Tiles tiles;
   private Die die;
   private PlayerPiece piece;
   private final boolean waiting = false;
-  private MyPrompter prompter;
   private final GameController gc;
 
   public Gameview(GameController gc) {
@@ -63,7 +62,6 @@ public class Gameview {
     piece.moveToTile(t.get(0));
 
     Scene scene = new Scene(UIroot);
-    prompter = new MyPrompter();
 
     //TODO: refactor to read from property file
     primaryStage.setTitle("Monopoly");
@@ -74,68 +72,10 @@ public class Gameview {
   }
 
 
-  public void doEffect() {
-    if (!effects.isEmpty()) {
-      // If there is a pending effect, perform it and do the next one once done
-      effects.poll().present(this::doEffect);
-    } else {
-      // Otherwise run the next action
-//      gc.run();
-    }
-  }
-
-
-  @FunctionalInterface
-  public interface UiEffect {
-    // Present the UI effect, then call the callback once done:
-    void present(Runnable callback);
-  }
-
   public Die getDie() {
     return this.die;
   }
 
-  public class MyPrompter implements Prompter {
 
-    @Override
-    public void rollDice(Runnable callback) {
-      effects.add((Runnable afterPresent) ->
-          die.setCallback(() -> {
-            callback.run();
-            afterPresent.run();
-          }));
-    }
-
-    @Override
-    public void yesNoDialog(Consumer<Boolean> callback) {
-      ButtonType yes = new ButtonType("Yes", ButtonData.YES);
-      ButtonType no = new ButtonType("No", ButtonData.NO);
-      Alert alert = new Alert(AlertType.CONFIRMATION,
-          "Would you like to buy the property?",
-          yes,
-          no);
-
-      alert.setTitle("Buy property?");
-
-      effects.add((Runnable afterPresent) -> {
-        Optional<ButtonType> result = alert.showAndWait();
-        boolean answer = result.orElse(no) == yes;
-        callback.accept(answer);
-        afterPresent.run();
-      });
-    }
-
-    @Override
-    public <T extends PromptOption> void selectSingleOption(List<? extends T> options,
-        Consumer<T> callback) {
-
-    }
-
-    @Override
-    public <T extends PromptOption> void selectMultipleOptions(List<? extends T> options,
-        Consumer<List<? extends T>> callback) {
-
-    }
-  }
 
 }

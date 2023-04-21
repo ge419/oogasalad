@@ -8,13 +8,23 @@ import com.google.inject.Injector;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Queue;
+import java.util.function.Consumer;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
 import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.Engine;
+import oogasalad.model.engine.prompt.PromptOption;
+import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.model.engine.rules.DieRule;
 import oogasalad.model.engine.rules.SetDieRule;
@@ -26,15 +36,20 @@ public class GameController {
   private final Engine engine;
   private final Gameview gv;
   private final GameHolder game;
+  private final PrompterFactory prompterFactory;
+  LinkedList<Effect> effects;
 
   @Inject
   public GameController(
       Engine engine,
-      GameHolder game
+      GameHolder game,
+      PrompterFactory prompterFactory
   ) {
     gv = new Gameview(this);
+    this.effects = new LinkedList<>();
     this.engine = engine;
     this.game = game;
+    this.prompterFactory = prompterFactory;
   }
 
   public Gameview loadGV() throws IOException {
@@ -84,7 +99,17 @@ public class GameController {
 
   public void run() {
     engine.runNextAction();
-    gv.doEffect();
+    this.doEffect();
+  }
+
+  public void doEffect() {
+    if (!effects.isEmpty()) {
+      // If there is a pending effect, perform it and do the next one once done
+      effects.poll().present(this::doEffect);
+    } else {
+      // Otherwise run the next action
+      this.run();
+    }
   }
 
 }

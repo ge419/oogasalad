@@ -1,6 +1,6 @@
 {
   "@class" : "oogasalad.model.constructable.Player",
-  "id" : "431c60d9-af12-4812-92ba-bfc32943184b",
+  "id" : "3f81cd1e-1224-4001-96a2-393f35b28207",
   "currentTile" : "",
   "schema" : "basicPlayer",
   "attributes" : [ {

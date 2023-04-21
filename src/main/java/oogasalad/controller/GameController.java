@@ -66,26 +66,10 @@ public class GameController {
     return new ArrayList<>(b.getTiles());
   }
 
-//  public void setRules() {
-//    Injector injector = Guice.createInjector(new GameControllerModule());
-//    engine = injector.getInstance(Engine.class);
-//    engine.setRules(
-//        List.of(
-//            injector.getInstance(TurnRule.class),
-//            injector.getInstance(DieRule.class),
-//            injector.getInstance(BuyTileRule.class),
-//            new SetDieRule(null)
-//        )
-//    );
-//    run();
-//  }
-//
-//  public void run() {
-//    engine.runNextAction();
-//    gv.doEffect();
-//  }
-
-
+  public void run() {
+    engine.runNextAction();
+    gv.doEffect();
+  }
 
 }
 

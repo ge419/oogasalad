@@ -95,10 +95,6 @@ public class Gameview {
 //    Injector injector = Guice.createInjector(new GameviewModule());
   }
 
-//  void run() {
-//    engine.runNextAction();
-//    doEffect();
-//  }
 
   public void doEffect() {
     if (!effects.isEmpty()) {

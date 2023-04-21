@@ -1,6 +1,5 @@
 package oogasalad.view.gameplay;
 
-import com.google.inject.AbstractModule;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,12 +16,8 @@ import javafx.stage.Stage;
 import oogasalad.controller.GameController;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Tile;
-import oogasalad.model.engine.EventHandlerParams;
-import oogasalad.model.engine.EventRegistrar;
-import oogasalad.model.engine.events.DieRolledEvent;
 import oogasalad.model.engine.prompt.PromptOption;
 import oogasalad.model.engine.prompt.Prompter;
-import oogasalad.model.engine.rules.Rule;
 import oogasalad.view.Renderable;
 import oogasalad.view.gameplay.pieces.Pieces;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
@@ -91,32 +86,9 @@ public class Gameview {
 
 
   @FunctionalInterface
-  interface UiEffect {
-
+  public interface UiEffect {
     // Present the UI effect, then call the callback once done:
     void present(Runnable callback);
-  }
-
-  private class GameviewModule extends AbstractModule {
-
-    @Override
-    protected void configure() {
-      bind(PlayerPiece.class).toInstance(piece);
-      bind(Tiles.class).toInstance(tiles);
-      bind(Prompter.class).toInstance(prompter);
-    }
-  }
-
-  private class SetDieRule implements Rule {
-
-    @Override
-    public void registerEventHandlers(EventRegistrar registrar) {
-      registrar.registerHandler(DieRolledEvent.class, this::setDie);
-    }
-
-    private void setDie(EventHandlerParams<DieRolledEvent> eventHandlerParams) {
-      die.rollDice(eventHandlerParams.event().getNumberRolled());
-    }
   }
 
   public Die getDie() {

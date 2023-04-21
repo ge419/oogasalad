@@ -4,13 +4,20 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Queue;
 import java.util.function.Consumer;
+import oogasalad.view.gameplay.Die;
+import oogasalad.view.gameplay.Gameview.UiEffect;
 
 public class DualPrompter implements Prompter {
-  //private Queue<UiEffect> effects;
-  //private Die die;
+  private Queue<UiEffect> effects;
+  private Die die;
 
   @Override
   public void rollDice(Runnable callback) {
+    effects.add((Runnable afterPresent) ->
+        die.setCallback(() -> {
+          callback.run();
+          afterPresent.run();
+        }));
   }
 
   @Override

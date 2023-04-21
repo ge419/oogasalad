@@ -4,17 +4,18 @@ import java.util.List;
 import java.util.Optional;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.Player;
+import oogasalad.model.constructable.Players;
 
 public class GameHolder {
 
   BBoard board;
-  Optional<List<Player>> players;
+  Players players;
 
   public BBoard getBoard() {
     return board;
   }
-  public Optional<List<Player>> getPlayers() {
+  public Players getPlayers() {
     return players;
   }
-  public Player getPlayer() { return players.get().get(0); }
+  public Player getPlayer() { return players.getPlayers().get(0); }
 }

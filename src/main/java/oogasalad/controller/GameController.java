@@ -12,6 +12,7 @@ import java.util.List;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.Player;
+import oogasalad.model.constructable.Players;
 import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.Engine;
 import oogasalad.model.engine.rules.BuyTileRule;
@@ -69,7 +70,6 @@ public class GameController {
 
   public List<Player> loadPlayers(String filePath) throws IOException {
     //TODO: ObjectMapper should deserialize List of Multiple Players
-    List<Player> players = new ArrayList<>();
     File file = new File(filePath);
     SchemaDatabase db = new SchemaDatabase();
     Injector schemaInjector = Guice.createInjector(
@@ -77,9 +77,8 @@ public class GameController {
         binder -> binder.bind(SchemaDatabase.class).toInstance(db)
     );
     ObjectMapper objectMapper = schemaInjector.getInstance(ObjectMapper.class);
-    Player p = objectMapper.readValue(file, Player.class);
-    players.add(p);
-    return players;
+    Players p = objectMapper.readValue(file, Players.class);
+    return new ArrayList<>(p.getPlayers());
   }
 
   public void run() {

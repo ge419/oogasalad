@@ -4,10 +4,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public interface Backgroundable {
-  default Rectangle tileBackground(double width, double height) {
+
+  default Rectangle createBackground(double width, double height, Color backgroundColor,
+      Color strokeColor) {
     Rectangle background = new Rectangle(width, height);
-    background.setFill(Color.WHITE);
-    background.setStroke(Color.BLACK);
+    background.setFill(backgroundColor);
+    background.setStroke(strokeColor);
     background.setStrokeWidth(1);
     return background;
   }

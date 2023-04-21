@@ -5,6 +5,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import oogasalad.model.engine.events.DieRolledEvent;
 import oogasalad.view.Renderable;
 
 public class Die extends StackPane implements Renderable {
@@ -27,11 +28,10 @@ public class Die extends StackPane implements Renderable {
 
     this.setLayoutX(1200);
     this.setLayoutY(700);
-  }
 
-  public void setCallback(Runnable runnable) {
     setOnMouseClicked(event -> {
-      runnable.run();
+      System.out.println("Clicked");
+      fireEvent(new DieClickedEvent(DieClickedEvent.DIE_CLICKED, this));
     });
   }
 

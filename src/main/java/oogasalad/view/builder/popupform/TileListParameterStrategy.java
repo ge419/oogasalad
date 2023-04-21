@@ -7,32 +7,31 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import oogasalad.model.attribute.Attribute;
-import oogasalad.model.attribute.Metadata;
-import oogasalad.model.attribute.TileAttribute;
-import oogasalad.model.attribute.TileMetadata;
+import oogasalad.model.attribute.*;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.builder.BuilderUtility;
 import oogasalad.view.builder.BuilderView;
 import oogasalad.view.builder.events.TileEvent;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
-public class TileParameterStrategy implements ParameterStrategy, BuilderUtility {
+public class TileListParameterStrategy implements ParameterStrategy, BuilderUtility {
     private static final String ROOT_ID = "#BoardPane";
-    private final TileAttribute attr;
-    private final TileMetadata meta;
-    private Tile tile;
+    private final TileListAttribute attr;
+    private final TileListMetadata meta;
+    private List<Tile> tiles;
     private Pane root;
     private Button element;
 
     @Inject
-    public TileParameterStrategy(@Assisted Attribute attr, @Assisted Metadata meta) {
-        this.attr = TileAttribute.from(attr);
-        this.meta = TileMetadata.from(meta);
+    public TileListParameterStrategy(@Assisted Attribute attr, @Assisted Metadata meta) {
+        this.attr = TileListAttribute.from(attr);
+        this.meta = TileListMetadata.from(meta);
 
-        element = new Button("Select Tile");
+        element = new Button("Select Tiles");
 
         Scene scene = element.getScene();
         this.root = (Pane) scene.lookup(ROOT_ID);
@@ -43,8 +42,8 @@ public class TileParameterStrategy implements ParameterStrategy, BuilderUtility 
     }
     private void addHandlerToRoot() {
         root.addEventHandler(TileEvent.SELECT_TILE, event -> {
-            tile = event.getTile();
-            element.setText(String.format("Selected: %s", tile.getId()));
+            tiles.add(event.getTile());
+            element.setText(String.format("Selected: %s", tiles.stream().map(Tile::getId).collect(Collectors.joining(","))));
         });
     }
 
@@ -52,17 +51,17 @@ public class TileParameterStrategy implements ParameterStrategy, BuilderUtility 
     public Node renderInput(ResourceBundle resourceBundle) {
         String name = meta.getName();
         Node textLabel = new Text(name);
-        return makeHBox(String.format("%sTileInput", name), textLabel, element);
+        return makeHBox(String.format("%sTileListInput", name), textLabel, element);
     }
 
     @Override
     public void saveInput() {
-        attr.setId(getFieldValue());
+        attr.setTileIds(getFieldValue());
     }
 
     @Override
     public boolean isInputValid() {
-        return meta.isValidTileId(getFieldValue());
+        return meta.isValidTileIds(getFieldValue());
     }
 
     @Override
@@ -74,7 +73,7 @@ public class TileParameterStrategy implements ParameterStrategy, BuilderUtility 
     public Attribute getAttribute() {
         return attr;
     }
-    private String getFieldValue() {
-        return tile.getId();
+    private List<String> getFieldValue() {
+        return tiles.stream().map(Tile::getId).collect(Collectors.toList());
     }
 }

@@ -30,11 +30,12 @@ public class GameController {
 
   @Inject
   public GameController(
-      Engine engine
+      Engine engine,
+      GameHolder game
   ) {
     gv = new Gameview(this);
     this.engine = engine;
-    this.game = new GameHolder();
+    this.game = game;
   }
 
   public Gameview loadGV() throws IOException {
@@ -45,14 +46,13 @@ public class GameController {
 //    );
 //    ObjectMapper objectMapper = injector.getInstance(ObjectMapper.class);
 //    gv = objectMapper.readValue(jsonFile, Gameview.class);
-    Injector injector = Guice.createInjector(new GameControllerModule());
+    Injector injector = Guice.createInjector(new GameControllerModule(game));
     engine.setRules(
         List.of(
             injector.getInstance(TurnRule.class),
             injector.getInstance(DieRule.class),
             injector.getInstance(BuyTileRule.class)
         )
-
     );
 //    run();
     return gv;
@@ -88,16 +88,6 @@ public class GameController {
 //    engine.runNextAction();
 //    gv.doEffect();
 //  }
-
-  public static class GameControllerModule extends AbstractModule {
-    @Override
-    protected void configure() {
-      install(new EngineModule());
-      // TODO don't take prompter through constructor
-      bind(Prompter.class).to(DualPrompter.class);
-      bind(GameHolder.class).toInstance(game);
-    }
-  }
 
 
 

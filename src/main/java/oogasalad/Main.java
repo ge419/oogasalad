@@ -8,7 +8,8 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import oogasalad.controller.BuilderController;
 import oogasalad.controller.GameController;
-import oogasalad.controller.GameController.GameControllerModule;
+import oogasalad.controller.GameControllerModule;
+import oogasalad.controller.GameHolder;
 import oogasalad.model.engine.EngineModule;
 import oogasalad.view.builder.BuilderView;
 import oogasalad.view.gameplay.Gameview;
@@ -31,7 +32,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Injector injector = Guice.createInjector(new GameControllerModule());
+        GameHolder gameHolderInstance = new GameHolder();
+        Injector injector = Guice.createInjector(new GameControllerModule(gameHolderInstance));
         GameController controller = injector.getInstance(GameController.class);
         try {
             Gameview gameview = controller.loadGV();

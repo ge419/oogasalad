@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
+import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.Engine;
 import oogasalad.model.engine.rules.BuyTileRule;
@@ -64,6 +65,10 @@ public class GameController {
     ObjectMapper objectMapper = schemaInjector.getInstance(ObjectMapper.class);
     BBoard b = objectMapper.readValue(file, BBoard.class);
     return new ArrayList<>(b.getTiles());
+  }
+
+  public List<Player> loadPlayers(String filePath) {
+    return new ArrayList<>();
   }
 
   public void run() {

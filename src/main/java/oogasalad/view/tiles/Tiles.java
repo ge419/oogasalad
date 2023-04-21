@@ -18,8 +18,8 @@ public class Tiles implements Renderable {
   @Override
   public void render(BorderPane pane) {
     RenderStrategy renderStrategy = new RenderStrategy();
-    for (int i = 0; i < BTiles.size(); i++) {
-      renderStrategy.renderTile(BTiles.get(i), pane, tileList);
+    for (Tile bTile : BTiles) {
+      renderStrategy.renderTile(bTile, pane, tileList);
     }
   }
 

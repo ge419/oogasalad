@@ -48,7 +48,7 @@ class SimpleEngineTest {
 
     engine.setRules(List.of(startRule));
     // START_GAME -> TEST_EVENT_1
-    engine.runNextAction();
+    engine.runNextAction(mockPrompter);
 
     InOrder inOrder = inOrder(startRule);
     inOrder.verify(startRule).registerEventHandlers(any());
@@ -66,13 +66,13 @@ class SimpleEngineTest {
 
     engine.setRules(List.of(startRule, endRule, otherRule));
     // START_GAME
-    engine.runNextAction();
+    engine.runNextAction(mockPrompter);
     // TEST_EVENT_1
-    engine.runNextAction();
+    engine.runNextAction(mockPrompter);
     // TEST_EVENT_2
-    engine.runNextAction();
+    engine.runNextAction(mockPrompter);
     // No more actions
-    assertThrows(MissingActionsException.class, () -> engine.runNextAction());
+    assertThrows(MissingActionsException.class, () -> engine.runNextAction(mockPrompter));
 
     verify(startRule).registerEventHandlers(any());
     verify(endRule).registerEventHandlers(any());
@@ -91,9 +91,9 @@ class SimpleEngineTest {
 
     engine.setRules(List.of(dieRule));
     // START_GAME
-    engine.runNextAction();
+    engine.runNextAction(mockPrompter);
     // dice roll
-    engine.runNextAction();
+    engine.runNextAction(mockPrompter);
 
     verify(mockPrompter).rollDice(any());
   }
@@ -114,7 +114,7 @@ class SimpleEngineTest {
 
     engine.setRules(rules);
     for (int i = 0; i < rules.size() + 1; i++) {
-      engine.runNextAction();
+      engine.runNextAction(mockPrompter);
     }
 
     InOrder inOrder = inOrder(rules.toArray());
@@ -136,10 +136,10 @@ class SimpleEngineTest {
 
     engine.setRules(List.of(startRule));
     // START_GAME
-    engine.runNextAction();
+    engine.runNextAction(mockPrompter);
     // TEST_EVENT_1
-    engine.runNextAction();
-    assertThrows(MissingActionsException.class, () -> engine.runNextAction());
+    engine.runNextAction(mockPrompter);
+    assertThrows(MissingActionsException.class, () -> engine.runNextAction(mockPrompter));
   }
 
   private String className(Class<?> clazz) {

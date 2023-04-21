@@ -1,13 +1,10 @@
 package oogasalad.model.engine.prompt;
 
 import com.google.inject.assistedinject.Assisted;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.function.Consumer;
 import javax.inject.Inject;
 import oogasalad.controller.Effect;
-import oogasalad.view.gameplay.Die;
 
 public class DualPrompter implements Prompter {
   private final Consumer<Effect> doEffect;

@@ -6,12 +6,9 @@ import com.google.inject.Injector;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import oogasalad.controller.BuilderController;
 import oogasalad.controller.GameController;
 import oogasalad.controller.GameControllerModule;
 import oogasalad.controller.GameHolder;
-import oogasalad.model.engine.EngineModule;
-import oogasalad.view.builder.BuilderView;
 import oogasalad.view.gameplay.Gameview;
 
 /**
@@ -34,13 +31,13 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         GameHolder gameHolderInstance = new GameHolder();
         Injector injector = Guice.createInjector(new GameControllerModule(gameHolderInstance));
-        GameController controller = injector.getInstance(GameController.class);
-        try {
-            Gameview gameview = controller.loadGV();
-            gameview.renderGameview(primaryStage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        GameController controller = injector.getInstance(GameController.class);
+//        try {
+//            Gameview gameview = controller.loadGV();
+//            gameview.renderGameview(primaryStage);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 //        new BuilderView(new BuilderController());
     }
 }

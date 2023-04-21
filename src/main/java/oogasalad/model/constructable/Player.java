@@ -1,8 +1,8 @@
 package oogasalad.model.constructable;
 
+import com.fasterxml.jackson.annotation.JacksonInject;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.inject.Inject;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.attribute.StringAttribute;
@@ -16,7 +16,7 @@ public class Player extends AbstractGameConstruct {
 
   @Inject
   public Player(
-      SchemaDatabase database) {
+      @JacksonInject SchemaDatabase database) {
     super(BASE_SCHEMA_NAME, database);
   }
 

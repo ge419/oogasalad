@@ -9,11 +9,9 @@ public class PlayerPiece extends GamePiece {
   private final Player modelPlayer;
 
   public PlayerPiece(Player player) {
-    //TODO: getters for player, create image attribute
-    super("");
+    //TODO: image getter for player, create image attribute
+    super("data/example/piece_1.png");
     this.modelPlayer = player;
-//    super(imageURL);
-//    this.playerName = playerName;
 
     setOnMouseClicked(event -> {
       //TODO: remove this and implement a button in GameView that passes in a coordinate

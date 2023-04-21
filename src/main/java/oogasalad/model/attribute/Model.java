@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.Player;
+import oogasalad.model.constructable.Players;
 import oogasalad.model.constructable.Tile;
 
 
@@ -27,6 +28,8 @@ public class Model {
     );
     ObjectMapper objectMapper = injector.getInstance(ObjectMapper.class);
     objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+    List<Player> players = new ArrayList<>();
 
 //    double x = 350.0;
 //    double y = 85.0;
@@ -67,13 +70,15 @@ public class Model {
 //    tiles.get(tiles.size() - 1).getNextTileIds().add(tiles.get(0).getId());
 
     Player player = injector.getInstance(Player.class);
+    players.add(player);
+    Players p = new Players(players);
 //    BBoard board = new BBoard(tiles);
 //    objectMapper.writeValue(new File("data/tiles.json"), board);
-    objectMapper.writeValue(new File("data/player.json"), player);
+    objectMapper.writeValue(new File("data/player.json"), p);
 
-//    File file = new File("data/tiles.json");
-//    BBoard bd = objectMapper.readValue(file, BBoard.class);
-    System.out.println(player);
+    File file = new File("data/player.json");
+    Players pp = objectMapper.readValue(file, Players.class);
+    System.out.println(pp);
 
   }
 

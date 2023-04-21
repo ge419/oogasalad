@@ -1,15 +1,16 @@
 {
-  "@class" : "oogasalad.model.constructable.Player",
-  "id" : "3f81cd1e-1224-4001-96a2-393f35b28207",
-  "currentTile" : "",
-  "schema" : "basicPlayer",
-  "attributes" : [ {
-    "@class" : "oogasalad.model.attribute.TileAttribute",
-    "key" : "currentTile",
-    "id" : ""
-  }, {
-    "@class" : "oogasalad.model.attribute.StringAttribute",
-    "key" : "name",
-    "value" : "Bob"
+  "players" : [ {
+    "@class" : "oogasalad.model.constructable.Player",
+    "id" : "766598e0-d5b5-4fea-b19b-180438decf9b",
+    "schema" : "basicPlayer",
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.TileAttribute",
+      "key" : "currentTile",
+      "id" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "name",
+      "value" : "Bob"
+    } ]
   } ]
 }

@@ -71,7 +71,7 @@ public class Gameview {
     die = new Die();
     die.render(UIroot);
 
-    List<Player> p = gc.loadPlayers("");
+    List<Player> p = gc.loadPlayers("data/player.json");
     Pieces pieces = new Pieces(p);
     pieces.render(UIroot);
     piece = pieces.getPiece();

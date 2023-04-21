@@ -67,8 +67,19 @@ public class GameController {
     return new ArrayList<>(b.getTiles());
   }
 
-  public List<Player> loadPlayers(String filePath) {
-    return new ArrayList<>();
+  public List<Player> loadPlayers(String filePath) throws IOException {
+    //TODO: ObjectMapper should deserialize List of Multiple Players
+    List<Player> players = new ArrayList<>();
+    File file = new File(filePath);
+    SchemaDatabase db = new SchemaDatabase();
+    Injector schemaInjector = Guice.createInjector(
+        new ObjectMapperModule(),
+        binder -> binder.bind(SchemaDatabase.class).toInstance(db)
+    );
+    ObjectMapper objectMapper = schemaInjector.getInstance(ObjectMapper.class);
+    Player p = objectMapper.readValue(file, Player.class);
+    players.add(p);
+    return players;
   }
 
   public void run() {

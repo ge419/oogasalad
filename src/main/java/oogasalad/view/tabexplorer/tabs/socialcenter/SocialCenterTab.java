@@ -1,5 +1,5 @@
 package oogasalad.view.tabexplorer.tabs.socialcenter;
 
-public class SocialCenter {
+public class SocialCenterTab {
 
 }

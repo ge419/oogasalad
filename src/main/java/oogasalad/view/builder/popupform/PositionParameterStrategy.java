@@ -32,12 +32,12 @@ public class PositionParameterStrategy implements ParameterStrategy, BuilderUtil
     @Override
     public Node renderInput(ResourceBundle resourceBundle) {
         String name = meta.getName();
-        Node textLabel = new Text(name + " (Position)");
-        Node xLabel = new Text("X (Integer)");
+        Node textLabel = new Text(name);
+        Node xLabel = new Text("X");
         xElement = (Spinner<Double>) makeDoubleSpinner(name+"X", -999, 999, 0);
-        Node yLabel = new Text("Y (Integer)");
+        Node yLabel = new Text("Y");
         yElement = (Spinner<Double>) makeDoubleSpinner(name+"Y", -999, 999, 0);
-        Node angleLabel = new Text("Angle (Integer)");
+        Node angleLabel = new Text("Angle");
         angleElement = (Spinner<Double>) makeDoubleSpinner(name+"Angle", -360, 360, 0);
         VBox elementContainer = new VBox(new HBox(xLabel, xElement), new HBox(yLabel, yElement), new HBox(angleLabel, angleElement));
         return makeHBox(String.format("%sPositionInput", name), textLabel, elementContainer);

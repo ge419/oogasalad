@@ -29,7 +29,7 @@ public class BooleanParameterStrategy implements ParameterStrategy, BuilderUtili
     @Override
     public Node renderInput(ResourceBundle resourceBundle) {
         String name = meta.getName();
-        Node textLabel = new Text(name + " (True/False)");
+        Node textLabel = new Text(name);
         element = (CheckBox) makeCheckBox(name);
         element.setSelected(attr.getValue());
         return makeHBox(String.format("%sBooleanInput", name), textLabel, element);

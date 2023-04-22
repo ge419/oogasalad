@@ -27,4 +27,9 @@ public class ImmutableGameHolder implements GameInterface {
   public ImmutableBoardInfo getBoardInfo() {
     return myBoardInfo;
   }
+
+  @Override
+  public String getGameFilePath() {
+    return null;
+  }
 }

@@ -85,6 +85,11 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
 
 
   @Override
+  public Node asNode() {
+    return this;
+  }
+
+  @Override
   public String getTileId() {
     return this.modelTile.getId();
   }

@@ -28,5 +28,7 @@ public interface GameInterface {
    */
   ImmutableBoardInfo getBoardInfo();
 
+  String getGameFilePath();
+
   // TODO: IMPLEMENT WAY TO ACCESS RULES
 }

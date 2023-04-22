@@ -1,5 +1,5 @@
 package oogasalad.model.accesscontrol.authentication;
 
-public class FirebaseAuthHandler {
+public class FirebaseAuthHandler implements AuthenticationHandler {
 
 }

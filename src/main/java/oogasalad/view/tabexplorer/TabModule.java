@@ -6,8 +6,8 @@ import oogasalad.model.accesscontrol.AccessControlModule;
 import oogasalad.view.tabexplorer.tabs.TabFactory;
 
 /**
- * Guice module for the tab explorer view. It installs the {@link AccessControlModule} and the
- * {@link TabFactory} and defines bindings for controllers that are used by the tab explorer view.
+ * Guice module for the tab explorer view, which installs the {@link AccessControlModule} and
+ * {@link TabFactory}, and defines controller bindings.
  */
 public class TabModule extends AbstractModule {
   @Override

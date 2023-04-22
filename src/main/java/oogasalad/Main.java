@@ -6,9 +6,11 @@ import com.google.inject.Injector;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import oogasalad.controller.BuilderController;
 import oogasalad.controller.GameController;
 import oogasalad.controller.GameControllerModule;
 import oogasalad.controller.GameHolder;
+import oogasalad.view.builder.BuilderView;
 import oogasalad.view.gameplay.Gameview;
 
 /**

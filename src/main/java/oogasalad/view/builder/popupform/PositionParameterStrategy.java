@@ -20,6 +20,12 @@ public class PositionParameterStrategy implements ParameterStrategy, BuilderUtil
     private Spinner<Double> xElement;
     private Spinner<Double> yElement;
     private Spinner<Double> angleElement;
+    private static final double minValue = -999;
+    private static final double maxValue = 999;
+    private double initValue = 0;
+    private static final double minAngle = -360;
+    private static final double maxAngle = 360;
+    private double initAngle = 0;
 
     @Inject
     public PositionParameterStrategy(
@@ -34,11 +40,11 @@ public class PositionParameterStrategy implements ParameterStrategy, BuilderUtil
         String name = meta.getName();
         Node textLabel = new Text(name);
         Node xLabel = new Text("X");
-        xElement = (Spinner<Double>) makeDoubleSpinner(name+"X", -999, 999, 0);
+        xElement = (Spinner<Double>) makeDoubleSpinner(name+"X", minValue, maxValue, initValue);
         Node yLabel = new Text("Y");
-        yElement = (Spinner<Double>) makeDoubleSpinner(name+"Y", -999, 999, 0);
+        yElement = (Spinner<Double>) makeDoubleSpinner(name+"Y", minValue, maxValue, initValue);
         Node angleLabel = new Text("Angle");
-        angleElement = (Spinner<Double>) makeDoubleSpinner(name+"Angle", -360, 360, 0);
+        angleElement = (Spinner<Double>) makeDoubleSpinner(name+"Angle", minAngle, maxAngle, initAngle);
         VBox elementContainer = new VBox(new HBox(xLabel, xElement), new HBox(yLabel, yElement), new HBox(angleLabel, angleElement));
         return makeHBox(String.format("%sPositionInput", name), textLabel, elementContainer);
     }

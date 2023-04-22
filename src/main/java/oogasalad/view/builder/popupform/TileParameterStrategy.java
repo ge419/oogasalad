@@ -1,6 +1,5 @@
 package oogasalad.view.builder.popupform;
 
-import com.google.common.eventbus.EventBus;
 import com.google.inject.assistedinject.Assisted;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -13,12 +12,10 @@ import oogasalad.model.attribute.TileAttribute;
 import oogasalad.model.attribute.TileMetadata;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.builder.BuilderUtility;
-import oogasalad.view.builder.BuilderView;
 import oogasalad.view.builder.events.TileEvent;
 
 import javax.inject.Inject;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class TileParameterStrategy implements ParameterStrategy, BuilderUtility {
     private static final String ROOT_ID = "#BoardPane";

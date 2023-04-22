@@ -30,7 +30,7 @@ public class TextParameterStrategy implements ParameterStrategy, BuilderUtility 
   @Override
   public Node renderInput(ResourceBundle resourceBundle) {
     String name = meta.getName();
-    Node textLabel = new Text(name + " (String)");
+    Node textLabel = new Text(name);
     element = (TextField) makeTextField(name);
     element.setText(attr.getValue());
     return makeHBox(String.format("%sTextInput", name), textLabel, element);

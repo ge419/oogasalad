@@ -1,0 +1,14 @@
+{
+  "@class": "oogasalad.model.attribute.SimpleObjectSchema",
+  "name": "buyTileRule",
+  "fields": [
+    {
+      "@class": "oogasalad.model.attribute.StringMetadata",
+      "key": "tileType",
+      "name": "Tile type",
+      "description": "Tile type to allow buying on",
+      "editable": true,
+      "viewable": true
+    }
+  ]
+}

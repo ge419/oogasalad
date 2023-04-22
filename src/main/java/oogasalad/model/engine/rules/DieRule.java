@@ -1,18 +1,23 @@
 package oogasalad.model.engine.rules;
 
+import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Provider;
+import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.constructable.AbstractGameConstruct;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.actions.RollDieAndMoveAction;
 import oogasalad.model.engine.events.StartTurnEvent;
 
-public class DieRule implements Rule {
+public class DieRule extends AbstractGameConstruct implements EditableRule {
 
+  public static final String SCHEMA_NAME = "dieRule";
   private final Provider<RollDieAndMoveAction> dieActionProvider;
 
   @Inject
-  public DieRule(Provider<RollDieAndMoveAction> dieActionProvider) {
+  public DieRule(SchemaDatabase db, Provider<RollDieAndMoveAction> dieActionProvider) {
+    super(List.of(SCHEMA_NAME), db);
     this.dieActionProvider = dieActionProvider;
   }
 

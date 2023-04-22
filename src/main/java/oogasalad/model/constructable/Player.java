@@ -14,12 +14,12 @@ import oogasalad.model.attribute.TileAttribute;
 
 public class Player extends AbstractGameConstruct {
 
-  public static final String BASE_SCHEMA_NAME = "player";
+  public static final String BASE_SCHEMA_NAME = "basicPlayer";
   public static final String NAME_ATTRIBUTE = "name";
   public static final String SCORE_ATTRIBUTE = "score";
   public static final String ICON_ATTRIBUTE = "image";
   public static final String COLOR_ATTRIBUTE = "color";
-  public static final String POSITION_ATTRIBUTE = "currentTile";
+  public static final String POSITION_ATTRIBUTE = "position";
 
   @Inject
   public Player(@JacksonInject SchemaDatabase database) {
@@ -39,6 +39,7 @@ public class Player extends AbstractGameConstruct {
   public String getCurrentTile() {
     return tileAttribute().getId();
   }
+
   @JsonIgnore
   public void moveToTile(String id) {
     tileAttribute().setId(id);

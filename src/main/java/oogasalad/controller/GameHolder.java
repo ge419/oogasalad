@@ -14,6 +14,14 @@ public class GameHolder {
   public BBoard getBoard() {
     return board;
   }
+
+  public void setBoard(BBoard board) {
+    this.board = board;
+  }
+
+  public void setPlayers(Players players) {
+    this.players = players;
+  }
   public Players getPlayers() {
     return players;
   }

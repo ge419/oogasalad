@@ -40,7 +40,7 @@ public class GameController {
       GameHolder game,
       PrompterFactory prompterFactory
   ) {
-    gv = new Gameview(this);
+    gv = new Gameview(this, game);
     this.effects = new LinkedList<>();
     this.engine = engine;
     this.game = game;
@@ -81,6 +81,7 @@ public class GameController {
     );
     ObjectMapper objectMapper = schemaInjector.getInstance(ObjectMapper.class);
     BBoard b = objectMapper.readValue(file, BBoard.class);
+    this.game.setBoard(b);
     return new ArrayList<>(b.getTiles());
   }
 
@@ -93,6 +94,7 @@ public class GameController {
     );
     ObjectMapper objectMapper = schemaInjector.getInstance(ObjectMapper.class);
     Players p = objectMapper.readValue(file, Players.class);
+    this.game.setPlayers(p);
     return new ArrayList<>(p.getPlayers());
   }
 
@@ -106,7 +108,7 @@ public class GameController {
       // If there is a pending effect, perform it and do the next one once done
       effects.poll().present(this::doEffect);
     } else {
-      this.run();
+//      this.run();
     }
   }
 

@@ -23,7 +23,7 @@ public class Tile extends AbstractGameConstruct {
 
   @Inject
   public Tile(@JacksonInject SchemaDatabase database) {
-    super(BASE_SCHEMA_NAME, database);
+    super(List.of(BASE_SCHEMA_NAME), database);
   }
 
   @JsonIgnore

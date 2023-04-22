@@ -53,7 +53,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private static final double PANE_HEIGHT = 500;
   private static final double DEFAULT_IMAGE_WIDTH = 100;
   private static final double DEFAULT_IMAGE_HEIGHT = 100;
-  private static final double SCENE_WIDTH = 700;
+  private static final double SCENE_WIDTH = 900;
   private static final double SCENE_HEIGHT = 600;
   private static final Logger LOG = LogManager.getLogger(BuilderView.class);
 

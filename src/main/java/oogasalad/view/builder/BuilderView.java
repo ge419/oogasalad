@@ -70,6 +70,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private VBox myLeftSidebar;
   private Node myInfoText;
   private HBox myInfoTextBox;
+  private BorderPane myTopBar;
   private CheckBox myGuidelinesToggle;
   private PopupForm popupForm;
   private int myTileCount = 0;
@@ -137,11 +138,12 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private BorderPane createTopBar() {
     BorderPane topBar = new BorderPane();
+    myTopBar = topBar;
     Node title = makeText("BuilderHeader", builderResource);
     Node text = makeText("RegularMode", builderResource);
     myInfoText = text;
-    HBox textBox = (HBox) makeHBox("TextBox", text);
-    myInfoTextBox = textBox;
+//    HBox textBox = (HBox) makeHBox("TextBox", text);
+//    myInfoTextBox = textBox;
 //    CheckBox checker = (CheckBox) makeCheckBox("GuidelinesToggle", builderResource);
 //    checker.setOnAction(e -> handleGuidelineClick());
 //    myGuidelinesToggle = checker;
@@ -149,7 +151,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     addButtonsToPane(buttonBox, topBarResource);
 
     topBar.setLeft(title);
-    topBar.setCenter(myInfoTextBox);
+    //topBar.setCenter(myInfoTextBox);
     topBar.setCenter(myInfoText);
     topBar.setRight(buttonBox);
     topBar.setId("TopBar");
@@ -390,9 +392,11 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void updateInfoText(String key){
-    myInfoTextBox.getChildren().remove(myInfoText);
+    //myTopBar.getChildren().remove(myInfoText);
+    //System.out.println("did thing");
     myInfoText = makeText(key, builderResource);
-    myInfoTextBox.getChildren().add(myInfoText);
+    myTopBar.setCenter(myInfoText);
+    //myTopBar.getChildren().add(myInfoText);
   }
 
 

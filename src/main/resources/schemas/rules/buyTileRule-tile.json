@@ -1,0 +1,16 @@
+{
+  "@class": "oogasalad.model.attribute.SimpleObjectSchema",
+  "name": "buyTileRule-tile",
+  "fields": [
+    {
+      "@class": "oogasalad.model.attribute.IntMetadata",
+      "key": "price",
+      "name": "Price of tile",
+      "description": "Price of tile when bought with the buy tile rule.",
+      "editable": true,
+      "viewable": true,
+      "defaultValue": 100,
+      "minValue": 0
+    }
+  ]
+}

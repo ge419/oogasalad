@@ -68,6 +68,8 @@ public class SchemaDatabase {
       rule.appliedSchemasProperty()
           .addListener((observable, oldValue, newValue) -> generateSchemas());
     }
+
+    generateSchemas();
   }
 
   private void readResourceSchemaFiles() {
@@ -112,13 +114,17 @@ public class SchemaDatabase {
 
     // Resource schemas are always present
     for (String resourceSchema : resourceSchemaMap.keySet()) {
-      schemasToResources.put(resourceSchema, new HashSet<>());
+      schemasToResources.put(resourceSchema, new HashSet<>(List.of(resourceSchema)));
     }
 
     // Bind sources to sinks
     for (Rule rule : ruleListProperty) {
       for (SchemaBinding binding : rule.getAppliedSchemas()) {
-        schemasToResources.getOrDefault(binding.sink(), new HashSet<>()).add(binding.source());
+        if (!schemasToResources.containsKey(binding.sink())) {
+          schemasToResources.put(binding.sink(), new HashSet<>());
+        }
+
+        schemasToResources.get(binding.sink()).add(binding.source());
       }
     }
 
@@ -132,6 +138,10 @@ public class SchemaDatabase {
 
   private void traverseKey(String key, Map<String, Set<String>> schemasToResources) {
     for (String childKey : schemasToResources.get(key)) {
+      if (childKey.equals(key)) {
+        continue;
+      }
+
       traverseKey(childKey, schemasToResources);
       schemasToResources.get(key).addAll(schemasToResources.get(childKey));
     }

@@ -10,6 +10,8 @@ import oogasalad.model.accesscontrol.database.FirebaseAccessor;
 /**
  * Guice module that binds Firebase implementation of DatabaseAccessor and AuthenticationHandler
  * interfaces in singleton scope.
+ *
+ * @author Chika Dueke-Eze
  */
 public class AccessControlModule extends AbstractModule {
   @Override

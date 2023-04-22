@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import oogasalad.controller.GameController;
+import oogasalad.controller.GameHolder;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.Renderable;
@@ -21,16 +22,17 @@ public class Gameview {
   //TODO: refactor to read from JSON file
   private final int VIEW_WIDTH = 1500;
   private final int VIEW_HEIGHT = 1000;
+  private final GameHolder game;
   private Tiles tiles;
   private Die die;
   private PlayerPiece piece;
   private final boolean waiting = false;
   private final GameController gc;
-  private List<Player> players;
   private Scene scene;
 
-  public Gameview(GameController gc) {
+  public Gameview(GameController gc, GameHolder game) {
     this.gc = gc;
+    this.game = game;
   }
 
   public void renderGameview(Stage primaryStage) throws IOException {
@@ -50,7 +52,7 @@ public class Gameview {
     die.render(UIroot);
 
     List<Player> p = gc.loadPlayers("data/player.json");
-    Pieces pieces = new Pieces(p);
+    Pieces pieces = new Pieces(this.game.getPlayers().getPlayers());
     pieces.render(UIroot);
     piece = pieces.getPiece();
     piece.moveToTile(t.get(0));

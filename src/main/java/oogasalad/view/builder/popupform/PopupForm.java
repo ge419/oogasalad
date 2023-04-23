@@ -19,6 +19,8 @@ import oogasalad.model.attribute.Metadata;
 import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.PositionMetadata;
 import oogasalad.model.attribute.StringMetadata;
+import oogasalad.model.attribute.TileListMetadata;
+import oogasalad.model.attribute.TileMetadata;
 import oogasalad.model.constructable.GameConstruct;
 import oogasalad.view.builder.BuilderUtility;
 import org.apache.logging.log4j.LogManager;

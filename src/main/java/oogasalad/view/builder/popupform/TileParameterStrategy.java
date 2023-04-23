@@ -29,30 +29,29 @@ public class TileParameterStrategy implements ParameterStrategy, BuilderUtility 
     public TileParameterStrategy(@Assisted Attribute attr, @Assisted Metadata meta) {
         this.attr = TileAttribute.from(attr);
         this.meta = TileMetadata.from(meta);
-
-        if (this.attr.getId() == null) {
-            element = new Button("Select Tiles");
-        } else {
-            element = new Button(String.format("Selected: %s", this.attr.getId()));
-        }
-
-        element.setOnAction(e -> {
-            Scene scene = element.getScene();
-            this.root = (Pane) scene.lookup(ROOT_ID);
-            addHandlerToRoot();
-        });
     }
-    private void addHandlerToRoot() {
+    private void addHandlerToRoot(ResourceBundle resourceBundle) {
         root.addEventHandler(TileEvent.SELECT_TILE, event -> {
             tile = event.getTile();
-            element.setText(String.format("Selected: %s", tile.getId()));
+            element.setText(String.format(String.format("%s: %s", resourceBundle.getString("Selected"), tile.getId())));
         });
     }
 
     @Override
-    public Node renderInput(ResourceBundle resourceBundle) {
+    public Node renderInput(ResourceBundle resourceBundle, Pane form) {
         String name = meta.getName();
         Node textLabel = new Text(name);
+        if (this.attr.getId() == null) {
+            element = new Button(resourceBundle.getString("SelectTile"));
+        } else {
+            element = new Button(String.format("%s: %s", resourceBundle.getString("Selected"), this.attr.getId()));
+        }
+
+        element.setOnAction(e -> {
+            Scene scene = form.getScene();
+            this.root = (Pane) scene.lookup(ROOT_ID);
+            addHandlerToRoot(resourceBundle);
+        });
         return makeHBox(String.format("%sTileInput", name), textLabel, element);
     }
 

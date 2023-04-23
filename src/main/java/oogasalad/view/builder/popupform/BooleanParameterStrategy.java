@@ -4,6 +4,7 @@ import com.google.inject.assistedinject.Assisted;
 import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javax.inject.Inject;
 import oogasalad.model.attribute.Attribute;
@@ -27,7 +28,7 @@ public class BooleanParameterStrategy implements ParameterStrategy, BuilderUtili
     }
 
     @Override
-    public Node renderInput(ResourceBundle resourceBundle) {
+    public Node renderInput(ResourceBundle resourceBundle, Pane form) {
         String name = meta.getName();
         Node textLabel = new Text(name);
         element = (CheckBox) makeCheckBox(name);

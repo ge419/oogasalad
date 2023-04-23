@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -27,13 +26,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class PopupForm implements BuilderUtility {
-
-    private static final double POPUP_WIDTH = 300;
-    private static final double POPUP_HEIGHT = 300;
     private static final Logger LOGGER = LogManager.getLogger(PopupForm.class);
     private final ParameterStrategyFactory factory;
     private final ResourceBundle resourceBundle;
-    private Stage stage;
     private final GameConstruct gameConstruct;
     private final Pane form;
     private final Map<Class<? extends Metadata>, ParameterStrategyCreator> strategyMap;
@@ -42,7 +37,6 @@ public class PopupForm implements BuilderUtility {
     public PopupForm(GameConstruct gameConstruct, ResourceBundle resourceBundle, Pane form) {
         this.resourceBundle = resourceBundle;
         this.gameConstruct = gameConstruct;
-        //form = new VBox();
         this.form = form;
         // TODO: Create injector in controller
         Injector injector = Guice.createInjector(new PopupFormModule());
@@ -108,23 +102,13 @@ public class PopupForm implements BuilderUtility {
             }
 
             currentParameters.add(parameterStrategy.get());
-            form.getChildren().add(parameterStrategy.get().renderInput(resourceBundle));
+            form.getChildren().add(parameterStrategy.get().renderInput(resourceBundle, form));
         }
 
         form.getChildren().add(makeButton("SubmitForm", resourceBundle, e -> saveInputToObject()));
     }
-
-//    public void displayForm() {
-//        Scene scene = new Scene(form, POPUP_WIDTH, POPUP_HEIGHT);
-//        stage = new Stage();
-//        stage.setScene(scene);
-//        stage.setTitle(resourceBundle.getString("PopupFormTitle"));
-//        stage.show();
-//    }
-
     @FunctionalInterface
     private interface ParameterStrategyCreator {
-
         ParameterStrategy build(Attribute attribute, Metadata metadata);
     }
 }

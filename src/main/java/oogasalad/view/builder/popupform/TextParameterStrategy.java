@@ -4,6 +4,7 @@ import com.google.inject.assistedinject.Assisted;
 import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javax.inject.Inject;
 import oogasalad.model.attribute.Attribute;
@@ -28,7 +29,7 @@ public class TextParameterStrategy implements ParameterStrategy, BuilderUtility 
   }
 
   @Override
-  public Node renderInput(ResourceBundle resourceBundle) {
+  public Node renderInput(ResourceBundle resourceBundle, Pane form) {
     String name = meta.getName();
     Node textLabel = new Text(name);
     element = (TextField) makeTextField(name);

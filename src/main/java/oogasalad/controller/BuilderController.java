@@ -1,7 +1,9 @@
 package oogasalad.controller;
 
 import java.io.IOException;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -78,9 +80,10 @@ public class BuilderController {
     //take holder as parameter?
   }
 
-  public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Coordinate startLocation) {
+  public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Coordinate startLocation,
+      ReadOnlyObjectProperty<Bounds> parentBounds) {
     node.setOnMouseClicked(mouseClickHandle);
-    Dragger nodeDragger = new Dragger(node, true, startLocation, MouseButton.PRIMARY);
+    Dragger nodeDragger = new Dragger(node, true, startLocation, MouseButton.PRIMARY, parentBounds);
   }
 
   public BuilderView getBuilderView() {

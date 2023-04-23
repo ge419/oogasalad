@@ -1,8 +1,11 @@
 package oogasalad.controller.builderevents;
 
+import java.awt.Dimension;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -23,6 +26,7 @@ public class Dragger implements DraggerAPI {
 
   private static final int ACTIVE = 1;
   private static final int INACTIVE = 0;
+  private static final int MAX_DISPLACEMENT = 2147483647;
   private final Node myNode;
   private final MouseButton myDragButton;
   private BooleanProperty myDraggable;
@@ -36,13 +40,22 @@ public class Dragger implements DraggerAPI {
   private EventHandler<MouseEvent> myFinalPositionSetter;
   private double mySceneOffsetX = 0;
   private double mySceneOffsetY = 0;
+  private double myNodeWidth;
+  private double myNodeHeight;
+  private double myMaxHeight;
+  private double myMaxWidth;
+  private double myOriginalMaxWidth;
+  private double myOriginalMaxHeight;
+  private Dimension myMaxTranslate;
+  private Dimension myMinTranslate;
 
 
-  public Dragger(Node ourObject) {
-    this(ourObject, false, new Coordinate(0, 0, 0), MouseButton.PRIMARY);
+
+  public Dragger(Node ourObject, ReadOnlyObjectProperty<Bounds> parentBounds) {
+    this(ourObject, false, new Coordinate(0, 0, 0), MouseButton.PRIMARY, parentBounds);
   }
 
-  public Dragger(Node ourObject, boolean canWeDrag, Coordinate offset, MouseButton dragButton) {
+  public Dragger(Node ourObject, boolean canWeDrag, Coordinate offset, MouseButton dragButton, ReadOnlyObjectProperty<Bounds> parentBounds) {
     myNode = ourObject;
     mySceneOffsetX = offset.getXCoor();
     mySceneOffsetY = offset.getYCoor();
@@ -50,6 +63,9 @@ public class Dragger implements DraggerAPI {
     initializeDraggableProperty();
     setDraggable(canWeDrag);
     myDragButton = dragButton;
+    myNodeWidth = myNode.getBoundsInParent().getMaxX() - myNode.getBoundsInParent().getMinX();
+    myNodeHeight = myNode.getBoundsInParent().getMaxY() - myNode.getBoundsInParent().getMinY();
+    initializeParentSizeListener(parentBounds);
   }
 
   @Override
@@ -81,23 +97,36 @@ public class Dragger implements DraggerAPI {
         myRelativeToSceneInitialY = e1.getSceneY();
         myOriginalMouseOffsetX = e1.getX();
         myOriginalMouseOffsetY = e1.getY();
+        myOriginalMaxWidth = myMaxWidth;
+        myOriginalMaxHeight = myMaxHeight;
+        myMaxTranslate = new Dimension();
+        myMinTranslate = new Dimension();
+
+        myMaxTranslate.setSize(
+            myMaxWidth - myNode.getBoundsInParent().getMinX(),
+            myMaxHeight - myNode.getBoundsInParent().getMinY()
+        );
+        myMinTranslate.setSize(
+            0 - myNode.getBoundsInParent().getMinX(),
+            0 - myNode.getBoundsInParent().getMinY()
+        );
+
+        System.out.println(myMaxTranslate + " | " + myMinTranslate);
 //        System.out.println(String.format("Mouse click relative to node: {%f,%f}", e1.getX(), e1.getY()));
 //        System.out.println(String.format("Mouse click relative to scene: {%f,%f}", e1.getSceneX(), e1.getSceneY()));
       }
     };
     myPositionUpdater = e2 -> {
       if (myCycleStatus != INACTIVE) {
-        myNode.setTranslateX(e2.getSceneX() - myRelativeToSceneInitialX);
-        myNode.setTranslateY(e2.getSceneY() - myRelativeToSceneInitialY);
+        double dragLocationX = e2.getSceneX() - myRelativeToSceneInitialX;
+        double dragLocationY = e2.getSceneY() - myRelativeToSceneInitialY;
+        Dimension location = checkForBounds(myNode, dragLocationX, dragLocationY);
+        myNode.setTranslateX(location.getWidth());
+        myNode.setTranslateY(location.getHeight());
       }
     };
     myFinalPositionSetter = e3 -> {
       if (myCycleStatus != INACTIVE) {
-//        myNode.setLayoutX(
-//            calculateNodeLocation(e3.getSceneX(), myOriginalMouseOffsetX, mySceneOffsetX));
-//        myNode.setLayoutY(
-//            calculateNodeLocation(e3.getSceneY(), myOriginalMouseOffsetY, mySceneOffsetY));
-        //System.out.println(String.format("What my local x, y says: {%f,%f}", myNode.getBoundsInParent().getMinX(), myNode.getBoundsInParent().getMinY()));
         myNode.relocate(myNode.getBoundsInParent().getMinX(), myNode.getBoundsInParent().getMinY());
         myNode.setTranslateX(0);
         myNode.setTranslateY(0);
@@ -123,6 +152,21 @@ public class Dragger implements DraggerAPI {
     });
   }
 
+  private void initializeParentSizeListener(ReadOnlyObjectProperty<Bounds> parentBounds){
+    myMaxWidth = parentBounds.get().getMaxX();
+    myMaxHeight = parentBounds.get().getMaxY();
+    System.out.println("Max X: " + myMaxWidth + "Max Y: " + myMaxHeight);
+
+    parentBounds.addListener(((observable, oldValue, newValue) -> {
+      if (newValue.getMaxX() != oldValue.getMaxX()){
+        myMaxWidth = newValue.getMaxX();
+      }
+      if (newValue.getMaxY() != oldValue.getMaxY()){
+        myMaxHeight = newValue.getMaxY();
+      }
+    }));
+  }
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   private double calculateNodeLocation(double sceneCoord, double mouseOffset,
@@ -139,5 +183,15 @@ public class Dragger implements DraggerAPI {
 
   private double getLocationRelativeToParent(double sceneValue, double offset) {
     return sceneValue - offset;
+  }
+
+  private Dimension checkForBounds(Node node, double xLocation, double yLocation){
+    Dimension ans = new Dimension();
+    System.out.println(String.format("Inputted: {%f,%f} and max is {%f,%f}", xLocation, yLocation, myOriginalMaxWidth, myOriginalMaxHeight));
+    ans.setSize(
+        (myOriginalMaxWidth < (myNode.getBoundsInParent().getMinX() + myNodeWidth)) ? myMaxTranslate.getWidth() : xLocation,
+        (myOriginalMaxHeight < (myNode.getBoundsInParent().getMinY() + myNodeHeight)) ? myMaxTranslate.getHeight() : yLocation
+    );
+    return ans;
   }
 }

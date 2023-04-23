@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import oogasalad.controller.GameController;
-import oogasalad.controller.GameHolder;
+import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.Renderable;

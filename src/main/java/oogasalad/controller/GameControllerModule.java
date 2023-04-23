@@ -2,6 +2,7 @@ package oogasalad.controller;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
+import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.engine.EngineModule;
 
 public class GameControllerModule extends AbstractModule {

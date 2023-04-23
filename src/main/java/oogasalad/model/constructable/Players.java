@@ -21,12 +21,17 @@ public class Players {
   public List<Player> getPlayers() {
     return players;
   }
-  public void setPlayers(List<Player> players) {this.players = players;}
+
+  public void setPlayers(List<Player> players) {
+    this.players = players;
+  }
 
   @JsonIgnore
   public Player getById(String id) {
-    for (Player p: players) {
-      if (p.getId().equals(id)) return p;
+    for (Player p : players) {
+      if (p.getId().equals(id)) {
+        return p;
+      }
     }
     return null;
   }

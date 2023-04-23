@@ -16,10 +16,16 @@ public class BuilderModule extends AbstractModule {
   private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
   private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
 
+  private final String myDefaultLanguage;
+
+  public BuilderModule(String defaultLanguage) {
+    myDefaultLanguage = defaultLanguage;
+  }
+
   @Override
   protected void configure() {
     Map<String, String> annotatedNames = Map.of(
-        "DefaultLanguage", "EnglishBuilderText",
+        "DefaultLanguage", getLanguage(),
         "TopBarMethods", "TopBar",
         "MainSideBarMethods", "SideBar1",
         "TileBarMethods", "TileMenu",
@@ -36,5 +42,9 @@ public class BuilderModule extends AbstractModule {
               ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + annotatedNames.get(resourceName)));
     }
     bind(String.class).toInstance(DEFAULT_STYLESHEET);
+  }
+
+  private String getLanguage(){
+    return myDefaultLanguage + "BuilderText";
   }
 }

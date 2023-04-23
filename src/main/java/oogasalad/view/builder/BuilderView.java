@@ -41,10 +41,15 @@ import org.apache.logging.log4j.Logger;
 // https://stackoverflow.com/questions/31148690/get-real-position-of-a-node-in-javafx
 // assumptions made so far: board pane cannot be dragged (if it was, this would break dragging for
 // all other tiles unfortunately. eventual fix maybe.)
+
+/**
+ * BuilderView implements the JavaFX elements that composes the Builder.
+ *
+ * @author tmh85
+ * @author jf295
+ */
 public class BuilderView implements BuilderUtility, BuilderAPI {
 
-  private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
-  private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
   private static final double PANE_WIDTH = 500;
   private static final double PANE_HEIGHT = 500;
   private static final double DEFAULT_IMAGE_WIDTH = 100;
@@ -64,7 +69,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private Pane myBoardPane;
   private final String defaultStylesheet;
   private Optional<String> myCurrentlyClickedTiletype;
-  //todo: dependency injection
   private VBox myLeftSidebar;
   private Node myInfoText;
   private BorderPane myTopBar;
@@ -143,21 +147,14 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     Node title = makeText("BuilderHeader", builderResource);
     Node text = makeText("RegularMode", builderResource);
     myInfoText = text;
-//    HBox textBox = (HBox) makeHBox("TextBox", text);
-//    myInfoTextBox = textBox;
-//    CheckBox checker = (CheckBox) makeCheckBox("GuidelinesToggle", builderResource);
-//    checker.setOnAction(e -> handleGuidelineClick());
-//    myGuidelinesToggle = checker;
     HBox buttonBox = (HBox) makeHBox("TopBar");
     addButtonsToPane(buttonBox, topBarResource);
 
     topBar.setLeft(title);
-    //topBar.setCenter(myInfoTextBox);
     topBar.setCenter(myInfoText);
     topBar.setRight(buttonBox);
     topBar.setId("TopBar");
     topBar.getStyleClass().add("topBar");
-    // (HBox) makeHBox("TopBar", title, textBox, menuBar1);
 
     return topBar;
   }
@@ -389,7 +386,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private void setNextTile(ViewTile origin, ViewTile desiredNext){
     bc.addNext(origin.getTileId(), desiredNext.getTileId());
     myTrailMaker.createTrailBetween(desiredNext.asNode(), origin.asNode(), "test" + myTileCount);
-    // Set guideline between current and next tile?
   }
 
   private void handleImageClick(Node node) {
@@ -414,11 +410,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void updateInfoText(String key){
-    //myTopBar.getChildren().remove(myInfoText);
-    //System.out.println("did thing");
     myInfoText = makeText(key, builderResource);
     myTopBar.setCenter(myInfoText);
-    //myTopBar.getChildren().add(myInfoText);
   }
 
 
@@ -442,13 +435,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     setNodeLocation(image, location);
     return image;
   }
-
-//  private ImmutableGameHolder createGameHolder() {
-//    GameHolder game = new GameHolder();
-//    game.setBoardInfo(new ImmutableBoardInfo(myBoardInfo));
-//    game.setTileGraph(new ImmutableGraph(myGraph));
-//    return new ImmutableGameHolder(game);
-//  }
 
   private void initializeNode(Node node, String identifier, EventHandler<MouseEvent> mouseClickHandle){
     bc.createEventsForNode(node, mouseClickHandle, myBoardPaneStartingLocation);

@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 
@@ -121,6 +122,21 @@ public class CustomTileMaker extends Application {
         }
     }
 
+    public StackPane loadJsonToTile(JsonObject jsonObject){
+        StackPane tile = new StackPane();
+        tile.setLayoutY(jsonObject.get("height").getAsDouble());
+        tile.setLayoutX(jsonObject.get("width").getAsDouble());
+
+        JsonArray customObjects = jsonObject.getAsJsonArray("customObjects");
+        for (JsonElement jsonElement : customObjects) {
+            JsonObject customObject = jsonElement.getAsJsonObject();
+            CustomObject loadedObject = CustomObject.load(customObject);
+            tile.getChildren().add(customObject.get("index").getAsInt(), (Node) loadedObject);
+            loadedObject.setLocation();
+        }
+        return tile;
+    }
+
 
     private void resizeWindow(Double height, Double rightPaneWidth) {
         stage.setWidth(LEFT_PANE_WIDTH + rightPaneWidth);
@@ -135,7 +151,6 @@ public class CustomTileMaker extends Application {
     public void save(Path path) throws IOException {
         System.out.println("path = " + path);
         System.out.println("name = " + name);
-
         Path directory = path.resolve(this.name);
 
         // Create a JSON object to represent the custom tile

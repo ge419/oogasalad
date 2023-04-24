@@ -12,7 +12,7 @@ import javafx.scene.text.FontWeight;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomText extends TextField {
+public class CustomText extends Label {
     private String name;
     private String defaultContents;
     private int fontSize;
@@ -43,6 +43,7 @@ public class CustomText extends TextField {
 
     public void setDefaultContents(String defaultContents) {
         this.defaultContents = defaultContents;
+        this.setText(defaultContents);
     }
 
     public int getFontSize() {

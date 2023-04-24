@@ -1,5 +1,6 @@
 package oogasalad.view.builder.customTile;
 
+import com.google.gson.JsonObject;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,19 +11,23 @@ import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class CustomImage extends ImageView {
 
-    String name;
+    String imageName;
+    Path imagePath;
 
     public CustomImage(Image image) {
         super(image);
         this.setPreserveRatio(true);
-
-
     }
 
     public void placeInRightBox(double rightPaneWidth, double rightPaneHeight) {
@@ -43,7 +48,7 @@ public class CustomImage extends ImageView {
         Label imageNameLabel = new Label("Image Name:");
 
         // Create a text field to edit the image name
-        TextField imageNameField = new TextField(this.name);
+        TextField imageNameField = new TextField(this.imageName);
         imageNameField.setOnAction(event -> setImageName(imageNameField.getText()));
         nodes.addAll(Arrays.asList(imageNameLabel, imageNameField));
 
@@ -74,6 +79,28 @@ public class CustomImage extends ImageView {
     }
 
     private void setImageName(String text) {
-        this.name = text;
+        this.imageName = text;
+    }
+
+    public JsonObject save(Path directory) {
+        // Create JSON object and add properties
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("type", "CustomImage");
+        jsonObject.addProperty("x", this.getLayoutX());
+        jsonObject.addProperty("y", this.getLayoutY());
+        if (this.imageName == null) {
+            this.imageName = this.getImage().getUrl();
+        }
+        jsonObject.addProperty("name", this.imageName);
+        if (this.imagePath != null) {
+            jsonObject.addProperty("imagePath", this.imagePath.toString());
+            Path imageSavePath = directory.resolve(this.imagePath.getFileName().toString());
+            try {
+                Files.copy(this.imagePath, imageSavePath, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                System.err.println("Error saving image file: " + e.getMessage());
+            }
+        }
+        return jsonObject;
     }
 }

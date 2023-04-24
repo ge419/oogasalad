@@ -59,12 +59,11 @@ public class LeftPane extends VBox {
 
     private void addImage() {
         CustomImage newImage = getCustomImage();
+        newImage.fitImage(rightPane.getWidth(), rightPane.getHeight());
         placeInPane(newImage);
     }
 
     void placeInPane(CustomObject newObject) {
-        newObject.placeInRightBox(rightPane.getWidth(), rightPane.getHeight());
-
         Node newNode = (Node) newObject;
         newNode.setOnMouseClicked(event -> {
             VBox info = newObject.getInfo();
@@ -75,8 +74,14 @@ public class LeftPane extends VBox {
             }
         });
         makeDraggable(newNode);
+        int index = newObject.getIndex();
+        if (index != -1){
+            rightPane.getChildren().add(index, newNode);
+        }
+        else{
+            rightPane.getChildren().add(newNode);
+        }
 
-        rightPane.getChildren().add(newNode);
     }
 
 

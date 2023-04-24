@@ -28,9 +28,11 @@ public interface CustomObject{
         }
     }
 
-    void placeInRightBox(double width, double height);
-
     VBox getInfo();
+
+    void setLocation();
+
+    int getIndex();
 
 
     //TODO Figure out why the CustomImage class isn't found on reflect

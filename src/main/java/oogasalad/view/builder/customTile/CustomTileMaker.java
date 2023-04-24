@@ -114,6 +114,7 @@ public class CustomTileMaker extends Application {
                     JsonObject customObject = jsonElement.getAsJsonObject();
                     CustomObject loadedObject = CustomObject.load(customObject);
                     this.leftPane.placeInPane(loadedObject);
+                    loadedObject.setLocation();
 
                 }
             } catch (IOException e) {

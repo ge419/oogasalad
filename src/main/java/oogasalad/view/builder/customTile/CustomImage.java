@@ -10,7 +10,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +25,8 @@ public class CustomImage extends ImageView implements CustomObject {
     String imageName;
     Path destinationPath;
     File originalFile;
+    double x; double y;
+    int index = -1;
 
     public CustomImage(File file) {
         super(new Image(file.toURI().toString()));
@@ -35,19 +36,18 @@ public class CustomImage extends ImageView implements CustomObject {
 
     public CustomImage(JsonObject jsonObject) {
         super(new Image(new File(jsonObject.get("filePath").getAsString()).toURI().toString()));
-        //this.imageName = this.originalFile.getName();
         this.imageName = jsonObject.get("name").getAsString();
         this.originalFile = new File(jsonObject.get("filePath").getAsString());
         this.setFitWidth(jsonObject.get("width").getAsDouble());
         this.setFitHeight(jsonObject.get("height").getAsDouble());
-        this.setLayoutX(jsonObject.get("x").getAsDouble());
-        this.setLayoutY(jsonObject.get("y").getAsDouble());
-        this.setPreserveRatio(true);
+        this.x = jsonObject.get("x").getAsDouble();
+        this.y = jsonObject.get("y").getAsDouble();
+        this.index = jsonObject.get("index").getAsInt();
 
     }
 
 
-    public void placeInRightBox(double rightPaneWidth, double rightPaneHeight) {git
+    public void fitImage(double rightPaneWidth, double rightPaneHeight) {
         // Resize the image to fit within the bounds of the StackPane
         double maxWidth = rightPaneWidth - 20;
         double maxHeight = rightPaneHeight - 20;
@@ -89,7 +89,17 @@ public class CustomImage extends ImageView implements CustomObject {
         return infoBox;
     }
 
-    @NotNull
+    @Override
+    public void setLocation() {
+        this.setTranslateX(x);
+        this.setTranslateY(y);
+    }
+
+    @Override
+    public int getIndex() {
+        return index;
+    }
+
     private Slider createSizeSlider() {
         Slider sizeSlider = new Slider(10, ((Pane) this.getParent()).getWidth(), this.getFitWidth());
         sizeSlider.setBlockIncrement(10);
@@ -116,12 +126,13 @@ public class CustomImage extends ImageView implements CustomObject {
         // Create JSON object and add properties
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("type", "CustomImage");
-        jsonObject.addProperty("x", this.getLayoutX());
-        jsonObject.addProperty("y", this.getLayoutY());
+        jsonObject.addProperty("x", this.getTranslateX());
+        jsonObject.addProperty("y", this.getTranslateY());
         jsonObject.addProperty("name", this.imageName);
         jsonObject.addProperty("height", this.getFitHeight());
         jsonObject.addProperty("width", this.getFitWidth());
         jsonObject.addProperty("filePath", destinationPath.toString()+"/"+this.imageName);
+        jsonObject.addProperty("index", this.getParent().getChildrenUnmodifiable().indexOf(this));
 
         return jsonObject;
     }

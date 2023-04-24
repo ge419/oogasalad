@@ -10,12 +10,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,13 +59,7 @@ public class CustomImage extends ImageView implements CustomObject {
         Label sizeLabel = new Label("Image Size:");
 
         // Create a slider to scale the image
-        Slider sizeSlider = new Slider(10, ((Pane) this.getParent()).getWidth(), this.getFitWidth());
-        sizeSlider.setBlockIncrement(10);
-        sizeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
-            double scalingFactor = newVal.doubleValue() / oldVal.doubleValue();
-            this.setFitWidth(scalingFactor * this.getFitWidth());
-            this.setFitHeight(scalingFactor * this.getFitHeight());
-        });
+        Slider sizeSlider = createSizeSlider();
         nodes.addAll(Arrays.asList(sizeLabel, sizeSlider));
 
         // Create buttons to send image to front or back
@@ -79,6 +73,18 @@ public class CustomImage extends ImageView implements CustomObject {
         infoBox.getChildren().addAll(nodes);
 
         return infoBox;
+    }
+
+    @NotNull
+    private Slider createSizeSlider() {
+        Slider sizeSlider = new Slider(10, ((Pane) this.getParent()).getWidth(), this.getFitWidth());
+        sizeSlider.setBlockIncrement(10);
+        sizeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+            double scalingFactor = newVal.doubleValue() / oldVal.doubleValue();
+            this.setFitWidth(scalingFactor * this.getFitWidth());
+            this.setFitHeight(scalingFactor * this.getFitHeight());
+        });
+        return sizeSlider;
     }
 
     private void setImageName(String text) {
@@ -98,7 +104,7 @@ public class CustomImage extends ImageView implements CustomObject {
         jsonObject.addProperty("type", "CustomImage");
         jsonObject.addProperty("x", this.getLayoutX());
         jsonObject.addProperty("y", this.getLayoutY());
-        jsonObject.addProperty("name", this.originalFile.getName());
+        jsonObject.addProperty("name", this.imageName);
         jsonObject.addProperty("height", this.getImage().getHeight());
         jsonObject.addProperty("width", this.getImage().getWidth());
 
@@ -106,15 +112,22 @@ public class CustomImage extends ImageView implements CustomObject {
     }
 
     private void saveImage(File originalFile, Path directoryPath) throws IOException {
-        if (this.imageName == null) {
-            this.imageName = this.originalFile.getName();
-        }
-        Path newFilePath = directoryPath.resolve(imageName);
+        String saveName = this.imageName;
+        saveName = resolveImageName(saveName);
+
+        Path newFilePath = directoryPath.resolve(saveName);
         if (!Files.exists(newFilePath)) {
             Files.createFile(newFilePath); //Line Errors
         }
 
-        // Copy the original file to the new file path
         Files.copy(originalFile.toPath(), newFilePath, StandardCopyOption.REPLACE_EXISTING);
+    }
+
+    private String resolveImageName(String saveName) {
+        if (this.imageName == null) {
+            this.imageName = this.originalFile.getName();
+        }
+        this.imageName = this.imageName.endsWith(".png") ? this.imageName : this.imageName + ".png";
+        return saveName;
     }
 }

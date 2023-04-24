@@ -47,7 +47,7 @@ public class CustomImage extends ImageView implements CustomObject {
     }
 
 
-    public void placeInRightBox(double rightPaneWidth, double rightPaneHeight) {
+    public void placeInRightBox(double rightPaneWidth, double rightPaneHeight) {git
         // Resize the image to fit within the bounds of the StackPane
         double maxWidth = rightPaneWidth - 20;
         double maxHeight = rightPaneHeight - 20;

@@ -4,37 +4,23 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 
 public class LeftPane extends VBox {
     private final StackPane rightPane;
-    private final CustomTileMaker tileMaker;
 
     private Node currentClickedInfo;
 
     public LeftPane(CustomTileMaker tileMaker, StackPane rightPane) {
         this.rightPane = rightPane;
-        this.tileMaker = tileMaker;
 
-        Button saveButton = new Button("Save");
-        saveButton.setOnAction(e -> {
-            Path savePath = Paths.get("src/main/resources/customObjects");
-            try {
-                tileMaker.save(savePath);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
 
         Button renameButton = new Button("Name Custom Object");
         renameButton.setOnAction(e -> nameObject());
@@ -48,7 +34,7 @@ public class LeftPane extends VBox {
         // Create fields for image properties
         Label fileNameLabel = new Label();
         // Add image property fields to VBox
-        getChildren().addAll(fileNameLabel, saveButton, addImageButton, addTextButton, renameButton);
+        getChildren().addAll(fileNameLabel, addImageButton, addTextButton, renameButton);
 
         // Listen for image selection changes
 
@@ -72,6 +58,31 @@ public class LeftPane extends VBox {
     }
 
     private void addImage() {
+        CustomImage newImage = getCustomImage();
+        placeInPane(newImage);
+    }
+
+    void placeInPane(CustomObject newObject) {
+        newObject.placeInRightBox(rightPane.getWidth(), rightPane.getHeight());
+
+        Node newNode = (Node) newObject;
+        newNode.setOnMouseClicked(event -> {
+            VBox info = newObject.getInfo();
+            if (info != currentClickedInfo) {
+                getChildren().remove(currentClickedInfo);
+                getChildren().add(info);
+                currentClickedInfo = info;
+            }
+        });
+        makeDraggable(newNode);
+
+        rightPane.getChildren().add(newNode);
+    }
+
+
+
+    @NotNull
+    private CustomImage getCustomImage() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Image File");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
@@ -79,21 +90,7 @@ public class LeftPane extends VBox {
 
         // Create an ImageView from the image file
         CustomImage newImage = new CustomImage(selectedFile);
-
-        newImage.placeInRightBox(rightPane.getWidth(), rightPane.getHeight());
-
-        newImage.setOnMouseClicked(event -> {
-            VBox info = ((CustomImage) newImage).getInfo();
-            if (info != currentClickedInfo) {
-                getChildren().remove(currentClickedInfo);
-                getChildren().add(info);
-                currentClickedInfo = info;
-            }
-        });
-
-
-        makeDraggable(newImage);
-        rightPane.getChildren().add(newImage);
+        return newImage;
     }
 
     private void addText() {

@@ -23,7 +23,10 @@ public class BuilderController {
 
   private static final Logger logger = LogManager.getLogger(BuilderController.class);
 
+  // following instances will be removed later
   private String FILE_PATH  = "HARDCODE FILE PATH HERE";
+  private String FOLDER_NAME = "CUSTOM1";
+
   private BuilderView builderView;
 //  private BBuilder builder;
   private BBoard board;
@@ -37,6 +40,7 @@ public class BuilderController {
 //    builder = new BBuilder();
     db = new SchemaDatabase();
     board = new BBoard();
+    // new Players(); --> list of players
     gameHolderBuilder = new GameHolderBuilder();
     gameHolder = gameHolderBuilder.setBoard(board).setPlayers(
         Optional.ofNullable(board.getPlayers())).build();
@@ -58,6 +62,12 @@ public class BuilderController {
 
 
   public void save(GameHolder holder) {
+    String filePath = FILE_PATH + "/" + FOLDER_NAME;
+
+    //serialize GameHolder to the specified path
+//    serialize(holder.getBoard());
+//    serialize(holder.getPlayers());
+
 //    try {
       //ImmutableGameHolder holder = front.saveFile();
 //      builder.save(holder, board);

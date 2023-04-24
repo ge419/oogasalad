@@ -13,13 +13,15 @@ import oogasalad.view.builder.board.ImmutableBoardInfo;
 
 public class GameHolderBuilder {
 
+  //TODO: can we have default values for each of the game objects?
+
   BBoard board;
   Optional<List<Player>> players;
   GameObjectType gameObjectType;
 //   Optional<List<Card>> cards;
 
   public GameHolderBuilder setPlayers(Optional<List<Player>> players) {
-    this.players = players;
+    this.players =  players;
     this.gameObjectType = GameObjectType.PLAYER;
     return this;
   }

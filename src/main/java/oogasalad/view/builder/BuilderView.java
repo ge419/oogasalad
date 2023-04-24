@@ -307,10 +307,15 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   // todo: support different tile types.
   private void createTile(MouseEvent e) {
     BasicTile tile = bc.addTile(e);
+    tile.setOnMouseDragged(event -> fireDragEvent(event, tile));
     initializeNode(tile, "Tile" + myTileCount, tile_e -> handleTileClick(tile));
     myTileCount++;
     myCurrentlyClickedTiletype = Optional.empty();
     updateInfoText("RegularMode");
+  }
+  private void fireDragEvent(MouseEvent event, ViewTile tile) {
+    TileEvent tileEvent = new TileEvent(TileEvent.DRAG_TILE, tile);
+    myBoardPane.fireEvent(tileEvent);
   }
   private void openTileMenu() {
     refreshButtonsOnPane(myLeftSidebar, tileBarResource);

@@ -2,7 +2,6 @@ package oogasalad.view.builder.customTile;
 
 import com.google.gson.*;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.geometry.Orientation;
 
 import javafx.scene.Node;
@@ -10,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -34,7 +32,7 @@ public class CustomTileMaker extends Application {
     private int RIGHT_PANE_STARTING_WIDTH = 500;
     private int STARTING_HEIGHT = 500;
 
-    private Path RESOURCE_PATH = Paths.get("src/main/resources/customObjects");
+    private Path RESOURCE_PATH = Paths.get("data/customObjects");
 
     private String name;
 

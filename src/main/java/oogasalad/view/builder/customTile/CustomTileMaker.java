@@ -1,21 +1,22 @@
 package oogasalad.view.builder.customTile;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Orientation;
+
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,10 +30,11 @@ public class CustomTileMaker extends Application {
     private LeftPane leftPane;
     private StackPane rightPane;
 
-    private TextField windowSize = new TextField("400");
-    private final int LEFT_PANE_WIDTH = 100;
-    private int RIGHT_PANE_STARTING_WIDTH = 300;
-    private int STARTING_HEIGHT = 300;
+    private final int LEFT_PANE_WIDTH = 250;
+    private int RIGHT_PANE_STARTING_WIDTH = 500;
+    private int STARTING_HEIGHT = 500;
+
+    private Path RESOURCE_PATH = Paths.get("src/main/resources/customObjects");
 
     private String name;
 
@@ -45,13 +47,22 @@ public class CustomTileMaker extends Application {
 
         stage = PrimaryStage;
         // Create UI elements for the left and right panes
-        TextField aspectRatioField = new TextField(String.valueOf(STARTING_HEIGHT/RIGHT_PANE_STARTING_WIDTH));
-        aspectRatioField.setMaxWidth(.8*LEFT_PANE_WIDTH);
-        aspectRatioField.setOnAction(e -> resizeWindow(Double.parseDouble(aspectRatioField.getText())));
+
+        Button saveButton = new Button("Save");
+        saveButton.setOnAction(e -> {
+            try {
+                this.save(RESOURCE_PATH);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        Button loadButton = new Button("Load Custom Object");
+        loadButton.setOnAction(e -> loadJson());
 
         // Create leftPane
         leftPane = new LeftPane(this, rightPane);
-        leftPane.getChildren().addAll(aspectRatioField);
+        leftPane.getChildren().addAll(saveButton, loadButton);
         leftPane.setMinWidth(LEFT_PANE_WIDTH);
         leftPane.setMaxWidth(LEFT_PANE_WIDTH);
 
@@ -78,35 +89,55 @@ public class CustomTileMaker extends Application {
         stage.show();
 
         // Set listener for changes to window size
-        stage.widthProperty().addListener((obs, oldVal, newVal) -> maintainSideBar(aspectRatioField));
-        stage.heightProperty().addListener((obs, oldVal, newVal) -> maintainSideBar(aspectRatioField));
+        stage.widthProperty().addListener((obs, oldVal, newVal) -> maintainSideBar());
         stage.titleProperty().addListener((obs, oldVal, newVal) -> name = newVal);
     }
 
+    private void loadJson() {
+        this.rightPane.getChildren().clear();
 
-    private void resizeWindow(Double aspectRatio) {
-        try {
-            // Parse the user's input as an integer
-            double height = stage.getHeight();
-            System.out.println("aspectRatio = " + aspectRatio);
-            double newWidth = LEFT_PANE_WIDTH + height*aspectRatio;
-            System.out.println("newWidth = " + newWidth);
-            // Resize the right side of the window to the new width
-            stage.setWidth(LEFT_PANE_WIDTH + height*aspectRatio);
-        } catch (NumberFormatException e) {
-            // Ignore invalid input
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open File");
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        if (selectedFile != null) {
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(selectedFile));
+                JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
+
+                resizeWindow(jsonObject.get("height").getAsDouble(),jsonObject.get("width").getAsDouble());
+                stage.setTitle(jsonObject.get("name").getAsString());
+
+                JsonArray customObjects = jsonObject.getAsJsonArray("customObjects");
+
+                for (JsonElement jsonElement : customObjects) {
+                    JsonObject customObject = jsonElement.getAsJsonObject();
+                    CustomObject loadedObject = CustomObject.load(customObject);
+                    this.leftPane.placeInPane(loadedObject);
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private void maintainSideBar(TextField aspectRatioField) {
+
+    private void resizeWindow(Double height, Double rightPaneWidth) {
+        stage.setWidth(LEFT_PANE_WIDTH + rightPaneWidth);
+        stage.setHeight(height);
+    }
+
+    private void maintainSideBar() {
         double height = stage.getHeight();
         double width = stage.getWidth() - LEFT_PANE_WIDTH;
-        double aspectRatio = width / height;
-        Platform.runLater(() -> aspectRatioField.setText(String.format("%.2f", aspectRatio)));
     }
 
     public void save(Path path) throws IOException {
-        Path directory = Paths.get(path.toString(), this.name);
+        System.out.println("path = " + path);
+        System.out.println("name = " + name);
+
+        Path directory = path.resolve(this.name);
 
         // Create a JSON object to represent the custom tile
         JsonObject customTileObject = new JsonObject();

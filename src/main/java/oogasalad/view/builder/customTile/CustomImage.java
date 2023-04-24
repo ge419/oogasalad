@@ -33,6 +33,20 @@ public class CustomImage extends ImageView implements CustomObject {
         this.setPreserveRatio(true);
     }
 
+    public CustomImage(JsonObject jsonObject) {
+        super(new Image(new File(jsonObject.get("filePath").getAsString()).toURI().toString()));
+        //this.imageName = this.originalFile.getName();
+        this.imageName = jsonObject.get("name").getAsString();
+        this.originalFile = new File(jsonObject.get("filePath").getAsString());
+        this.setFitWidth(jsonObject.get("width").getAsDouble());
+        this.setFitHeight(jsonObject.get("height").getAsDouble());
+        this.setLayoutX(jsonObject.get("x").getAsDouble());
+        this.setLayoutY(jsonObject.get("y").getAsDouble());
+        this.setPreserveRatio(true);
+
+    }
+
+
     public void placeInRightBox(double rightPaneWidth, double rightPaneHeight) {
         // Resize the image to fit within the bounds of the StackPane
         double maxWidth = rightPaneWidth - 20;
@@ -105,16 +119,21 @@ public class CustomImage extends ImageView implements CustomObject {
         jsonObject.addProperty("x", this.getLayoutX());
         jsonObject.addProperty("y", this.getLayoutY());
         jsonObject.addProperty("name", this.imageName);
-        jsonObject.addProperty("height", this.getImage().getHeight());
-        jsonObject.addProperty("width", this.getImage().getWidth());
+        jsonObject.addProperty("height", this.getFitHeight());
+        jsonObject.addProperty("width", this.getFitWidth());
+        jsonObject.addProperty("filePath", destinationPath.toString()+"/"+this.imageName);
 
         return jsonObject;
     }
+
+
+
 
     private void saveImage(File originalFile, Path directoryPath) throws IOException {
         String saveName = this.imageName;
         saveName = resolveImageName(saveName);
 
+        System.out.println("saveName = " + saveName);
         Path newFilePath = directoryPath.resolve(saveName);
         if (!Files.exists(newFilePath)) {
             Files.createFile(newFilePath); //Line Errors
@@ -126,8 +145,9 @@ public class CustomImage extends ImageView implements CustomObject {
     private String resolveImageName(String saveName) {
         if (this.imageName == null) {
             this.imageName = this.originalFile.getName();
+            System.out.println("this.originalFile.getName() = " + this.originalFile.getName());
         }
         this.imageName = this.imageName.endsWith(".png") ? this.imageName : this.imageName + ".png";
-        return saveName;
+        return imageName;
     }
 }

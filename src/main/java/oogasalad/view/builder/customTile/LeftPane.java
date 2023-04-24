@@ -100,21 +100,10 @@ public class LeftPane extends VBox {
 
     private void addText() {
         CustomText newText = new CustomText("Default Text", "Enter Text Here", 14, false);
-        getChildren().add(newText);
-
-        newText.setOnMouseClicked(event -> {
-            VBox info = ((CustomText) newText).getInfo();
-            if (info != currentClickedInfo) {
-                getChildren().remove(currentClickedInfo);
-                getChildren().add(info);
-                currentClickedInfo = info;
-            }
-        });
-
-
-
-        rightPane.getChildren().add(newText);
+        makeDraggable(newText);
+        placeInPane(newText);
     }
+
 
     private void makeDraggable(Node node) {
         final Delta dragDelta = new Delta();

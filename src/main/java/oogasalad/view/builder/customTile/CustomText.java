@@ -1,5 +1,6 @@
 package oogasalad.view.builder.customTile;
 
+import com.google.gson.JsonObject;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -9,14 +10,19 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomText extends Label {
+public class CustomText extends Label implements CustomObject {
     private String name;
     private String defaultContents;
     private int fontSize;
     private boolean bold;
+
+    double x; double y;
+    int index = -1;
 
     public CustomText(String name, String defaultContents, int fontSize, boolean bold) {
         this.name = name;
@@ -28,6 +34,25 @@ public class CustomText extends Label {
         setText(defaultContents);
         setFont(Font.font("Arial", bold ? FontWeight.BOLD : FontWeight.NORMAL, fontSize));
     }
+
+    public CustomText(JsonObject jsonObject) {
+        super(jsonObject.get("name").getAsString());
+
+        // Set the text field properties
+        this.defaultContents = jsonObject.get("defaultContents").getAsString();
+        this.fontSize = jsonObject.get("fontSize").getAsInt();
+        this.bold = jsonObject.get("bold").getAsBoolean();
+        setText(defaultContents);
+        setFont(Font.font("Arial", bold ? FontWeight.BOLD : FontWeight.NORMAL, fontSize));
+
+        // Set the position properties
+        this.setTranslateX(jsonObject.get("translateX").getAsDouble());
+        this.setTranslateY(jsonObject.get("translateY").getAsDouble());
+        this.x = jsonObject.get("translateX").getAsDouble();
+        this.y = jsonObject.get("translateY").getAsDouble();
+        this.name =  jsonObject.get("name").getAsString();
+    }
+
 
     public String getName() {
         return name;
@@ -64,6 +89,19 @@ public class CustomText extends Label {
         setFont(Font.font("Arial", bold ? FontWeight.BOLD : FontWeight.NORMAL, fontSize));
     }
 
+    public JsonObject save(Path path) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("name", this.name);
+        jsonObject.addProperty("defaultContents", this.defaultContents);
+        jsonObject.addProperty("fontSize", this.fontSize);
+        jsonObject.addProperty("bold", this.bold);
+        jsonObject.addProperty("translateX", this.getTranslateX());
+        jsonObject.addProperty("translateY", this.getTranslateY());
+        jsonObject.addProperty("type", "CustomText");
+
+        return jsonObject;
+    }
+
     public VBox getInfo() {
         List<Node> nodes = new ArrayList<>();
 
@@ -97,6 +135,17 @@ public class CustomText extends Label {
         infoBox.getChildren().addAll(nodes);
 
         return infoBox;
+    }
+
+    @Override
+    public void setLocation() {
+        this.setTranslateX(x);
+        this.setTranslateY(y);
+    }
+
+    @Override
+    public int getIndex() {
+        return index;
     }
 
 }

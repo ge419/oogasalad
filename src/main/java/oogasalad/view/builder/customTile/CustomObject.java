@@ -13,14 +13,13 @@ public interface CustomObject{
 
     static CustomObject load(JsonObject jsonObject) {
         String type = jsonObject.get("type").getAsString().strip();
-        System.out.println("type = " + type);
-
+        System.out.println("jsonObject = " + jsonObject);
         switch (type) {
             case "CustomImage":
-                System.out.println("jsonObject = " + jsonObject);
-                String stringPath = jsonObject.get("filePath").getAsString();
-                System.out.println("stringPath = " + stringPath);
                 return new CustomImage(jsonObject);
+            case "CustomText":
+                return new CustomText(jsonObject);
+
 
             // add more cases for each type of object you need to support
             default:

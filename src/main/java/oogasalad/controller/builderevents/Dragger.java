@@ -63,8 +63,8 @@ public class Dragger implements DraggerAPI {
     initializeDraggableProperty();
     setDraggable(canWeDrag);
     myDragButton = dragButton;
-    myNodeWidth = myNode.getBoundsInParent().getMaxX() - myNode.getBoundsInParent().getMinX();
-    myNodeHeight = myNode.getBoundsInParent().getMaxY() - myNode.getBoundsInParent().getMinY();
+    myNodeWidth = myNode.getBoundsInParent().getWidth();
+    myNodeHeight = myNode.getBoundsInParent().getHeight();
     initializeParentSizeListener(parentBounds);
   }
 
@@ -101,10 +101,11 @@ public class Dragger implements DraggerAPI {
         myOriginalMaxHeight = myMaxHeight;
         myMaxTranslate = new Dimension();
         myMinTranslate = new Dimension();
+        System.out.println(String.format("Max dimensions: {%f,%f}", myOriginalMaxWidth, myOriginalMaxHeight));
 
         myMaxTranslate.setSize(
-            myMaxWidth - myNode.getBoundsInParent().getMinX(),
-            myMaxHeight - myNode.getBoundsInParent().getMinY()
+            myMaxWidth - myNode.getBoundsInParent().getMinX() - myNodeWidth,
+            myMaxHeight - myNode.getBoundsInParent().getMinY() - myNodeHeight
         );
         myMinTranslate.setSize(
             0 - myNode.getBoundsInParent().getMinX(),
@@ -120,7 +121,7 @@ public class Dragger implements DraggerAPI {
       if (myCycleStatus != INACTIVE) {
         double dragLocationX = e2.getSceneX() - myRelativeToSceneInitialX;
         double dragLocationY = e2.getSceneY() - myRelativeToSceneInitialY;
-        Dimension location = checkForBounds(myNode, dragLocationX, dragLocationY);
+        Dimension location = checkForBounds(e2, dragLocationX, dragLocationY);
         myNode.setTranslateX(location.getWidth());
         myNode.setTranslateY(location.getHeight());
       }
@@ -153,18 +154,24 @@ public class Dragger implements DraggerAPI {
   }
 
   private void initializeParentSizeListener(ReadOnlyObjectProperty<Bounds> parentBounds){
-    myMaxWidth = parentBounds.get().getMaxX();
-    myMaxHeight = parentBounds.get().getMaxY();
+    updateBounds(parentBounds.get());
     System.out.println("Max X: " + myMaxWidth + "Max Y: " + myMaxHeight);
 
     parentBounds.addListener(((observable, oldValue, newValue) -> {
-      if (newValue.getMaxX() != oldValue.getMaxX()){
-        myMaxWidth = newValue.getMaxX();
-      }
-      if (newValue.getMaxY() != oldValue.getMaxY()){
-        myMaxHeight = newValue.getMaxY();
-      }
+      updateBounds(newValue);
+//      if (newValue.getMaxX() != oldValue.getMaxX()){
+//        myMaxWidth = newValue.getMaxX();
+//      }
+//      if (newValue.getMaxY() != oldValue.getMaxY()){
+//        myMaxHeight = newValue.getMaxY();
+//      }
     }));
+  }
+
+  private void updateBounds(Bounds parentBounds){
+    myMaxWidth = parentBounds.getMaxX();
+    myMaxHeight = parentBounds.getMaxY();
+    System.out.println(String.format("Minimums for boardpane: {%f, %f}", parentBounds.getMinX(), parentBounds.getMinY()));
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -185,12 +192,18 @@ public class Dragger implements DraggerAPI {
     return sceneValue - offset;
   }
 
-  private Dimension checkForBounds(Node node, double xLocation, double yLocation){
+  private Dimension checkForBounds(MouseEvent event, double xLocation, double yLocation){
     Dimension ans = new Dimension();
-    System.out.println(String.format("Inputted: {%f,%f} and max is {%f,%f}", xLocation, yLocation, myOriginalMaxWidth, myOriginalMaxHeight));
+    double currX = getLocationRelativeToParent(event.getSceneX(), mySceneOffsetX);
+    double currY = getLocationRelativeToParent(event.getSceneY(), mySceneOffsetY);
+//    System.out.println(String.format("Inputted: {%f,%f} and max is {%f,%f}", xLocation, yLocation, myOriginalMaxWidth, myOriginalMaxHeight));
+    System.out.println(String.format("Current location: {%f,%f} and max is {%f,%f}", currX, currY, myOriginalMaxWidth, myOriginalMaxHeight));
     ans.setSize(
-        (myOriginalMaxWidth < (myNode.getBoundsInParent().getMinX() + myNodeWidth)) ? myMaxTranslate.getWidth() : xLocation,
-        (myOriginalMaxHeight < (myNode.getBoundsInParent().getMinY() + myNodeHeight)) ? myMaxTranslate.getHeight() : yLocation
+//        (myOriginalMaxWidth < (myNode.getBoundsInParent().getMinX() + myNodeWidth)) ? myMaxTranslate.getWidth() : xLocation,
+        (myOriginalMaxWidth <= currX + myNodeWidth) ? myMaxTranslate.getWidth() : xLocation,
+//        ( myMaxTranslate.getWidth() < myNode.getTranslateX() ) ? myMaxTranslate.getWidth() : xLocation,
+//        (myOriginalMaxHeight < (myNode.getBoundsInParent().getMinY() + myNodeHeight)) ? myMaxTranslate.getHeight() : yLocation
+        (myOriginalMaxHeight < currY + myNodeHeight) ? myMaxTranslate.getHeight() : yLocation
     );
     return ans;
   }

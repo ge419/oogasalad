@@ -442,7 +442,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void initializeNode(Node node, String identifier, EventHandler<MouseEvent> mouseClickHandle){
-    bc.createEventsForNode(node, mouseClickHandle, myBoardPaneStartingLocation, myBoardPane.boundsInParentProperty());
+    bc.createEventsForNode(node, mouseClickHandle, myBoardPaneStartingLocation, myBoardPane.boundsInLocalProperty());
     node.setId(identifier);
     node.getStyleClass().add("clickable");
     myBoardPane.getChildren().add(node);

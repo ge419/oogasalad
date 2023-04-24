@@ -106,7 +106,7 @@ public class CustomTileMaker extends Application {
     }
 
     public void save(Path path) throws IOException {
-        Path directory = Paths.get("properties/customObjects", this.name); //TODO Make This A Constant and use a urnary operator
+        Path directory = Paths.get(path.toString(), this.name);
 
         // Create a JSON object to represent the custom tile
         JsonObject customTileObject = new JsonObject();
@@ -120,11 +120,9 @@ public class CustomTileMaker extends Application {
 
         // Loop through each object in the right pane and add its data to the array
         for (Node node : rightPane.getChildren()) {
-            if (node instanceof CustomObject) {
-                CustomObject customObject = (CustomObject) node;
-                JsonObject objectJson = customObject.save(directory);
-                customObjectsArray.add(objectJson);
-            }
+            CustomObject customObject = (CustomObject) node;
+            JsonObject objectJson = customObject.save(directory);
+            customObjectsArray.add(objectJson);
         }
 
         customTileObject.add("customObjects", customObjectsArray);
@@ -136,15 +134,16 @@ public class CustomTileMaker extends Application {
             Files.createDirectories(directory); // create the directory if it does not exist
         }
 
-        if (!Files.exists(directory)) {
-            Files.createFile(directory);
+        Path file = directory.resolve(this.name + ".json");
+        if (!Files.exists(file)) {
+            Files.createFile(file);
         }
-        File file = directory.toFile();
         // Write the JSON to the specified file
-        try (FileWriter writer = new FileWriter(file)) {
+        try (FileWriter writer = new FileWriter(file.toFile())) {
             writer.write(gson.toJson(customTileObject));
         }
     }
+
 
 
     public void launch() {

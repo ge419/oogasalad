@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,13 +21,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CustomImage extends ImageView {
+public class CustomImage extends ImageView implements CustomObject {
 
     String imageName;
-    Path imagePath;
+    Path destinationPath;
+    File originalFile;
 
-    public CustomImage(Image image) {
-        super(image);
+    public CustomImage(File file) {
+        super(new Image(file.toURI().toString()));
+        originalFile = file;
         this.setPreserveRatio(true);
     }
 
@@ -82,25 +85,36 @@ public class CustomImage extends ImageView {
         this.imageName = text;
     }
 
-    public JsonObject save(Path directory) {
+    public JsonObject save(Path directory) throws IOException {
+        this.destinationPath = directory;
+
+        if (!Files.exists(destinationPath)) {
+            Files.createDirectories(destinationPath);
+        }
+        saveImage(this.originalFile, directory);
+
         // Create JSON object and add properties
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("type", "CustomImage");
         jsonObject.addProperty("x", this.getLayoutX());
         jsonObject.addProperty("y", this.getLayoutY());
-        if (this.imageName == null) {
-            this.imageName = this.getImage().getUrl();
-        }
-        jsonObject.addProperty("name", this.imageName);
-        if (this.imagePath != null) {
-            jsonObject.addProperty("imagePath", this.imagePath.toString());
-            Path imageSavePath = directory.resolve(this.imagePath.getFileName().toString());
-            try {
-                Files.copy(this.imagePath, imageSavePath, StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
-                System.err.println("Error saving image file: " + e.getMessage());
-            }
-        }
+        jsonObject.addProperty("name", this.originalFile.getName());
+        jsonObject.addProperty("height", this.getImage().getHeight());
+        jsonObject.addProperty("width", this.getImage().getWidth());
+
         return jsonObject;
+    }
+
+    private void saveImage(File originalFile, Path directoryPath) throws IOException {
+        if (this.imageName == null) {
+            this.imageName = this.originalFile.getName();
+        }
+        Path newFilePath = directoryPath.resolve(imageName);
+        if (!Files.exists(newFilePath)) {
+            Files.createFile(newFilePath); //Line Errors
+        }
+
+        // Copy the original file to the new file path
+        Files.copy(originalFile.toPath(), newFilePath, StandardCopyOption.REPLACE_EXISTING);
     }
 }

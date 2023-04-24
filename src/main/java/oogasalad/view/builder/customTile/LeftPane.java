@@ -78,7 +78,7 @@ public class LeftPane extends VBox {
         File selectedFile = fileChooser.showOpenDialog(getScene().getWindow());
 
         // Create an ImageView from the image file
-        CustomImage newImage = new CustomImage(new Image(selectedFile.toURI().toString()));
+        CustomImage newImage = new CustomImage(selectedFile);
 
         newImage.placeInRightBox(rightPane.getWidth(), rightPane.getHeight());
 

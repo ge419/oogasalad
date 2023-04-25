@@ -1,0 +1,23 @@
+{
+  "@class": "oogasalad.model.attribute.SimpleObjectSchema",
+  "name": "piece",
+  "fields": [
+    {
+      "@class": "oogasalad.model.attribute.TileMetadata",
+      "key": "tile",
+      "name": "Tile",
+      "description": "Tile that piece is on",
+      "editable": true,
+      "viewable": true
+    },
+    {
+      "@class": "oogasalad.model.attribute.ImageMetadata",
+      "key": "icon",
+      "name": "Icon",
+      "description": "Image for piece",
+      "editable": true,
+      "viewable": true,
+      "defaultValue": "piece_1.png"
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class BBoard {
 
@@ -35,11 +36,14 @@ public class BBoard {
   }
 
   @JsonIgnore
-  public Tile getById(String id) {
-    for (Tile t: tiles) {
-      if (t.getId().equals(id)) return t;
+  public Optional<Tile> getById(String id) {
+    for (Tile t : tiles) {
+      if (t.getId().equals(id)) {
+        return Optional.of(t);
+      }
     }
-    return null;
+
+    return Optional.empty();
   }
 
   public void remove(String id){

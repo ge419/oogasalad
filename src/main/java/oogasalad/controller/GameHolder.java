@@ -9,7 +9,7 @@ import oogasalad.model.constructable.Players;
 public class GameHolder {
 
   BBoard board;
-  Players players;
+  Optional<List<Player>> players;
 
   public BBoard getBoard() {
     return board;
@@ -19,11 +19,12 @@ public class GameHolder {
     this.board = board;
   }
 
-  public void setPlayers(Players players) {
-    this.players = players;
-  }
-  public Players getPlayers() {
-    return players;
-  }
-  public Player getPlayer() { return players.getPlayers().get(0); }
+  //TODO: optional issue
+//  public void setPlayers(Players players) {
+//    this.players = players;
+//  }
+//  public Players getPlayers() {
+//    return players;
+//  }
+//  public Player getPlayer() { return players.getPlayers().get(0); }
 }

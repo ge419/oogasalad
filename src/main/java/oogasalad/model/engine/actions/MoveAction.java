@@ -6,6 +6,7 @@ import java.util.List;
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.events.MoveEvent;
+import oogasalad.model.engine.events.TileLandedEvent;
 
 public class MoveAction implements Action {
 
@@ -23,7 +24,9 @@ public class MoveAction implements Action {
 
   @Override
   public void runAction(ActionParams actionParams) {
+    Tile landedTile = moveList.get(moveList.size() - 1);
     actionParams.emitter().emit(new MoveEvent(moveList));
-    piece.setTileId(moveList.get(moveList.size() - 1).getId());
+    actionParams.emitter().emit(new TileLandedEvent(piece, landedTile));
+    piece.setTileId(landedTile.getId());
   }
 }

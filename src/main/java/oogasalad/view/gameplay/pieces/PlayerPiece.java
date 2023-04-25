@@ -8,10 +8,14 @@ public class PlayerPiece extends GamePiece {
 
   private final Piece modelPiece;
 
-  public PlayerPiece(Piece piece) {
+  public PlayerPiece(Piece modelPiece) {
     //TODO: image getter for player, create image attribute
     super("data/example/piece_1.png");
-    this.modelPiece = piece;
+    this.modelPiece = modelPiece;
+    //TODO: BIND PLAYER piece position to MODEL player
+    //make sure it refreshes per tile change
+//    xProperty().bind(modelPlayer.getX());
+//    yProperty().bind(modelPlayer.getY());
 
     setOnMouseClicked(event -> {
       //TODO: remove this and implement a button in GameView that passes in a coordinate
@@ -21,13 +25,9 @@ public class PlayerPiece extends GamePiece {
 
   }
 
-//  public void changePlayerName(String newName) {
-//    modelPlayer.setName(newName);
-//  }
-
   @Override
   public void move(Coordinate[] coorArray) {
-
+    //change player tile position attribute?
   }
 
   public void moveToTile(Tile tile) {

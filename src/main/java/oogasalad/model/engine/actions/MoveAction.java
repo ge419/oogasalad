@@ -27,6 +27,6 @@ public class MoveAction implements Action {
     Tile landedTile = moveList.get(moveList.size() - 1);
     actionParams.emitter().emit(new MoveEvent(moveList));
     actionParams.emitter().emit(new TileLandedEvent(piece, landedTile));
-    piece.setTileId(landedTile.getId());
+    piece.setTile(landedTile);
   }
 }

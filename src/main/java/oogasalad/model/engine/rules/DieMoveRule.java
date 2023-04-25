@@ -63,7 +63,7 @@ public class DieMoveRule extends AbstractGameConstruct implements EditableRule {
   }
 
   private List<Tile> makeMoveSequence(Piece piece, int amountMoved) {
-    Tile currentTile = gameHolder.getTileById(piece.getTileId().get()).get();
+    Tile currentTile = piece.getTile().get();
     List<Tile> moves = new ArrayList<>(amountMoved);
     for (int i = 0; i < amountMoved; i++) {
       // TODO: Multiple paths?

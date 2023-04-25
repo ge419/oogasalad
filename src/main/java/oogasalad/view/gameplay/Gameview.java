@@ -31,8 +31,6 @@ public class Gameview {
   private final Provider<Piece> pieceProvider;
   private Tiles tiles;
   private Die die;
-  private PlayerPiece piece;
-  private final boolean waiting = false;
   private final GameController gc;
   private Scene scene;
 
@@ -65,17 +63,22 @@ public class Gameview {
     die.render(UIroot);
 
     // TODO: Dynamically watch players/pieces
-    game.setPlayers(new Players(List.of(playerProvider.get())));
-    Player player = game.getPlayers().getPlayers().get(0);
+    Player player1 = playerProvider.get();
+    Player player2 = playerProvider.get();
+    game.setPlayers(new Players(List.of(player1, player2)));
 
     Piece piece1 = pieceProvider.get();
-    piece1.setPlayer(player);
-    player.getPieces().add(piece1);
+    Piece piece2 = pieceProvider.get();
+    piece1.setPlayer(player1);
+    piece2.setPlayer(player2);
+    player1.getPieces().add(piece1);
+    player2.getPieces().add(piece2);
 
-    Pieces pieces = new Pieces(List.of(piece1));
+    Pieces pieces = new Pieces(List.of(piece1, piece2));
     pieces.render(UIroot);
-    piece = pieces.getPiece();
-    piece.moveToTile(game.getBoard().getTiles().get(0));
+    for (PlayerPiece piece : pieces.getPieceList()) {
+      piece.moveToTile(game.getBoard().getTiles().get(0));
+    }
 
     //TODO: take in backend player when appropriate attributes are implemented
 //    players = new ViewPlayers(b.getPlayers());

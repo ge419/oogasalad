@@ -1,43 +1,26 @@
 package oogasalad.view.gameplay.popup;
 
 import javafx.geometry.Point2D;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Popup;
 import oogasalad.view.gameplay.pieces.Cards;
 
-public class HandDisplayPopup extends Popups {
+public class CardDisplayPopup extends Popups {
 
-  private final Cards[] cards;
-  private final Popup popup;
+  private Popup popup;
 
-  public HandDisplayPopup(Cards[] cards) {
+  public CardDisplayPopup(Cards card) {
     super();
-    this.cards = cards;
-    popup = getPopup();
-    HBox hand = new HBox();
-    for (Cards card : cards) {
-      hand.getChildren().add(card);
-    }
-    ((BorderPane)popup.getContent().get(0)).setCenter(hand);
-    hand.setAlignment(Pos.CENTER);
-
+    popup = getNewPopup();
+    Cards dummyCard = new Cards(card.getImageURL());
+    ((BorderPane)popup.getContent().get(0)).setCenter(dummyCard);
     popup.setOnHidden(event -> {
       hideHand();
     });
     popup.setAutoHide(true);
     popup.setHideOnEscape(true);
   }
-
-  public void setSelected(boolean selected) {
-    // TODO: add a hover feature to each individual card to make it seens as "selected"
-    for (Cards card : cards) {
-      card.setSelected(selected);
-    }
-  }
-
   @Override
   public void showHand(Node anchor, Point2D offset) {
     double sceneWidth = anchor.getScene().getWindow().getWidth();

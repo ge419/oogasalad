@@ -2,8 +2,7 @@ package oogasalad.view.gameplay.pieces;
 
 import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -11,12 +10,15 @@ import oogasalad.view.Backgroundable;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Imageable;
 import oogasalad.view.Textable;
+import oogasalad.view.gameplay.popup.CardDisplayPopup;
 
 public class Cards extends GamePiece implements Backgroundable, Textable, Imageable {
 
+  private final String imageURL;
 
   public Cards (String imageURL) {
     super(imageURL);
+    this.imageURL = imageURL;
     //TODO: take this next part out
     imageURL = "view.gameplay/go.jpg";
     ImageView cardImage = createImage(150, imageURL);
@@ -24,12 +26,22 @@ public class Cards extends GamePiece implements Backgroundable, Textable, Imagea
     VBox content = new VBox(70/10, cardImage, createTextBox("Test Text", 70, 50));
     content.setAlignment(Pos.CENTER);
     getChildren().addAll(background, content);
+    setOnMouseClicked(this::showPopup);
+  }
+
+  private void showPopup(MouseEvent event) {
+    CardDisplayPopup popup = new CardDisplayPopup(this);
+    popup.showHand(this, new javafx.geometry.Point2D(this.getScene().getX(), this.getScene().getY()));
   }
 
 
   @Override
   public void move(Coordinate[] coorArray) {
 
+  }
+
+  public String getImageURL() {
+    return imageURL;
   }
 
   public void setSelected(boolean selected) {

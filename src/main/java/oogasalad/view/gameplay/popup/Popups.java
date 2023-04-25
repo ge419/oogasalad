@@ -10,10 +10,10 @@ public abstract class Popups implements Holdable {
   private Popup popup;
 
   public Popups() {
-    initPopup();
+    popup = initPopup();
   }
 
-  private void initPopup() {
+  private Popup initPopup() {
     popup = new Popup();
     BorderPane contentPane = new BorderPane();
     contentPane.setStyle("-fx-background-color: transparent;");
@@ -23,10 +23,14 @@ public abstract class Popups implements Holdable {
     root.setPrefHeight(400);
     root.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
     popup.getContent().add(root);
+    return popup;
+  }
+
+  protected Popup getNewPopup() {
+    return initPopup();
   }
 
   protected Popup getPopup() {
-    initPopup();
     return popup;
   }
 
@@ -38,4 +42,3 @@ public abstract class Popups implements Holdable {
     return popup.isShowing();
   }
 }
-

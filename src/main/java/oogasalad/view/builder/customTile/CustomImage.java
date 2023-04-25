@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CustomImage extends ImageView implements CustomObject {
+public class CustomImage extends ImageView implements CustomElement {
 
     String imageName;
     Path destinationPath;

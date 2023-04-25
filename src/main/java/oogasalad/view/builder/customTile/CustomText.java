@@ -10,12 +10,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomText extends Label implements CustomObject {
+public class CustomText extends Label implements CustomElement {
     private String name;
     private String defaultContents;
     private int fontSize;
@@ -98,6 +97,8 @@ public class CustomText extends Label implements CustomObject {
         jsonObject.addProperty("translateX", this.getTranslateX());
         jsonObject.addProperty("translateY", this.getTranslateY());
         jsonObject.addProperty("type", "CustomText");
+        jsonObject.addProperty("index", this.index);
+
 
         return jsonObject;
     }

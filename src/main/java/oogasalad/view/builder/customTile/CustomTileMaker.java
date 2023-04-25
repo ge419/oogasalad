@@ -8,7 +8,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 
@@ -26,7 +25,7 @@ public class CustomTileMaker extends Application {
     private String defaultTitle = "CustomTileMaker";
 
     private Stage stage;
-    private LeftPane leftPane;
+    private CustomObjectBuilderMenu customObjectBuilderMenu;
     private StackPane rightPane;
 
     private final int LEFT_PANE_WIDTH = 250;
@@ -42,8 +41,7 @@ public class CustomTileMaker extends Application {
     @Override
     public void start(Stage PrimaryStage) {
         // Create StackPane for the right pane
-        rightPane = new StackPane();
-
+        rightPane = new CustomObject();
         stage = PrimaryStage;
         // Create UI elements for the left and right panes
 
@@ -60,22 +58,22 @@ public class CustomTileMaker extends Application {
         loadButton.setOnAction(e -> loadJson());
 
         // Create leftPane
-        leftPane = new LeftPane(this, rightPane);
-        leftPane.getChildren().addAll(saveButton, loadButton);
-        leftPane.setMinWidth(LEFT_PANE_WIDTH);
-        leftPane.setMaxWidth(LEFT_PANE_WIDTH);
+        customObjectBuilderMenu = new CustomObjectBuilderMenu(this, rightPane);
+        customObjectBuilderMenu.getChildren().addAll(saveButton, loadButton);
+        customObjectBuilderMenu.setMinWidth(LEFT_PANE_WIDTH);
+        customObjectBuilderMenu.setMaxWidth(LEFT_PANE_WIDTH);
 
         // Create SplitPane and add left and right panes
         SplitPane splitPane = new SplitPane();
         splitPane.setOrientation(Orientation.HORIZONTAL);
-        splitPane.getItems().addAll(leftPane, rightPane);
+        splitPane.getItems().addAll(customObjectBuilderMenu, rightPane);
 
         // Set initial position of the divider
         splitPane.setDividerPositions(0.3);
 
         // Set listener for changes to divider position
         splitPane.getDividers().get(0).positionProperty().addListener((obs, oldVal, newVal) -> {
-            leftPane.setPrefWidth(LEFT_PANE_WIDTH);
+            customObjectBuilderMenu.setPrefWidth(LEFT_PANE_WIDTH);
             double rightWidth = splitPane.getWidth() - LEFT_PANE_WIDTH;
             rightPane.setPrefWidth(rightWidth);
         });
@@ -111,8 +109,8 @@ public class CustomTileMaker extends Application {
 
                 for (JsonElement jsonElement : customObjects) {
                     JsonObject customObject = jsonElement.getAsJsonObject();
-                    CustomObject loadedObject = CustomObject.load(customObject);
-                    this.leftPane.placeInPane(loadedObject);
+                    CustomElement loadedObject = CustomElement.load(customObject);
+                    this.customObjectBuilderMenu.placeInPane(loadedObject);
                     loadedObject.setLocation();
 
                 }
@@ -130,7 +128,7 @@ public class CustomTileMaker extends Application {
         JsonArray customObjects = jsonObject.getAsJsonArray("customObjects");
         for (JsonElement jsonElement : customObjects) {
             JsonObject customObject = jsonElement.getAsJsonObject();
-            CustomObject loadedObject = CustomObject.load(customObject);
+            CustomElement loadedObject = CustomElement.load(customObject);
             tile.getChildren().add(customObject.get("index").getAsInt(), (Node) loadedObject);
             loadedObject.setLocation();
         }
@@ -165,7 +163,7 @@ public class CustomTileMaker extends Application {
 
         // Loop through each object in the right pane and add its data to the array
         for (Node node : rightPane.getChildren()) {
-            CustomObject customObject = (CustomObject) node;
+            CustomElement customObject = (CustomElement) node;
             JsonObject objectJson = customObject.save(directory);
             customObjectsArray.add(objectJson);
         }

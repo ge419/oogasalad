@@ -13,12 +13,12 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.util.Optional;
 
-public class LeftPane extends VBox {
+public class CustomObjectBuilderMenu extends VBox {
     private final StackPane rightPane;
 
     private Node currentClickedInfo;
 
-    public LeftPane(CustomTileMaker tileMaker, StackPane rightPane) {
+    public CustomObjectBuilderMenu(CustomTileMaker tileMaker, StackPane rightPane) {
         this.rightPane = rightPane;
 
 
@@ -63,7 +63,7 @@ public class LeftPane extends VBox {
         placeInPane(newImage);
     }
 
-    void placeInPane(CustomObject newObject) {
+    void placeInPane(CustomElement newObject) {
         Node newNode = (Node) newObject;
         newNode.setOnMouseClicked(event -> {
             VBox info = newObject.getInfo();

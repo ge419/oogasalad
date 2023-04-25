@@ -6,9 +6,12 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.transform.Transform;
+import javafx.stage.Screen;
 import oogasalad.view.Coordinate;
 
 // another very helpful stack overflow post: https://stackoverflow.com/questions/57751706/why-does-some-nodes-have-a-x-and-y-position-and-others-not
@@ -16,6 +19,10 @@ import oogasalad.view.Coordinate;
 /**
  * <p>Implementation of the DraggerAPI, which commits to creating an object that will allow any
  * node to be draggable based on a simple boolean statement.</p>
+ *
+ * <p>The dragger also needs the parent that holds the node that will be dragged. This is so that
+ * the dragger can know the correct bounds of the parent to prevent the node from dragging outside
+ * of the parent.</p>
  *
  * <p>Again, this was heavily inspired by <a href="https://edencoding.com/drag-shapes-javafx/">this
  * tutorial</a> by Ed Eden-Rump. Thank you!</p>
@@ -26,6 +33,7 @@ public class Dragger implements DraggerAPI {
 
   private static final int ACTIVE = 1;
   private static final int INACTIVE = 0;
+  private static final double ORIGIN = 0.0;
   private static final int MAX_DISPLACEMENT = 2147483647;
   private final Node myNode;
   private final MouseButton myDragButton;
@@ -51,21 +59,20 @@ public class Dragger implements DraggerAPI {
 
 
 
-  public Dragger(Node ourObject, ReadOnlyObjectProperty<Bounds> parentBounds) {
-    this(ourObject, false, new Coordinate(0, 0, 0), MouseButton.PRIMARY, parentBounds);
+  public Dragger(Node ourObject, Node parent) {
+    this(ourObject, false, MouseButton.PRIMARY, parent);
   }
 
-  public Dragger(Node ourObject, boolean canWeDrag, Coordinate offset, MouseButton dragButton, ReadOnlyObjectProperty<Bounds> parentBounds) {
+  public Dragger(Node ourObject, boolean canWeDrag, MouseButton dragButton, Node parent) {
     myNode = ourObject;
-    mySceneOffsetX = offset.getXCoor();
-    mySceneOffsetY = offset.getYCoor();
     createEventHandlers();
     initializeDraggableProperty();
     setDraggable(canWeDrag);
     myDragButton = dragButton;
     myNodeWidth = myNode.getBoundsInParent().getWidth();
     myNodeHeight = myNode.getBoundsInParent().getHeight();
-    initializeParentSizeListener(parentBounds);
+    initializeParentSizeListener(parent);
+    initializeParentTransformListener(parent);
   }
 
   @Override
@@ -102,6 +109,7 @@ public class Dragger implements DraggerAPI {
         myMaxTranslate = new Dimension();
         myMinTranslate = new Dimension();
         System.out.println(String.format("Max dimensions: {%f,%f}", myOriginalMaxWidth, myOriginalMaxHeight));
+        System.out.println("Minimum translations: " + myMinTranslate);
 
         myMaxTranslate.setSize(
             myMaxWidth - myNode.getBoundsInParent().getMinX() - myNodeWidth,
@@ -153,25 +161,34 @@ public class Dragger implements DraggerAPI {
     });
   }
 
-  private void initializeParentSizeListener(ReadOnlyObjectProperty<Bounds> parentBounds){
-    updateBounds(parentBounds.get());
+  private void initializeParentSizeListener(Node parent){
+    updateBounds(parent.getBoundsInParent());
     System.out.println("Max X: " + myMaxWidth + "Max Y: " + myMaxHeight);
 
-    parentBounds.addListener(((observable, oldValue, newValue) -> {
+    parent.boundsInParentProperty().addListener(((observable, oldValue, newValue) -> {
       updateBounds(newValue);
-//      if (newValue.getMaxX() != oldValue.getMaxX()){
-//        myMaxWidth = newValue.getMaxX();
-//      }
-//      if (newValue.getMaxY() != oldValue.getMaxY()){
-//        myMaxHeight = newValue.getMaxY();
-//      }
+    }));
+  }
+
+  private void initializeParentTransformListener(Node parent){
+    transformPoints(parent.getLocalToSceneTransform(), parent.getBoundsInLocal());
+
+    parent.localToSceneTransformProperty().addListener(((observable, oldValue, newValue) -> {
+      transformPoints(newValue, parent.getBoundsInLocal());
     }));
   }
 
   private void updateBounds(Bounds parentBounds){
-    myMaxWidth = parentBounds.getMaxX();
-    myMaxHeight = parentBounds.getMaxY();
+    myMaxWidth = parentBounds.getWidth();
+    myMaxHeight = parentBounds.getHeight();
+    System.out.println(String.format("New maxs: {%f,%f}", myMaxWidth, myMaxHeight));
     System.out.println(String.format("Minimums for boardpane: {%f, %f}", parentBounds.getMinX(), parentBounds.getMinY()));
+  }
+
+  private void transformPoints(Transform transformMatrix, Bounds desiredBounds){
+    Point2D transformed = transformMatrix.transform(desiredBounds.getMinX(), desiredBounds.getMinY());
+    mySceneOffsetX = transformed.getX();
+    mySceneOffsetY = transformed.getY();
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -198,13 +215,23 @@ public class Dragger implements DraggerAPI {
     double currY = getLocationRelativeToParent(event.getSceneY(), mySceneOffsetY);
 //    System.out.println(String.format("Inputted: {%f,%f} and max is {%f,%f}", xLocation, yLocation, myOriginalMaxWidth, myOriginalMaxHeight));
     System.out.println(String.format("Current location: {%f,%f} and max is {%f,%f}", currX, currY, myOriginalMaxWidth, myOriginalMaxHeight));
-    ans.setSize(
-//        (myOriginalMaxWidth < (myNode.getBoundsInParent().getMinX() + myNodeWidth)) ? myMaxTranslate.getWidth() : xLocation,
-        (myOriginalMaxWidth <= currX + myNodeWidth) ? myMaxTranslate.getWidth() : xLocation,
-//        ( myMaxTranslate.getWidth() < myNode.getTranslateX() ) ? myMaxTranslate.getWidth() : xLocation,
-//        (myOriginalMaxHeight < (myNode.getBoundsInParent().getMinY() + myNodeHeight)) ? myMaxTranslate.getHeight() : yLocation
-        (myOriginalMaxHeight < currY + myNodeHeight) ? myMaxTranslate.getHeight() : yLocation
-    );
+    checkTopAndLeftSides(ans, currX, currY, xLocation, yLocation);
+    checkRightAndBottomSides(ans, currX, currY, ans.getWidth(), ans.getHeight());
+
     return ans;
+  }
+
+  private void checkRightAndBottomSides(Dimension resultHolder, double currentMouseX, double currentMouseY, double defaultTranslatedX, double defaultTranslatedY){
+    resultHolder.setSize(
+        (myOriginalMaxWidth < currentMouseX + myNodeWidth) ? myMaxTranslate.getWidth() : defaultTranslatedX,
+        (myOriginalMaxHeight < currentMouseY + myNodeHeight) ? myMaxTranslate.getHeight() : defaultTranslatedY
+    );
+  }
+
+  private void checkTopAndLeftSides(Dimension resultHolder, double currentMouseX, double currentMouseY, double defaultTranslatedX, double defaultTranslatedY){
+    resultHolder.setSize(
+        (ORIGIN > currentMouseX) ? myMinTranslate.getWidth() : defaultTranslatedX,
+        (ORIGIN > currentMouseY) ? myMinTranslate.getHeight() : defaultTranslatedY
+    );
   }
 }

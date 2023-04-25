@@ -80,10 +80,9 @@ public class BuilderController {
     //take holder as parameter?
   }
 
-  public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Coordinate startLocation,
-      ReadOnlyObjectProperty<Bounds> parentBounds) {
+  public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Node parent) {
     node.setOnMouseClicked(mouseClickHandle);
-    Dragger nodeDragger = new Dragger(node, true, startLocation, MouseButton.PRIMARY, parentBounds);
+    Dragger nodeDragger = new Dragger(node, true, MouseButton.PRIMARY, parent);
   }
 
   public BuilderView getBuilderView() {

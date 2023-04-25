@@ -5,6 +5,7 @@ import com.google.inject.name.Names;
 import java.util.Map;
 import java.util.ResourceBundle;
 import oogasalad.controller.BuilderController;
+import oogasalad.controller.GameHolder;
 
 /**
  * Basic Guice module for the {@link BuilderView}

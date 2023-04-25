@@ -79,7 +79,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private TrailMakerAPI myTrailMaker;
   private final boolean myDraggableObjectsToggle = true;
   private boolean myDeleteToggle = false;
-  private final Coordinate myBoardPaneStartingLocation;
   private final BuilderController bc;
   private VBox sidePane;
 
@@ -122,12 +121,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     primaryStage.setScene(scene);
     primaryStage.setTitle(builderResource.getString("BuilderTitle"));
     primaryStage.show();
-    myBoardPaneStartingLocation = new Coordinate(
-        (double) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinX(),
-        (double) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinY(),
-        0
-    );
-
+    System.out.println(myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getWidth());
+    System.out.println(myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getHeight());
   }
 
   private Scene initScene() {
@@ -259,6 +254,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       String givenDirectory = file.get().getPath();
       // Send file to the controller to properly save.
       //Controller.save(ImmutableGameHolder);
+      //bc.save();
       System.out.println(givenDirectory);
       //return Optional.ofNullable(game);
       return Optional.empty();
@@ -442,7 +438,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void initializeNode(Node node, String identifier, EventHandler<MouseEvent> mouseClickHandle){
-    bc.createEventsForNode(node, mouseClickHandle, myBoardPaneStartingLocation, myBoardPane.boundsInLocalProperty());
+    bc.createEventsForNode(node,
+        mouseClickHandle,
+        myBoardPane);
     node.setId(identifier);
     node.getStyleClass().add("clickable");
     myBoardPane.getChildren().add(node);

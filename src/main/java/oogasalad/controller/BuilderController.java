@@ -6,8 +6,8 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import oogasalad.controller.builderevents.Dragger;
 import oogasalad.model.attribute.SchemaDatabase;
-//import oogasalad.model.builder.BBuilder;
 import oogasalad.model.constructable.BBoard;
+import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.BuilderView;
@@ -71,6 +71,7 @@ public class BuilderController {
 
 
   public void save(GameHolder holder) {
+    // TODO Use SaveManager
     String filePath = FILE_PATH + "/" + FOLDER_NAME;
 
     //serialize GameHolder to the specified path

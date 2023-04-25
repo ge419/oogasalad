@@ -22,6 +22,7 @@ public class DualPrompter implements Prompter {
 
   @Override
   public void rollDice(Runnable callback) {
+    // TODO: Infinite loop here
     doEffect.accept(afterEffect -> {
       gameview.onDieClicked(
           () -> {

@@ -1,11 +1,10 @@
 package oogasalad.controller;
 
-import java.util.List;
-import java.util.Optional;
 import oogasalad.model.constructable.BBoard;
-import oogasalad.model.constructable.Player;
+import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Players;
 
+// TODO: The builder should probably not be a separate class...
 public class GameHolderBuilder {
 
   //TODO: default values for game object
@@ -32,10 +31,11 @@ public class GameHolderBuilder {
     return this;
   }
 
-  public GameHolder build(){
+  public GameHolder build() {
     GameHolder holder = new GameHolder();
-    holder.board = this.board;
-    holder.players = this.players;
+
+//    holder.board = this.board;
+//    holder.players = this.players;
 //    holder.cards = this.cards;
     return holder;
   }

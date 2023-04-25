@@ -4,17 +4,18 @@ import java.util.List;
 import java.util.Optional;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.Player;
+import oogasalad.model.constructable.Players;
 
 public class GameHolderBuilder {
 
   //TODO: default values for game object
 
   BBoard board;
-  Optional<List<Player>> players;
+  Players players;
 //  GameObjectType gameObjectType;
 //   Optional<List<Card>> cards;
 
-  public GameHolderBuilder setPlayers(Optional<List<Player>> players) {
+  public GameHolderBuilder setPlayers(Players players) {
     this.players =  players;
 //    this.gameObjectType = GameObjectType.PLAYER;
     return this;

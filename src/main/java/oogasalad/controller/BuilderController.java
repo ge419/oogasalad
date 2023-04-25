@@ -1,8 +1,10 @@
 package oogasalad.controller;
 
-import java.io.IOException;
-import java.util.Optional;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import oogasalad.controller.builderevents.Dragger;
 import oogasalad.model.attribute.SchemaDatabase;
 //import oogasalad.model.builder.BBuilder;
 import oogasalad.model.constructable.BBoard;
@@ -57,6 +59,16 @@ public class BuilderController {
     board.getById(currentId).getNextTileIds().add(nextId);
   }
 
+  public void removeNext(String currentId, String nextId){
+    board.getById(currentId).getNextTileIds().remove(nextId);
+  }
+
+  public void removeTile(String currentId){
+    board.remove(currentId);
+  }
+
+
+
 
   public void save(GameHolder holder) {
     String filePath = FILE_PATH + "/" + FOLDER_NAME;
@@ -77,10 +89,16 @@ public class BuilderController {
 
   /**
    * Take the ImmutableGameHolder from backend and call on frontend to load
+   * @param path
    */
-  public void load() {
+  public void load(String path) {
     //take holder as parameter?
     builderView.loadFile();
+  }
+
+  public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Coordinate startLocation) {
+    node.setOnMouseClicked(mouseClickHandle);
+    Dragger nodeDragger = new Dragger(node, true, startLocation, MouseButton.PRIMARY);
   }
 
   public BuilderView getBuilderView() {

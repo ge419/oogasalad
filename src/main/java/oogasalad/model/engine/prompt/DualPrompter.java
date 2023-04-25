@@ -5,11 +5,15 @@ import java.util.List;
 import java.util.function.Consumer;
 import javax.inject.Inject;
 import oogasalad.controller.Effect;
+import oogasalad.view.gameplay.DieClickedEvent;
 import oogasalad.view.gameplay.Gameview;
 
 public class DualPrompter implements Prompter {
+
   private final Consumer<Effect> doEffect;
   private final Gameview gameview;
+  private Runnable dieCallback;
+  private boolean callbackSet = false;
 
   @Inject
   public DualPrompter(
@@ -20,16 +24,26 @@ public class DualPrompter implements Prompter {
     this.gameview = gameview;
   }
 
+  private void dieClicked() {
+    if (dieCallback != null) {
+      dieCallback.run();
+    }
+  }
+
   @Override
   public void rollDice(Runnable callback) {
+    // TODO: This is horrible but necessary until prompters are constructed after the view is initialized
+    if (!callbackSet) {
+      gameview.addEventHandler(DieClickedEvent.DIE_CLICKED, e -> dieClicked());
+      callbackSet = true;
+    }
+
     // TODO: Infinite loop here
     doEffect.accept(afterEffect -> {
-      gameview.onDieClicked(
-          () -> {
-            System.out.println("running prompter");
-            callback.run();
-            afterEffect.run();
-          });
+      dieCallback = () -> {
+        callback.run();
+        afterEffect.run();
+      };
     });
   }
 

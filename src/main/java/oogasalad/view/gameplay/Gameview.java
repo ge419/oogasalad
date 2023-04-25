@@ -5,7 +5,9 @@ import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
 import java.util.List;
+import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -87,15 +89,8 @@ public class Gameview {
     primaryStage.show();
   }
 
-  public void onDieClicked(Runnable runnable) {
-    // TODO: How do we handle these "one time" handlers better?
-    scene.addEventHandler(DieClickedEvent.DIE_CLICKED, new EventHandler<DieClickedEvent>() {
-      @Override
-      public void handle(DieClickedEvent event) {
-        runnable.run();
-        scene.removeEventHandler(DieClickedEvent.DIE_CLICKED, this);
-      }
-    });
+  public <T extends Event> void addEventHandler(EventType<T> type, EventHandler<T> action) {
+    scene.addEventHandler(type, action);
   }
 
   public Die getDie() {

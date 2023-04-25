@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -36,17 +37,19 @@ public abstract class AbstractGameConstruct implements GameConstruct {
   private final Map<String, Attribute> attributeMap;
   @JsonProperty("schemas")
   private List<String> schemaNames;
+  private String baseSchema;
   private String id;
   private final ObjectProperty<ObjectSchema> schemaProperty;
 
-  protected AbstractGameConstruct(List<String> schemaNames, SchemaDatabase database) {
+  protected AbstractGameConstruct(String baseSchema, SchemaDatabase database) {
     this.id = UUID.randomUUID().toString();
     this.database = database;
     this.attributeMap = new TreeMap<>();
     this.schemaProperty = new SimpleObjectProperty<>();
+    this.baseSchema = baseSchema;
 
     database.databaseProperty().addListener((observable, oldValue, newValue) -> refreshSchema());
-    setSchemaNames(schemaNames);
+    setSchemaNames(List.of(baseSchema));
   }
 
   @Override
@@ -66,6 +69,7 @@ public abstract class AbstractGameConstruct implements GameConstruct {
   @JsonSetter("attributes")
   public void setAllAttributes(List<Attribute> attributeList) {
     for (Attribute attribute : attributeList) {
+      Objects.requireNonNull(attribute);
       attributeMap.put(attribute.getKey(), attribute);
     }
 
@@ -74,13 +78,24 @@ public abstract class AbstractGameConstruct implements GameConstruct {
 
   @Override
   @JsonIgnore
-  public Attribute getAttribute(String key) {
-    return attributeMap.get(key);
+  public Optional<Attribute> getAttribute(String key) {
+    return Optional.ofNullable(attributeMap.get(key));
   }
 
   @JsonGetter("schemas")
   public List<String> getSchemaNames() {
     return schemaNames;
+  }
+
+  @JsonSetter("schemas")
+  public void setJsonSchemaNames(List<String> jsonSchemaNames) {
+    // Ensure base schema is covered
+    List<String> newNames = new ArrayList<>(jsonSchemaNames);
+    if (!jsonSchemaNames.contains(baseSchema)) {
+      newNames.add(baseSchema);
+    }
+
+    setSchemaNames(newNames);
   }
 
   private void refreshSchema() {
@@ -90,7 +105,7 @@ public abstract class AbstractGameConstruct implements GameConstruct {
   @JsonIgnore
   protected void setSchemaNames(List<String> newSchemaNames) {
     List<ObjectSchema> schemas = new ArrayList<>();
-    for (String newSchemaName : newSchemaNames) {
+    for (String newSchemaName : newSchemaNames.stream().distinct().toList()) {
       Optional<ObjectSchema> schemaOptional = database.getSchema(newSchemaName);
       if (schemaOptional.isEmpty()) {
         LOGGER.warn("schema does not exist {}", newSchemaNames);
@@ -117,7 +132,13 @@ public abstract class AbstractGameConstruct implements GameConstruct {
       boolean canKeepAttribute = attributeMap.containsKey(key)
           && canMigrateAttribute(attributeMap.get(key), metadata);
       if (!canKeepAttribute) {
-        attributeMap.put(key, metadata.makeAttribute());
+        Attribute attr = metadata.makeAttribute();
+        if (attr == null) {
+          LOGGER.fatal("metadata returned null attribute for key {}", key);
+          throw new IllegalStateException("bad attribute from metadata");
+        }
+
+        attributeMap.put(key, attr);
       }
     }
   }
@@ -145,6 +166,7 @@ public abstract class AbstractGameConstruct implements GameConstruct {
   }
 
   @Override
+  @JsonIgnore
   public ObjectSchema getSchema() {
     return schemaProperty.get();
   }

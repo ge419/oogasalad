@@ -1,6 +1,6 @@
 {
   "@class": "oogasalad.model.attribute.SimpleObjectSchema",
-  "name": "basicTile",
+  "name": "tile",
   "fields": [
     {
       "@class": "oogasalad.model.attribute.StringMetadata",

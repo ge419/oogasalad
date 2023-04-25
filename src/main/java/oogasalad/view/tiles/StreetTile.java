@@ -1,7 +1,5 @@
 package oogasalad.view.tiles;
 
-import java.util.HashMap;
-import java.util.Map;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,10 +11,10 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
-import oogasalad.model.attribute.BooleanAttribute;
+import oogasalad.model.attribute.PlayerAttribute;
 import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.Tile;
-import oogasalad.model.engine.actions.BuyAction;
+import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.view.Backgroundable;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Textable;
@@ -31,15 +29,16 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
     this.modelTile = BTile;
 
     getChildren().addAll((createBarBox(BTile.getWidth(), BTile.getHeight(),
-            StringAttribute.from(BTile.getAttribute(COLOR_ATTRIBUTE)).getValue())),
+            StringAttribute.from(BTile.getAttribute(COLOR_ATTRIBUTE).get()).getValue())),
         createTextBox(BTile.getInfo(), BTile.getHeight(), BTile.getWidth()));
     setPosition(BTile.getCoordinate());
 
     //TODO: change this temporary behavior when tile is bought
-    BooleanAttribute ownedAttribute =
-        BooleanAttribute.from(modelTile.getAttribute(BuyAction.OWNED_ATTRIBUTE));
-    ownedAttribute.valueProperty().addListener(((observable, oldValue, isOwned) -> {
-      if (Boolean.TRUE.equals(isOwned)) {
+    //TODO: depend on if attribute is present
+    PlayerAttribute ownerAttribute =
+        PlayerAttribute.from(modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE).get());
+    ownerAttribute.idProperty().addListener(((observable, oldValue, isOwned) -> {
+      if (isOwned.isPresent()) {
         for (Node child : this.getChildren()) {
           child.setStyle("-fx-background-color: red;");
         }

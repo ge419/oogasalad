@@ -1,12 +1,16 @@
 package oogasalad.model.attribute;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 public class PlayerAttribute extends GameConstructAttribute {
 
-  public PlayerAttribute(String key, String id) {
+  @JsonCreator
+  public PlayerAttribute(@JsonProperty("key") String key, @JsonProperty("id") String id) {
     super(key, id);
+  }
+
+  public static PlayerAttribute from(Attribute attr) {
+    return AbstractAttribute.getAs(attr, PlayerAttribute.class);
   }
 }

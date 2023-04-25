@@ -44,7 +44,7 @@ public class CustomObjectMaker extends Application {
     public void start(Stage PrimaryStage) {
         // Create StackPane for the right pane
         stage = PrimaryStage;
-        rightPane = new CustomObject();
+        rightPane = new CustomTileFrontEnd();
         leftPane = new LeftPane();
 
         // Create SplitPane and add left and right panes
@@ -248,10 +248,10 @@ public class CustomObjectMaker extends Application {
             renameButton.setOnAction(e -> nameObject());
 
             Button saveButton = new Button("Save Custom Object");
-            renameButton.setOnAction(e -> saveCustomObject());
+            saveButton.setOnAction(e -> saveCustomObject());
 
             Button loadButton = new Button("Load Custom Object");
-            renameButton.setOnAction(e -> loadJson());
+            loadButton.setOnAction(e -> loadJson());
 
             Button addImageButton = new Button("Add Image");
             addImageButton.setOnAction(e -> addImage());
@@ -269,9 +269,11 @@ public class CustomObjectMaker extends Application {
             dialog.setHeaderText("Enter a new name for the CustomTile:");
             Optional<String> result = dialog.showAndWait();
             result.ifPresent(name -> {
+                Stage stage = (Stage) getScene().getWindow();
                 stage.setTitle(name);
             });
         }
+
 
         private void addImage() {
             CustomImage newImage = getImageFromFile();

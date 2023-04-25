@@ -3,14 +3,6 @@
   "name": "piece",
   "fields": [
     {
-      "@class": "oogasalad.model.attribute.TileMetadata",
-      "key": "tile",
-      "name": "Tile",
-      "description": "Tile that piece is on",
-      "editable": true,
-      "viewable": true
-    },
-    {
       "@class": "oogasalad.model.attribute.ImageMetadata",
       "key": "icon",
       "name": "Icon",

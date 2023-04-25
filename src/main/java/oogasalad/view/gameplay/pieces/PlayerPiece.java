@@ -2,6 +2,7 @@ package oogasalad.view.gameplay.pieces;
 
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Tile;
+import oogasalad.util.Util;
 import oogasalad.view.Coordinate;
 
 public class PlayerPiece extends GamePiece {
@@ -17,12 +18,8 @@ public class PlayerPiece extends GamePiece {
 //    xProperty().bind(modelPlayer.getX());
 //    yProperty().bind(modelPlayer.getY());
 
-    setOnMouseClicked(event -> {
-      //TODO: remove this and implement a button in GameView that passes in a coordinate
-      Coordinate coor = new Coordinate(300.0, 300.0, 0);
-      moveDirectly(coor);
-    });
-
+    Util.initializeAndListen(modelPiece.tileProperty(),
+        optionalTile -> optionalTile.ifPresent(this::moveToTile));
   }
 
   @Override
@@ -31,7 +28,7 @@ public class PlayerPiece extends GamePiece {
   }
 
   public void moveToTile(Tile tile) {
-    modelPiece.setTileId(tile.getId());
+    modelPiece.setTile(tile);
     moveDirectly(tile.getCoordinate());
   }
 

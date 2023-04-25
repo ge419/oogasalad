@@ -3,30 +3,27 @@ package oogasalad.model.constructable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.inject.Inject;
 import java.util.Optional;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import oogasalad.model.attribute.ImageAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
-import oogasalad.model.attribute.TileAttribute;
 
 public class Piece extends AbstractGameConstruct {
 
   public static final String SCHEMA_NAME = "piece";
   public static final String ICON_ATTRIBUTE = "icon";
-  public static final String TILE_ATTRIBUTE = "tile";
+  private ObjectProperty<Optional<Tile>> tile;
   private Player player;
 
   @Inject
   public Piece(SchemaDatabase database) {
     super(SCHEMA_NAME, database);
+    tile = new SimpleObjectProperty<>(Optional.empty());
   }
 
   @JsonIgnore
   public ImageAttribute getImageAttribute() {
     return ImageAttribute.from(getAttribute(ICON_ATTRIBUTE).get());
-  }
-
-  @JsonIgnore
-  public TileAttribute getTileAttribute() {
-    return TileAttribute.from(getAttribute(TILE_ATTRIBUTE).get());
   }
 
   @JsonIgnore
@@ -40,13 +37,23 @@ public class Piece extends AbstractGameConstruct {
   }
 
   @JsonIgnore
-  public Optional<String> getTileId() {
-    return getTileAttribute().getId();
+  public ObjectProperty<Optional<Tile>> tileProperty() {
+    return tile;
   }
 
   @JsonIgnore
-  public void setTileId(String id) {
-    getTileAttribute().setId(id);
+  public Optional<Tile> getTile() {
+    return tile.get();
+  }
+
+  @JsonIgnore
+  public void setTile(Tile tile) {
+    this.tile.set(Optional.ofNullable(tile));
+  }
+
+  @JsonIgnore
+  public void clearTile() {
+    this.tile.set(Optional.empty());
   }
 
   public Optional<Player> getPlayer() {

@@ -2,7 +2,7 @@ package oogasalad.model.attribute;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import javafx.beans.property.IntegerProperty;
+import java.util.Optional;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -20,8 +20,8 @@ public class TileMetadata extends AbstractMetadata {
 
   @Override
   protected boolean checkPreconditions(Attribute attribute) {
-    String id = TileAttribute.from(attribute).getId();
-    return isValidTileId(id);
+    Optional<String> id = TileAttribute.from(attribute).getId();
+    return id.isPresent() && isValidTileId(id.get());
   }
 
   public boolean isValidTileId(String id) {

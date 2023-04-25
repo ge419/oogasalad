@@ -7,10 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oogasalad.model.attribute.Attribute;
 import oogasalad.model.attribute.DoubleMetadata;
@@ -19,6 +17,8 @@ import oogasalad.model.attribute.Metadata;
 import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.PositionMetadata;
 import oogasalad.model.attribute.StringMetadata;
+import oogasalad.model.attribute.TileListMetadata;
+import oogasalad.model.attribute.TileMetadata;
 import oogasalad.model.constructable.GameConstruct;
 import oogasalad.view.builder.BuilderUtility;
 import org.apache.logging.log4j.LogManager;
@@ -86,7 +86,7 @@ public class PopupForm implements BuilderUtility {
             return Optional.empty();
         }
 
-        Attribute attribute = gameConstruct.getAttribute(metadata.getKey());
+        Attribute attribute = gameConstruct.getAttribute(metadata.getKey()).get();
         return Optional.of(creator.build(attribute, metadata));
     }
 

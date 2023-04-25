@@ -74,8 +74,8 @@ public abstract class AbstractGameConstruct implements GameConstruct {
 
   @Override
   @JsonIgnore
-  public Attribute getAttribute(String key) {
-    return attributeMap.get(key);
+  public Optional<Attribute> getAttribute(String key) {
+    return Optional.ofNullable(attributeMap.get(key));
   }
 
   @JsonGetter("schemas")

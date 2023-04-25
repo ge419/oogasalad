@@ -1,6 +1,7 @@
 package oogasalad.model.constructable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Optional;
 
 public class GameHolder {
 
@@ -16,10 +17,12 @@ public class GameHolder {
     this.board = board;
   }
 
+  @JsonIgnore
   public Players getPlayers() {
     return players;
   }
 
+  @JsonIgnore
   public void setPlayers(Players players) {
     this.players = players;
   }
@@ -32,6 +35,18 @@ public class GameHolder {
   @JsonIgnore
   public void setCurrentPlayer(Player player) {
     this.currentPlayer = player;
+  }
+
+  public Optional<Player> getPlayerById(String id) {
+    return players.getById(id);
+  }
+
+  public Optional<Tile> getTileById(String id) {
+    return board.getById(id);
+  }
+
+  public Optional<Piece> getPieceById(String id) {
+    return players.getPieceById(id);
   }
 
   public static GameHolder createDefaultGame() {

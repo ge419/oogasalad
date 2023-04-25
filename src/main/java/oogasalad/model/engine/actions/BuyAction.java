@@ -1,16 +1,11 @@
 package oogasalad.model.engine.actions;
 
-import oogasalad.model.attribute.BooleanAttribute;
-import oogasalad.model.constructable.Tile;
-
 public class BuyAction implements Action {
 
-  public static final String OWNED_ATTRIBUTE = "owned";
+  private final Runnable buyProp;
 
-  private final Tile tile;
-
-  public BuyAction(Tile tile) {
-    this.tile = tile;
+  public BuyAction(Runnable buyProp) {
+    this.buyProp = buyProp;
   }
 
   @Override
@@ -20,8 +15,7 @@ public class BuyAction implements Action {
 
   private void maybeBuy(boolean shouldBuy) {
     if (shouldBuy) {
-      BooleanAttribute ownedAttribute = BooleanAttribute.from(tile.getAttribute(OWNED_ATTRIBUTE));
-      ownedAttribute.setValue(true);
+      buyProp.run();
     }
   }
 }

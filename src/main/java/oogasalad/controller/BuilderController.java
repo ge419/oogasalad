@@ -48,11 +48,11 @@ public class BuilderController {
   }
 
   public void addNext(String currentId, String nextId) {
-    board.getById(currentId).getNextTileIds().add(nextId);
+    board.getById(currentId).get().getNextTileIds().add(nextId);
   }
 
   public void removeNext(String currentId, String nextId){
-    board.getById(currentId).getNextTileIds().remove(nextId);
+    board.getById(currentId).get().getNextTileIds().remove(nextId);
   }
 
   public void removeTile(String currentId){

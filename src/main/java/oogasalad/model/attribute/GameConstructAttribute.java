@@ -1,35 +1,47 @@
 package oogasalad.model.attribute;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import java.util.Optional;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 
-public class GameConstructAttribute extends AbstractAttribute {
+@JsonTypeInfo(use = Id.CLASS)
+public abstract class GameConstructAttribute extends AbstractAttribute {
 
-  private final StringProperty id;
+  private final ObjectProperty<Optional<String>> id;
 
-  @JsonCreator
-  public GameConstructAttribute(@JsonProperty("key") String key, @JsonProperty("id") String id) {
+  protected GameConstructAttribute(String key, String id) {
     super(key);
-    this.id = new SimpleStringProperty(id);
+    this.id = new SimpleObjectProperty<>(formId(id));
   }
 
-  public static TileAttribute from(Attribute attr) {
-    return AbstractAttribute.getAs(attr, TileAttribute.class);
+  public static GameConstructAttribute from(Attribute attr) {
+    return getAs(attr, GameConstructAttribute.class);
   }
 
-  public String getId() {
-    return this.id.get();
+  public ObjectProperty<Optional<String>> idProperty() {
+    return id;
+  }
+
+  public Optional<String> getId() {
+    return idProperty().get();
   }
 
   public void setId(String id) {
-    this.id.set(id);
+    idProperty().set(formId(id));
+  }
+
+  private Optional<String> formId(String id) {
+    if (id == null || id.isBlank()) {
+      return Optional.empty();
+    }
+    return Optional.of(id);
   }
 
   @Override
   public String toString() {
-    return String.format("Tile Attribute {value: %s}", this.id);
+    return String.format("Game Construct Attribute {value: %s}", this.id);
   }
 }
 

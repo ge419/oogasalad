@@ -20,10 +20,10 @@ import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.Engine;
 import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.BuyTileRule;
-import oogasalad.model.engine.rules.DieRule;
-import oogasalad.model.engine.rules.SetDieRule;
+import oogasalad.model.engine.rules.DieMoveRule;
 import oogasalad.model.engine.rules.TurnRule;
 import oogasalad.view.gameplay.Gameview;
+import oogasalad.view.gameplay.SetDieRule;
 
 public class GameController {
 
@@ -65,7 +65,7 @@ public class GameController {
     engine.setRules(
         List.of(
             injector.getInstance(TurnRule.class),
-            injector.getInstance(DieRule.class),
+            injector.getInstance(DieMoveRule.class),
             injector.getInstance(BuyTileRule.class),
             new SetDieRule(gv.getDie())
         )
@@ -109,7 +109,7 @@ public class GameController {
       // If there is a pending effect, perform it and do the next one once done
       effects.poll().present(this::doEffect);
     } else {
-//      this.run();
+      this.run();
     }
   }
 

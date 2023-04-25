@@ -154,14 +154,16 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     return topBar;
   }
 
-  private HBox createCentralContainer() {
+  private Pane createCentralContainer() {
     VBox sideBar1 = (VBox) makeVBox("SideBar1");
     addButtonsToPane(sideBar1, sideBar1Resource);
     myLeftSidebar = sideBar1;
 
     Node boardPane = makePane("BoardPane", PANE_WIDTH, PANE_HEIGHT);
-    myBoardInfo.setBoardSize(new Dimension((int) PANE_WIDTH, (int) PANE_HEIGHT));
+    //myBoardInfo.setBoardSize(new Dimension((int) PANE_WIDTH, (int) PANE_HEIGHT));
     myBoardPane = (Pane) boardPane;
+//    myBoardPane.setMinSize(PANE_WIDTH, PANE_HEIGHT);
+//    myBoardPane.setMaxSize(PANE_WIDTH, PANE_HEIGHT);
     myBoardPane.setOnMouseClicked(e -> handleBoardClick(e));
     myBoardPane.addEventFilter(TileEvent.DELETE_TILE, e -> deleteTile(e));
     myBoardPane.addEventFilter(TileEvent.SET_NEXT_TILE, e -> createTilePath(e));
@@ -171,7 +173,14 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     sidePane = new VBox();
     sidePane.setPrefWidth(300);
 
-    return (HBox) makeHBox("CentralContainer", sideBar1, boardPane, sidePane);
+    BorderPane pane = new BorderPane();
+    pane.setId("CentralContainer");
+    pane.setLeft(sideBar1);
+    pane.setCenter(boardPane);
+    pane.setRight(sidePane);
+
+//    return (HBox) makeHBox("CentralContainer", sideBar1, boardPane, sidePane);
+    return pane;
   }
 
   private void addButtonsToPane(Pane pane, ResourceBundle resource) {

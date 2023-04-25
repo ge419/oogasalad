@@ -10,7 +10,7 @@ public class BuyAction implements Action {
 
   @Override
   public void runAction(ActionParams actionParams) {
-    actionParams.prompter().yesNoDialog(this::maybeBuy);
+    actionParams.prompter().yesNoDialog("Buy property?", this::maybeBuy);
   }
 
   private void maybeBuy(boolean shouldBuy) {

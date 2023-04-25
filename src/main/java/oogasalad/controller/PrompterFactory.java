@@ -1,7 +1,7 @@
 package oogasalad.controller;
 
 import java.util.function.Consumer;
-import oogasalad.model.engine.prompt.DualPrompter;
+import oogasalad.view.gameplay.DualPrompter;
 import oogasalad.view.gameplay.Gameview;
 
 public interface PrompterFactory {

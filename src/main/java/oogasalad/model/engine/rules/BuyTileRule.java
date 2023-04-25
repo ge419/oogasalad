@@ -17,6 +17,8 @@ import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.actions.BuyAction;
 import oogasalad.model.engine.events.TileLandedEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class BuyTileRule extends AbstractGameConstruct implements EditableRule {
 
@@ -24,6 +26,7 @@ public class BuyTileRule extends AbstractGameConstruct implements EditableRule {
   public static final String APPLIED_SCHEMA_NAME = "buyTileRule-tile";
   public static final String PRICE_ATTRIBUTE = "price";
   public static final String OWNER_ATTRIBUTE = "owner";
+  private static final Logger LOGGER = LogManager.getLogger(BuyTileRule.class);
   private final ListProperty<SchemaBinding> appliedSchemaProperty;
   private final GameHolder gameHolder;
 
@@ -57,6 +60,7 @@ public class BuyTileRule extends AbstractGameConstruct implements EditableRule {
     double newMoney = player.getScore() - price.getValue();
 
     if (owner.getId().isEmpty() && newMoney >= 0) {
+      LOGGER.info("prompted to buy property with remaining money {}", newMoney);
       BuyAction buyAction = new BuyAction(() -> {
         owner.setId(piece.getPlayer().get().getId());
         player.setScore(newMoney);

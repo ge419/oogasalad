@@ -9,7 +9,7 @@
       "description": "Price of tile when bought with the buy tile rule.",
       "editable": true,
       "viewable": true,
-      "defaultValue": 100,
+      "defaultValue": 200,
       "minValue": 0
     },
     {

@@ -66,9 +66,11 @@ public class Gameview {
 
     // TODO: Dynamically watch players/pieces
     game.setPlayers(new Players(List.of(playerProvider.get())));
+    Player player = game.getPlayers().getPlayers().get(0);
 
     Piece piece1 = pieceProvider.get();
-    game.getPlayers().getPlayers().get(0).getPieces().add(piece1);
+    piece1.setPlayer(player);
+    player.getPieces().add(piece1);
 
     Pieces pieces = new Pieces(List.of(piece1));
     pieces.render(UIroot);

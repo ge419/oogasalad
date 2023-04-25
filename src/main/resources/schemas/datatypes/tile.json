@@ -37,8 +37,7 @@
       "editable": true,
       "viewable": true,
       "defaultValue": 50,
-      "minValue": -2147483648,
-      "maxValue": 2147483647
+      "minValue": 0
     },
     {
       "@class": "oogasalad.model.attribute.DoubleMetadata",
@@ -48,8 +47,7 @@
       "editable": true,
       "viewable": true,
       "defaultValue": 50,
-      "minValue": -2147483648,
-      "maxValue": 2147483647
+      "minValue": 0
     },
     {
       "@class": "oogasalad.model.attribute.TileListMetadata",

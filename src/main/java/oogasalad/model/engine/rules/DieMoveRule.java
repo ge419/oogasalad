@@ -32,7 +32,7 @@ public class DieMoveRule extends AbstractGameConstruct implements EditableRule {
       GameHolder gameHolder,
       Random random
   ) {
-    super(List.of(SCHEMA_NAME), database);
+    super(SCHEMA_NAME, database);
     this.actionFactory = actionFactory;
     this.gameHolder = gameHolder;
     this.random = random;

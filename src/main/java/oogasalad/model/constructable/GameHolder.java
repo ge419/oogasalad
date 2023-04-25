@@ -1,13 +1,20 @@
 package oogasalad.model.constructable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
 import java.util.Optional;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
+import oogasalad.model.engine.rules.Rule;
 
 public class GameHolder {
 
   private BBoard board;
   private Players players;
   private Player currentPlayer;
+  private final ListProperty<Rule> rules = new SimpleListProperty<>(
+      FXCollections.observableArrayList());
 
   public BBoard getBoard() {
     return board;
@@ -47,6 +54,14 @@ public class GameHolder {
 
   public Optional<Piece> getPieceById(String id) {
     return players.getPieceById(id);
+  }
+
+  public ListProperty<Rule> getRules() {
+    return rules;
+  }
+
+  public void setRules(List<Rule> rules) {
+    this.rules.setAll(rules);
   }
 
   public static GameHolder createDefaultGame() {

@@ -1,6 +1,7 @@
 package oogasalad.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.inject.Inject;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
@@ -27,10 +28,11 @@ public class SaveManager {
   private final ObjectMapper mapper;
 
   @Inject
-  public SaveManager(@SaveDirectory Path saveDir) {
+  public SaveManager(@SaveDirectory Path saveDir, ObjectMapper mapper) {
     this.saveDir = saveDir;
     this.assetsDir = saveDir.resolve(ASSETS_DIR_NAME);
-    this.mapper = new ObjectMapper();
+    this.mapper = mapper;
+    this.mapper.enable(SerializationFeature.INDENT_OUTPUT);
   }
 
   public void saveGame(GameHolder game) {

@@ -36,17 +36,19 @@ public abstract class AbstractGameConstruct implements GameConstruct {
   private final Map<String, Attribute> attributeMap;
   @JsonProperty("schemas")
   private List<String> schemaNames;
+  private String baseSchema;
   private String id;
   private final ObjectProperty<ObjectSchema> schemaProperty;
 
-  protected AbstractGameConstruct(List<String> schemaNames, SchemaDatabase database) {
+  protected AbstractGameConstruct(String baseSchema, SchemaDatabase database) {
     this.id = UUID.randomUUID().toString();
     this.database = database;
     this.attributeMap = new TreeMap<>();
     this.schemaProperty = new SimpleObjectProperty<>();
+    this.baseSchema = baseSchema;
 
     database.databaseProperty().addListener((observable, oldValue, newValue) -> refreshSchema());
-    setSchemaNames(schemaNames);
+    setSchemaNames(List.of(baseSchema));
   }
 
   @Override
@@ -83,6 +85,17 @@ public abstract class AbstractGameConstruct implements GameConstruct {
     return schemaNames;
   }
 
+  @JsonSetter("schemas")
+  public void setJsonSchemaNames(List<String> jsonSchemaNames) {
+    // Ensure base schema is covered
+    List<String> newNames = new ArrayList<>(jsonSchemaNames);
+    if (!jsonSchemaNames.contains(baseSchema)) {
+      newNames.add(baseSchema);
+    }
+
+    setSchemaNames(newNames);
+  }
+
   private void refreshSchema() {
     setSchemaNames(schemaNames);
   }
@@ -90,7 +103,7 @@ public abstract class AbstractGameConstruct implements GameConstruct {
   @JsonIgnore
   protected void setSchemaNames(List<String> newSchemaNames) {
     List<ObjectSchema> schemas = new ArrayList<>();
-    for (String newSchemaName : newSchemaNames) {
+    for (String newSchemaName : newSchemaNames.stream().distinct().toList()) {
       Optional<ObjectSchema> schemaOptional = database.getSchema(newSchemaName);
       if (schemaOptional.isEmpty()) {
         LOGGER.warn("schema does not exist {}", newSchemaNames);
@@ -145,6 +158,7 @@ public abstract class AbstractGameConstruct implements GameConstruct {
   }
 
   @Override
+  @JsonIgnore
   public ObjectSchema getSchema() {
     return schemaProperty.get();
   }

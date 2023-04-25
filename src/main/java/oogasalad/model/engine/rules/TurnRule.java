@@ -21,7 +21,7 @@ public class TurnRule extends AbstractGameConstruct implements EditableRule {
 
   @Inject
   public TurnRule(SchemaDatabase database, ActionFactory actionFactory, GameHolder game) {
-    super(List.of(SCHEMA_NAME), database);
+    super(SCHEMA_NAME, database);
     this.actionFactory = actionFactory;
     this.game = game;
   }

@@ -24,7 +24,7 @@ public class Player extends AbstractGameConstruct {
 
   @Inject
   public Player(@JacksonInject SchemaDatabase database) {
-    super(List.of(BASE_SCHEMA_NAME), database);
+    super(BASE_SCHEMA_NAME, database);
     pieces = new ArrayList<>();
   }
 

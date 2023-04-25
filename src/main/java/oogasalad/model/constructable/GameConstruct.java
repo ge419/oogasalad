@@ -1,5 +1,6 @@
 package oogasalad.model.constructable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import java.util.Optional;
@@ -53,6 +54,7 @@ public interface GameConstruct {
    * any point; make sure you really want this method instead of
    * {@link GameConstruct#schemaProperty()}.
    */
+  @JsonIgnore
   ObjectSchema getSchema();
 
   /**

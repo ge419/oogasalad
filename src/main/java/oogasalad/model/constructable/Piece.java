@@ -2,7 +2,6 @@ package oogasalad.model.constructable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.inject.Inject;
-import java.util.List;
 import java.util.Optional;
 import oogasalad.model.attribute.ImageAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
@@ -17,7 +16,7 @@ public class Piece extends AbstractGameConstruct {
 
   @Inject
   public Piece(SchemaDatabase database) {
-    super(List.of(SCHEMA_NAME), database);
+    super(SCHEMA_NAME, database);
   }
 
   @JsonIgnore

@@ -17,8 +17,8 @@
       "key": "owner",
       "name": "Owner of tile",
       "description": "The current tile owner",
-      "editable": true,
-      "viewable": true
+      "editable": false,
+      "viewable": false
     }
   ]
 }

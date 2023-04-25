@@ -1,17 +1,19 @@
 package oogasalad.view.gameplay;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
 import java.util.List;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import oogasalad.controller.GameController;
 import oogasalad.model.constructable.GameHolder;
+import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Player;
-import oogasalad.model.constructable.Tile;
+import oogasalad.model.constructable.Players;
 import oogasalad.view.Renderable;
 import oogasalad.view.gameplay.pieces.Pieces;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
@@ -23,6 +25,8 @@ public class Gameview {
   private final int VIEW_WIDTH = 1500;
   private final int VIEW_HEIGHT = 1000;
   private final GameHolder game;
+  private final Provider<Player> playerProvider;
+  private final Provider<Piece> pieceProvider;
   private Tiles tiles;
   private Die die;
   private PlayerPiece piece;
@@ -30,9 +34,16 @@ public class Gameview {
   private final GameController gc;
   private Scene scene;
 
-  public Gameview(GameController gc, GameHolder game) {
+  @Inject
+  public Gameview(
+      @Assisted GameController gc,
+      GameHolder game,
+      Provider<Player> playerProvider,
+      Provider<Piece> pieceProvider) {
     this.gc = gc;
     this.game = game;
+    this.playerProvider = playerProvider;
+    this.pieceProvider = pieceProvider;
   }
 
   public void renderGameview(Stage primaryStage) throws IOException {
@@ -44,18 +55,23 @@ public class Gameview {
     Renderable board = new Board();
     board.render(UIroot);
 
-    List<Tile> t = gc.loadTiles("data/tiles_test.json");
-    tiles = new Tiles(t);
+    // TODO: use either Tiles or BBoard, not both!
+    tiles = new Tiles(game.getBoard().getTiles());
     tiles.render(UIroot);
 
     die = new Die();
     die.render(UIroot);
 
-    List<Player> p = gc.loadPlayers("data/player.json");
-    Pieces pieces = new Pieces(this.game.getPlayers().getPlayers());
+    // TODO: Dynamically watch players/pieces
+    game.setPlayers(new Players(List.of(playerProvider.get())));
+
+    Piece piece1 = pieceProvider.get();
+    game.getPlayers().getPlayers().get(0).getPieces().add(piece1);
+
+    Pieces pieces = new Pieces(List.of(piece1));
     pieces.render(UIroot);
     piece = pieces.getPiece();
-    piece.moveToTile(t.get(0));
+    piece.moveToTile(game.getBoard().getTiles().get(0));
 
     //TODO: take in backend player when appropriate attributes are implemented
 //    players = new ViewPlayers(b.getPlayers());
@@ -71,14 +87,20 @@ public class Gameview {
     primaryStage.show();
   }
 
-  public <T extends Event> void addEventHandler(EventType<T> type, EventHandler<T> action) {
-    scene.addEventHandler(type, action);
+  public void onDieClicked(Runnable runnable) {
+    // TODO: How do we handle these "one time" handlers better?
+    scene.addEventHandler(DieClickedEvent.DIE_CLICKED, new EventHandler<DieClickedEvent>() {
+      @Override
+      public void handle(DieClickedEvent event) {
+        runnable.run();
+        scene.removeEventHandler(DieClickedEvent.DIE_CLICKED, this);
+      }
+    });
   }
 
   public Die getDie() {
     return this.die;
   }
-
 
 
 }

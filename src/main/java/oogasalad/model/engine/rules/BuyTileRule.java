@@ -1,5 +1,6 @@
 package oogasalad.model.engine.rules;
 
+import com.fasterxml.jackson.annotation.JacksonInject;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ReadOnlyListProperty;
 import javax.inject.Inject;
@@ -27,7 +28,10 @@ public class BuyTileRule extends AbstractGameConstruct implements EditableRule {
   private final GameHolder gameHolder;
 
   @Inject
-  public BuyTileRule(SchemaDatabase database, GameHolder gameHolder) {
+  public BuyTileRule(
+      @JacksonInject SchemaDatabase database,
+      @JacksonInject GameHolder gameHolder
+  ) {
     super(SCHEMA_NAME, database);
     appliedSchemaProperty = RuleUtils.bindToTileType(this, APPLIED_SCHEMA_NAME);
     this.gameHolder = gameHolder;

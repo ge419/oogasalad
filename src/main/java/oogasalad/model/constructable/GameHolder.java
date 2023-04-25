@@ -1,6 +1,8 @@
 package oogasalad.model.constructable;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import java.util.List;
 import java.util.Optional;
 import javafx.beans.property.ListProperty;
@@ -56,10 +58,17 @@ public class GameHolder {
     return players.getPieceById(id);
   }
 
-  public ListProperty<Rule> getRules() {
+
+  public ListProperty<Rule> rulesProperty() {
     return rules;
   }
 
+  @JsonGetter("rules")
+  public List<Rule> getRules() {
+    return rules;
+  }
+
+  @JsonSetter("rules")
   public void setRules(List<Rule> rules) {
     this.rules.setAll(rules);
   }

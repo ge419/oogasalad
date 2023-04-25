@@ -19,13 +19,14 @@ public class PlayerMetadata extends AbstractMetadata {
 
   @Override
   public Attribute makeAttribute() {
-    return null;
+    return makePlayerAttribute();
   }
 
   @Override
   public Class<? extends Attribute> getAttributeClass() {
     return ATTRIBUTE_CLASS;
   }
+
   public PlayerAttribute makePlayerAttribute() {
     return new PlayerAttribute(getKey(), "");
   }

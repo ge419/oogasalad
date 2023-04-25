@@ -1,5 +1,6 @@
 package oogasalad.model.engine.rules;
 
+import com.fasterxml.jackson.annotation.JacksonInject;
 import java.util.List;
 import javax.inject.Inject;
 import oogasalad.model.attribute.SchemaDatabase;
@@ -20,7 +21,10 @@ public class TurnRule extends AbstractGameConstruct implements EditableRule {
   private final GameHolder game;
 
   @Inject
-  public TurnRule(SchemaDatabase database, ActionFactory actionFactory, GameHolder game) {
+  public TurnRule(
+      @JacksonInject SchemaDatabase database,
+      @JacksonInject ActionFactory actionFactory,
+      @JacksonInject GameHolder game) {
     super(SCHEMA_NAME, database);
     this.actionFactory = actionFactory;
     this.game = game;

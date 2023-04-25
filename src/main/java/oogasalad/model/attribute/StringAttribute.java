@@ -11,7 +11,7 @@ public class StringAttribute extends AbstractAttribute {
   private final StringProperty value;
 
   @JsonCreator
-  protected StringAttribute(@JsonProperty("key") String key, @JsonProperty("value") String value) {
+  public StringAttribute(@JsonProperty("key") String key, @JsonProperty("value") String value) {
     super(key);
     this.value = new SimpleStringProperty(value);
   }

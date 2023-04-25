@@ -1,5 +1,6 @@
 package oogasalad.model.attribute;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Singleton;
 import java.io.File;
@@ -61,6 +62,7 @@ public class SchemaDatabase {
     return generatedSchemaMapProperty;
   }
 
+  @JsonIgnore
   public void setRuleListProperty(ObservableList<Rule> ruleListProperty) {
     this.ruleListProperty.set(ruleListProperty);
     this.ruleListProperty.addListener((observable, oldValue, newValue) -> generateSchemas());

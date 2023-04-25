@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -68,6 +69,7 @@ public abstract class AbstractGameConstruct implements GameConstruct {
   @JsonSetter("attributes")
   public void setAllAttributes(List<Attribute> attributeList) {
     for (Attribute attribute : attributeList) {
+      Objects.requireNonNull(attribute);
       attributeMap.put(attribute.getKey(), attribute);
     }
 
@@ -130,7 +132,13 @@ public abstract class AbstractGameConstruct implements GameConstruct {
       boolean canKeepAttribute = attributeMap.containsKey(key)
           && canMigrateAttribute(attributeMap.get(key), metadata);
       if (!canKeepAttribute) {
-        attributeMap.put(key, metadata.makeAttribute());
+        Attribute attr = metadata.makeAttribute();
+        if (attr == null) {
+          LOGGER.fatal("metadata returned null attribute for key {}", key);
+          throw new IllegalStateException("bad attribute from metadata");
+        }
+
+        attributeMap.put(key, attr);
       }
     }
   }

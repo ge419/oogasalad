@@ -1,5 +1,6 @@
 package oogasalad.model.engine.rules;
 
+import com.fasterxml.jackson.annotation.JacksonInject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -27,10 +28,10 @@ public class DieMoveRule extends AbstractGameConstruct implements EditableRule {
 
   @Inject
   public DieMoveRule(
-      SchemaDatabase database,
-      ActionFactory actionFactory,
-      GameHolder gameHolder,
-      Random random
+      @JacksonInject SchemaDatabase database,
+      @JacksonInject ActionFactory actionFactory,
+      @JacksonInject GameHolder gameHolder,
+      @JacksonInject Random random
   ) {
     super(SCHEMA_NAME, database);
     this.actionFactory = actionFactory;

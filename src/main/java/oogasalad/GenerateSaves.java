@@ -35,7 +35,7 @@ public class GenerateSaves {
 
     GameHolder gameHolder = GameHolder.createDefaultGame();
     SchemaDatabase db = injector.getInstance(SchemaDatabase.class);
-    db.setRuleListProperty(gameHolder.getRules());
+    db.setRuleListProperty(gameHolder.rulesProperty());
 
     gameHolder.setRules(
         List.of(

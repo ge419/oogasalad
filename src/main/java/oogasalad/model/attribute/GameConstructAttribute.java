@@ -1,5 +1,7 @@
 package oogasalad.model.attribute;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import java.util.Optional;
@@ -28,6 +30,12 @@ public abstract class GameConstructAttribute extends AbstractAttribute {
     return idProperty().get();
   }
 
+  @JsonGetter("id")
+  public String getUncheckedId() {
+    return idProperty().get().orElse("");
+  }
+
+  @JsonSetter("id")
   public void setId(String id) {
     idProperty().set(formId(id));
   }

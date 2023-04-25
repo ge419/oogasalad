@@ -2,10 +2,10 @@
   "board" : {
     "tiles" : [ {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "2479c46b-e030-4d75-b262-792dba68cf9d",
+      "id" : "dd1607fa-2b22-42e7-adb4-9df4d4984731",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -13,7 +13,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -23,12 +23,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "9defdf7c-7432-4b20-adcb-d15192bd5549" ]
+        "ids" : [ "69373b35-a8bf-4d6b-8694-70f9172bd039" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 350.0,
@@ -49,10 +53,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "9defdf7c-7432-4b20-adcb-d15192bd5549",
+      "id" : "69373b35-a8bf-4d6b-8694-70f9172bd039",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -60,7 +64,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -70,12 +74,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "056804fd-a8b3-4d39-b457-b2c76c9cad4e" ]
+        "ids" : [ "5e55d22d-f040-46ff-b44d-5bd5097def51" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 400.0,
@@ -96,10 +104,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "056804fd-a8b3-4d39-b457-b2c76c9cad4e",
+      "id" : "5e55d22d-f040-46ff-b44d-5bd5097def51",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -107,7 +115,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -117,12 +125,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "11dbbcc3-c62a-4ff3-aaac-883e38a6b365" ]
+        "ids" : [ "c4d38625-16c4-467a-9f31-756f2e7ba0a9" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 450.0,
@@ -143,10 +155,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "11dbbcc3-c62a-4ff3-aaac-883e38a6b365",
+      "id" : "c4d38625-16c4-467a-9f31-756f2e7ba0a9",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -154,7 +166,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -164,12 +176,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "b9a6ea91-c179-4a3c-b868-98df404e893d" ]
+        "ids" : [ "f3b538d5-6fa8-486b-a11c-8108b6f5b32f" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 500.0,
@@ -190,10 +206,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "b9a6ea91-c179-4a3c-b868-98df404e893d",
+      "id" : "f3b538d5-6fa8-486b-a11c-8108b6f5b32f",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -201,7 +217,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -211,12 +227,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "3c2286e9-9138-499f-aa7e-4b13b3610b3f" ]
+        "ids" : [ "4e552497-c03d-4d3c-a141-2b21156e2df5" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 550.0,
@@ -237,10 +257,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "3c2286e9-9138-499f-aa7e-4b13b3610b3f",
+      "id" : "4e552497-c03d-4d3c-a141-2b21156e2df5",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -248,7 +268,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -258,12 +278,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "d1c6aa0d-c9b8-44af-b496-2b63b23ed8b6" ]
+        "ids" : [ "f0930d37-68a4-4389-8fe6-a041667b2a8f" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 600.0,
@@ -284,10 +308,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "d1c6aa0d-c9b8-44af-b496-2b63b23ed8b6",
+      "id" : "f0930d37-68a4-4389-8fe6-a041667b2a8f",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -295,7 +319,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -305,12 +329,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "efe23637-0750-4c1d-a732-424ee97470ea" ]
+        "ids" : [ "0bb775b5-598a-4e21-9d30-b250b013b83d" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 650.0,
@@ -331,10 +359,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "efe23637-0750-4c1d-a732-424ee97470ea",
+      "id" : "0bb775b5-598a-4e21-9d30-b250b013b83d",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -342,7 +370,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -352,12 +380,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "efdd04f0-91a9-4e8e-b675-c84b07d0284b" ]
+        "ids" : [ "5dbf4b78-4387-4e8a-a2f2-0833737e9bf3" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 700.0,
@@ -378,10 +410,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "efdd04f0-91a9-4e8e-b675-c84b07d0284b",
+      "id" : "5dbf4b78-4387-4e8a-a2f2-0833737e9bf3",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -389,7 +421,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -399,12 +431,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "cc3cee48-687b-4727-a805-6e25612f2bc4" ]
+        "ids" : [ "264d96cc-37ab-4226-a8e1-a93e10d28565" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 750.0,
@@ -425,10 +461,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "cc3cee48-687b-4727-a805-6e25612f2bc4",
+      "id" : "264d96cc-37ab-4226-a8e1-a93e10d28565",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -436,7 +472,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -446,12 +482,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "217e3c1e-e6cd-4d38-8132-a064330597f0" ]
+        "ids" : [ "a2edba45-4770-48c0-bbda-6e9a5541e3f4" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 800.0,
@@ -472,10 +512,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "217e3c1e-e6cd-4d38-8132-a064330597f0",
+      "id" : "a2edba45-4770-48c0-bbda-6e9a5541e3f4",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -483,7 +523,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -493,12 +533,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "4f1bd6e7-c7b6-41e3-81de-0b383fc18406" ]
+        "ids" : [ "fa1c2244-8366-487e-a708-6bd9a6e10e8a" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 850.0,
@@ -519,10 +563,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "4f1bd6e7-c7b6-41e3-81de-0b383fc18406",
+      "id" : "fa1c2244-8366-487e-a708-6bd9a6e10e8a",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -530,7 +574,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -540,12 +584,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "48bf84cb-b451-4684-b189-229b59aadbf8" ]
+        "ids" : [ "871bcff5-86fb-4017-ba5b-4e3226856922" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 850.0,
@@ -566,10 +614,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "48bf84cb-b451-4684-b189-229b59aadbf8",
+      "id" : "871bcff5-86fb-4017-ba5b-4e3226856922",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -577,7 +625,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -587,12 +635,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "5db7a886-ecd4-45e3-abb2-8bb959255cac" ]
+        "ids" : [ "7f59acf1-4d6c-4fff-91df-fab5300708b8" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 850.0,
@@ -613,10 +665,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "5db7a886-ecd4-45e3-abb2-8bb959255cac",
+      "id" : "7f59acf1-4d6c-4fff-91df-fab5300708b8",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -624,7 +676,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -634,12 +686,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "da11d5e4-299f-479b-bec1-bc644e5d4d8d" ]
+        "ids" : [ "db601b44-ddc6-4a72-ba65-8e7dd23dd865" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 850.0,
@@ -660,10 +716,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "da11d5e4-299f-479b-bec1-bc644e5d4d8d",
+      "id" : "db601b44-ddc6-4a72-ba65-8e7dd23dd865",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -671,7 +727,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -681,12 +737,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "d94a9274-2eae-470b-879e-161c1ce98013" ]
+        "ids" : [ "2ec9ca4e-5471-4647-bf38-b7cbf90299c8" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 850.0,
@@ -707,10 +767,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "d94a9274-2eae-470b-879e-161c1ce98013",
+      "id" : "2ec9ca4e-5471-4647-bf38-b7cbf90299c8",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -718,7 +778,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -728,12 +788,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "bf8cd468-d8c4-4b0d-bbdc-7bab8fc165b8" ]
+        "ids" : [ "4c56d692-5730-481f-9a9c-3ebe7e0a3b8a" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 850.0,
@@ -754,10 +818,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "bf8cd468-d8c4-4b0d-bbdc-7bab8fc165b8",
+      "id" : "4c56d692-5730-481f-9a9c-3ebe7e0a3b8a",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -765,7 +829,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -775,12 +839,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "ab041dbc-3299-456c-83a4-35a735b0d8e5" ]
+        "ids" : [ "5d444bb2-d2cb-43b2-9840-7b8c259bafa7" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 850.0,
@@ -801,10 +869,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "ab041dbc-3299-456c-83a4-35a735b0d8e5",
+      "id" : "5d444bb2-d2cb-43b2-9840-7b8c259bafa7",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -812,7 +880,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -822,12 +890,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "dacea6da-4712-4bf4-bf91-2662f00c456b" ]
+        "ids" : [ "c30ca4c1-3601-45d8-95d4-4e7e39368b46" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 850.0,
@@ -848,10 +920,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "dacea6da-4712-4bf4-bf91-2662f00c456b",
+      "id" : "c30ca4c1-3601-45d8-95d4-4e7e39368b46",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -859,7 +931,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -869,12 +941,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "60172d67-492a-44e5-8bfb-e90a15a9d3bb" ]
+        "ids" : [ "2e199d5f-d419-44d9-b4e8-ac5f6467e032" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 850.0,
@@ -895,10 +971,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "60172d67-492a-44e5-8bfb-e90a15a9d3bb",
+      "id" : "2e199d5f-d419-44d9-b4e8-ac5f6467e032",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -906,7 +982,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -916,12 +992,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "c221d400-47b9-4e9f-afef-9ee200fc28a1" ]
+        "ids" : [ "a5776851-6012-4a48-b752-e5effde0d836" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 850.0,
@@ -942,10 +1022,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "c221d400-47b9-4e9f-afef-9ee200fc28a1",
+      "id" : "a5776851-6012-4a48-b752-e5effde0d836",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -953,7 +1033,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -963,12 +1043,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "2bc4e851-5b66-4734-852f-1ab7eda21658" ]
+        "ids" : [ "99308ecc-5e86-41ca-8d99-0d6a6163c532" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 850.0,
@@ -989,10 +1073,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "2bc4e851-5b66-4734-852f-1ab7eda21658",
+      "id" : "99308ecc-5e86-41ca-8d99-0d6a6163c532",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1000,7 +1084,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1010,12 +1094,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "30feff74-d011-47f3-950f-3734bac922ec" ]
+        "ids" : [ "41aca76b-6a4d-490d-9128-11c653785073" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 850.0,
@@ -1036,10 +1124,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "30feff74-d011-47f3-950f-3734bac922ec",
+      "id" : "41aca76b-6a4d-490d-9128-11c653785073",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1047,7 +1135,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1057,12 +1145,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "beb36e6e-6feb-4b30-a0ca-a0b48b9060cb" ]
+        "ids" : [ "3543723b-df3d-4aa7-a8d2-3e4499085955" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 850.0,
@@ -1083,10 +1175,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "beb36e6e-6feb-4b30-a0ca-a0b48b9060cb",
+      "id" : "3543723b-df3d-4aa7-a8d2-3e4499085955",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1094,7 +1186,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1104,12 +1196,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "4a2f3727-9f28-4742-ae54-eb6e35556cda" ]
+        "ids" : [ "913705b6-c19a-4ebf-838d-15cd44897d41" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 850.0,
@@ -1130,10 +1226,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "4a2f3727-9f28-4742-ae54-eb6e35556cda",
+      "id" : "913705b6-c19a-4ebf-838d-15cd44897d41",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1141,7 +1237,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1151,12 +1247,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "283d90e9-c512-4f62-950c-09df055046f5" ]
+        "ids" : [ "2239c676-91e9-42b3-9ae9-de47de431663" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 800.0,
@@ -1177,10 +1277,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "283d90e9-c512-4f62-950c-09df055046f5",
+      "id" : "2239c676-91e9-42b3-9ae9-de47de431663",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1188,7 +1288,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1198,12 +1298,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "ccd9f03f-0e7f-4715-be24-a8439f522307" ]
+        "ids" : [ "bda03adb-536f-411d-af04-13a4df263fdb" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 750.0,
@@ -1224,10 +1328,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "ccd9f03f-0e7f-4715-be24-a8439f522307",
+      "id" : "bda03adb-536f-411d-af04-13a4df263fdb",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1235,7 +1339,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1245,12 +1349,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "ba00d2e9-782b-4a40-84bf-b97ae88f338d" ]
+        "ids" : [ "893b5753-bb8f-48ff-9d38-1ace019afb26" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 700.0,
@@ -1271,10 +1379,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "ba00d2e9-782b-4a40-84bf-b97ae88f338d",
+      "id" : "893b5753-bb8f-48ff-9d38-1ace019afb26",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1282,7 +1390,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1292,12 +1400,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "ff1dd967-2be3-4a9f-84eb-63239633480e" ]
+        "ids" : [ "3172ba31-9229-4d9b-b253-eeca6bb98d8d" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 650.0,
@@ -1318,10 +1430,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "ff1dd967-2be3-4a9f-84eb-63239633480e",
+      "id" : "3172ba31-9229-4d9b-b253-eeca6bb98d8d",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1329,7 +1441,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1339,12 +1451,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "9b0b9edd-0f04-4f7f-8db9-be997d614f90" ]
+        "ids" : [ "eb68a76c-ebd0-495c-ae22-55e34dc2cc67" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 600.0,
@@ -1365,10 +1481,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "9b0b9edd-0f04-4f7f-8db9-be997d614f90",
+      "id" : "eb68a76c-ebd0-495c-ae22-55e34dc2cc67",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1376,7 +1492,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1386,12 +1502,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "423ea466-c08b-4314-b48d-65560f20e056" ]
+        "ids" : [ "28ae976e-f75c-411f-a51a-a4dda33698e8" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 550.0,
@@ -1412,10 +1532,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "423ea466-c08b-4314-b48d-65560f20e056",
+      "id" : "28ae976e-f75c-411f-a51a-a4dda33698e8",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1423,7 +1543,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1433,12 +1553,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "0b8bb85e-0c2f-4426-9e06-dd56cdc529e3" ]
+        "ids" : [ "b572cea8-bd49-4eb6-a1ef-ace2760b6302" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 500.0,
@@ -1459,10 +1583,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "0b8bb85e-0c2f-4426-9e06-dd56cdc529e3",
+      "id" : "b572cea8-bd49-4eb6-a1ef-ace2760b6302",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1470,7 +1594,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1480,12 +1604,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "1b77d4c7-3c79-4835-82c1-a7fd27b0cd17" ]
+        "ids" : [ "f736de29-5c94-4be1-b52b-88af80bda337" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 450.0,
@@ -1506,10 +1634,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "1b77d4c7-3c79-4835-82c1-a7fd27b0cd17",
+      "id" : "f736de29-5c94-4be1-b52b-88af80bda337",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1517,7 +1645,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1527,12 +1655,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "091565dc-4b74-4a59-a114-58105304e52a" ]
+        "ids" : [ "146ddfb2-e783-4f3e-a1d3-b288395f8507" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 400.0,
@@ -1553,10 +1685,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "091565dc-4b74-4a59-a114-58105304e52a",
+      "id" : "146ddfb2-e783-4f3e-a1d3-b288395f8507",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1564,7 +1696,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1574,12 +1706,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "a9c834f4-baa0-467c-a4b2-5483a7439f3a" ]
+        "ids" : [ "78a4a4d6-0254-401c-b176-be2d764fec16" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 350.0,
@@ -1600,10 +1736,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "a9c834f4-baa0-467c-a4b2-5483a7439f3a",
+      "id" : "78a4a4d6-0254-401c-b176-be2d764fec16",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1611,7 +1747,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1621,12 +1757,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "23cd855f-4fc3-42bb-bf6b-4c7b46d31138" ]
+        "ids" : [ "a5aab907-a353-4f5a-8b6e-31dde05d74fd" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 300.0,
@@ -1647,10 +1787,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "23cd855f-4fc3-42bb-bf6b-4c7b46d31138",
+      "id" : "a5aab907-a353-4f5a-8b6e-31dde05d74fd",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1658,7 +1798,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1668,12 +1808,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "ae516d61-38ae-47d3-a639-fb7fd4a2ecc0" ]
+        "ids" : [ "0257a19c-9e48-40f0-b61f-2a5a74f76144" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 300.0,
@@ -1694,10 +1838,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "ae516d61-38ae-47d3-a639-fb7fd4a2ecc0",
+      "id" : "0257a19c-9e48-40f0-b61f-2a5a74f76144",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1705,7 +1849,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1715,12 +1859,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "32093878-0cfd-4d7b-83e5-ff113f1226e0" ]
+        "ids" : [ "eb19b68a-f45b-4b3c-af98-67279a0e049c" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 300.0,
@@ -1741,10 +1889,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "32093878-0cfd-4d7b-83e5-ff113f1226e0",
+      "id" : "eb19b68a-f45b-4b3c-af98-67279a0e049c",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1752,7 +1900,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1762,12 +1910,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "fc83d99c-a36b-4d0a-bba8-35e96b5f3cea" ]
+        "ids" : [ "6e90b47e-78f3-4f39-8a36-0aef384a599e" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 300.0,
@@ -1788,10 +1940,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "fc83d99c-a36b-4d0a-bba8-35e96b5f3cea",
+      "id" : "6e90b47e-78f3-4f39-8a36-0aef384a599e",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1799,7 +1951,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1809,12 +1961,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "1940fda4-0416-4a9a-ad06-b92c9c56b52f" ]
+        "ids" : [ "b41c7dbb-4b77-4f51-b166-d498472adc65" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 300.0,
@@ -1835,10 +1991,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "1940fda4-0416-4a9a-ad06-b92c9c56b52f",
+      "id" : "b41c7dbb-4b77-4f51-b166-d498472adc65",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1846,7 +2002,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1856,12 +2012,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "ede7173c-6c2b-495a-b427-50dcca743806" ]
+        "ids" : [ "956470c7-b5e0-4ecf-8397-3980ffbab93a" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 300.0,
@@ -1882,10 +2042,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "ede7173c-6c2b-495a-b427-50dcca743806",
+      "id" : "956470c7-b5e0-4ecf-8397-3980ffbab93a",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1893,7 +2053,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1903,12 +2063,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "98a7563d-0365-4bbf-9a1d-e4ee6119a589" ]
+        "ids" : [ "29eca77e-9553-42b6-a262-c31adeb9ce73" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 300.0,
@@ -1929,10 +2093,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "98a7563d-0365-4bbf-9a1d-e4ee6119a589",
+      "id" : "29eca77e-9553-42b6-a262-c31adeb9ce73",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1940,7 +2104,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1950,12 +2114,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "a96f3c1a-a9b0-4c76-952c-92c372d5423e" ]
+        "ids" : [ "c694fbc0-d4c9-46bc-9b04-e8fd52b732c5" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 300.0,
@@ -1976,10 +2144,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "a96f3c1a-a9b0-4c76-952c-92c372d5423e",
+      "id" : "c694fbc0-d4c9-46bc-9b04-e8fd52b732c5",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -1987,7 +2155,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -1997,12 +2165,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "4170d388-5a6e-4fc7-9c9e-0e700a96e62f" ]
+        "ids" : [ "e5739f50-5f1e-4792-b171-cf14f8dc5a35" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 300.0,
@@ -2023,10 +2195,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "4170d388-5a6e-4fc7-9c9e-0e700a96e62f",
+      "id" : "e5739f50-5f1e-4792-b171-cf14f8dc5a35",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -2034,7 +2206,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -2044,12 +2216,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "afeaf517-03ce-4c8f-8eee-db6f6673a36b" ]
+        "ids" : [ "047228e9-7b6d-4d63-9fac-6b50b105bf48" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 300.0,
@@ -2070,10 +2246,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "afeaf517-03ce-4c8f-8eee-db6f6673a36b",
+      "id" : "047228e9-7b6d-4d63-9fac-6b50b105bf48",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -2081,7 +2257,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -2091,12 +2267,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "1028c329-5c3b-4c8e-9f8a-4a3208fb75ec" ]
+        "ids" : [ "e8ac3a6f-04fc-4170-842f-6c838cad1483" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 300.0,
@@ -2117,10 +2297,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "1028c329-5c3b-4c8e-9f8a-4a3208fb75ec",
+      "id" : "e8ac3a6f-04fc-4170-842f-6c838cad1483",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -2128,7 +2308,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -2138,12 +2318,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "51eaa9f8-ee4c-42f7-862e-9af16e26be12" ]
+        "ids" : [ "49f4e2cf-5617-415e-9473-7c3b186fd64b" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 300.0,
@@ -2164,10 +2348,10 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "51eaa9f8-ee4c-42f7-862e-9af16e26be12",
+      "id" : "49f4e2cf-5617-415e-9473-7c3b186fd64b",
       "schemas" : [ "tile" ],
       "attributes" : [ {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ColorAttribute",
         "key" : "color",
         "value" : ""
       }, {
@@ -2175,7 +2359,7 @@
         "key" : "height",
         "value" : 50.0
       }, {
-        "@class" : "oogasalad.model.attribute.StringAttribute",
+        "@class" : "oogasalad.model.attribute.ImageAttribute",
         "key" : "image",
         "value" : ""
       }, {
@@ -2185,12 +2369,16 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "2479c46b-e030-4d75-b262-792dba68cf9d" ]
+        "ids" : [ "dd1607fa-2b22-42e7-adb4-9df4d4984731" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
         "value" : false
-      }, null, {
+      }, {
+        "@class" : "oogasalad.model.attribute.PlayerAttribute",
+        "key" : "owner",
+        "id" : ""
+      }, {
         "@class" : "oogasalad.model.attribute.PositionAttribute",
         "key" : "position",
         "x" : 300.0,
@@ -2213,12 +2401,12 @@
   },
   "rules" : [ {
     "@class" : "oogasalad.model.engine.rules.TurnRule",
-    "id" : "67a2fac4-e617-4ca9-95cb-dda67eb291b4",
+    "id" : "ce601353-4bbd-4550-b4dc-c7ba7ab12170",
     "schemas" : [ "turnRule" ],
     "attributes" : [ ]
   }, {
     "@class" : "oogasalad.model.engine.rules.BuyTileRule",
-    "id" : "77b779f4-871b-48dc-b984-1d230f9b1af9",
+    "id" : "0ff985ea-48a7-4357-931f-0f36b1b5c03b",
     "schemas" : [ "buyTileRule" ],
     "attributes" : [ {
       "@class" : "oogasalad.model.attribute.StringAttribute",
@@ -2227,7 +2415,7 @@
     } ]
   }, {
     "@class" : "oogasalad.model.engine.rules.DieMoveRule",
-    "id" : "2e06c9c0-7f09-453a-bd44-f431d895cc1e",
+    "id" : "cb9ded8d-c896-4e7e-8e46-4438569857e7",
     "schemas" : [ "dieRule" ],
     "attributes" : [ {
       "@class" : "oogasalad.model.attribute.IntAttribute",

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.function.Consumer;
 import javax.inject.Inject;
 import oogasalad.controller.Effect;
-import oogasalad.view.gameplay.DieClickedEvent;
 import oogasalad.view.gameplay.Gameview;
 
 public class DualPrompter implements Prompter {
@@ -24,8 +23,9 @@ public class DualPrompter implements Prompter {
   @Override
   public void rollDice(Runnable callback) {
     doEffect.accept(afterEffect -> {
-      gameview.addEventHandler(DieClickedEvent.DIE_CLICKED,
-          event -> {
+      gameview.onDieClicked(
+          () -> {
+            System.out.println("running prompter");
             callback.run();
             afterEffect.run();
           });

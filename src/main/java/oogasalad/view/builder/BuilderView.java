@@ -162,8 +162,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     Node boardPane = makePane("BoardPane", PANE_WIDTH, PANE_HEIGHT);
     //myBoardInfo.setBoardSize(new Dimension((int) PANE_WIDTH, (int) PANE_HEIGHT));
     myBoardPane = (Pane) boardPane;
-//    myBoardPane.setMinSize(PANE_WIDTH, PANE_HEIGHT);
-//    myBoardPane.setMaxSize(PANE_WIDTH, PANE_HEIGHT);
+    myBoardPane.setMinSize(PANE_WIDTH, PANE_HEIGHT);
+    myBoardPane.setMaxSize(PANE_WIDTH, PANE_HEIGHT);
+    
     myBoardPane.setOnMouseClicked(e -> handleBoardClick(e));
     myBoardPane.addEventFilter(TileEvent.DELETE_TILE, e -> deleteTile(e));
     myBoardPane.addEventFilter(TileEvent.SET_NEXT_TILE, e -> createTilePath(e));

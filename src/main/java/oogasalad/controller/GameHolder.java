@@ -9,7 +9,7 @@ import oogasalad.model.constructable.Players;
 public class GameHolder {
 
   BBoard board;
-  Players players;
+  Optional<List<Player>> players;
 
   public BBoard getBoard() {
     return board;

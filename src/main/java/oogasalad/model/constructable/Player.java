@@ -64,6 +64,10 @@ public class Player extends AbstractGameConstruct {
   public String getName() {
     return getNameAttribute().getValue();
   }
+  @JsonIgnore
+  public void setName(String newName) {
+    getNameAttribute().setValue(newName);
+  }
 
   @JsonIgnore
   public Double getScore() {

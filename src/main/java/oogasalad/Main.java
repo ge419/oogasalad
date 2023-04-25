@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import oogasalad.controller.GameController;
 import oogasalad.controller.GameControllerModule;
 import oogasalad.controller.GameHolder;
-import oogasalad.view.gameplay.Gameview;
 
 /**
  * Feel free to completely change this code or delete it entirely.

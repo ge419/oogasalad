@@ -42,6 +42,7 @@ public class BBoard {
     return null;
   }
 
+  @JsonIgnore
   public void remove(String id){
     tiles.removeIf(t -> t.getId().equals(id));
   }

@@ -12,6 +12,7 @@ import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Tile;
+import oogasalad.view.BuilderFactory;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.BuilderModule;
 import oogasalad.view.builder.BuilderView;
@@ -32,18 +33,27 @@ public class BuilderController {
   private String FILE_PATH  = "HARDCODE FILE PATH HERE";
   private String FOLDER_NAME = "CUSTOM1";
 
-  private BuilderView builderView;
+  private final BuilderView builderView;
   //  private BBuilder builder;
   private BBoard board;
   private SchemaDatabase db;
   private GameHolder gameHolder;
   private GameHolderBuilder gameHolderBuilder;
 
-  public BuilderController(String givenLanguage) {
+  @Inject
+  public BuilderController(
+      String injectedLanguage,
+      BuilderFactory injectedBuilderFactory
+//      BuilderView view
+  ) {
     //TODO: use dependency injection
-    Injector builderInjector = Guice.createInjector(new BuilderModule(givenLanguage, this));
-    builderView = builderInjector.getInstance(BuilderView.class);
+//    Injector builderInjector = Guice.createInjector(new BuilderModule(givenLanguage, this));
+//    builderView = builderInjector.getInstance(BuilderView.class);
+//    String theString = givenLanguage;
+    builderView = injectedBuilderFactory.makeBuilder(injectedLanguage, this);
+//    builderView = view;
 //    builder = new BBuilder();
+    System.out.println("made builder");
     db = new SchemaDatabase();
     board = new BBoard();
 //    todo: Dominics example code for how to get rules using dependency injection

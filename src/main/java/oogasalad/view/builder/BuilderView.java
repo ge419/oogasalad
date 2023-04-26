@@ -1,6 +1,7 @@
 package oogasalad.view.builder;
 
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 import com.google.inject.name.Named;
 import java.awt.Dimension;
 import java.io.File;
@@ -49,6 +50,9 @@ import org.apache.logging.log4j.Logger;
  */
 public class BuilderView implements BuilderUtility, BuilderAPI {
 
+  private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
+  private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
+
   private static final double PANE_WIDTH = 500;
   private static final double PANE_HEIGHT = 500;
   private static final double DEFAULT_IMAGE_WIDTH = 100;
@@ -84,31 +88,33 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   @Inject
   public BuilderView(
-      BuilderController bc,
-      @Named("DefaultLanguage") ResourceBundle builderLanguage,
-      @Named("TopBarMethods") ResourceBundle topBar,
-      @Named("MainSideBarMethods") ResourceBundle sideBar,
-      @Named("TileBarMethods") ResourceBundle tileBar,
-      @Named("FileMenuMethods") ResourceBundle fileMenu,
-      @Named("AppearanceMenuMethods") ResourceBundle appearanceMenu,
-      @Named("AboutMenuMethods") ResourceBundle aboutMenu,
-      @Named("SettingsMenuMethods") ResourceBundle settingsMenu,
-      @Named("ToggleMenuMethods") ResourceBundle toggleMenu,
-      String defaultStylesheetPath
+      @Assisted BuilderController bc,
+      @Assisted String languageString
+//      @Named("DefaultLanguage") ResourceBundle builderLanguage,
+//      @Named("TopBarMethods") ResourceBundle topBar,
+//      @Named("MainSideBarMethods") ResourceBundle sideBar,
+//      @Named("TileBarMethods") ResourceBundle tileBar,
+//      @Named("FileMenuMethods") ResourceBundle fileMenu,
+//      @Named("AppearanceMenuMethods") ResourceBundle appearanceMenu,
+//      @Named("AboutMenuMethods") ResourceBundle aboutMenu,
+//      @Named("SettingsMenuMethods") ResourceBundle settingsMenu,
+//      @Named("ToggleMenuMethods") ResourceBundle toggleMenu,
+//      String defaultStylesheetPath
   ) {
     this.bc = bc;
 
-    builderResource = builderLanguage;
-    topBarResource = topBar;
-    sideBar1Resource = sideBar;
-    tileBarResource = tileBar;
-    fileMenuResource = fileMenu;
-    appearanceMenuResource = appearanceMenu;
-    aboutMenuResource = aboutMenu;
-    settingsMenuResource = settingsMenu;
-    toggleMenuResource = toggleMenu;
+    builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + languageString + "BuilderText");
+    topBarResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "TopBar");
+    sideBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SideBar1");
+    tileBarResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "TileMenu");
+    fileMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "FileMenu");
+    appearanceMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "AppearanceMenu");
+    aboutMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "AboutMenu");
+    settingsMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SettingsMenu");
+    toggleMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "ToggleMenu");
 
-    defaultStylesheet = getClass().getResource(defaultStylesheetPath).toExternalForm();
+
+    defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET).toExternalForm();
 
     myCurrentlyClickedTiletype = Optional.empty();
     myCurrentTile = Optional.empty();

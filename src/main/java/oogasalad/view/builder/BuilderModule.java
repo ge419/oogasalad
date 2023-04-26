@@ -9,8 +9,13 @@ import oogasalad.controller.BuilderController;
 /**
  * Basic Guice module for the {@link BuilderView}
  *
+ * @deprecated Could not figure out a way to have Guice work with dependency
+ * injection on both the BuilderController and the BuilderView, so, this is
+ * had to become deprecated in lieu of BuilderControllerModule.
+ *
  * @author tmh85
  */
+@Deprecated
 public class BuilderModule extends AbstractModule {
 
   private static final String BASE_RESOURCE_PACKAGE = "view.builder.";

@@ -18,7 +18,7 @@ public class BuilderViewTest extends DukeApplicationTest {
   // todo: fix this test, all wrong right now.
   @Override
   public void start(Stage stage) {
-    myView = new BuilderController(DEFAULT_LANGUAGE).getBuilderView();
+    //myView = new BuilderController(DEFAULT_LANGUAGE).getBuilderView();
   }
 
   @Test

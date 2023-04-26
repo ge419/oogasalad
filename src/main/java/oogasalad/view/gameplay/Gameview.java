@@ -5,6 +5,7 @@ import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
 import java.util.List;
+import javafx.beans.property.ObjectProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -29,6 +30,8 @@ public class Gameview {
   private final GameHolder game;
   private final Provider<Player> playerProvider;
   private final Provider<Piece> pieceProvider;
+  private ObjectProperty<List<Player>> playerObjectProperty;
+  private ObjectProperty<List<PlayerPiece>> playerPieceObjectProperty;
   private Tiles tiles;
   private Die die;
   private final GameController gc;

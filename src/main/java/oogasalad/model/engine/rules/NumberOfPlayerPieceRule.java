@@ -6,13 +6,13 @@ import oogasalad.model.constructable.AbstractGameConstruct;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.engine.EventRegistrar;
 
-public class NumberOfPiecesPerPlayerRule extends AbstractGameConstruct implements EditableRule{
+public class NumberOfPlayerPieceRule extends AbstractGameConstruct implements EditableRule{
 
   public static final String SCHEMA_NAME = "numberOfPiecesPerPlayerRule";
 
   private final GameHolder gameHolder;
 
-  protected NumberOfPiecesPerPlayerRule(String baseSchema,
+  protected NumberOfPlayerPieceRule(String baseSchema,
       @JacksonInject SchemaDatabase database,
       @JacksonInject GameHolder gameHolder) {
     super(SCHEMA_NAME, database);

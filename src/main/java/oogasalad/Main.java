@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import oogasalad.controller.BuilderController;
 import oogasalad.controller.GameController;
 import oogasalad.controller.GameControllerModule;
 import oogasalad.view.builder.BuilderModule;
@@ -21,6 +22,8 @@ import oogasalad.util.SaveManager;
  * Feel free to completely change this code or delete it entirely.
  */
 public class Main extends Application {
+
+  private static final String DEFAULT_LANGUAGE = "English";
 
   public static void main(String[] args) {
     launch(args);
@@ -44,8 +47,7 @@ public class Main extends Application {
       );
       GameHolder gameHolder = saveInjector.getInstance(SaveManager.class).loadGame();
 
-      Injector injector = Guice.createInjector(new GameControllerModule(gameHolder),
-          new BuilderModule("English"));
+      Injector injector = Guice.createInjector(new GameControllerModule(gameHolder));
       GameController controller = injector.getInstance(GameController.class);
       try {
           controller.setGame(primaryStage);
@@ -53,6 +55,7 @@ public class Main extends Application {
           e.printStackTrace();
       }
 //        new BuilderView(new BuilderController());
-      injector.getInstance(BuilderView.class);
+//      injector.getInstance(BuilderView.class);
+    new BuilderController(DEFAULT_LANGUAGE);
   }
 }

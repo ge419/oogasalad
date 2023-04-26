@@ -5,7 +5,6 @@ import com.google.inject.name.Names;
 import java.util.Map;
 import java.util.ResourceBundle;
 import oogasalad.controller.BuilderController;
-import oogasalad.controller.GameHolder;
 
 /**
  * Basic Guice module for the {@link BuilderView}
@@ -18,9 +17,11 @@ public class BuilderModule extends AbstractModule {
   private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
 
   private final String myDefaultLanguage;
+  private final BuilderController myBuilderController;
 
-  public BuilderModule(String defaultLanguage) {
+  public BuilderModule(String defaultLanguage, BuilderController controller) {
     myDefaultLanguage = defaultLanguage;
+    myBuilderController = controller;
   }
 
   @Override
@@ -36,7 +37,8 @@ public class BuilderModule extends AbstractModule {
         "SettingsMenuMethods", "SettingsMenu",
         "ToggleMenuMethods", "ToggleMenu"
     );
-    bind(BuilderController.class).toInstance(new BuilderController());
+    //bind(BuilderController.class).toInstance(new BuilderController());
+    bind(BuilderController.class).toInstance(myBuilderController);
     for (String resourceName : annotatedNames.keySet()) {
       bind(ResourceBundle.class).annotatedWith(Names.named(resourceName))
           .toInstance(

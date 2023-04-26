@@ -1,6 +1,8 @@
 package oogasalad.controller;
 
+import com.google.inject.Guice;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
@@ -11,6 +13,7 @@ import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
+import oogasalad.view.builder.BuilderModule;
 import oogasalad.view.builder.BuilderView;
 import oogasalad.view.tiles.BasicTile;
 import oogasalad.view.tiles.ViewTile;
@@ -36,10 +39,10 @@ public class BuilderController {
   private GameHolder gameHolder;
   private GameHolderBuilder gameHolderBuilder;
 
-  @Inject
-  public BuilderController() {
+  public BuilderController(String givenLanguage) {
     //TODO: use dependency injection
-    builderView = new BuilderView(this);
+    Injector builderInjector = Guice.createInjector(new BuilderModule(givenLanguage, this));
+    builderView = builderInjector.getInstance(BuilderView.class);
 //    builder = new BBuilder();
     db = new SchemaDatabase();
     board = new BBoard();

@@ -1,11 +1,12 @@
-package oogasalad.model.engine.rules;
+package oogasalad.view.gameplay;
 
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.events.DieRolledEvent;
-import oogasalad.view.gameplay.Die;
+import oogasalad.model.engine.rules.Rule;
 
 public class SetDieRule implements Rule {
+
   private Die die;
 
   public SetDieRule(Die die) {
@@ -18,6 +19,7 @@ public class SetDieRule implements Rule {
   }
 
   private void setDie(EventHandlerParams<DieRolledEvent> eventHandlerParams) {
-    die.rollDice(eventHandlerParams.event().getNumberRolled());
+    // TODO: Multiple dice
+    die.rollDice(eventHandlerParams.event().getNumbersRolled()[0]);
   }
 }

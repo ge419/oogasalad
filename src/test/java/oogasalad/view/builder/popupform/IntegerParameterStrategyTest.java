@@ -25,7 +25,8 @@ class IntegerParameterStrategyTest extends DukeApplicationTest {
         meta.setName(attributeKey);
         attr = meta.makeIntAttribute();
         integerParameterStrategy = new IntegerParameterStrategy(attr, meta);
-        VBox root = new VBox(integerParameterStrategy.renderInput(resourceBundle));
+        VBox root = new VBox();
+        root.getChildren().add(integerParameterStrategy.renderInput(resourceBundle, root));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

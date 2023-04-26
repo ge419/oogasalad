@@ -1,9 +1,9 @@
 package oogasalad.controller;
 
+import com.google.inject.Guice;
+import com.google.inject.Inject;
 import java.io.IOException;
-import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.event.EventHandler;
-import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -16,6 +16,7 @@ import oogasalad.view.Coordinate;
 import oogasalad.view.builder.BuilderView;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.tiles.BasicTile;
+import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,19 +33,25 @@ public class BuilderController {
   private BBoard board;
   private SchemaDatabase db;
 
+  @Inject
   public BuilderController() {
     //builderView = new BuilderView(this);
     builder = new BBuilder();
     db = new SchemaDatabase();
     board = new BBoard();
+//    todo: Dominics example code for how to get rules using dependency injection
+//    Injector injector = Guice.createInjector(new EngineModule());
+//    String rule = "oogasalad.model.engine.rule.TurnRule";
+//    Class<Rule> ruleClass = (Class<Rule>) Class.forName(rule);
+//    Rule myRule = injector.getInstance(ruleClass);
   }
 
-  public BasicTile addTile(MouseEvent e) {
+  public ViewTile addTile(MouseEvent e) {
     Coordinate pos = new Coordinate((double) e.getX(), (double) e.getY(), 0);
     Tile t = new Tile(db);
     t.setCoordinate(pos);
     board.addTile(t);
-    BasicTile tile = new BasicTile(t);
+    ViewTile tile = new BasicTile(t);
     tile.setId("Tile" + board.getTileCount());
     return tile;
   }

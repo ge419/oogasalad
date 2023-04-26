@@ -33,7 +33,6 @@ import oogasalad.view.builder.board.BoardInfo;
 import oogasalad.view.builder.events.TileEvent;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.builder.popupform.PopupForm;
-import oogasalad.view.tiles.BasicTile;
 import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -164,7 +163,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myBoardPane = (Pane) boardPane;
     myBoardPane.setMinSize(PANE_WIDTH, PANE_HEIGHT);
     myBoardPane.setMaxSize(PANE_WIDTH, PANE_HEIGHT);
-    
+
     myBoardPane.setOnMouseClicked(e -> handleBoardClick(e));
     myBoardPane.addEventFilter(TileEvent.DELETE_TILE, e -> deleteTile(e));
     myBoardPane.addEventFilter(TileEvent.SET_NEXT_TILE, e -> createTilePath(e));
@@ -312,9 +311,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   // todo: support different tile types.
   private void createTile(MouseEvent e) {
-    BasicTile tile = bc.addTile(e);
-    tile.setOnMouseDragged(event -> fireDragEvent(event, tile));
-    initializeNode(tile, "Tile" + myTileCount, tile_e -> handleTileClick(tile));
+    ViewTile tile = bc.addTile(e);
+    tile.asNode().setOnMouseDragged(event -> fireDragEvent(event, tile));
+    initializeNode(tile.asNode(), "Tile" + myTileCount, tile_e -> handleTileClick(tile));
     myTileCount++;
     myCurrentlyClickedTiletype = Optional.empty();
     updateInfoText("RegularMode");

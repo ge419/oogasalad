@@ -15,4 +15,7 @@ public class ImageMetadata extends StringMetadata{
     super(key);
     this.defaultValue = new SimpleStringProperty("view.gameplay/default.jpg");
   }
+  public ImageAttribute makeImageAttribute() {
+    return new ImageAttribute(getKey(), getDefaultValue());
+  }
 }

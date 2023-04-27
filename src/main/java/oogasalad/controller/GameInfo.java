@@ -1,9 +1,14 @@
 package oogasalad.controller;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.image.Image;
 
 public class GameInfo {
+
+  private List<Object> gameInfo;
 
   private String title;
   private String description;
@@ -12,15 +17,12 @@ public class GameInfo {
   private double height;
   private Image thumbnail;
 
+  public GameInfo() {
+    this.gameInfo = new ArrayList<>();
+  }
   @JsonCreator
-  public GameInfo(String title, String description, String genre, double width, double height,
-      Image thumbnail) {
-    this.title = title;
-    this.description = description;
-    this.genre = genre;
-    this.width = width;
-    this.height = height;
-    this.thumbnail = thumbnail;
+  public GameInfo(@JsonProperty("gameinfo") List<Object> g) {
+    this.gameInfo = new ArrayList<>(g);
   }
 
   public String getTitle() {

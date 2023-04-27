@@ -36,7 +36,7 @@ public class BuilderController {
 
   public BuilderController() {
     //TODO: use dependency injection
-    builderView = new BuilderView(this);
+//    builderView = new BuilderView(this);
 //    builder = new BBuilder();
     db = new SchemaDatabase();
     board = new BBoard();

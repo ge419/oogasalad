@@ -20,7 +20,7 @@ public class PlayerListMetadata extends AbstractMetadata{
 
   @Override
   public Attribute makeAttribute() {
-    return null;
+    return makePlayerListAttribute();
   }
 
   @Override

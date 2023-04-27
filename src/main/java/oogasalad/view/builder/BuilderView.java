@@ -28,6 +28,7 @@ import oogasalad.controller.BuilderController;
 import oogasalad.controller.builderevents.TrailMaker;
 import oogasalad.controller.builderevents.TrailMakerAPI;
 import oogasalad.view.Coordinate;
+import oogasalad.view.builder.bars.BuilderMenubar;
 import oogasalad.view.builder.bars.Sidebar;
 import oogasalad.view.builder.board.BoardInfo;
 import oogasalad.view.builder.events.TileEvent;
@@ -77,6 +78,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private Optional<ViewTile> myCurrentTile;
   private final BoardInfo myBoardInfo;
   private Sidebar mySidebar;
+  private BuilderMenubar myMenubar;
+  private Sidebar myTopButtonBox;
   private TrailMakerAPI myTrailMaker;
   private final boolean myDraggableObjectsToggle = true;
   private boolean myDeleteToggle = false;
@@ -115,8 +118,12 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     System.out.println(myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getHeight());
   }
 
-  @Override
-  public Optional<ImmutableGameHolder> saveFile() {
+//  @Override
+//  public Optional<ImmutableGameHolder> saveFile() {
+//    //deprecated, see BuilderAPI for comments.
+//  }
+
+  public void saveFile(){
     Optional<File> file = directoryGet(builderResource, "SaveGameTitle");
     if (file.isPresent()) {
 //      ImmutableGameHolder game = createGameHolder();
@@ -126,12 +133,10 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       //bc.save();
       System.out.println(givenDirectory);
       //return Optional.ofNullable(game);
-      return Optional.empty();
     } else {
       // todo: replace with LOG
       System.out.println("Ruh-roh, can't save to a file that doesn't exist!");
       new Alert(Alert.AlertType.ERROR, builderResource.getString("FileNotFoundError"));
-      return Optional.empty();
     }
   }
 
@@ -156,7 +161,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myTileCreationToggle = false;
     myDeleteToggle = false;
     //todo: make a better way of cancelling all the toggles, especially next
-    myCurrentTile.get().setColor(Color.LIGHTBLUE);
+    myCurrentTile.ifPresent(viewTile -> viewTile.setColor(Color.LIGHTBLUE));
     myCurrentTile = Optional.empty();
     updateInfoText("RegularMode");
   }
@@ -184,10 +189,11 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private Scene initScene() {
-    VBox topMenu = createMenus();
+//    VBox topMenu = createMenus();
+    myMenubar = new BuilderMenubar(builderResource, "MenuBar", this);
     BorderPane topBar = createTopBar();
     Node centralContainer = createCentralContainer();
-    VBox root = (VBox) makeVBox("RootContainer", topMenu, topBar, centralContainer);
+    VBox root = (VBox) makeVBox("RootContainer", myMenubar.asNode(), topBar, centralContainer);
 
     Scene newScene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
     newScene.getStylesheets().add(defaultStylesheet);
@@ -200,12 +206,14 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     Node title = makeText("BuilderHeader", builderResource);
     Node text = makeText("RegularMode", builderResource);
     myInfoText = text;
-    HBox buttonBox = (HBox) makeHBox("TopBar");
-    addButtonsToPane(buttonBox, topBarResource);
+    myTopButtonBox = new Sidebar(builderResource, "ButtonBox", this);
+    myTopButtonBox.addItems("TopBar");
+//    HBox buttonBox = (HBox) makeHBox("TopBar");
+//    addButtonsToPane(buttonBox, topBarResource);
 
     topBar.setLeft(title);
     topBar.setCenter(myInfoText);
-    topBar.setRight(buttonBox);
+    topBar.setRight(myTopButtonBox.asNode());
     topBar.setId("TopBar");
     topBar.getStyleClass().add("topBar");
 
@@ -294,7 +302,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       addMenuItemsToMenu(menuType, bundleList.get(menuLabel));
       topMenu.getMenus().add(menuType);
     }
-
     return (VBox) makeVBox("menuBar", topMenu);
   }
 

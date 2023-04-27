@@ -21,8 +21,6 @@ import oogasalad.view.builder.ResourceIterator;
  */
 public class Sidebar extends AbstractBar implements BuilderUtility {
 
-  private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
-
   private Pane myPane;
   private String myCurrentBundleName;
 
@@ -54,6 +52,7 @@ public class Sidebar extends AbstractBar implements BuilderUtility {
     refreshItems(myCurrentBundleName);
   }
 
+  @Override
   public Node asNode() {
     return myPane;
   }
@@ -85,7 +84,7 @@ public class Sidebar extends AbstractBar implements BuilderUtility {
     getBuilder().toggleTileDeletion();
   }
 
-  private ResourceBundle getResource(String resourceName) {
-    return ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + resourceName);
+  private void cancelAction() {
+    getBuilder().cancelAction();
   }
 }

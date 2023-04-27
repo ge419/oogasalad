@@ -1,6 +1,7 @@
 package oogasalad.view.builder.bars;
 
 import java.util.ResourceBundle;
+import javafx.scene.Node;
 import oogasalad.view.builder.BuilderView;
 import oogasalad.view.builder.ResourceIterator;
 
@@ -17,9 +18,12 @@ import oogasalad.view.builder.ResourceIterator;
  */
 public abstract class AbstractBar implements ResourceIterator {
 
+  private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
+
   private BuilderView myBuilder;
   private ResourceBundle myLanguageResource;
-  public AbstractBar(ResourceBundle languageResource, String id, BuilderView builder){
+
+  public AbstractBar(ResourceBundle languageResource, String id, BuilderView builder) {
     //todo: Figure out how to set the resourcebundle
     myLanguageResource = languageResource;
     myBuilder = builder;
@@ -51,18 +55,30 @@ public abstract class AbstractBar implements ResourceIterator {
   abstract public void updateLanguage(String fileName);
 
   /**
+   * Returns the node component of the bar.
+   *
+   * @return node
+   */
+  abstract public Node asNode();
+
+  /**
    * <p>Set the resource file used for the items.</p>
+   *
    * @param resourceFile desired resource file
    */
-  protected void setLanguage(ResourceBundle resourceFile){
+  protected void setLanguage(ResourceBundle resourceFile) {
     myLanguageResource = resourceFile;
   }
 
-  protected ResourceBundle getLanguage(){
+  protected ResourceBundle getLanguage() {
     return myLanguageResource;
   }
 
-  protected BuilderView getBuilder(){
+  protected BuilderView getBuilder() {
     return myBuilder;
+  }
+
+  protected ResourceBundle getResource(String resourceName) {
+    return ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + resourceName);
   }
 }

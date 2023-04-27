@@ -7,7 +7,9 @@ import oogasalad.model.attribute.SchemaBinding;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.AbstractGameConstruct;
 import oogasalad.model.constructable.GameHolder;
+import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
+import oogasalad.model.engine.events.ChooseNumberOfPlayersEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,7 +28,7 @@ public class NumberOfPlayersRule extends AbstractGameConstruct implements Editab
 
   @Override
   public void registerEventHandlers(EventRegistrar registrar) {
-
+    registrar.registerHandler(ChooseNumberOfPlayersEvent.class, this::generatePlayersOnSelection);
   }
 
   @Override
@@ -37,5 +39,10 @@ public class NumberOfPlayersRule extends AbstractGameConstruct implements Editab
   @Override
   public ReadOnlyListProperty<SchemaBinding> appliedSchemasProperty() {
     return EditableRule.super.appliedSchemasProperty();
+  }
+
+  private void generatePlayersOnSelection(EventHandlerParams<ChooseNumberOfPlayersEvent> eventHandlerParams){
+    Integer numberOfPlayers = eventHandlerParams.event().numberOfPlayers();
+    // CreatePlayerAction createPlayerAction = new CreatePlayerAction(numberOfPlayers););
   }
 }

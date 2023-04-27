@@ -14,9 +14,7 @@ public class BuilderControllerModule extends AbstractModule {
 
   @Override
   protected void configure(){
-    //bind(GameHolderBuilder.class).toInstance(new GameHolderBuilder());
     bind(String.class).toInstance(myLanguage);
     install(new FactoryModuleBuilder().build(BuilderFactory.class));
-//    install(new BuilderModule(myLanguage, this));
   }
 }

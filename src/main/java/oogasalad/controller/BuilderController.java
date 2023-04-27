@@ -1,5 +1,9 @@
 package oogasalad.controller;
 
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
@@ -9,9 +13,12 @@ import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Tile;
+import oogasalad.view.BuilderFactory;
 import oogasalad.view.Coordinate;
+import oogasalad.view.builder.BuilderModule;
 import oogasalad.view.builder.BuilderView;
 import oogasalad.view.tiles.BasicTile;
+import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,30 +34,46 @@ public class BuilderController {
   private String FILE_PATH  = "HARDCODE FILE PATH HERE";
   private String FOLDER_NAME = "CUSTOM1";
 
-  private BuilderView builderView;
+  private final BuilderView builderView;
   //  private BBuilder builder;
   private BBoard board;
   private SchemaDatabase db;
   private GameHolder gameHolder;
   private GameHolderBuilder gameHolderBuilder;
 
-  public BuilderController() {
+  @Inject
+  public BuilderController(
+      String injectedLanguage,
+      BuilderFactory injectedBuilderFactory
+//      BuilderView view
+  ) {
     //TODO: use dependency injection
-    builderView = new BuilderView(this);
+//    Injector builderInjector = Guice.createInjector(new BuilderModule(givenLanguage, this));
+//    builderView = builderInjector.getInstance(BuilderView.class);
+//    String theString = givenLanguage;
+    builderView = injectedBuilderFactory.makeBuilder(injectedLanguage, this);
+//    builderView = view;
 //    builder = new BBuilder();
+    System.out.println("made builder");
     db = new SchemaDatabase();
     board = new BBoard();
+//    todo: Dominics example code for how to get rules using dependency injection
+//    Injector injector = Guice.createInjector(new EngineModule());
+//    String rule = "oogasalad.model.engine.rule.TurnRule";
+//    Class<Rule> ruleClass = (Class<Rule>) Class.forName(rule);
+//    Rule myRule = injector.getInstance(ruleClass);
+//    end note
     // new Players(); --> list of players
     gameHolderBuilder = new GameHolderBuilder();
     //gameHolder = gameHolderBuilder.setBoard(board).setPlayers(Optional.ofNullable(board.getPlayers())).build();
   }
 
-  public BasicTile addTile(MouseEvent e) {
+  public ViewTile addTile(MouseEvent e) {
     Coordinate pos = new Coordinate((double) e.getX(), (double) e.getY(), 0);
     Tile t = new Tile(db);
     t.setCoordinate(pos);
     board.addTile(t);
-    BasicTile tile = new BasicTile(t);
+    ViewTile tile = new BasicTile(t);
     tile.setId("Tile" + board.getTileCount());
     return tile;
   }
@@ -97,9 +120,12 @@ public class BuilderController {
     builderView.loadFile();
   }
 
-  public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Coordinate startLocation) {
+  public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Node parent, SimpleBooleanProperty dragToggle) {
     node.setOnMouseClicked(mouseClickHandle);
-    Dragger nodeDragger = new Dragger(node, true, startLocation, MouseButton.PRIMARY);
+    Dragger nodeDragger = new Dragger(node, true, MouseButton.PRIMARY, parent);
+    dragToggle.addListener((observable, oldValue, newValue) -> {
+      nodeDragger.setDraggable(newValue);
+    });
   }
 
   public BuilderView getBuilderView() {

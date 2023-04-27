@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import oogasalad.controller.BuilderController;
+import oogasalad.controller.BuilderControllerModule;
 import oogasalad.controller.GameController;
 import oogasalad.controller.GameControllerModule;
 import oogasalad.model.constructable.ConstructableModule;
@@ -20,6 +22,8 @@ import oogasalad.util.SaveManager;
  */
 public class Main extends Application {
 
+  private static final String DEFAULT_LANGUAGE = "English";
+
   public static void main(String[] args) {
     launch(args);
   }
@@ -31,27 +35,27 @@ public class Main extends Application {
     return 0.001;
   }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        Path saveDir = Path.of("data", "monopoly");
-        // TODO: use ControllableModule and SaveManager instead of putting game holder in module
-        Injector saveInjector = Guice.createInjector(
-            new ObjectMapperModule(),
-            new EngineModule(),
-            new ConstructableModule(saveDir)
-        );
-        GameHolder gameHolder = saveInjector.getInstance(SaveManager.class).loadGame();
-        
-        Injector injector = Guice.createInjector(new GameControllerModule(gameHolder));
-        GameController controller = injector.getInstance(GameController.class);
-        try {
-            controller.setGame(primaryStage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//        new BuilderView(new BuilderController());
-    }
-    //new BuilderView(new BuilderController());
-    injector.getInstance(BuilderView.class);
+  @Override
+  public void start(Stage primaryStage) throws Exception {
+//    Path saveDir = Path.of("data", "monopoly");
+//    // TODO: use ControllableModule and SaveManager instead of putting game holder in module
+//    Injector saveInjector = Guice.createInjector(
+//        new ObjectMapperModule(),
+//        new EngineModule(),
+//        new ConstructableModule(saveDir)
+//    );
+//    GameHolder gameHolder = saveInjector.getInstance(SaveManager.class).loadGame();
+//
+//    Injector injector = Guice.createInjector(new GameControllerModule(gameHolder));
+    Injector builderInjector = Guice.createInjector(new BuilderControllerModule(DEFAULT_LANGUAGE));
+//    GameController controller = injector.getInstance(GameController.class);
+//    try {
+//      controller.setGame(primaryStage);
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
+
+    //new BuilderController(DEFAULT_LANGUAGE);
+    builderInjector.getInstance(BuilderController.class);
   }
 }

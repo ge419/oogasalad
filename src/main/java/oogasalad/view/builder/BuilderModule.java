@@ -9,17 +9,24 @@ import oogasalad.controller.BuilderController;
 /**
  * Basic Guice module for the {@link BuilderView}
  *
+ * @deprecated Could not figure out a way to have Guice work with dependency
+ * injection on both the BuilderController and the BuilderView, so, this is
+ * had to become deprecated in lieu of BuilderControllerModule.
+ *
  * @author tmh85
  */
+@Deprecated
 public class BuilderModule extends AbstractModule {
 
   private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
   private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
 
   private final String myDefaultLanguage;
+  private final BuilderController myBuilderController;
 
-  public BuilderModule(String defaultLanguage) {
+  public BuilderModule(String defaultLanguage, BuilderController controller) {
     myDefaultLanguage = defaultLanguage;
+    myBuilderController = controller;
   }
 
   @Override
@@ -35,7 +42,8 @@ public class BuilderModule extends AbstractModule {
         "SettingsMenuMethods", "SettingsMenu",
         "ToggleMenuMethods", "ToggleMenu"
     );
-    bind(BuilderController.class).toInstance(new BuilderController());
+    //bind(BuilderController.class).toInstance(new BuilderController());
+    bind(BuilderController.class).toInstance(myBuilderController);
     for (String resourceName : annotatedNames.keySet()) {
       bind(ResourceBundle.class).annotatedWith(Names.named(resourceName))
           .toInstance(

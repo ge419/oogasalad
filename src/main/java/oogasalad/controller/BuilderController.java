@@ -3,6 +3,7 @@ package oogasalad.controller;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
@@ -119,9 +120,12 @@ public class BuilderController {
     builderView.loadFile();
   }
 
-  public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Node parent) {
+  public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Node parent, SimpleBooleanProperty dragToggle) {
     node.setOnMouseClicked(mouseClickHandle);
     Dragger nodeDragger = new Dragger(node, true, MouseButton.PRIMARY, parent);
+    dragToggle.addListener((observable, oldValue, newValue) -> {
+      nodeDragger.setDraggable(newValue);
+    });
   }
 
   public BuilderView getBuilderView() {

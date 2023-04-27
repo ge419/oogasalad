@@ -5,6 +5,7 @@ import com.google.inject.assistedinject.Assisted;
 import java.io.File;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -61,7 +62,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private MenuItemPane myMenubar;
   private ItemPane myTopButtonBox;
   private final TrailMakerAPI myTrailMaker;
-  private final boolean myDraggableObjectsToggle = true;
+  private SimpleBooleanProperty myDraggableObjectsToggle;
   private boolean myDeleteToggle = false;
   private final BuilderController bc;
   private VBox sidePane;
@@ -76,6 +77,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + languageString + "BuilderText");
 
     defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET).toExternalForm();
+    myDraggableObjectsToggle = new SimpleBooleanProperty(true);
 
     Scene scene = initScene();
     myTrailMaker = new TrailMaker(myBoardPane, true);
@@ -140,7 +142,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myTrailMaker.toggleEnable();
   }
   public void toggleDraggables(){
-    // todo
+    myDraggableObjectsToggle.set(!myDraggableObjectsToggle.get());
   }
 
   public void toggleTileDeletion() {
@@ -335,7 +337,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private void initializeNode(Node node, String identifier, EventHandler<MouseEvent> mouseClickHandle){
     bc.createEventsForNode(node,
         mouseClickHandle,
-        myBoardPane);
+        myBoardPane,
+        myDraggableObjectsToggle);
     node.setId(identifier);
     node.getStyleClass().add("clickable");
     myBoardPane.getChildren().add(node);

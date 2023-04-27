@@ -41,12 +41,14 @@ public class StringAttribute extends AbstractAttribute {
       return false;
     }
     StringAttribute that = (StringAttribute) o;
-    return Objects.equals(value, that.value);
+    boolean key = this.getKey().equals(that.getKey());
+    boolean value = this.value.get().equals(that.value.get());
+    return key && value;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(value);
+    return Objects.hash(getKey()+value.get());
   }
 
   @Override

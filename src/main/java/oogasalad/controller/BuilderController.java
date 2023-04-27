@@ -6,6 +6,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import oogasalad.controller.builderevents.Dragger;
 import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.attribute.SimpleSchemaDatabase;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Tile;
@@ -38,7 +39,7 @@ public class BuilderController {
     //TODO: use dependency injection
     builderView = new BuilderView(this);
 //    builder = new BBuilder();
-    db = new SchemaDatabase();
+    db = new SimpleSchemaDatabase();
     board = new BBoard();
     // new Players(); --> list of players
     gameHolderBuilder = new GameHolderBuilder();

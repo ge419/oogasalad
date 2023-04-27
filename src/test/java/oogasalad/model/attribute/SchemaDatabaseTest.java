@@ -17,7 +17,7 @@ class SchemaDatabaseTest {
 
   @BeforeEach
   void setUp() {
-    db = new SchemaDatabase();
+    db = new SimpleSchemaDatabase();
   }
 
   @Test

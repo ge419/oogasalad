@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import oogasalad.model.attribute.AttributeModule;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.ConstructableModule;
@@ -29,6 +30,7 @@ public class GenerateSaves {
     Injector injector = Guice.createInjector(
         new ObjectMapperModule(),
         new ConstructableModule(savePath),
+        new AttributeModule(),
         binder -> binder.bind(Prompter.class).toInstance(new AIPrompter()),
         binder -> binder.install(new EngineModule())
     );

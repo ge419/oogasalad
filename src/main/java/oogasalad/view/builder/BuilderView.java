@@ -39,11 +39,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 // https://stackoverflow.com/questions/31148690/get-real-position-of-a-node-in-javafx
-// assumptions made so far: board pane cannot be dragged (if it was, this would break dragging for
-// all other tiles unfortunately. eventual fix maybe.)
+// assumptions made so far:
 
 /**
- * BuilderView implements the JavaFX elements that composes the Builder.
+ * BuilderView implements the JavaFX elements that composes the viewable Builder.
  *
  * @author tmh85
  * @author jf295
@@ -55,32 +54,21 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private static final double PANE_WIDTH = 500;
   private static final double PANE_HEIGHT = 500;
-  private static final double DEFAULT_IMAGE_WIDTH = 100;
-  private static final double DEFAULT_IMAGE_HEIGHT = 100;
   private static final double SCENE_WIDTH = 900;
   private static final double SCENE_HEIGHT = 600;
   private static final Logger LOG = LogManager.getLogger(BuilderView.class);
   private ResourceBundle builderResource;
-  private final ResourceBundle topBarResource;
-  private final ResourceBundle fileMenuResource;
-  private final ResourceBundle aboutMenuResource;
-  private final ResourceBundle appearanceMenuResource;
-  private final ResourceBundle settingsMenuResource;
-  private final ResourceBundle toggleMenuResource;
   private Pane myBoardPane;
   private final String defaultStylesheet;
-  private boolean myTileCreationToggle;
-  private VBox myLeftSidebar;
+  private boolean myTileCreationToggle = false;
   private Node myInfoText;
   private BorderPane myTopBar;
   private int myTileCount = 0;
-  private int myImageCount = 0;
-  private Optional<ViewTile> myCurrentTile;
-  private final BoardInfo myBoardInfo;
+  private Optional<ViewTile> myCurrentTile = Optional.empty();
   private Sidebar mySidebar;
   private BuilderMenubar myMenubar;
   private Sidebar myTopButtonBox;
-  private TrailMakerAPI myTrailMaker;
+  private final TrailMakerAPI myTrailMaker;
   private final boolean myDraggableObjectsToggle = true;
   private boolean myDeleteToggle = false;
   private final BuilderController bc;
@@ -93,20 +81,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       @Assisted String languageString
   ) {
     this.bc = bc;
-
     builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + languageString + "BuilderText");
-    topBarResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "TopBar");
-    fileMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "FileMenu");
-    appearanceMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "AppearanceMenu");
-    aboutMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "AboutMenu");
-    settingsMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SettingsMenu");
-    toggleMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "ToggleMenu");
 
     defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET).toExternalForm();
-
-    myTileCreationToggle = false;
-    myCurrentTile = Optional.empty();
-    myBoardInfo = new BoardInfo(builderResource);
 
     Scene scene = initScene();
     myTrailMaker = new TrailMaker(myBoardPane, true);
@@ -114,15 +91,11 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     primaryStage.setScene(scene);
     primaryStage.setTitle(builderResource.getString("BuilderTitle"));
     primaryStage.show();
-    System.out.println(myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getWidth());
-    System.out.println(myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getHeight());
+//    System.out.println(myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getWidth());
+//    System.out.println(myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getHeight());
   }
 
-//  @Override
-//  public Optional<ImmutableGameHolder> saveFile() {
-//    //deprecated, see BuilderAPI for comments.
-//  }
-
+  @Override
   public void saveFile(){
     Optional<File> file = directoryGet(builderResource, "SaveGameTitle");
     if (file.isPresent()) {
@@ -151,12 +124,12 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       // todo: display error
     }
   }
-
+  @Override
   public void updateInfoText(String key){
     myInfoText = makeText(key, builderResource);
     myTopBar.setCenter(myInfoText);
   }
-
+  @Override
   public void cancelAction(){
     myTileCreationToggle = false;
     myDeleteToggle = false;
@@ -165,7 +138,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myCurrentTile = Optional.empty();
     updateInfoText("RegularMode");
   }
-
+  @Override
   public void toggleTileCreation() {
     myTileCreationToggle = true;
     updateInfoText("TileAdditionMode");
@@ -223,15 +196,10 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private Pane createCentralContainer() {
     mySidebar = new Sidebar(builderResource, "SideBar1", this);
     mySidebar.addItems("SideBar1");
-//    VBox sideBar1 = (VBox) makeVBox("SideBar1");
-//    addButtonsToPane(sideBar1, sideBar1Resource);
-//    myLeftSidebar = sideBar1;
 
     Node boardPane = makePane("BoardPane", PANE_WIDTH, PANE_HEIGHT);
-    //myBoardInfo.setBoardSize(new Dimension((int) PANE_WIDTH, (int) PANE_HEIGHT));
     myBoardPane = (Pane) boardPane;
-    myBoardPane.setMinSize(PANE_WIDTH, PANE_HEIGHT);
-    myBoardPane.setMaxSize(PANE_WIDTH, PANE_HEIGHT);
+    setBoardSize(PANE_WIDTH, PANE_HEIGHT);
 
     myBoardPane.setOnMouseClicked(e -> handleBoardClick(e));
     myBoardPane.addEventFilter(TileEvent.DELETE_TILE, e -> deleteTile(e));
@@ -252,78 +220,15 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     return pane;
   }
 
-  private void addButtonsToPane(Pane pane, ResourceBundle resource) {
-    Enumeration<String> enumeration = resource.getKeys();
-    while (enumeration.hasMoreElements()) {
-      String key = enumeration.nextElement();
-      Node btn = makeButton(key, builderResource, e -> {
-        try {
-          BuilderView.this.getClass().getDeclaredMethod(resource.getString(key))
-              .invoke(BuilderView.this);
-        } catch (Exception ex) {
-          ex.printStackTrace();
-          throw new RuntimeException(ex);
-        }
-      });
-      pane.getChildren().add(btn);
-    }
-  }
-
-  // todo: this is VERY similar to addButtonsToPane... any way to consolidate?
-  private void addMenuItemsToMenu(Menu menu, ResourceBundle resource){
-    Enumeration<String> enumeration = resource.getKeys();
-    while (enumeration.hasMoreElements()){
-      String key = enumeration.nextElement();
-      MenuItem item = makeMenuItem(key, builderResource, e-> {
-        try{
-          BuilderView.this.getClass().getDeclaredMethod(resource.getString(key))
-              .invoke(BuilderView.this);
-        } catch (Exception ex) {
-          ex.printStackTrace();
-          throw new RuntimeException(ex);
-        }
-      });
-      menu.getItems().add(item);
-    }
-  }
-
-  private VBox createMenus(){
-    MenuBar topMenu = new MenuBar();
-    Map<String, ResourceBundle> bundleList = Map.of(
-        "FileMenu", fileMenuResource,
-        "ToggleMenu", toggleMenuResource,
-        "AppearanceMenu", appearanceMenuResource,
-        "SettingsMenu", settingsMenuResource,
-        "AboutMenu", aboutMenuResource
-    );
-    for (String menuLabel : bundleList.keySet()){
-      Menu menuType = new Menu(builderResource.getString(menuLabel));
-      menuType.setId(menuLabel);
-      addMenuItemsToMenu(menuType, bundleList.get(menuLabel));
-      topMenu.getMenus().add(menuType);
-    }
-    return (VBox) makeVBox("menuBar", topMenu);
-  }
-
-  private VBox createTopMenu(){
-    MenuBar topMenu = new MenuBar();
-    MenuItem item1 = new MenuItem(builderResource.getString("Save"));
-    MenuItem item2 = new MenuItem(builderResource.getString("Load"));
-    Menu menuLabel = new Menu("File");
-    menuLabel.getItems().add(item1);
-    menuLabel.getItems().add(item2);
-    topMenu.getMenus().add(menuLabel);
-    return new VBox(topMenu);
+  private void setBoardSize(double width, double height){
+    myBoardPane.setMinSize(width, height);
+    myBoardPane.setMaxSize(width, height);
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////////////
 
-  private void test() {
-    // nothing
-    System.out.println("why that button sure did do nothing!");
-  }
-
   private void uploadImage() {
+    // todo: redo this method
 //    Optional<File> file = fileLoad(builderResource, "UploadImageTitle");
 //
 //    if (checkIfImage(file)) {
@@ -333,7 +238,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 //      initializeNode(ourImage, "Image" + myImageCount, e->handleImageClick(ourImage));
 //      myImageCount++;
 //    } else {
-//      // todo: make this use an error form.
+//      //
 //      System.out.println("ERROR -- Got a non-image or nothing from file.");
 //      new Alert(Alert.AlertType.ERROR, builderResource.getString("EmptyFileError"));
 //    }
@@ -352,11 +257,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     TileEvent tileEvent = new TileEvent(TileEvent.DRAG_TILE, tile);
     myBoardPane.fireEvent(tileEvent);
   }
-  private void refreshButtonsOnPane(Pane pane, ResourceBundle resourceBundle) {
-    pane.getChildren().clear();
-    addButtonsToPane(pane, resourceBundle);
-  }
-
   private void handleBoardClick(MouseEvent e) {
     System.out.println("hello, you clicked on x: " + e.getSceneX() + " and y: " + e.getSceneY());
     System.out.println("relative x: " + e.getX() + " and y: " + e.getY());
@@ -380,7 +280,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       TileEvent event = new TileEvent(TileEvent.SELECT_TILE, tile);
       myBoardPane.fireEvent(event);
     }
-
   }
   private void deleteTile(TileEvent event) {
     bc.removeTile(event.getViewTile().getTileId());
@@ -411,12 +310,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private void setNextTile(ViewTile origin, ViewTile desiredNext){
     bc.addNext(origin.getTileId(), desiredNext.getTileId());
     myTrailMaker.createTrailBetween(desiredNext.asNode(), origin.asNode(), "test" + myTileCount);
-  }
-
-  private void handleImageClick(Node node) {
-    if (myDeleteToggle) {
-      myImageCount = deleteNode(node, myImageCount);
-    }
   }
 
   private int deleteNode(Node node, int objCounter) {

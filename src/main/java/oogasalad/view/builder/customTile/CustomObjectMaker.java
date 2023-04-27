@@ -11,6 +11,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
+import oogasalad.model.attribute.*;
 
 import java.io.File;
 import java.io.FileReader;
@@ -20,6 +21,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public class CustomObjectMaker extends Application {
@@ -34,7 +38,7 @@ public class CustomObjectMaker extends Application {
     private int RIGHT_PANE_STARTING_WIDTH = 500;
     private int STARTING_HEIGHT = 500;
 
-    private Path RESOURCE_PATH = Paths.get("data/customObjects");
+    private final Path RESOURCE_PATH = Paths.get("data/customObjects");
 
     private String name;
     private Node currentClickedInfo;
@@ -142,27 +146,37 @@ public class CustomObjectMaker extends Application {
 
 
     public void save() throws IOException {
-        System.out.println("path = " + RESOURCE_PATH);
-        System.out.println("name = " + name);
-        Path directory = RESOURCE_PATH.resolve(this.name);
-
-        JsonObject customTileObject = createCustomTileObject(directory);
+        Path customObjectDirectory = RESOURCE_PATH.resolve(this.name);
+        JsonObject customTileObject = createCustomTileObject(customObjectDirectory);
+        SimpleObjectSchema schema = makeSchema();
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        if (!Files.exists(directory)) {
-            Files.createDirectories(directory);
+        if (!Files.exists(customObjectDirectory)) {
+            Files.createDirectories(customObjectDirectory);
         }
 
-        Path file = directory.resolve(this.name + ".json");
-        if (!Files.exists(file)) {
-            Files.createFile(file);
+        Path customObjectPath = customObjectDirectory.resolve(this.name + ".json");
+        if (!Files.exists(customObjectPath)) {
+            Files.createFile(customObjectPath);
         }
 
-        try (FileWriter writer = new FileWriter(file.toFile())) {
+        try (FileWriter writer = new FileWriter(customObjectPath.toFile())) {
             writer.write(gson.toJson(customTileObject));
         }
+
+        Path schemaPath = customObjectDirectory.resolve(this.name + "_schema.json");
+        if (!Files.exists(schemaPath)) {
+            Files.createFile(schemaPath);
+        }
+
+        try (FileWriter writer = new FileWriter(schemaPath.toFile())) {
+            writer.write(gson.toJson(schema));
+        }
     }
+
+
+
 
     private JsonObject createCustomTileObject(Path directory) throws IOException {
         JsonObject customTileObject = new JsonObject();
@@ -189,8 +203,8 @@ public class CustomObjectMaker extends Application {
             try {
                 JsonObject jsonObject = readJsonFromFile(selectedFile);
                 resizeWindow(jsonObject.get("height").getAsDouble(), jsonObject.get("width").getAsDouble());
-                stage.setTitle(jsonObject.get("name").getAsString());
-
+                this.name = jsonObject.get("name").getAsString();
+                stage.setTitle(this.name);
                 JsonArray customObjects = jsonObject.getAsJsonArray("customObjects");
                 for (JsonElement jsonElement : customObjects) {
                     JsonObject customObject = jsonElement.getAsJsonObject();
@@ -215,6 +229,34 @@ public class CustomObjectMaker extends Application {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             return JsonParser.parseReader(reader).getAsJsonObject();
         }
+    }
+
+    private SimpleObjectSchema makeSchema(){
+        List<Metadata> metadataList = new ArrayList<>();
+        metadataList.addAll(getDefaultTileMetadata());
+
+//        for (Node node : rightPane.getChildren()) {
+//            CustomElement customElm = (CustomElement) node;
+//            Metadata elementMetaData = customElm.getMetaData();
+//            metadataList.add(elementMetaData);
+//        }
+
+        return new SimpleObjectSchema(this.name, metadataList);
+    }
+
+    private Collection<? extends Metadata> getDefaultTileMetadata() {
+        List<Metadata> metadataList = new ArrayList<>();
+        //metadataList.add(new StringMetadata("customTile")) //Should there be some sort of type Metadata
+        metadataList.add(new PositionMetadata("position"));
+        metadataList.add(new BooleanMetadata("owned")); //Is there a way to set viewable/editable?
+        DoubleMetadata widthMetaData = new DoubleMetadata("width");
+        DoubleMetadata heightMetaData = new DoubleMetadata("height");
+        widthMetaData.setDefaultValue(50);
+        heightMetaData.setDefaultValue(50);
+        metadataList.add(widthMetaData);
+        metadataList.add(heightMetaData);
+        metadataList.add(new TileListMetadata("next"));
+        return metadataList;
     }
 
 

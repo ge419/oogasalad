@@ -2,6 +2,7 @@ package oogasalad.view.builder.customTile;
 
 import com.google.gson.JsonObject;
 import javafx.scene.layout.VBox;
+import oogasalad.model.attribute.Metadata;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -30,6 +31,8 @@ public interface CustomElement {
     void setLocation();
 
     int getIndex();
+
+    Metadata getMetaData();
 
 
     //TODO Figure out why the CustomImage class isn't found on reflect

@@ -9,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import oogasalad.model.attribute.Metadata;
+import oogasalad.model.attribute.StringMetadata;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -147,6 +149,22 @@ public class CustomText extends Label implements CustomElement {
     @Override
     public int getIndex() {
         return index;
+    }
+
+    @Override
+    public Metadata getMetaData() {
+        //if name is null that means it a static string with key of default contents
+        if (this.name == null){
+            StringMetadata metaData = new StringMetadata(this.defaultContents);
+            metaData.setDescription("A custom string typed to be displayed on a custom object ");
+            return metaData;
+        }
+        else{
+            StringMetadata metaData = new StringMetadata(this.name);
+            metaData.setDefaultValue(this.defaultContents);
+            metaData.setDescription("A custom string made by the user that represents " + this.name);
+            return metaData;
+        }
     }
 
 }

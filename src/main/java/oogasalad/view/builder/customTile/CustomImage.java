@@ -10,6 +10,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import oogasalad.model.attribute.ImageMetadata;
+import oogasalad.model.attribute.Metadata;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +24,7 @@ import java.util.List;
 
 public class CustomImage extends ImageView implements CustomElement {
 
-    String imageName;
+    String imageName = "";
     Path destinationPath;
     File originalFile;
     double x; double y;
@@ -100,6 +102,7 @@ public class CustomImage extends ImageView implements CustomElement {
         return index;
     }
 
+
     private Slider createSizeSlider() {
         Slider sizeSlider = new Slider(10, ((Pane) this.getParent()).getWidth(), this.getFitWidth());
         sizeSlider.setBlockIncrement(10);
@@ -160,5 +163,14 @@ public class CustomImage extends ImageView implements CustomElement {
         }
         this.imageName = this.imageName.endsWith(".png") ? this.imageName : this.imageName + ".png";
         return imageName;
+    }
+
+    @Override
+    public Metadata getMetaData() {
+        ImageMetadata metadata = new ImageMetadata(this.imageName);
+        metadata.setDefaultValue(this.destinationPath.toString());
+        String temp = (imageName == null ? "this" : "the " + imageName);
+        metadata.setDescription("The path to " + temp + " image");
+        return metadata;
     }
 }

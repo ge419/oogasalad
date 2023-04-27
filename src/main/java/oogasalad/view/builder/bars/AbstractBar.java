@@ -18,9 +18,10 @@ import oogasalad.view.builder.ResourceIterator;
 public abstract class AbstractBar implements ResourceIterator {
 
   private BuilderView myBuilder;
-  public AbstractBar(String fileName, String id, BuilderView builder){
+  private ResourceBundle myLanguageResource;
+  public AbstractBar(ResourceBundle languageResource, String id, BuilderView builder){
     //todo: Figure out how to set the resourcebundle
-    //setLanguage(fileName);
+    myLanguageResource = languageResource;
     myBuilder = builder;
   }
 
@@ -48,4 +49,20 @@ public abstract class AbstractBar implements ResourceIterator {
    * @param fileName name of the desired file as a string
    */
   abstract public void updateLanguage(String fileName);
+
+  /**
+   * <p>Set the resource file used for the items.</p>
+   * @param resourceFile desired resource file
+   */
+  protected void setLanguage(ResourceBundle resourceFile){
+    myLanguageResource = resourceFile;
+  }
+
+  protected ResourceBundle getLanguage(){
+    return myLanguageResource;
+  }
+
+  protected BuilderView getBuilder(){
+    return myBuilder;
+  }
 }

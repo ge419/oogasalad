@@ -23,23 +23,20 @@ public class Sidebar extends AbstractBar implements BuilderUtility {
 
   private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
 
-  private ResourceBundle myLanguageResource;
   private Pane myPane;
   private String myCurrentBundleName;
-  private BuilderView myBuilder;
 
   public Sidebar(ResourceBundle languageResource, String id, BuilderView builder) {
     // create pane
-    myLanguageResource = languageResource;
-    myBuilder = builder;
+    super(languageResource, id, builder);
     ScrollPane scrollablePane = new ScrollPane();
     myPane = (Pane) makeVBox(id);
     scrollablePane.setContent(myPane);
-    // load initial buttons based on what is given
   }
 
   @Override
   public void addItems(String functionFileName) {
+    myCurrentBundleName = functionFileName;
     ResourceBundle bundle = getResource(functionFileName);
     forEachResourceKey(bundle,
         key -> createButton(key, bundle.getString(key)));
@@ -53,7 +50,7 @@ public class Sidebar extends AbstractBar implements BuilderUtility {
 
   @Override
   public void updateLanguage(String fileName) {
-    myLanguageResource = getResource(fileName);
+    setLanguage(getResource(fileName));
     refreshItems(myCurrentBundleName);
   }
 
@@ -62,7 +59,7 @@ public class Sidebar extends AbstractBar implements BuilderUtility {
   }
 
   private void createButton(String key, String buttonClickMethodName) {
-    Node button = makeButton(key, myLanguageResource,
+    Node button = makeButton(key, getLanguage(),
         e -> runMethodFromString(buttonClickMethodName));
     myPane.getChildren().add(button);
   }
@@ -81,11 +78,11 @@ public class Sidebar extends AbstractBar implements BuilderUtility {
   }
 
   private void toggleTileCreation() {
-    myBuilder.toggleTileCreation();
+    getBuilder().toggleTileCreation();
   }
 
   private void deleteToggle() {
-    myBuilder.toggleTileDeletion();
+    getBuilder().toggleTileDeletion();
   }
 
   private ResourceBundle getResource(String resourceName) {

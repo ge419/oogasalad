@@ -268,9 +268,10 @@ public class CustomObjectMaker extends Application {
             dialog.setTitle("Name CustomTile");
             dialog.setHeaderText("Enter a new name for the CustomTile:");
             Optional<String> result = dialog.showAndWait();
-            result.ifPresent(name -> {
+            result.ifPresent(n -> {
                 Stage stage = (Stage) getScene().getWindow();
-                stage.setTitle(name);
+                stage.setTitle(n);
+                name = n;
             });
         }
 

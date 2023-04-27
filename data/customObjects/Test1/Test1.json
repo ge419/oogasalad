@@ -1,38 +1,37 @@
-
 {
   "name": "Test1",
-  "width": 476.0,
-  "height": 559.0,
+  "width": 491.0,
+  "height": 498.0,
   "customObjects": [
     {
       "type": "CustomImage",
-      "x": 85.0,
-      "y": -102.0,
-      "name": "IMG_0907.JPG.png",
-      "height": 353.8498121354286,
-      "width": 239.2645908389089,
-      "filePath": "data/customObjects/Test1/IMG_0907.JPG.png",
+      "x": 3.0,
+      "y": -72.0,
+      "name": "Screen Shot 2022-12-11 at 11.50.58 AM.png",
+      "height": 308.58620689655174,
+      "width": 471.0,
+      "filePath": "data/customObjects/Test1/Screen Shot 2022-12-11 at 11.50.58 AM.png",
       "index": 0
     },
     {
-      "name": "Property Tile",
-      "defaultContents": "Add Property Name",
-      "fontSize": 14,
+      "name": "Default Text",
+      "defaultContents": "Enter Text Here",
+      "fontSize": 20,
       "bold": false,
-      "translateX": -154.0,
-      "translateY": -95.0,
+      "translateX": -86.0,
+      "translateY": 168.0,
       "type": "CustomText",
-      "index": 1
+      "index": -1
     },
     {
-      "type": "CustomImage",
-      "x": -73.0,
-      "y": 108.0,
-      "name": "IMG_0907.JPG.png",
-      "height": 300.9497584598368,
-      "width": 203.49486802440998,
-      "filePath": "data/customObjects/Test1/IMG_0907.JPG.png",
-      "index": 2
+      "name": "Default Text",
+      "defaultContents": "Add photographer name",
+      "fontSize": 14,
+      "bold": true,
+      "translateX": 162.0,
+      "translateY": 96.0,
+      "type": "CustomText",
+      "index": -1
     }
   ]
 }

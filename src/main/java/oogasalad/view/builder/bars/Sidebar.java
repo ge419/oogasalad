@@ -1,9 +1,12 @@
-package oogasalad.view.builder;
+package oogasalad.view.builder.bars;
 
 import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
+import oogasalad.view.builder.BuilderUtility;
+import oogasalad.view.builder.BuilderView;
+import oogasalad.view.builder.ResourceIterator;
 
 /**
  * <p>Sidebar will implement and manage a pane of buttons for any UI.</p>
@@ -16,7 +19,7 @@ import javafx.scene.layout.Pane;
  *
  * @author tmh85
  */
-public class Sidebar implements Bar, BuilderUtility, ResourceIterator {
+public class Sidebar extends AbstractBar implements BuilderUtility {
 
   private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
 
@@ -62,16 +65,6 @@ public class Sidebar implements Bar, BuilderUtility, ResourceIterator {
     Node button = makeButton(key, myLanguageResource,
         e -> runMethodFromString(buttonClickMethodName));
     myPane.getChildren().add(button);
-  }
-
-  private void runMethodFromString(String method) {
-    try {
-      Sidebar.this.getClass().getDeclaredMethod(method)
-          .invoke(Sidebar.this);
-    } catch (Exception ex) {
-      ex.printStackTrace();
-      throw new RuntimeException(ex);
-    }
   }
 
   private void test() {

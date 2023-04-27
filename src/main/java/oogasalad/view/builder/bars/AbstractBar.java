@@ -1,4 +1,8 @@
-package oogasalad.view.builder;
+package oogasalad.view.builder.bars;
+
+import java.util.ResourceBundle;
+import oogasalad.view.builder.BuilderView;
+import oogasalad.view.builder.ResourceIterator;
 
 /**
  * <p>Bar interface lists methods related to adding and refreshing toggleable
@@ -11,7 +15,14 @@ package oogasalad.view.builder;
  *
  * @author tmh85
  */
-public interface Bar {
+public abstract class AbstractBar implements ResourceIterator {
+
+  private BuilderView myBuilder;
+  public AbstractBar(String fileName, String id, BuilderView builder){
+    //todo: Figure out how to set the resourcebundle
+    //setLanguage(fileName);
+    myBuilder = builder;
+  }
 
   /**
    * <p>Add items to the bar as dictated by the required resource file.</p>
@@ -20,14 +31,14 @@ public interface Bar {
    *
    * @param functionFileName name of file that contains the function connected to an item
    */
-  void addItems(String functionFileName);
+  abstract public void addItems(String functionFileName);
 
   /**
    * <p>Replace the items on a given bar with new items from a given resource file.</p>
    *
    * @param newFunctionFileName name of file that contains the function connected
    */
-  void refreshItems(String newFunctionFileName);
+  abstract public void refreshItems(String newFunctionFileName);
 
   /**
    * <p>Update what text is displayed on the bar.</p>
@@ -36,5 +47,5 @@ public interface Bar {
    *
    * @param fileName name of the desired file as a string
    */
-  void updateLanguage(String fileName);
+  abstract public void updateLanguage(String fileName);
 }

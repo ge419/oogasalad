@@ -28,6 +28,7 @@ import oogasalad.controller.BuilderController;
 import oogasalad.controller.builderevents.TrailMaker;
 import oogasalad.controller.builderevents.TrailMakerAPI;
 import oogasalad.view.Coordinate;
+import oogasalad.view.builder.bars.Sidebar;
 import oogasalad.view.builder.board.BoardInfo;
 import oogasalad.view.builder.events.TileEvent;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;

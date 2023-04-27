@@ -14,5 +14,4 @@ public interface BuilderAPI {
   void updateInfoText(String key);
   void cancelAction();
 
-
 }

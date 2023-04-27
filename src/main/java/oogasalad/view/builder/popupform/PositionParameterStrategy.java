@@ -17,6 +17,19 @@ import oogasalad.view.builder.BuilderUtility;
 import oogasalad.view.builder.events.TileEvent;
 import oogasalad.view.tiles.ViewTile;
 
+/**
+ * A strategy used by the popup form to display a form element when
+ * a position is required from the user via user input. This consists
+ * of three labeled double spinners for the user to input X, Y, and Angle values.
+ * Additionally, an event handler is placed on the window to automatically
+ * change the value displayed in the spinner depending on the location when dragged.
+ * A key assumption is that the strategy assumes the form is editing a draggable element
+ * Example Usage:
+ * VBox form = new VBox();
+ * PositionParameterStrategy strategy = new PositionParameterStrategy(myPositionAttribute, myPositionMetadata);
+ * form.getChildren().add(strategy.renderInput(myResourceBundle, form));
+ * @author Jason Fitzpatrick
+ */
 public class PositionParameterStrategy implements ParameterStrategy, BuilderUtility {
 
     private final PositionAttribute attr;
@@ -41,6 +54,12 @@ public class PositionParameterStrategy implements ParameterStrategy, BuilderUtil
         this.meta = PositionMetadata.from(meta);
     }
 
+    /**
+     * Returns a JavaFX form element for a coordinate attribute
+     * @param resourceBundle
+     * @param form
+     * @return
+     */
     @Override
     public Node renderInput(ResourceBundle resourceBundle, Pane form) {
         String name = meta.getName();

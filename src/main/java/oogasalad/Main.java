@@ -50,10 +50,10 @@ public class Main extends Application {
 
     Injector builderInject = Guice.createInjector(new BuilderControllerModule("English"));
     BuilderController builderController = builderInject.getInstance(BuilderController.class);
-    try {
-      controller.setGame(primaryStage);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+//    try {
+//      controller.setGame(primaryStage);
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
 }
 }

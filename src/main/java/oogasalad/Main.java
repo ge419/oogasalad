@@ -52,6 +52,5 @@ public class Main extends Application {
 //        new BuilderView(new BuilderController());
     }
     //new BuilderView(new BuilderController());
-    injector.getInstance(BuilderView.class);
+//    injector.getInstance(BuilderView.class);
   }
-}

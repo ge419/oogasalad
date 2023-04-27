@@ -1,6 +1,7 @@
 package oogasalad.view.builder;
 
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 import com.google.inject.name.Named;
 import java.awt.Dimension;
 import java.io.File;
@@ -9,6 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -33,7 +35,6 @@ import oogasalad.view.builder.board.BoardInfo;
 import oogasalad.view.builder.events.TileEvent;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.builder.popupform.PopupForm;
-import oogasalad.view.tiles.BasicTile;
 import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -50,6 +51,9 @@ import org.apache.logging.log4j.Logger;
  */
 public class BuilderView implements BuilderUtility, BuilderAPI {
 
+  private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
+  private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
+
   private static final double PANE_WIDTH = 500;
   private static final double PANE_HEIGHT = 500;
   private static final double DEFAULT_IMAGE_WIDTH = 100;
@@ -59,8 +63,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private static final Logger LOG = LogManager.getLogger(BuilderView.class);
   private ResourceBundle builderResource;
   private final ResourceBundle topBarResource;
-  private final ResourceBundle sideBar1Resource;
-  private final ResourceBundle tileBarResource;
   private final ResourceBundle fileMenuResource;
   private final ResourceBundle aboutMenuResource;
   private final ResourceBundle appearanceMenuResource;
@@ -76,41 +78,30 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private int myImageCount = 0;
   private Optional<ViewTile> myCurrentTile;
   private final BoardInfo myBoardInfo;
+  private Sidebar mySidebar;
   private TrailMakerAPI myTrailMaker;
   private final boolean myDraggableObjectsToggle = true;
   private boolean myDeleteToggle = false;
-  private final Coordinate myBoardPaneStartingLocation;
   private final BuilderController bc;
   private VBox sidePane;
 
 
   @Inject
   public BuilderView(
-      BuilderController bc,
-      @Named("DefaultLanguage") ResourceBundle builderLanguage,
-      @Named("TopBarMethods") ResourceBundle topBar,
-      @Named("MainSideBarMethods") ResourceBundle sideBar,
-      @Named("TileBarMethods") ResourceBundle tileBar,
-      @Named("FileMenuMethods") ResourceBundle fileMenu,
-      @Named("AppearanceMenuMethods") ResourceBundle appearanceMenu,
-      @Named("AboutMenuMethods") ResourceBundle aboutMenu,
-      @Named("SettingsMenuMethods") ResourceBundle settingsMenu,
-      @Named("ToggleMenuMethods") ResourceBundle toggleMenu,
-      String defaultStylesheetPath
+      @Assisted BuilderController bc,
+      @Assisted String languageString
   ) {
     this.bc = bc;
 
-    builderResource = builderLanguage;
-    topBarResource = topBar;
-    sideBar1Resource = sideBar;
-    tileBarResource = tileBar;
-    fileMenuResource = fileMenu;
-    appearanceMenuResource = appearanceMenu;
-    aboutMenuResource = aboutMenu;
-    settingsMenuResource = settingsMenu;
-    toggleMenuResource = toggleMenu;
+    builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + languageString + "BuilderText");
+    topBarResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "TopBar");
+    fileMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "FileMenu");
+    appearanceMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "AppearanceMenu");
+    aboutMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "AboutMenu");
+    settingsMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SettingsMenu");
+    toggleMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "ToggleMenu");
 
-    defaultStylesheet = getClass().getResource(defaultStylesheetPath).toExternalForm();
+    defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET).toExternalForm();
 
     myCurrentlyClickedTiletype = Optional.empty();
     myCurrentTile = Optional.empty();
@@ -122,12 +113,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     primaryStage.setScene(scene);
     primaryStage.setTitle(builderResource.getString("BuilderTitle"));
     primaryStage.show();
-    myBoardPaneStartingLocation = new Coordinate(
-        (double) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinX(),
-        (double) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinY(),
-        0
-    );
-
+    System.out.println(myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getWidth());
+    System.out.println(myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getHeight());
   }
 
   private Scene initScene() {
@@ -159,14 +146,19 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     return topBar;
   }
 
-  private HBox createCentralContainer() {
-    VBox sideBar1 = (VBox) makeVBox("SideBar1");
-    addButtonsToPane(sideBar1, sideBar1Resource);
-    myLeftSidebar = sideBar1;
+  private Pane createCentralContainer() {
+    mySidebar = new Sidebar(builderResource, "SideBar1");
+    mySidebar.addItems("SideBar1");
+//    VBox sideBar1 = (VBox) makeVBox("SideBar1");
+//    addButtonsToPane(sideBar1, sideBar1Resource);
+//    myLeftSidebar = sideBar1;
 
     Node boardPane = makePane("BoardPane", PANE_WIDTH, PANE_HEIGHT);
-    myBoardInfo.setBoardSize(new Dimension((int) PANE_WIDTH, (int) PANE_HEIGHT));
+    //myBoardInfo.setBoardSize(new Dimension((int) PANE_WIDTH, (int) PANE_HEIGHT));
     myBoardPane = (Pane) boardPane;
+    myBoardPane.setMinSize(PANE_WIDTH, PANE_HEIGHT);
+    myBoardPane.setMaxSize(PANE_WIDTH, PANE_HEIGHT);
+
     myBoardPane.setOnMouseClicked(e -> handleBoardClick(e));
     myBoardPane.addEventFilter(TileEvent.DELETE_TILE, e -> deleteTile(e));
     myBoardPane.addEventFilter(TileEvent.SET_NEXT_TILE, e -> createTilePath(e));
@@ -176,7 +168,14 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     sidePane = new VBox();
     sidePane.setPrefWidth(300);
 
-    return (HBox) makeHBox("CentralContainer", sideBar1, boardPane, sidePane);
+    BorderPane pane = new BorderPane();
+    pane.setId("CentralContainer");
+    pane.setLeft(mySidebar.asNode());
+    pane.setCenter(boardPane);
+    pane.setRight(sidePane);
+
+//    return (HBox) makeHBox("CentralContainer", sideBar1, boardPane, sidePane);
+    return pane;
   }
 
   private void addButtonsToPane(Pane pane, ResourceBundle resource) {
@@ -259,6 +258,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       String givenDirectory = file.get().getPath();
       // Send file to the controller to properly save.
       //Controller.save(ImmutableGameHolder);
+      //bc.save();
       System.out.println(givenDirectory);
       //return Optional.ofNullable(game);
       return Optional.empty();
@@ -306,9 +306,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   // todo: support different tile types.
   private void createTile(MouseEvent e) {
-    BasicTile tile = bc.addTile(e);
-    tile.setOnMouseDragged(event -> fireDragEvent(event, tile));
-    initializeNode(tile, "Tile" + myTileCount, tile_e -> handleTileClick(tile));
+    ViewTile tile = bc.addTile(e);
+    tile.asNode().setOnMouseDragged(event -> fireDragEvent(event, tile));
+    initializeNode(tile.asNode(), "Tile" + myTileCount, tile_e -> handleTileClick(tile));
     myTileCount++;
     myCurrentlyClickedTiletype = Optional.empty();
     updateInfoText("RegularMode");
@@ -317,14 +317,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     TileEvent tileEvent = new TileEvent(TileEvent.DRAG_TILE, tile);
     myBoardPane.fireEvent(tileEvent);
   }
-  private void openTileMenu() {
-    refreshButtonsOnPane(myLeftSidebar, tileBarResource);
-  }
-
-  private void backToSidebarMenu() {
-    refreshButtonsOnPane(myLeftSidebar, sideBar1Resource);
-  }
-
   private void refreshButtonsOnPane(Pane pane, ResourceBundle resourceBundle) {
     pane.getChildren().clear();
     addButtonsToPane(pane, resourceBundle);
@@ -442,7 +434,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void initializeNode(Node node, String identifier, EventHandler<MouseEvent> mouseClickHandle){
-    bc.createEventsForNode(node, mouseClickHandle, myBoardPaneStartingLocation);
+    bc.createEventsForNode(node,
+        mouseClickHandle,
+        myBoardPane);
     node.setId(identifier);
     node.getStyleClass().add("clickable");
     myBoardPane.getChildren().add(node);

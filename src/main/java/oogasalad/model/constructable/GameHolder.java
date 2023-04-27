@@ -8,15 +8,25 @@ import java.util.Optional;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import oogasalad.controller.GameInfo;
 import oogasalad.model.engine.rules.Rule;
 
 public class GameHolder {
 
+  private GameInfo gameInfo;
   private BBoard board;
   private Players players;
   private Player currentPlayer;
   private final ListProperty<Rule> rules = new SimpleListProperty<>(
       FXCollections.observableArrayList());
+
+  public GameInfo getGameInfo() {
+    return gameInfo;
+  }
+
+  public void setGameInfo(GameInfo gameInfo) {
+    this.gameInfo = gameInfo;
+  }
 
   public BBoard getBoard() {
     return board;
@@ -75,6 +85,7 @@ public class GameHolder {
 
   public static GameHolder createDefaultGame() {
     GameHolder gameHolder = new GameHolder();
+    gameHolder.setGameInfo(new GameInfo());
     gameHolder.setBoard(new BBoard());
     gameHolder.setPlayers(new Players());
     return gameHolder;

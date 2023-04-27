@@ -1,8 +1,16 @@
 {
+  "gameInfo" : {
+    "title" : "title1",
+    "description" : "First game",
+    "genre" : "board",
+    "width" : 100.0,
+    "height" : 100.0,
+    "thumbnail" : null
+  },
   "board" : {
     "tiles" : [ {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "67eb8ceb-e0ae-406e-b960-ac12bee2a835",
+      "id" : "fe516e26-7873-42be-9b39-117b02bff1dc",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -23,7 +31,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "ffbc3313-0ff3-4117-a5fa-888bd040dba8" ]
+        "ids" : [ "21d4c322-b15a-4556-a138-1d9c2a549e91" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -53,7 +61,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "ffbc3313-0ff3-4117-a5fa-888bd040dba8",
+      "id" : "21d4c322-b15a-4556-a138-1d9c2a549e91",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -74,7 +82,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "22274cde-a202-4137-9ce6-45f828c52327" ]
+        "ids" : [ "8b38b5c7-b67f-4efa-8412-9b6bddad8daf" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -104,7 +112,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "22274cde-a202-4137-9ce6-45f828c52327",
+      "id" : "8b38b5c7-b67f-4efa-8412-9b6bddad8daf",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -125,7 +133,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "10153ab2-f534-40ca-bfab-b91e399a0bb4" ]
+        "ids" : [ "f4149516-0d77-4afc-b92a-2d6406fa6d4b" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -155,7 +163,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "10153ab2-f534-40ca-bfab-b91e399a0bb4",
+      "id" : "f4149516-0d77-4afc-b92a-2d6406fa6d4b",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -176,7 +184,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "9c9ba409-2cd4-4e7d-b04f-fea05765664f" ]
+        "ids" : [ "bf5bf10c-6392-47fd-9601-d18cffd3edbc" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -206,7 +214,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "9c9ba409-2cd4-4e7d-b04f-fea05765664f",
+      "id" : "bf5bf10c-6392-47fd-9601-d18cffd3edbc",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -227,7 +235,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "f63b1437-49c4-49bd-a71b-3e21a1369c24" ]
+        "ids" : [ "e00f4dbf-7eac-4759-93e5-f8b309b5f1a0" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -257,7 +265,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "f63b1437-49c4-49bd-a71b-3e21a1369c24",
+      "id" : "e00f4dbf-7eac-4759-93e5-f8b309b5f1a0",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -278,7 +286,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "753ebb65-58a4-41f3-8e55-7a6318b0b8ce" ]
+        "ids" : [ "77cc8275-fdeb-475a-b8be-39ce15123dce" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -308,7 +316,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "753ebb65-58a4-41f3-8e55-7a6318b0b8ce",
+      "id" : "77cc8275-fdeb-475a-b8be-39ce15123dce",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -329,7 +337,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "63213ae6-32ef-449c-a658-3bd23aef44ea" ]
+        "ids" : [ "a20bc98a-b066-400a-9b90-0d47012d4ba5" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -359,7 +367,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "63213ae6-32ef-449c-a658-3bd23aef44ea",
+      "id" : "a20bc98a-b066-400a-9b90-0d47012d4ba5",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -380,7 +388,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "21226419-b8ee-4058-b892-d4a1d21c8dbe" ]
+        "ids" : [ "4f9d27be-3241-4ab6-889f-4bdddb5d27b4" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -410,7 +418,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "21226419-b8ee-4058-b892-d4a1d21c8dbe",
+      "id" : "4f9d27be-3241-4ab6-889f-4bdddb5d27b4",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -431,7 +439,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "658aa8c2-8719-4396-84b0-db25d18e51c9" ]
+        "ids" : [ "fa8a8a15-68ba-4e8e-98ef-fd383365d73b" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -461,7 +469,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "658aa8c2-8719-4396-84b0-db25d18e51c9",
+      "id" : "fa8a8a15-68ba-4e8e-98ef-fd383365d73b",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -482,7 +490,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "351054f6-7071-4f6d-887b-9e924edd0a04" ]
+        "ids" : [ "9db49968-2e4a-47e7-b26d-672365350490" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -512,7 +520,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "351054f6-7071-4f6d-887b-9e924edd0a04",
+      "id" : "9db49968-2e4a-47e7-b26d-672365350490",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -533,7 +541,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "b024483c-211f-499e-9300-02e1adb95d6d" ]
+        "ids" : [ "7f28ad53-5562-4f2b-9919-00c355d90689" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -563,7 +571,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "b024483c-211f-499e-9300-02e1adb95d6d",
+      "id" : "7f28ad53-5562-4f2b-9919-00c355d90689",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -584,7 +592,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "42db280a-ac32-44bc-99d2-94421dfb66b4" ]
+        "ids" : [ "9dd8c447-9e65-415d-8974-e4c0a864956a" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -614,7 +622,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "42db280a-ac32-44bc-99d2-94421dfb66b4",
+      "id" : "9dd8c447-9e65-415d-8974-e4c0a864956a",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -635,7 +643,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "0fc03513-57ff-4417-aca1-b026ed6fb520" ]
+        "ids" : [ "2f0eb7e0-afdf-4176-a424-d4fc7273637b" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -665,7 +673,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "0fc03513-57ff-4417-aca1-b026ed6fb520",
+      "id" : "2f0eb7e0-afdf-4176-a424-d4fc7273637b",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -686,7 +694,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "faa9df92-b260-4abe-8c0b-2b776087d5c8" ]
+        "ids" : [ "e9226067-7e2b-4b42-9f8b-104d98e04651" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -716,7 +724,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "faa9df92-b260-4abe-8c0b-2b776087d5c8",
+      "id" : "e9226067-7e2b-4b42-9f8b-104d98e04651",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -737,7 +745,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "817dfcc1-155e-43fb-884d-c54be1b472c0" ]
+        "ids" : [ "ca2b19fc-250d-4d2f-874a-724cefff74f9" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -767,7 +775,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "817dfcc1-155e-43fb-884d-c54be1b472c0",
+      "id" : "ca2b19fc-250d-4d2f-874a-724cefff74f9",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -788,7 +796,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "76e569f0-eacc-4698-9ed7-b810289168af" ]
+        "ids" : [ "2a80540c-e5c4-4ee5-9b23-afd872d39a20" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -818,7 +826,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "76e569f0-eacc-4698-9ed7-b810289168af",
+      "id" : "2a80540c-e5c4-4ee5-9b23-afd872d39a20",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -839,7 +847,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "3e5848ae-71f7-49b9-ac01-97364fbb8f56" ]
+        "ids" : [ "901728f5-4a37-4057-b41c-9caac223ed3a" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -869,7 +877,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "3e5848ae-71f7-49b9-ac01-97364fbb8f56",
+      "id" : "901728f5-4a37-4057-b41c-9caac223ed3a",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -890,7 +898,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "3109de0c-5cb7-46a5-88ae-a079def77839" ]
+        "ids" : [ "8e7f11ac-4538-4519-9fb5-2d7891b9888c" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -920,7 +928,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "3109de0c-5cb7-46a5-88ae-a079def77839",
+      "id" : "8e7f11ac-4538-4519-9fb5-2d7891b9888c",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -941,7 +949,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "dccbb72c-8a67-40be-94a2-6e49f77d0b9f" ]
+        "ids" : [ "c99274d8-3ac7-4e17-98e6-4966f722bca4" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -971,7 +979,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "dccbb72c-8a67-40be-94a2-6e49f77d0b9f",
+      "id" : "c99274d8-3ac7-4e17-98e6-4966f722bca4",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -992,7 +1000,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "da2d066e-3473-423f-bf36-442183556ded" ]
+        "ids" : [ "b71ef5ef-96e0-4242-861b-00eeafcdade9" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1022,7 +1030,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "da2d066e-3473-423f-bf36-442183556ded",
+      "id" : "b71ef5ef-96e0-4242-861b-00eeafcdade9",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -1043,7 +1051,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "9fe33f4c-ea6b-4ec5-bac0-7adda605bb7a" ]
+        "ids" : [ "6cdb057c-9456-4b58-a12d-51acb33b7d9f" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1073,7 +1081,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "9fe33f4c-ea6b-4ec5-bac0-7adda605bb7a",
+      "id" : "6cdb057c-9456-4b58-a12d-51acb33b7d9f",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -1094,7 +1102,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "204e81a7-33b5-48b1-823c-cd75429ace9e" ]
+        "ids" : [ "d9ea73a0-26b0-43a8-98d1-d6038bca413b" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1124,7 +1132,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "204e81a7-33b5-48b1-823c-cd75429ace9e",
+      "id" : "d9ea73a0-26b0-43a8-98d1-d6038bca413b",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -1145,7 +1153,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "308b7fa2-b070-42dc-b97a-e27ce8792673" ]
+        "ids" : [ "e4a9ddef-df55-4913-b52d-bf80099dfbba" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1175,7 +1183,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "308b7fa2-b070-42dc-b97a-e27ce8792673",
+      "id" : "e4a9ddef-df55-4913-b52d-bf80099dfbba",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -1196,7 +1204,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "439807cb-a793-41b4-ac0f-aa461461e16f" ]
+        "ids" : [ "db67fd59-c663-4c15-8d65-9eec55c8e77b" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1226,7 +1234,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "439807cb-a793-41b4-ac0f-aa461461e16f",
+      "id" : "db67fd59-c663-4c15-8d65-9eec55c8e77b",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -1247,7 +1255,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "069c9503-bccc-46be-8a9a-1962b1644302" ]
+        "ids" : [ "0cf8b204-27f1-47be-9471-c4fd77c23691" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1277,7 +1285,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "069c9503-bccc-46be-8a9a-1962b1644302",
+      "id" : "0cf8b204-27f1-47be-9471-c4fd77c23691",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -1298,7 +1306,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "551d1e3c-dded-4dfb-80dd-32a7dabd1cc9" ]
+        "ids" : [ "45da1bfa-2d97-4a62-bf14-4fb4633c5459" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1328,7 +1336,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "551d1e3c-dded-4dfb-80dd-32a7dabd1cc9",
+      "id" : "45da1bfa-2d97-4a62-bf14-4fb4633c5459",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -1349,7 +1357,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "d9bc5f76-e62a-4119-a636-a3926e792a3a" ]
+        "ids" : [ "421eb3d5-90f2-4f39-95d4-f55b980056b6" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1379,7 +1387,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "d9bc5f76-e62a-4119-a636-a3926e792a3a",
+      "id" : "421eb3d5-90f2-4f39-95d4-f55b980056b6",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -1400,7 +1408,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "1ce50973-2a28-4ee7-a0c6-91b693d08eea" ]
+        "ids" : [ "0c0a84a1-aa6c-4487-a986-429a8298c496" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1430,7 +1438,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "1ce50973-2a28-4ee7-a0c6-91b693d08eea",
+      "id" : "0c0a84a1-aa6c-4487-a986-429a8298c496",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -1451,7 +1459,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "59427667-02d1-4dbf-af98-abf25f080ef4" ]
+        "ids" : [ "9fc7f97e-593e-44fc-a4de-6c82e74f5a24" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1481,7 +1489,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "59427667-02d1-4dbf-af98-abf25f080ef4",
+      "id" : "9fc7f97e-593e-44fc-a4de-6c82e74f5a24",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -1502,7 +1510,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "f6a68643-9611-43d7-9d1a-5358052cdd88" ]
+        "ids" : [ "aa69b322-4afb-4cbf-a3c4-1511b00eea5b" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1532,7 +1540,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "f6a68643-9611-43d7-9d1a-5358052cdd88",
+      "id" : "aa69b322-4afb-4cbf-a3c4-1511b00eea5b",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -1553,7 +1561,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "aeacab1c-2cf0-4c07-bcbf-83680124082b" ]
+        "ids" : [ "f861e5ae-1da9-45c3-b5ce-82feca25ad9e" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1583,7 +1591,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "aeacab1c-2cf0-4c07-bcbf-83680124082b",
+      "id" : "f861e5ae-1da9-45c3-b5ce-82feca25ad9e",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -1604,7 +1612,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "3e3d7a68-4383-4db6-ae5a-99497796e240" ]
+        "ids" : [ "8c690f91-104a-44ac-afb6-b1e3cd63db3c" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1634,7 +1642,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "3e3d7a68-4383-4db6-ae5a-99497796e240",
+      "id" : "8c690f91-104a-44ac-afb6-b1e3cd63db3c",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -1655,7 +1663,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "787125f5-59af-4625-8aaf-21baa376d403" ]
+        "ids" : [ "a3d6d5c9-59d0-4eba-b3e0-1b64f29e09e8" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1685,7 +1693,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "787125f5-59af-4625-8aaf-21baa376d403",
+      "id" : "a3d6d5c9-59d0-4eba-b3e0-1b64f29e09e8",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -1706,7 +1714,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "b5154bfe-048f-4da1-8e65-dbb40b615692" ]
+        "ids" : [ "fe32caa3-c14b-4001-9ac8-795f40cf8125" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1736,7 +1744,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "b5154bfe-048f-4da1-8e65-dbb40b615692",
+      "id" : "fe32caa3-c14b-4001-9ac8-795f40cf8125",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -1757,7 +1765,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "168cb49a-06b2-4d26-9fd4-47c303d01361" ]
+        "ids" : [ "090938f3-87e9-4dc4-8699-20cb1074938e" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1787,7 +1795,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "168cb49a-06b2-4d26-9fd4-47c303d01361",
+      "id" : "090938f3-87e9-4dc4-8699-20cb1074938e",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -1808,7 +1816,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "dc86e116-06f1-4c81-8576-7f45e419b6bf" ]
+        "ids" : [ "5df48718-0f4c-4bb9-b78d-5412d5e1541a" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1838,7 +1846,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "dc86e116-06f1-4c81-8576-7f45e419b6bf",
+      "id" : "5df48718-0f4c-4bb9-b78d-5412d5e1541a",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -1859,7 +1867,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "b94516a4-ca15-465c-ad57-dd8a9f2d7cec" ]
+        "ids" : [ "7f632a52-44e9-4ebe-a42a-b4b7e85276c7" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1889,7 +1897,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "b94516a4-ca15-465c-ad57-dd8a9f2d7cec",
+      "id" : "7f632a52-44e9-4ebe-a42a-b4b7e85276c7",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -1910,7 +1918,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "117b7117-c7e7-41b0-a592-44c8ae96c229" ]
+        "ids" : [ "49e56783-6bab-40fa-897d-c8842c3a56f6" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1940,7 +1948,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "117b7117-c7e7-41b0-a592-44c8ae96c229",
+      "id" : "49e56783-6bab-40fa-897d-c8842c3a56f6",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -1961,7 +1969,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "47e9c0c8-2435-4d0c-b059-c296143cee70" ]
+        "ids" : [ "47ccad49-9d9d-490e-a05a-24423c0e80ad" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -1991,7 +1999,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "47e9c0c8-2435-4d0c-b059-c296143cee70",
+      "id" : "47ccad49-9d9d-490e-a05a-24423c0e80ad",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -2012,7 +2020,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "5e607186-38e2-405a-8934-3c742eed25ca" ]
+        "ids" : [ "79076479-2a32-4ecc-99ea-aca699ae6c47" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -2042,7 +2050,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "5e607186-38e2-405a-8934-3c742eed25ca",
+      "id" : "79076479-2a32-4ecc-99ea-aca699ae6c47",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -2063,7 +2071,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "3715ccef-fe22-407b-be5d-11434d52be27" ]
+        "ids" : [ "14df1c14-88e8-4661-b2ec-9f8ac757ebc5" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -2093,7 +2101,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "3715ccef-fe22-407b-be5d-11434d52be27",
+      "id" : "14df1c14-88e8-4661-b2ec-9f8ac757ebc5",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -2114,7 +2122,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "38acc920-a183-4810-a825-6b5ef4a8eade" ]
+        "ids" : [ "3fec1080-d590-4cda-9c9d-928842c670d2" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -2144,7 +2152,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "38acc920-a183-4810-a825-6b5ef4a8eade",
+      "id" : "3fec1080-d590-4cda-9c9d-928842c670d2",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -2165,7 +2173,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "f4341b7a-56a0-418d-8ff4-140536c585c3" ]
+        "ids" : [ "f933a9f8-1f02-49da-bc16-085eb3272970" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -2195,7 +2203,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "f4341b7a-56a0-418d-8ff4-140536c585c3",
+      "id" : "f933a9f8-1f02-49da-bc16-085eb3272970",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -2216,7 +2224,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "1190c94f-31d0-4d8e-819e-71a171a01714" ]
+        "ids" : [ "d9bb25c1-6d6e-4c46-9820-b7f16ce9a769" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -2246,7 +2254,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "1190c94f-31d0-4d8e-819e-71a171a01714",
+      "id" : "d9bb25c1-6d6e-4c46-9820-b7f16ce9a769",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -2267,7 +2275,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "d4cc241f-59ed-42d4-b566-85ee1e5606a8" ]
+        "ids" : [ "08c8dbfb-053e-4fdc-8e27-e3a9fbace2f5" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -2297,7 +2305,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "d4cc241f-59ed-42d4-b566-85ee1e5606a8",
+      "id" : "08c8dbfb-053e-4fdc-8e27-e3a9fbace2f5",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -2318,7 +2326,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "516bcd15-5821-4eab-8204-8309e09cb2a1" ]
+        "ids" : [ "955fb479-4586-46a0-aba8-028f8880cbc7" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -2348,7 +2356,7 @@
       } ]
     }, {
       "@class" : "oogasalad.model.constructable.Tile",
-      "id" : "516bcd15-5821-4eab-8204-8309e09cb2a1",
+      "id" : "955fb479-4586-46a0-aba8-028f8880cbc7",
       "schemas" : [ "tile" ],
       "attributes" : [ {
         "@class" : "oogasalad.model.attribute.ColorAttribute",
@@ -2369,7 +2377,7 @@
       }, {
         "@class" : "oogasalad.model.attribute.TileListAttribute",
         "key" : "next",
-        "ids" : [ "67eb8ceb-e0ae-406e-b960-ac12bee2a835" ]
+        "ids" : [ "fe516e26-7873-42be-9b39-117b02bff1dc" ]
       }, {
         "@class" : "oogasalad.model.attribute.BooleanAttribute",
         "key" : "owned",
@@ -2401,12 +2409,12 @@
   },
   "rules" : [ {
     "@class" : "oogasalad.model.engine.rules.TurnRule",
-    "id" : "c289170b-570d-4629-a02a-7f48df57a8e5",
+    "id" : "1ffafbb1-a4eb-49a1-9396-638810ca65c0",
     "schemas" : [ "turnRule" ],
     "attributes" : [ ]
   }, {
     "@class" : "oogasalad.model.engine.rules.BuyTileRule",
-    "id" : "f94ccd7c-98d6-4fb9-97d5-393159dea06e",
+    "id" : "972927ae-7f26-4491-8287-6fe3a7975e46",
     "schemas" : [ "buyTileRule" ],
     "attributes" : [ {
       "@class" : "oogasalad.model.attribute.StringAttribute",
@@ -2415,7 +2423,7 @@
     } ]
   }, {
     "@class" : "oogasalad.model.engine.rules.DieMoveRule",
-    "id" : "6cad3ac3-d751-425f-8047-f0677789f7a4",
+    "id" : "694d549d-2c69-4d90-8b66-127ba113fdab",
     "schemas" : [ "dieRule" ],
     "attributes" : [ {
       "@class" : "oogasalad.model.attribute.IntAttribute",

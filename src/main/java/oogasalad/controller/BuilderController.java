@@ -52,7 +52,6 @@ public class BuilderController {
     Injector injector = Guice.createInjector(new BuilderControllerModule(injectedLanguage));
     builderView = injectedBuilderFactory.makeBuilder(injectedLanguage, this);
     logger.info("created builder");
-//    System.out.println("made builder");
     db = new SchemaDatabase();
     gameHolder = GameHolder.createDefaultGame();
 //    saveManager = new SaveManager();
@@ -121,5 +120,9 @@ public class BuilderController {
 
   public BuilderView getBuilderView() {
     return builderView;
+  }
+
+  private void defaultRules() {
+//    saveManager.loadDefRules();
   }
 }

@@ -22,6 +22,7 @@ public class SaveManager {
 
   public static final String SETTINGS_FILE_NAME = "settings.json";
   public static final String ASSETS_DIR_NAME = "assets";
+  public static final String RULES_FILE_NAME = "defaultRules.json";
   private static final Logger LOGGER = LogManager.getLogger(SaveManager.class);
   private final Path saveDir;
   private final Path assetsDir;
@@ -62,6 +63,21 @@ public class SaveManager {
       return GameHolder.createDefaultGame();
     }
   }
+//
+//  public RuleHolder loadDefRules() {
+//    ensureSaveDir();
+//    Path defRulesFile = saveDir.resolve(RULES_FILE_NAME);
+//    if (!Files.exists(defRulesFile)) {
+//      LOGGER.error("Default Rules file does not exist");
+//      // TODO: return error?
+//    }
+//    try {
+//      return mapper.readValue(defRulesFile.toFile(), RuleHolder.class);
+//    } catch (Exception e) {
+//      LOGGER.error("error reading default rules file", e);
+//      return RuleHolder.createDefaultRules();
+//    }
+//  }
 
   public void saveAsset(Path assetPath) throws IOException {
     ensureAssetsDir();

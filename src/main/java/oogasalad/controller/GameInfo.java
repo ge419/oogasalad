@@ -15,6 +15,7 @@ public class GameInfo {
   private String genre;
   private double width;
   private double height;
+  // TODO: change to image path
   private Image thumbnail;
 
   public GameInfo() {
@@ -23,6 +24,16 @@ public class GameInfo {
   @JsonCreator
   public GameInfo(@JsonProperty("gameinfo") List<Object> g) {
     this.gameInfo = new ArrayList<>(g);
+  }
+
+  //TODO: refactor this method
+  public void setGameInfo(String title, String desc, String genre, double width, double height, Image thumbnail) {
+    setTitle(title);
+    setDescription(desc);
+    setGenre(genre);
+    setWidth(width);
+    setHeight(height);
+    setThumbnail(thumbnail);
   }
 
   public String getTitle() {

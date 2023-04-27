@@ -19,9 +19,11 @@ import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
 import oogasalad.view.Renderable;
+import oogasalad.view.gameplay.Players.ViewPlayers;
 import oogasalad.view.gameplay.pieces.Pieces;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
 import oogasalad.view.tiles.Tiles;
+import org.checkerframework.checker.guieffect.qual.UI;
 
 public class Gameview {
 
@@ -70,8 +72,12 @@ public class Gameview {
 
     // TODO: Dynamically watch players/pieces
     Player player1 = playerProvider.get();
+    player1.setImage("/view.gameplay/piece_1.png");
+    player1.setColor("0000FF");
     // playerPieceObjectProperty.add();
     Player player2 = playerProvider.get();
+    player2.setImage("/view.gameplay/piece_2.png");
+    player2.setColor("00FF00");
     game.setPlayers(new Players(List.of(player1, player2)));
 
     Piece piece1 = pieceProvider.get();
@@ -82,7 +88,9 @@ public class Gameview {
     player2.getPieces().add(piece2);
 
     Pieces pieces = new Pieces(List.of(piece1, piece2));
+    ViewPlayers players = new ViewPlayers(List.of(player1, player2));
     pieces.render(UIroot);
+    players.render(UIroot);
     for (PlayerPiece piece : pieces.getPieceList()) {
       piece.moveToTile(game.getBoard().getTiles().get(0));
     }

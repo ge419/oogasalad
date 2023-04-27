@@ -1,5 +1,7 @@
 package oogasalad.view.gameplay.Players;
 
+import javafx.beans.value.ObservableDoubleValue;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
@@ -52,21 +54,20 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
     resizeText(playerName, height, USERNAME_TEXT_SCALE, width);
     playerName.setLayoutY(this.getLayoutY());
     Text scoreText = new Text(infoList[1]);
+    scoreText.textProperty().bind(modelPlayer.getScoreAttribute().valueProperty().asString());
     resizeText(scoreText, height, SCORE_TEXT_SCALE, width);
     textBox.setAlignment(Pos.CENTER);
     textBox.getChildren().addAll(playerName, scoreText);
     return textBox;
   }
 
-  //TODO: delete this once we update backend player info (gonna bind)
-  public void decrementScore(double amount) {
-    VBox textBox = (VBox) getChildren().get(1);
-    Text scoreText = (Text) textBox.getChildren().get(1);
-    double currScore = Double.parseDouble(scoreText.getText());
-    scoreText.setText(Double.toString(currScore - amount));
-  }
-
   public String getPlayerId() {
     return this.modelPlayer.getId();
   }
+
+//  private void initPlayerUI() {
+//
+//    modelPlayer.setImage();
+//    player2.setColor("00FF00");
+//  }
 }

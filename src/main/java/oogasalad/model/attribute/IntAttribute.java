@@ -41,11 +41,13 @@ public class IntAttribute extends AbstractAttribute {
       return false;
     }
     IntAttribute that = (IntAttribute) o;
-    return Objects.equals(value, that.value);
+    boolean key = this.getKey().equals(that.getKey());
+    boolean value = this.value.get()==that.value.get();
+    return key && value;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(value);
+    return Objects.hash(getKey()+value.get());
   }
 }

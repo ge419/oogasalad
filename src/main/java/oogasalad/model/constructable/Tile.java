@@ -13,7 +13,7 @@ import oogasalad.view.Coordinate;
 
 public class Tile extends AbstractGameConstruct {
 
-  public static final String BASE_SCHEMA_NAME = "basicTile";
+  public static final String BASE_SCHEMA_NAME = "tile";
   public static final String TYPE_ATTRIBUTE = "type";
   public static final String NEXT_ATTRIBUTE = "next";
   public static final String POSITION_ATTRIBUTE = "position";
@@ -23,12 +23,12 @@ public class Tile extends AbstractGameConstruct {
 
   @Inject
   public Tile(@JacksonInject SchemaDatabase database) {
-    super(List.of(BASE_SCHEMA_NAME), database);
+    super(BASE_SCHEMA_NAME, database);
   }
 
   @JsonIgnore
   public TileListAttribute nextAttribute() {
-    return TileListAttribute.from(getAttribute(NEXT_ATTRIBUTE));
+    return TileListAttribute.from(getAttribute(NEXT_ATTRIBUTE).get());
   }
 
   @JsonIgnore
@@ -38,7 +38,7 @@ public class Tile extends AbstractGameConstruct {
 
   @JsonIgnore
   public PositionAttribute positionAttribute() {
-    return PositionAttribute.from(getAttribute(POSITION_ATTRIBUTE));
+    return PositionAttribute.from(getAttribute(POSITION_ATTRIBUTE).get());
   }
 
   @JsonIgnore
@@ -73,12 +73,12 @@ public class Tile extends AbstractGameConstruct {
 
   @JsonIgnore
   public DoubleAttribute widthAttribute() {
-    return DoubleAttribute.from(getAttribute(WIDTH_ATTRIBUTE));
+    return DoubleAttribute.from(getAttribute(WIDTH_ATTRIBUTE).get());
   }
 
   @JsonIgnore
   public DoubleAttribute heightAttribute() {
-    return DoubleAttribute.from(getAttribute(HEIGHT_ATTRIBUTE));
+    return DoubleAttribute.from(getAttribute(HEIGHT_ATTRIBUTE).get());
   }
 
   @JsonIgnore
@@ -103,12 +103,12 @@ public class Tile extends AbstractGameConstruct {
 
   @JsonIgnore
   public String getInfo() {
-    return StringAttribute.from(getAttribute(INFO_ATTRIBUTE)).getValue();
+    return StringAttribute.from(getAttribute(INFO_ATTRIBUTE).get()).getValue();
   }
 
   @JsonIgnore
   public String getType() {
-    return StringAttribute.from(getAttribute(TYPE_ATTRIBUTE)).getValue();
+    return StringAttribute.from(getAttribute(TYPE_ATTRIBUTE).get()).getValue();
   }
 
 }

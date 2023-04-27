@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class ImageMetadata extends StringMetadata{
+public class ImageMetadata extends StringMetadata {
 
   public static final Class<ImageAttribute> ATTRIBUTE_CLASS = ImageAttribute.class;
   private final StringProperty defaultValue;
@@ -15,7 +15,13 @@ public class ImageMetadata extends StringMetadata{
     super(key);
     this.defaultValue = new SimpleStringProperty("view.gameplay/default.jpg");
   }
+
+  @Override
+  public Attribute makeAttribute() {
+    return makeImageAttribute();
+  }
+
   public ImageAttribute makeImageAttribute() {
-    return new ImageAttribute(getKey(), getDefaultValue());
+    return new ImageAttribute(getKey(), "");
   }
 }

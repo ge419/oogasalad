@@ -41,11 +41,13 @@ public class DoubleAttribute extends AbstractAttribute {
       return false;
     }
     DoubleAttribute that = (DoubleAttribute) o;
-    return Objects.equals(value, that.value);
+    boolean value = this.value.get() == that.value.get();
+    boolean key = this.getKey().equals(that.getKey());
+    return value && key;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(value);
+    return Objects.hash(getKey()+value.get());
   }
 }

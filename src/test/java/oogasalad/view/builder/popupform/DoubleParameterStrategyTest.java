@@ -25,7 +25,8 @@ class DoubleParameterStrategyTest extends DukeApplicationTest {
         meta.setName(attributeKey);
         attr = meta.makeDoubleAttribute();
         doubleParameterStrategy = new DoubleParameterStrategy(attr, meta);
-        VBox root = new VBox(doubleParameterStrategy.renderInput(resourceBundle));
+        VBox root = new VBox();
+        root.getChildren().add(doubleParameterStrategy.renderInput(resourceBundle, root));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

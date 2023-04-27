@@ -2,6 +2,7 @@ package oogasalad.view.builder.popupform;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oogasalad.model.attribute.IntAttribute;
@@ -21,6 +22,7 @@ class PositionParameterStrategyTest extends DukeApplicationTest {
     private PositionParameterStrategy positionParameterStrategy;
     private PositionMetadata meta;
     private PositionAttribute attr;
+    private static final String ROOT_ID = "BoardPane";
     @Override
     public void start(Stage stage) {
         ResourceBundle resourceBundle = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
@@ -29,10 +31,12 @@ class PositionParameterStrategyTest extends DukeApplicationTest {
         meta.setName(attributeKey);
         attr = meta.makeCoordinateAttribute();
         positionParameterStrategy = new PositionParameterStrategy(attr, meta);
-        VBox root = new VBox(positionParameterStrategy.renderInput(resourceBundle));
+        VBox root = new VBox();
+        root.setId(ROOT_ID);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        root.getChildren().add(positionParameterStrategy.renderInput(resourceBundle, root));
     }
     @Test
     void renderInput() {

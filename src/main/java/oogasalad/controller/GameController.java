@@ -46,13 +46,6 @@ public class GameController {
   }
 
   public void setGame(Stage stage) throws IOException {
-//    File jsonFile = new File(filePath);
-//    Injector injector = Guice.createInjector(
-//        new ObjectMapperModule(),
-//        binder -> binder.bind(GameController.class).toInstance(this)
-//    );
-//    ObjectMapper objectMapper = injector.getInstance(ObjectMapper.class);
-//    gv = objectMapper.readValue(jsonFile, Gameview.class);
     gv.renderGameview(stage);
     Injector injector = Guice.createInjector(new GameControllerModule(game));
     engine.setRules(

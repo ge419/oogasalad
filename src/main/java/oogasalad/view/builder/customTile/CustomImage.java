@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import oogasalad.model.attribute.ImageMetadata;
 import oogasalad.model.attribute.Metadata;
+import oogasalad.model.attribute.StringMetadata;
 
 import java.io.File;
 import java.io.IOException;
@@ -169,7 +170,10 @@ public class CustomImage extends ImageView implements CustomElement {
     public Metadata getMetaData() {
         ImageMetadata metadata = new ImageMetadata(this.imageName);
         metadata.setDefaultValue(this.destinationPath.toString());
-        String temp = (imageName == null ? "this" : "the " + imageName);
+        Boolean named = (imageName == null);
+        String temp = (named ? "this" : "the " + imageName);
+        metadata.setEditable(named);
+        metadata.setEditable(named);
         metadata.setDescription("The path to " + temp + " image");
         return metadata;
     }

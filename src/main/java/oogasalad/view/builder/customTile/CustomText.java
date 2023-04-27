@@ -154,8 +154,11 @@ public class CustomText extends Label implements CustomElement {
     @Override
     public Metadata getMetaData() {
         //if name is null that means it a static string with key of default contents
+
         if (this.name == null){
             StringMetadata metaData = new StringMetadata(this.defaultContents);
+            metaData.setEditable(false);
+            metaData.setViewable(false);
             metaData.setDescription("A custom string typed to be displayed on a custom object ");
             return metaData;
         }

@@ -17,7 +17,7 @@ public class CustomObjectBuilderWindow extends Application {
 
     private Stage stage;
     private LeftPane leftPane;
-    private CustomObjectBuilder rightPane;
+    private CustomObject rightPane;
 
     private static final int LEFT_PANE_WIDTH = 250;
     private int RIGHT_PANE_STARTING_WIDTH = 500;
@@ -29,7 +29,7 @@ public class CustomObjectBuilderWindow extends Application {
     public void start(Stage PrimaryStage) {
         // Create StackPane for the right pane
         stage = PrimaryStage;
-        rightPane = new CustomObjectBuilder(() -> leftPane.swapCurrentClicked(rightPane.currentClickedInfo, rightPane.newCurrentClickedInfo));
+        rightPane = new CustomObject(() -> leftPane.swapCurrentClicked(rightPane.currentClickedInfo, rightPane.newCurrentClickedInfo));
         leftPane = new LeftPane();
 
         // Create SplitPane and add left and right panes
@@ -42,6 +42,7 @@ public class CustomObjectBuilderWindow extends Application {
         // Set the scene and show the stage
         stage.setScene(scene);
         stage.show();
+        stage.setTitle(defaultTitle);
 
         // Set listener for changes to window size
         stage.widthProperty().addListener((obs, oldVal, newVal) -> maintainSideBar());

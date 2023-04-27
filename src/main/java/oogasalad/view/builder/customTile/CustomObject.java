@@ -20,8 +20,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public class CustomObjectBuilder extends StackPane {
-
+public class CustomObject extends StackPane {
     private final Path RESOURCE_PATH = Paths.get("data/customObjects");
     private final Runnable swapCurrentClicked;
     private String name;
@@ -29,7 +28,7 @@ public class CustomObjectBuilder extends StackPane {
     VBox newCurrentClickedInfo;
 
 
-    public CustomObjectBuilder(Runnable swapCurrentClicked){
+    public CustomObject(Runnable swapCurrentClicked){
         this.swapCurrentClicked = swapCurrentClicked;
     }
 
@@ -119,9 +118,9 @@ public class CustomObjectBuilder extends StackPane {
             Files.createFile(schemaPath);
         }
 
-        try (FileWriter writer = new FileWriter(schemaPath.toFile())) {
-            writer.write(gson.toJson(schema));
-        }
+//        try (FileWriter writer = new FileWriter(schemaPath.toFile())) {
+//            writer.write(gson.toJson(schema));
+//        }
     }
 
 
@@ -185,20 +184,25 @@ public class CustomObjectBuilder extends StackPane {
         List<Metadata> metadataList = new ArrayList<>();
         metadataList.addAll(getDefaultTileMetadata());
 
-//        for (Node node : rightPane.getChildren()) {
-//            CustomElement customElm = (CustomElement) node;
-//            Metadata elementMetaData = customElm.getMetaData();
-//            metadataList.add(elementMetaData);
-//        }
+        for (Node node : this.getChildren()) {
+            CustomElement customElm = (CustomElement) node;
+            Metadata elementMetaData = customElm.getMetaData();
+            metadataList.add(elementMetaData);
+        }
 
         return new SimpleObjectSchema(this.name, metadataList);
     }
 
-    private Collection<? extends Metadata> getDefaultTileMetadata() {
+    //This could be less hardcoded
+    private Collection<Metadata> getDefaultTileMetadata() {
         List<Metadata> metadataList = new ArrayList<>();
-        //metadataList.add(new StringMetadata("customTile")) //Should there be some sort of type Metadata
+        StringMetadata type = new StringMetadata("customTile");
+        type.setViewable(false);
+        metadataList.add(type);
         metadataList.add(new PositionMetadata("position"));
-        metadataList.add(new BooleanMetadata("owned")); //Is there a way to set viewable/editable?
+        BooleanMetadata owned = new BooleanMetadata("owned");
+        owned.setViewable(false);
+        metadataList.add(new BooleanMetadata("owned"));
         DoubleMetadata widthMetaData = new DoubleMetadata("width");
         DoubleMetadata heightMetaData = new DoubleMetadata("height");
         widthMetaData.setDefaultValue(50);
@@ -215,5 +219,11 @@ public class CustomObjectBuilder extends StackPane {
         stage.setWidth(CustomObjectBuilderWindow.getLeftPaneWidth() + rightPaneWidth);
         stage.setHeight(height);
     }
+
+    private Node getAsNode() {
+        return (Node) this;
+    }
+
+
 
 }

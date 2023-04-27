@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.ObjectProperty;
 import javafx.event.Event;
@@ -30,8 +31,8 @@ public class Gameview {
   private final GameHolder game;
   private final Provider<Player> playerProvider;
   private final Provider<Piece> pieceProvider;
-  private ObjectProperty<List<Player>> playerObjectProperty;
-  private ObjectProperty<List<PlayerPiece>> playerPieceObjectProperty;
+  private List<ObjectProperty<Player>> playerObjectProperty;
+  private List<ObjectProperty<PlayerPiece>> playerPieceObjectProperty;
   private Tiles tiles;
   private Die die;
   private final GameController gc;
@@ -47,6 +48,8 @@ public class Gameview {
     this.game = game;
     this.playerProvider = playerProvider;
     this.pieceProvider = pieceProvider;
+    this.playerObjectProperty = new ArrayList<>();
+    this.playerPieceObjectProperty = new ArrayList<>();
   }
 
   public void renderGameview(Stage primaryStage) throws IOException {
@@ -67,6 +70,7 @@ public class Gameview {
 
     // TODO: Dynamically watch players/pieces
     Player player1 = playerProvider.get();
+    // playerPieceObjectProperty.add();
     Player player2 = playerProvider.get();
     game.setPlayers(new Players(List.of(player1, player2)));
 
@@ -104,6 +108,8 @@ public class Gameview {
   public Die getDie() {
     return this.die;
   }
+
+
 
 
 }

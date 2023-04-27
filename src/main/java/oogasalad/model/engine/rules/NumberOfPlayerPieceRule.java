@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JacksonInject;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.AbstractGameConstruct;
 import oogasalad.model.constructable.GameHolder;
+import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
+import oogasalad.model.engine.events.ChooseNumberOfPlayerPiecesEvent;
+import oogasalad.model.engine.events.StartTurnEvent;
 
 public class NumberOfPlayerPieceRule extends AbstractGameConstruct implements EditableRule{
 
@@ -21,6 +24,10 @@ public class NumberOfPlayerPieceRule extends AbstractGameConstruct implements Ed
 
   @Override
   public void registerEventHandlers(EventRegistrar registrar) {
+    registrar.registerHandler(ChooseNumberOfPlayerPiecesEvent.class, this::setPlayerPieces);
+  }
 
+  private void setPlayerPieces(EventHandlerParams<ChooseNumberOfPlayerPiecesEvent> eventHandlerParams){
+    
   }
 }

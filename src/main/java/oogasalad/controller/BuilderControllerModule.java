@@ -3,7 +3,6 @@ package oogasalad.controller;
 import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import oogasalad.view.BuilderFactory;
-import oogasalad.view.builder.BuilderModule;
 
 public class BuilderControllerModule extends AbstractModule {
 

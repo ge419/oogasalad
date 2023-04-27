@@ -26,7 +26,8 @@ import org.apache.logging.log4j.Logger;
 
 
 /**
- * Temporary controller for front and backend builder
+ * Controller for GameBuilder
+ *
  */
 public class BuilderController {
 
@@ -80,26 +81,30 @@ public class BuilderController {
     board.addTile(t);
     ViewTile tile = new BasicTile(t);
     tile.setId("Tile" + board.getTileCount());
+    logger.info("added tile");
     return tile;
   }
 
   public void addNext(String currentId, String nextId) {
     board.getById(currentId).get().getNextTileIds().add(nextId);
+    logger.info("added next attribute to tile");
   }
 
   public void removeNext(String currentId, String nextId){
     board.getById(currentId).get().getNextTileIds().remove(nextId);
+    logger.info("removed next attribute from tile");
   }
 
   public void removeTile(String currentId){
     board.remove(currentId);
+    logger.info("removed tile");
   }
-
-
 
 
   public void save(GameHolder holder) {
     saveManager.saveGame(holder);
+//    ImageList --> loop through and apply saveAsset to all imgages
+//    saveManager.saveAsset();
   }
 
   public void load(String path) {

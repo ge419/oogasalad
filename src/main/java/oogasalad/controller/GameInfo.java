@@ -16,7 +16,7 @@ public class GameInfo {
   private double width;
   private double height;
   // TODO: change to image path
-  private Image thumbnail;
+//  private Image thumbnail;
 
   public GameInfo() {
     this.gameInfo = new ArrayList<>();
@@ -33,7 +33,7 @@ public class GameInfo {
     setGenre(genre);
     setWidth(width);
     setHeight(height);
-    setThumbnail(thumbnail);
+//    setThumbnail(thumbnail);
   }
 
   public String getTitle() {
@@ -76,11 +76,11 @@ public class GameInfo {
     this.height = height;
   }
 
-  public Image getThumbnail() {
-    return thumbnail;
-  }
-
-  public void setThumbnail(Image thumbnail) {
-    this.thumbnail = thumbnail;
-  }
+//  public Image getThumbnail() {
+//    return thumbnail;
+//  }
+//
+//  public void setThumbnail(Image thumbnail) {
+//    this.thumbnail = thumbnail;
+//  }
 }

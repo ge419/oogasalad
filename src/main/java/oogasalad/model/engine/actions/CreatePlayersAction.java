@@ -1,7 +1,9 @@
 package oogasalad.model.engine.actions;
 
+import com.fasterxml.jackson.annotation.JacksonInject;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.assistedinject.Assisted;
 import java.util.ArrayList;
 import java.util.List;
 import oogasalad.model.constructable.GameHolder;
@@ -16,8 +18,8 @@ public class CreatePlayersAction implements Action {
   @Inject
   public CreatePlayersAction(
       Provider<Player> playerProvider,
-      int numPlayers,
-      GameHolder holder
+      GameHolder holder,
+      @Assisted int numPlayers
       ) {
     this.playerProvider = playerProvider;
     this.numPlayers = numPlayers;

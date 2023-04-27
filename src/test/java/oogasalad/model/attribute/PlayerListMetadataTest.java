@@ -23,7 +23,14 @@ class PlayerListMetadataTest {
     Attribute attribute = playerMetadata.makeAttribute();
     assertTrue(attribute instanceof PlayerListAttribute);
     assertEquals(attribute.getKey(), KEY);
-    assertEquals(0, ((PlayerListAttribute) attribute).getGameConstructIds().size());
+    assertEquals(0, PlayerListAttribute.from(attribute).getGameConstructIds().size());
   }
+
+  @Test
+  public void testGetAttributeClass() {
+    assertEquals(PlayerListAttribute.class, playerMetadata.getAttributeClass());
+  }
+
+
 
 }

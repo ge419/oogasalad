@@ -3,6 +3,7 @@ package oogasalad.model.attribute;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerListMetadata extends AbstractMetadata{
 
@@ -15,7 +16,8 @@ public class PlayerListMetadata extends AbstractMetadata{
 
   @Override
   protected boolean checkPreconditions(Attribute attribute) {
-    return false;
+    //No preconditions
+    return true;
   }
 
   @Override
@@ -25,7 +27,7 @@ public class PlayerListMetadata extends AbstractMetadata{
 
   @Override
   public Class<? extends Attribute> getAttributeClass() {
-    return null;
+    return ATTRIBUTE_CLASS;
   }
 
   public PlayerListAttribute makePlayerListAttribute() {

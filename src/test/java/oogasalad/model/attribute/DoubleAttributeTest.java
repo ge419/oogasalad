@@ -10,27 +10,31 @@ import org.junit.jupiter.api.Test;
 public class DoubleAttributeTest {
 
   private DoubleAttribute doubleAttribute;
+  private static final String KEY = "doubleKey";
+  private static final String NEW_KEY = "anotherKey";
+  private static final Double VALUE = 1.0;
+  private static final Double NEW_VALUE = 2.0;
 
   @BeforeEach
   public void setUp() {
-    doubleAttribute = new DoubleAttribute("testKey", 1.0);
+    doubleAttribute = new DoubleAttribute(KEY, VALUE);
   }
 
   @Test
   public void testGetValue() {
-    assertEquals(1.0, doubleAttribute.getValue());
+    assertEquals(VALUE, doubleAttribute.getValue());
   }
 
   @Test
   public void testSetValue() {
-    doubleAttribute.setValue(2.0);
-    assertEquals(2.0, doubleAttribute.getValue());
+    doubleAttribute.setValue(NEW_VALUE);
+    assertEquals(NEW_VALUE, doubleAttribute.getValue());
   }
 
   @Test
   public void testEquals() {
-    DoubleAttribute sameAttribute = new DoubleAttribute("testKey", 1.0);
-    DoubleAttribute differentAttribute = new DoubleAttribute("differentKey", 1.0);
+    DoubleAttribute sameAttribute = new DoubleAttribute(KEY, VALUE);
+    DoubleAttribute differentAttribute = new DoubleAttribute(NEW_KEY, VALUE);
 
     assertTrue(doubleAttribute.equals(sameAttribute));
     assertFalse(doubleAttribute.equals(differentAttribute));
@@ -38,8 +42,8 @@ public class DoubleAttributeTest {
 
   @Test
   public void testHashCode() {
-    DoubleAttribute sameAttribute = new DoubleAttribute("testKey", 1.0);
-    DoubleAttribute differentAttribute = new DoubleAttribute("differentKey", 1.0);
+    DoubleAttribute sameAttribute = new DoubleAttribute(KEY, VALUE);
+    DoubleAttribute differentAttribute = new DoubleAttribute(NEW_KEY, VALUE);
 
     assertNotEquals(doubleAttribute.hashCode(), sameAttribute.hashCode());
     assertNotEquals(doubleAttribute.hashCode(), differentAttribute.hashCode());

@@ -45,7 +45,7 @@ public class DoubleAttributeTest {
     DoubleAttribute sameAttribute = new DoubleAttribute(KEY, VALUE);
     DoubleAttribute differentAttribute = new DoubleAttribute(NEW_KEY, VALUE);
 
-    assertNotEquals(doubleAttribute.hashCode(), sameAttribute.hashCode());
+    assertEquals(doubleAttribute.hashCode(), sameAttribute.hashCode());
     assertNotEquals(doubleAttribute.hashCode(), differentAttribute.hashCode());
   }
 

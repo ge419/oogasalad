@@ -48,6 +48,6 @@ public class DoubleAttribute extends AbstractAttribute {
 
   @Override
   public int hashCode() {
-    return Objects.hash(value);
+    return Objects.hash(getKey()+value.get());
   }
 }

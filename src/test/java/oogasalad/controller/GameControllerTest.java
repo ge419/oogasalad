@@ -13,26 +13,17 @@ class GameControllerTest {
   @BeforeEach
   void setUp() {
     db = new SchemaDatabase();
+
   }
 
   @Test
   void loadSchemas() {
-    assertTrue(db.getSchema("basicTile").isPresent());
-    assertEquals(5, db.getAllSchemaNames().size());
+    assertTrue(db.getSchema("tile").isPresent());
+    assertEquals(7, db.getAllSchemaNames().size());
   }
 
   @Test
-  void loadTilesDeserialization() {
-
-  }
-
-  @Test
-  void loadTilesValidValues() {
-
-  }
-
-  @Test
-  void loadPlayersDeserialization() {
+  void engineEffectsAddition() {
 
   }
 

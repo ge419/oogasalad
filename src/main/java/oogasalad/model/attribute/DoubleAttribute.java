@@ -41,7 +41,9 @@ public class DoubleAttribute extends AbstractAttribute {
       return false;
     }
     DoubleAttribute that = (DoubleAttribute) o;
-    return Objects.equals(value, that.value);
+    boolean value = this.value.get() == that.value.get();
+    boolean key = this.getKey().equals(that.getKey());
+    return value && key;
   }
 
   @Override

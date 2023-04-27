@@ -9,56 +9,58 @@ import org.junit.jupiter.api.Test;
 
 class IntAttributeTest {
 
-  private IntAttribute attribute;
+  private IntAttribute intAttribute;
+  private static final String KEY = "intKey";
 
   @BeforeEach
   void setUp() {
-    attribute = new IntAttribute("testKey", 10);
+    intAttribute = new IntAttribute(KEY, 10);
   }
 
   @Test
   void testVariableRetrieval() {
-    assertNotNull(attribute);
-    assertEquals(attribute.getKey(), "testKey");
-    assertEquals(attribute.getValue(), 10);
+    assertNotNull(intAttribute);
+    assertEquals(intAttribute.getKey(), KEY);
+    assertEquals(intAttribute.getValue(), 10);
   }
 
   @Test
   void testSetValue() {
-    attribute.setValue(20);
-    assertEquals(attribute.getValue(), 20);
+    intAttribute.setValue(20);
+    assertEquals(intAttribute.getValue(), 20);
   }
 
   @Test
   void testValueProperty() {
-    assertNotNull(attribute.valueProperty());
-    assertEquals(attribute.valueProperty().getValue(), 10);
+    assertNotNull(intAttribute.valueProperty());
+    assertEquals(intAttribute.valueProperty().getValue(), 10);
 
-    attribute.setValue(30);
-    assertEquals(attribute.valueProperty().getValue(), 30);
+    intAttribute.setValue(30);
+    assertEquals(intAttribute.valueProperty().getValue(), 30);
   }
 
   @Test
   void testFrom() {
-
+    Attribute attribute = IntAttribute.from(intAttribute);
+    assertEquals(intAttribute, attribute);
   }
 
   @Test
   void testEquals() {
-    IntAttribute sameAttribute = new IntAttribute("testKey", 10);
-    IntAttribute differentAttribute = new IntAttribute("testKey", 20);
+    IntAttribute sameAttribute = new IntAttribute(KEY, 10);
+    IntAttribute differentAttribute = new IntAttribute(KEY, 20);
 
-    assertTrue(attribute.equals(sameAttribute));
-    assertFalse(attribute.equals(differentAttribute));
+    assertTrue(intAttribute.equals(sameAttribute));
+    assertFalse(intAttribute.equals(differentAttribute));
   }
 
   @Test
   void testHashCode() {
-    IntAttribute sameAttribute = new IntAttribute("testKey", 10);
-    IntAttribute differentAttribute = new IntAttribute("testKey", 20);
+    IntAttribute sameAttribute = new IntAttribute(KEY, 10);
+    IntAttribute differentAttribute = new IntAttribute(KEY, 20);
 
-    assertEquals(attribute.hashCode(), sameAttribute.hashCode());
-    assertNotEquals(attribute.hashCode(), differentAttribute.hashCode());
+    assertEquals(intAttribute.hashCode(), sameAttribute.hashCode());
+    assertNotEquals(intAttribute.hashCode(), differentAttribute.hashCode());
   }
 
 }

@@ -5,14 +5,26 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 
-public class Sidebar implements Bar, BuilderUtility, ResourceIterator{
+/**
+ * <p>Sidebar will implement and manage a pane of buttons for any UI.</p>
+ *
+ * <p>This class will create it's buttons based off of property files that
+ * dictate what each button's functionality is by listing it's method.</p>
+ *
+ * <p>The actual name of each button displayed is controlled by the languageResource,
+ * which is a required constructor argument.</p>
+ *
+ * @author tmh85
+ */
+public class Sidebar implements Bar, BuilderUtility, ResourceIterator {
 
   private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
 
   private ResourceBundle myLanguageResource;
   private Pane myPane;
+  private String myCurrentBundleName;
 
-  public Sidebar(ResourceBundle languageResource, String id){
+  public Sidebar(ResourceBundle languageResource, String id) {
     // create pane
     myLanguageResource = languageResource;
     ScrollPane scrollablePane = new ScrollPane();
@@ -22,23 +34,36 @@ public class Sidebar implements Bar, BuilderUtility, ResourceIterator{
   }
 
   @Override
-  public void addItems(ResourceBundle resourceFunctionHolder){
-    forEachResourceKey(resourceFunctionHolder, key -> createButton(key, resourceFunctionHolder.getString(key)));
+  public void addItems(String functionFileName) {
+    ResourceBundle bundle = getResource(functionFileName);
+    forEachResourceKey(bundle,
+        key -> createButton(key, bundle.getString(key)));
   }
 
   @Override
-  public void refreshItems(ResourceBundle newResourceFunctionHolder){
+  public void refreshItems(String newFunctionFileName) {
     myPane.getChildren().clear();
-    addItems(newResourceFunctionHolder);
+    addItems(newFunctionFileName);
   }
 
-  private void createButton(String key, String buttonClickMethodName){
-    Node button = makeButton(key, myLanguageResource, e -> reflectivelyRunMethod(buttonClickMethodName));
+  @Override
+  public void updateLanguage(String fileName) {
+    myLanguageResource = getResource(fileName);
+    refreshItems(myCurrentBundleName);
+  }
+
+  public Node asNode() {
+    return myPane;
+  }
+
+  private void createButton(String key, String buttonClickMethodName) {
+    Node button = makeButton(key, myLanguageResource,
+        e -> runMethodFromString(buttonClickMethodName));
     myPane.getChildren().add(button);
   }
 
-  private void reflectivelyRunMethod(String method){
-    try{
+  private void runMethodFromString(String method) {
+    try {
       Sidebar.this.getClass().getDeclaredMethod(method)
           .invoke(Sidebar.this);
     } catch (Exception ex) {
@@ -47,7 +72,20 @@ public class Sidebar implements Bar, BuilderUtility, ResourceIterator{
     }
   }
 
-  // loadButtons(ResourceBundle bundle)
+  private void test() {
+    // nothing
+    System.out.println("why that button sure did do nothing!");
+  }
 
-  // asNode();
+  private void openTileMenu() {
+    refreshItems("TileMenu");
+  }
+
+  private void backToSidebarMenu() {
+    refreshItems("SideBar1");
+  }
+
+  private ResourceBundle getResource(String resourceName) {
+    return ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + resourceName);
+  }
 }

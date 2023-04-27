@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -62,8 +63,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private static final Logger LOG = LogManager.getLogger(BuilderView.class);
   private ResourceBundle builderResource;
   private final ResourceBundle topBarResource;
-  private final ResourceBundle sideBar1Resource;
-  private final ResourceBundle tileBarResource;
   private final ResourceBundle fileMenuResource;
   private final ResourceBundle aboutMenuResource;
   private final ResourceBundle appearanceMenuResource;
@@ -79,6 +78,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private int myImageCount = 0;
   private Optional<ViewTile> myCurrentTile;
   private final BoardInfo myBoardInfo;
+  private Sidebar mySidebar;
   private TrailMakerAPI myTrailMaker;
   private final boolean myDraggableObjectsToggle = true;
   private boolean myDeleteToggle = false;
@@ -90,29 +90,16 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   public BuilderView(
       @Assisted BuilderController bc,
       @Assisted String languageString
-//      @Named("DefaultLanguage") ResourceBundle builderLanguage,
-//      @Named("TopBarMethods") ResourceBundle topBar,
-//      @Named("MainSideBarMethods") ResourceBundle sideBar,
-//      @Named("TileBarMethods") ResourceBundle tileBar,
-//      @Named("FileMenuMethods") ResourceBundle fileMenu,
-//      @Named("AppearanceMenuMethods") ResourceBundle appearanceMenu,
-//      @Named("AboutMenuMethods") ResourceBundle aboutMenu,
-//      @Named("SettingsMenuMethods") ResourceBundle settingsMenu,
-//      @Named("ToggleMenuMethods") ResourceBundle toggleMenu,
-//      String defaultStylesheetPath
   ) {
     this.bc = bc;
 
     builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + languageString + "BuilderText");
     topBarResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "TopBar");
-    sideBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SideBar1");
-    tileBarResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "TileMenu");
     fileMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "FileMenu");
     appearanceMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "AppearanceMenu");
     aboutMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "AboutMenu");
     settingsMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SettingsMenu");
     toggleMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "ToggleMenu");
-
 
     defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET).toExternalForm();
 
@@ -160,9 +147,11 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private Pane createCentralContainer() {
-    VBox sideBar1 = (VBox) makeVBox("SideBar1");
-    addButtonsToPane(sideBar1, sideBar1Resource);
-    myLeftSidebar = sideBar1;
+    mySidebar = new Sidebar(builderResource, "SideBar1");
+    mySidebar.addItems("SideBar1");
+//    VBox sideBar1 = (VBox) makeVBox("SideBar1");
+//    addButtonsToPane(sideBar1, sideBar1Resource);
+//    myLeftSidebar = sideBar1;
 
     Node boardPane = makePane("BoardPane", PANE_WIDTH, PANE_HEIGHT);
     //myBoardInfo.setBoardSize(new Dimension((int) PANE_WIDTH, (int) PANE_HEIGHT));
@@ -181,7 +170,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
     BorderPane pane = new BorderPane();
     pane.setId("CentralContainer");
-    pane.setLeft(sideBar1);
+    pane.setLeft(mySidebar.asNode());
     pane.setCenter(boardPane);
     pane.setRight(sidePane);
 
@@ -328,14 +317,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     TileEvent tileEvent = new TileEvent(TileEvent.DRAG_TILE, tile);
     myBoardPane.fireEvent(tileEvent);
   }
-  private void openTileMenu() {
-    refreshButtonsOnPane(myLeftSidebar, tileBarResource);
-  }
-
-  private void backToSidebarMenu() {
-    refreshButtonsOnPane(myLeftSidebar, sideBar1Resource);
-  }
-
   private void refreshButtonsOnPane(Pane pane, ResourceBundle resourceBundle) {
     pane.getChildren().clear();
     addButtonsToPane(pane, resourceBundle);

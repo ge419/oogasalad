@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import oogasalad.controller.BuilderController;
+import oogasalad.controller.BuilderControllerModule;
 import oogasalad.controller.GameController;
 import oogasalad.controller.GameControllerModule;
 import oogasalad.model.constructable.ConstructableModule;
@@ -45,16 +46,15 @@ public class Main extends Application {
     GameHolder gameHolder = saveInjector.getInstance(SaveManager.class).loadGame();
 
     Injector injector = Guice.createInjector(new GameControllerModule(gameHolder));
-//    GameController controller = injector.getInstance(GameController.class);
-//    BuilderController builderController = injector.getInstance(BuilderController.class);
-//    try {
-//      controller.setGame(primaryStage);
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
-////        new BuilderView(new BuilderController());
-//  }
-  //new BuilderView(new BuilderController());
-    injector.getInstance(BuilderView.class);
+    GameController controller = injector.getInstance(GameController.class);
+
+    Injector builderInject = Guice.createInjector(new BuilderControllerModule("English"));
+    BuilderController builderController = builderInject.getInstance(BuilderController.class);
+    try {
+      controller.setGame(primaryStage);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
 }
 }

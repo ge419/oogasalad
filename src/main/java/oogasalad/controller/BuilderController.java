@@ -1,8 +1,10 @@
 package oogasalad.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import java.nio.file.Path;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
@@ -11,10 +13,11 @@ import oogasalad.controller.builderevents.Dragger;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.GameHolder;
+import oogasalad.model.constructable.Players;
 import oogasalad.model.constructable.Tile;
+import oogasalad.util.SaveManager;
 import oogasalad.view.BuilderFactory;
 import oogasalad.view.Coordinate;
-import oogasalad.view.builder.BuilderModule;
 import oogasalad.view.builder.BuilderView;
 import oogasalad.view.tiles.BasicTile;
 import oogasalad.view.tiles.ViewTile;
@@ -27,35 +30,39 @@ import org.apache.logging.log4j.Logger;
  */
 public class BuilderController {
 
-  private static final Logger logger = LogManager.getLogger(BuilderController.class);
-
   // following instances will be removed later
   private String FILE_PATH  = "HARDCODE FILE PATH HERE";
   private String FOLDER_NAME = "CUSTOM1";
 
+  private static final Logger logger = LogManager.getLogger(BuilderController.class);
   private final BuilderView builderView;
-  //  private BBuilder builder;
-  private BBoard board;
   private SchemaDatabase db;
   private GameHolder gameHolder;
-  private GameHolderBuilder gameHolderBuilder;
+  private BBoard board;
+  private Players players;
+  private SaveManager saveManager;
+//  private GameHolderBuilder gameHolderBuilder;
 
   @Inject
   public BuilderController(
       String injectedLanguage,
       BuilderFactory injectedBuilderFactory
-//      BuilderView view
   ) {
-    //TODO: use dependency injection
-//    Injector builderInjector = Guice.createInjector(new BuilderModule(givenLanguage, this));
-//    builderView = builderInjector.getInstance(BuilderView.class);
-//    String theString = givenLanguage;
+    Injector injector = Guice.createInjector(new BuilderControllerModule(injectedLanguage));
     builderView = injectedBuilderFactory.makeBuilder(injectedLanguage, this);
-//    builderView = view;
-//    builder = new BBuilder();
-    System.out.println("made builder");
+    logger.info("created builder");
+//    System.out.println("made builder");
     db = new SchemaDatabase();
-    board = new BBoard();
+    gameHolder = GameHolder.createDefaultGame();
+//    saveManager = new SaveManager();
+    board = gameHolder.getBoard();
+    players = gameHolder.getPlayers();
+    //TODO: fix filePath (get from view)
+    String filePath = FILE_PATH + "/" + FOLDER_NAME;
+    ObjectMapper mapper = new ObjectMapper();
+    saveManager = new SaveManager(Path.of(filePath), mapper);
+
+
 //    todo: Dominics example code for how to get rules using dependency injection
 //    Injector injector = Guice.createInjector(new EngineModule());
 //    String rule = "oogasalad.model.engine.rule.TurnRule";
@@ -63,9 +70,8 @@ public class BuilderController {
 //    Rule myRule = injector.getInstance(ruleClass);
 //    end note
     // new Players(); --> list of players
-    gameHolderBuilder = new GameHolderBuilder();
-    //gameHolder = gameHolderBuilder.setBoard(board).setPlayers(Optional.ofNullable(board.getPlayers())).build();
   }
+
 
   public ViewTile addTile(MouseEvent e) {
     Coordinate pos = new Coordinate((double) e.getX(), (double) e.getY(), 0);
@@ -93,30 +99,14 @@ public class BuilderController {
 
 
   public void save(GameHolder holder) {
-    // TODO Use SaveManager
-    String filePath = FILE_PATH + "/" + FOLDER_NAME;
-
-    //serialize GameHolder to the specified path
-//    serialize(holder.getBoard());
-//    serialize(holder.getPlayers());
-
-//    try {
-    //ImmutableGameHolder holder = front.saveFile();
-//      builder.save(holder, board);
-//    }
-//    catch (IOException e) {
-//      logger.error("Failed to save custom built game to JSON file");
-//      //TODO: popup for error?
-//    }
+    saveManager.saveGame(holder);
   }
 
-  /**
-   * Take the ImmutableGameHolder from backend and call on frontend to load
-   * @param path
-   */
   public void load(String path) {
-    //take holder as parameter?
-    builderView.loadFile();
+    gameHolder = saveManager.loadGame();
+    //TODO: implement the code below
+    //builderView.renderBuilderView(gameHolder);
+//    builderView.loadFile();
   }
 
   public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Node parent) {
@@ -127,8 +117,4 @@ public class BuilderController {
   public BuilderView getBuilderView() {
     return builderView;
   }
-
-//  public GameHolder getGameHolder() {
-//    return new GameHolderBuilder<>().
-//  }
 }

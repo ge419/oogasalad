@@ -37,26 +37,25 @@ public class Main extends Application {
 
   @Override
   public void start(Stage primaryStage) throws Exception {
-//    Path saveDir = Path.of("data", "monopoly");
-//    // TODO: use ControllableModule and SaveManager instead of putting game holder in module
-//    Injector saveInjector = Guice.createInjector(
-//        new ObjectMapperModule(),
-//        new EngineModule(),
-//        new ConstructableModule(saveDir)
-//    );
-//    GameHolder gameHolder = saveInjector.getInstance(SaveManager.class).loadGame();
-//
-//    Injector injector = Guice.createInjector(new GameControllerModule(gameHolder),
-//        new BuilderControllerModule(DEFAULT_LANGUAGE));
-    Injector injector = Guice.createInjector(new BuilderControllerModule(DEFAULT_LANGUAGE));
-//    GameController controller = injector.getInstance(GameController.class);
-//    try {
-//      controller.setGame(primaryStage);
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
+    Path saveDir = Path.of("data", "monopoly");
+    // TODO: use ControllableModule and SaveManager instead of putting game holder in module
+    Injector saveInjector = Guice.createInjector(
+        new ObjectMapperModule(),
+        new EngineModule(),
+        new ConstructableModule(saveDir)
+    );
+    GameHolder gameHolder = saveInjector.getInstance(SaveManager.class).loadGame();
+
+    Injector injector = Guice.createInjector(new GameControllerModule(gameHolder));
+    Injector builderInjector = Guice.createInjector(new BuilderControllerModule(DEFAULT_LANGUAGE));
+    GameController controller = injector.getInstance(GameController.class);
+    try {
+      controller.setGame(primaryStage);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
     //new BuilderController(DEFAULT_LANGUAGE);
-    injector.getInstance(BuilderController.class);
+    builderInjector.getInstance(BuilderController.class);
   }
 }

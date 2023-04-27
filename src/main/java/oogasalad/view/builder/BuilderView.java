@@ -14,9 +14,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import oogasalad.controller.BuilderController;
@@ -30,6 +32,7 @@ import oogasalad.view.builder.popupform.PopupForm;
 import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.intellij.lang.annotations.Flow;
 
 // https://stackoverflow.com/questions/31148690/get-real-position-of-a-node-in-javafx
 // assumptions made so far:
@@ -52,6 +55,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private static final Logger LOG = LogManager.getLogger(BuilderView.class);
   private ResourceBundle builderResource;
   private Pane myBoardPane;
+  private FlowPane myRulePane;
+  private BorderPane myCenterContainer;
   private final String defaultStylesheet;
   private boolean myTileCreationToggle = false;
   private Node myInfoText;
@@ -138,13 +143,15 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     updateInfoText("TileAdditionMode");
   }
 
+  @Override
   public void toggleGuidelines(){
     myTrailMaker.toggleEnable();
   }
+  @Override
   public void toggleDraggables(){
     myDraggableObjectsToggle.set(!myDraggableObjectsToggle.get());
   }
-
+  @Override
   public void toggleTileDeletion() {
     myDeleteToggle = !myDeleteToggle;
     if (myDeleteToggle){
@@ -153,6 +160,16 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     else{
       updateInfoText("RegularMode");
     }
+  }
+
+  public void switchToRules(){
+    switchCenterPane(myRulePane);
+    updateInfoText("RulesMode");
+  }
+
+  public void switchToBoard(){
+    switchCenterPane(myBoardPane);
+    updateInfoText("RegularMode");
   }
 
   private Scene initScene() {
@@ -191,32 +208,49 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     mySidebar = new ItemPane(builderResource, "SideBar1", this);
     mySidebar.addItems("SideBar1");
 
-    Node boardPane = makePane("BoardPane", PANE_WIDTH, PANE_HEIGHT);
-    myBoardPane = (Pane) boardPane;
-    setBoardSize(PANE_WIDTH, PANE_HEIGHT);
+    initializeBoardPane();
+    initializeRulePane();
+
+    sidePane = new VBox();
+    sidePane.setPrefWidth(300);
+
+    myCenterContainer = new BorderPane();
+    myCenterContainer.setId("CentralContainer");
+    myCenterContainer.setLeft(mySidebar.asNode());
+    myCenterContainer.setCenter(myBoardPane);
+    myCenterContainer.setRight(sidePane);
+
+//    return (HBox) makeHBox("CentralContainer", sideBar1, boardPane, sidePane);
+    return myCenterContainer;
+  }
+
+  private void initializeBoardPane(){
+    myBoardPane = (Pane) makePane("BoardPane", PANE_WIDTH, PANE_HEIGHT);
+    setPaneSize(myBoardPane, PANE_WIDTH, PANE_HEIGHT);
 
     myBoardPane.setOnMouseClicked(e -> handleBoardClick(e));
     myBoardPane.addEventFilter(TileEvent.DELETE_TILE, e -> deleteTile(e));
     myBoardPane.addEventFilter(TileEvent.SET_NEXT_TILE, e -> createTilePath(e));
     myBoardPane.addEventFilter(TileEvent.SHOW_FORM, e -> displayTileForm(e));
     myBoardPane.addEventFilter(TileEvent.SELECT_TILE, e -> selectTile(e));
-
-    sidePane = new VBox();
-    sidePane.setPrefWidth(300);
-
-    BorderPane pane = new BorderPane();
-    pane.setId("CentralContainer");
-    pane.setLeft(mySidebar.asNode());
-    pane.setCenter(boardPane);
-    pane.setRight(sidePane);
-
-//    return (HBox) makeHBox("CentralContainer", sideBar1, boardPane, sidePane);
-    return pane;
   }
 
-  private void setBoardSize(double width, double height){
-    myBoardPane.setMinSize(width, height);
-    myBoardPane.setMaxSize(width, height);
+  private void initializeRulePane(){
+    //myRulePane = makePane("RulePane", PANE_WIDTH, PANE_HEIGHT);
+    myRulePane = new FlowPane();
+    setPaneSize(myRulePane, PANE_WIDTH, PANE_HEIGHT);
+    myRulePane.setId("RulePane");
+    myRulePane.getChildren().add(new Rectangle(50, 50, 10, 10));
+  }
+
+  private void setPaneSize(Pane pane, double width, double height){
+    pane.setMinSize(width, height);
+    pane.setMaxSize(width, height);
+  }
+
+  private void switchCenterPane(Pane desiredPane){
+    myCenterContainer.getChildren().remove(myCenterContainer.getCenter());
+    myCenterContainer.setCenter(desiredPane);
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////////////

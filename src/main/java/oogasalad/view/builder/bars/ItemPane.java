@@ -76,11 +76,21 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
   }
 
   private void openTileMenu() {
-    refreshItems("TileMenu");
+    refreshItems("TileSideMenu");
   }
 
   private void backToSidebarMenu() {
     refreshItems("SideBar1");
+  }
+
+  private void backFromRules(){
+    backToSidebarMenu();
+    getBuilder().switchToBoard();
+  }
+
+  private void rulesMenu(){
+    refreshItems("RulesSideMenu");
+    getBuilder().switchToRules();
   }
 
   private void toggleTileCreation() {

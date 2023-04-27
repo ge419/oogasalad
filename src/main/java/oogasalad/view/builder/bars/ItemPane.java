@@ -6,7 +6,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import oogasalad.view.builder.BuilderUtility;
 import oogasalad.view.builder.BuilderView;
-import oogasalad.view.builder.ResourceIterator;
 
 /**
  * <p>Sidebar will implement and manage a pane of buttons for any UI.</p>
@@ -19,12 +18,15 @@ import oogasalad.view.builder.ResourceIterator;
  *
  * @author tmh85
  */
-public class Sidebar extends AbstractBar implements BuilderUtility {
+public class ItemPane extends AbstractItemPane implements BuilderUtility {
 
   private Pane myPane;
   private String myCurrentBundleName;
 
-  public Sidebar(ResourceBundle languageResource, String id, BuilderView builder) {
+  /**
+   * @see AbstractItemPane#AbstractItemPane(ResourceBundle, String, BuilderView)
+   */
+  public ItemPane(ResourceBundle languageResource, String id, BuilderView builder) {
     // create pane
     super(languageResource, id, builder);
     ScrollPane scrollablePane = new ScrollPane();
@@ -57,6 +59,11 @@ public class Sidebar extends AbstractBar implements BuilderUtility {
     return myPane;
   }
 
+  /**
+   * <p>Reflectively create a button and add it to a pane</p>
+   * @param key resource file key
+   * @param buttonClickMethodName method name as a string
+   */
   private void createButton(String key, String buttonClickMethodName) {
     Node button = makeButton(key, getLanguage(),
         e -> runMethodFromString(buttonClickMethodName));

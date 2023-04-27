@@ -6,13 +6,13 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 /**
- * Interface that holds some common methods for manipulating resource files and creating
- * interactable items out of them.
+ * <p>Interface that holds some common methods for getting keys from resource files and creating
+ * interactable items out of them.</p>
  *
  * @author tmh85
  * @author jf295
  */
-public interface ResourceIterator {
+public interface ReflectiveMethodGetter {
 
   /**
    * <p>For each resource key present in a provided resource bundle, perform some

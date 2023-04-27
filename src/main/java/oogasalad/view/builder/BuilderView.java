@@ -3,22 +3,16 @@ package oogasalad.view.builder;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import java.io.File;
-import java.util.Enumeration;
-import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -28,11 +22,9 @@ import oogasalad.controller.BuilderController;
 import oogasalad.controller.builderevents.TrailMaker;
 import oogasalad.controller.builderevents.TrailMakerAPI;
 import oogasalad.view.Coordinate;
-import oogasalad.view.builder.bars.BuilderMenubar;
-import oogasalad.view.builder.bars.Sidebar;
-import oogasalad.view.builder.board.BoardInfo;
+import oogasalad.view.builder.bars.MenuItemPane;
+import oogasalad.view.builder.bars.ItemPane;
 import oogasalad.view.builder.events.TileEvent;
-import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.builder.popupform.PopupForm;
 import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
@@ -65,9 +57,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private BorderPane myTopBar;
   private int myTileCount = 0;
   private Optional<ViewTile> myCurrentTile = Optional.empty();
-  private Sidebar mySidebar;
-  private BuilderMenubar myMenubar;
-  private Sidebar myTopButtonBox;
+  private ItemPane mySidebar;
+  private MenuItemPane myMenubar;
+  private ItemPane myTopButtonBox;
   private final TrailMakerAPI myTrailMaker;
   private final boolean myDraggableObjectsToggle = true;
   private boolean myDeleteToggle = false;
@@ -163,7 +155,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private Scene initScene() {
 //    VBox topMenu = createMenus();
-    myMenubar = new BuilderMenubar(builderResource, "MenuBar", this);
+    myMenubar = new MenuItemPane(builderResource, "MenuBar", this);
     BorderPane topBar = createTopBar();
     Node centralContainer = createCentralContainer();
     VBox root = (VBox) makeVBox("RootContainer", myMenubar.asNode(), topBar, centralContainer);
@@ -179,7 +171,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     Node title = makeText("BuilderHeader", builderResource);
     Node text = makeText("RegularMode", builderResource);
     myInfoText = text;
-    myTopButtonBox = new Sidebar(builderResource, "ButtonBox", this);
+    myTopButtonBox = new ItemPane(builderResource, "ButtonBox", this);
     myTopButtonBox.addItems("TopBar");
 //    HBox buttonBox = (HBox) makeHBox("TopBar");
 //    addButtonsToPane(buttonBox, topBarResource);
@@ -194,7 +186,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private Pane createCentralContainer() {
-    mySidebar = new Sidebar(builderResource, "SideBar1", this);
+    mySidebar = new ItemPane(builderResource, "SideBar1", this);
     mySidebar.addItems("SideBar1");
 
     Node boardPane = makePane("BoardPane", PANE_WIDTH, PANE_HEIGHT);

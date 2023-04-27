@@ -10,7 +10,8 @@ public class TileEvent extends Event {
     public static final EventType<TileEvent> DELETE_TILE = new EventType<>(TileEvent.ANY, "DELETE_TILE");
     public static final EventType<TileEvent> SET_NEXT_TILE = new EventType<>(TileEvent.ANY, "SET_NEXT_TILE");
     public static final EventType<TileEvent> SHOW_FORM = new EventType<>(TileEvent.ANY, "SHOW_FORM");
-    public static final EventType<TileEvent> SELECT_TILE = new EventType<>(TileEvent.ANY, "SEELCT_TILE");
+    public static final EventType<TileEvent> SELECT_TILE = new EventType<>(TileEvent.ANY, "SELECT_TILE");
+    public static final EventType<TileEvent> DRAG_TILE = new EventType<>(TileEvent.ANY, "DRAG_TILE");
 
     private ViewTile tile;
     public TileEvent(EventType<? extends Event> eventType, ViewTile tile) {

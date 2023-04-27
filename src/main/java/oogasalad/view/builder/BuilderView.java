@@ -1,16 +1,16 @@
 package oogasalad.view.builder;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import java.awt.Dimension;
 import java.io.File;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -28,11 +28,8 @@ import javax.imageio.ImageIO;
 import oogasalad.controller.BuilderController;
 import oogasalad.controller.builderevents.TrailMaker;
 import oogasalad.controller.builderevents.TrailMakerAPI;
-import oogasalad.model.attribute.SchemaDatabase;
-import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.board.BoardInfo;
-import oogasalad.view.builder.board.ImmutableBoardInfo;
 import oogasalad.view.builder.events.TileEvent;
 import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import oogasalad.view.builder.popupform.PopupForm;
@@ -44,10 +41,15 @@ import org.apache.logging.log4j.Logger;
 // https://stackoverflow.com/questions/31148690/get-real-position-of-a-node-in-javafx
 // assumptions made so far: board pane cannot be dragged (if it was, this would break dragging for
 // all other tiles unfortunately. eventual fix maybe.)
+
+/**
+ * BuilderView implements the JavaFX elements that composes the Builder.
+ *
+ * @author tmh85
+ * @author jf295
+ */
 public class BuilderView implements BuilderUtility, BuilderAPI {
 
-  private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
-  private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
   private static final double PANE_WIDTH = 500;
   private static final double PANE_HEIGHT = 500;
   private static final double DEFAULT_IMAGE_WIDTH = 100;
@@ -55,11 +57,10 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private static final double SCENE_WIDTH = 900;
   private static final double SCENE_HEIGHT = 600;
   private static final Logger LOG = LogManager.getLogger(BuilderView.class);
-
   private ResourceBundle builderResource;
   private final ResourceBundle topBarResource;
   private final ResourceBundle sideBar1Resource;
-  private final ResourceBundle tileMenuResource;
+  private final ResourceBundle tileBarResource;
   private final ResourceBundle fileMenuResource;
   private final ResourceBundle aboutMenuResource;
   private final ResourceBundle appearanceMenuResource;
@@ -68,13 +69,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private Pane myBoardPane;
   private final String defaultStylesheet;
   private Optional<String> myCurrentlyClickedTiletype;
-  //todo: dependency injection
   private VBox myLeftSidebar;
   private Node myInfoText;
-  private HBox myInfoTextBox;
   private BorderPane myTopBar;
-  private CheckBox myGuidelinesToggle;
-  private PopupForm popupForm;
   private int myTileCount = 0;
   private int myImageCount = 0;
   private Optional<ViewTile> myCurrentTile;
@@ -87,20 +84,33 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private VBox sidePane;
 
 
-  public BuilderView(BuilderController bc) {
+  @Inject
+  public BuilderView(
+      BuilderController bc,
+      @Named("DefaultLanguage") ResourceBundle builderLanguage,
+      @Named("TopBarMethods") ResourceBundle topBar,
+      @Named("MainSideBarMethods") ResourceBundle sideBar,
+      @Named("TileBarMethods") ResourceBundle tileBar,
+      @Named("FileMenuMethods") ResourceBundle fileMenu,
+      @Named("AppearanceMenuMethods") ResourceBundle appearanceMenu,
+      @Named("AboutMenuMethods") ResourceBundle aboutMenu,
+      @Named("SettingsMenuMethods") ResourceBundle settingsMenu,
+      @Named("ToggleMenuMethods") ResourceBundle toggleMenu,
+      String defaultStylesheetPath
+  ) {
     this.bc = bc;
-    // todo: clean this up. instance blocks maybe?
-    builderResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
-    topBarResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "TopBar");
-    sideBar1Resource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SideBar1");
-    tileMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "TileMenu");
-    fileMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "FileMenu");
-    appearanceMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "AppearanceMenu");
-    aboutMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "AboutMenu");
-    settingsMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "SettingsMenu");
-    toggleMenuResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "ToggleMenu");
 
-    defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET).toExternalForm();
+    builderResource = builderLanguage;
+    topBarResource = topBar;
+    sideBar1Resource = sideBar;
+    tileBarResource = tileBar;
+    fileMenuResource = fileMenu;
+    appearanceMenuResource = appearanceMenu;
+    aboutMenuResource = aboutMenu;
+    settingsMenuResource = settingsMenu;
+    toggleMenuResource = toggleMenu;
+
+    defaultStylesheet = getClass().getResource(defaultStylesheetPath).toExternalForm();
 
     myCurrentlyClickedTiletype = Optional.empty();
     myCurrentTile = Optional.empty();
@@ -112,12 +122,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     primaryStage.setScene(scene);
     primaryStage.setTitle(builderResource.getString("BuilderTitle"));
     primaryStage.show();
-//    System.out.println(
-//        myBoardPane.getBoundsInParent().getMinX() + " | " + myBoardPane.getBoundsInParent()
-//            .getMaxX());
-//    System.out.println(
-//        myBoardPane.getBoundsInParent().getMinY() + " | " + myBoardPane.getBoundsInParent()
-//            .getMaxY());
     myBoardPaneStartingLocation = new Coordinate(
         (double) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinX(),
         (double) myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getMinY(),
@@ -143,21 +147,14 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     Node title = makeText("BuilderHeader", builderResource);
     Node text = makeText("RegularMode", builderResource);
     myInfoText = text;
-//    HBox textBox = (HBox) makeHBox("TextBox", text);
-//    myInfoTextBox = textBox;
-//    CheckBox checker = (CheckBox) makeCheckBox("GuidelinesToggle", builderResource);
-//    checker.setOnAction(e -> handleGuidelineClick());
-//    myGuidelinesToggle = checker;
     HBox buttonBox = (HBox) makeHBox("TopBar");
     addButtonsToPane(buttonBox, topBarResource);
 
     topBar.setLeft(title);
-    //topBar.setCenter(myInfoTextBox);
     topBar.setCenter(myInfoText);
     topBar.setRight(buttonBox);
     topBar.setId("TopBar");
     topBar.getStyleClass().add("topBar");
-    // (HBox) makeHBox("TopBar", title, textBox, menuBar1);
 
     return topBar;
   }
@@ -310,13 +307,18 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   // todo: support different tile types.
   private void createTile(MouseEvent e) {
     BasicTile tile = bc.addTile(e);
+    tile.setOnMouseDragged(event -> fireDragEvent(event, tile));
     initializeNode(tile, "Tile" + myTileCount, tile_e -> handleTileClick(tile));
     myTileCount++;
     myCurrentlyClickedTiletype = Optional.empty();
     updateInfoText("RegularMode");
   }
+  private void fireDragEvent(MouseEvent event, ViewTile tile) {
+    TileEvent tileEvent = new TileEvent(TileEvent.DRAG_TILE, tile);
+    myBoardPane.fireEvent(tileEvent);
+  }
   private void openTileMenu() {
-    refreshButtonsOnPane(myLeftSidebar, tileMenuResource);
+    refreshButtonsOnPane(myLeftSidebar, tileBarResource);
   }
 
   private void backToSidebarMenu() {
@@ -389,7 +391,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private void setNextTile(ViewTile origin, ViewTile desiredNext){
     bc.addNext(origin.getTileId(), desiredNext.getTileId());
     myTrailMaker.createTrailBetween(desiredNext.asNode(), origin.asNode(), "test" + myTileCount);
-    // Set guideline between current and next tile?
   }
 
   private void handleImageClick(Node node) {
@@ -414,11 +415,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void updateInfoText(String key){
-    //myTopBar.getChildren().remove(myInfoText);
-    //System.out.println("did thing");
     myInfoText = makeText(key, builderResource);
     myTopBar.setCenter(myInfoText);
-    //myTopBar.getChildren().add(myInfoText);
   }
 
 
@@ -442,13 +440,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     setNodeLocation(image, location);
     return image;
   }
-
-//  private ImmutableGameHolder createGameHolder() {
-//    GameHolder game = new GameHolder();
-//    game.setBoardInfo(new ImmutableBoardInfo(myBoardInfo));
-//    game.setTileGraph(new ImmutableGraph(myGraph));
-//    return new ImmutableGameHolder(game);
-//  }
 
   private void initializeNode(Node node, String identifier, EventHandler<MouseEvent> mouseClickHandle){
     bc.createEventsForNode(node, mouseClickHandle, myBoardPaneStartingLocation);

@@ -31,30 +31,29 @@ public class TileListParameterStrategy implements ParameterStrategy, BuilderUtil
     public TileListParameterStrategy(@Assisted Attribute attr, @Assisted Metadata meta) {
         this.attr = TileListAttribute.from(attr);
         this.meta = TileListMetadata.from(meta);
-
-        if (this.attr.getTileIds().isEmpty()) {
-            element = new Button("Select Tiles");
-        } else {
-            element = new Button(String.format("Selected: %s", this.attr.getTileIds().stream().collect(Collectors.joining(","))));
-        }
-
-        element.setOnAction(e -> {
-            Scene scene = element.getScene();
-            root = (Pane) scene.lookup(ROOT_ID);
-            addHandlerToRoot();
-        });
     }
-    private void addHandlerToRoot() {
+    private void addHandlerToRoot(ResourceBundle resourceBundle) {
         root.addEventHandler(TileEvent.SELECT_TILE, event -> {
             tiles.add(event.getTile());
-            element.setText(String.format("Selected: %s", tiles.stream().map(Tile::getId).collect(Collectors.joining(","))));
+            element.setText(String.format("%s: %s", resourceBundle.getString("Selected"), tiles.stream().map(Tile::getId).collect(Collectors.joining(","))));
         });
     }
 
     @Override
-    public Node renderInput(ResourceBundle resourceBundle) {
+    public Node renderInput(ResourceBundle resourceBundle, Pane form) {
         String name = meta.getName();
         Node textLabel = new Text(name);
+        if (this.attr.getTileIds().isEmpty()) {
+            element = new Button(resourceBundle.getString("SelectTiles"));
+        } else {
+            element = new Button(String.format("%s: %s", resourceBundle.getString("Selected"), this.attr.getTileIds().stream().collect(Collectors.joining(","))));
+        }
+
+        element.setOnAction(e -> {
+            Scene scene = form.getScene();
+            root = (Pane) scene.lookup(ROOT_ID);
+            addHandlerToRoot(resourceBundle);
+        });
         return makeHBox(String.format("%sTileListInput", name), textLabel, element);
     }
 

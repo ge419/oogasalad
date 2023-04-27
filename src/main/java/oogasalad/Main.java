@@ -20,16 +20,16 @@ import oogasalad.util.SaveManager;
  */
 public class Main extends Application {
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+  public static void main(String[] args) {
+    launch(args);
+  }
 
-    /**
-     * A method to test (and a joke :).
-     */
-    public double getVersion() {
-        return 0.001;
-    }
+  /**
+   * A method to test (and a joke :).
+   */
+  public double getVersion() {
+    return 0.001;
+  }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -51,4 +51,7 @@ public class Main extends Application {
         }
 //        new BuilderView(new BuilderController());
     }
+    //new BuilderView(new BuilderController());
+    injector.getInstance(BuilderView.class);
+  }
 }

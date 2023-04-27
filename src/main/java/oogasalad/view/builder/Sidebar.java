@@ -23,10 +23,12 @@ public class Sidebar implements Bar, BuilderUtility, ResourceIterator {
   private ResourceBundle myLanguageResource;
   private Pane myPane;
   private String myCurrentBundleName;
+  private BuilderView myBuilder;
 
-  public Sidebar(ResourceBundle languageResource, String id) {
+  public Sidebar(ResourceBundle languageResource, String id, BuilderView builder) {
     // create pane
     myLanguageResource = languageResource;
+    myBuilder = builder;
     ScrollPane scrollablePane = new ScrollPane();
     myPane = (Pane) makeVBox(id);
     scrollablePane.setContent(myPane);
@@ -83,6 +85,14 @@ public class Sidebar implements Bar, BuilderUtility, ResourceIterator {
 
   private void backToSidebarMenu() {
     refreshItems("SideBar1");
+  }
+
+  private void toggleTileCreation() {
+    myBuilder.toggleTileCreation();
+  }
+
+  private void deleteToggle() {
+    myBuilder.toggleTileDeletion();
   }
 
   private ResourceBundle getResource(String resourceName) {

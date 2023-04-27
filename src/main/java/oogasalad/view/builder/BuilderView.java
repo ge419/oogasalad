@@ -2,15 +2,12 @@ package oogasalad.view.builder;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import com.google.inject.name.Named;
-import java.awt.Dimension;
 import java.io.File;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
-import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -70,7 +67,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private final ResourceBundle toggleMenuResource;
   private Pane myBoardPane;
   private final String defaultStylesheet;
-  private Optional<String> myCurrentlyClickedTiletype;
+  private boolean myTileCreationToggle;
   private VBox myLeftSidebar;
   private Node myInfoText;
   private BorderPane myTopBar;
@@ -103,7 +100,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
     defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET).toExternalForm();
 
-    myCurrentlyClickedTiletype = Optional.empty();
+    myTileCreationToggle = false;
     myCurrentTile = Optional.empty();
     myBoardInfo = new BoardInfo(builderResource);
 
@@ -115,6 +112,74 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     primaryStage.show();
     System.out.println(myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getWidth());
     System.out.println(myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getHeight());
+  }
+
+  @Override
+  public Optional<ImmutableGameHolder> saveFile() {
+    Optional<File> file = directoryGet(builderResource, "SaveGameTitle");
+    if (file.isPresent()) {
+//      ImmutableGameHolder game = createGameHolder();
+      String givenDirectory = file.get().getPath();
+      // Send file to the controller to properly save.
+      //Controller.save(ImmutableGameHolder);
+      //bc.save();
+      System.out.println(givenDirectory);
+      //return Optional.ofNullable(game);
+      return Optional.empty();
+    } else {
+      // todo: replace with LOG
+      System.out.println("Ruh-roh, can't save to a file that doesn't exist!");
+      new Alert(Alert.AlertType.ERROR, builderResource.getString("FileNotFoundError"));
+      return Optional.empty();
+    }
+  }
+
+  @Override
+  public void loadFile() {
+    Optional<File> file = directoryGet(builderResource, "LoadGameTitle");
+    if (file.isPresent()){
+      System.out.println("Given directory: " + file.get().getPath());
+      bc.load(file.get().getPath());
+    }
+    else{
+      // todo: display error
+    }
+  }
+
+  public void updateInfoText(String key){
+    myInfoText = makeText(key, builderResource);
+    myTopBar.setCenter(myInfoText);
+  }
+
+  public void cancelAction(){
+    myTileCreationToggle = false;
+    myDeleteToggle = false;
+    //todo: make a better way of cancelling all the toggles, especially next
+    myCurrentTile.get().setColor(Color.LIGHTBLUE);
+    myCurrentTile = Optional.empty();
+    updateInfoText("RegularMode");
+  }
+
+  public void toggleTileCreation() {
+    myTileCreationToggle = true;
+    updateInfoText("TileAdditionMode");
+  }
+
+  public void toggleGuidelines(){
+    myTrailMaker.toggleEnable();
+  }
+  public void toggleDraggables(){
+    // todo
+  }
+
+  public void toggleTileDeletion() {
+    myDeleteToggle = !myDeleteToggle;
+    if (myDeleteToggle){
+      updateInfoText("DeleteMode");
+    }
+    else{
+      updateInfoText("RegularMode");
+    }
   }
 
   private Scene initScene() {
@@ -147,7 +212,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private Pane createCentralContainer() {
-    mySidebar = new Sidebar(builderResource, "SideBar1");
+    mySidebar = new Sidebar(builderResource, "SideBar1", this);
     mySidebar.addItems("SideBar1");
 //    VBox sideBar1 = (VBox) makeVBox("SideBar1");
 //    addButtonsToPane(sideBar1, sideBar1Resource);
@@ -250,58 +315,20 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     System.out.println("why that button sure did do nothing!");
   }
 
-  @Override
-  public Optional<ImmutableGameHolder> saveFile() {
-    Optional<File> file = directoryGet(builderResource, "SaveGameTitle");
-    if (file.isPresent()) {
-//      ImmutableGameHolder game = createGameHolder();
-      String givenDirectory = file.get().getPath();
-      // Send file to the controller to properly save.
-      //Controller.save(ImmutableGameHolder);
-      //bc.save();
-      System.out.println(givenDirectory);
-      //return Optional.ofNullable(game);
-      return Optional.empty();
-    } else {
-      // todo: replace with LOG
-      System.out.println("Ruh-roh, can't save to a file that doesn't exist!");
-      new Alert(Alert.AlertType.ERROR, builderResource.getString("FileNotFoundError"));
-      return Optional.empty();
-    }
-  }
-
-  @Override
-  public void loadFile() {
-    Optional<File> file = directoryGet(builderResource, "LoadGameTitle");
-    if (file.isPresent()){
-      System.out.println("Given directory: " + file.get().getPath());
-      bc.load(file.get().getPath());
-    }
-    else{
-      // todo: display error
-    }
-  }
-
-  private void tile() {
-    myCurrentlyClickedTiletype = Optional.of("Test");
-    updateInfoText("TileAdditionMode");
-  }
-
-
   private void uploadImage() {
-    Optional<File> file = fileLoad(builderResource, "UploadImageTitle");
-
-    if (checkIfImage(file)) {
-      System.out.println("Got an image from: " + file.get().getPath());
-      ImageView ourImage = turnFileToImage(file.get(), DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT,
-          new Coordinate(0, 0, 0));
-      initializeNode(ourImage, "Image" + myImageCount, e->handleImageClick(ourImage));
-      myImageCount++;
-    } else {
-      // todo: make this use an error form.
-      System.out.println("ERROR -- Got a non-image or nothing from file.");
-      new Alert(Alert.AlertType.ERROR, builderResource.getString("EmptyFileError"));
-    }
+//    Optional<File> file = fileLoad(builderResource, "UploadImageTitle");
+//
+//    if (checkIfImage(file)) {
+//      System.out.println("Got an image from: " + file.get().getPath());
+//      ImageView ourImage = turnFileToImage(file.get(), DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT,
+//          new Coordinate(0, 0, 0));
+//      initializeNode(ourImage, "Image" + myImageCount, e->handleImageClick(ourImage));
+//      myImageCount++;
+//    } else {
+//      // todo: make this use an error form.
+//      System.out.println("ERROR -- Got a non-image or nothing from file.");
+//      new Alert(Alert.AlertType.ERROR, builderResource.getString("EmptyFileError"));
+//    }
   }
 
   // todo: support different tile types.
@@ -310,7 +337,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     tile.asNode().setOnMouseDragged(event -> fireDragEvent(event, tile));
     initializeNode(tile.asNode(), "Tile" + myTileCount, tile_e -> handleTileClick(tile));
     myTileCount++;
-    myCurrentlyClickedTiletype = Optional.empty();
+    myTileCreationToggle = false;
     updateInfoText("RegularMode");
   }
   private void fireDragEvent(MouseEvent event, ViewTile tile) {
@@ -326,7 +353,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     System.out.println("hello, you clicked on x: " + e.getSceneX() + " and y: " + e.getSceneY());
     System.out.println("relative x: " + e.getX() + " and y: " + e.getY());
 
-    if (myCurrentlyClickedTiletype.isPresent()) {
+    if (myTileCreationToggle) {
       createTile(e);
     }
   }
@@ -373,13 +400,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     updateInfoText("TileNextMode");
   }
 
-  private void handleGuidelineClick(){
-    myTrailMaker.toggleEnable();
-  }
-  private void handleDraggableClick(){
-    // todo
-  }
-
   private void setNextTile(ViewTile origin, ViewTile desiredNext){
     bc.addNext(origin.getTileId(), desiredNext.getTileId());
     myTrailMaker.createTrailBetween(desiredNext.asNode(), origin.asNode(), "test" + myTileCount);
@@ -390,25 +410,11 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       myImageCount = deleteNode(node, myImageCount);
     }
   }
-  private void deleteToggle() {
-    myDeleteToggle = !myDeleteToggle;
-    if (myDeleteToggle){
-      updateInfoText("DeleteMode");
-    }
-    else{
-      updateInfoText("RegularMode");
-    }
-  }
 
   private int deleteNode(Node node, int objCounter) {
     myBoardPane.getChildren().remove(node);
-    deleteToggle();
+    toggleTileDeletion();
     return objCounter--;
-  }
-
-  private void updateInfoText(String key){
-    myInfoText = makeText(key, builderResource);
-    myTopBar.setCenter(myInfoText);
   }
 
 

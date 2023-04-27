@@ -10,10 +10,10 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
-import oogasalad.model.attribute.BooleanAttribute;
+import oogasalad.model.attribute.PlayerAttribute;
 import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.Tile;
-import oogasalad.model.engine.actions.BuyAction;
+import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.view.Backgroundable;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Imageable;
@@ -39,7 +39,7 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
     Rectangle tileBackground = createBackground(BTile.getWidth(), BTile.getHeight(), TILE_BACKGROUND, TILE_STROKE_COLOR);
 //    System.out.println(createBackground.getX());
     ImageView tileImage = createImage(BTile.getWidth(),
-        StringAttribute.from(BTile.getAttribute(IMAGE_ATTRIBUTE)).getValue(), IMAGE_SCALE);
+        StringAttribute.from(BTile.getAttribute(IMAGE_ATTRIBUTE).get()).getValue(), IMAGE_SCALE);
 
     VBox content = new VBox(BTile.getHeight() / MARGIN_SCALE, tileImage,
         createTextBox(BTile.getInfo(), BTile.getHeight(), BTile.getHeight()));
@@ -47,10 +47,11 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
     getChildren().addAll(tileBackground, content);
 
     //TODO: change this temporary behavior when tile is bought
-    BooleanAttribute ownedAttribute =
-        BooleanAttribute.from(modelTile.getAttribute(BuyAction.OWNED_ATTRIBUTE));
-    ownedAttribute.valueProperty().addListener(((observable, oldValue, isOwned) -> {
-      if (Boolean.TRUE.equals(isOwned)) {
+    //TODO: depend on if attribute is present
+    PlayerAttribute ownerAttribute =
+        PlayerAttribute.from(modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE).get());
+    ownerAttribute.idProperty().addListener(((observable, oldValue, isOwned) -> {
+      if (isOwned.isPresent()) {
         for (Node child : this.getChildren()) {
           child.setStyle("-fx-background-color: red;");
         }

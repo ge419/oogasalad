@@ -1,40 +1,34 @@
 package oogasalad.view.gameplay.pieces;
 
-import oogasalad.model.constructable.Player;
+import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Tile;
+import oogasalad.util.Util;
 import oogasalad.view.Coordinate;
 
 public class PlayerPiece extends GamePiece {
 
-  private final Player modelPlayer;
+  private final Piece modelPiece;
 
-  public PlayerPiece(Player player) {
+  public PlayerPiece(Piece modelPiece) {
     //TODO: image getter for player, create image attribute
     super("data/example/piece_1.png");
-    this.modelPlayer = player;
+    this.modelPiece = modelPiece;
+    //TODO: BIND PLAYER piece position to MODEL player
+    //make sure it refreshes per tile change
+//    xProperty().bind(modelPlayer.getX());
+//    yProperty().bind(modelPlayer.getY());
 
-    setOnMouseClicked(event -> {
-      //TODO: remove this and implement a button in GameView that passes in a coordinate
-      Coordinate coor = new Coordinate(300.0, 300.0, 0);
-      moveDirectly(coor);
-    });
-
+    Util.initializeAndListen(modelPiece.tileProperty(),
+        optionalTile -> optionalTile.ifPresent(this::moveToTile));
   }
-
-  public String getPlayerName() {
-    return modelPlayer.getName();
-  }
-
-//  public void changePlayerName(String newName) {
-//    modelPlayer.setName(newName);
-//  }
 
   @Override
   public void move(Coordinate[] coorArray) {
-
+    //change player tile position attribute?
   }
 
   public void moveToTile(Tile tile) {
+    modelPiece.setTile(tile);
     moveDirectly(tile.getCoordinate());
   }
 

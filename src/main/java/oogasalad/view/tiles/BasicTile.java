@@ -4,9 +4,9 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import oogasalad.model.attribute.BooleanAttribute;
+import oogasalad.model.attribute.PlayerAttribute;
 import oogasalad.model.constructable.Tile;
-import oogasalad.model.engine.actions.BuyAction;
+import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.view.Coordinate;
 
 public class BasicTile extends Rectangle implements ViewTile {
@@ -23,15 +23,17 @@ public class BasicTile extends Rectangle implements ViewTile {
     this.setFill(Color.LIGHTBLUE);
     this.setStroke(Color.BLACK);
 
-    BooleanAttribute ownedAttribute =
-        BooleanAttribute.from(modelTile.getAttribute(BuyAction.OWNED_ATTRIBUTE));
-    ownedAttribute.valueProperty().addListener(((observable, oldValue, isOwned) -> {
-      if (Boolean.TRUE.equals(isOwned)) {
-        this.setFill(Color.RED);
-      } else {
-        this.setFill(Color.LIGHTBLUE);
-      }
-    }));
+    // Check if tiles have an owner attribute
+    modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE)
+        .map(PlayerAttribute::from)
+        .map(PlayerAttribute::idProperty)
+        .ifPresent(prop -> prop.addListener((observable, oldValue, newValue) ->
+            newValue.ifPresentOrElse(
+                // Tile is owned
+                id -> this.setFill(Color.RED),
+                // Tile is not owned
+                () -> this.setFill(Color.LIGHTBLUE)
+            )));
   }
 
   public Tile getTile() {

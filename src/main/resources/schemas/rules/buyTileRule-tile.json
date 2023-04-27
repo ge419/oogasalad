@@ -3,14 +3,22 @@
   "name": "buyTileRule-tile",
   "fields": [
     {
-      "@class": "oogasalad.model.attribute.IntMetadata",
+      "@class": "oogasalad.model.attribute.DoubleMetadata",
       "key": "price",
       "name": "Price of tile",
       "description": "Price of tile when bought with the buy tile rule.",
       "editable": true,
       "viewable": true,
-      "defaultValue": 100,
+      "defaultValue": 200,
       "minValue": 0
+    },
+    {
+      "@class": "oogasalad.model.attribute.PlayerMetadata",
+      "key": "owner",
+      "name": "Owner of tile",
+      "description": "The current tile owner",
+      "editable": false,
+      "viewable": false
     }
   ]
 }

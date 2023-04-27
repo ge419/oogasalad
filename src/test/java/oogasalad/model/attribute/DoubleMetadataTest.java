@@ -3,22 +3,18 @@ package oogasalad.model.attribute;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 class DoubleMetadataTest {
   private DoubleAttribute doubleAttribute;
-
   private DoubleMetadata metadata;
+  private static final String KEY = "doubleKey";
 
   @BeforeEach
   public void setUp() {
-    MockitoAnnotations.initMocks(this);
-    metadata = new DoubleMetadata("test");
+    metadata = new DoubleMetadata(KEY);
     doubleAttribute = mock(DoubleAttribute.class);
   }
 
@@ -26,7 +22,7 @@ class DoubleMetadataTest {
   public void testMakeAttribute() {
     Attribute attribute = metadata.makeAttribute();
     assertTrue(attribute instanceof DoubleAttribute);
-    assertEquals("test", attribute.getKey());
+    assertEquals(KEY, attribute.getKey());
     assertEquals(0.0, DoubleAttribute.from(attribute).getValue(), 0.01);
   }
 

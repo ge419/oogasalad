@@ -18,7 +18,6 @@ public class Player extends AbstractGameConstruct {
   public static final String SCORE_ATTRIBUTE = "score";
   public static final String ICON_ATTRIBUTE = "image";
   public static final String COLOR_ATTRIBUTE = "color";
-
   private final List<Piece> pieces;
 
 

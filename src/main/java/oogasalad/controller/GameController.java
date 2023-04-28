@@ -12,6 +12,7 @@ import oogasalad.model.engine.Engine;
 import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.model.engine.rules.DieMoveRule;
+import oogasalad.model.engine.rules.NumberOfPlayersRule;
 import oogasalad.model.engine.rules.TurnRule;
 import oogasalad.view.ViewFactory;
 import oogasalad.view.gameplay.Gameview;
@@ -50,6 +51,7 @@ public class GameController {
     Injector injector = Guice.createInjector(new GameControllerModule(game));
     engine.setRules(
         List.of(
+            injector.getInstance(NumberOfPlayersRule.class),
             injector.getInstance(TurnRule.class),
             injector.getInstance(DieMoveRule.class),
             injector.getInstance(BuyTileRule.class),
@@ -69,7 +71,7 @@ public class GameController {
       // If there is a pending effect, perform it and do the next one once done
       effects.poll().present(this::doEffect);
     } else {
-      this.run();
+//      this.run();
     }
   }
 

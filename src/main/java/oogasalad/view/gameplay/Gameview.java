@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -19,6 +20,7 @@ import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
 import oogasalad.view.Renderable;
+import oogasalad.view.gameplay.Players.ViewPlayers;
 import oogasalad.view.gameplay.pieces.Pieces;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
 import oogasalad.view.tiles.Tiles;
@@ -70,7 +72,11 @@ public class Gameview {
 
     // TODO: Dynamically watch players/pieces
     Player player1 = playerProvider.get();
-    // playerPieceObjectProperty.add();
+    playerObjectProperty.add(
+        new SimpleObjectProperty<>(player1,player1.getName())
+    );
+
+
     Player player2 = playerProvider.get();
     game.setPlayers(new Players(List.of(player1, player2)));
 
@@ -109,6 +115,15 @@ public class Gameview {
     return this.die;
   }
 
+  public void updatePlayer(int id){
+   playerObjectProperty.get(id).addListener(((observable, oldValue, newValue) ->
+   {
+     if (oldValue.equals(newValue)){
+
+     }
+   }
+       ));
+  }
 
 
 

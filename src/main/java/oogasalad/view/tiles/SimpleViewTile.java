@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import java.util.Map;
 import java.util.function.BiFunction;
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.shape.Shape;
@@ -36,22 +37,21 @@ public class SimpleViewTile implements ViewTile {
     tile.viewTypeAttribute().valueProperty().addListener(
         (observable, oldValue, newValue) -> generateTile()
     );
+
 //    myRoot.boundsInLocalProperty().addListener(((observable, oldValue, newValue) -> {
 //      tile.setWidth(newValue.getWidth());
 //      tile.setHeight(newValue.getHeight());
 //    }));
 
-    tile.widthAttribute().valueProperty().addListener(((observable, oldValue, newValue) -> {
-//      myRoot.minWidth(newValue.doubleValue());
-//      myRoot.maxWidth(newValue.doubleValue());
-//      myConcreteTile.asNode().minWidth(newValue.doubleValue());
-//      myConcreteTile.asNode().maxWidth(newValue.doubleValue());
-//      myConcreteTile.asNode().resize(100, 50);
-      System.out.println("DOING THING");
-      myRoot.resize(100, 50);
-      myConcreteTile.asNode().resize(100, 50);
-    }));
+    listenToSizeAttribute(tile.widthAttribute().valueProperty());
+    listenToSizeAttribute(tile.heightAttribute().valueProperty());
 
+  }
+
+  private void listenToSizeAttribute(DoubleProperty sizeProperty){
+    sizeProperty.addListener(((observable, oldValue, newValue) -> {
+      myConcreteTile.setSize(myTile.getWidth(), myTile.getHeight());
+    }));
   }
 
 
@@ -74,6 +74,11 @@ public class SimpleViewTile implements ViewTile {
   @Override
   public Tile getTile() {
     return myTile;
+  }
+
+  @Override
+  public void setSize(double width, double height) {
+    myRoot.resize(width, height);
   }
 
   @Override

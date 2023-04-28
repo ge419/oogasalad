@@ -66,6 +66,8 @@ public interface ViewTile{
 //  @Deprecated
 //  void setId(String tiles);
 
+  void setSize(double width, double height);
+
   /**
    * <p>Returns the node that encompasses this tile.
    * (So if this tile extends Rectangle, it will return the Rectangle object.)</p>

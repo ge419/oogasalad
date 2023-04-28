@@ -19,8 +19,8 @@ public interface CustomElement {
                 return new CustomImage(jsonObject);
             case "CustomText":
                 return new CustomText(jsonObject);
-//            case "CustomColorBox":
-//                return new CustomColorBox(jsonObject);
+            case "CustomColorBox":
+                return new CustomColorBox(jsonObject);
 
 
             // add more cases for each type of object you need to support

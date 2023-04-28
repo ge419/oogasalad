@@ -17,14 +17,14 @@ public class CustomElementHelper extends VBox {
         VBox infoBox = new VBox();
 
         // Create a label for the image name field
-        Label imageNameLabel = new Label("Name this element");
+        Label nameLabel = new Label("Name this element");
 
         // Create a text field to edit the image name
-        TextField imageNameField = new TextField(thisCustomElement.getName());
-        imageNameField.setOnAction(event -> thisCustomElement.setName(imageNameField.getText()));
+        TextField nameField = new TextField(thisCustomElement.getName());
+        nameField.setOnAction(event -> thisCustomElement.setName(nameField.getText()));
 
-        infoBox.getChildren().add(imageNameLabel);
-        infoBox.getChildren().add(imageNameField);
+        infoBox.getChildren().add(nameLabel);
+        infoBox.getChildren().add(nameField);
 
         infoBox.getChildren().addAll(imageSpecificNodes);
 
@@ -34,17 +34,16 @@ public class CustomElementHelper extends VBox {
         Button toBackButton = new Button("Send to Back");
         toBackButton.setOnAction(event -> ((Node) thisCustomElement).toBack());
 
-        CheckBox checkBox = new CheckBox("Editable");
-        checkBox.setSelected(true); // set initial value
-        checkBox.setVisible(!thisCustomElement.getName().isEmpty()); // set visibility based on name value
+        CheckBox editableCheckBox = createEditableCheckBox(thisCustomElement, nameField);
 
-        infoBox.getChildren().addAll(Arrays.asList(toFrontButton, toBackButton, checkBox));
+        infoBox.getChildren().addAll(Arrays.asList(toFrontButton, toBackButton, editableCheckBox));
+
 
 
         return infoBox;
     }
 
-   private CheckBox createEditableCheckBox(CustomElement customElement) {
+   private static CheckBox createEditableCheckBox(CustomElement customElement, TextField namefield) {
       CheckBox editableCheckBox = new CheckBox("Editable");
       editableCheckBox.setSelected(customElement.isEditable() && !customElement.getName().isEmpty());
       editableCheckBox.setVisible(!customElement.getName().isEmpty());
@@ -54,6 +53,13 @@ public class CustomElementHelper extends VBox {
          customElement.setEditable(selected);
       });
 
+      namefield.setOnAction(e -> {
+         if (namefield.getText().isEmpty()) {
+            editableCheckBox.setVisible(false);
+         } else {
+            editableCheckBox.setVisible(true);
+         }
+      });
       return editableCheckBox;
    }
 }

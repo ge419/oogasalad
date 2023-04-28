@@ -1,37 +1,6 @@
 {
   "name": "Test1",
-  "width": 489.0,
-  "height": 434.0,
-  "customObjects": [
-    {
-      "type": "CustomImage",
-      "x": 3.0,
-      "y": -72.0,
-      "name": "Screen Shot 2022-12-11 at 11.50.58 AM.png",
-      "height": 308.58620689655174,
-      "width": 471.0,
-      "filePath": "data/customObjects/Test1/Screen Shot 2022-12-11 at 11.50.58 AM.png",
-      "index": 0
-    },
-    {
-      "name": "Default Text",
-      "defaultContents": "Enter Text Here",
-      "fontSize": 20,
-      "bold": false,
-      "translateX": -86.0,
-      "translateY": 168.0,
-      "type": "CustomText",
-      "index": -1
-    },
-    {
-      "name": "Default Text",
-      "defaultContents": "Add photographer name",
-      "fontSize": 14,
-      "bold": true,
-      "translateX": 146.0,
-      "translateY": 96.0,
-      "type": "CustomText",
-      "index": -1
-    }
-  ]
+  "width": 516.0,
+  "height": 275.0,
+  "customObjects": []
 }

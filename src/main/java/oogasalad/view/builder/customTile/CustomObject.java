@@ -193,7 +193,6 @@ public class CustomObject extends StackPane {
         return new SimpleObjectSchema(this.name, metadataList);
     }
 
-    //This could be less hardcoded
     private Collection<Metadata> getDefaultTileMetadata() {
         List<Metadata> metadataList = new ArrayList<>();
         StringMetadata type = new StringMetadata("customTile");

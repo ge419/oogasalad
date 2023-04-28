@@ -139,8 +139,10 @@ public class CustomObjectBuilderWindow extends Application {
 
         private void addImage() {
             CustomImage newImage = getImageFromFile();
-            newImage.fitImage(rightPane.getWidth(), rightPane.getHeight());
-            rightPane.placeElm(newImage);
+            if (newImage != null){
+                newImage.fitImage(rightPane.getWidth(), rightPane.getHeight());
+                rightPane.placeElm(newImage);
+            }
         }
 
         private CustomImage getImageFromFile() {
@@ -149,9 +151,13 @@ public class CustomObjectBuilderWindow extends Application {
             fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
             File selectedFile = fileChooser.showOpenDialog(getScene().getWindow());
 
-            // Create an ImageView from the image file
-            CustomImage newImage = new CustomImage(selectedFile);
-            return newImage;
+            if (selectedFile != null) {
+                return new CustomImage(selectedFile);
+                // rest of the code here
+            } else {
+                System.out.println("Error: selected file is null.");
+            }
+            return null;
         }
 
         private void addText() {

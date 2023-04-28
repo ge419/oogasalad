@@ -8,6 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import oogasalad.model.attribute.Metadata;
+import oogasalad.model.attribute.StringMetadata;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -18,6 +19,8 @@ public class CustomColorBox extends Rectangle implements CustomElement {
 
     private String name = "";
     private String defaultColor;
+    private double defaultOpacity;
+
     private double x; private double y;
 
     private boolean editable = false;
@@ -30,11 +33,28 @@ public class CustomColorBox extends Rectangle implements CustomElement {
 
     public CustomColorBox() {
         super();
-        Color a = Color.web(UNDERSPECIFIED_COLOR);
-        Color b = Color.web(UNDERSPECIFIED_COLOR, UNDERSPECIFIED_OPACITY);
         this.setFill(Color.web(UNDERSPECIFIED_COLOR, UNDERSPECIFIED_OPACITY));
         this.setWidth(UNDERSPECIFIED_LENGTH);
         this.setHeight(UNDERSPECIFIED_LENGTH);
+    }
+
+    public CustomColorBox(JsonObject jsonObject) {
+        this.name = jsonObject.get("name").getAsString();
+        this.defaultColor = jsonObject.get("color").getAsString();
+
+        this.defaultOpacity = jsonObject.get("opacity").getAsDouble();
+        this.setFill(Color.web(defaultColor,defaultOpacity));
+        this.setEditable(jsonObject.get("editable").getAsBoolean());
+
+        this.setWidth(jsonObject.get("width").getAsDouble());
+        this.setHeight(jsonObject.get("height").getAsDouble());
+
+        double translateX = jsonObject.get("translatex").getAsDouble();
+        double translateY = jsonObject.get("translatey").getAsDouble();
+        this.setTranslateX(translateX);
+        this.setTranslateY(translateY);
+
+        int index = jsonObject.get("index").getAsInt();
     }
 
 
@@ -42,6 +62,7 @@ public class CustomColorBox extends Rectangle implements CustomElement {
     @Override
     public JsonObject save(Path folderPath) throws IOException {
         JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("type", "CustomColorBox");
         jsonObject.addProperty("name", name);
         jsonObject.addProperty("color", this.getFill().toString());
         jsonObject.addProperty("opacity", this.getOpacity());
@@ -117,6 +138,6 @@ public class CustomColorBox extends Rectangle implements CustomElement {
     @Override
     public Metadata getMetaData() {
         //TODO MAKE COLORBOX METADATA
-        return null;
+        return new StringMetadata("Reminder to create COLORBOX METADATA");
     }
 }

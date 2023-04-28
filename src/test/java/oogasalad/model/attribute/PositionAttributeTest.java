@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 class PositionAttributeTest {
 
+  public static final String KEY = "Pos";
   private PositionAttribute positionAttribute;
   private static final Double X_CORD = 0.0;
 
@@ -19,30 +20,40 @@ class PositionAttributeTest {
   private
   @BeforeEach
   void setUp() {
-    positionAttribute = new PositionAttribute("Pos",X_CORD, Y_CORD);
+    positionAttribute =
+        new PositionAttribute("Pos",X_CORD, Y_CORD, 50.0);
   }
 
   @AfterEach
-  void tearDown() {
+  void testSetValue() {
   }
 
   @Test
-  void setAngle() {
+  void testValueProperty() {
   }
 
   @Test
-  void angleProperty() {
+  void testFrom() {
   }
 
   @Test
-  void getCoordinate() {
+  void testGetCoordinate() {
+
   }
 
   @Test
-  void setCoordinate() {
+  void testEquals() {
+    PositionAttribute sameAttribute  = new PositionAttribute(KEY,X_CORD, , 50.0);
+    PositionAttribute differentAttribute  = new PositionAttribute(KEY,X_CORD, 8.0, 50.0);
+    assertTrue(positionAttribute.equals(sameAttribute));
+    assertFalse(positionAttribute.equals(differentAttribute));
   }
 
   @Test
-  void testToString() {
+  void testHashCode() {
+    PositionAttribute sameAttribute  = new PositionAttribute(KEY,X_CORD, , 50.0);
+    PositionAttribute differentAttribute  = new PositionAttribute(KEY,X_CORD, 8.0, 50.0);
+    assertEquals(positionAttribute.hashCode(), sameAttribute.hashCode());
+    assertNotEquals(positionAttribute.hashCode(), differentAttribute.hashCode());
   }
 }

@@ -1,9 +1,11 @@
-package oogasalad.view.builder;
+package oogasalad.view.builder.bars;
 
 import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
+import oogasalad.view.builder.BuilderUtility;
+import oogasalad.view.builder.BuilderView;
 
 /**
  * <p>Sidebar will implement and manage a pane of buttons for any UI.</p>
@@ -16,25 +18,25 @@ import javafx.scene.layout.Pane;
  *
  * @author tmh85
  */
-public class Sidebar implements Bar, BuilderUtility, ResourceIterator {
+public class ItemPane extends AbstractItemPane implements BuilderUtility {
 
-  private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
-
-  private ResourceBundle myLanguageResource;
   private Pane myPane;
   private String myCurrentBundleName;
 
-  public Sidebar(ResourceBundle languageResource, String id) {
+  /**
+   * @see AbstractItemPane#AbstractItemPane(ResourceBundle, String, BuilderView)
+   */
+  public ItemPane(ResourceBundle languageResource, String id, BuilderView builder) {
     // create pane
-    myLanguageResource = languageResource;
+    super(languageResource, id, builder);
     ScrollPane scrollablePane = new ScrollPane();
     myPane = (Pane) makeVBox(id);
     scrollablePane.setContent(myPane);
-    // load initial buttons based on what is given
   }
 
   @Override
   public void addItems(String functionFileName) {
+    myCurrentBundleName = functionFileName;
     ResourceBundle bundle = getResource(functionFileName);
     forEachResourceKey(bundle,
         key -> createButton(key, bundle.getString(key)));
@@ -48,28 +50,24 @@ public class Sidebar implements Bar, BuilderUtility, ResourceIterator {
 
   @Override
   public void updateLanguage(String fileName) {
-    myLanguageResource = getResource(fileName);
+    setLanguage(getResource(fileName));
     refreshItems(myCurrentBundleName);
   }
 
+  @Override
   public Node asNode() {
     return myPane;
   }
 
+  /**
+   * <p>Reflectively create a button and add it to a pane</p>
+   * @param key resource file key
+   * @param buttonClickMethodName method name as a string
+   */
   private void createButton(String key, String buttonClickMethodName) {
-    Node button = makeButton(key, myLanguageResource,
+    Node button = makeButton(key, getLanguage(),
         e -> runMethodFromString(buttonClickMethodName));
     myPane.getChildren().add(button);
-  }
-
-  private void runMethodFromString(String method) {
-    try {
-      Sidebar.this.getClass().getDeclaredMethod(method)
-          .invoke(Sidebar.this);
-    } catch (Exception ex) {
-      ex.printStackTrace();
-      throw new RuntimeException(ex);
-    }
   }
 
   private void test() {
@@ -78,14 +76,32 @@ public class Sidebar implements Bar, BuilderUtility, ResourceIterator {
   }
 
   private void openTileMenu() {
-    refreshItems("TileMenu");
+    refreshItems("TileSideMenu");
   }
 
   private void backToSidebarMenu() {
     refreshItems("SideBar1");
   }
 
-  private ResourceBundle getResource(String resourceName) {
-    return ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + resourceName);
+  private void backFromRules(){
+    backToSidebarMenu();
+    getBuilder().switchToBoard();
+  }
+
+  private void rulesMenu(){
+    refreshItems("RulesSideMenu");
+    getBuilder().switchToRules();
+  }
+
+  private void toggleTileCreation() {
+    getBuilder().toggleTileCreation();
+  }
+
+  private void deleteToggle() {
+    getBuilder().toggleTileDeletion();
+  }
+
+  private void cancelAction() {
+    getBuilder().cancelAction();
   }
 }

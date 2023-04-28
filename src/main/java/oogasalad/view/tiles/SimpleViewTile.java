@@ -26,7 +26,8 @@ public class SimpleViewTile implements ViewTile {
     myMap = Map.of(
         "image", (factory, btile) -> factory.createImageTile(btile),
         "basic", (factory, btile)-> factory.createBasicTile(btile),
-        "street", (factory, btile)-> factory.createStreetTile(btile)
+        "street", (factory, btile)-> factory.createStreetTile(btile),
+        "custom", (factory, btile)-> factory.createCustomTile(btile)
     );
     this.myTileFactory = tileFactory;
     myRoot = new Group();

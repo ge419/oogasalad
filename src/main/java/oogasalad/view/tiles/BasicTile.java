@@ -10,6 +10,12 @@ import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.view.Coordinate;
 
+/**
+ * <p>A basic implementation of a ViewTile.</p>
+ * <p>This type of tile is a basic rectangle that supports different kinds of colors.</p>
+ *
+ * @author tmh85
+ */
 public class BasicTile extends Rectangle implements ViewTile {
 
   private final Tile modelTile;
@@ -17,10 +23,6 @@ public class BasicTile extends Rectangle implements ViewTile {
   @Inject
   public BasicTile(Tile tile) {
     super(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
-//    xProperty().bind(tile.positionAttribute().xProperty());
-//    yProperty().bind(tile.positionAttribute().yProperty());
-//    widthProperty().bind(tile.widthAttribute().valueProperty());
-//    heightProperty().bind(tile.heightAttribute().valueProperty());
     this.modelTile = tile;
     this.setFill(Color.LIGHTBLUE);
     this.setStroke(Color.BLACK);

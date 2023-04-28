@@ -1,8 +1,6 @@
 package oogasalad.controller;
 
-import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -15,10 +13,7 @@ import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.BuilderFactory;
 import oogasalad.view.Coordinate;
-import oogasalad.view.builder.BuilderModule;
 import oogasalad.view.builder.BuilderView;
-import oogasalad.view.tiles.BasicTile;
-import oogasalad.view.tiles.SimpleViewTile;
 import oogasalad.view.tiles.ViewTile;
 import oogasalad.view.tiles.ViewTileFactory;
 import org.apache.logging.log4j.LogManager;

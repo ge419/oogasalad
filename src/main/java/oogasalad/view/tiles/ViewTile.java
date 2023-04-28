@@ -9,6 +9,11 @@ import oogasalad.view.Backgroundable;
 import oogasalad.model.engine.actions.BuyAction;
 import oogasalad.view.Coordinate;
 
+/**
+ * <p>ViewTile interface composes the methods that are required for a ViewTile to function.</p>
+ *
+ * @author tmh85
+ */
 public interface ViewTile{
 
   /**
@@ -66,6 +71,11 @@ public interface ViewTile{
 //  @Deprecated
 //  void setId(String tiles);
 
+  /**
+   * Sets the width and height of the given ViewTile
+   * @param width width as a double
+   * @param height height as a double
+   */
   void setSize(double width, double height);
 
   /**

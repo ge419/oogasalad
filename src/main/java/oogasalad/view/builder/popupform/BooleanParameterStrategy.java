@@ -50,7 +50,7 @@ public class BooleanParameterStrategy implements ParameterStrategy, BuilderUtili
      * @return HBox containing labeled JavaFX checkbox
      */
     @Override
-    public Node renderInput(ResourceBundle resourceBundle, Pane form) {
+    public Node renderInput(ResourceBundle resourceBundle, Pane form, String objectId) {
         String name = meta.getName();
         Node textLabel = new Text(name);
         element = (CheckBox) makeCheckBox(name);

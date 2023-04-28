@@ -47,6 +47,7 @@ public class PopupForm implements BuilderUtility {
     private final Pane form;
     private final Map<Class<? extends Metadata>, ParameterStrategyCreator> strategyMap;
     private final List<ParameterStrategy> currentParameters;
+    private String objectID;
 
     /**
      * Initializes the popupform and populates the given Pane with the form content.
@@ -58,6 +59,7 @@ public class PopupForm implements BuilderUtility {
         this.resourceBundle = resourceBundle;
         this.gameConstruct = gameConstruct;
         this.form = form;
+        this.objectID = gameConstruct.getId();
         // TODO: Create injector in controller
         Injector injector = Guice.createInjector(new PopupFormModule());
         this.factory = injector.getInstance(ParameterStrategyFactory.class);
@@ -122,7 +124,7 @@ public class PopupForm implements BuilderUtility {
             }
 
             currentParameters.add(parameterStrategy.get());
-            form.getChildren().add(parameterStrategy.get().renderInput(resourceBundle, form));
+            form.getChildren().add(parameterStrategy.get().renderInput(resourceBundle, form, objectID));
         }
 
         form.getChildren().add(makeButton("SubmitForm", resourceBundle, e -> saveInputToObject()));

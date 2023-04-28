@@ -62,7 +62,7 @@ public class TileListParameterStrategy implements ParameterStrategy, BuilderUtil
      * @return HBox containing a button
      */
     @Override
-    public Node renderInput(ResourceBundle resourceBundle, Pane form) {
+    public Node renderInput(ResourceBundle resourceBundle, Pane form, String objectId) {
         String name = meta.getName();
         Node textLabel = new Text(name);
         if (this.attr.getTileIds().isEmpty()) {

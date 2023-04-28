@@ -47,7 +47,7 @@ class ColorParameterStrategy implements ParameterStrategy, BuilderUtility {
      * @return HBox containing labeled JavaFX ColorPicker
      */
     @Override
-    public Node renderInput(ResourceBundle resourceBundle, Pane form) {
+    public Node renderInput(ResourceBundle resourceBundle, Pane form, String objectId) {
         String name = meta.getName();
         Node textLabel = new Text(name);
         element = (ColorPicker) makeColorPicker(name);

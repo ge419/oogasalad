@@ -1,5 +1,7 @@
 package oogasalad.controller;
 
+import com.google.inject.Inject;
+import javafx.beans.property.SimpleBooleanProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
@@ -19,8 +21,8 @@ import oogasalad.util.SaveManager;
 import oogasalad.view.BuilderFactory;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.BuilderView;
-import oogasalad.view.tiles.BasicTile;
 import oogasalad.view.tiles.ViewTile;
+import oogasalad.view.tiles.ViewTileFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,13 +34,15 @@ import org.apache.logging.log4j.Logger;
 public class BuilderController {
 
   // following instances will be removed later
-  private String FILE_PATH  = "HARDCODE FILE PATH HERE";
+  private String FILE_PATH = "HARDCODE FILE PATH HERE";
   private String FOLDER_NAME = "CUSTOM1";
 
   private static final Logger logger = LogManager.getLogger(BuilderController.class);
   private final BuilderView builderView;
   private SchemaDatabase db;
   private GameHolder gameHolder;
+  private GameHolderBuilder gameHolderBuilder;
+  private ViewTileFactory viewTileFactory;
   private BBoard board;
   private Players players;
   private SaveManager saveManager;
@@ -47,10 +51,12 @@ public class BuilderController {
   @Inject
   public BuilderController(
       String injectedLanguage,
-      BuilderFactory injectedBuilderFactory
+      BuilderFactory injectedBuilderFactory,
+      ViewTileFactory tileFactory
   ) {
     Injector injector = Guice.createInjector(new BuilderControllerModule(injectedLanguage));
     builderView = injectedBuilderFactory.makeBuilder(injectedLanguage, this);
+    viewTileFactory = tileFactory;
     logger.info("created builder");
     db = new SchemaDatabase();
     gameHolder = GameHolder.createDefaultGame();
@@ -74,12 +80,12 @@ public class BuilderController {
 
 
   public ViewTile addTile(MouseEvent e) {
-    Coordinate pos = new Coordinate((double) e.getX(), (double) e.getY(), 0);
+    Coordinate pos = new Coordinate((double) e.getX(), (double) e.getY(), 0.0);
     Tile t = new Tile(db);
     t.setCoordinate(pos);
     board.addTile(t);
-    ViewTile tile = new BasicTile(t);
-    tile.setId("Tile" + board.getTileCount());
+    ViewTile tile = viewTileFactory.createDynamicViewTile(t);
+//    tile.setId("Tile" + board.getTileCount());
     logger.info("added tile");
     return tile;
   }
@@ -89,16 +95,15 @@ public class BuilderController {
     logger.info("added next attribute to tile");
   }
 
-  public void removeNext(String currentId, String nextId){
+  public void removeNext(String currentId, String nextId) {
     board.getById(currentId).get().getNextTileIds().remove(nextId);
     logger.info("removed next attribute from tile");
   }
 
-  public void removeTile(String currentId){
+  public void removeTile(String currentId) {
     board.remove(currentId);
     logger.info("removed tile");
   }
-
 
   public void save(GameHolder holder) {
     saveManager.saveGame(holder);
@@ -113,9 +118,13 @@ public class BuilderController {
 //    builderView.loadFile();
   }
 
-  public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Node parent) {
+  public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Node parent,
+      SimpleBooleanProperty dragToggle) {
     node.setOnMouseClicked(mouseClickHandle);
     Dragger nodeDragger = new Dragger(node, true, MouseButton.PRIMARY, parent);
+    dragToggle.addListener((observable, oldValue, newValue) -> {
+      nodeDragger.setDraggable(newValue);
+    });
   }
 
   public BuilderView getBuilderView() {

@@ -19,28 +19,30 @@ public class CustomTileFrontEnd extends StackPane implements ViewTile {
         return null;
     }
 
-    @Override
     public Coordinate getPosition() {
         return new Coordinate(this.getTranslateX(), this.getTranslateY());
     }
 
-    @Override
     public void setPosition(Coordinate coord) {
 
     }
 
-    @Override
     public Paint getColor() {
         return null;
     }
 
-    @Override
     public void setColor(Color color) {
     }
 
     @Override
     public Tile getTile() {
         return null;
+    }
+
+    @Override
+    public void setSize(double width, double height) {
+        this.setWidth(width);
+        this.setHeight(height);
     }
 
     @Override

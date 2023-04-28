@@ -15,6 +15,7 @@ public class GameHolder {
   private BBoard board;
   private Players players;
   private Player currentPlayer;
+  private List<Piece> pieces;
   private final ListProperty<Rule> rules = new SimpleListProperty<>(
       FXCollections.observableArrayList());
 
@@ -24,6 +25,16 @@ public class GameHolder {
 
   public void setBoard(BBoard board) {
     this.board = board;
+  }
+
+  @JsonIgnore
+  public void setPieces(List<Piece> pieces) {
+    this.pieces = pieces;
+  }
+
+  @JsonIgnore
+  public List<Piece> getPieces() {
+    return this.pieces;
   }
 
   @JsonIgnore

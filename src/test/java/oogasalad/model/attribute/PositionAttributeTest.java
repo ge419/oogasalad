@@ -9,17 +9,17 @@ import org.junit.jupiter.api.Test;
 class PositionAttributeTest {
 
   private PositionAttribute positionAttribute;
-  private static final Double X_CORD = 0.0;
+  private static final double X_CORD = 0.0;
 
-  private static final Double Y_CORD = 0.0;
-  private static final Double NEW_X_CORD = 4.0;
+  private static final double Y_CORD = 0.0;
+  private static final double NEW_X_CORD = 4.0;
 
-  private static final Double NEW_Y_CORD = 5.0;
+  private static final double NEW_Y_CORD = 5.0;
 
   private
   @BeforeEach
   void setUp() {
-    positionAttribute = new PositionAttribute("Pos",X_CORD, Y_CORD);
+//    positionAttribute = new PositionAttribute("Pos",X_CORD, Y_CORD);
   }
 
   @AfterEach

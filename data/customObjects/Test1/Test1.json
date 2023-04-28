@@ -1,7 +1,7 @@
 {
   "name": "Test1",
-  "width": 491.0,
-  "height": 498.0,
+  "width": 489.0,
+  "height": 434.0,
   "customObjects": [
     {
       "type": "CustomImage",
@@ -28,7 +28,7 @@
       "defaultContents": "Add photographer name",
       "fontSize": 14,
       "bold": true,
-      "translateX": 162.0,
+      "translateX": 146.0,
       "translateY": 96.0,
       "type": "CustomText",
       "index": -1

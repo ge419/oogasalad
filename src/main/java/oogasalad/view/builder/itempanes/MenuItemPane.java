@@ -1,4 +1,4 @@
-package oogasalad.view.builder.bars;
+package oogasalad.view.builder.itempanes;
 
 import java.util.HashMap;
 import java.util.Map;

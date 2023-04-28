@@ -23,7 +23,9 @@ import oogasalad.view.tiles.ViewTile;
  * of three labeled double spinners for the user to input X, Y, and Angle values.
  * Additionally, an event handler is placed on the window to automatically
  * change the value displayed in the spinner depending on the location when dragged.
- * A key assumption is that the strategy assumes the form is editing a draggable element
+ * A key assumption is that the strategy assumes if the game construct is draggable,
+ * dragging must fire a TileEvent.TILE_DRAGGED event. Otherwise, the form will not
+ * update as the game construct is dragged.
  * Example Usage:
  * VBox form = new VBox();
  * PositionParameterStrategy strategy = new PositionParameterStrategy(myPositionAttribute, myPositionMetadata);
@@ -44,6 +46,7 @@ public class PositionParameterStrategy implements ParameterStrategy, BuilderUtil
     private static final double maxAngle = 360;
     private double initAngle = 0;
     private static final String ROOT_ID = "#BoardPane";
+    private String objectId;
     private Pane root;
 
     /**
@@ -69,7 +72,8 @@ public class PositionParameterStrategy implements ParameterStrategy, BuilderUtil
      * @return HBox containing labeled JavaFX spinners for X, Y, Angle
      */
     @Override
-    public Node renderInput(ResourceBundle resourceBundle, Pane form) {
+    public Node renderInput(ResourceBundle resourceBundle, Pane form, String objectId) {
+        this.objectId = objectId;
         String name = meta.getName();
         Node textLabel = new Text(name);
         Node xLabel = new Text("X");
@@ -86,9 +90,11 @@ public class PositionParameterStrategy implements ParameterStrategy, BuilderUtil
     }
     private void addHandlerToRoot() {
         root.addEventHandler(TileEvent.DRAG_TILE, event -> {
-            ViewTile tile = event.getViewTile();
-            xElement.getValueFactory().setValue(tile.asNode().getBoundsInParent().getMinX());
-            yElement.getValueFactory().setValue(tile.asNode().getBoundsInParent().getMinY());
+            if (event.getTile().getId() == objectId) {
+                ViewTile viewTile = event.getViewTile();
+                xElement.getValueFactory().setValue(viewTile.asNode().getBoundsInParent().getMinX());
+                yElement.getValueFactory().setValue(viewTile.asNode().getBoundsInParent().getMinY());
+            }
         });
     }
 

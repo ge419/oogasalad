@@ -19,7 +19,7 @@ public interface ParameterStrategy {
      * @param form the container of the form element returned
      * @return JavaFX Node
      */
-    Node renderInput(ResourceBundle resourceBundle, Pane form);
+    Node renderInput(ResourceBundle resourceBundle, Pane form, String objectId);
 
     /**
      * Saves the user input to the attribute given in the constructor

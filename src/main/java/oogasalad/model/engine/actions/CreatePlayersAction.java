@@ -18,7 +18,7 @@ import oogasalad.view.gameplay.pieces.PlayerPiece;
 public class CreatePlayersAction implements Action {
   private final Provider<Player> playerProvider;
   private final Provider<Piece> pieceProvider;
-  private GameHolder gameholder;
+  private final GameHolder gameholder;
 
   @Inject
   public CreatePlayersAction(
@@ -34,8 +34,7 @@ public class CreatePlayersAction implements Action {
   @Override
   public void runAction(ActionParams actionParams) {
     List<IntegerPromptOption> options = new ArrayList<>();
-    // TODO get from attributes
-    for (int i = 1; i < 4; i++) {
+    for (int i = gameholder.minPlayer(); i <= gameholder.maxPlayer(); i++) {
       options.add(new IntegerPromptOption(i));
     }
 

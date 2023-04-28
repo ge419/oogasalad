@@ -1,8 +1,6 @@
 package oogasalad.controller;
 
-import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -15,10 +13,9 @@ import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.BuilderFactory;
 import oogasalad.view.Coordinate;
-import oogasalad.view.builder.BuilderModule;
 import oogasalad.view.builder.BuilderView;
-import oogasalad.view.tiles.BasicTile;
 import oogasalad.view.tiles.ViewTile;
+import oogasalad.view.tiles.ViewTileFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,7 +28,7 @@ public class BuilderController {
   private static final Logger logger = LogManager.getLogger(BuilderController.class);
 
   // following instances will be removed later
-  private String FILE_PATH  = "HARDCODE FILE PATH HERE";
+  private String FILE_PATH = "HARDCODE FILE PATH HERE";
   private String FOLDER_NAME = "CUSTOM1";
 
   private final BuilderView builderView;
@@ -40,11 +37,13 @@ public class BuilderController {
   private SchemaDatabase db;
   private GameHolder gameHolder;
   private GameHolderBuilder gameHolderBuilder;
+  private ViewTileFactory viewTileFactory;
 
   @Inject
   public BuilderController(
       String injectedLanguage,
-      BuilderFactory injectedBuilderFactory
+      BuilderFactory injectedBuilderFactory,
+      ViewTileFactory tileFactory
 //      BuilderView view
   ) {
     //TODO: use dependency injection
@@ -52,6 +51,7 @@ public class BuilderController {
 //    builderView = builderInjector.getInstance(BuilderView.class);
 //    String theString = givenLanguage;
     builderView = injectedBuilderFactory.makeBuilder(injectedLanguage, this);
+    viewTileFactory = tileFactory;
 //    builderView = view;
 //    builder = new BBuilder();
     System.out.println("made builder");
@@ -69,12 +69,12 @@ public class BuilderController {
   }
 
   public ViewTile addTile(MouseEvent e) {
-    Coordinate pos = new Coordinate((double) e.getX(), (double) e.getY(), 0);
+    Coordinate pos = new Coordinate((double) e.getX(), (double) e.getY(), 0.0);
     Tile t = new Tile(db);
     t.setCoordinate(pos);
     board.addTile(t);
-    ViewTile tile = new BasicTile(t);
-    tile.setId("Tile" + board.getTileCount());
+    ViewTile tile = viewTileFactory.createDynamicViewTile(t);
+//    tile.setId("Tile" + board.getTileCount());
     return tile;
   }
 
@@ -82,20 +82,17 @@ public class BuilderController {
     board.getById(currentId).get().getNextTileIds().add(nextId);
   }
 
-  public void removeNext(String currentId, String nextId){
+  public void removeNext(String currentId, String nextId) {
     board.getById(currentId).get().getNextTileIds().remove(nextId);
   }
 
-  public void removeTile(String currentId){
+  public void removeTile(String currentId) {
     board.remove(currentId);
   }
 
-
-
-
-  public void save(GameHolder holder) {
+  public void save(String filePath) {
     // TODO Use SaveManager
-    String filePath = FILE_PATH + "/" + FOLDER_NAME;
+//    String filePath = FILE_PATH + "/" + FOLDER_NAME;
 
     //serialize GameHolder to the specified path
 //    serialize(holder.getBoard());
@@ -113,6 +110,7 @@ public class BuilderController {
 
   /**
    * Take the ImmutableGameHolder from backend and call on frontend to load
+   *
    * @param path
    */
   public void load(String path) {
@@ -120,7 +118,8 @@ public class BuilderController {
     builderView.loadFile();
   }
 
-  public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Node parent, SimpleBooleanProperty dragToggle) {
+  public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Node parent,
+      SimpleBooleanProperty dragToggle) {
     node.setOnMouseClicked(mouseClickHandle);
     Dragger nodeDragger = new Dragger(node, true, MouseButton.PRIMARY, parent);
     dragToggle.addListener((observable, oldValue, newValue) -> {

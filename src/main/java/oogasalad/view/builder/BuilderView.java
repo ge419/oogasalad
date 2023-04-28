@@ -98,13 +98,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   public void saveFile() {
     Optional<File> file = directoryGet(builderResource, "SaveGameTitle");
     if (file.isPresent()) {
-//      ImmutableGameHolder game = createGameHolder();
       String givenDirectory = file.get().getPath();
-      // Send file to the controller to properly save.
-      //Controller.save(ImmutableGameHolder);
-      //bc.save();
+      myBuilderController.save(givenDirectory);
       System.out.println(givenDirectory);
-      //return Optional.ofNullable(game);
     } else {
       // todo: replace with LOG
       System.out.println("Ruh-roh, can't save to a file that doesn't exist!");
@@ -134,7 +130,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myTileCreationToggle = false;
     myDeleteToggle = false;
     //todo: make a better way of cancelling all the toggles, especially next
-    myCurrentTile.ifPresent(viewTile -> viewTile.setColor(Color.LIGHTBLUE));
+//    myCurrentTile.ifPresent(viewTile -> viewTile.setColor(Color.LIGHTBLUE));
     myCurrentTile = Optional.empty();
     updateInfoText("RegularMode");
   }
@@ -323,24 +319,24 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void createTilePath(TileEvent event) {
-    event.getViewTile().setColor(Color.LIGHTGREEN);
+//    event.getViewTile().setColor(Color.LIGHTGREEN);
     setNextTile(myCurrentTile.get(), event.getViewTile());
-    myCurrentTile.get().setColor(Color.LIGHTBLUE);
+//    myCurrentTile.get().setColor(Color.LIGHTBLUE);
     myCurrentTile = Optional.empty();
-    event.getViewTile().setColor(Color.LIGHTBLUE);
+//    event.getViewTile().setColor(Color.LIGHTBLUE);
     updateInfoText("RegularMode");
   }
 
   private void displayTileForm(TileEvent event) {
     myCurrentTile = Optional.empty();
-    event.getViewTile().setColor(Color.LIGHTBLUE);
+//    event.getViewTile().setColor(Color.LIGHTBLUE);
     new PopupForm(event.getTile(), builderResource, sidePane);
     updateInfoText("RegularMode");
   }
 
   private void selectTile(TileEvent event) {
     myCurrentTile = Optional.ofNullable(event.getViewTile());
-    myCurrentTile.get().setColor(Color.BLUE);
+//    myCurrentTile.get().setColor(Color.BLUE);
     updateInfoText("TileNextMode");
   }
 

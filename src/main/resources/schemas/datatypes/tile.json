@@ -4,9 +4,10 @@
   "fields": [
     {
       "@class": "oogasalad.model.attribute.StringMetadata",
-      "key": "type",
-      "name": "Type",
-      "description": "Type of tile.",
+      "key": "viewType",
+      "name": "View type",
+      "description": "View type of tile.",
+      "defaultValue": "basic",
       "editable": true,
       "viewable": true
     },

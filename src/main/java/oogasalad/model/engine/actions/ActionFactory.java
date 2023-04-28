@@ -12,5 +12,5 @@ public interface ActionFactory {
   RollDieAction makeRollDieAction(int[] dieResults);
 
   MoveAction makeMoveAction(Piece piece, List<Tile> moveSequence);
-  CreatePlayersAction makeCreatePlayersAction(int numberOfPlayers);
+  CreatePlayersAction makeCreatePlayersAction();
 }

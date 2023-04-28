@@ -1,4 +1,12 @@
 {
+  "gameInfo" : {
+    "title" : "title1",
+    "description" : "First game",
+    "genre" : "board",
+    "width" : 100.0,
+    "height" : 100.0,
+    "thumbnail" : null
+  },
   "board" : {
     "tiles" :[
       {
@@ -1474,12 +1482,12 @@
   },
   "rules" : [ {
     "@class" : "oogasalad.model.engine.rules.TurnRule",
-    "id" : "c289170b-570d-4629-a02a-7f48df57a8e5",
+    "id" : "1ffafbb1-a4eb-49a1-9396-638810ca65c0",
     "schemas" : [ "turnRule" ],
     "attributes" : [ ]
   }, {
     "@class" : "oogasalad.model.engine.rules.BuyTileRule",
-    "id" : "f94ccd7c-98d6-4fb9-97d5-393159dea06e",
+    "id" : "972927ae-7f26-4491-8287-6fe3a7975e46",
     "schemas" : [ "buyTileRule" ],
     "attributes" : [ {
       "@class" : "oogasalad.model.attribute.StringAttribute",
@@ -1488,7 +1496,7 @@
     } ]
   }, {
     "@class" : "oogasalad.model.engine.rules.DieMoveRule",
-    "id" : "6cad3ac3-d751-425f-8047-f0677789f7a4",
+    "id" : "694d549d-2c69-4d90-8b66-127ba113fdab",
     "schemas" : [ "dieRule" ],
     "attributes" : [ {
       "@class" : "oogasalad.model.attribute.IntAttribute",

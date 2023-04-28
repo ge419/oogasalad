@@ -1,5 +1,6 @@
 package oogasalad.view.tiles;
 
+import com.google.inject.Inject;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
@@ -32,6 +33,7 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
 
   private final Tile modelTile;
 
+  @Inject
   public ImageTile(Tile BTile) {
     this.setPosition(BTile.getCoordinate());
     this.modelTile = BTile;
@@ -72,7 +74,6 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
     return textBox;
   }
 
-  @Override
   public void setColor(Color color) {
 
   }
@@ -80,6 +81,12 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
   @Override
   public Tile getTile() {
     return this.modelTile;
+  }
+
+  @Override
+  public void setSize(double width, double height) {
+    this.setWidth(width);
+    this.setHeight(height);
   }
 
 
@@ -93,19 +100,16 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
     return this.modelTile.getId();
   }
 
-  @Override
   public Coordinate getPosition() {
     return null;
   }
 
-  @Override
   public void setPosition(Coordinate coord) {
     this.setLayoutX(coord.getXCoor());
     this.setLayoutY(coord.getYCoor());
     this.getTransforms().add(new Rotate(coord.getAngle(), Rotate.Z_AXIS));
   }
 
-  @Override
   public Paint getColor() {
     return null;
   }

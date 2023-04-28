@@ -15,14 +15,10 @@ abstract public class GamePiece extends ImageView implements Movable {
 
   public GamePiece(String imageURL) {
 
-    try {
-      image = new Image(new FileInputStream(imageURL));
-      this.setImage(image);
-      this.setFitHeight(PIECE_SIZE);
-      this.setFitWidth(PIECE_SIZE);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    image = new Image(imageURL);
+    this.setImage(image);
+    this.setFitHeight(PIECE_SIZE);
+    this.setFitWidth(PIECE_SIZE);
   }
 
   protected void setxCoor(double value) {

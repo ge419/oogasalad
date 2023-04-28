@@ -26,7 +26,6 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
   private static final Color UI_STROKE_COLOR = Color.BLACK;
   private final Player modelPlayer;
 
-  //TODO: take in backend player once implemented
   public PlayerUI(Player BPlayer, Coordinate coordinate) {
     modelPlayer = BPlayer;
 
@@ -35,7 +34,6 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
     this.setLayoutX(coordinate.getXCoor());
     this.setLayoutY(coordinate.getYCoor());
     this.getTransforms().add(new Rotate(coordinate.getAngle(), Rotate.Z_AXIS));
-
     ImageView playerIcon = createImage(PLAYER_WIDTH, BPlayer.getImage(), IMAGE_SCALE);
 
     getChildren().addAll(

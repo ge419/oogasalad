@@ -10,15 +10,15 @@ import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class CustomObjectBuilderWindow extends Application {
-
     private String defaultTitle = "CustomTileMaker";
-
     private Stage stage;
     private LeftPane leftPane;
     private CustomObject rightPane;
-
+    private ResourceBundle languageBundle;
     private static final int LEFT_PANE_WIDTH = 250;
     private int RIGHT_PANE_STARTING_WIDTH = 500;
     private int STARTING_HEIGHT = 500;
@@ -27,8 +27,14 @@ public class CustomObjectBuilderWindow extends Application {
 
     @Override
     public void start(Stage PrimaryStage) {
-        // Create StackPane for the right pane
+        start(PrimaryStage, "English");
+    }
+
+    public void start(Stage PrimaryStage, String defaultLanguage) {
         stage = PrimaryStage;
+        this.languageBundle = ResourceBundle.getBundle("oogasalad.languages."+ defaultLanguage);
+
+
         rightPane = new CustomObject(() -> leftPane.swapCurrentClicked(rightPane.currentClickedInfo, rightPane.newCurrentClickedInfo));
         leftPane = new LeftPane();
 
@@ -105,20 +111,23 @@ public class CustomObjectBuilderWindow extends Application {
         }
 
         private void AddButtons() {
-            Button renameButton = new Button("Name This Custom Object");
+            // Load resource bundle for current locale
+
+            Button renameButton = new Button(languageBundle.getString("renameButton.label"));
             renameButton.setOnAction(e -> rightPane.nameObject());
 
-            Button saveButton = new Button("Save Custom Object");
+            Button saveButton = new Button(languageBundle.getString("saveButton.label"));
             saveButton.setOnAction(e -> rightPane.saveLauncher());
 
-            Button loadButton = new Button("Load Custom Object");
+            Button loadButton = new Button(languageBundle.getString("loadButton.label"));
             loadButton.setOnAction(e -> rightPane.loadJson());
 
-            Button addImageButton = new Button("Add Image");
+            Button addImageButton = new Button(languageBundle.getString("addImageButton.label"));
             addImageButton.setOnAction(e -> addImage());
 
-            Button addTextButton = new Button("Add Text");
+            Button addTextButton = new Button(languageBundle.getString("addTextButton.label"));
             addTextButton.setOnAction(e -> addText());
+
 
             // Add image property fields to VBox
             this.getChildren().addAll(renameButton, saveButton, loadButton, addTextButton, addImageButton);
@@ -133,7 +142,7 @@ public class CustomObjectBuilderWindow extends Application {
 
         private CustomImage getImageFromFile() {
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Select Image File");
+            fileChooser.setTitle(languageBundle.getString("selectImageFile.label"));
             fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
             File selectedFile = fileChooser.showOpenDialog(getScene().getWindow());
 
@@ -143,7 +152,7 @@ public class CustomObjectBuilderWindow extends Application {
         }
 
         private void addText() {
-            CustomText newText = new CustomText("Default Text", "Enter Text Here", 14, false);
+            CustomText newText = new CustomText(languageBundle.getString("defaultText"), languageBundle.getString("enterTextHere"), 14, false);
             rightPane.makeDraggable(newText);
             rightPane.placeElm(newText);
         }

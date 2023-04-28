@@ -31,17 +31,33 @@ public class SimpleViewTile implements ViewTile {
     myRoot = new Group();
     myRoot.layoutXProperty().bindBidirectional(tile.positionAttribute().xProperty());
     myRoot.layoutYProperty().bindBidirectional(tile.positionAttribute().yProperty());
-
+    myRoot.rotateProperty().bindBidirectional(tile.positionAttribute().angleProperty());
     generateTile();
     tile.viewTypeAttribute().valueProperty().addListener(
         (observable, oldValue, newValue) -> generateTile()
     );
+//    myRoot.boundsInLocalProperty().addListener(((observable, oldValue, newValue) -> {
+//      tile.setWidth(newValue.getWidth());
+//      tile.setHeight(newValue.getHeight());
+//    }));
+
+    tile.widthAttribute().valueProperty().addListener(((observable, oldValue, newValue) -> {
+//      myRoot.minWidth(newValue.doubleValue());
+//      myRoot.maxWidth(newValue.doubleValue());
+//      myConcreteTile.asNode().minWidth(newValue.doubleValue());
+//      myConcreteTile.asNode().maxWidth(newValue.doubleValue());
+//      myConcreteTile.asNode().resize(100, 50);
+      System.out.println("DOING THING");
+      myRoot.resize(100, 50);
+      myConcreteTile.asNode().resize(100, 50);
+    }));
+
   }
 
 
   private void generateTile() {
-    ViewTile viewTile = createConcreteTile(myTile.getViewType(), myTile);
-    myRoot.getChildren().setAll(viewTile.asNode());
+    myConcreteTile = createConcreteTile(myTile.getViewType(), myTile);
+    myRoot.getChildren().setAll(myConcreteTile.asNode());
   }
 
   public ViewTile createConcreteTile(String type, Tile tile) {

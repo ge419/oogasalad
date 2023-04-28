@@ -6,20 +6,27 @@ import oogasalad.model.constructable.AbstractGameConstruct;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
+import oogasalad.model.engine.actions.ActionFactory;
 import oogasalad.model.engine.events.ChooseNumberOfPlayerPiecesEvent;
 import oogasalad.model.engine.events.StartTurnEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class NumberOfPlayerPieceRule extends AbstractGameConstruct implements EditableRule{
 
   public static final String SCHEMA_NAME = "numberOfPiecesPerPlayerRule";
 
+  private static final Logger LOGGER = LogManager.getLogger(NumberOfPlayersRule.class);
   private final GameHolder gameHolder;
+  private final ActionFactory actionFactory;
 
   protected NumberOfPlayerPieceRule(String baseSchema,
       @JacksonInject SchemaDatabase database,
-      @JacksonInject GameHolder gameHolder) {
+      @JacksonInject GameHolder gameHolder,
+      @JacksonInject ActionFactory actionFactory) {
     super(SCHEMA_NAME, database);
     this.gameHolder = gameHolder;
+    this.actionFactory = actionFactory;
   }
 
   @Override
@@ -28,6 +35,6 @@ public class NumberOfPlayerPieceRule extends AbstractGameConstruct implements Ed
   }
 
   private void setPlayerPieces(EventHandlerParams<ChooseNumberOfPlayerPiecesEvent> eventHandlerParams){
-    
+    eventHandlerParams.actionQueue().add(1, actionFactory.makeCreatePlayerPieceAction());
   }
 }

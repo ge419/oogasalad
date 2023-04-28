@@ -18,7 +18,9 @@ import oogasalad.view.Coordinate;
 import oogasalad.view.builder.BuilderModule;
 import oogasalad.view.builder.BuilderView;
 import oogasalad.view.tiles.BasicTile;
+import oogasalad.view.tiles.SimpleViewTile;
 import oogasalad.view.tiles.ViewTile;
+import oogasalad.view.tiles.ViewTileFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,11 +42,13 @@ public class BuilderController {
   private SchemaDatabase db;
   private GameHolder gameHolder;
   private GameHolderBuilder gameHolderBuilder;
+  private ViewTileFactory viewTileFactory;
 
   @Inject
   public BuilderController(
       String injectedLanguage,
-      BuilderFactory injectedBuilderFactory
+      BuilderFactory injectedBuilderFactory,
+      ViewTileFactory tileFactory
 //      BuilderView view
   ) {
     //TODO: use dependency injection
@@ -52,6 +56,7 @@ public class BuilderController {
 //    builderView = builderInjector.getInstance(BuilderView.class);
 //    String theString = givenLanguage;
     builderView = injectedBuilderFactory.makeBuilder(injectedLanguage, this);
+    viewTileFactory = tileFactory;
 //    builderView = view;
 //    builder = new BBuilder();
     System.out.println("made builder");
@@ -73,8 +78,8 @@ public class BuilderController {
     Tile t = new Tile(db);
     t.setCoordinate(pos);
     board.addTile(t);
-    ViewTile tile = new BasicTile(t);
-    tile.setId("Tile" + board.getTileCount());
+    ViewTile tile = viewTileFactory.createDynamicViewTile(t);
+//    tile.setId("Tile" + board.getTileCount());
     return tile;
   }
 

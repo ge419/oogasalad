@@ -25,7 +25,8 @@ public interface ViewTile{
    *
    * @return double of size 2 with x and y position
    */
-  Coordinate getPosition();
+//  @Deprecated
+//  Coordinate getPosition();
 
   /**
    * <p>Sets the position of the tile.</p>
@@ -33,21 +34,24 @@ public interface ViewTile{
    *
    * @param coord Coordinate that you want the tile to go to.
    */
-  void setPosition(Coordinate coord);
+//  @Deprecated
+//  void setPosition(Coordinate coord);
 
   /**
    * Returns the current color of a tile.
    *
    * @return color of tile
    */
-  Paint getColor();
+//  @Deprecated
+//  Paint getColor();
 
   /**
    * Set the color of a tile using a color object.
    *
    * @param color color you want the tile to be.
    */
-  void setColor(Color color);
+//  @Deprecated
+//  void setColor(Color color);
 
   /**
    * Returns the backend tile contained within the frontend tile.
@@ -59,7 +63,8 @@ public interface ViewTile{
    * Sets the ID for a given tile.
    * @param tiles
    */
-  void setId(String tiles);
+//  @Deprecated
+//  void setId(String tiles);
 
   /**
    * <p>Returns the node that encompasses this tile.

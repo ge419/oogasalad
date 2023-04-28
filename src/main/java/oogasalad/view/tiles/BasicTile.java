@@ -1,5 +1,6 @@
 package oogasalad.view.tiles;
 
+import com.google.inject.Inject;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -13,10 +14,11 @@ public class BasicTile extends Rectangle implements ViewTile {
 
   private final Tile modelTile;
 
+  @Inject
   public BasicTile(Tile tile) {
     super(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
-    xProperty().bind(tile.positionAttribute().xProperty());
-    yProperty().bind(tile.positionAttribute().yProperty());
+//    xProperty().bind(tile.positionAttribute().xProperty());
+//    yProperty().bind(tile.positionAttribute().yProperty());
     widthProperty().bind(tile.widthAttribute().valueProperty());
     heightProperty().bind(tile.heightAttribute().valueProperty());
     this.modelTile = tile;
@@ -53,7 +55,6 @@ public class BasicTile extends Rectangle implements ViewTile {
     return modelTile.getCoordinate();
   }
 
-  @Override
   public void setPosition(Coordinate coord) {
     this.setX(coord.getXCoor());
     this.setY(coord.getYCoor());
@@ -63,7 +64,6 @@ public class BasicTile extends Rectangle implements ViewTile {
     return this.getFill();
   }
 
-  @Override
   public void setColor(Color color) {
     this.setFill(color);
   }

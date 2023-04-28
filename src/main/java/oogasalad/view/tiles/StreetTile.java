@@ -1,5 +1,6 @@
 package oogasalad.view.tiles;
 
+import com.google.inject.Inject;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -25,6 +26,7 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
   public static final String COLOR_ATTRIBUTE = "color";
   private final Tile modelTile;
 
+  @Inject
   public StreetTile(Tile BTile) {
     this.modelTile = BTile;
 
@@ -84,7 +86,6 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
     return textBox;
   }
 
-  @Override
   public void setColor(Color color) {
 
   }
@@ -105,19 +106,16 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
     return this.modelTile.getId();
   }
 
-  @Override
   public Coordinate getPosition() {
     return null;
   }
 
-  @Override
   public void setPosition(Coordinate coord) {
     this.setLayoutX(coord.getXCoor());
     this.setLayoutY(coord.getYCoor());
     this.getTransforms().add(new Rotate(coord.getAngle(), Rotate.Z_AXIS));
   }
 
-  @Override
   public Paint getColor() {
     return null;
   }

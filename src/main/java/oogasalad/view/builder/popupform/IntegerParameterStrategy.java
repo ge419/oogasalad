@@ -49,7 +49,7 @@ public class IntegerParameterStrategy implements ParameterStrategy, BuilderUtili
      * @return HBox containing a labeled integer spinner
      */
     @Override
-    public Node renderInput(ResourceBundle resourceBundle, Pane form) {
+    public Node renderInput(ResourceBundle resourceBundle, Pane form, String objectId) {
         String name = meta.getName();
         Node textLabel = new Text(name);
         element = (Spinner<Integer>) makeIntSpinner(name, meta.getMinValue(), meta.getMaxValue(),

@@ -10,15 +10,7 @@ import java.util.ResourceBundle;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import oogasalad.model.attribute.Attribute;
-import oogasalad.model.attribute.DoubleMetadata;
-import oogasalad.model.attribute.IntMetadata;
-import oogasalad.model.attribute.Metadata;
-import oogasalad.model.attribute.ObjectSchema;
-import oogasalad.model.attribute.PositionMetadata;
-import oogasalad.model.attribute.StringMetadata;
-import oogasalad.model.attribute.TileListMetadata;
-import oogasalad.model.attribute.TileMetadata;
+import oogasalad.model.attribute.*;
 import oogasalad.model.constructable.GameConstruct;
 import oogasalad.view.builder.BuilderUtility;
 import org.apache.logging.log4j.LogManager;
@@ -47,6 +39,7 @@ public class PopupForm implements BuilderUtility {
     private final Pane form;
     private final Map<Class<? extends Metadata>, ParameterStrategyCreator> strategyMap;
     private final List<ParameterStrategy> currentParameters;
+    private String objectID;
 
     /**
      * Initializes the popupform and populates the given Pane with the form content.
@@ -58,6 +51,7 @@ public class PopupForm implements BuilderUtility {
         this.resourceBundle = resourceBundle;
         this.gameConstruct = gameConstruct;
         this.form = form;
+        this.objectID = gameConstruct.getId();
         // TODO: Create injector in controller
         Injector injector = Guice.createInjector(new PopupFormModule());
         this.factory = injector.getInstance(ParameterStrategyFactory.class);
@@ -76,7 +70,9 @@ public class PopupForm implements BuilderUtility {
             DoubleMetadata.class, factory::buildDoubleParameter,
             PositionMetadata.class, factory::buildPositionParameter,
             TileMetadata.class, factory::buildTileParameter,
-            TileListMetadata.class, factory::buildTileListParameter
+            TileListMetadata.class, factory::buildTileListParameter,
+            ColorMetadata.class, factory::buildColorParameter,
+            ImageMetadata.class, factory::buildImageParameter
         );
     }
 
@@ -122,7 +118,7 @@ public class PopupForm implements BuilderUtility {
             }
 
             currentParameters.add(parameterStrategy.get());
-            form.getChildren().add(parameterStrategy.get().renderInput(resourceBundle, form));
+            form.getChildren().add(parameterStrategy.get().renderInput(resourceBundle, form, objectID));
         }
 
         form.getChildren().add(makeButton("SubmitForm", resourceBundle, e -> saveInputToObject()));

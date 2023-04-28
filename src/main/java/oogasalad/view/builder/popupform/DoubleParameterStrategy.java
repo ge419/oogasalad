@@ -49,7 +49,7 @@ public class DoubleParameterStrategy implements ParameterStrategy, BuilderUtilit
      * @return HBox containing labeled JavaFX double spinner
      */
     @Override
-    public Node renderInput(ResourceBundle resourceBundle, Pane form) {
+    public Node renderInput(ResourceBundle resourceBundle, Pane form, String objectId) {
         String name = meta.getName();
         Node textLabel = new Text(name);
         element = (Spinner<Double>) makeDoubleSpinner(name, meta.getMinValue(), meta.getMaxValue(),

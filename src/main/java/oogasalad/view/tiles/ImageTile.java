@@ -37,7 +37,6 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
     this.modelTile = BTile;
 
     Rectangle tileBackground = createBackground(BTile.getWidth(), BTile.getHeight(), TILE_BACKGROUND, TILE_STROKE_COLOR);
-//    System.out.println(createBackground.getX());
     ImageView tileImage = createImage(BTile.getWidth(),
         StringAttribute.from(BTile.getAttribute(IMAGE_ATTRIBUTE).get()).getValue(), IMAGE_SCALE);
 
@@ -48,17 +47,16 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
 
     //TODO: change this temporary behavior when tile is bought
     //TODO: depend on if attribute is present
-    PlayerAttribute ownerAttribute =
-        PlayerAttribute.from(modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE).get());
-    ownerAttribute.idProperty().addListener(((observable, oldValue, isOwned) -> {
-      if (isOwned.isPresent()) {
-        for (Node child : this.getChildren()) {
-          child.setStyle("-fx-background-color: red;");
-        }
-      } else {
-        //do nothing
-      }
-    }));
+    modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE)
+        .map(PlayerAttribute::from)
+        .map(PlayerAttribute::idProperty)
+        .ifPresent(prop -> prop.addListener((observable, oldValue, newValue) ->
+            newValue.ifPresentOrElse(
+                // Tile is owned
+                id -> this.setColor(Color.RED),
+                // Tile is not owned
+                () -> this.setColor(Color.LIGHTBLUE)
+            )));
   }
 
   @Override

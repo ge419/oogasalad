@@ -75,11 +75,9 @@ public class Gameview {
     die.render(UIroot);
 
     //TODO: retrieve number of players and piece per player from launcher/builder
-
     // TODO: Dynamically watch players/pieces
     players = setPlayers(3);
     game.setPlayers(players);
-
     playerPieceMap = setPlayersPieces(1);
 
     ViewPlayers ViewPlayers = new ViewPlayers(players);

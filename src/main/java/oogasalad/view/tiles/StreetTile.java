@@ -35,18 +35,17 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
 
     //TODO: change this temporary behavior when tile is bought
     //TODO: depend on if attribute is present
-    PlayerAttribute ownerAttribute =
-        PlayerAttribute.from(modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE).get());
-    ownerAttribute.idProperty().addListener(((observable, oldValue, isOwned) -> {
-      if (isOwned.isPresent()) {
-        for (Node child : this.getChildren()) {
-          child.setStyle("-fx-background-color: red;");
-        }
-      } else {
-        //do nothing
-      }
-    }));
 
+    modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE)
+        .map(PlayerAttribute::from)
+        .map(PlayerAttribute::idProperty)
+        .ifPresent(prop -> prop.addListener((observable, oldValue, newValue) ->
+            newValue.ifPresentOrElse(
+                // Tile is owned
+                id -> this.setColor(Color.RED),
+                // Tile is not owned
+                () -> this.setColor(Color.LIGHTBLUE)
+            )));
   }
   private Rectangle createBar(double width, double height, String color) {
     Rectangle bar = new Rectangle();

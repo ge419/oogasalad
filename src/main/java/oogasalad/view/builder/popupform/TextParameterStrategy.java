@@ -12,7 +12,16 @@ import oogasalad.model.attribute.Metadata;
 import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.attribute.StringMetadata;
 import oogasalad.view.builder.BuilderUtility;
-
+/**
+ * A strategy used by the popup form to display a form element when
+ * an image path is required from the user via user input. This consists
+ * of one button that opens a file dialog when clicked.
+ * Example Usage:
+ * VBox form = new VBox();
+ * ImageParameterStrategy strategy = new ImageParameterStrategy(myImageAttribute, myImageMetadata);
+ * form.getChildren().add(strategy.renderInput(myResourceBundle, form));
+ * @author Jason Fitzpatrick
+ */
 public class TextParameterStrategy implements ParameterStrategy, BuilderUtility {
 
   private final StringAttribute attr;

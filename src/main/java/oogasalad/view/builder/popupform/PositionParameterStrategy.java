@@ -46,6 +46,14 @@ public class PositionParameterStrategy implements ParameterStrategy, BuilderUtil
     private static final String ROOT_ID = "#BoardPane";
     private Pane root;
 
+    /**
+     * Creates an instance of PositionParameterStrategy
+     * Can be used to display form data to a user for coordinates,
+     * validate the input, save to an attribute, and access
+     * the corresponding PositionAttribute and PositionMetadata
+     * @param attr PositionAttribute
+     * @param meta PositionMetadata
+     */
     @Inject
     public PositionParameterStrategy(
             @Assisted Attribute attr,
@@ -57,8 +65,8 @@ public class PositionParameterStrategy implements ParameterStrategy, BuilderUtil
     /**
      * Returns a JavaFX form element for a coordinate attribute
      * @param resourceBundle
-     * @param form
-     * @return
+     * @param form parent pane of element
+     * @return HBox containing labeled JavaFX spinners for X, Y, Angle
      */
     @Override
     public Node renderInput(ResourceBundle resourceBundle, Pane form) {
@@ -83,21 +91,37 @@ public class PositionParameterStrategy implements ParameterStrategy, BuilderUtil
             yElement.getValueFactory().setValue(tile.asNode().getBoundsInParent().getMinY());
         });
     }
+
+    /**
+     * Saves input to instance's PositionAttribute
+     */
     @Override
     public void saveInput() {
         attr.setCoordinate(new Coordinate(xElement.getValue(), yElement.getValue(), angleElement.getValue()));
     }
 
+    /**
+     * Uses metadata to validate user input
+     * @return boolean (true means input is valid)
+     */
     @Override
     public boolean isInputValid() {
         return meta.isValidCoordinate(getFieldValue());
     }
 
+    /**
+     * Gets PositionMetadata
+     * @return PositionMetadata
+     */
     @Override
     public Metadata getMetadata() {
         return meta;
     }
 
+    /**
+     * Gets PositionAttribute
+     * @return PositionAttribute
+     */
     @Override
     public Attribute getAttribute() {
         return attr;

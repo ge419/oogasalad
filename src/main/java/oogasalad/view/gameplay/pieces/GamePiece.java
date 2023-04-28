@@ -14,7 +14,6 @@ abstract public class GamePiece extends ImageView implements Movable {
   private double yCoor;
 
   public GamePiece(String imageURL) {
-
     image = new Image(imageURL);
     this.setImage(image);
     this.setFitHeight(PIECE_SIZE);

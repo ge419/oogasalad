@@ -1,11 +1,14 @@
 package oogasalad.view.gameplay;
 
+import com.google.cloud.Tuple;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javafx.beans.property.ObjectProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -23,6 +26,7 @@ import oogasalad.view.gameplay.Players.ViewPlayers;
 import oogasalad.view.gameplay.pieces.ViewPieces;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
 import oogasalad.view.tiles.Tiles;
+import org.checkerframework.checker.units.qual.A;
 
 public class Gameview {
 
@@ -38,6 +42,8 @@ public class Gameview {
   private Die die;
   private final GameController gc;
   private Scene scene;
+  private Players players;
+  private Map<Player, List<Piece>> playerPieceMap;
 
   @Inject
   public Gameview(
@@ -51,13 +57,12 @@ public class Gameview {
     this.pieceProvider = pieceProvider;
     this.playerObjectProperty = new ArrayList<>();
     this.playerPieceObjectProperty = new ArrayList<>();
+    this.players = new Players();
+    this.playerPieceMap = new HashMap<>();
   }
 
   public void renderGameview(Stage primaryStage) throws IOException {
     BorderPane UIroot = new BorderPane();
-
-    //TODO: retrieve which and how many frontend components there are from builder and loop through
-    // to render each component
 
     Renderable board = new Board();
     board.render(UIroot);
@@ -69,41 +74,27 @@ public class Gameview {
     die = new Die();
     die.render(UIroot);
 
+    //TODO: retrieve number of players and piece per player from launcher/builder
+
     // TODO: Dynamically watch players/pieces
-    Player player1 = playerProvider.get();
-    // playerPieceObjectProperty.add();
-    Player player2 = playerProvider.get();
-    Player player3 = playerProvider.get();
-    Players bPlayers = new Players(List.of(player1, player2, player3));
-    bPlayers.randomize();
-    game.setPlayers(bPlayers);
+    players = setPlayers(3);
+    game.setPlayers(players);
 
-    Piece piece1 = pieceProvider.get();
-    piece1.setImage(player1.getImage());
-    Piece piece2 = pieceProvider.get();
-    piece2.setImage(player2.getImage());
-    Piece piece3 = pieceProvider.get();
-    piece3.setImage(player3.getImage());
-    piece1.setPlayer(player1);
-    piece2.setPlayer(player2);
-    piece3.setPlayer(player3);
-    player1.getPieces().add(piece1);
-    player2.getPieces().add(piece2);
-    player3.getPieces().add(piece3);
+    playerPieceMap = setPlayersPieces(1);
 
-    ViewPlayers players = new ViewPlayers(List.of(player1, player2, player3));
-    players.render(UIroot);
+    ViewPlayers ViewPlayers = new ViewPlayers(players);
+    ViewPlayers.render(UIroot);
 
-    ViewPieces viewPieces = new ViewPieces(List.of(piece1, piece2, piece3));
+    List<Piece> pieceList = new ArrayList<>();
+    for (List<Piece> pList : playerPieceMap.values()) {
+      pieceList.addAll(pList);
+    }
+    ViewPieces viewPieces = new ViewPieces(pieceList);
     viewPieces.render(UIroot);
 
     for (PlayerPiece piece : viewPieces.getPieceList()) {
       piece.moveToTile(game.getBoard().getTiles().get(0));
     }
-
-    //TODO: take in backend player when appropriate attributes are implemented
-//    players = new ViewPlayers(b.getPlayers());
-//    players.render(UIroot);
 
     scene = new Scene(UIroot);
 
@@ -123,5 +114,30 @@ public class Gameview {
     return this.die;
   }
 
+  private Players setPlayers(int numPlayers) throws IOException {
+    List<Player> playerList = new ArrayList<>();
+    for (int i = 0; i < numPlayers; i++) {
+      Player player = playerProvider.get();
+      playerList.add(player);
+    }
+    Players ret = new Players(playerList);
+    ret.randomize();
+    return ret;
+  }
 
+   private Map setPlayersPieces(int piecePerPlayer) {
+    Map<Player, List<Piece>> playerPieceMap = new HashMap();
+    for (Player p : players.getPlayers()) {
+      List<Piece> pieceList = new ArrayList<>();
+      for (int j = 0; j < piecePerPlayer; j++) {
+        Piece piece = pieceProvider.get();
+        piece.setImage(p.getImage());
+        piece.setPlayer(p);
+        p.getPieces().add(piece);
+        pieceList.add(piece);
+      }
+      playerPieceMap.put(p, pieceList);
+    }
+    return playerPieceMap;
+  }
 }

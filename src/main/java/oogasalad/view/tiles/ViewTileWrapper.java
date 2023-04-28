@@ -43,8 +43,10 @@ public class ViewTileWrapper implements ViewTile {
     );
     this.myTileFactory = tileFactory;
     myRoot = new Group();
-    bindPositionAttributes(myTile);
-    bindRotationAttributes(myTile);
+    myRoot.layoutXProperty().bindBidirectional(tile.positionAttribute().xProperty());
+    myRoot.layoutYProperty().bindBidirectional(tile.positionAttribute().yProperty());
+//    bindPositionAttributes(tile);
+//    bindRotationAttributes(tile);
     generateTile();
     tile.viewTypeAttribute().valueProperty().addListener(
         (observable, oldValue, newValue) -> generateTile()
@@ -96,6 +98,7 @@ public class ViewTileWrapper implements ViewTile {
 
   @Override
   public Node asNode() {
-    return myConcreteTile.asNode();
+//    return myConcreteTile.asNode();
+    return myRoot;
   }
 }

@@ -71,27 +71,30 @@ public class Gameview {
 
     // TODO: Dynamically watch players/pieces
     Player player1 = playerProvider.get();
-    player1.setColor("0000FF");
-    player1.setImage("view.gameplay/piece_1.png");
     // playerPieceObjectProperty.add();
     Player player2 = playerProvider.get();
-    player2.setColor("00FF00");
-    player2.setImage("view.gameplay/piece_1.png");
-    game.setPlayers(new Players(List.of(player1, player2)));
+    Player player3 = playerProvider.get();
+    Players bPlayers = new Players(List.of(player1, player2, player3));
+    bPlayers.randomize();
+    game.setPlayers(bPlayers);
 
     Piece piece1 = pieceProvider.get();
     piece1.setImage(player1.getImage());
     Piece piece2 = pieceProvider.get();
     piece2.setImage(player2.getImage());
+    Piece piece3 = pieceProvider.get();
+    piece3.setImage(player3.getImage());
     piece1.setPlayer(player1);
     piece2.setPlayer(player2);
+    piece3.setPlayer(player3);
     player1.getPieces().add(piece1);
     player2.getPieces().add(piece2);
+    player3.getPieces().add(piece3);
 
-    ViewPlayers players = new ViewPlayers(List.of(player1, player2));
+    ViewPlayers players = new ViewPlayers(List.of(player1, player2, player3));
     players.render(UIroot);
 
-    ViewPieces viewPieces = new ViewPieces(List.of(piece1, piece2));
+    ViewPieces viewPieces = new ViewPieces(List.of(piece1, piece2, piece3));
     viewPieces.render(UIroot);
 
     for (PlayerPiece piece : viewPieces.getPieceList()) {
@@ -119,8 +122,6 @@ public class Gameview {
   public Die getDie() {
     return this.die;
   }
-
-
 
 
 }

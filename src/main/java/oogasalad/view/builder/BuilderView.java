@@ -99,7 +99,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     Optional<File> file = directoryGet(builderResource, "SaveGameTitle");
     if (file.isPresent()) {
       String givenDirectory = file.get().getPath();
-      myBuilderController.save(givenDirectory);
+      // myBuilderController.save(givenDirectory);
       System.out.println(givenDirectory);
     } else {
       // todo: replace with LOG

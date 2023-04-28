@@ -21,7 +21,7 @@ import javax.inject.Inject;
  * form.getChildren().add(strategy.renderInput(myResourceBundle, form));
  * @author Jason Fitzpatrick
  */
-class ColorParameterStrategy implements ParameterStrategy, BuilderUtility {
+public class ColorParameterStrategy implements ParameterStrategy, BuilderUtility {
     private final ColorAttribute attr;
     private final ColorMetadata meta;
     private ColorPicker element = new ColorPicker();

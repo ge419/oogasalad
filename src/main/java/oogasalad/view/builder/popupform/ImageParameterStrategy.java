@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 /**
@@ -26,10 +27,11 @@ import java.util.ResourceBundle;
  * form.getChildren().add(strategy.renderInput(myResourceBundle, form));
  * @author Jason Fitzpatrick
  */
-class ImageParameterStrategy implements ParameterStrategy, BuilderUtility {
+public class ImageParameterStrategy implements ParameterStrategy, BuilderUtility {
     private final ImageAttribute attr;
     private final ImageMetadata meta;
-    private Image image;
+    private String imagePath;
+    private List<String> validExtensions = List.of("jpg", "png");
     /**
      * Creates an instance of ImageParameterStrategy
      * Can be used to display form data to a user for an image,
@@ -60,8 +62,8 @@ class ImageParameterStrategy implements ParameterStrategy, BuilderUtility {
             public void handle(ActionEvent event) {
                 Optional<File> file = fileLoad(resourceBundle, "UploadFileTitle");
                 try {
-                    image = new Image(new FileInputStream(file.get().getPath()));
-                } catch (FileNotFoundException e) {
+                    imagePath = file.get().getPath().toString();
+                } catch (Exception e) {
                     System.out.println("File for image not found");
                 }
             }
@@ -101,6 +103,6 @@ class ImageParameterStrategy implements ParameterStrategy, BuilderUtility {
     }
 
     private String getFieldValue() {
-        return image.getUrl();
+        return imagePath;
     }
 }

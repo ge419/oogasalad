@@ -81,6 +81,6 @@ public class BasicTile extends Rectangle implements ViewTile {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    return this.getTileId() == ((BasicTile) o).getTileId();
+    return this.getTileId().equals(((BasicTile) o).getTileId());
   }
 }

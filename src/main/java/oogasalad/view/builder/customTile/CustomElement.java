@@ -5,6 +5,7 @@ import javafx.scene.layout.VBox;
 import oogasalad.model.attribute.Metadata;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.nio.file.Path;
 
 public interface CustomElement {
@@ -18,6 +19,8 @@ public interface CustomElement {
                 return new CustomImage(jsonObject);
             case "CustomText":
                 return new CustomText(jsonObject);
+//            case "CustomColorBox":
+//                return new CustomColorBox(jsonObject);
 
 
             // add more cases for each type of object you need to support
@@ -32,22 +35,34 @@ public interface CustomElement {
 
     int getIndex();
 
+    String getName();
+
+    void setName(String text);
+
+    boolean isEditable();
+
+    void setEditable(boolean selected);
+
     Metadata getMetaData();
 
 
+
+
     //TODO Figure out why the CustomImage class isn't found on reflect
-//    static CustomObject load(JsonObject jsonObject) {
+//    static CustomElement load(JsonObject jsonObject) {
 //        String type = jsonObject.get("type").getAsString().strip();
 //        System.out.println("type = " + type);
 //        try {
-//            Class<?> clazz = Class.forName(type);
-//            if (!CustomObject.class.isAssignableFrom(clazz)) {
-//                throw new RuntimeException("Class " + type + " does not implement CustomObject interface");
+////            Class<?> clazz = Class.forName(type);
+//            Class<?> clazz = Class.forName("CustomImage");
+//
+//            if (!CustomElement.class.isAssignableFrom(clazz)) {
+//                throw new RuntimeException("Class " + type + " does not implement CustomElement interface");
 //            }
 //            Constructor<?> constructor = clazz.getConstructor(JsonObject.class);
-//            return (CustomObject) constructor.newInstance(jsonObject);
+//            return (CustomElement) constructor.newInstance(jsonObject);
 //        } catch (Exception e) {
-//            throw new RuntimeException("Error loading CustomObject", e);
+//            throw new RuntimeException("Error loading CustomElement", e);
 //        }
 //    }
 

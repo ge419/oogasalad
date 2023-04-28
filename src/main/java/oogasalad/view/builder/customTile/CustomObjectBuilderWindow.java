@@ -128,9 +128,12 @@ public class CustomObjectBuilderWindow extends Application {
             Button addTextButton = new Button(languageBundle.getString("addTextButton.label"));
             addTextButton.setOnAction(e -> addText());
 
+            Button addColorButton = new Button(languageBundle.getString("addColorButton.label"));
+            addColorButton.setOnAction(e -> addColorBox());
+
 
             // Add image property fields to VBox
-            this.getChildren().addAll(renameButton, saveButton, loadButton, addTextButton, addImageButton);
+            this.getChildren().addAll(renameButton, saveButton, loadButton, addTextButton, addImageButton, addColorButton);
         }
 
 
@@ -152,9 +155,16 @@ public class CustomObjectBuilderWindow extends Application {
         }
 
         private void addText() {
-            CustomText newText = new CustomText(languageBundle.getString("defaultText"), languageBundle.getString("enterTextHere"), 14, false);
-            rightPane.makeDraggable(newText);
+            CustomText newText = new CustomText(languageBundle.getString("defaultText").toString());
             rightPane.placeElm(newText);
+        }
+
+        private void addColorBox() {
+            CustomColorBox newBox = new CustomColorBox();
+            rightPane.placeElm(newBox);
+            this.setTranslateX(0);
+            this.setTranslateY(0);
+
         }
 
         private void swapCurrentClicked(VBox oldClickedInfo, VBox newClickedInfo){
@@ -163,5 +173,7 @@ public class CustomObjectBuilderWindow extends Application {
         }
 
     }
+
+
 }
 

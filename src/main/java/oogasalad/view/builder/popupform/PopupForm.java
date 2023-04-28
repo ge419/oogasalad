@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oogasalad.model.attribute.Attribute;
 import oogasalad.model.attribute.DoubleMetadata;
@@ -82,7 +81,7 @@ public class PopupForm implements BuilderUtility {
             return Optional.empty();
         }
 
-        Attribute attribute = gameConstruct.getAttribute(metadata.getKey());
+        Attribute attribute = gameConstruct.getAttribute(metadata.getKey()).get();
         return Optional.of(creator.build(attribute, metadata));
     }
 

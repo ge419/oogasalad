@@ -1,10 +1,12 @@
 package oogasalad.model.engine.rules;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import java.util.List;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 import oogasalad.model.attribute.SchemaBinding;
 import oogasalad.model.engine.ActionQueue;
 import oogasalad.model.engine.EventRegistrar;
@@ -29,6 +31,7 @@ public interface Rule {
    * Returns a list of schema bindings representing the attributes this rule adds onto other
    * schemas.
    */
+  @JsonIgnore
   default List<SchemaBinding> getAppliedSchemas() {
     return appliedSchemasProperty().get();
   }
@@ -37,6 +40,6 @@ public interface Rule {
    * Returns a property corresponding to {@link Rule#getAppliedSchemas()}.
    */
   default ReadOnlyListProperty<SchemaBinding> appliedSchemasProperty() {
-    return new SimpleListProperty<>();
+    return new SimpleListProperty<>(FXCollections.observableArrayList());
   }
 }

@@ -98,13 +98,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   public void saveFile() {
     Optional<File> file = directoryGet(builderResource, "SaveGameTitle");
     if (file.isPresent()) {
-//      ImmutableGameHolder game = createGameHolder();
       String givenDirectory = file.get().getPath();
-      // Send file to the controller to properly save.
-      //Controller.save(ImmutableGameHolder);
-      //bc.save();
+      myBuilderController.save(givenDirectory);
       System.out.println(givenDirectory);
-      //return Optional.ofNullable(game);
     } else {
       // todo: replace with LOG
       System.out.println("Ruh-roh, can't save to a file that doesn't exist!");

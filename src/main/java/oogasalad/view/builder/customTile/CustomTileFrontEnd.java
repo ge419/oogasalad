@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -30,6 +31,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public class CustomTileFrontEnd extends Group implements ViewTile {
@@ -42,21 +44,63 @@ public class CustomTileFrontEnd extends Group implements ViewTile {
 
     private final Tile modelTile;
     @Inject
-    public CustomTileFrontEnd(Tile BTile, SchemaDatabase database) {
-        ObjectSchema schema = loadJson();
-        database.addCustomSchema(schema);
+    public CustomTileFrontEnd(@Assisted Tile BTile, SchemaDatabase database) {
         this.modelTile = BTile;
-        ArrayList<String> names = new ArrayList<>(modelTile.getSchemaNames());
-        names.add(schema.getName());
-        modelTile.setJsonSchemaNames(names);
+        String jsonFile = "";
+                //StringAttribute.from(modelTile.getAttribute("customJson").get()).getValue();
+
+        /*
+        If jsonFile is empty this is coming from the builder
+         */
+        if (jsonFile.isEmpty()) {
+            jsonFile = chooseJsonFile().toString();
+            ObjectSchema schema = loadJsonForBuilder(jsonFile);
+            database.addCustomSchema(schema);
+            ArrayList<String> names = new ArrayList<>(modelTile.getSchemaNames());
+            names.add(schema.getName());
+            modelTile.setJsonSchemaNames(names);
+        }
+        else{
+            try {
+                loadForGamePlay(jsonFile);
+            } catch (IOException e) {
+                throw new RuntimeException(e); //F-off
+            }
+        }
     }
 
-    ObjectSchema loadJson() {
+    private void loadForGamePlay(String jsonFile) throws IOException {
+        StackPane s = new StackPane();
+        File selectedFile = new File(jsonFile);
+        JsonObject jsonObject = readJsonFromFile(selectedFile);
+        s.setPrefHeight(jsonObject.get("height").getAsDouble()*SCALE_DOWN_FACTOR);
+        s.setPrefWidth(jsonObject.get("width").getAsDouble()*SCALE_DOWN_FACTOR);
+        //Something to preserve aspect ratio
+        name = jsonObject.get("name").getAsString();
+        JsonArray customObjects = jsonObject.getAsJsonArray("customObjects");
+        for (JsonElement jsonElement : customObjects) {
+            JsonObject customObject = jsonElement.getAsJsonObject();
+            CustomElement loadedObject = CustomElement.load(customObject);
+            String loadedValue = StringAttribute.from(modelTile.getAttribute(loadedObject.getName()).get()).getValue();
+            if (!loadedValue.isEmpty()) {
+                //loadedObject.setValue(loadedValue);
+            }
+            if (loadedObject.getIndex() != -1){
+                s.getChildren().add(loadedObject.getIndex(), (Node) loadedObject);
+            }
+            else{
+                s.getChildren().add((Node) loadedObject);
+            }
+            loadedObject.setLocation();
+        }
+    }
+
+    ObjectSchema loadJsonForBuilder(String file) {
         this.getChildren().clear();
 
         StackPane s = new StackPane();
 
-        File selectedFile = chooseJsonFile();
+        File selectedFile = new File(file);
         if (selectedFile != null) {
             try {
                 JsonObject jsonObject = readJsonFromFile(selectedFile);
@@ -66,6 +110,7 @@ public class CustomTileFrontEnd extends Group implements ViewTile {
                 name = jsonObject.get("name").getAsString();
                 JsonArray customObjects = jsonObject.getAsJsonArray("customObjects");
                 List<Metadata> metadataList = new ArrayList<>();
+                //metadataList.add(makeNameMetadata());
                 for (JsonElement jsonElement : customObjects) {
                     JsonObject customObject = jsonElement.getAsJsonObject();
                     CustomElement loadedObject = CustomElement.load(customObject);

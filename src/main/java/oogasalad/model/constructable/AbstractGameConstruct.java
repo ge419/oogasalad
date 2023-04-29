@@ -72,7 +72,7 @@ public abstract class AbstractGameConstruct implements GameConstruct {
       attributeMap.put(attribute.getKey(), attribute);
     }
 
-    reconcileAttributes();
+    reconcileAttributes(getSchema());
   }
 
   @Override
@@ -104,8 +104,9 @@ public abstract class AbstractGameConstruct implements GameConstruct {
 
     this.schemaNames = new ArrayList<>(newSchemaNames);
     ObjectSchema newSchema = SchemaUtilities.concatenateSchemas(schemas);
+    reconcileAttributes(newSchema);
+
     this.schemaProperty.setValue(newSchema);
-    reconcileAttributes();
   }
 
   @Override
@@ -146,8 +147,8 @@ public abstract class AbstractGameConstruct implements GameConstruct {
    * added back.
    * TODO: add a mechanism to delete unused attributes before serialization?
    */
-  private void reconcileAttributes() {
-    for (Metadata metadata : getSchema().getAllMetadata()) {
+  private void reconcileAttributes(ObjectSchema schema) {
+    for (Metadata metadata : schema.getAllMetadata()) {
       String key = metadata.getKey();
       boolean canKeepAttribute = attributeMap.containsKey(key)
           && canMigrateAttribute(attributeMap.get(key), metadata);

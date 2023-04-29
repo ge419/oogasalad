@@ -45,6 +45,12 @@
     -fx-border-width: 1;
     -fx-border-radius: 4;
 }
+#RulePane{
+    -fx-background-color: title-color;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+}
 #sideBar{
     -fx-word-wrap: break-word;
 }
@@ -65,4 +71,14 @@
 
 #TileNextMode{
     -fx-fill: tile-info-text-color;
+}
+
+#About{
+    -fx-alignment: center;
+    -fx-spacing: 15px;
+    -fx-padding: 10px;
+}
+#AboutText{
+    -fx-alignment:center;
+    -fx-spacing: 20px;
 }

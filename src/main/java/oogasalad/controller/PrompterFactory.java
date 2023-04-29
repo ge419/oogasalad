@@ -1,10 +1,10 @@
 package oogasalad.controller;
 
 import java.util.function.Consumer;
-import oogasalad.model.engine.prompt.DualPrompter;
+import oogasalad.view.gameplay.HumanPrompter;
 import oogasalad.view.gameplay.Gameview;
 
 public interface PrompterFactory {
-  DualPrompter makeDualPrompter(Consumer<Effect> doEffect, Gameview gameview);
+  HumanPrompter makeDualPrompter(Consumer<Effect> doEffect, Gameview gameview);
 //  AIPrompter makeAIPrompter(Consumer<Effect> doEffect);
 }

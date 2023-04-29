@@ -28,7 +28,8 @@ class BooleanParameterStrategyTest extends DukeApplicationTest {
         meta.setName(attributeKey);
         attr = meta.makeBooleanAttribute();
         booleanParameterStrategy = new BooleanParameterStrategy(attr, meta);
-        VBox root = new VBox(booleanParameterStrategy.renderInput(resourceBundle));
+        VBox root = new VBox();
+        root.getChildren().add(booleanParameterStrategy.renderInput(resourceBundle, root));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

@@ -1,7 +1,16 @@
 package oogasalad.view.gameplay;
 
+import com.google.cloud.Tuple;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -9,57 +18,70 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import oogasalad.controller.GameController;
-import oogasalad.controller.GameHolder;
+import oogasalad.model.constructable.GameHolder;
+import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Player;
-import oogasalad.model.constructable.Tile;
+import oogasalad.model.constructable.Players;
+import oogasalad.model.observers.GameObserver;
 import oogasalad.view.Renderable;
-import oogasalad.view.gameplay.pieces.Pieces;
+import oogasalad.view.gameplay.Players.ViewPlayers;
+import oogasalad.view.gameplay.pieces.ViewPieces;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
 import oogasalad.view.tiles.Tiles;
+import org.checkerframework.checker.units.qual.A;
 
-public class Gameview {
+public class Gameview implements GameObserver {
 
   //TODO: refactor to read from JSON file
   private final int VIEW_WIDTH = 1500;
   private final int VIEW_HEIGHT = 1000;
   private final GameHolder game;
+  private final Provider<Player> playerProvider;
+  private final Provider<Piece> pieceProvider;
+  private List<ObjectProperty<Player>> playerObjectProperty;
+  private List<ObjectProperty<PlayerPiece>> playerPieceObjectProperty;
   private Tiles tiles;
   private Die die;
-  private PlayerPiece piece;
-  private final boolean waiting = false;
   private final GameController gc;
   private Scene scene;
+  private BorderPane UIroot;
 
-  public Gameview(GameController gc, GameHolder game) {
+  @Inject
+  public Gameview(
+      @Assisted GameController gc,
+      GameHolder game,
+      Provider<Player> playerProvider,
+      Provider<Piece> pieceProvider) {
     this.gc = gc;
     this.game = game;
+    this.playerProvider = playerProvider;
+    this.pieceProvider = pieceProvider;
+    this.playerObjectProperty = new ArrayList<>();
+    this.playerPieceObjectProperty = new ArrayList<>();
+    this.game.register(this);
   }
 
   public void renderGameview(Stage primaryStage) throws IOException {
-    BorderPane UIroot = new BorderPane();
-
-    //TODO: retrieve which and how many frontend components there are from builder and loop through
-    // to render each component
+    UIroot = new BorderPane();
 
     Renderable board = new Board();
     board.render(UIroot);
 
-    List<Tile> t = gc.loadTiles("data/tiles_test.json");
-    tiles = new Tiles(t);
+    // TODO: use either Tiles or BBoard, not both!
+    tiles = new Tiles(game.getBoard().getTiles());
     tiles.render(UIroot);
 
     die = new Die();
     die.render(UIroot);
 
-    List<Player> p = gc.loadPlayers("data/player.json");
-    Pieces pieces = new Pieces(this.game.getPlayers().getPlayers());
-    pieces.render(UIroot);
-    piece = pieces.getPiece();
-    piece.moveToTile(t.get(0));
+    //TODO: retrieve number of players and piece per player from launcher/builder
+    // TODO: Dynamically watch players/pieces
 
-    //TODO: take in backend player when appropriate attributes are implemented
-//    players = new ViewPlayers(b.getPlayers());
-//    players.render(UIroot);
+
+
+//    for (PlayerPiece piece : viewPieces.getPieceList()) {
+//      piece.moveToTile(game.getBoard().getTiles().get(0));
+//    }
 
     scene = new Scene(UIroot);
 
@@ -80,5 +102,15 @@ public class Gameview {
   }
 
 
+  @Override
+  public void updateOnPlayers(Players players) {
+    ViewPlayers viewPlayers = new ViewPlayers(game.getPlayers());
+    viewPlayers.render(UIroot);
+  }
 
+  @Override
+  public void updateOnPieces(List<Piece> pieces) {
+    ViewPieces viewPieces = new ViewPieces(game.getPieces());
+    viewPieces.render(UIroot);
+  }
 }

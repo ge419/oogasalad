@@ -4,14 +4,14 @@ import oogasalad.model.engine.Event;
 
 public class DieRolledEvent implements Event<DieRolledEvent> {
 
-  private final int numberRolled;
+  private final int[] numbersRolled;
 
-  public DieRolledEvent(int numberRolled) {
-    this.numberRolled = numberRolled;
+  public DieRolledEvent(int[] numbersRolled) {
+    this.numbersRolled = numbersRolled;
   }
 
-  public int getNumberRolled() {
-    return numberRolled;
+  public int[] getNumbersRolled() {
+    return numbersRolled;
   }
 
   @Override

@@ -42,11 +42,13 @@ public class BooleanAttribute extends AbstractAttribute {
       return false;
     }
     BooleanAttribute that = (BooleanAttribute) o;
-    return Objects.equals(value, that.value);
+    boolean key = this.getKey().equals(that.getKey());
+    boolean value = this.value.get()==that.value.get();
+    return key&&value;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(value);
+    return Objects.hash(getKey()+value.get());
   }
 }

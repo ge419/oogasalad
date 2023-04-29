@@ -11,7 +11,7 @@ public class StringAttribute extends AbstractAttribute {
   private final StringProperty value;
 
   @JsonCreator
-  protected StringAttribute(@JsonProperty("key") String key, @JsonProperty("value") String value) {
+  public StringAttribute(@JsonProperty("key") String key, @JsonProperty("value") String value) {
     super(key);
     this.value = new SimpleStringProperty(value);
   }
@@ -41,12 +41,14 @@ public class StringAttribute extends AbstractAttribute {
       return false;
     }
     StringAttribute that = (StringAttribute) o;
-    return Objects.equals(value, that.value);
+    boolean key = this.getKey().equals(that.getKey());
+    boolean value = this.value.get().equals(that.value.get());
+    return key && value;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(value);
+    return Objects.hash(getKey()+value.get());
   }
 
   @Override

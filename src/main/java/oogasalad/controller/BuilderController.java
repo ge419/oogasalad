@@ -41,6 +41,10 @@ public class BuilderController {
 
   private static final String DEFAULT_STYLESHEET_DIRECTORY = "/view/builder/";
   private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
+  // following instances will be removed later
+  private String FILE_PATH  = "data";
+  private String FOLDER_NAME = "testingDirectory";
+
   private static final Logger logger = LogManager.getLogger(BuilderController.class);
   private final BuilderView builderView;
   private final GameHolder gameHolder;

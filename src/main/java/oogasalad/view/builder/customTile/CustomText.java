@@ -9,13 +9,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import oogasalad.model.attribute.Metadata;
+import oogasalad.model.attribute.StringMetadata;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CustomText extends Label implements CustomElement {
-    private String name;
+    private String name = "";
     private String defaultContents;
     private int fontSize;
     private boolean bold;
@@ -23,19 +25,26 @@ public class CustomText extends Label implements CustomElement {
     double x; double y;
     int index = -1;
 
-    public CustomText(String name, String defaultContents, int fontSize, boolean bold) {
-        this.name = name;
-        this.defaultContents = defaultContents;
-        this.fontSize = fontSize;
-        this.bold = bold;
+    private boolean editable = false;
 
+
+
+    private final int UNDERSPECIFIED_FONTSIZE = 14 ;
+
+
+    public CustomText(String defaultContents) {
+        this.defaultContents = defaultContents;
+        this.fontSize = UNDERSPECIFIED_FONTSIZE;
         // Set the initial properties of the text field
         setText(defaultContents);
-        setFont(Font.font("Arial", bold ? FontWeight.BOLD : FontWeight.NORMAL, fontSize));
+
     }
 
     public CustomText(JsonObject jsonObject) {
         super(jsonObject.get("name").getAsString());
+
+        this.name =  jsonObject.get("name").getAsString();
+        this.editable = jsonObject.get("editable").getAsBoolean();
 
         // Set the text field properties
         this.defaultContents = jsonObject.get("defaultContents").getAsString();
@@ -49,13 +58,10 @@ public class CustomText extends Label implements CustomElement {
         this.setTranslateY(jsonObject.get("translateY").getAsDouble());
         this.x = jsonObject.get("translateX").getAsDouble();
         this.y = jsonObject.get("translateY").getAsDouble();
-        this.name =  jsonObject.get("name").getAsString();
-    }
 
 
-    public String getName() {
-        return name;
     }
+
 
     public void setName(String name) {
         this.name = name;
@@ -88,6 +94,16 @@ public class CustomText extends Label implements CustomElement {
         setFont(Font.font("Arial", bold ? FontWeight.BOLD : FontWeight.NORMAL, fontSize));
     }
 
+    @Override
+    public boolean isEditable() {
+        return editable;
+    }
+
+    @Override
+    public void setEditable(boolean selected) {
+        this.editable = selected;
+    }
+
     public JsonObject save(Path path) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("name", this.name);
@@ -98,7 +114,7 @@ public class CustomText extends Label implements CustomElement {
         jsonObject.addProperty("translateY", this.getTranslateY());
         jsonObject.addProperty("type", "CustomText");
         jsonObject.addProperty("index", this.index);
-
+        jsonObject.addProperty("editable", this.editable);
 
         return jsonObject;
     }
@@ -130,12 +146,8 @@ public class CustomText extends Label implements CustomElement {
         boldCheckbox.setSelected(this.isBold());
         boldCheckbox.setOnAction(event -> setBold(boldCheckbox.isSelected()));
         nodes.add(new Label("Bold:"));
-        nodes.add(boldCheckbox);
 
-        VBox infoBox = new VBox();
-        infoBox.getChildren().addAll(nodes);
-
-        return infoBox;
+        return CustomElementHelper.makeVbox(this, nodes);
     }
 
     @Override
@@ -147,6 +159,31 @@ public class CustomText extends Label implements CustomElement {
     @Override
     public int getIndex() {
         return index;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public Metadata getMetaData() {
+        //if name is null that means it a static string with key of default contents
+        if (this.name.isEmpty()){
+            StringMetadata metadata = new StringMetadata(this.defaultContents);
+            metadata.setEditable(editable);
+            metadata.setViewable(editable);
+            metadata.setDescription("A custom string typed to be displayed on a custom object ");
+            return metadata;
+        }
+        else{
+            StringMetadata metadata = new StringMetadata(this.name);
+            metadata.setDefaultValue(this.defaultContents);
+            metadata.setEditable(editable);
+            metadata.setViewable(editable);
+            metadata.setDescription("A custom string made by the user that represents " + this.name);
+            return metadata;
+        }
     }
 
 }

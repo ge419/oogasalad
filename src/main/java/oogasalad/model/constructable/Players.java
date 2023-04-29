@@ -3,9 +3,16 @@ package oogasalad.model.constructable;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+import org.checkerframework.checker.units.qual.A;
 
 public class Players {
   private List<Player> players;
@@ -49,5 +56,34 @@ public class Players {
     }
 
     return Optional.empty();
+  }
+
+  @JsonIgnore
+  public void randomize() throws IOException {
+
+    ObjectMapper objectMapper = new ObjectMapper();
+    File jsonFile = new File("src/main/resources/view.gameplay/DefaultPlayers.json");
+    JsonNode rootNode = objectMapper.readTree(jsonFile);
+    List<String> colors = new ArrayList<>();
+    for (JsonNode colorNode : rootNode.get("colors")) {
+      colors.add(colorNode.asText());
+    }
+    List<String> icons = new ArrayList<>();
+    for (JsonNode iconNode : rootNode.get("icons")) {
+      icons.add(iconNode.asText());
+    }
+    for (int i = 0; i < players.size(); i++) {
+      Random random = new Random();
+      try {
+        String randomColor = colors.remove(random.nextInt(colors.size()));
+        String randomIcon = icons.remove(random.nextInt(icons.size()));
+        players.get(i).setColor(randomColor);
+        players.get(i).setImage(randomIcon);
+        players.get(i).setName("Player " + i);
+      } catch (Exception e) {
+        throw new RuntimeException(e + "Maximum of 8 players allowed");
+      }
+
+    }
   }
 }

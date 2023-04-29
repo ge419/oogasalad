@@ -2,7 +2,6 @@ package oogasalad.view.builder.customTile;
 
 import com.google.gson.JsonObject;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -10,6 +9,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import oogasalad.model.attribute.ImageMetadata;
+import oogasalad.model.attribute.Metadata;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,11 +23,15 @@ import java.util.List;
 
 public class CustomImage extends ImageView implements CustomElement {
 
-    String imageName;
+    String name = "";
     Path destinationPath;
     File originalFile;
     double x; double y;
+
+    private boolean editable = false;
+
     int index = -1;
+
 
     public CustomImage(File file) {
         super(new Image(file.toURI().toString()));
@@ -36,13 +41,14 @@ public class CustomImage extends ImageView implements CustomElement {
 
     public CustomImage(JsonObject jsonObject) {
         super(new Image(new File(jsonObject.get("filePath").getAsString()).toURI().toString()));
-        this.imageName = jsonObject.get("name").getAsString();
+        this.name = jsonObject.get("name").getAsString();
         this.originalFile = new File(jsonObject.get("filePath").getAsString());
         this.setFitWidth(jsonObject.get("width").getAsDouble());
         this.setFitHeight(jsonObject.get("height").getAsDouble());
         this.x = jsonObject.get("x").getAsDouble();
         this.y = jsonObject.get("y").getAsDouble();
         this.index = jsonObject.get("index").getAsInt();
+        this.editable = jsonObject.get("editable").getAsBoolean();
 
     }
 
@@ -59,34 +65,16 @@ public class CustomImage extends ImageView implements CustomElement {
     }
 
     public VBox getInfo() {
-        List<Node> nodes = new ArrayList<>();
-
-        // Create a label for the image name field
-        Label imageNameLabel = new Label("Image Name:");
-
-        // Create a text field to edit the image name
-        TextField imageNameField = new TextField(this.imageName);
-        imageNameField.setOnAction(event -> setImageName(imageNameField.getText()));
-        nodes.addAll(Arrays.asList(imageNameLabel, imageNameField));
+        List<Node> imageSpecificNodes = new ArrayList<>();
 
         // Create a label for the size slider
         Label sizeLabel = new Label("Image Size:");
 
         // Create a slider to scale the image
         Slider sizeSlider = createSizeSlider();
-        nodes.addAll(Arrays.asList(sizeLabel, sizeSlider));
+        imageSpecificNodes.addAll(Arrays.asList(sizeLabel, sizeSlider));
 
-        // Create buttons to send image to front or back
-        Button toFrontButton = new Button("Send to Front");
-        toFrontButton.setOnAction(event -> this.toFront());
-        Button toBackButton = new Button("Send to Back");
-        toBackButton.setOnAction(event -> this.toBack());
-        nodes.addAll(Arrays.asList(toFrontButton, toBackButton));
-
-        VBox infoBox = new VBox();
-        infoBox.getChildren().addAll(nodes);
-
-        return infoBox;
+        return CustomElementHelper.makeVbox(this, imageSpecificNodes);
     }
 
     @Override
@@ -100,6 +88,12 @@ public class CustomImage extends ImageView implements CustomElement {
         return index;
     }
 
+    @Override
+    public String getName() {
+        return name;
+    }
+
+
     private Slider createSizeSlider() {
         Slider sizeSlider = new Slider(10, ((Pane) this.getParent()).getWidth(), this.getFitWidth());
         sizeSlider.setBlockIncrement(10);
@@ -111,8 +105,19 @@ public class CustomImage extends ImageView implements CustomElement {
         return sizeSlider;
     }
 
-    private void setImageName(String text) {
-        this.imageName = text;
+    @Override
+    public void setName(String text) {
+        this.name = text;
+    }
+
+    @Override
+    public boolean isEditable() {
+        return editable;
+    }
+
+    @Override
+    public void setEditable(boolean selected) {
+        this.editable = selected;
     }
 
     public JsonObject save(Path directory) throws IOException {
@@ -128,11 +133,12 @@ public class CustomImage extends ImageView implements CustomElement {
         jsonObject.addProperty("type", "CustomImage");
         jsonObject.addProperty("x", this.getTranslateX());
         jsonObject.addProperty("y", this.getTranslateY());
-        jsonObject.addProperty("name", this.imageName);
+        jsonObject.addProperty("name", this.name);
         jsonObject.addProperty("height", this.getFitHeight());
         jsonObject.addProperty("width", this.getFitWidth());
-        jsonObject.addProperty("filePath", destinationPath.toString()+"/"+this.imageName);
+        jsonObject.addProperty("filePath", destinationPath.toString()+"/"+this.name);
         jsonObject.addProperty("index", this.getParent().getChildrenUnmodifiable().indexOf(this));
+        jsonObject.addProperty("editable", this.editable);
 
         return jsonObject;
     }
@@ -141,7 +147,7 @@ public class CustomImage extends ImageView implements CustomElement {
 
 
     private void saveImage(File originalFile, Path directoryPath) throws IOException {
-        String saveName = this.imageName;
+        String saveName = this.name;
         saveName = resolveImageName(saveName);
 
         System.out.println("saveName = " + saveName);
@@ -154,11 +160,23 @@ public class CustomImage extends ImageView implements CustomElement {
     }
 
     private String resolveImageName(String saveName) {
-        if (this.imageName == null) {
-            this.imageName = this.originalFile.getName();
+        if (this.name.isEmpty()) {
+            this.name = this.originalFile.getName();
             System.out.println("this.originalFile.getName() = " + this.originalFile.getName());
         }
-        this.imageName = this.imageName.endsWith(".png") ? this.imageName : this.imageName + ".png";
-        return imageName;
+        this.name = this.name.endsWith(".png") ? this.name : this.name + ".png";
+        return name;
+    }
+
+    @Override
+    public Metadata getMetaData() {
+        ImageMetadata metadata = new ImageMetadata(this.name);
+        metadata.setDefaultValue(this.destinationPath.toString());
+        Boolean named = (name == null);
+        String temp = (named ? "this" : "the " + name);
+        metadata.setEditable(editable);
+        metadata.setViewable(editable);
+        metadata.setDescription("The path to " + temp + " image");
+        return metadata;
     }
 }

@@ -4,7 +4,7 @@
   "fields": [
     {
       "@class": "oogasalad.model.attribute.StringMetadata",
-      "key": "viewType",
+      "key": "type",
       "name": "View type",
       "description": "View type of tile.",
       "defaultValue": "basic",
@@ -71,14 +71,7 @@
       "key": "color",
       "name": "Color",
       "description": "Color of tile",
-      "editable": true,
-      "viewable": true
-    },
-    {
-      "@class": "oogasalad.model.attribute.ImageMetadata",
-      "key": "image",
-      "name": "Image",
-      "description": "Path to image of tile",
+      "defaultValue": "#add8e6",
       "editable": true,
       "viewable": true
     }

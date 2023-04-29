@@ -41,6 +41,11 @@ public class Piece extends AbstractGameConstruct {
     return tile;
   }
 
+  public ObjectProperty<Tile> concreteTileProperty() {
+    Tile tile = this.tileProperty().get().get();
+    return new SimpleObjectProperty<>(tile);
+  }
+
   @JsonIgnore
   public Optional<Tile> getTile() {
     return tile.get();

@@ -1,23 +1,25 @@
 package oogasalad.view.gameplay.pieces;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Tile;
 import oogasalad.util.Util;
 import oogasalad.view.Coordinate;
+import oogasalad.view.Imageable;
+import oogasalad.view.gameplay.Movable;
 
 public class PlayerPiece extends GamePiece {
 
   private final Piece modelPiece;
 
-  public PlayerPiece(Piece modelPiece) {
-    //TODO: image getter for player, create image attribute
-    super("data/example/piece_1.png");
-    this.modelPiece = modelPiece;
-    //TODO: BIND PLAYER piece position to MODEL player
-    //make sure it refreshes per tile change
-//    xProperty().bind(modelPlayer.getX());
-//    yProperty().bind(modelPlayer.getY());
-
+  public PlayerPiece(Piece BPiece) {
+    super(BPiece.getImage());
+    this.modelPiece = BPiece;
     Util.initializeAndListen(modelPiece.tileProperty(),
         optionalTile -> optionalTile.ifPresent(this::moveToTile));
   }
@@ -29,13 +31,6 @@ public class PlayerPiece extends GamePiece {
 
   public void moveToTile(Tile tile) {
     modelPiece.setTile(tile);
-    moveDirectly(tile.getCoordinate());
+    moveDirectly(tile.getCoordinate(), this);
   }
-
-  @Override
-  public void moveDirectly(Coordinate coor) {
-    this.setLayoutX(coor.getXCoor());
-    this.setLayoutY(coor.getYCoor());
-  }
-
 }

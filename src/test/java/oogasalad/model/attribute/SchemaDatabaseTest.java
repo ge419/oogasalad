@@ -72,12 +72,15 @@ class SchemaDatabaseTest {
 
   @Test
   void duplicateSchemas() {
-    // Adding a schema that already exists will fail
+    // Adding a schema that conflicts with a resource file will error
     ObjectSchema schema = new SimpleObjectSchema("tile", List.of());
     assertThrows(Exception.class, () -> db.addCustomSchema(schema));
 
+    // Adding a schema can replace an existing custom schema
     ObjectSchema schema1 = new SimpleObjectSchema("!s1", List.of());
+    ObjectSchema schema2 = new SimpleObjectSchema("!s1", List.of(new StringMetadata("key")));
     db.addCustomSchema(schema1);
-    assertThrows(Exception.class, () -> db.addCustomSchema(schema));
+    db.addCustomSchema(schema2);
+    assertEquals(schema2, db.getSchema("!s1").get());
   }
 }

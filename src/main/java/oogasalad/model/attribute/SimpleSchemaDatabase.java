@@ -1,10 +1,13 @@
 package oogasalad.model.attribute;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -29,16 +32,31 @@ import org.apache.logging.log4j.Logger;
 public class SimpleSchemaDatabase implements SchemaDatabase {
 
   public static final String SCHEMA_RESOURCE_PATH = "schemas";
-  private static final Logger logger = LogManager.getLogger(SimpleSchemaDatabase.class);
-  private final Map<String, ObjectSchema> resourceSchemaMap;
+  private static final Logger LOGGER = LogManager.getLogger(SimpleSchemaDatabase.class);
+  private final Map<String, ObjectSchema> baseSchemaMap;
   private final MapProperty<String, ObjectSchema> generatedSchemaMapProperty;
   private final ListProperty<Rule> ruleListProperty;
+  private final ObjectMapper mapper;
+  private final Set<String> customSchemaKeys;
 
 
+  /**
+   * Create a schema database without using an object mapper that supports dependency injection.
+   *
+   * @deprecated in favor of DI constructor
+   */
+  @Deprecated(forRemoval = true)
   public SimpleSchemaDatabase() {
-    resourceSchemaMap = new HashMap<>();
+    this(new ObjectMapper());
+  }
+
+  @Inject
+  public SimpleSchemaDatabase(ObjectMapper mapper) {
+    this.mapper = mapper;
+    baseSchemaMap = new HashMap<>();
     generatedSchemaMapProperty = new SimpleMapProperty<>(FXCollections.observableHashMap());
     ruleListProperty = new SimpleListProperty<>();
+    customSchemaKeys = new HashSet<>();
     readResourceSchemaFiles();
     generateSchemas();
   }
@@ -71,26 +89,53 @@ public class SimpleSchemaDatabase implements SchemaDatabase {
     generateSchemas();
   }
 
+  @Override
+  public void addCustomSchema(ObjectSchema schema) {
+    addSchema(schema);
+    customSchemaKeys.add(schema.getName());
+  }
+
+  @Override
+  public List<ObjectSchema> getCustomSchemas() {
+    return customSchemaKeys.stream().map(baseSchemaMap::get).toList();
+  }
+
+  @Override
+  public List<ObjectSchema> readSchemaListFile(Path path) throws IOException {
+    return mapper.readValue(path.toFile(), new TypeReference<>() {
+    });
+  }
+
+  @Override
+  public ObjectSchema readSchemaFile(Path path) throws IOException {
+    return mapper.readValue(path.toFile(), ObjectSchema.class);
+  }
+
+  private void addSchema(ObjectSchema schema) {
+    String schemaName = schema.getName();
+
+    if (baseSchemaMap.containsKey(schemaName)) {
+      if (customSchemaKeys.contains(schemaName)) {
+        LOGGER.info("Replacing schema name {}", schemaName);
+      } else {
+        LOGGER.error("Conflict with resource schema {}", schemaName);
+        throw new IllegalArgumentException("invalid schema key");
+      }
+    }
+
+    baseSchemaMap.put(schemaName, schema);
+    generateSchemas();
+  }
+
   private void readResourceSchemaFiles() {
     try {
       for (File file : FileReader.readFiles(SCHEMA_RESOURCE_PATH)) {
-        readSchemaFile(file);
+        addSchema(readSchemaFile(file.toPath()));
       }
     } catch (IOException | FileReaderException e) {
-      logger.fatal("Failed to read resource schema file", e);
+      LOGGER.fatal("Failed to read resource schema file", e);
       throw new ResourceReadException(e);
     }
-  }
-
-  private void readSchemaFile(File file) throws IOException {
-    ObjectMapper mapper = new ObjectMapper();
-    SimpleObjectSchema schema = mapper.readValue(file, SimpleObjectSchema.class);
-    String schemaName = schema.getName();
-
-    if (resourceSchemaMap.containsKey(schemaName)) {
-      logger.error("Duplicate schema name {}", schemaName);
-    }
-    resourceSchemaMap.put(schemaName, schema);
   }
 
   private void generateSchemas() {
@@ -99,7 +144,7 @@ public class SimpleSchemaDatabase implements SchemaDatabase {
 
     for (Entry<String, Set<String>> entry : boundSchemaMap.entrySet()) {
       List<ObjectSchema> appliedSchemas =
-          entry.getValue().stream().map(resourceSchemaMap::get).toList();
+          entry.getValue().stream().map(baseSchemaMap::get).toList();
 
       ObjectSchema schema = SchemaUtilities.concatenateSchemas(entry.getKey(), appliedSchemas);
       generatedSchemaMap.put(entry.getKey(), schema);
@@ -112,7 +157,7 @@ public class SimpleSchemaDatabase implements SchemaDatabase {
     Map<String, Set<String>> schemasToResources = new HashMap<>();
 
     // Resource schemas are always present
-    for (String resourceSchema : resourceSchemaMap.keySet()) {
+    for (String resourceSchema : baseSchemaMap.keySet()) {
       schemasToResources.put(resourceSchema, new HashSet<>(List.of(resourceSchema)));
     }
 

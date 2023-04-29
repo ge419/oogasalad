@@ -1,6 +1,8 @@
 package oogasalad.model.attribute;
 
-import com.google.inject.Singleton;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import javafx.beans.property.MapProperty;
 import javafx.collections.ObservableList;
@@ -12,7 +14,6 @@ import oogasalad.model.engine.rules.Rule;
  *
  * @author Dominic Martinez
  */
-@Singleton
 public interface SchemaDatabase {
 
   /**
@@ -43,4 +44,33 @@ public interface SchemaDatabase {
    * @see Rule#appliedSchemasProperty()
    */
   void setRuleListProperty(ObservableList<Rule> ruleListProperty);
+
+  /**
+   * Add a schema to the database.
+   *
+   * @param schema schema to be added
+   */
+  void addCustomSchema(ObjectSchema schema);
+
+  /**
+   * Returns the schemas added during runtime, <em>not</em> from a resource file. These schemas are
+   * expected to be serialized.
+   */
+  List<ObjectSchema> getCustomSchemas();
+
+  /**
+   * Reads a file containing a list of {@link ObjectSchema}, and adds them to the database.
+   *
+   * @param path file to read
+   * @return
+   */
+  List<ObjectSchema> readSchemaListFile(Path path) throws IOException;
+
+  /**
+   * Reads a file containing a single {@link ObjectSchema}, and adds it to the database.
+   *
+   * @param path file to read
+   * @return
+   */
+  ObjectSchema readSchemaFile(Path path) throws IOException;
 }

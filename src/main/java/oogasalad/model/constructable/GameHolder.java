@@ -77,12 +77,8 @@ public class GameHolder implements Observable<GameObserver> {
 
   @JsonIgnore
   public void removePlayers(List<Player> playersList) {
-    if (playersList.size()>0) {
-      System.out.println("NEED TO REMOVE");
-    }
     this.players.get().getPlayers().removeAll(playersList);
     this.notifyRemoval(playersList);
-//    this.notifyList();
   }
 
   @JsonIgnore

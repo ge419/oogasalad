@@ -18,17 +18,19 @@ import oogasalad.view.Coordinate;
  */
 public class BasicTile extends Rectangle implements ViewTile {
 
-  private final Tile modelTile;
+  private final Tile myModelTile;
 
   @Inject
   public BasicTile(Tile tile) {
     super(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
-    this.modelTile = tile;
+    this.myModelTile = tile;
     this.setFill(Color.LIGHTBLUE);
     this.setStroke(Color.BLACK);
 
+
+
     // Check if tiles have an owner attribute
-    modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE)
+    myModelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE)
         .map(PlayerAttribute::from)
         .map(PlayerAttribute::idProperty)
         .ifPresent(prop -> prop.addListener((observable, oldValue, newValue) ->
@@ -41,7 +43,7 @@ public class BasicTile extends Rectangle implements ViewTile {
   }
 
   public Tile getTile() {
-    return this.modelTile;
+    return this.myModelTile;
   }
 
   @Override
@@ -56,11 +58,11 @@ public class BasicTile extends Rectangle implements ViewTile {
   }
 
   public String getTileId() {
-    return this.modelTile.getId();
+    return this.myModelTile.getId();
   }
 
   public Coordinate getPosition() {
-    return modelTile.getCoordinate();
+    return myModelTile.getCoordinate();
   }
 
   public void setPosition(Coordinate coord) {

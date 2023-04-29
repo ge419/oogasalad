@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JacksonInject;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 import javax.inject.Inject;
+import oogasalad.model.attribute.ColorAttribute;
 import oogasalad.model.attribute.DoubleAttribute;
 import oogasalad.model.attribute.PositionAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
@@ -21,6 +22,7 @@ public class Tile extends AbstractGameConstruct {
   public static final String HEIGHT_ATTRIBUTE = "height";
   public static final String INFO_ATTRIBUTE = "info";
   public static final String PRICE_ATTRIBUTE = "price";
+  public static final String COLOR_ATTRIBUTE = "color";
 
   @Inject
   public Tile(@JacksonInject SchemaDatabase database) {
@@ -105,6 +107,11 @@ public class Tile extends AbstractGameConstruct {
   @JsonIgnore
   public void setHeight(double height) {
     heightAttribute().setValue(height);
+  }
+
+  @JsonIgnore
+  public ColorAttribute colorAttribute(){
+    return ColorAttribute.from(getAttribute(COLOR_ATTRIBUTE).get());
   }
 
   @JsonIgnore

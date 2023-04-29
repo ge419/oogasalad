@@ -5,6 +5,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import java.nio.file.Path;
 import oogasalad.model.attribute.AttributeModule;
+import oogasalad.model.constructable.GameHolderModule;
 import oogasalad.model.constructable.SaveManagerModule;
 import oogasalad.model.engine.EngineModule;
 import oogasalad.view.ViewFactory;
@@ -19,6 +20,7 @@ public class GameControllerModule extends AbstractModule {
 
   @Override
   protected void configure() {
+    install(new GameHolderModule());
     install(new SaveManagerModule(saveDir));
     install(new EngineModule());
     install(new AttributeModule());

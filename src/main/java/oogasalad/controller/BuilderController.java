@@ -16,7 +16,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import oogasalad.controller.builderevents.Dragger;
-import oogasalad.model.attribute.AttributeModule;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.GameConstruct;
@@ -44,6 +43,7 @@ public class BuilderController {
   private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
   private static final Logger logger = LogManager.getLogger(BuilderController.class);
   private final BuilderView builderView;
+  private final GameHolder gameHolder;
   private SchemaDatabase db;
   private ViewTileFactory viewTileFactory;
   private BBoard board;
@@ -52,16 +52,16 @@ public class BuilderController {
 
   public BuilderController(String language, Path saveDir) {
     injector = Guice.createInjector(
-        new BuilderControllerModule(language, saveDir),
-        new AttributeModule()
+        new BuilderControllerModule(language, saveDir)
     );
+    injector.getInstance(SaveManager.class).loadGame();
+
     builderView = injector.getInstance(BuilderFactory.class).makeBuilder(language, this);
     viewTileFactory = injector.getInstance(ViewTileFactory.class);
     logger.info("created builder");
     db = injector.getInstance(SchemaDatabase.class);
-    GameHolder gameHolder = injector.getInstance(GameHolder.class);
+    gameHolder = injector.getInstance(GameHolder.class);
     board = gameHolder.getBoard();
-    saveManager = injector.getInstance(SaveManager.class);
 
 //    todo: Dominics example code for how to get rules using dependency injection
 //    Injector injector = Guice.createInjector(new EngineModule());

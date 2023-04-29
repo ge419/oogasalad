@@ -1,5 +1,6 @@
 package oogasalad.controller;
 
+import com.fasterxml.jackson.module.guice.ObjectMapperModule;
 import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import java.nio.file.Path;
@@ -26,9 +27,11 @@ public class BuilderControllerModule extends AbstractModule {
   protected void configure() {
     install(new GameHolderModule());
     install(new SaveManagerModule(saveDir));
+    install(new ObjectMapperModule());
     install(new EngineModule());
     install(new AttributeModule());
-    bind(String.class).toInstance(myLanguage);
+    // TODO: Bind using annotation
+    //bind(String.class).toInstance(myLanguage);
     install(new FactoryModuleBuilder().build(BuilderFactory.class));
     install(new FactoryModuleBuilder()
         .implement(ViewTile.class, ViewTileWrapper.class)

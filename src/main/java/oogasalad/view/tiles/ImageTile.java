@@ -1,5 +1,6 @@
 package oogasalad.view.tiles;
 
+import java.util.List;
 import com.google.inject.Inject;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -29,8 +30,6 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
   private static final Color TILE_STROKE_COLOR = Color.BLACK;
 
   public static final String IMAGE_ATTRIBUTE = "image";
-
-
   private final Tile modelTile;
 
   @Inject
@@ -43,7 +42,7 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
         StringAttribute.from(BTile.getAttribute(IMAGE_ATTRIBUTE).get()).getValue(), IMAGE_SCALE);
 
     VBox content = new VBox(BTile.getHeight() / MARGIN_SCALE, tileImage,
-        createTextBox(BTile.getInfo(), BTile.getPrice(), BTile.getHeight(), BTile.getHeight()));
+        createTextBox(List.of(BTile.getInfo(), BTile.getPrice()), BTile.getHeight(), BTile.getHeight()));
     content.setAlignment(Pos.CENTER);
     getChildren().addAll(tileBackground, content);
 
@@ -62,11 +61,10 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
   }
 
   @Override
-  public VBox createTextBox(String info, String price, double height, double width) {
+  public VBox createTextBox(List info, double height, double width) {
     VBox textBox = new VBox();
-    String[] infoList = info.split(",");
-    for (int i = 0; i < infoList.length; i++) {
-      Text text = new Text(infoList[i]);
+    for (int i = 0; i < info.size(); i++) {
+      Text text = new Text(info.get(i).toString());
       resizeText(text, height, TEXT_SCALE, width);
       textBox.getChildren().add(text);
     }

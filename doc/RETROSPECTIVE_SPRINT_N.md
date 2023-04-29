@@ -48,7 +48,7 @@ Good stuff
 
 ## Teamwork to improve next Sprint
 
-* All work on pieces of the Controller to offset the load on Matthew
+* All work on viewPieces of the Controller to offset the load on Matthew
 * Schedule inter-team meetings outside of class
 * Prioritize issues
 * Show demos

@@ -10,7 +10,7 @@ import oogasalad.controller.Effect;
 import oogasalad.model.engine.prompt.PromptOption;
 import oogasalad.model.engine.prompt.Prompter;
 
-public class DualPrompter implements Prompter {
+public class HumanPrompter implements Prompter {
 
   private final Consumer<Effect> doEffect;
   private final Gameview gameview;
@@ -18,7 +18,7 @@ public class DualPrompter implements Prompter {
   private boolean callbackSet = false;
 
   @Inject
-  public DualPrompter(
+  public HumanPrompter(
       @Assisted Consumer<Effect> doEffect,
       @Assisted Gameview gameview
   ) {

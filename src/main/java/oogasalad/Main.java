@@ -8,12 +8,15 @@ import java.io.IOException;
 import java.nio.file.Path;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import oogasalad.controller.BuilderController;
+import oogasalad.controller.BuilderControllerModule;
 import oogasalad.controller.GameController;
 import oogasalad.controller.GameControllerModule;
 import oogasalad.model.constructable.ConstructableModule;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.engine.EngineModule;
 import oogasalad.util.SaveManager;
+import oogasalad.view.builder.BuilderView;
 
 /**
  * Feel free to completely change this code or delete it entirely.
@@ -52,6 +55,5 @@ public class Main extends Application {
 //        new BuilderView(new BuilderController());
     }
     //new BuilderView(new BuilderController());
-    injector.getInstance(BuilderView.class);
+//    injector.getInstance(BuilderView.class);
   }
-}

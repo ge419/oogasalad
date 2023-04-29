@@ -3,9 +3,9 @@
     -fx-font-size: 12pt;
     -fx-font-family: "Courier New";
     button-color: rgb(200, 200, 200);
-    background-color: rgb(235, 235, 235);
-    text-color: rgb(0, 0, 0);
-    board-color: white;
+    background-color: rgb(150, 150, 150);
+    text-color: rgb(220, 220, 220);
+    board-color: black;
     title-color: #4EA8DE;
     delete-color: #6930C3;
     tile-info-text-color: #5E60CE;
@@ -71,14 +71,4 @@
 
 #TileNextMode{
     -fx-fill: tile-info-text-color;
-}
-
-#About{
-    -fx-alignment: center;
-    -fx-spacing: 15px;
-    -fx-padding: 10px;
-}
-#AboutText{
-    -fx-alignment:center;
-    -fx-spacing: 20px;
 }

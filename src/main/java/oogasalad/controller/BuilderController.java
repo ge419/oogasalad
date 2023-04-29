@@ -1,26 +1,43 @@
 package oogasalad.controller;
 
 import com.google.inject.Inject;
+import java.util.List;
+import java.util.ResourceBundle;
 import javafx.beans.property.SimpleBooleanProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+
+import java.io.*;
+import java.net.URL;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import oogasalad.controller.builderevents.Dragger;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
+import oogasalad.model.constructable.GameConstruct;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Players;
 import oogasalad.model.constructable.Tile;
+import oogasalad.model.engine.rules.BuyTileRule;
+import oogasalad.model.engine.rules.DieMoveRule;
+import oogasalad.model.engine.rules.EditableRule;
+import oogasalad.model.engine.rules.NumberOfPlayerPieceRule;
+import oogasalad.model.engine.rules.NumberOfPlayersRule;
+import oogasalad.model.engine.rules.TurnRule;
 import oogasalad.util.SaveManager;
 import oogasalad.view.BuilderFactory;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.BuilderView;
+import oogasalad.view.builder.popupform.PopupForm;
 import oogasalad.view.tiles.ViewTile;
 import oogasalad.view.tiles.ViewTileFactory;
 import org.apache.logging.log4j.LogManager;
@@ -36,7 +53,8 @@ public class BuilderController {
   // following instances will be removed later
   private String FILE_PATH = "HARDCODE FILE PATH HERE";
   private String FOLDER_NAME = "CUSTOM1";
-
+  private static final String DEFAULT_STYLESHEET_DIRECTORY = "/view/builder/";
+  private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
   private static final Logger logger = LogManager.getLogger(BuilderController.class);
   private final BuilderView builderView;
   private SchemaDatabase db;
@@ -131,7 +149,73 @@ public class BuilderController {
     return builderView;
   }
 
+  public PopupForm createPopupForm(GameConstruct construct, ResourceBundle language, Pane location){
+    return new PopupForm(construct, language, location);
+  }
+
   private void defaultRules() {
 //    saveManager.loadDefRules();
+  }
+
+  /**
+   * Creates a map of Key:Value pairs corresponding to Name:Filepath of all CSS files
+   * in the default stylesheet directory
+   * @return Map<String fileName, String filePath>
+   */
+  public Map<String, String> getThemeOptions() {
+    Map<String, String> themeMap = new HashMap<>();
+
+    File dir = getStylesheetDirectory();
+    String ext = "css";
+    String[] fileList = getFilteredFiles(dir, ext);
+
+    for (String name : fileList) {
+      String path = DEFAULT_STYLESHEET_DIRECTORY+name;
+      themeMap.put(name, path);
+    }
+    return themeMap;
+  }
+  private File getStylesheetDirectory() {
+    String resourceDirPath = getClass().getResource(DEFAULT_STYLESHEET).getPath();
+    File dir = new File(resourceDirPath).getParentFile();
+    return dir;
+  }
+  private String[] getFilteredFiles(File directory, String extension) {
+    FilenameFilter filter = new FilenameFilter() {
+      @Override
+      public boolean accept(File dir, String name) {
+        return name.endsWith(extension);
+      }
+    };
+    return directory.list(filter);
+  }
+  public List<String> getListOfRules(){
+    return List.of(
+        "Hello",
+        "This",
+        "Is",
+        "A",
+        "Test"
+        );
+  }
+
+  public List<String> getCurrentTiletypes(){
+    return List.of(
+        "Wow",
+        "Such",
+        "Tiletype"
+    );
+  }
+
+  public void makeRulesPopup(String tiletype, String ruleAsString){
+    logger.info("Chose to edit rule " + ruleAsString + " for tiletype " + tiletype);
+    // todo: change this to get the rule from whatever string was provided
+    EditableRule rule = new BuyTileRule(db, gameHolder);
+    createPopupForm(rule, builderView.getLanguage(), builderView.getPopupPane());
+  }
+
+  public void removeRuleFromTiletype(String tiletype, String ruleAsString){
+    logger.info("Trying to remove rule " + ruleAsString +
+        " from tiletype " + tiletype);
   }
 }

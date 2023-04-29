@@ -51,7 +51,7 @@ public class GameController {
     Injector injector = Guice.createInjector(new GameControllerModule(game));
     engine.setRules(
         List.of(
-            injector.getInstance(NumberOfPlayersRule.class),
+//            injector.getInstance(NumberOfPlayersRule.class),
             injector.getInstance(TurnRule.class),
             injector.getInstance(DieMoveRule.class),
             injector.getInstance(BuyTileRule.class),

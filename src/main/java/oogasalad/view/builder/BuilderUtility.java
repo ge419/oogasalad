@@ -165,4 +165,9 @@ public interface BuilderUtility {
       spinner.setEditable(true);
       return spinner;
     }
+
+  default String displayMessageWithArguments(ResourceBundle language, String resourceKey,
+      Object... arguments) {
+    return String.format(language.getString(resourceKey), arguments);
+  }
 }

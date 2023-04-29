@@ -12,6 +12,7 @@ import util.DukeApplicationTest;
 import java.util.ResourceBundle;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class IntegerParameterStrategyTest extends DukeApplicationTest {
     private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
@@ -27,9 +28,9 @@ class IntegerParameterStrategyTest extends DukeApplicationTest {
         attr = meta.makeIntAttribute();
         integerParameterStrategy = new IntegerParameterStrategy(attr, meta);
         VBox root = new VBox();
-        Tile myGameConstruct = new Tile(new SchemaDatabase());
+        Tile tileMock = mock(Tile.class);
         root.getChildren().add(integerParameterStrategy.renderInput(resourceBundle, root,
-            myGameConstruct.getId()));
+            tileMock.getId()));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

@@ -61,18 +61,18 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private RulesPane myRulePane;
   private BorderPane myCenterContainer;
   private final String defaultStylesheet;
-  private boolean myTileCreationToggle = false;
-  private boolean myTileNextRemovalToggle = false;
+  private SimpleBooleanProperty myTileCreationToggle;
+  private SimpleBooleanProperty myTileNextRemovalToggle;
+  private SimpleBooleanProperty myDraggableObjectsToggle;
+  private SimpleBooleanProperty myDeleteToggle;
+  private Optional<ViewTile> myCurrentTile = Optional.empty();
   private Node myInfoText;
   private BorderPane myTopBar;
   private int myTileCount = 0;
-  private Optional<ViewTile> myCurrentTile = Optional.empty();
   private ItemPane mySidebar;
   private MenuItemPane myMenubar;
   private ItemPane myTopButtonBox;
   private final TrailMakerAPI myTrailMaker;
-  private SimpleBooleanProperty myDraggableObjectsToggle;
-  private boolean myDeleteToggle = false;
   private final BuilderController myBuilderController;
   private VBox sidePane;
   private Map<String, String> themeOptions;
@@ -90,6 +90,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         BASE_RESOURCE_PACKAGE + languageString + "BuilderText");
 
     defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET_PATH).toExternalForm();
+    initializeToggles();
     myDraggableObjectsToggle = new SimpleBooleanProperty(true);
 
     Scene scene = initScene();
@@ -134,9 +135,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   @Override
   public void cancelAction() {
-    myTileCreationToggle = false;
-    myDeleteToggle = false;
-    myTileNextRemovalToggle = false;
+    myTileCreationToggle.set(false);
+    myDeleteToggle.set(false);
+    myTileNextRemovalToggle.set(false);
     //todo: make a better way of cancelling all the toggles, especially next
     myCurrentTile = Optional.empty();
     updateInfoText("RegularMode");
@@ -144,16 +145,11 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   @Override
   public void toggleTileCreation() {
-    if (myDeleteToggle){
-      toggleTileDeletion();
-    }
-    myTileCreationToggle = !myTileCreationToggle;
-    if (myTileCreationToggle){
-      updateInfoText("TileAdditionMode");
-    }
-    else{
-      updateInfoText("RegularMode");
-    }
+    toggle(myTileCreationToggle, "TileAdditionMode");
+  }
+
+  public void toggleNextRemoval(){
+    toggle(myTileNextRemovalToggle, "NextRemoveMode");
   }
 
   @Override
@@ -168,15 +164,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   @Override
   public void toggleTileDeletion() {
-    if (myTileCreationToggle){
-      toggleTileCreation();
-    }
-    myDeleteToggle = !myDeleteToggle;
-    if (myDeleteToggle) {
-      updateInfoText("DeleteMode");
-    } else {
-      updateInfoText("RegularMode");
-    }
+    toggle(myDeleteToggle, "DeleteMode");
   }
 
   public void switchToRules() {
@@ -325,17 +313,18 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private void handleBoardClick(MouseEvent e) {
     LOG.info(String.format("User clicked on board at scene coordinates {%f, %f} and board coordinates {%f, %f}", e.getSceneX(), e.getSceneY(), e.getX(), e.getY()));
 
-    if (myTileCreationToggle) {
+    if (myTileCreationToggle.get()) {
       createTile(e);
     }
   }
 
   private void handleTileClick(ViewTile tile) {
     LOG.debug("Clicked on tile " + tile.getTileId());
-    if (myTileCreationToggle){
-      toggleTileCreation();
+    if (myTileCreationToggle.get()){
+      myTileCreationToggle.set(false);
+      updateInfoText("RegularMode");
     }
-    if (myDeleteToggle) {
+    if (myDeleteToggle.get()) {
       TileEvent event = new TileEvent(TileEvent.DELETE_TILE, tile);
       myBoardPane.fireEvent(event);
     } else if (myCurrentTile.isPresent() && myCurrentTile.get() != tile) {
@@ -422,6 +411,12 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     node.getStyleClass().add("clickable");
     myBoardPane.getChildren().add(node);
   }
+  private void initializeToggles(){
+    myDraggableObjectsToggle = new SimpleBooleanProperty(true);
+    myDeleteToggle = new SimpleBooleanProperty(false);
+    myTileCreationToggle = new SimpleBooleanProperty(false);
+    myTileNextRemovalToggle = new SimpleBooleanProperty(false);
+  }
 
   /**
    * <p>Displays a basic about window for the project.</p>
@@ -431,26 +426,15 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   public void createCustomTile(){
-    if (myDeleteToggle){
-      toggleTileDeletion();
-    }
+    cancelAction();
     new CustomObjectBuilder().start(myStage);
   }
 
-  public void toggleNextRemoval(){
-//    if (myDeleteToggle){
-//      toggleTileDeletion();
-//    }
-//    if (myTileCreationToggle){
-//      toggleTileCreation();
-//    }
-//    myTileNextRemovalToggle = !myTileNextRemovalToggle;
-//    if (myTileNextRemovalToggle){
-//      updateInfoText("NextRemoveMode");
-//    }
-//    else{
-//      updateInfoText("RegularMode");
-//    }
+    private void toggle(SimpleBooleanProperty toggle, String resourceKey){
+      cancelAction();
+      toggle.set(true);
+      updateInfoText(resourceKey);
   }
+
 
 }

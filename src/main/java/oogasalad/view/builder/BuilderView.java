@@ -149,7 +149,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   public void toggleNextRemoval(){
-    toggle(myTileNextRemovalToggle, "NextRemoveMode");
+    toggle(myTileNextRemovalToggle, "TileNextRemovalModePart1");
   }
 
   @Override
@@ -253,6 +253,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myBoardPane.setOnMouseClicked(e -> handleBoardClick(e));
     myBoardPane.addEventFilter(TileEvent.DELETE_TILE, e -> deleteTile(e));
     myBoardPane.addEventFilter(TileEvent.SET_NEXT_TILE, e -> createTilePath(e));
+    myBoardPane.addEventFilter(TileEvent.DELETE_NEXT_TILE, e->deleteTilePath(e));
     myBoardPane.addEventFilter(TileEvent.SHOW_FORM, e -> displayTileForm(e));
     myBoardPane.addEventFilter(TileEvent.SELECT_TILE, e -> selectTile(e));
 
@@ -327,6 +328,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     if (myDeleteToggle.get()) {
       TileEvent event = new TileEvent(TileEvent.DELETE_TILE, tile);
       myBoardPane.fireEvent(event);
+    } else if (myCurrentTile.isPresent() && myCurrentTile.get() != tile && myTileNextRemovalToggle.get()) {
+      TileEvent event = new TileEvent(TileEvent.DELETE_NEXT_TILE, tile);
+      myBoardPane.fireEvent(event);
     } else if (myCurrentTile.isPresent() && myCurrentTile.get() != tile) {
       TileEvent event = new TileEvent(TileEvent.SET_NEXT_TILE, tile);
       myBoardPane.fireEvent(event);
@@ -349,12 +353,12 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void createTilePath(TileEvent event) {
-//    event.getViewTile().setColor(Color.LIGHTGREEN);
     setNextTile(myCurrentTile.get(), event.getViewTile());
-//    myCurrentTile.get().setColor(Color.LIGHTBLUE);
-    myCurrentTile = Optional.empty();
-//    event.getViewTile().setColor(Color.LIGHTBLUE);
-    updateInfoText("RegularMode");
+    cancelAction();
+  }
+
+  private void deleteTilePath(TileEvent event){
+    myBuilderController.removeNext(myCurrentTile.get().getTileId(), event.getViewTile().getTileId());
   }
 
   private void displayTileForm(TileEvent event) {
@@ -365,7 +369,12 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private void selectTile(TileEvent event) {
     myCurrentTile = Optional.ofNullable(event.getViewTile());
-    updateInfoText("TileNextMode");
+    if (myTileNextRemovalToggle.get()){
+      updateInfoText("TileNextRemovalModePart2");
+    }
+    else {
+      updateInfoText("TileNextMode");
+    }
   }
 
   private void setNextTile(ViewTile origin, ViewTile desiredNext) {
@@ -375,7 +384,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private int deleteNode(Node node, int objCounter) {
     myBoardPane.getChildren().remove(node);
-//    toggleTileDeletion();
     return objCounter--;
   }
 
@@ -425,7 +433,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     new AboutView(builderResource, DEFAULT_STYLESHEET);
   }
 
-    private void toggle(SimpleBooleanProperty toggle, String resourceKey){
+  private void toggle(SimpleBooleanProperty toggle, String resourceKey){
       cancelAction();
       toggle.set(true);
       updateInfoText(resourceKey);

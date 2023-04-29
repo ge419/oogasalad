@@ -8,13 +8,14 @@ import oogasalad.model.constructable.Tile;
 import oogasalad.view.Backgroundable;
 import oogasalad.model.engine.actions.BuyAction;
 import oogasalad.view.Coordinate;
+import oogasalad.view.Nodeable;
 
 /**
  * <p>ViewTile interface composes the methods that are required for a ViewTile to function.</p>
  *
  * @author tmh85
  */
-public interface ViewTile{
+public interface ViewTile extends Nodeable {
 
   /**
    * Returns the integer id for a given tile.
@@ -77,13 +78,4 @@ public interface ViewTile{
    * @param height height as a double
    */
   void setSize(double width, double height);
-
-  /**
-   * <p>Returns the node that encompasses this tile.
-   * (So if this tile extends Rectangle, it will return the Rectangle object.)</p>
-   * <p>For tiles that extend a node, this might seem a little redundant, but this is so that other
-   * objects can just use ViewTiles to manipulate <em>any</em> kind of tile visually.</p>
-   * @return Node
-   */
-  Node asNode();
 }

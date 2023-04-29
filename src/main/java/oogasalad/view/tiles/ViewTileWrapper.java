@@ -45,8 +45,8 @@ public class ViewTileWrapper implements ViewTile {
     myRoot = new Group();
     myRoot.layoutXProperty().bindBidirectional(tile.positionAttribute().xProperty());
     myRoot.layoutYProperty().bindBidirectional(tile.positionAttribute().yProperty());
-//    bindPositionAttributes(tile);
-//    bindRotationAttributes(tile);
+    bindPositionAttributes(tile);
+    bindRotationAttributes(tile);
     generateTile();
     tile.viewTypeAttribute().valueProperty().addListener(
         (observable, oldValue, newValue) -> generateTile()

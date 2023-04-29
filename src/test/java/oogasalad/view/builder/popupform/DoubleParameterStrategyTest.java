@@ -12,6 +12,7 @@ import util.DukeApplicationTest;
 import java.util.ResourceBundle;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class DoubleParameterStrategyTest extends DukeApplicationTest {
     private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
@@ -27,9 +28,9 @@ class DoubleParameterStrategyTest extends DukeApplicationTest {
         attr = meta.makeDoubleAttribute();
         doubleParameterStrategy = new DoubleParameterStrategy(attr, meta);
         VBox root = new VBox();
-        Tile myGameConstruct = new Tile(new SchemaDatabase());
+        Tile tileMock = mock(Tile.class);
         root.getChildren().add(doubleParameterStrategy.renderInput(resourceBundle, root,
-            myGameConstruct.getId()));
+            tileMock.getId()));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

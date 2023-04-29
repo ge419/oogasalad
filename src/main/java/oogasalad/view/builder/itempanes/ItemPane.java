@@ -131,21 +131,11 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
     getBuilder().cancelAction();
   }
   private void displayGameInfoForm() {
-    ResourceBundle bundle = getResource(myCurrentBundleName);
     myPane.getChildren().clear();
-    // thumbnail image, name, description, genre
-    Text nameLabel = (Text) makeText("GameNameLabel", bundle);
-    TextField nameInput = (TextField) makeTextField("GameNameInput");
-    Text descriptionLabel = (Text) makeText("GameDescriptionLabel", bundle);
-    TextField descriptionInput = (TextField) makeTextField("GameDescriptionInput");
-    Text genreLabel = (Text) makeText("GameGenreLabel", bundle);
-    TextField genreInput = (TextField) makeTextField("GameGenreInput");
-    Button thumbnailInput = (Button) makeButton("GameThumbnailInput", bundle, e -> System.out.println("Upload Thumbnail Button Clicked."));
-    Button saveButton = (Button) makeButton("SaveGameInfoButton", bundle, e -> System.out.println("Save Game Info Button Clicked."));
-    myPane.getChildren().add(new HBox(nameLabel, nameInput));
-    myPane.getChildren().add(new HBox(descriptionLabel, descriptionInput));
-    myPane.getChildren().add(new HBox(genreLabel, genreInput));
-    myPane.getChildren().add(thumbnailInput);
-    myPane.getChildren().add(saveButton);
+    getBuilder().displayGameInfoForm(myPane);
+    addItems("GameInfoMenu");
+  }
+  private void saveGameInfo() {
+    getBuilder().saveGameInfo();
   }
 }

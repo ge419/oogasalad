@@ -185,7 +185,29 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myScene.getStylesheets().add(defaultStylesheet);
     return myScene;
   }
-
+  public void displayGameInfoForm(Pane container) {
+    container.getChildren().clear();
+    // thumbnail image, name, description, genre
+    Text nameLabel = (Text) makeText("GameNameLabel", builderResource);
+    TextField nameInput = (TextField) makeTextField("GameNameInput");
+    Text descriptionLabel = (Text) makeText("GameDescriptionLabel", builderResource);
+    TextField descriptionInput = (TextField) makeTextField("GameDescriptionInput");
+    Text genreLabel = (Text) makeText("GameGenreLabel", builderResource);
+    TextField genreInput = (TextField) makeTextField("GameGenreInput");
+    //Button thumbnailInput = (Button) makeButton("GameThumbnailInput", builderResource, e -> System.out.println("Upload Thumbnail Button Clicked."));
+    //Button saveButton = (Button) makeButton("SaveGameInfoButton", builderResource, e -> System.out.println("Save Game Info Button Clicked."));
+    container.getChildren().add(new HBox(nameLabel, nameInput));
+    container.getChildren().add(new HBox(descriptionLabel, descriptionInput));
+    container.getChildren().add(new HBox(genreLabel, genreInput));
+    //container.getChildren().add(thumbnailInput);
+    //container.getChildren().add(saveButton);
+  }
+  public void saveGameInfo() {
+    // get info for name, genre, description and save somewhere?
+  }
+  public void uploadThumbnailImage() {
+    // call Chika's upload thumbnail method
+  }
   private BorderPane createTopBar() {
     BorderPane topBar = new BorderPane();
     myTopBar = topBar;

@@ -5,7 +5,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.inject.Inject;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -24,7 +26,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class CustomTileFrontEnd extends StackPane implements ViewTile {
+public class CustomTileFrontEnd extends Group implements ViewTile {
 
     private double SCALE_DOWN_FACTOR = .4;
     private Color color;
@@ -42,12 +44,14 @@ public class CustomTileFrontEnd extends StackPane implements ViewTile {
     void loadJson() {
         this.getChildren().clear();
 
+        StackPane s = new StackPane();
+
         File selectedFile = chooseJsonFile();
         if (selectedFile != null) {
             try {
                 JsonObject jsonObject = readJsonFromFile(selectedFile);
-                this.setPrefHeight(jsonObject.get("height").getAsDouble()*SCALE_DOWN_FACTOR);
-                this.setPrefWidth(jsonObject.get("width").getAsDouble()*SCALE_DOWN_FACTOR);
+                s.setPrefHeight(jsonObject.get("height").getAsDouble()*SCALE_DOWN_FACTOR);
+                s.setPrefWidth(jsonObject.get("width").getAsDouble()*SCALE_DOWN_FACTOR);
                 //Something to preserve aspect ratio
                 name = jsonObject.get("name").getAsString();
                 JsonArray customObjects = jsonObject.getAsJsonArray("customObjects");
@@ -55,14 +59,14 @@ public class CustomTileFrontEnd extends StackPane implements ViewTile {
                     JsonObject customObject = jsonElement.getAsJsonObject();
                     CustomElement loadedObject = CustomElement.load(customObject);
                     if (loadedObject.getIndex() != -1){
-                        this.getChildren().add(loadedObject.getIndex(), (Node) loadedObject);
+                        s.getChildren().add(loadedObject.getIndex(), (Node) loadedObject);
                     }
                     else{
-                        this.getChildren().add((Node) loadedObject);
+                        s.getChildren().add((Node) loadedObject);
                     }
                     loadedObject.setLocation();
                 }
-
+                this.getChildren().add(s);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -99,7 +103,7 @@ public class CustomTileFrontEnd extends StackPane implements ViewTile {
     }
 
     public void setColor(Color color) {
-        this.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+        //this.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
         this.color = color;
     }
 
@@ -144,10 +148,20 @@ public class CustomTileFrontEnd extends StackPane implements ViewTile {
 
     @Override
     public void setSize(double width, double height) {
-        this.setPrefSize(width, height);
-        for (Node child : this.getChildren()) {
 
-        }
+        Bounds bounds = this.getBoundsInLocal();
+        double scaleX = width / bounds.getWidth();
+        double scaleY = height / bounds.getHeight();
+
+
+        System.out.println("scaleY = " + scaleX);
+
+
+        System.out.println("scaleY = " + scaleY);
+
+
+        this.setScaleX(scaleX);
+        this.setScaleY(scaleY);
     }
 
 

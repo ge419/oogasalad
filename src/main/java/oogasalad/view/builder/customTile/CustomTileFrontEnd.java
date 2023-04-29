@@ -15,7 +15,7 @@ public class CustomTileFrontEnd extends StackPane implements ViewTile {
     }
 
     @Override
-    public String getTileId() {
+    public String getCompId() {
         return null;
     }
 

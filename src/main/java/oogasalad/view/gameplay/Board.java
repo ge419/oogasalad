@@ -3,6 +3,7 @@ package oogasalad.view.gameplay;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -34,7 +35,6 @@ public class Board extends Canvas implements Renderable {
       double x = (BOARD_SIZE - scaledWidth) / 2;
       double y = (BOARD_SIZE - scaledHeight) / 2;
 
-
       gc.drawImage(image, x, y, scaledWidth, scaledHeight);
 
     } catch (IOException e) {
@@ -46,6 +46,11 @@ public class Board extends Canvas implements Renderable {
   public void render(BorderPane pane) {
     this.setId("Board");
     pane.setCenter(this);
+  }
+
+  @Override
+  public void clear(BorderPane pane) {
+    pane.getChildren().remove(this);
   }
 
 }

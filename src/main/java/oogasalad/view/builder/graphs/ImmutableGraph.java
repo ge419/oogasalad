@@ -62,7 +62,7 @@ public class ImmutableGraph implements GraphInterface {
   public String toString() {
     StringBuilder stringMaker = new StringBuilder();
     for (ViewTile tile : getTiles()) {
-      stringMaker.append("Tile ").append(tile.getTileId()).append(": ")
+      stringMaker.append("Tile ").append(tile.getCompId()).append(": ")
           .append(Collections.singletonList(getNextTiles(tile)));
       // same as stringMaker.append("Tile " + tile.getTileId() + ": " + Arrays.asList(getNextTiles(tile)));
     }

@@ -8,7 +8,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
@@ -48,16 +47,16 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
 
     //TODO: change this temporary behavior when tile is bought
     //TODO: depend on if attribute is present
-    modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE)
-        .map(PlayerAttribute::from)
-        .map(PlayerAttribute::idProperty)
-        .ifPresent(prop -> prop.addListener((observable, oldValue, newValue) ->
-            newValue.ifPresentOrElse(
-                // Tile is owned
-                id -> this.setColor(Color.RED),
-                // Tile is not owned
-                () -> this.setColor(Color.LIGHTBLUE)
-            )));
+//    modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE)
+//        .map(PlayerAttribute::from)
+//        .map(PlayerAttribute::idProperty)
+//        .ifPresent(prop -> prop.addListener((observable, oldValue, newValue) ->
+//            newValue.ifPresentOrElse(
+//                // Tile is owned
+//                id -> this.setColor(Color.RED),
+//                // Tile is not owned
+//                () -> this.setColor(Color.LIGHTBLUE)
+//            )));
   }
 
   @Override
@@ -70,10 +69,6 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
     }
     textBox.setAlignment(Pos.CENTER);
     return textBox;
-  }
-
-  public void setColor(Color color) {
-
   }
 
   @Override
@@ -94,12 +89,8 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
   }
 
   @Override
-  public String getTileId() {
+  public String getCompId() {
     return this.modelTile.getId();
-  }
-
-  public Coordinate getPosition() {
-    return null;
   }
 
   public void setPosition(Coordinate coord) {
@@ -107,10 +98,5 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
     this.setLayoutY(coord.getYCoor());
     this.getTransforms().add(new Rotate(coord.getAngle(), Rotate.Z_AXIS));
   }
-
-  public Paint getColor() {
-    return null;
-  }
-
 
 }

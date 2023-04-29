@@ -312,7 +312,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void deleteTile(TileEvent event) {
-    myBuilderController.removeTile(event.getViewTile().getTileId());
+    myBuilderController.removeTile(event.getViewTile().getCompId());
     myTrailMaker.removeTrail(event.getViewTile().asNode());
     myTileCount = deleteNode(event.getViewTile().asNode(), myTileCount);
     myCurrentTile = Optional.empty();
@@ -341,7 +341,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void setNextTile(ViewTile origin, ViewTile desiredNext) {
-    myBuilderController.addNext(origin.getTileId(), desiredNext.getTileId());
+    myBuilderController.addNext(origin.getCompId(), desiredNext.getCompId());
     myTrailMaker.createTrailBetween(desiredNext.asNode(), origin.asNode(), "test" + myTileCount);
   }
 

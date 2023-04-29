@@ -23,9 +23,10 @@ public class Tiles implements Renderable {
     }
   }
 
+
   public ViewTile getTile(String id) {
     for (ViewTile tile : tileList) {
-      if (tile.getTileId().equals(id)) {
+      if (tile.getCompId().equals(id)) {
         return tile;
       }
     }

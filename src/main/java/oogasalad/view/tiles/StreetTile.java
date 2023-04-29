@@ -9,7 +9,6 @@ import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
@@ -38,26 +37,16 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
 
     //TODO: change this temporary behavior when tile is bought
     //TODO: depend on if attribute is present
-
-    modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE)
-        .map(PlayerAttribute::from)
-        .map(PlayerAttribute::idProperty)
-        .ifPresent(prop -> prop.addListener((observable, oldValue, newValue) ->
-            newValue.ifPresentOrElse(
-                // Tile is owned
-                id -> this.setColor(Color.RED),
-                // Tile is not owned
-                () -> this.setColor(Color.LIGHTBLUE)
-            )));
-  }
-  private Rectangle createBar(double width, double height, String color) {
-    Rectangle bar = new Rectangle();
-    bar.setWidth(width);
-    bar.setHeight(height);
-    bar.setFill(Color.web(color));
-    bar.setStroke(Color.BLACK);
-    bar.setStrokeWidth(1);
-    return bar;
+//    modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE)
+//        .map(PlayerAttribute::from)
+//        .map(PlayerAttribute::idProperty)
+//        .ifPresent(prop -> prop.addListener((observable, oldValue, newValue) ->
+//            newValue.ifPresentOrElse(
+//                // Tile is owned
+//                id -> this.setColor(Color.RED),
+//                // Tile is not owned
+//                () -> this.setColor(Color.LIGHTBLUE)
+//            )));
   }
 
   private VBox createBarBox(double width, double height, String color) {
@@ -72,7 +61,6 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
   @Override
   public VBox createTextBox(List info, double height, double width) {
     VBox textBox = new VBox();
-
     Text streetText = new Text(info.get(0).toString());
     resizeText(streetText, height, TEXT_SCALE, width);
     Bounds streetTextBounds = streetText.getBoundsInLocal();
@@ -83,10 +71,6 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
     textBox.setAlignment(Pos.CENTER);
     textBox.getChildren().addAll(streetText, priceText);
     return textBox;
-  }
-
-  public void setColor(Color color) {
-
   }
 
   @Override
@@ -105,24 +89,15 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
     return this;
   }
 
-
-  @Override
-  public String getTileId() {
-    return this.modelTile.getId();
-  }
-
-  public Coordinate getPosition() {
-    return null;
-  }
-
   public void setPosition(Coordinate coord) {
     this.setLayoutX(coord.getXCoor());
     this.setLayoutY(coord.getYCoor());
     this.getTransforms().add(new Rotate(coord.getAngle(), Rotate.Z_AXIS));
   }
 
-  public Paint getColor() {
-    return null;
-  }
 
+  @Override
+  public String getCompId() {
+    return this.modelTile.getId();
+  }
 }

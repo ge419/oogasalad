@@ -67,6 +67,7 @@ public class Gameview {
 
     Renderable board = new Board();
     board.render(UIroot);
+    board.clear(UIroot);
 
     // TODO: use either Tiles or BBoard, not both!
     tiles = new Tiles(game.getBoard().getTiles());

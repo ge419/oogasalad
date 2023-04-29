@@ -8,20 +8,22 @@ import oogasalad.model.constructable.Tile;
 import oogasalad.view.Backgroundable;
 import oogasalad.model.engine.actions.BuyAction;
 import oogasalad.view.Coordinate;
+import oogasalad.view.IDable;
 
 /**
  * <p>ViewTile interface composes the methods that are required for a ViewTile to function.</p>
  *
  * @author tmh85
  */
-public interface ViewTile{
+public interface ViewTile extends IDable {
 
   /**
    * Returns the integer id for a given tile.
    *
    * @return id
    */
-  String getTileId();
+//  @Deprecated
+//  String getTileId();
 
   /**
    * <p>Returns the position of the tile as a double array.</p>

@@ -27,7 +27,7 @@ public class BasicTile extends Rectangle implements ViewTile {
     this.setFill(Color.LIGHTBLUE);
     this.setStroke(Color.BLACK);
 
-    // Check if tiles have an owner attribute
+//     Check if tiles have an owner attribute
     modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE)
         .map(PlayerAttribute::from)
         .map(PlayerAttribute::idProperty)
@@ -55,7 +55,8 @@ public class BasicTile extends Rectangle implements ViewTile {
     return this;
   }
 
-  public String getTileId() {
+  @Override
+  public String getCompId() {
     return this.modelTile.getId();
   }
 
@@ -68,19 +69,12 @@ public class BasicTile extends Rectangle implements ViewTile {
     this.setY(coord.getYCoor());
   }
 
-  public Paint getColor() {
-    return this.getFill();
-  }
-
-  public void setColor(Color color) {
-    this.setFill(color);
-  }
-
   @Override
   public boolean equals(Object o) {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    return this.getTileId().equals(((BasicTile) o).getTileId());
+    return this.getId().equals(((BasicTile) o).getCompId());
   }
+
 }

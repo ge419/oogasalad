@@ -82,7 +82,7 @@ public class ViewTileWrapper implements ViewTile {
   }
 
   @Override
-  public String getTileId() {
+  public String getCompId() {
     return myTile.getId();
   }
 

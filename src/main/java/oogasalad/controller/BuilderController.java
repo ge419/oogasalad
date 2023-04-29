@@ -1,6 +1,5 @@
 package oogasalad.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -32,45 +31,28 @@ import org.apache.logging.log4j.Logger;
  *
  */
 public class BuilderController {
-
-  // following instances will be removed later
-  private String FILE_PATH = "HARDCODE FILE PATH HERE";
-  private String FOLDER_NAME = "CUSTOM1";
-
   private static final Logger logger = LogManager.getLogger(BuilderController.class);
   private final BuilderView builderView;
   private SchemaDatabase db;
-  private GameHolder gameHolder;
-  private GameHolderBuilder gameHolderBuilder;
   private ViewTileFactory viewTileFactory;
   private BBoard board;
   private Players players;
   private SaveManager saveManager;
-//  private GameHolderBuilder gameHolderBuilder;
 
   @Inject
-  public BuilderController(
-      String injectedLanguage,
-      BuilderFactory injectedBuilderFactory,
-      ViewTileFactory tileFactory
-  ) {
+  public BuilderController(String language, Path saveDir) {
     Injector injector = Guice.createInjector(
-        new BuilderControllerModule(injectedLanguage),
+        new BuilderControllerModule(language, saveDir),
         new AttributeModule()
     );
-    builderView = injectedBuilderFactory.makeBuilder(injectedLanguage, this);
-    viewTileFactory = tileFactory;
+    builderView = injector.getInstance(BuilderFactory.class).makeBuilder(language, this);
+    viewTileFactory = injector.getInstance(ViewTileFactory.class);
     logger.info("created builder");
     db = injector.getInstance(SchemaDatabase.class);
-    gameHolder = GameHolder.createDefaultGame();
-//    saveManager = new SaveManager();
+    GameHolder gameHolder = injector.getInstance(GameHolder.class);
     board = gameHolder.getBoard();
     players = gameHolder.getPlayers();
-    //TODO: fix filePath (get from view)
-    String filePath = FILE_PATH + "/" + FOLDER_NAME;
-    ObjectMapper mapper = new ObjectMapper();
-    saveManager = new SaveManager(Path.of(filePath), mapper);
-
+    saveManager = injector.getInstance(SaveManager.class);
 
 //    todo: Dominics example code for how to get rules using dependency injection
 //    Injector injector = Guice.createInjector(new EngineModule());
@@ -108,17 +90,10 @@ public class BuilderController {
     logger.info("removed tile");
   }
 
-  public void save(GameHolder holder) {
-    saveManager.saveGame(holder);
+  public void save() {
+    saveManager.saveGame();
 //    ImageList --> loop through and apply saveAsset to all imgages
 //    saveManager.saveAsset();
-  }
-
-  public void load(String path) {
-    gameHolder = saveManager.loadGame();
-    //TODO: implement the code below
-    //builderView.renderBuilderView(gameHolder);
-//    builderView.loadFile();
   }
 
   public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Node parent,

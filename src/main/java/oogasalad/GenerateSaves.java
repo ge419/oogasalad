@@ -8,11 +8,10 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import oogasalad.model.attribute.AttributeModule;
-import oogasalad.controller.GameInfo;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
-import oogasalad.model.constructable.ConstructableModule;
 import oogasalad.model.constructable.GameHolder;
+import oogasalad.model.constructable.SaveManagerModule;
 import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.EngineModule;
 import oogasalad.model.engine.prompt.AIPrompter;
@@ -28,15 +27,17 @@ public class GenerateSaves {
   public static void main(String[] args)
       throws IOException {
     Path savePath = Path.of("data", "monopoly");
+
     Injector injector = Guice.createInjector(
         new ObjectMapperModule(),
-        new ConstructableModule(savePath),
+        new SaveManagerModule(savePath),
         new AttributeModule(),
-        binder -> binder.bind(Prompter.class).toInstance(new AIPrompter()),
-        binder -> binder.install(new EngineModule())
+        new EngineModule(),
+        binder -> binder.bind(Prompter.class).toInstance(new AIPrompter())
     );
 
-    GameHolder gameHolder = GameHolder.createDefaultGame();
+    GameHolder gameHolder = injector.getInstance(GameHolder.class);
+
     SchemaDatabase db = injector.getInstance(SchemaDatabase.class);
     db.setRuleListProperty(gameHolder.rulesProperty());
 
@@ -92,7 +93,7 @@ public class GenerateSaves {
     gameHolder.setGameInfo(gameHolder.getGameInfo());
 
     SaveManager saveManager = injector.getInstance(SaveManager.class);
-    saveManager.saveGame(gameHolder);
+    saveManager.saveGame();
   }
 
 

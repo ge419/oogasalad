@@ -2,8 +2,6 @@ package oogasalad.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.module.guice.ObjectMapperModule;
-import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import java.io.IOException;
@@ -14,14 +12,11 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 import oogasalad.controller.GameInfo;
-import oogasalad.model.attribute.AttributeModule;
 import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.SaveDirectory;
-import oogasalad.model.constructable.SaveManagerModule;
-import oogasalad.model.engine.EngineModule;
 import oogasalad.model.engine.rules.Rule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,16 +38,19 @@ public class SaveManager {
   private final Path assetsDir;
   private final SchemaDatabase schemaDatabase;
   private final GameHolder game;
+  private final Injector injector;
 
   @Inject
   public SaveManager(
       @SaveDirectory Path saveDir,
       SchemaDatabase schemaDatabase,
-      GameHolder gameHolder
+      GameHolder gameHolder,
+      Injector injector
   ) {
     this.saveDir = saveDir;
     this.schemaDatabase = schemaDatabase;
     this.game = gameHolder;
+    this.injector = injector;
     this.assetsDir = saveDir.resolve(ASSETS_DIR_NAME);
   }
 
@@ -132,13 +130,6 @@ public class SaveManager {
   }
 
   private ObjectMapper makeMapper() {
-    Injector injector = Guice.createInjector(
-        new ObjectMapperModule(),
-        new AttributeModule(),
-        new SaveManagerModule(saveDir),
-        new EngineModule()
-    );
-
     ObjectMapper mapper = injector.getInstance(ObjectMapper.class);
     mapper.enable(SerializationFeature.INDENT_OUTPUT);
 

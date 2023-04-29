@@ -3,6 +3,8 @@ package oogasalad.model.constructable;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.google.inject.Singleton;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javafx.beans.property.ListProperty;
@@ -11,6 +13,7 @@ import javafx.collections.FXCollections;
 import oogasalad.controller.GameInfo;
 import oogasalad.model.engine.rules.Rule;
 
+@Singleton
 public class GameHolder {
 
   private int minPlayerNum = 1;
@@ -22,6 +25,13 @@ public class GameHolder {
   private List<Piece> pieces;
   private final ListProperty<Rule> rules = new SimpleListProperty<>(
       FXCollections.observableArrayList());
+
+  public GameHolder() {
+    setGameInfo(new GameInfo());
+    setBoard(new BBoard());
+    setPlayers(new Players());
+    pieces = new ArrayList<>();
+  }
 
   public GameInfo getGameInfo() {
     return gameInfo;
@@ -104,13 +114,5 @@ public class GameHolder {
   @JsonSetter("rules")
   public void setRules(List<Rule> rules) {
     this.rules.setAll(rules);
-  }
-
-  public static GameHolder createDefaultGame() {
-    GameHolder gameHolder = new GameHolder();
-    gameHolder.setGameInfo(new GameInfo());
-    gameHolder.setBoard(new BBoard());
-    gameHolder.setPlayers(new Players());
-    return gameHolder;
   }
 }

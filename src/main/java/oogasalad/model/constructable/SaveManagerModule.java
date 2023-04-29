@@ -14,7 +14,6 @@ public class SaveManagerModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    install(new GameHolderModule());
     bind(Path.class)
         .annotatedWith(SaveDirectory.class)
         .toInstance(saveDir);

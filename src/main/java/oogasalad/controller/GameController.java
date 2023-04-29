@@ -1,6 +1,5 @@
 package oogasalad.controller;
 
-import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import java.io.IOException;
@@ -12,7 +11,6 @@ import oogasalad.model.engine.Engine;
 import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.model.engine.rules.DieMoveRule;
-import oogasalad.model.engine.rules.NumberOfPlayersRule;
 import oogasalad.model.engine.rules.TurnRule;
 import oogasalad.view.ViewFactory;
 import oogasalad.view.gameplay.Gameview;
@@ -26,20 +24,19 @@ public class GameController {
   private final PrompterFactory prompterFactory;
   // TODO get from player
   private final Prompter prompter;
+  private final Injector injector;
   LinkedList<Effect> effects;
 
   @Inject
   public GameController(
-      Engine engine,
-      GameHolder game,
-      PrompterFactory prompterFactory,
-      ViewFactory viewFactory
+      Injector outsideInjector
   ) {
-    gv = viewFactory.makeGameview(this);
+    this.injector = outsideInjector.createChildInjector(new GameControllerModule());
+    gv = injector.getInstance(ViewFactory.class).makeGameview(this);
     this.effects = new LinkedList<>();
-    this.engine = engine;
-    this.game = game;
-    this.prompterFactory = prompterFactory;
+    this.engine = injector.getInstance(Engine.class);
+    this.game = injector.getInstance(GameHolder.class);
+    this.prompterFactory = injector.getInstance(PrompterFactory.class);
     this.prompter = prompterFactory.makeDualPrompter(
         effect -> effects.add(effect),
         gv
@@ -48,7 +45,6 @@ public class GameController {
 
   public void setGame(Stage stage) throws IOException {
     gv.renderGameview(stage);
-    Injector injector = Guice.createInjector(new GameControllerModule(game));
     engine.setRules(
         List.of(
 //            injector.getInstance(NumberOfPlayersRule.class),

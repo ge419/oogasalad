@@ -1,0 +1,21 @@
+[ {
+  "id" : "6096462e-6948-41a2-aec6-a70c0bde8e73",
+  "schemas" : [ "turnRule" ],
+  "attributes" : [ ]
+}, {
+  "id" : "3ef5d711-227b-45eb-96d9-bf5d70e0b3ac",
+  "schemas" : [ "buyTileRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.StringAttribute",
+    "key" : "tileType",
+    "value" : "tile"
+  } ]
+}, {
+  "id" : "4a54052d-74ca-4c0c-bf1b-7a0eb078cdb7",
+  "schemas" : [ "dieRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "numberOfDice",
+    "value" : 1
+  } ]
+} ]

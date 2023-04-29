@@ -17,7 +17,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -25,8 +24,8 @@ import oogasalad.controller.BuilderController;
 import oogasalad.controller.builderevents.TrailMaker;
 import oogasalad.controller.builderevents.TrailMakerAPI;
 import oogasalad.view.Coordinate;
-import oogasalad.view.builder.bars.MenuItemPane;
 import oogasalad.view.builder.bars.ItemPane;
+import oogasalad.view.builder.bars.MenuItemPane;
 import oogasalad.view.builder.events.TileEvent;
 import oogasalad.view.builder.popupform.PopupForm;
 import oogasalad.view.tiles.ViewTile;
@@ -105,17 +104,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       // todo: replace with LOG
       System.out.println("Ruh-roh, can't save to a file that doesn't exist!");
       new Alert(Alert.AlertType.ERROR, builderResource.getString("FileNotFoundError"));
-    }
-  }
-
-  @Override
-  public void loadFile() {
-    Optional<File> file = directoryGet(builderResource, "LoadGameTitle");
-    if (file.isPresent()) {
-      System.out.println("Given directory: " + file.get().getPath());
-      myBuilderController.load(file.get().getPath());
-    } else {
-      // todo: display error
     }
   }
 

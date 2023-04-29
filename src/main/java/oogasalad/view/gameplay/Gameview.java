@@ -14,8 +14,13 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import oogasalad.controller.GameController;
 import oogasalad.model.constructable.GameHolder;
@@ -24,9 +29,12 @@ import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
 import oogasalad.model.observers.GameObserver;
 import oogasalad.view.Renderable;
+import oogasalad.view.gameplay.Players.PlayerUI;
 import oogasalad.view.gameplay.Players.ViewPlayers;
 import oogasalad.view.gameplay.pieces.ViewPieces;
+import oogasalad.view.gameplay.pieces.Cards;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
+import oogasalad.view.gameplay.popup.HandDisplayPopup;
 import oogasalad.view.tiles.Tiles;
 import org.checkerframework.checker.units.qual.A;
 
@@ -36,7 +44,6 @@ public class Gameview implements GameObserver {
   private final int VIEW_WIDTH = 1500;
   private final int VIEW_HEIGHT = 1000;
   private final GameHolder game;
-  private final Provider<Player> playerProvider;
   private final Provider<Piece> pieceProvider;
   private List<ObjectProperty<Player>> playerObjectProperty;
   private List<ObjectProperty<PlayerPiece>> playerPieceObjectProperty;
@@ -45,6 +52,7 @@ public class Gameview implements GameObserver {
   private final GameController gc;
   private Scene scene;
   private BorderPane UIroot;
+  private ViewPlayers viewPlayers = new ViewPlayers(null);
 
   @Inject
   public Gameview(
@@ -54,7 +62,6 @@ public class Gameview implements GameObserver {
       Provider<Piece> pieceProvider) {
     this.gc = gc;
     this.game = game;
-    this.playerProvider = playerProvider;
     this.pieceProvider = pieceProvider;
     this.playerObjectProperty = new ArrayList<>();
     this.playerPieceObjectProperty = new ArrayList<>();
@@ -78,10 +85,24 @@ public class Gameview implements GameObserver {
     // TODO: Dynamically watch players/pieces
 
 
+    //TODO: take this out when cards are implemented
+    Button button = new Button("Show Card Popup");
+    Cards card = new Cards("view.gameplay/chance.jpg");
+    Cards card2 = new Cards("view.gameplay/chance.jpg");
+    Cards card3 = new Cards("view.gameplay/chance.jpg");
+    Cards[] cards = {card, card2, card3};
+    HandDisplayPopup popup = new HandDisplayPopup(cards);
 
-//    for (PlayerPiece piece : viewPieces.getPieceList()) {
-//      piece.moveToTile(game.getBoard().getTiles().get(0));
-//    }
+    HBox hbox = new HBox();
+    hbox.getChildren().addAll(button);
+
+    button.setId("Button");
+    UIroot.setTop(hbox);
+
+    button.setOnAction(event -> {
+      Point2D offset = new Point2D(button.getScene().getX(), button.getScene().getY());
+      popup.showHand(button, offset);
+    });
 
     scene = new Scene(UIroot);
 
@@ -104,7 +125,7 @@ public class Gameview implements GameObserver {
 
   @Override
   public void updateOnPlayers(Players players) {
-    ViewPlayers viewPlayers = new ViewPlayers(game.getPlayers());
+    viewPlayers = new ViewPlayers(game.getPlayers());
     viewPlayers.render(UIroot);
   }
 
@@ -112,5 +133,21 @@ public class Gameview implements GameObserver {
   public void updateOnPieces(List<Piece> pieces) {
     ViewPieces viewPieces = new ViewPieces(game.getPieces());
     viewPieces.render(UIroot);
+  }
+
+  @Override
+  public void updateOnPlayerRemoval(List<Player> players) {
+    //TODO: make the player pieces be removed
+    List<String> ids = new ArrayList<>();
+    for (Player p : players)  ids.add(p.getId());
+    for (String id : ids) {
+      UIroot.getChildren().remove(viewPlayers.getPlayer(id));
+      Alert alert = new Alert(AlertType.INFORMATION);
+      alert.setTitle("Information Dialog");
+      alert.setHeaderText("Game Change!");
+      alert.setContentText(String.format("Player %s Gets Removed!", id));
+      alert.showAndWait();
+    }
+
   }
 }

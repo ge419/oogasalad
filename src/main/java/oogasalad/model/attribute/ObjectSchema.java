@@ -14,6 +14,11 @@ import java.util.Optional;
 public interface ObjectSchema {
 
   /**
+   * @return name of schema
+   */
+  String getName();
+
+  /**
    * Returns a list of the {@link AbstractMetadata} for each field of the schema.
    */
   List<Metadata> getAllMetadata();

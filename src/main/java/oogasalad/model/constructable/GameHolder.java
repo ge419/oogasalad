@@ -3,10 +3,10 @@ package oogasalad.model.constructable;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.google.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -15,6 +15,7 @@ import oogasalad.model.engine.rules.Rule;
 import oogasalad.model.observers.GameObserver;
 import oogasalad.model.observers.Observable;
 
+@Singleton
 public class GameHolder implements Observable<GameObserver> {
 
   private int minPlayerNum = 1;
@@ -28,6 +29,13 @@ public class GameHolder implements Observable<GameObserver> {
       FXCollections.observableArrayList());
 
   private final List<GameObserver> observers = new ArrayList<>();
+
+  public GameHolder() {
+    setGameInfo(new GameInfo());
+    setBoard(new BBoard());
+    setPlayers(new Players());
+    pieces = Optional.of(new ArrayList<>());
+  }
 
   public GameInfo getGameInfo() {
     return gameInfo;
@@ -76,6 +84,12 @@ public class GameHolder implements Observable<GameObserver> {
   }
 
   @JsonIgnore
+  public void removePlayers(List<Player> playersList) {
+    this.players.get().getPlayers().removeAll(playersList);
+    this.notifyRemoval(playersList);
+  }
+
+  @JsonIgnore
   public Player getCurrentPlayer() {
     return currentPlayer;
   }
@@ -112,14 +126,6 @@ public class GameHolder implements Observable<GameObserver> {
     this.rules.setAll(rules);
   }
 
-  public static GameHolder createDefaultGame() {
-    GameHolder gameHolder = new GameHolder();
-    gameHolder.setGameInfo(new GameInfo());
-    gameHolder.setBoard(new BBoard());
-    gameHolder.setPlayers(new Players());
-    return gameHolder;
-  }
-
   @Override
   public void register(GameObserver observer) {
     this.observers.add(observer);
@@ -135,6 +141,12 @@ public class GameHolder implements Observable<GameObserver> {
     for (GameObserver observer : observers) {
       observer.updateOnPlayers(this.players.get());
       observer.updateOnPieces(this.pieces.get());
+    }
+  }
+
+  public void notifyRemoval(List<Player> players) {
+    for (GameObserver observer : observers) {
+      observer.updateOnPlayerRemoval(players);
     }
   }
 }

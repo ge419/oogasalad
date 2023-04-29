@@ -11,7 +11,7 @@ import oogasalad.view.gameplay.pieces.PlayerPiece;
 
 public class CreatePlayerPieceAction implements Action {
   private final Provider<Piece> pieceProvider;
-  private GameHolder gameholder;
+  private final GameHolder gameholder;
 
   @Inject
   public CreatePlayerPieceAction(
@@ -44,8 +44,5 @@ public class CreatePlayerPieceAction implements Action {
       piece.setPlayer(gameholder.getPlayers().get().getPlayers().get(Math.floorDiv(i, numberOfPlayers)));
       playerPieces.add(new PlayerPiece(piece));
     }
-
-    //gameholder.setPlayers(new Players(players));
-    System.out.println(gameholder.getPlayers().get().getPlayers().get(0).getName());
   }
 }

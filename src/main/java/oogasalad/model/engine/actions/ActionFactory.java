@@ -13,4 +13,5 @@ public interface ActionFactory {
 
   MoveAction makeMoveAction(Piece piece, List<Tile> moveSequence);
   CreatePlayersAction makeCreatePlayersAction();
+  CreatePlayerPieceAction makeCreatePlayerPieceAction();
 }

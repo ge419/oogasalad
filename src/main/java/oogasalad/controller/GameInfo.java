@@ -22,7 +22,7 @@ public class GameInfo {
     this.gameInfo = new ArrayList<>();
   }
   @JsonCreator
-  public GameInfo(@JsonProperty("gameinfo") List<Object> g) {
+  public GameInfo(@JsonProperty("gameInfo") List<Object> g) {
     this.gameInfo = new ArrayList<>(g);
   }
 

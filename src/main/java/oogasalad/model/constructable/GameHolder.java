@@ -13,6 +13,8 @@ import oogasalad.model.engine.rules.Rule;
 
 public class GameHolder {
 
+  private int minPlayerNum = 1;
+  private int maxPlayerNum = 4;
   private GameInfo gameInfo;
   private BBoard board;
   private Players players;
@@ -35,6 +37,16 @@ public class GameHolder {
 
   public void setBoard(BBoard board) {
     this.board = board;
+  }
+
+  @JsonIgnore
+  public int minPlayer() {
+    return this.minPlayerNum;
+  }
+
+  @JsonIgnore
+  public int maxPlayer() {
+    return this.maxPlayerNum;
   }
 
   @JsonIgnore

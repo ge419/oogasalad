@@ -87,6 +87,7 @@ public class Gameview {
     List<Piece> pieceList = new ArrayList<>();
     for (List<Piece> pList : playerPieceMap.values()) {
       pieceList.addAll(pList);
+
     }
     ViewPieces viewPieces = new ViewPieces(pieceList);
     viewPieces.render(UIroot);

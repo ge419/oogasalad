@@ -1,16 +1,17 @@
 package oogasalad.view.builder.popupform;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import oogasalad.model.attribute.IntAttribute;
-import oogasalad.model.attribute.IntMetadata;
+import oogasalad.model.attribute.*;
+import oogasalad.model.constructable.Tile;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
+
+import java.util.ResourceBundle;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class IntegerParameterStrategyTest extends DukeApplicationTest {
     private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
@@ -26,7 +27,9 @@ class IntegerParameterStrategyTest extends DukeApplicationTest {
         attr = meta.makeIntAttribute();
         integerParameterStrategy = new IntegerParameterStrategy(attr, meta);
         VBox root = new VBox();
-        root.getChildren().add(integerParameterStrategy.renderInput(resourceBundle, root, ""));
+        Tile myGameConstruct = new Tile(new SchemaDatabase());
+        root.getChildren().add(integerParameterStrategy.renderInput(resourceBundle, root,
+            myGameConstruct.getId()));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

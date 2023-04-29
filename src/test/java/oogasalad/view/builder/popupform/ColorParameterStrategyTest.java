@@ -1,17 +1,23 @@
 package oogasalad.view.builder.popupform;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Spinner;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import oogasalad.model.attribute.ColorAttribute;
 import oogasalad.model.attribute.ColorMetadata;
+import oogasalad.model.attribute.IntAttribute;
+import oogasalad.model.attribute.IntMetadata;
+import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.constructable.Tile;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
+
+import java.util.ResourceBundle;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class ColorParameterStrategyTest extends DukeApplicationTest {
     private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
@@ -28,7 +34,9 @@ class ColorParameterStrategyTest extends DukeApplicationTest {
         attr = meta.makeColorAttribute();
         colorParameterStrategy = new ColorParameterStrategy(attr, meta);
         VBox root = new VBox();
-        root.getChildren().add(colorParameterStrategy.renderInput(resourceBundle, root, ""));
+        Tile myGameConstruct = new Tile(new SchemaDatabase());
+        root.getChildren().add(colorParameterStrategy.renderInput(resourceBundle, root,
+            myGameConstruct.getId()));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

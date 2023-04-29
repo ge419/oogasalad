@@ -1,16 +1,17 @@
 package oogasalad.view.builder.popupform;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import oogasalad.model.attribute.DoubleAttribute;
-import oogasalad.model.attribute.DoubleMetadata;
+import oogasalad.model.attribute.*;
+import oogasalad.model.constructable.Tile;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
+
+import java.util.ResourceBundle;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class DoubleParameterStrategyTest extends DukeApplicationTest {
     private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
@@ -26,7 +27,9 @@ class DoubleParameterStrategyTest extends DukeApplicationTest {
         attr = meta.makeDoubleAttribute();
         doubleParameterStrategy = new DoubleParameterStrategy(attr, meta);
         VBox root = new VBox();
-        root.getChildren().add(doubleParameterStrategy.renderInput(resourceBundle, root, ""));
+        Tile myGameConstruct = new Tile(new SchemaDatabase());
+        root.getChildren().add(doubleParameterStrategy.renderInput(resourceBundle, root,
+            myGameConstruct.getId()));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

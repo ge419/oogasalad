@@ -16,6 +16,8 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -42,7 +44,6 @@ public class Gameview implements GameObserver {
   private final int VIEW_WIDTH = 1500;
   private final int VIEW_HEIGHT = 1000;
   private final GameHolder game;
-  private final Provider<Player> playerProvider;
   private final Provider<Piece> pieceProvider;
   private List<ObjectProperty<Player>> playerObjectProperty;
   private List<ObjectProperty<PlayerPiece>> playerPieceObjectProperty;
@@ -61,7 +62,6 @@ public class Gameview implements GameObserver {
       Provider<Piece> pieceProvider) {
     this.gc = gc;
     this.game = game;
-    this.playerProvider = playerProvider;
     this.pieceProvider = pieceProvider;
     this.playerObjectProperty = new ArrayList<>();
     this.playerPieceObjectProperty = new ArrayList<>();
@@ -87,9 +87,9 @@ public class Gameview implements GameObserver {
 
     //TODO: take this out when cards are implemented
     Button button = new Button("Show Card Popup");
-    Cards card = new Cards("data/example/chance.jpg");
-    Cards card2 = new Cards("data/example/chance.jpg");
-    Cards card3 = new Cards("data/example/chance.jpg");
+    Cards card = new Cards("view.gameplay/chance.jpg");
+    Cards card2 = new Cards("view.gameplay/chance.jpg");
+    Cards card3 = new Cards("view.gameplay/chance.jpg");
     Cards[] cards = {card, card2, card3};
     HandDisplayPopup popup = new HandDisplayPopup(cards);
 
@@ -105,12 +105,6 @@ public class Gameview implements GameObserver {
     });
 
     scene = new Scene(UIroot);
-
-//    for (PlayerPiece piece : viewPieces.getPieceList()) {
-//      piece.moveToTile(game.getBoard().getTiles().get(0));
-//    }
-
-//    scene = new Scene(UIroot);
 
     //TODO: refactor to read from property file
     primaryStage.setTitle("Monopoly");
@@ -137,7 +131,6 @@ public class Gameview implements GameObserver {
 
   @Override
   public void updateOnPieces(List<Piece> pieces) {
-
     ViewPieces viewPieces = new ViewPieces(game.getPieces());
     viewPieces.render(UIroot);
   }

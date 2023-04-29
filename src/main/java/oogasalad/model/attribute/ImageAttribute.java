@@ -11,7 +11,7 @@ public class ImageAttribute extends StringAttribute{
   }
 
   public static ImageAttribute from(Attribute attr) {
-    return Attribute.getAs(attr, ImageAttribute.class);
+    return AbstractAttribute.getAs(attr, ImageAttribute.class);
   }
 
 }

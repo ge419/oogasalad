@@ -7,7 +7,7 @@ import java.util.Objects;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class StringMetadata extends Metadata {
+public class StringMetadata extends AbstractMetadata {
 
   public static final Class<StringAttribute> ATTRIBUTE_CLASS = StringAttribute.class;
   private final StringProperty defaultValue;
@@ -19,6 +19,17 @@ public class StringMetadata extends Metadata {
   }
 
   @Override
+  protected boolean checkPreconditions(Attribute attribute) {
+    String val = StringAttribute.from(attribute).getValue();
+    return isValidValue(val);
+  }
+
+  public boolean isValidValue(String val) {
+    // No preconditions
+    return true;
+  }
+
+  @Override
   public Attribute makeAttribute() {
     return makeStringAttribute();
   }
@@ -27,6 +38,10 @@ public class StringMetadata extends Metadata {
   @JsonIgnore
   public Class<? extends Attribute> getAttributeClass() {
     return ATTRIBUTE_CLASS;
+  }
+
+  public static StringMetadata from(Metadata meta) {
+    return getAs(meta, StringMetadata.class);
   }
 
   public StringAttribute makeStringAttribute() {

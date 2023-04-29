@@ -6,6 +6,10 @@ public class Coordinate {
   private double yCoor;
   private double tileAngle;
 
+  public Coordinate(double x, double y) {
+    this(x, y, 0);
+  }
+
   public Coordinate(double x, double y, double angle) {
     //TODO: add error handling for bounds of board/tiles
     xCoor = x;

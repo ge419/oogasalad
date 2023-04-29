@@ -7,7 +7,7 @@ import java.util.Objects;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class IntMetadata extends Metadata {
+public class IntMetadata extends AbstractMetadata {
 
   public static final Class<IntAttribute> ATTRIBUTE_CLASS = IntAttribute.class;
   private final IntegerProperty defaultValue;
@@ -23,6 +23,12 @@ public class IntMetadata extends Metadata {
   }
 
   @Override
+  protected boolean checkPreconditions(Attribute attribute) {
+    int val = IntAttribute.from(attribute).getValue();
+    return isValidValue(val);
+  }
+
+  @Override
   public Attribute makeAttribute() {
     return makeIntAttribute();
   }
@@ -31,6 +37,14 @@ public class IntMetadata extends Metadata {
   @JsonIgnore
   public Class<? extends Attribute> getAttributeClass() {
     return ATTRIBUTE_CLASS;
+  }
+
+  public boolean isValidValue(int value) {
+    return getMinValue() <= value && value <= getMaxValue();
+  }
+
+  public static IntMetadata from(Metadata meta) {
+    return getAs(meta, IntMetadata.class);
   }
 
   public IntAttribute makeIntAttribute() {

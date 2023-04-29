@@ -1,7 +1,7 @@
 package oogasalad.view.tiles;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import com.google.inject.Inject;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,14 +9,13 @@ import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
-import oogasalad.model.attribute.BooleanAttribute;
+import oogasalad.model.attribute.PlayerAttribute;
 import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.Tile;
-import oogasalad.model.engine.actions.BuyAction;
+import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.view.Backgroundable;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Textable;
@@ -27,36 +26,27 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
   public static final String COLOR_ATTRIBUTE = "color";
   private final Tile modelTile;
 
+  @Inject
   public StreetTile(Tile BTile) {
     this.modelTile = BTile;
 
     getChildren().addAll((createBarBox(BTile.getWidth(), BTile.getHeight(),
-            StringAttribute.from(BTile.getAttribute(COLOR_ATTRIBUTE)).getValue())),
-        createTextBox(BTile.getInfo(), BTile.getHeight(), BTile.getWidth()));
+            StringAttribute.from(BTile.getAttribute(COLOR_ATTRIBUTE).get()).getValue())),
+        createTextBox(List.of(BTile.getInfo(), BTile.getPrice()), BTile.getHeight(), BTile.getWidth()));
     setPosition(BTile.getCoordinate());
 
     //TODO: change this temporary behavior when tile is bought
-    BooleanAttribute ownedAttribute =
-        BooleanAttribute.from(modelTile.getAttribute(BuyAction.OWNED_ATTRIBUTE));
-    ownedAttribute.valueProperty().addListener(((observable, oldValue, isOwned) -> {
-      if (Boolean.TRUE.equals(isOwned)) {
-        for (Node child : this.getChildren()) {
-          child.setStyle("-fx-background-color: red;");
-        }
-      } else {
-        //do nothing
-      }
-    }));
-
-  }
-  private Rectangle createBar(double width, double height, String color) {
-    Rectangle bar = new Rectangle();
-    bar.setWidth(width);
-    bar.setHeight(height);
-    bar.setFill(Color.web(color));
-    bar.setStroke(Color.BLACK);
-    bar.setStrokeWidth(1);
-    return bar;
+    //TODO: depend on if attribute is present
+//    modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE)
+//        .map(PlayerAttribute::from)
+//        .map(PlayerAttribute::idProperty)
+//        .ifPresent(prop -> prop.addListener((observable, oldValue, newValue) ->
+//            newValue.ifPresentOrElse(
+//                // Tile is owned
+//                id -> this.setColor(Color.RED),
+//                // Tile is not owned
+//                () -> this.setColor(Color.LIGHTBLUE)
+//            )));
   }
 
   private VBox createBarBox(double width, double height, String color) {
@@ -69,15 +59,13 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
   }
 
   @Override
-  public VBox createTextBox(String info, double height, double width) {
+  public VBox createTextBox(List info, double height, double width) {
     VBox textBox = new VBox();
-    String[] infoList = info.split(",");
-
-    Text streetText = new Text(infoList[0]);
+    Text streetText = new Text(info.get(0).toString());
     resizeText(streetText, height, TEXT_SCALE, width);
     Bounds streetTextBounds = streetText.getBoundsInLocal();
     streetText.setLayoutY(this.getLayoutY());
-    Text priceText = new Text(infoList[1]);
+    Text priceText = new Text(info.get(1).toString());
     resizeText(priceText, height, TEXT_SCALE, width);
     textBox.setMargin(priceText, new Insets((height / 4 - streetTextBounds.getMaxY()), 0, 0, 0));
     textBox.setAlignment(Pos.CENTER);
@@ -86,36 +74,30 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
   }
 
   @Override
-  public void setColor(Color color) {
-
-  }
-
-  @Override
   public Tile getTile() {
     return this.modelTile;
   }
 
-
   @Override
-  public String getTileId() {
-    return this.modelTile.getId();
+  public void setSize(double width, double height) {
+    this.setWidth(width);
+    this.setHeight(height);
   }
 
   @Override
-  public Coordinate getPosition() {
-    return null;
+  public Node asNode() {
+    return this;
   }
 
-  @Override
   public void setPosition(Coordinate coord) {
     this.setLayoutX(coord.getXCoor());
     this.setLayoutY(coord.getYCoor());
     this.getTransforms().add(new Rotate(coord.getAngle(), Rotate.Z_AXIS));
   }
 
-  @Override
-  public Paint getColor() {
-    return null;
-  }
 
+  @Override
+  public String getCompId() {
+    return this.modelTile.getId();
+  }
 }

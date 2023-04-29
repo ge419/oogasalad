@@ -1,39 +1,91 @@
 package oogasalad.view.builder.popupform;
 
 import java.util.ResourceBundle;
+
+import com.google.inject.assistedinject.Assisted;
 import javafx.scene.Node;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import oogasalad.model.attribute.Attribute;
-import oogasalad.model.attribute.Metadata;
+import oogasalad.model.attribute.*;
 import oogasalad.view.builder.BuilderUtility;
+import javax.inject.Inject;
 
-class ColorParameterStrategy implements ParameterStrategy, BuilderUtility {
+/**
+ * A strategy used by the popup form to display a form element when
+ * a JavaFX Color is required from the user via user input. This consists
+ * of one labeled ColorPicker for the user to input a color.
+ * Example Usage:
+ * VBox form = new VBox();
+ * ColorParameterStrategy strategy = new ColorParameterStrategy(myColorAttribute, myColorMetadata);
+ * form.getChildren().add(strategy.renderInput(myResourceBundle, form));
+ * @author Jason Fitzpatrick
+ */
+public class ColorParameterStrategy implements ParameterStrategy, BuilderUtility {
+    private final ColorAttribute attr;
+    private final ColorMetadata meta;
     private ColorPicker element = new ColorPicker();
-
-    public ColorParameterStrategy() {
+    /**
+     * Creates an instance of ColorParameterStrategy
+     * Can be used to display form data to a user for a color,
+     * validate the input, save to an attribute, and access
+     * the corresponding ColorAttribute and ColorMetadata
+     * @param attr ColorAttribute
+     * @param meta ColorMetadata
+     */
+    @Inject
+    public ColorParameterStrategy(
+            @Assisted Attribute attr,
+            @Assisted Metadata meta) {
+        this.attr = ColorAttribute.from(attr);
+        this.meta = (ColorMetadata) ColorMetadata.from(meta);
     }
-
+    /**
+     * Returns a JavaFX form element for a color attribute
+     * @param resourceBundle
+     * @param form parent pane of element
+     * @return HBox containing labeled JavaFX ColorPicker
+     */
     @Override
-    public Node renderInput(String name, ResourceBundle resourceBundle) {
+    public Node renderInput(ResourceBundle resourceBundle, Pane form, String objectId) {
+        String name = meta.getName();
         Node textLabel = new Text(name);
         element = (ColorPicker) makeColorPicker(name);
         return makeHBox(String.format("%sColorInput", name), textLabel, element);
     }
-
+    /**
+     * Saves input to instance's ColorAttribute
+     */
     @Override
-    public Color getValue() {
-        return element.getValue();
+    public void saveInput() {
+        attr.setValue(getFieldValue());
+    }
+    /**
+     * Uses metadata to validate user input
+     * @return boolean (true means input is valid)
+     */
+    @Override
+    public boolean isInputValid() {
+        return meta.isValidValue(getFieldValue());
+    }
+    /**
+     * Gets ColorMetadata
+     * @return ColorMetadata
+     */
+    @Override
+    public Metadata getMetadata() {
+        return meta;
+    }
+    /**
+     * Gets ColorAttribute
+     * @return ColorAttribute
+     */
+    @Override
+    public Attribute getAttribute() {
+        return attr;
     }
 
-    @Override
-    public boolean validateInput(Metadata metadata) {
-        return getValue().getClass().equals(Color.class);
-    }
-
-    @Override
-    public void setValue(Attribute attribute) {
-        //ColorAttribute.from(attribute).setValue(getValue());
+    private String getFieldValue() {
+        return element.getValue().toString();
     }
 }

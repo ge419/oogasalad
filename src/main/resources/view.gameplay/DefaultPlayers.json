@@ -1,0 +1,24 @@
+{
+  "colors": [
+    "FFA07A",
+    "87CEFA",
+    "00FF7F",
+    "FFD700",
+    "EE82EE",
+    "6495ED",
+    "8B008B",
+    "1E90FF",
+    "FF69B4",
+    "FF7F50"
+  ],
+  "icons": [
+    "view.gameplay/piece_1.png",
+    "view.gameplay/piece_2.png",
+    "view.gameplay/piece_3.png",
+    "view.gameplay/piece_4.png",
+    "view.gameplay/piece_5.png",
+    "view.gameplay/piece_6.png",
+    "view.gameplay/piece_7.png",
+    "view.gameplay/piece_8.png"
+  ]
+}

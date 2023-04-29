@@ -6,7 +6,7 @@ import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
-public class BooleanAttribute extends Attribute {
+public class BooleanAttribute extends AbstractAttribute {
 
   private final BooleanProperty value;
 
@@ -18,7 +18,7 @@ public class BooleanAttribute extends Attribute {
   }
 
   public static BooleanAttribute from(Attribute attr) {
-    return Attribute.getAs(attr, BooleanAttribute.class);
+    return AbstractAttribute.getAs(attr, BooleanAttribute.class);
   }
 
   public boolean getValue() {
@@ -42,11 +42,13 @@ public class BooleanAttribute extends Attribute {
       return false;
     }
     BooleanAttribute that = (BooleanAttribute) o;
-    return Objects.equals(value, that.value);
+    boolean key = this.getKey().equals(that.getKey());
+    boolean value = this.value.get()==that.value.get();
+    return key&&value;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(value);
+    return Objects.hash(getKey()+value.get());
   }
 }

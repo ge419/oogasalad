@@ -6,7 +6,7 @@ import java.util.Objects;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class IntAttribute extends Attribute {
+public class IntAttribute extends AbstractAttribute {
 
   private final IntegerProperty value;
 
@@ -17,7 +17,7 @@ public class IntAttribute extends Attribute {
   }
 
   public static IntAttribute from(Attribute attr) {
-    return Attribute.getAs(attr, IntAttribute.class);
+    return AbstractAttribute.getAs(attr, IntAttribute.class);
   }
 
   public int getValue() {
@@ -41,11 +41,13 @@ public class IntAttribute extends Attribute {
       return false;
     }
     IntAttribute that = (IntAttribute) o;
-    return Objects.equals(value, that.value);
+    boolean key = this.getKey().equals(that.getKey());
+    boolean value = this.value.get()==that.value.get();
+    return key && value;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(value);
+    return Objects.hash(getKey()+value.get());
   }
 }

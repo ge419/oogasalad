@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javafx.scene.Node;
-import oogasalad.view.builder.panefeatures.DraggerAPI;
+import oogasalad.controller.builderevents.DraggerAPI;
 
 /**
  * NodeStorer will hold information related to each node that cannot be stored in the node itself.

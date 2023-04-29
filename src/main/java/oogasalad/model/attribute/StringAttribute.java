@@ -6,18 +6,18 @@ import java.util.Objects;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class StringAttribute extends Attribute {
+public class StringAttribute extends AbstractAttribute {
 
   private final StringProperty value;
 
   @JsonCreator
-  protected StringAttribute(@JsonProperty("key") String key, @JsonProperty("value") String value) {
+  public StringAttribute(@JsonProperty("key") String key, @JsonProperty("value") String value) {
     super(key);
     this.value = new SimpleStringProperty(value);
   }
 
   public static StringAttribute from(Attribute attr) {
-    return Attribute.getAs(attr, StringAttribute.class);
+    return AbstractAttribute.getAs(attr, StringAttribute.class);
   }
 
   public String getValue() {
@@ -41,12 +41,14 @@ public class StringAttribute extends Attribute {
       return false;
     }
     StringAttribute that = (StringAttribute) o;
-    return Objects.equals(value, that.value);
+    boolean key = this.getKey().equals(that.getKey());
+    boolean value = this.value.get().equals(that.value.get());
+    return key && value;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(value);
+    return Objects.hash(getKey()+value.get());
   }
 
   @Override

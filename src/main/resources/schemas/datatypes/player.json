@@ -1,4 +1,5 @@
 {
+  "@class": "oogasalad.model.attribute.SimpleObjectSchema",
   "name": "player",
   "fields": [
     {
@@ -16,9 +17,7 @@
       "description": "Score of player",
       "editable": true,
       "viewable": true,
-      "defaultValue": 0,
-      "minValue": -2147483648,
-      "maxValue": 2147483647
+      "defaultValue": 2000
     },
     {
       "@class": "oogasalad.model.attribute.ColorMetadata",

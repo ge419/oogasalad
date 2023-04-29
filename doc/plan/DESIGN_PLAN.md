@@ -3,7 +3,7 @@
 The overall goal of a board game authoring platform is to provide a flexible, user-friendly
 environment for game designers to create, customize and deploy their own board games. Such a
 platform should include a range of tools and resources that allow designers to create custom boards,
-pieces, and rules, as well as the ability to publish, share and play their games with a wider
+viewPieces, and rules, as well as the ability to publish, share and play their games with a wider
 audience. The ultimate aim is to empower designers to create engaging and innovative board games
 that provide a unique and enjoyable experience for players. Therefore, the main focuses of the
 project is as follows:
@@ -23,7 +23,7 @@ For this project, we make the following assumptions:
 
 - The game is a turn-based board game
 - The board is composed of discrete tiles
-- The game has pieces that are always on a tile
+- The game has viewPieces that are always on a tile
 
 However, for the purposes of the design goals, we **do not** assume that:
 
@@ -32,7 +32,7 @@ However, for the purposes of the design goals, we **do not** assume that:
 - The connections between tiles is fixed (rather, it may be cyclical, have multiple
   outgoing/incoming edges, no connections, etc.)
 - The game objective is fixed
-- The game pieces always move in a certain way (e.g. via a dice roll)
+- The game viewPieces always move in a certain way (e.g. via a dice roll)
 
 ## Design Details: Classes and APIs
 

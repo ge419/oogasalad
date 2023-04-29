@@ -13,7 +13,11 @@ import oogasalad.view.tiles.ViewTile;
  * already contains values in it.
  *
  * @author tmh85
+ * @deprecated Due to better integration between frontend, backend, and controller, the graph is no
+ * longer needed.
  */
+
+@Deprecated
 public class ImmutableGraph implements GraphInterface {
 
   private final HashMap<ViewTile, List<ViewTile>> myStruct;
@@ -58,7 +62,7 @@ public class ImmutableGraph implements GraphInterface {
   public String toString() {
     StringBuilder stringMaker = new StringBuilder();
     for (ViewTile tile : getTiles()) {
-      stringMaker.append("Tile ").append(tile.getTileId()).append(": ")
+      stringMaker.append("Tile ").append(tile.getCompId()).append(": ")
           .append(Collections.singletonList(getNextTiles(tile)));
       // same as stringMaker.append("Tile " + tile.getTileId() + ": " + Arrays.asList(getNextTiles(tile)));
     }

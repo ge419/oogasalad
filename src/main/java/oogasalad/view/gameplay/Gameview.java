@@ -27,6 +27,7 @@ import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
 import oogasalad.model.observers.GameObserver;
 import oogasalad.view.Renderable;
+import oogasalad.view.gameplay.Players.PlayerUI;
 import oogasalad.view.gameplay.Players.ViewPlayers;
 import oogasalad.view.gameplay.pieces.ViewPieces;
 import oogasalad.view.gameplay.pieces.Cards;
@@ -50,6 +51,7 @@ public class Gameview implements GameObserver {
   private final GameController gc;
   private Scene scene;
   private BorderPane UIroot;
+  private ViewPlayers viewPlayers = new ViewPlayers(null);
 
   @Inject
   public Gameview(
@@ -129,13 +131,30 @@ public class Gameview implements GameObserver {
 
   @Override
   public void updateOnPlayers(Players players) {
-    ViewPlayers viewPlayers = new ViewPlayers(game.getPlayers());
+    viewPlayers = new ViewPlayers(game.getPlayers());
     viewPlayers.render(UIroot);
   }
 
   @Override
   public void updateOnPieces(List<Piece> pieces) {
+
     ViewPieces viewPieces = new ViewPieces(game.getPieces());
     viewPieces.render(UIroot);
+  }
+
+  @Override
+  public void updateOnPlayerRemoval(List<Player> players) {
+    //TODO: make the player pieces be removed
+    List<String> ids = new ArrayList<>();
+    for (Player p : players)  ids.add(p.getId());
+    for (String id : ids) {
+      UIroot.getChildren().remove(viewPlayers.getPlayer(id));
+      Alert alert = new Alert(AlertType.INFORMATION);
+      alert.setTitle("Information Dialog");
+      alert.setHeaderText("Game Change!");
+      alert.setContentText(String.format("Player %s Gets Removed!", id));
+      alert.showAndWait();
+    }
+
   }
 }

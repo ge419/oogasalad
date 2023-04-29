@@ -103,16 +103,17 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   @Override
   public void saveFile() {
-    Optional<File> file = directoryGet(builderResource, "SaveGameTitle");
-    if (file.isPresent()) {
-      String givenDirectory = file.get().getPath();
-      // myBuilderController.save(givenDirectory);
-      LOG.info("Saved to directory: " + givenDirectory);
-    } else {
-      LOG.error(
-          "Either cancelled out of file save window or tried to save to a file that doesn't exist.");
-      ErrorHandler.displayError(builderResource.getString("FileNotFoundError"));
-    }
+    myBuilderController.save();
+//    Optional<File> file = directoryGet(builderResource, "SaveGameTitle");
+//    if (file.isPresent()) {
+//      String givenDirectory = file.get().getPath();
+//      myBuilderController.save();
+//      LOG.info("Saved to directory: " + givenDirectory);
+//    } else {
+//      LOG.error(
+//          "Either cancelled out of file save window or tried to save to a file that doesn't exist.");
+//      ErrorHandler.displayError(builderResource.getString("FileNotFoundError"));
+//    }
   }
 
   @Override

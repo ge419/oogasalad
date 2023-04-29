@@ -26,7 +26,7 @@ public class Cards extends GamePiece implements Backgroundable, Textable, Imagea
     VBox content = new VBox(70/10, cardImage, createTextBox("Test Text", 70, 50));
     content.setAlignment(Pos.CENTER);
     getChildren().addAll(background, content);
-    setOnMouseClicked(this::showPopup);
+//    setOnMouseClicked(this::showPopup);
   }
 
   private void showPopup(MouseEvent event) {

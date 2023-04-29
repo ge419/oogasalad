@@ -18,7 +18,6 @@ public class Player extends AbstractGameConstruct {
   public static final String SCORE_ATTRIBUTE = "score";
   public static final String ICON_ATTRIBUTE = "image";
   public static final String COLOR_ATTRIBUTE = "color";
-
   private final List<Piece> pieces;
 
 
@@ -74,9 +73,15 @@ public class Player extends AbstractGameConstruct {
   }
 
   @JsonIgnore
+  public void setColor(String color) {getColorAttribute().setValue(color);}
+
+  @JsonIgnore
   public String getImage() {
     return getImageAttribute().getValue();
   }
+
+  @JsonIgnore
+  public void setImage(String imagePath) {getImageAttribute().setValue(imagePath);}
 
   @JsonIgnore
   public List<Piece> getPieces() {

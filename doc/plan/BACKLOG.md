@@ -189,9 +189,9 @@
 
 - Establish the rules for how players can win the game by acquiring all the properties and bankrupting all other players.
 
-- Establish movement restrictions (disallow movement onto or past any tile with 2 pieces on it)
+- Establish movement restrictions (disallow movement onto or past any tile with 2 viewPieces on it)
 
-- Allow the player to distribute moves over multiple pieces
+- Allow the player to distribute moves over multiple viewPieces
 
 - **Give users the ability to include specific cheat codes for special functionality (ex. Winning the game, Restart, etc.)**
 

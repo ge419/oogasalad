@@ -27,7 +27,6 @@ import oogasalad.controller.BuilderController;
 import oogasalad.controller.builderevents.TrailMaker;
 import oogasalad.controller.builderevents.TrailMakerAPI;
 import oogasalad.view.Coordinate;
-import oogasalad.view.builder.customTile.CustomObjectBuilder;
 import oogasalad.view.builder.itempanes.MenuItemPane;
 import oogasalad.view.builder.itempanes.ItemPane;
 import oogasalad.view.builder.events.TileEvent;
@@ -69,6 +68,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private Node myInfoText;
   private BorderPane myTopBar;
   private int myTileCount = 0;
+  private int myTrailCount = 0;
   private ItemPane mySidebar;
   private MenuItemPane myMenubar;
   private ItemPane myTopButtonBox;
@@ -358,7 +358,14 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void deleteTilePath(TileEvent event){
-    myBuilderController.removeNext(myCurrentTile.get().getTileId(), event.getViewTile().getTileId());
+    if (myBuilderController.removeNext(myCurrentTile.get().getTileId(), event.getViewTile().getTileId())){
+      myTrailMaker.removeTrail(myCurrentTile.get().asNode(), event.getViewTile().asNode());
+      myTrailCount--;
+      cancelAction();
+    }
+    else{
+      ErrorHandler.displayError(builderResource.getString("DeletingImaginaryPathError"));
+    }
   }
 
   private void displayTileForm(TileEvent event) {
@@ -378,8 +385,14 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void setNextTile(ViewTile origin, ViewTile desiredNext) {
-    myBuilderController.addNext(origin.getTileId(), desiredNext.getTileId());
-    myTrailMaker.createTrailBetween(desiredNext.asNode(), origin.asNode(), "test" + myTileCount);
+    if(myBuilderController.addNext(origin.getTileId(), desiredNext.getTileId())){
+      myTrailMaker.createTrailBetween(desiredNext.asNode(), origin.asNode(), "test" + myTrailCount);
+      myTrailCount++;
+    }
+    else{
+      // Can be an error if desired.
+      ErrorHandler.displayError(builderResource.getString("SamePathCreationError"));
+    }
   }
 
   private int deleteNode(Node node, int objCounter) {

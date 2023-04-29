@@ -108,14 +108,27 @@ public class BuilderController {
     return tile;
   }
 
-  public void addNext(String currentId, String nextId) {
+  public boolean addNext(String currentId, String nextId) {
+    if (board.getById(currentId).get().getNextTileIds().contains(nextId)){
+      logger.info("Tried creating a path that already exists.");
+      return false;
+    }
+    System.out.println("Why hello: " + board.getById(currentId).get().getNextTileIds());
     board.getById(currentId).get().getNextTileIds().add(nextId);
     logger.info("added next attribute to tile");
+    return true;
   }
 
-  public void removeNext(String currentId, String nextId) {
-    board.getById(currentId).get().getNextTileIds().remove(nextId);
-    logger.info("removed next attribute from tile");
+  public boolean removeNext(String currentId, String nextId) {
+    if (board.getById(currentId).get().getNextTileIds().contains(nextId)){
+      board.getById(currentId).get().getNextTileIds().remove(nextId);
+      logger.info("removed next attribute from tile");
+      return true;
+    }
+    else{
+      logger.info("tried to remove a next attribute that doesn't exist.");
+      return false;
+    }
   }
 
   public void removeTile(String currentId) {

@@ -10,6 +10,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import oogasalad.model.attribute.*;
 
+import java.awt.*;
 import java.io.*;
 import java.io.FileReader;
 import java.nio.file.Files;

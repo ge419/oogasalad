@@ -1,6 +1,41 @@
 {
   "name": "Test1",
-  "width": 516.0,
-  "height": 275.0,
-  "customObjects": []
+  "width": 591.0,
+  "height": 513.0,
+  "customObjects": [
+    {
+      "type": "CustomColorBox",
+      "name": "",
+      "color": "0xff000080",
+      "opacity": 1.0,
+      "index": 0,
+      "translatex": -8.0,
+      "translatey": 1.0,
+      "width": 50.0,
+      "height": 50.0,
+      "editable": false
+    },
+    {
+      "name": "Caption",
+      "defaultContents": "Add photographer name",
+      "fontSize": 14,
+      "bold": false,
+      "translateX": 186.0,
+      "translateY": 40.0,
+      "type": "CustomText",
+      "index": -1,
+      "editable": false
+    },
+    {
+      "type": "CustomImage",
+      "x": 79.0,
+      "y": -103.0,
+      "name": ".png",
+      "height": 221.51672671127105,
+      "width": 338.1044776119403,
+      "filePath": "data/customObjects/Test1/.png",
+      "index": 2,
+      "editable": false
+    }
+  ]
 }

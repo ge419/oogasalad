@@ -42,7 +42,7 @@ public class CreatePlayersAction implements Action {
     }
     actionParams.prompter().selectSingleOption("Select number of players", options, this::createPlayers);
     actionParams.emitter().emit(new ChooseNumberOfPlayersEvent());
-
+    //TODO: After figuring out order, bind view player initialize and listen to model player
   }
 
   private void createPlayers(IntegerPromptOption selectedPlayers) {
@@ -54,6 +54,7 @@ public class CreatePlayersAction implements Action {
       pieceList.addAll(pList);
     }
     gameholder.setPieces(pieceList);
+    this.gameholder.notifyList();
 
 //    for (int i=0; i<selectedPlayers.getValue(); i++) {
 //      Player player = playerProvider.get();
@@ -93,6 +94,7 @@ public class CreatePlayersAction implements Action {
         Piece piece = pieceProvider.get();
         piece.setImage(p.getImage());
         piece.setPlayer(p);
+        piece.setTile(gameholder.getBoard().getTiles().get(0));
         p.getPieces().add(piece);
         pieceList.add(piece);
       }

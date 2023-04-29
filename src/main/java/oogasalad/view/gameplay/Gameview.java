@@ -22,6 +22,7 @@ import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
+import oogasalad.model.observers.GameObserver;
 import oogasalad.view.Renderable;
 import oogasalad.view.gameplay.Players.ViewPlayers;
 import oogasalad.view.gameplay.pieces.ViewPieces;
@@ -29,7 +30,7 @@ import oogasalad.view.gameplay.pieces.PlayerPiece;
 import oogasalad.view.tiles.Tiles;
 import org.checkerframework.checker.units.qual.A;
 
-public class Gameview {
+public class Gameview implements GameObserver {
 
   //TODO: refactor to read from JSON file
   private final int VIEW_WIDTH = 1500;
@@ -43,6 +44,7 @@ public class Gameview {
   private Die die;
   private final GameController gc;
   private Scene scene;
+  private BorderPane UIroot;
 
   @Inject
   public Gameview(
@@ -56,10 +58,11 @@ public class Gameview {
     this.pieceProvider = pieceProvider;
     this.playerObjectProperty = new ArrayList<>();
     this.playerPieceObjectProperty = new ArrayList<>();
+    this.game.register(this);
   }
 
   public void renderGameview(Stage primaryStage) throws IOException {
-    BorderPane UIroot = new BorderPane();
+    UIroot = new BorderPane();
 
     Renderable board = new Board();
     board.render(UIroot);
@@ -74,25 +77,11 @@ public class Gameview {
     //TODO: retrieve number of players and piece per player from launcher/builder
     // TODO: Dynamically watch players/pieces
 
-    Player p = playerProvider.get();
-    Players firstPlayer = new Players(List.of(p));
-    firstPlayer.randomize();
-    Piece firstPiece = pieceProvider.get();
-    firstPiece.setImage(p.getImage());
-    firstPiece.setPlayer(p);
-    p.getPieces().add(firstPiece);
-    game.setPlayers(firstPlayer);
-    game.setPieces(List.of(firstPiece));
-    ViewPlayers viewPlayers = new ViewPlayers(game.getPlayers());
-    viewPlayers.render(UIroot);
 
 
-    ViewPieces viewPieces = new ViewPieces(game.getPieces());
-    viewPieces.render(UIroot);
-
-    for (PlayerPiece piece : viewPieces.getPieceList()) {
-      piece.moveToTile(game.getBoard().getTiles().get(0));
-    }
+//    for (PlayerPiece piece : viewPieces.getPieceList()) {
+//      piece.moveToTile(game.getBoard().getTiles().get(0));
+//    }
 
     scene = new Scene(UIroot);
 
@@ -113,6 +102,15 @@ public class Gameview {
   }
 
 
+  @Override
+  public void updateOnPlayers(Players players) {
+    ViewPlayers viewPlayers = new ViewPlayers(game.getPlayers());
+    viewPlayers.render(UIroot);
+  }
 
-
+  @Override
+  public void updateOnPieces(List<Piece> pieces) {
+    ViewPieces viewPieces = new ViewPieces(game.getPieces());
+    viewPieces.render(UIroot);
+  }
 }

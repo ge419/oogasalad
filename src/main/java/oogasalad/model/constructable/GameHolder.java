@@ -3,15 +3,19 @@ package oogasalad.model.constructable;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import oogasalad.controller.GameInfo;
 import oogasalad.model.engine.rules.Rule;
+import oogasalad.model.observers.GameObserver;
+import oogasalad.model.observers.Observable;
 
-public class GameHolder {
+public class GameHolder implements Observable<GameObserver> {
 
   private int minPlayerNum = 1;
   private int maxPlayerNum = 4;
@@ -22,6 +26,8 @@ public class GameHolder {
   private Optional<List<Piece>> pieces;
   private final ListProperty<Rule> rules = new SimpleListProperty<>(
       FXCollections.observableArrayList());
+
+  private final List<GameObserver> observers = new ArrayList<>();
 
   public GameInfo getGameInfo() {
     return gameInfo;
@@ -112,5 +118,23 @@ public class GameHolder {
     gameHolder.setBoard(new BBoard());
     gameHolder.setPlayers(new Players());
     return gameHolder;
+  }
+
+  @Override
+  public void register(GameObserver observer) {
+    this.observers.add(observer);
+  }
+
+  @Override
+  public void remove(GameObserver observer) {
+    this.observers.remove(observer);
+  }
+
+  @Override
+  public void notifyList() {
+    for (GameObserver observer : observers) {
+      observer.updateOnPlayers(this.players.get());
+      observer.updateOnPieces(this.pieces.get());
+    }
   }
 }

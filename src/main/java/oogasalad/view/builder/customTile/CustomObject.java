@@ -1,6 +1,8 @@
 package oogasalad.view.builder.customTile;
 
 import com.google.gson.*;
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
@@ -22,17 +24,22 @@ import java.util.Optional;
 
 public class CustomObject extends StackPane {
     private final Path RESOURCE_PATH = Paths.get("data/customObjects");
+//    private final SchemaDatabase schemaDatabase;
     private final Runnable swapCurrentClicked;
     private String name;
     VBox currentClickedInfo;
     VBox newCurrentClickedInfo;
 
-    public CustomObject(){
-        this.swapCurrentClicked = null;
-    }
 
 
-    public CustomObject(Runnable swapCurrentClicked){
+
+//    @Inject
+//    public CustomObject(Runnable swapCurrentClicked, @Assisted SchemaDatabase schemaDatabase){
+//        this.swapCurrentClicked = swapCurrentClicked;
+//    }
+
+
+    public CustomObject(Runnable swapCurrentClicked, SchemaDatabase schemaDatabase){
         this.swapCurrentClicked = swapCurrentClicked;
     }
 

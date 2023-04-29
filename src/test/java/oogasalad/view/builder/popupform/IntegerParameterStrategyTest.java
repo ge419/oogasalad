@@ -5,6 +5,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oogasalad.model.attribute.*;
+import oogasalad.model.constructable.Tile;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
@@ -26,7 +27,9 @@ class IntegerParameterStrategyTest extends DukeApplicationTest {
         attr = meta.makeIntAttribute();
         integerParameterStrategy = new IntegerParameterStrategy(attr, meta);
         VBox root = new VBox();
-        root.getChildren().add(integerParameterStrategy.renderInput(resourceBundle, root));
+        Tile myGameConstruct = new Tile(new SchemaDatabase());
+        root.getChildren().add(integerParameterStrategy.renderInput(resourceBundle, root,
+            myGameConstruct.getId()));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

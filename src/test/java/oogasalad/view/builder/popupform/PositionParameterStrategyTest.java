@@ -9,6 +9,8 @@ import oogasalad.model.attribute.IntAttribute;
 import oogasalad.model.attribute.IntMetadata;
 import oogasalad.model.attribute.PositionAttribute;
 import oogasalad.model.attribute.PositionMetadata;
+import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
@@ -36,7 +38,9 @@ class PositionParameterStrategyTest extends DukeApplicationTest {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        root.getChildren().add(positionParameterStrategy.renderInput(resourceBundle, root));
+        Tile myGameConstruct = new Tile(new SchemaDatabase());
+        root.getChildren().add(positionParameterStrategy.renderInput(resourceBundle, root,
+            myGameConstruct.getId()));
     }
     @Test
     void renderInput() {

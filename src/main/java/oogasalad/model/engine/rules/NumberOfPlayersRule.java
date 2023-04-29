@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JacksonInject;
 import com.google.inject.Inject;
 import java.util.List;
 import javafx.beans.property.ReadOnlyListProperty;
+import oogasalad.model.attribute.IntAttribute;
 import oogasalad.model.attribute.SchemaBinding;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.AbstractGameConstruct;
@@ -11,8 +12,6 @@ import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.actions.ActionFactory;
-import oogasalad.model.engine.actions.CreatePlayersAction;
-import oogasalad.model.engine.events.ChooseNumberOfPlayersEvent;
 import oogasalad.model.engine.events.StartGameEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,17 +38,10 @@ public class NumberOfPlayersRule extends AbstractGameConstruct implements Editab
     registrar.registerHandler(StartGameEvent.class, this::generatePlayersOnSelection);
   }
 
-  @Override
-  public List<SchemaBinding> getAppliedSchemas() {
-    return EditableRule.super.getAppliedSchemas();
-  }
-
-  @Override
-  public ReadOnlyListProperty<SchemaBinding> appliedSchemasProperty() {
-    return EditableRule.super.appliedSchemasProperty();
-  }
-
   private void generatePlayersOnSelection(EventHandlerParams<StartGameEvent> eventHandlerParams){
-    eventHandlerParams.actionQueue().add(0, actionFactory.makeCreatePlayersAction());
+    int min = IntAttribute.from(this.getAttribute("minPlayer").get()).getValue();
+    int max = IntAttribute.from(this.getAttribute("maxPlayer").get()).getValue();
+
+    eventHandlerParams.actionQueue().add(0, actionFactory.makeCreatePlayersAction(min, max));
   }
 }

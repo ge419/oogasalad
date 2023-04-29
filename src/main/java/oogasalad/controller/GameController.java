@@ -13,6 +13,7 @@ import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.model.engine.rules.DieMoveRule;
 import oogasalad.model.engine.rules.NumberOfPlayersRule;
+import oogasalad.model.engine.rules.RemovePlayerRule;
 import oogasalad.model.engine.rules.TurnRule;
 import oogasalad.view.ViewFactory;
 import oogasalad.view.gameplay.Gameview;
@@ -51,6 +52,7 @@ public class GameController {
     Injector injector = Guice.createInjector(new GameControllerModule(game));
     engine.setRules(
         List.of(
+            injector.getInstance(RemovePlayerRule.class),
             injector.getInstance(NumberOfPlayersRule.class),
             injector.getInstance(TurnRule.class),
             injector.getInstance(DieMoveRule.class),

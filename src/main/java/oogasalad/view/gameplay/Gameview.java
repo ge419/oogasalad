@@ -24,6 +24,7 @@ import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
 import oogasalad.model.observers.GameObserver;
 import oogasalad.view.Renderable;
+import oogasalad.view.gameplay.Players.PlayerUI;
 import oogasalad.view.gameplay.Players.ViewPlayers;
 import oogasalad.view.gameplay.pieces.ViewPieces;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
@@ -45,6 +46,7 @@ public class Gameview implements GameObserver {
   private final GameController gc;
   private Scene scene;
   private BorderPane UIroot;
+  private ViewPlayers viewPlayers = new ViewPlayers(null);
 
   @Inject
   public Gameview(
@@ -74,15 +76,6 @@ public class Gameview implements GameObserver {
     die = new Die();
     die.render(UIroot);
 
-    //TODO: retrieve number of players and piece per player from launcher/builder
-    // TODO: Dynamically watch players/pieces
-
-
-
-//    for (PlayerPiece piece : viewPieces.getPieceList()) {
-//      piece.moveToTile(game.getBoard().getTiles().get(0));
-//    }
-
     scene = new Scene(UIroot);
 
     //TODO: refactor to read from property file
@@ -104,13 +97,26 @@ public class Gameview implements GameObserver {
 
   @Override
   public void updateOnPlayers(Players players) {
-    ViewPlayers viewPlayers = new ViewPlayers(game.getPlayers());
+    viewPlayers = new ViewPlayers(game.getPlayers());
     viewPlayers.render(UIroot);
+    //TODO: Remove players in frontend (renderable clear method)
+    //Backend board is being updated correctly
+    viewPlayers.clear(UIroot);
   }
 
   @Override
   public void updateOnPieces(List<Piece> pieces) {
+
     ViewPieces viewPieces = new ViewPieces(game.getPieces());
     viewPieces.render(UIroot);
   }
+
+//  @Override
+//  public void updateOnPlayerRemoval(List<Player> players) {
+//    List<String> ids = new ArrayList<>();
+//    for (Player p : players)  ids.add(p.getId());
+//    for (PlayerUI player: viewPlayers.getPlayerList()) {
+//      if (ids.contains(player.getPlayerId())) player.clear();
+//    }
+//  }
 }

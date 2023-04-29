@@ -2,6 +2,7 @@ package oogasalad.model.engine.actions;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,22 +20,28 @@ public class CreatePlayersAction implements Action {
   private final Provider<Player> playerProvider;
   private final Provider<Piece> pieceProvider;
   private final GameHolder gameholder;
+  private final int minPlayerNumber;
+  private final int maxPlayerNumber;
 
   @Inject
   public CreatePlayersAction(
       Provider<Player> playerProvider,
       Provider<Piece> pieceProvider,
-      GameHolder holder
+      GameHolder holder,
+      @Assisted("min") int min,
+      @Assisted("max") int max
       ) {
     this.playerProvider = playerProvider;
     this.pieceProvider = pieceProvider;
     this.gameholder = holder;
+    this.minPlayerNumber = min;
+    this.maxPlayerNumber = max;
   }
 
   @Override
   public void runAction(ActionParams actionParams) {
     List<IntegerPromptOption> options = new ArrayList<>();
-    for (int i = gameholder.minPlayer(); i <= gameholder.maxPlayer(); i++) {
+    for (int i = this.minPlayerNumber; i <= this.maxPlayerNumber; i++) {
       options.add(new IntegerPromptOption(i));
     }
     actionParams.prompter().selectSingleOption("Select number of players", options, this::createPlayers);

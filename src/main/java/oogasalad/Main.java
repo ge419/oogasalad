@@ -53,9 +53,6 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        new BuilderView(new BuilderController());
       injector.getInstance(BuilderController.class);
     }
-    //new BuilderView(new BuilderController());
-//    injector.getInstance(BuilderView.class);
   }

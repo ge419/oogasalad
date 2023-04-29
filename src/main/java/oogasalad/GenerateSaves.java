@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import oogasalad.controller.GameInfo;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.ConstructableModule;
@@ -86,7 +85,7 @@ public class GenerateSaves {
     BBoard board = new BBoard(tiles);
     gameHolder.setBoard(board);
 
-    gameHolder.getGameInfo().setGameInfo("title1", "First game", "board", 100.0, 100.0, null);
+    gameHolder.getGameInfo().buildGameInfo("title1", "First game", "board", 100.0, 100.0, "");
     gameHolder.setGameInfo(gameHolder.getGameInfo());
 
     SaveManager saveManager = injector.getInstance(SaveManager.class);

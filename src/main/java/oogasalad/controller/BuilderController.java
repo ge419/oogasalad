@@ -1,7 +1,6 @@
 package oogasalad.controller;
 
 import com.google.inject.Guice;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 import java.nio.file.Path;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -38,8 +37,7 @@ public class BuilderController {
   private BBoard board;
   private Players players;
   private SaveManager saveManager;
-
-  @Inject
+  
   public BuilderController(String language, Path saveDir) {
     Injector injector = Guice.createInjector(
         new BuilderControllerModule(language, saveDir),

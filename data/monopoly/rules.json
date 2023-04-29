@@ -1,9 +1,11 @@
 [ {
-  "id" : "6096462e-6948-41a2-aec6-a70c0bde8e73",
+  "@class" : "oogasalad.model.engine.rules.TurnRule",
+  "id" : "291fd230-836f-4f26-b5f3-95cc10a052b4",
   "schemas" : [ "turnRule" ],
   "attributes" : [ ]
 }, {
-  "id" : "3ef5d711-227b-45eb-96d9-bf5d70e0b3ac",
+  "@class" : "oogasalad.model.engine.rules.BuyTileRule",
+  "id" : "b553448f-fcff-470a-9c4b-d348823734af",
   "schemas" : [ "buyTileRule" ],
   "attributes" : [ {
     "@class" : "oogasalad.model.attribute.StringAttribute",
@@ -11,7 +13,8 @@
     "value" : "tile"
   } ]
 }, {
-  "id" : "4a54052d-74ca-4c0c-bf1b-7a0eb078cdb7",
+  "@class" : "oogasalad.model.engine.rules.DieMoveRule",
+  "id" : "8da6d17a-d31e-4cff-a0ba-feddfa76a0ca",
   "schemas" : [ "dieRule" ],
   "attributes" : [ {
     "@class" : "oogasalad.model.attribute.IntAttribute",

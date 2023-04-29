@@ -1,8 +1,9 @@
 package oogasalad.controller;
 
-import com.google.inject.Inject;
+import com.google.inject.Guice;
 import com.google.inject.Injector;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
 import javafx.stage.Stage;
@@ -12,6 +13,7 @@ import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.model.engine.rules.DieMoveRule;
 import oogasalad.model.engine.rules.TurnRule;
+import oogasalad.util.SaveManager;
 import oogasalad.view.ViewFactory;
 import oogasalad.view.gameplay.Gameview;
 import oogasalad.view.gameplay.SetDieRule;
@@ -27,11 +29,10 @@ public class GameController {
   private final Injector injector;
   LinkedList<Effect> effects;
 
-  @Inject
-  public GameController(
-      Injector outsideInjector
-  ) {
-    this.injector = outsideInjector.createChildInjector(new GameControllerModule());
+  public GameController(Path saveDir) {
+    this.injector = Guice.createInjector(new GameControllerModule(saveDir));
+    injector.getInstance(SaveManager.class).loadGame();
+
     gv = injector.getInstance(ViewFactory.class).makeGameview(this);
     this.effects = new LinkedList<>();
     this.engine = injector.getInstance(Engine.class);

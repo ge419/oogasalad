@@ -3,7 +3,6 @@ package oogasalad.util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
@@ -38,44 +37,42 @@ public class SaveManager {
   private final Path assetsDir;
   private final SchemaDatabase schemaDatabase;
   private final GameHolder game;
-  private final Injector injector;
+  private final ObjectMapper mapper;
 
   @Inject
   public SaveManager(
       @SaveDirectory Path saveDir,
       SchemaDatabase schemaDatabase,
       GameHolder gameHolder,
-      Injector injector
+      ObjectMapper mapper
   ) {
     this.saveDir = saveDir;
     this.schemaDatabase = schemaDatabase;
     this.game = gameHolder;
-    this.injector = injector;
+    this.mapper = mapper;
     this.assetsDir = saveDir.resolve(ASSETS_DIR_NAME);
+
+    this.mapper.enable(SerializationFeature.INDENT_OUTPUT);
   }
 
   public void saveGame() {
     ensureSaveDir();
 
-    ObjectMapper mapper = makeMapper();
-
-    writeFile(mapper, BOARD_FILE_NAME, game.getBoard());
-    writeFile(mapper, RULE_FILE_NAME, game.getRules());
-    writeFile(mapper, INFO_FILE_NAME, game.getGameInfo());
-    writeFile(mapper, SCHEMA_FILE_NAME, schemaDatabase.getCustomSchemas());
+    writeFile(BOARD_FILE_NAME, game.getBoard());
+    writeFile(RULE_FILE_NAME, game.getRules().toArray(Rule[]::new));
+    writeFile(INFO_FILE_NAME, game.getGameInfo());
+    writeFile(SCHEMA_FILE_NAME, schemaDatabase.getCustomSchemas().toArray(ObjectSchema[]::new));
   }
 
   public void loadGame() {
     ensureSaveDir();
 
-    ObjectMapper mapper = makeMapper();
-
-    readFile(mapper, BOARD_FILE_NAME, BBoard.class).ifPresent(game::setBoard);
-    readFile(mapper, RULE_FILE_NAME, Rule[].class).ifPresent(
+    readFile(BOARD_FILE_NAME, BBoard.class).ifPresent(game::setBoard);
+    readFile(RULE_FILE_NAME, Rule[].class).ifPresent(
         rules -> game.setRules(Arrays.stream(rules).toList())
     );
-    readFile(mapper, INFO_FILE_NAME, GameInfo.class).ifPresent(game::setGameInfo);
-    readFile(mapper, SCHEMA_FILE_NAME, ObjectSchema[].class).ifPresent(
+    readFile(INFO_FILE_NAME, GameInfo.class).ifPresent(game::setGameInfo);
+    readFile(SCHEMA_FILE_NAME, ObjectSchema[].class).ifPresent(
         schemas -> {
           for (ObjectSchema schema : schemas) {
             schemaDatabase.addCustomSchema(schema);
@@ -104,7 +101,7 @@ public class SaveManager {
     return assetsDir.resolve(assetName);
   }
 
-  private void writeFile(ObjectMapper mapper, String relativePath, Object object) {
+  private void writeFile(String relativePath, Object object) {
     Path path = saveDir.resolve(relativePath);
 
     try {
@@ -114,8 +111,7 @@ public class SaveManager {
     }
   }
 
-  private <T> Optional<T> readFile(ObjectMapper mapper, String relativePath,
-      Class<? extends T> clazz) {
+  private <T> Optional<T> readFile(String relativePath, Class<? extends T> clazz) {
     Path path = saveDir.resolve(relativePath);
     if (Files.notExists(path)) {
       return Optional.empty();
@@ -127,13 +123,6 @@ public class SaveManager {
       LOGGER.error("unable to read save file {}", path, e);
       return Optional.empty();
     }
-  }
-
-  private ObjectMapper makeMapper() {
-    ObjectMapper mapper = injector.getInstance(ObjectMapper.class);
-    mapper.enable(SerializationFeature.INDENT_OUTPUT);
-
-    return mapper;
   }
 
   private void ensureSaveDir() {

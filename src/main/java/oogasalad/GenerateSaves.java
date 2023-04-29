@@ -89,8 +89,12 @@ public class GenerateSaves {
     BBoard board = new BBoard(tiles);
     gameHolder.setBoard(board);
 
-    gameHolder.getGameInfo().setGameInfo("title1", "First game", "board", 100.0, 100.0, null);
-    gameHolder.setGameInfo(gameHolder.getGameInfo());
+    gameHolder.getGameInfo()
+        .setTitle("Title")
+        .setDescription("Monopoly")
+        .setGenre("board")
+        .setWidth(100)
+        .setHeight(100);
 
     SaveManager saveManager = injector.getInstance(SaveManager.class);
     saveManager.saveGame();

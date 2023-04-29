@@ -1,6 +1,7 @@
 package oogasalad.model.engine.rules;
 
 import com.fasterxml.jackson.annotation.JacksonInject;
+import com.google.inject.Inject;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.AbstractGameConstruct;
 import oogasalad.model.constructable.GameHolder;
@@ -8,11 +9,10 @@ import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.actions.ActionFactory;
 import oogasalad.model.engine.events.ChooseNumberOfPlayerPiecesEvent;
-import oogasalad.model.engine.events.StartTurnEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class NumberOfPlayerPieceRule extends AbstractGameConstruct implements EditableRule{
+public class NumberOfPlayerPieceRule extends AbstractGameConstruct implements EditableRule {
 
   public static final String SCHEMA_NAME = "numberOfPiecesPerPlayerRule";
 
@@ -20,7 +20,8 @@ public class NumberOfPlayerPieceRule extends AbstractGameConstruct implements Ed
   private final GameHolder gameHolder;
   private final ActionFactory actionFactory;
 
-  protected NumberOfPlayerPieceRule(String baseSchema,
+  @Inject
+  protected NumberOfPlayerPieceRule(
       @JacksonInject SchemaDatabase database,
       @JacksonInject GameHolder gameHolder,
       @JacksonInject ActionFactory actionFactory) {

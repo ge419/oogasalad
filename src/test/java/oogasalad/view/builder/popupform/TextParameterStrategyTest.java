@@ -18,6 +18,7 @@ import util.DukeApplicationTest;
 import java.util.ResourceBundle;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class TextParameterStrategyTest extends DukeApplicationTest {
     private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
@@ -38,9 +39,9 @@ class TextParameterStrategyTest extends DukeApplicationTest {
       Scene scene = new Scene(root);
       stage.setScene(scene);
       stage.show();
-      Tile myGameConstruct = new Tile(new SchemaDatabase());
+      Tile tileMock = mock(Tile.class);
       root.getChildren().add(textParameterStrategy.renderInput(resourceBundle, root,
-          myGameConstruct.getId()));
+          tileMock.getId()));
     }
     @Test
     void renderInput() {

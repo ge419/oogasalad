@@ -14,7 +14,7 @@ import oogasalad.view.Coordinate;
 public class Tile extends AbstractGameConstruct {
 
   public static final String BASE_SCHEMA_NAME = "tile";
-  public static final String TYPE_ATTRIBUTE = "type";
+  public static final String VIEW_TYPE_ATTRIBUTE = "type";
   public static final String NEXT_ATTRIBUTE = "next";
   public static final String POSITION_ATTRIBUTE = "position";
   public static final String WIDTH_ATTRIBUTE = "width";
@@ -40,6 +40,11 @@ public class Tile extends AbstractGameConstruct {
   @JsonIgnore
   public PositionAttribute positionAttribute() {
     return PositionAttribute.from(getAttribute(POSITION_ATTRIBUTE).get());
+  }
+
+  @JsonIgnore
+  public StringAttribute viewTypeAttribute() {
+    return StringAttribute.from(getAttribute(VIEW_TYPE_ATTRIBUTE).get());
   }
 
   @JsonIgnore
@@ -107,9 +112,14 @@ public class Tile extends AbstractGameConstruct {
     return StringAttribute.from(getAttribute(INFO_ATTRIBUTE).get()).getValue();
   }
 
+//  @JsonIgnore
+//  public String getPrice() {
+//    return Double.toString(DoubleAttribute.from(getAttribute("price").get()).getValue());
+//  }
+
   @JsonIgnore
-  public String getType() {
-    return StringAttribute.from(getAttribute(TYPE_ATTRIBUTE).get()).getValue();
+  public String getViewType() {
+    return viewTypeAttribute().getValue();
   }
 
   @JsonIgnore

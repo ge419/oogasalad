@@ -1,9 +1,6 @@
 package oogasalad.model.attribute;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-import javafx.beans.property.DoubleProperty;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -17,6 +17,5 @@ public interface Textable {
     text.setScaleX(textScale);
     text.setScaleY(textScale);
   }
-
   VBox createTextBox(List info, double height, double width);
 }

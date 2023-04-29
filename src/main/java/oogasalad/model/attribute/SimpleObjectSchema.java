@@ -69,9 +69,8 @@ public class SimpleObjectSchema implements ObjectSchema {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SimpleObjectSchema schema = (SimpleObjectSchema) o;
-    return Objects.equals(name, schema.name) && Objects.equals(this.fields,
-        schema.fields);
+    SimpleObjectSchema that = (SimpleObjectSchema) o;
+    return this.name.equals(that.name);
   }
 
   @Override

@@ -6,7 +6,7 @@ import oogasalad.model.constructable.Tile;
 import oogasalad.view.tiles.ViewTile;
 
 public class TileEvent extends Event {
-    public static final EventType<TileEvent> ANY = new EventType<>(Event.ANY, "ANY");
+    //public static final EventType<TileEvent> ANY = new EventType<>(Event.ANY, "ANY");
     public static final EventType<TileEvent> DELETE_TILE = new EventType<>(TileEvent.ANY, "DELETE_TILE");
     public static final EventType<TileEvent> SET_NEXT_TILE = new EventType<>(TileEvent.ANY, "SET_NEXT_TILE");
     public static final EventType<TileEvent> SHOW_FORM = new EventType<>(TileEvent.ANY, "SHOW_FORM");

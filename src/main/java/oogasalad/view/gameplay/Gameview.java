@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -86,6 +87,7 @@ public class Gameview {
     List<Piece> pieceList = new ArrayList<>();
     for (List<Piece> pList : playerPieceMap.values()) {
       pieceList.addAll(pList);
+
     }
     ViewPieces viewPieces = new ViewPieces(pieceList);
     viewPieces.render(UIroot);

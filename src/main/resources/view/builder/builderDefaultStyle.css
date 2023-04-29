@@ -72,3 +72,13 @@
 #TileNextMode{
     -fx-fill: tile-info-text-color;
 }
+
+#About{
+    -fx-alignment: center;
+    -fx-spacing: 15px;
+    -fx-padding: 10px;
+}
+#AboutText{
+    -fx-alignment:center;
+    -fx-spacing: 20px;
+}

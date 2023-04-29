@@ -3,6 +3,8 @@ package oogasalad.model.constructable;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.google.inject.Singleton;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javafx.beans.property.ListProperty;
@@ -10,15 +12,30 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import oogasalad.controller.GameInfo;
 import oogasalad.model.engine.rules.Rule;
+import oogasalad.model.observers.GameObserver;
+import oogasalad.model.observers.Observable;
 
-public class GameHolder {
+@Singleton
+public class GameHolder implements Observable<GameObserver> {
 
+  private int minPlayerNum = 1;
+  private int maxPlayerNum = 4;
   private GameInfo gameInfo;
   private BBoard board;
-  private Players players;
+  private Optional<Players> players;
   private Player currentPlayer;
+  private Optional<List<Piece>> pieces;
   private final ListProperty<Rule> rules = new SimpleListProperty<>(
       FXCollections.observableArrayList());
+
+  private final List<GameObserver> observers = new ArrayList<>();
+
+  public GameHolder() {
+    setGameInfo(new GameInfo());
+    setBoard(new BBoard());
+    setPlayers(new Players());
+    pieces = Optional.of(new ArrayList<>());
+  }
 
   public GameInfo getGameInfo() {
     return gameInfo;
@@ -37,13 +54,33 @@ public class GameHolder {
   }
 
   @JsonIgnore
-  public Players getPlayers() {
-    return players;
+  public int minPlayer() {
+    return this.minPlayerNum;
+  }
+
+  @JsonIgnore
+  public int maxPlayer() {
+    return this.maxPlayerNum;
+  }
+
+  @JsonIgnore
+  public void setPieces(List<Piece> pieces) {
+    this.pieces = Optional.ofNullable(pieces);
+  }
+
+  @JsonIgnore
+  public Optional<List<Piece>> getPieces() {
+    return this.pieces;
+  }
+
+  @JsonIgnore
+  public Optional<Players> getPlayers() {
+    return this.players;
   }
 
   @JsonIgnore
   public void setPlayers(Players players) {
-    this.players = players;
+    this.players = Optional.ofNullable(players);
   }
 
   @JsonIgnore
@@ -57,7 +94,7 @@ public class GameHolder {
   }
 
   public Optional<Player> getPlayerById(String id) {
-    return players.getById(id);
+    return players.get().getById(id);
   }
 
   public Optional<Tile> getTileById(String id) {
@@ -65,7 +102,7 @@ public class GameHolder {
   }
 
   public Optional<Piece> getPieceById(String id) {
-    return players.getPieceById(id);
+    return players.get().getPieceById(id);
   }
 
 
@@ -83,11 +120,21 @@ public class GameHolder {
     this.rules.setAll(rules);
   }
 
-  public static GameHolder createDefaultGame() {
-    GameHolder gameHolder = new GameHolder();
-    gameHolder.setGameInfo(new GameInfo());
-    gameHolder.setBoard(new BBoard());
-    gameHolder.setPlayers(new Players());
-    return gameHolder;
+  @Override
+  public void register(GameObserver observer) {
+    this.observers.add(observer);
+  }
+
+  @Override
+  public void remove(GameObserver observer) {
+    this.observers.remove(observer);
+  }
+
+  @Override
+  public void notifyList() {
+    for (GameObserver observer : observers) {
+      observer.updateOnPlayers(this.players.get());
+      observer.updateOnPieces(this.pieces.get());
+    }
   }
 }

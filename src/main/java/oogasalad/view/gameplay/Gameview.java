@@ -1,30 +1,41 @@
 package oogasalad.view.gameplay;
 
+import com.google.cloud.Tuple;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import oogasalad.controller.GameController;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
+import oogasalad.model.observers.GameObserver;
 import oogasalad.view.Renderable;
-import oogasalad.view.gameplay.pieces.Pieces;
+import oogasalad.view.gameplay.Players.ViewPlayers;
+import oogasalad.view.gameplay.pieces.ViewPieces;
+import oogasalad.view.gameplay.pieces.Cards;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
+import oogasalad.view.gameplay.popup.HandDisplayPopup;
 import oogasalad.view.tiles.Tiles;
+import org.checkerframework.checker.units.qual.A;
 
-public class Gameview {
+public class Gameview implements GameObserver {
 
   //TODO: refactor to read from JSON file
   private final int VIEW_WIDTH = 1500;
@@ -38,6 +49,7 @@ public class Gameview {
   private Die die;
   private final GameController gc;
   private Scene scene;
+  private BorderPane UIroot;
 
   @Inject
   public Gameview(
@@ -51,13 +63,11 @@ public class Gameview {
     this.pieceProvider = pieceProvider;
     this.playerObjectProperty = new ArrayList<>();
     this.playerPieceObjectProperty = new ArrayList<>();
+    this.game.register(this);
   }
 
   public void renderGameview(Stage primaryStage) throws IOException {
-    BorderPane UIroot = new BorderPane();
-
-    //TODO: retrieve which and how many frontend components there are from builder and loop through
-    // to render each component
+    UIroot = new BorderPane();
 
     Renderable board = new Board();
     board.render(UIroot);
@@ -69,34 +79,36 @@ public class Gameview {
     die = new Die();
     die.render(UIroot);
 
+    //TODO: retrieve number of players and piece per player from launcher/builder
     // TODO: Dynamically watch players/pieces
-    Player player1 = playerProvider.get();
-    playerObjectProperty.add(
-        new SimpleObjectProperty<>(player1,player1.getName())
-    );
 
 
-    Player player2 = playerProvider.get();
-    game.setPlayers(new Players(List.of(player1, player2)));
+    //TODO: take this out when cards are implemented
+    Button button = new Button("Show Card Popup");
+    Cards card = new Cards("data/example/chance.jpg");
+    Cards card2 = new Cards("data/example/chance.jpg");
+    Cards card3 = new Cards("data/example/chance.jpg");
+    Cards[] cards = {card, card2, card3};
+    HandDisplayPopup popup = new HandDisplayPopup(cards);
 
-    Piece piece1 = pieceProvider.get();
-    Piece piece2 = pieceProvider.get();
-    piece1.setPlayer(player1);
-    piece2.setPlayer(player2);
-    player1.getPieces().add(piece1);
-    player2.getPieces().add(piece2);
+    HBox hbox = new HBox();
+    hbox.getChildren().addAll(button);
 
-    Pieces pieces = new Pieces(List.of(piece1, piece2));
-    pieces.render(UIroot);
-    for (PlayerPiece piece : pieces.getPieceList()) {
-      piece.moveToTile(game.getBoard().getTiles().get(0));
-    }
+    button.setId("Button");
+    UIroot.setTop(hbox);
 
-    //TODO: take in backend player when appropriate attributes are implemented
-//    players = new ViewPlayers(b.getPlayers());
-//    players.render(UIroot);
+    button.setOnAction(event -> {
+      Point2D offset = new Point2D(button.getScene().getX(), button.getScene().getY());
+      popup.showHand(button, offset);
+    });
 
     scene = new Scene(UIroot);
+
+//    for (PlayerPiece piece : viewPieces.getPieceList()) {
+//      piece.moveToTile(game.getBoard().getTiles().get(0));
+//    }
+
+//    scene = new Scene(UIroot);
 
     //TODO: refactor to read from property file
     primaryStage.setTitle("Monopoly");
@@ -114,16 +126,16 @@ public class Gameview {
     return this.die;
   }
 
-  public void updatePlayer(int id){
-   playerObjectProperty.get(id).addListener(((observable, oldValue, newValue) ->
-   {
-     if (oldValue.equals(newValue)){
 
-     }
-   }
-       ));
+  @Override
+  public void updateOnPlayers(Players players) {
+    ViewPlayers viewPlayers = new ViewPlayers(game.getPlayers());
+    viewPlayers.render(UIroot);
   }
 
-
-
+  @Override
+  public void updateOnPieces(List<Piece> pieces) {
+    ViewPieces viewPieces = new ViewPieces(game.getPieces());
+    viewPieces.render(UIroot);
+  }
 }

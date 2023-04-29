@@ -19,7 +19,9 @@ This project implements an authoring environment and player for multiple related
 
  * Resources used for learning (including AI assistance)
  
- * Resources used directly (including AI assistance)
+ * Resources used directly (including AI assistance):
+   * Meme: https://knowyourmeme.com/photos/1265070-reaction-images
+   * 
 
 
 ### Running the Program

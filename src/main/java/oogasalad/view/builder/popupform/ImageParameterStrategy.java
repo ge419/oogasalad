@@ -14,13 +14,32 @@ import javax.inject.Inject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
-class ImageParameterStrategy implements ParameterStrategy, BuilderUtility {
+/**
+ * A strategy used by the popup form to display a form element when
+ * an image path is required from the user via user input. This consists
+ * of one button that opens a file dialog when clicked.
+ * Example Usage:
+ * VBox form = new VBox();
+ * ImageParameterStrategy strategy = new ImageParameterStrategy(myImageAttribute, myImageMetadata);
+ * form.getChildren().add(strategy.renderInput(myResourceBundle, form));
+ * @author Jason Fitzpatrick
+ */
+public class ImageParameterStrategy implements ParameterStrategy, BuilderUtility {
     private final ImageAttribute attr;
     private final ImageMetadata meta;
-    private Image image;
+    private String imagePath;
+    private List<String> validExtensions = List.of("jpg", "png");
+    /**
+     * Creates an instance of ImageParameterStrategy
+     * Can be used to display form data to a user for an image,
+     * validate the input, save to an attribute, and access
+     * the corresponding ImageAttribute and ImageMetadata
+     * @param attr ImageAttribute
+     * @param meta ImageMetadata
+     */
     @Inject
     public ImageParameterStrategy(
             @Assisted Attribute attr,
@@ -28,8 +47,14 @@ class ImageParameterStrategy implements ParameterStrategy, BuilderUtility {
         this.attr = ImageAttribute.from(attr);
         this.meta = (ImageMetadata) ImageMetadata.from(meta);
     }
+    /**
+     * Returns a JavaFX form element for a image attribute
+     * @param resourceBundle
+     * @param form parent pane of element
+     * @return HBox containing a button for selecting an image
+     */
     @Override
-    public Node renderInput(ResourceBundle resourceBundle, Pane form) {
+    public Node renderInput(ResourceBundle resourceBundle, Pane form, String objectId) {
         String name = meta.getName();
         Node textLabel = new Text(name);
         Node element = makeButton("UploadFileTitle", resourceBundle, new EventHandler<ActionEvent>() {
@@ -37,35 +62,47 @@ class ImageParameterStrategy implements ParameterStrategy, BuilderUtility {
             public void handle(ActionEvent event) {
                 Optional<File> file = fileLoad(resourceBundle, "UploadFileTitle");
                 try {
-                    image = new Image(new FileInputStream(file.get().getPath()));
-                } catch (FileNotFoundException e) {
+                    imagePath = file.get().getPath().toString();
+                } catch (Exception e) {
                     System.out.println("File for image not found");
                 }
             }
         });
         return makeHBox(String.format("%sImageInput", name), textLabel, element);
     }
+    /**
+     * Saves input to instance's ImageAttribute
+     */
     @Override
     public void saveInput() {
         attr.setValue(getFieldValue());
     }
-
+    /**
+     * Uses metadata to validate user input
+     * @return boolean (true means input is valid)
+     */
     @Override
     public boolean isInputValid() {
         return meta.isValidValue(getFieldValue());
     }
-
+    /**
+     * Gets ImageMetadata
+     * @return ImageMetadata
+     */
     @Override
     public Metadata getMetadata() {
         return meta;
     }
-
+    /**
+     * Gets ImageAttribute
+     * @return ImageAttribute
+     */
     @Override
     public Attribute getAttribute() {
         return attr;
     }
 
     private String getFieldValue() {
-        return image.getUrl();
+        return imagePath;
     }
 }

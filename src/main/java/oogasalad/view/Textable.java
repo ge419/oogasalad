@@ -1,6 +1,6 @@
 package oogasalad.view;
 
-import java.util.Map;
+import java.util.List;
 import javafx.geometry.Bounds;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -16,6 +16,5 @@ public interface Textable {
     text.setScaleX(textScale);
     text.setScaleY(textScale);
   }
-
-  VBox createTextBox(String info, double height, double width);
+  VBox createTextBox(List info, double height, double width);
 }

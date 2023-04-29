@@ -1,5 +1,6 @@
 package oogasalad.view.tiles;
 
+import com.google.inject.Inject;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -9,22 +10,33 @@ import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.view.Coordinate;
 
+/**
+ * <p>A basic implementation of a ViewTile.</p>
+ * <p>This type of tile is a basic rectangle that supports different kinds of colors.</p>
+ *
+ * @author tmh85
+ */
 public class BasicTile extends Rectangle implements ViewTile {
 
-  private final Tile modelTile;
+  private final Tile myModelTile;
 
+  @Inject
   public BasicTile(Tile tile) {
     super(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
-    xProperty().bind(tile.positionAttribute().xProperty());
-    yProperty().bind(tile.positionAttribute().yProperty());
-    widthProperty().bind(tile.widthAttribute().valueProperty());
-    heightProperty().bind(tile.heightAttribute().valueProperty());
-    this.modelTile = tile;
-    this.setFill(Color.LIGHTBLUE);
+    this.myModelTile = tile;
+
+    this.setFill(Paint.valueOf(myModelTile.colorAttribute().getValue()));
+
+    myModelTile.colorAttribute().valueProperty().addListener(((observable, oldValue, newValue) -> {
+      System.out.println("DOING THING");
+      this.setFill(Paint.valueOf(newValue));
+    }));
     this.setStroke(Color.BLACK);
 
+
+
     // Check if tiles have an owner attribute
-    modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE)
+    myModelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE)
         .map(PlayerAttribute::from)
         .map(PlayerAttribute::idProperty)
         .ifPresent(prop -> prop.addListener((observable, oldValue, newValue) ->
@@ -37,7 +49,13 @@ public class BasicTile extends Rectangle implements ViewTile {
   }
 
   public Tile getTile() {
-    return this.modelTile;
+    return this.myModelTile;
+  }
+
+  @Override
+  public void setSize(double width, double height) {
+    this.setWidth(width);
+    this.setHeight(height);
   }
 
   @Override
@@ -46,14 +64,13 @@ public class BasicTile extends Rectangle implements ViewTile {
   }
 
   public String getTileId() {
-    return this.modelTile.getId();
+    return this.myModelTile.getId();
   }
 
   public Coordinate getPosition() {
-    return modelTile.getCoordinate();
+    return myModelTile.getCoordinate();
   }
 
-  @Override
   public void setPosition(Coordinate coord) {
     this.setX(coord.getXCoor());
     this.setY(coord.getYCoor());
@@ -63,7 +80,6 @@ public class BasicTile extends Rectangle implements ViewTile {
     return this.getFill();
   }
 
-  @Override
   public void setColor(Color color) {
     this.setFill(color);
   }
@@ -73,6 +89,6 @@ public class BasicTile extends Rectangle implements ViewTile {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    return this.getTileId() == ((BasicTile) o).getTileId();
+    return this.getTileId().equals(((BasicTile) o).getTileId());
   }
 }

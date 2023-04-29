@@ -3,21 +3,22 @@ package oogasalad.view.builder;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import java.io.File;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -45,7 +46,8 @@ import org.apache.logging.log4j.Logger;
 public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
-  private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
+  private static final String DEFAULT_STYLESHEET = "builderDefaultStyle.css";
+  private static final String DEFAULT_STYLESHEET_PATH = "/view/builder/" + DEFAULT_STYLESHEET;
 
   private static final double PANE_WIDTH = 500;
   private static final double PANE_HEIGHT = 500;
@@ -70,7 +72,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private boolean myDeleteToggle = false;
   private final BuilderController myBuilderController;
   private VBox sidePane;
-
+  private Map<String, String> themeOptions;
+  private ComboBox themeSelector;
+  private Scene myScene;
 
   @Inject
   public BuilderView(
@@ -81,7 +85,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     builderResource = ResourceBundle.getBundle(
         BASE_RESOURCE_PACKAGE + languageString + "BuilderText");
 
-    defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET).toExternalForm();
+    defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET_PATH).toExternalForm();
     myDraggableObjectsToggle = new SimpleBooleanProperty(true);
 
     Scene scene = initScene();
@@ -178,9 +182,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     Node centralContainer = createCentralContainer();
     VBox root = (VBox) makeVBox("RootContainer", myMenubar.asNode(), topBar, centralContainer);
 
-    Scene newScene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
-    newScene.getStylesheets().add(defaultStylesheet);
-    return newScene;
+    myScene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
+    myScene.getStylesheets().add(defaultStylesheet);
+    return myScene;
   }
 
   private BorderPane createTopBar() {
@@ -191,16 +195,23 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myInfoText = text;
     myTopButtonBox = new ItemPane(builderResource, "ButtonBox", this);
     myTopButtonBox.addItems("TopBar");
-//    HBox buttonBox = (HBox) makeHBox("TopBar");
-//    addButtonsToPane(buttonBox, topBarResource);
+    themeOptions = myBuilderController.getThemeOptions();
+    ObservableList<String> observableThemes = themeOptions.keySet().stream().collect(Collectors.toCollection(javafx.collections.FXCollections::observableArrayList));
+    themeSelector = (ComboBox) makeDropdown("ThemeSelector", observableThemes, e -> changeTheme());
+    themeSelector.setValue(DEFAULT_STYLESHEET);
 
     topBar.setLeft(title);
     topBar.setCenter(myInfoText);
-    topBar.setRight(myTopButtonBox.asNode());
+    topBar.setRight(new HBox(themeSelector, myTopButtonBox.asNode()));
     topBar.setId("TopBar");
     topBar.getStyleClass().add("topBar");
 
     return topBar;
+  }
+  private void changeTheme() {
+    myScene.getStylesheets().clear();
+    String newStyleSheet = getClass().getResource(themeOptions.get(themeSelector.getValue())).toExternalForm();
+    myScene.getStylesheets().add(newStyleSheet);
   }
 
   private Pane createCentralContainer() {

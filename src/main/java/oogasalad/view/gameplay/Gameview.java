@@ -22,6 +22,7 @@ import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
+import oogasalad.model.observers.GameObserver;
 import oogasalad.view.Renderable;
 import oogasalad.view.gameplay.Players.ViewPlayers;
 import oogasalad.view.gameplay.pieces.ViewPieces;
@@ -29,7 +30,7 @@ import oogasalad.view.gameplay.pieces.PlayerPiece;
 import oogasalad.view.tiles.Tiles;
 import org.checkerframework.checker.units.qual.A;
 
-public class Gameview {
+public class Gameview implements GameObserver {
 
   //TODO: refactor to read from JSON file
   private final int VIEW_WIDTH = 1500;
@@ -43,8 +44,7 @@ public class Gameview {
   private Die die;
   private final GameController gc;
   private Scene scene;
-  private Players players;
-  private Map<Player, List<Piece>> playerPieceMap;
+  private BorderPane UIroot;
 
   @Inject
   public Gameview(
@@ -58,12 +58,11 @@ public class Gameview {
     this.pieceProvider = pieceProvider;
     this.playerObjectProperty = new ArrayList<>();
     this.playerPieceObjectProperty = new ArrayList<>();
-    this.players = new Players();
-    this.playerPieceMap = new HashMap<>();
+    this.game.register(this);
   }
 
   public void renderGameview(Stage primaryStage) throws IOException {
-    BorderPane UIroot = new BorderPane();
+    UIroot = new BorderPane();
 
     Renderable board = new Board();
     board.render(UIroot);
@@ -77,24 +76,12 @@ public class Gameview {
 
     //TODO: retrieve number of players and piece per player from launcher/builder
     // TODO: Dynamically watch players/pieces
-    players = setPlayers(3);
-    game.setPlayers(players);
-    playerPieceMap = setPlayersPieces(1);
 
-    ViewPlayers ViewPlayers = new ViewPlayers(players);
-    ViewPlayers.render(UIroot);
 
-    List<Piece> pieceList = new ArrayList<>();
-    for (List<Piece> pList : playerPieceMap.values()) {
-      pieceList.addAll(pList);
 
-    }
-    ViewPieces viewPieces = new ViewPieces(pieceList);
-    viewPieces.render(UIroot);
-
-    for (PlayerPiece piece : viewPieces.getPieceList()) {
-      piece.moveToTile(game.getBoard().getTiles().get(0));
-    }
+//    for (PlayerPiece piece : viewPieces.getPieceList()) {
+//      piece.moveToTile(game.getBoard().getTiles().get(0));
+//    }
 
     scene = new Scene(UIroot);
 
@@ -114,30 +101,16 @@ public class Gameview {
     return this.die;
   }
 
-  private Players setPlayers(int numPlayers) throws IOException {
-    List<Player> playerList = new ArrayList<>();
-    for (int i = 0; i < numPlayers; i++) {
-      Player player = playerProvider.get();
-      playerList.add(player);
-    }
-    Players ret = new Players(playerList);
-    ret.randomize();
-    return ret;
+
+  @Override
+  public void updateOnPlayers(Players players) {
+    ViewPlayers viewPlayers = new ViewPlayers(game.getPlayers());
+    viewPlayers.render(UIroot);
   }
 
-   private Map setPlayersPieces(int piecePerPlayer) {
-    Map<Player, List<Piece>> playerPieceMap = new HashMap();
-    for (Player p : players.getPlayers()) {
-      List<Piece> pieceList = new ArrayList<>();
-      for (int j = 0; j < piecePerPlayer; j++) {
-        Piece piece = pieceProvider.get();
-        piece.setImage(p.getImage());
-        piece.setPlayer(p);
-        p.getPieces().add(piece);
-        pieceList.add(piece);
-      }
-      playerPieceMap.put(p, pieceList);
-    }
-    return playerPieceMap;
+  @Override
+  public void updateOnPieces(List<Piece> pieces) {
+    ViewPieces viewPieces = new ViewPieces(game.getPieces());
+    viewPieces.render(UIroot);
   }
 }

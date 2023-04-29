@@ -10,6 +10,8 @@ import oogasalad.model.attribute.ColorAttribute;
 import oogasalad.model.attribute.ColorMetadata;
 import oogasalad.model.attribute.IntAttribute;
 import oogasalad.model.attribute.IntMetadata;
+import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.constructable.Tile;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
@@ -32,7 +34,9 @@ class ColorParameterStrategyTest extends DukeApplicationTest {
         attr = meta.makeColorAttribute();
         colorParameterStrategy = new ColorParameterStrategy(attr, meta);
         VBox root = new VBox();
-        root.getChildren().add(colorParameterStrategy.renderInput(resourceBundle, root));
+        Tile myGameConstruct = new Tile(new SchemaDatabase());
+        root.getChildren().add(colorParameterStrategy.renderInput(resourceBundle, root,
+            myGameConstruct.getId()));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

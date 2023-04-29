@@ -7,11 +7,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-<<<<<<< HEAD
 import javafx.scene.text.Text;
-=======
 import oogasalad.model.exception.ResourceReadException;
->>>>>>> 6cd180eba392788b4c07a0b85fef6478556955b5
 import oogasalad.view.builder.BuilderUtility;
 import oogasalad.view.builder.BuilderView;
 import oogasalad.view.builder.exceptions.MethodReflectionException;

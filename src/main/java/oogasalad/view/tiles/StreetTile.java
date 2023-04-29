@@ -32,23 +32,22 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
 
     getChildren().addAll((createBarBox(BTile.getWidth(), BTile.getHeight(),
             StringAttribute.from(BTile.getAttribute(COLOR_ATTRIBUTE).get()).getValue())),
-        createTextBox(BTile.getInfo(), BTile.getHeight(), BTile.getWidth()));
+        createTextBox(BTile.getInfo(), BTile.getPrice(), BTile.getHeight(), BTile.getWidth()));
     setPosition(BTile.getCoordinate());
 
     //TODO: change this temporary behavior when tile is bought
     //TODO: depend on if attribute is present
-    PlayerAttribute ownerAttribute =
-        PlayerAttribute.from(modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE).get());
-    ownerAttribute.idProperty().addListener(((observable, oldValue, isOwned) -> {
-      if (isOwned.isPresent()) {
-        for (Node child : this.getChildren()) {
-          child.setStyle("-fx-background-color: red;");
-        }
-      } else {
-        //do nothing
-      }
-    }));
 
+    modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE)
+        .map(PlayerAttribute::from)
+        .map(PlayerAttribute::idProperty)
+        .ifPresent(prop -> prop.addListener((observable, oldValue, newValue) ->
+            newValue.ifPresentOrElse(
+                // Tile is owned
+                id -> this.setColor(Color.RED),
+                // Tile is not owned
+                () -> this.setColor(Color.LIGHTBLUE)
+            )));
   }
   private Rectangle createBar(double width, double height, String color) {
     Rectangle bar = new Rectangle();
@@ -70,7 +69,7 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
   }
 
   @Override
-  public VBox createTextBox(String info, double height, double width) {
+  public VBox createTextBox(String info, String price, double height, double width) {
     VBox textBox = new VBox();
     String[] infoList = info.split(",");
 
@@ -78,7 +77,7 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
     resizeText(streetText, height, TEXT_SCALE, width);
     Bounds streetTextBounds = streetText.getBoundsInLocal();
     streetText.setLayoutY(this.getLayoutY());
-    Text priceText = new Text(infoList[1]);
+    Text priceText = new Text(price);
     resizeText(priceText, height, TEXT_SCALE, width);
     textBox.setMargin(priceText, new Insets((height / 4 - streetTextBounds.getMaxY()), 0, 0, 0));
     textBox.setAlignment(Pos.CENTER);

@@ -64,7 +64,7 @@
 - Establish the rent amounts for each property and how they are affected by other properties.
 - Develop the rules for how players can collect money from other players when they land on their properties.
 - Establish the rules for how players can win the game by acquiring all the properties and bankrupting all other players.
-- Establish movement restrictions (disallow movement onto or past any tile with 2 pieces on it)
+- Establish movement restrictions (disallow movement onto or past any tile with 2 viewPieces on it)
 - Present the use with a list of choices, either single or multiple selection
 - Allow the user to pick a user game piece:
 - Allow the user to purchase property by landing on non-property

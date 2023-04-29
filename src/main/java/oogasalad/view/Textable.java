@@ -17,5 +17,5 @@ public interface Textable {
     text.setScaleY(textScale);
   }
 
-  VBox createTextBox(String info, double height, double width);
+  VBox createTextBox(String info, String price, double height, double width);
 }

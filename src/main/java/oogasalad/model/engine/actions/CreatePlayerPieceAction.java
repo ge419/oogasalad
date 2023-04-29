@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Piece;
+import oogasalad.model.constructable.Players;
 import oogasalad.model.engine.events.ChooseNumberOfPlayersEvent;
 import oogasalad.model.engine.events.DieRolledEvent;
 import oogasalad.model.engine.prompt.IntegerPromptOption;
@@ -50,8 +51,7 @@ public class CreatePlayerPieceAction implements Action {
       piece.setPlayer(gameholder.getPlayers().get().getPlayers().get(Math.floorDiv(i, numberOfPlayers)));
       playerPieces.add(new PlayerPiece(piece));
     }
-
-    //gameholder.setPlayers(new Players(players));
+    // gameholder.setPieces();
     System.out.println(gameholder.getPlayers().get().getPlayers().get(0).getName());
   }
 }

@@ -14,10 +14,6 @@ class PositionMetadataTest {
   public void setUp() {
     positionMetadata = new PositionMetadata(KEY);
   }
-  @Test
-  void testCheckPreconditions() {
-
-  }
 
   @Test
   void testMakeAttribute() {
@@ -27,8 +23,12 @@ class PositionMetadataTest {
   }
 
   @Test
-  void isValidCoordinate() {
-
+  void testIsValidCoordinate() {
+    ColorMetadata colorMetadata = new ColorMetadata("bad");
+    Attribute goodAttribute = positionMetadata.makeAttribute();
+    Attribute badAttribute  = colorMetadata.makeAttribute();
+    assertTrue(positionMetadata.checkPreconditions(goodAttribute));
+    assertThrows(ClassCastException.class, ()->positionMetadata.checkPreconditions(badAttribute) );
   }
 
   @Test
@@ -36,55 +36,30 @@ class PositionMetadataTest {
   }
 
   @Test
-  void makeCoordinateAttribute() {
-
-  }
-
-  @Test
-  void getDefaultX() {
-  }
-
-  @Test
-  void setDefaultX() {
-  }
-
-  @Test
-  void defaultXProperty() {
-  }
-
-  @Test
-  void getDefaultY() {
-  }
-
-  @Test
-  void setDefaultY() {
-  }
-
-  @Test
   void defaultYProperty() {
   }
-
-  @Test
-  void getDefaultAngle() {
-  }
-
-  @Test
-  void setDefaultAngle() {
-  }
-
-  @Test
-  void defaultYAngle() {
-  }
-
   @Test
   void testToString() {
+    PositionMetadata same = new PositionMetadata(KEY);
+    assertEquals(same.toString(),positionMetadata.toString());
   }
 
   @Test
-  void testEquals() {
+  void testSetters() {
+    PositionMetadata pos = new PositionMetadata(KEY);
+    pos.setDefaultX(1.0);
+    pos.setDefaultY(54.0);
+    pos.setDefaultAngle(43.0);
+    assertEquals(pos.getDefaultY(), 54.0);
+    assertEquals(pos.getDefaultX(), 1.0);
+    assertNotEquals(pos.getDefaultAngle(), 43.1);
   }
 
   @Test
   void testHashCode() {
+    PositionMetadata sameContent = new PositionMetadata(KEY);
+    PositionMetadata thing = positionMetadata;
+    assertNotEquals(sameContent.hashCode(),positionMetadata.hashCode());
+    assertEquals(positionMetadata.hashCode(), thing.hashCode() );
   }
 }

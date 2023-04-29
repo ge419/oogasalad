@@ -11,6 +11,7 @@ import oogasalad.model.attribute.ColorMetadata;
 import oogasalad.model.attribute.IntAttribute;
 import oogasalad.model.attribute.IntMetadata;
 import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.attribute.SimpleSchemaDatabase;
 import oogasalad.model.constructable.Tile;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
@@ -18,6 +19,7 @@ import util.DukeApplicationTest;
 import java.util.ResourceBundle;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class ColorParameterStrategyTest extends DukeApplicationTest {
     private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
@@ -34,9 +36,9 @@ class ColorParameterStrategyTest extends DukeApplicationTest {
         attr = meta.makeColorAttribute();
         colorParameterStrategy = new ColorParameterStrategy(attr, meta);
         VBox root = new VBox();
-        Tile myGameConstruct = new Tile(new SchemaDatabase());
+        Tile tileMock = mock(Tile.class);
         root.getChildren().add(colorParameterStrategy.renderInput(resourceBundle, root,
-            myGameConstruct.getId()));
+            tileMock.getId()));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

@@ -1,5 +1,6 @@
 package oogasalad.model.engine.actions;
 
+import com.google.inject.assistedinject.Assisted;
 import java.util.List;
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Player;
@@ -12,6 +13,10 @@ public interface ActionFactory {
   RollDieAction makeRollDieAction(int[] dieResults);
 
   MoveAction makeMoveAction(Piece piece, List<Tile> moveSequence);
-  CreatePlayersAction makeCreatePlayersAction();
+  CreatePlayersAction makeCreatePlayersAction(
+      @Assisted("min") int min,
+      @Assisted("max") int max);
   CreatePlayerPieceAction makeCreatePlayerPieceAction();
+  CheckAndRemovePlayerAction makeCheckAndRemovePlayerAction(int scoreMinBound);
+  CheckWinStateAction makeCheckWinStateAction();
 }

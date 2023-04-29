@@ -10,10 +10,8 @@ import oogasalad.model.constructable.Player;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.actions.ActionFactory;
-import oogasalad.model.engine.actions.CreatePlayersAction;
 import oogasalad.model.engine.actions.EventAction;
-import oogasalad.model.engine.events.ChooseNumberOfPlayersEvent;
-import oogasalad.model.engine.events.StartGameEvent;
+import oogasalad.model.engine.events.PlayerCreationEvent;
 import oogasalad.model.engine.events.StartTurnEvent;
 
 public class TurnRule extends AbstractGameConstruct implements EditableRule {
@@ -34,7 +32,7 @@ public class TurnRule extends AbstractGameConstruct implements EditableRule {
 
   @Override
   public void registerEventHandlers(EventRegistrar registrar) {
-    registrar.registerHandler(ChooseNumberOfPlayersEvent.class, this::newTurn);
+    registrar.registerHandler(PlayerCreationEvent.class, this::newTurn);
     registrar.registerHandler(StartTurnEvent.class, this::newTurn);
   }
 

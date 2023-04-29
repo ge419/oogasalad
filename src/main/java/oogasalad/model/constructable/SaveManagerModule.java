@@ -4,11 +4,11 @@ import com.google.inject.AbstractModule;
 import java.nio.file.Path;
 
 
-public class ConstructableModule extends AbstractModule {
+public class SaveManagerModule extends AbstractModule {
 
   private final Path saveDir;
 
-  public ConstructableModule(Path saveDir) {
+  public SaveManagerModule(Path saveDir) {
     this.saveDir = saveDir;
   }
 

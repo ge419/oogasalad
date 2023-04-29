@@ -1,5 +1,6 @@
 package oogasalad.view.gameplay.pieces;
 
+import javafx.beans.binding.Bindings;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import oogasalad.model.constructable.Piece;
@@ -16,7 +17,7 @@ public class PlayerPiece extends GamePiece {
   public PlayerPiece(Piece BPiece) {
     super(BPiece.getImage());
     this.modelPiece = BPiece;
-    //TODO: BIND PLAYER piece position to MODEL player
+    //TODO: BIND PLAYER piece position to MODEL piece
     //make sure it refreshes per tile change
 //    xProperty().bind(modelPlayer.getX());
 //    yProperty().bind(modelPlayer.getY());

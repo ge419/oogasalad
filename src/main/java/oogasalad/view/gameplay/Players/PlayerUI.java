@@ -39,19 +39,17 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
     getChildren().addAll(
      createBackground(PLAYER_WIDTH, PLAYER_HEIGHT, Color.web(BPlayer.getColor()), UI_STROKE_COLOR),
         playerIcon,
-        createTextBox(BPlayer.getName() + "," + Double.toString(BPlayer.getScore()), PLAYER_HEIGHT, PLAYER_WIDTH));
+        createTextBox(BPlayer.getName(), BPlayer.getScore().toString(), PLAYER_HEIGHT, PLAYER_WIDTH));
     this.setMargin(playerIcon, new Insets(0, PLAYER_WIDTH / 2, 0, 0));
   }
 
   @Override
-  public VBox createTextBox(String info, double height, double width) {
+  public VBox createTextBox(String info, String score, double height, double width) {
     VBox textBox = new VBox();
-    String[] infoList = info.split(",");
-
-    Text playerName = new Text(infoList[0]);
+    Text playerName = new Text(info);
     resizeText(playerName, height, USERNAME_TEXT_SCALE, width);
     playerName.setLayoutY(this.getLayoutY());
-    Text scoreText = new Text(infoList[1]);
+    Text scoreText = new Text(score);
     scoreText.textProperty().bind(modelPlayer.getScoreAttribute().valueProperty().asString());
     resizeText(scoreText, height, SCORE_TEXT_SCALE, width);
     textBox.setAlignment(Pos.CENTER);

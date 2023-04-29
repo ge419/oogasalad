@@ -27,6 +27,7 @@ import oogasalad.controller.BuilderController;
 import oogasalad.controller.builderevents.TrailMaker;
 import oogasalad.controller.builderevents.TrailMakerAPI;
 import oogasalad.view.Coordinate;
+import oogasalad.view.builder.customTile.CustomObjectBuilder;
 import oogasalad.view.builder.itempanes.MenuItemPane;
 import oogasalad.view.builder.itempanes.ItemPane;
 import oogasalad.view.builder.events.TileEvent;
@@ -76,6 +77,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private Map<String, String> themeOptions;
   private ComboBox themeSelector;
   private Scene myScene;
+  private Stage myStage;
 
   @Inject
   public BuilderView(
@@ -95,6 +97,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     primaryStage.setScene(scene);
     primaryStage.setTitle(builderResource.getString("BuilderTitle"));
     primaryStage.show();
+    myStage = primaryStage;
   }
 
   @Override
@@ -408,5 +411,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
    */
   public void displayAboutWindow(){
     new AboutView(builderResource, DEFAULT_STYLESHEET);
+  }
+
+  public void createCustomTile(){
+    new CustomObjectBuilder().start(myStage);
   }
 }

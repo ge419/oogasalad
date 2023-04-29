@@ -41,7 +41,7 @@ public interface ReflectiveMethodGetter {
       reflectedMethod.setAccessible(true);
       reflectedMethod.invoke(this);
     } catch (Exception ex) {
-      ex.printStackTrace();
+//      ex.printStackTrace();
       throw new RuntimeException(ex);
     }
   }

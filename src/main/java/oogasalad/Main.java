@@ -45,7 +45,8 @@ public class Main extends Application {
         );
         GameHolder gameHolder = saveInjector.getInstance(SaveManager.class).loadGame();
         
-        Injector injector = Guice.createInjector(new GameControllerModule(gameHolder));
+        Injector injector = Guice.createInjector(new GameControllerModule(gameHolder),
+            new BuilderControllerModule("English"));
         GameController controller = injector.getInstance(GameController.class);
         try {
             controller.setGame(primaryStage);
@@ -53,6 +54,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
 //        new BuilderView(new BuilderController());
+      injector.getInstance(BuilderController.class);
     }
     //new BuilderView(new BuilderController());
 //    injector.getInstance(BuilderView.class);

@@ -71,6 +71,7 @@
       "key": "color",
       "name": "Color",
       "description": "Color of tile",
+      "defaultValue": "#add8e6",
       "editable": true,
       "viewable": true
     }

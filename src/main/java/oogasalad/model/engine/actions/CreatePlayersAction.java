@@ -13,6 +13,7 @@ import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
+import oogasalad.model.engine.events.ChooseNumberOfPlayersEvent;
 import oogasalad.model.engine.prompt.IntegerPromptOption;
 import oogasalad.model.engine.prompt.PromptOption;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
@@ -40,8 +41,7 @@ public class CreatePlayersAction implements Action {
       options.add(new IntegerPromptOption(i));
     }
     actionParams.prompter().selectSingleOption("Select number of players", options, this::createPlayers);
-
-
+    actionParams.emitter().emit(new ChooseNumberOfPlayersEvent());
 
   }
 

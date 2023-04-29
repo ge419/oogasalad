@@ -27,6 +27,7 @@ import oogasalad.util.SaveManager;
 import oogasalad.view.BuilderFactory;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.BuilderView;
+import oogasalad.view.builder.ErrorHandler;
 import oogasalad.view.builder.popupform.PopupForm;
 import oogasalad.view.tiles.ViewTile;
 import oogasalad.view.tiles.ViewTileFactory;
@@ -44,6 +45,7 @@ public class BuilderController {
   private static final Logger logger = LogManager.getLogger(BuilderController.class);
   private final BuilderView builderView;
   private final GameHolder gameHolder;
+  private final GameInfo gameInfo;
   private SchemaDatabase db;
   private ViewTileFactory viewTileFactory;
   private BBoard board;
@@ -62,6 +64,9 @@ public class BuilderController {
     db = injector.getInstance(SchemaDatabase.class);
     gameHolder = injector.getInstance(GameHolder.class);
     board = gameHolder.getBoard();
+    gameInfo = gameHolder.getGameInfo();
+
+    loadIntoBuilder();
 
 //    todo: Dominics example code for how to get rules using dependency injection
 //    Injector injector = Guice.createInjector(new EngineModule());
@@ -204,5 +209,40 @@ public class BuilderController {
   public void removeRuleFromTiletype(String tiletype, String ruleAsString) {
     logger.info("Trying to remove rule " + ruleAsString +
         " from tiletype " + tiletype);
+  }
+
+  private void loadIntoBuilder(){
+    boolean lostTiles = false;
+//    getBuilderView().loadBoardSize(gameInfo.getWidth(), gameInfo.getHeight());
+
+    for (Tile tile : board.getTiles()){
+      if (!checkTileValidity(tile, gameInfo.getWidth(), gameInfo.getHeight())){
+        logger.warn("Tried to load an invalid tile! Coordinate: " +
+            tile.getCoordinate().toString() + " Width: " + tile.getWidth() + " Height: "
+            + tile.getHeight());
+        lostTiles = true;
+        continue;
+      }
+      getBuilderView().loadTile(viewTileFactory.createDynamicViewTile(tile));
+    }
+
+    if (lostTiles){
+      getBuilderView().showError("InvalidTilesLoadedError");
+    }
+  }
+
+  private boolean checkTileValidity(Tile tile, double boardWidth, double boardHeight){
+    Coordinate tileCoordinate = tile.getCoordinate();
+    if (tileCoordinate.getXCoor() - tile.getWidth() > boardWidth){
+      return false;
+    }
+    if (tileCoordinate.getYCoor() - tile.getHeight() > boardHeight){
+      return false;
+    }
+    if (tile.getHeight() > boardHeight || tile.getWidth() > boardWidth){
+      return false;
+    }
+
+    return true;
   }
 }

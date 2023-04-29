@@ -10,7 +10,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import oogasalad.model.attribute.*;
 
-import java.awt.*;
 import java.io.*;
 import java.io.FileReader;
 import java.nio.file.Files;
@@ -27,6 +26,10 @@ public class CustomObject extends StackPane {
     private String name;
     VBox currentClickedInfo;
     VBox newCurrentClickedInfo;
+
+    public CustomObject(){
+        this.swapCurrentClicked = null;
+    }
 
 
     public CustomObject(Runnable swapCurrentClicked){
@@ -168,12 +171,17 @@ public class CustomObject extends StackPane {
         }
     }
 
+
+
+
+
     private File chooseJsonFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Json File");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files", "*.json"));
-        return fileChooser.showOpenDialog(this.getScene().getWindow());
+        return fileChooser.showOpenDialog(null);
     }
+
 
     private JsonObject readJsonFromFile(File file) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -216,7 +224,7 @@ public class CustomObject extends StackPane {
     private void resizeWindow(Double height, Double rightPaneWidth) {
         Stage stage = (Stage) this.getScene().getWindow();
 
-        stage.setWidth(CustomObjectBuilderWindow.getLeftPaneWidth() + rightPaneWidth);
+        stage.setWidth(CustomObjectBuilder.getLeftPaneWidth() + rightPaneWidth);
         stage.setHeight(height);
     }
 

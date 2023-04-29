@@ -160,7 +160,7 @@ public class CustomImage extends ImageView implements CustomElement {
     }
 
     private String resolveImageName(String saveName) {
-        if (this.name == null) {
+        if (this.name.isEmpty()) {
             this.name = this.originalFile.getName();
             System.out.println("this.originalFile.getName() = " + this.originalFile.getName());
         }

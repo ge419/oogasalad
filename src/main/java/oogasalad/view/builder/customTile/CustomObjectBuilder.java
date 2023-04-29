@@ -10,10 +10,9 @@ import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 
 import java.io.File;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class CustomObjectBuilderWindow extends Application {
+public class CustomObjectBuilder extends Application {
     private String defaultTitle = "CustomTileMaker";
     private Stage stage;
     private LeftPane leftPane;
@@ -148,7 +147,7 @@ public class CustomObjectBuilderWindow extends Application {
         private CustomImage getImageFromFile() {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle(languageBundle.getString("selectImageFile.label"));
-            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg","*.jpeg", "*.gif"));
             File selectedFile = fileChooser.showOpenDialog(getScene().getWindow());
 
             if (selectedFile != null) {

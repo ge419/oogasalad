@@ -146,12 +146,8 @@ public class CustomText extends Label implements CustomElement {
         boldCheckbox.setSelected(this.isBold());
         boldCheckbox.setOnAction(event -> setBold(boldCheckbox.isSelected()));
         nodes.add(new Label("Bold:"));
-        nodes.add(boldCheckbox);
 
-        VBox infoBox = new VBox();
-        infoBox.getChildren().addAll(nodes);
-
-        return infoBox;
+        return CustomElementHelper.makeVbox(this, nodes);
     }
 
     @Override
@@ -173,8 +169,7 @@ public class CustomText extends Label implements CustomElement {
     @Override
     public Metadata getMetaData() {
         //if name is null that means it a static string with key of default contents
-
-        if (this.name == null){
+        if (this.name.isEmpty()){
             StringMetadata metadata = new StringMetadata(this.defaultContents);
             metadata.setEditable(editable);
             metadata.setViewable(editable);

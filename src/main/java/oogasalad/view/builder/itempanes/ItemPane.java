@@ -126,4 +126,8 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
   private void cancelAction() {
     getBuilder().cancelAction();
   }
+
+  private void createCustomTile(){
+    // nothing
+  }
 }

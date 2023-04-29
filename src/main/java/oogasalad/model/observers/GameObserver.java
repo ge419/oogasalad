@@ -9,4 +9,5 @@ public interface GameObserver {
 
   void updateOnPlayers(Players players);
   void updateOnPieces(List<Piece> pieces);
+  void updateOnPlayerRemoval(List<Player> players);
 }

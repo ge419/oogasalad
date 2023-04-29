@@ -81,8 +81,8 @@ public class GameHolder implements Observable<GameObserver> {
       System.out.println("NEED TO REMOVE");
     }
     this.players.get().getPlayers().removeAll(playersList);
-//    this.notifyRemoval(playersList);
-    this.notifyList();
+    this.notifyRemoval(playersList);
+//    this.notifyList();
   }
 
   @JsonIgnore
@@ -148,9 +148,9 @@ public class GameHolder implements Observable<GameObserver> {
     }
   }
 
-//  public void notifyRemoval(List<Player> players) {
-//    for (GameObserver observer : observers) {
-//      observer.updateOnPlayerRemoval(players);
-//    }
-//  }
+  public void notifyRemoval(List<Player> players) {
+    for (GameObserver observer : observers) {
+      observer.updateOnPlayerRemoval(players);
+    }
+  }
 }

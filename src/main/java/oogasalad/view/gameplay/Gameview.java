@@ -15,6 +15,8 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import oogasalad.controller.GameController;
@@ -99,9 +101,6 @@ public class Gameview implements GameObserver {
   public void updateOnPlayers(Players players) {
     viewPlayers = new ViewPlayers(game.getPlayers());
     viewPlayers.render(UIroot);
-    //TODO: Remove players in frontend (renderable clear method)
-    //Backend board is being updated correctly
-    viewPlayers.clear(UIroot);
   }
 
   @Override
@@ -111,12 +110,19 @@ public class Gameview implements GameObserver {
     viewPieces.render(UIroot);
   }
 
-//  @Override
-//  public void updateOnPlayerRemoval(List<Player> players) {
-//    List<String> ids = new ArrayList<>();
-//    for (Player p : players)  ids.add(p.getId());
-//    for (PlayerUI player: viewPlayers.getPlayerList()) {
-//      if (ids.contains(player.getPlayerId())) player.clear();
-//    }
-//  }
+  @Override
+  public void updateOnPlayerRemoval(List<Player> players) {
+    //TODO: make the player pieces be removed
+    List<String> ids = new ArrayList<>();
+    for (Player p : players)  ids.add(p.getId());
+    for (String id : ids) {
+      UIroot.getChildren().remove(viewPlayers.getPlayer(id));
+      Alert alert = new Alert(AlertType.INFORMATION);
+      alert.setTitle("Information Dialog");
+      alert.setHeaderText("Game Change!");
+      alert.setContentText(String.format("Player %s Gets Removed!", id));
+      alert.showAndWait();
+    }
+
+  }
 }

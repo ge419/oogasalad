@@ -46,15 +46,12 @@ import org.apache.logging.log4j.Logger;
 public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
+  private static final String CONSTANTS_FILE = "BuilderConstants";
   private static final String DEFAULT_STYLESHEET = "builderDefaultStyle.css";
   private static final String DEFAULT_STYLESHEET_PATH = "/view/builder/" + DEFAULT_STYLESHEET;
-
-  private static final double PANE_WIDTH = 500;
-  private static final double PANE_HEIGHT = 500;
-  private static final double SCENE_WIDTH = 900;
-  private static final double SCENE_HEIGHT = 600;
   private static final Logger LOG = LogManager.getLogger(BuilderView.class);
   private ResourceBundle builderResource;
+  private ResourceBundle constantsResource;
   private Pane myBoardPane;
   private RulesPane myRulePane;
   private BorderPane myCenterContainer;
@@ -84,6 +81,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     this.myBuilderController = bc;
     builderResource = ResourceBundle.getBundle(
         BASE_RESOURCE_PACKAGE + languageString + "BuilderText");
+    constantsResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE+CONSTANTS_FILE);
 
     defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET_PATH).toExternalForm();
     myDraggableObjectsToggle = new SimpleBooleanProperty(true);
@@ -176,7 +174,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     Node centralContainer = createCentralContainer();
     VBox root = (VBox) makeVBox("RootContainer", myMenubar.asNode(), topBar, centralContainer);
 
-    myScene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
+    myScene = new Scene(root, Double.parseDouble(constantsResource.getString("SCENE_WIDTH")), Double.parseDouble(constantsResource.getString("SCENE_HEIGHT")));
     myScene.getStylesheets().add(defaultStylesheet);
     return myScene;
   }
@@ -220,7 +218,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     initializeRulePane();
 
     sidePane = new VBox();
-    sidePane.setPrefWidth(300);
+    sidePane.setPrefWidth(Double.parseDouble(constantsResource.getString("SIDE_PANE_WIDTH")));
 
     myCenterContainer = new BorderPane();
     myCenterContainer.setId("CentralContainer");
@@ -233,8 +231,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void initializeBoardPane() {
-    myBoardPane = (Pane) makePane("BoardPane", PANE_WIDTH, PANE_HEIGHT);
-    setPaneSize(myBoardPane, PANE_WIDTH, PANE_HEIGHT);
+    myBoardPane = (Pane) makePane("BoardPane", Double.parseDouble(constantsResource.getString("PANE_WIDTH")), Double.parseDouble(constantsResource.getString("PANE_HEIGHT")));
+    setPaneSize(myBoardPane, Double.parseDouble(constantsResource.getString("PANE_WIDTH")), Double.parseDouble(constantsResource.getString("PANE_HEIGHT")));
 
     myBoardPane.setOnMouseClicked(e -> handleBoardClick(e));
     myBoardPane.addEventFilter(TileEvent.DELETE_TILE, e -> deleteTile(e));
@@ -247,7 +245,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private void initializeRulePane() {
     myRulePane = new RulesPane(this, myBuilderController, builderResource);
-    setPaneSize(myRulePane, PANE_WIDTH, PANE_HEIGHT);
+    setPaneSize(myRulePane, Double.parseDouble(constantsResource.getString("PANE_WIDTH")), Double.parseDouble(constantsResource.getString("PANE_HEIGHT")));
     LOG.debug("Initialized rule pane successfully.");
   }
 

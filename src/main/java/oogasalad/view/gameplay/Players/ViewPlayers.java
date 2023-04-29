@@ -3,6 +3,7 @@ package oogasalad.view.gameplay.Players;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javax.swing.text.html.Option;
 import oogasalad.model.constructable.Players;
@@ -35,7 +36,6 @@ public class ViewPlayers implements Renderable {
         PlayerUI playerUI = new PlayerUI(BPlayers.get().getPlayers().get(i), playerCoordinate);
         playerList.add(playerUI);
         pane.getChildren().add(playerUI);
-
     }
   }
 
@@ -51,5 +51,9 @@ public class ViewPlayers implements Renderable {
     panelX = centerX + 1.2 * radius * Math.sin(Math.toRadians(panelAngle));
     panelY = centerY - 0.9 * radius * Math.cos(Math.toRadians(panelAngle));
     return new Coordinate(panelX, panelY, panelAngle + 180);
+  }
+
+  public List<PlayerUI> getPlayerList() {
+    return this.playerList;
   }
 }

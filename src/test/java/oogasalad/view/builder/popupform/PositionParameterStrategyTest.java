@@ -9,6 +9,8 @@ import oogasalad.model.attribute.IntAttribute;
 import oogasalad.model.attribute.IntMetadata;
 import oogasalad.model.attribute.PositionAttribute;
 import oogasalad.model.attribute.PositionMetadata;
+import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
@@ -16,6 +18,7 @@ import util.DukeApplicationTest;
 import java.util.ResourceBundle;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class PositionParameterStrategyTest extends DukeApplicationTest {
     private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
@@ -36,7 +39,9 @@ class PositionParameterStrategyTest extends DukeApplicationTest {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        root.getChildren().add(positionParameterStrategy.renderInput(resourceBundle, root));
+        Tile tileMock = mock(Tile.class);
+        root.getChildren().add(positionParameterStrategy.renderInput(resourceBundle, root,
+            tileMock.getId()));
     }
     @Test
     void renderInput() {

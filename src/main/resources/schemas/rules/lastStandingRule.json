@@ -1,0 +1,15 @@
+{
+  "@class": "oogasalad.model.attribute.SimpleObjectSchema",
+  "name": "lastStandingRule",
+  "fields": [
+    {
+      "@class": "oogasalad.model.attribute.IntMetadata",
+      "key": "numWinPlayer",
+      "name": "number of winning players",
+      "description": "specifies how many players can win in this game",
+      "editable": true,
+      "viewable": false,
+      "defaultValue": 1
+    }
+  ]
+}

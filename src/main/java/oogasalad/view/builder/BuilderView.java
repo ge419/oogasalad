@@ -62,6 +62,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private BorderPane myCenterContainer;
   private final String defaultStylesheet;
   private boolean myTileCreationToggle = false;
+  private boolean myTileNextRemovalToggle = false;
   private Node myInfoText;
   private BorderPane myTopBar;
   private int myTileCount = 0;
@@ -142,8 +143,16 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   @Override
   public void toggleTileCreation() {
-    myTileCreationToggle = true;
-    updateInfoText("TileAdditionMode");
+    if (myDeleteToggle){
+      toggleTileDeletion();
+    }
+    myTileCreationToggle = !myTileCreationToggle;
+    if (myTileCreationToggle){
+      updateInfoText("TileAdditionMode");
+    }
+    else{
+      updateInfoText("RegularMode");
+    }
   }
 
   @Override
@@ -158,6 +167,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   @Override
   public void toggleTileDeletion() {
+    if (myTileCreationToggle){
+      toggleTileCreation();
+    }
     myDeleteToggle = !myDeleteToggle;
     if (myDeleteToggle) {
       updateInfoText("DeleteMode");
@@ -298,8 +310,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     tile.asNode().setOnMouseDragged(event -> fireDragEvent(event, tile));
     initializeNode(tile.asNode(), "Tile" + myTileCount, tile_e -> handleTileClick(tile));
     myTileCount++;
-    myTileCreationToggle = false;
-    updateInfoText("RegularMode");
+//    myTileCreationToggle = false;
+//    updateInfoText("RegularMode");
     LOG.debug("Successfully created tile " + tile.getTileId());
   }
 
@@ -318,6 +330,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private void handleTileClick(ViewTile tile) {
     LOG.debug("Clicked on tile " + tile.getTileId());
+    if (myTileCreationToggle){
+      toggleTileCreation();
+    }
     if (myDeleteToggle) {
       TileEvent event = new TileEvent(TileEvent.DELETE_TILE, tile);
       myBoardPane.fireEvent(event);
@@ -369,7 +384,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private int deleteNode(Node node, int objCounter) {
     myBoardPane.getChildren().remove(node);
-    toggleTileDeletion();
+//    toggleTileDeletion();
     return objCounter--;
   }
 
@@ -414,6 +429,20 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   public void createCustomTile(){
+    if (myDeleteToggle){
+      toggleTileDeletion();
+    }
     new CustomObjectBuilder().start(myStage);
   }
+
+  public void toggleNextRemoval(){
+//    myTileNextRemovalToggle = !myTileNextRemovalToggle;
+//    if (myTileNextRemovalToggle){
+//      updateInfoText("NextRemoveMode");
+//    }
+//    else{
+//      updateInfoText("RegularMode");
+//    }
+  }
+
 }

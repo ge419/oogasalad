@@ -14,8 +14,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import oogasalad.controller.GameController;
 import oogasalad.model.constructable.GameHolder;
@@ -26,7 +29,9 @@ import oogasalad.model.observers.GameObserver;
 import oogasalad.view.Renderable;
 import oogasalad.view.gameplay.Players.ViewPlayers;
 import oogasalad.view.gameplay.pieces.ViewPieces;
+import oogasalad.view.gameplay.pieces.Cards;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
+import oogasalad.view.gameplay.popup.HandDisplayPopup;
 import oogasalad.view.tiles.Tiles;
 import org.checkerframework.checker.units.qual.A;
 
@@ -78,12 +83,32 @@ public class Gameview implements GameObserver {
     // TODO: Dynamically watch players/pieces
 
 
+    //TODO: take this out when cards are implemented
+    Button button = new Button("Show Card Popup");
+    Cards card = new Cards("data/example/chance.jpg");
+    Cards card2 = new Cards("data/example/chance.jpg");
+    Cards card3 = new Cards("data/example/chance.jpg");
+    Cards[] cards = {card, card2, card3};
+    HandDisplayPopup popup = new HandDisplayPopup(cards);
+
+    HBox hbox = new HBox();
+    hbox.getChildren().addAll(button);
+
+    button.setId("Button");
+    UIroot.setTop(hbox);
+
+    button.setOnAction(event -> {
+      Point2D offset = new Point2D(button.getScene().getX(), button.getScene().getY());
+      popup.showHand(button, offset);
+    });
+
+    scene = new Scene(UIroot);
 
 //    for (PlayerPiece piece : viewPieces.getPieceList()) {
 //      piece.moveToTile(game.getBoard().getTiles().get(0));
 //    }
 
-    scene = new Scene(UIroot);
+//    scene = new Scene(UIroot);
 
     //TODO: refactor to read from property file
     primaryStage.setTitle("Monopoly");

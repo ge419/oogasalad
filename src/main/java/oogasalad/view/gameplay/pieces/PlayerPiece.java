@@ -31,13 +31,6 @@ public class PlayerPiece extends GamePiece {
 
   public void moveToTile(Tile tile) {
     modelPiece.setTile(tile);
-    moveDirectly(tile.getCoordinate());
+    moveDirectly(tile.getCoordinate(), this);
   }
-
-  @Override
-  public void moveDirectly(Coordinate coor) {
-    this.setLayoutX(coor.getXCoor());
-    this.setLayoutY(coor.getYCoor());
-  }
-
 }

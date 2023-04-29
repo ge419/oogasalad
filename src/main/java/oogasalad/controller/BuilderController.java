@@ -6,7 +6,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+
+import java.io.*;
+import java.net.URL;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
@@ -36,7 +42,8 @@ public class BuilderController {
   // following instances will be removed later
   private String FILE_PATH = "HARDCODE FILE PATH HERE";
   private String FOLDER_NAME = "CUSTOM1";
-
+  private static final String DEFAULT_STYLESHEET_DIRECTORY = "/view/builder/";
+  private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
   private static final Logger logger = LogManager.getLogger(BuilderController.class);
   private final BuilderView builderView;
   private SchemaDatabase db;
@@ -133,5 +140,38 @@ public class BuilderController {
 
   private void defaultRules() {
 //    saveManager.loadDefRules();
+  }
+
+  /**
+   * Creates a map of Key:Value pairs corresponding to Name:Filepath of all CSS files
+   * in the default stylesheet directory
+   * @return Map<String fileName, String filePath>
+   */
+  public Map<String, String> getThemeOptions() {
+    Map<String, String> themeMap = new HashMap<>();
+
+    File dir = getStylesheetDirectory();
+    String ext = "css";
+    String[] fileList = getFilteredFiles(dir, ext);
+
+    for (String name : fileList) {
+      String path = DEFAULT_STYLESHEET_DIRECTORY+name;
+      themeMap.put(name, path);
+    }
+    return themeMap;
+  }
+  private File getStylesheetDirectory() {
+    String resourceDirPath = getClass().getResource(DEFAULT_STYLESHEET).getPath();
+    File dir = new File(resourceDirPath).getParentFile();
+    return dir;
+  }
+  private String[] getFilteredFiles(File directory, String extension) {
+    FilenameFilter filter = new FilenameFilter() {
+      @Override
+      public boolean accept(File dir, String name) {
+        return name.endsWith(extension);
+      }
+    };
+    return directory.list(filter);
   }
 }

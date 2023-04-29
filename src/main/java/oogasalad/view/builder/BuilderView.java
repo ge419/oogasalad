@@ -108,7 +108,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     } else {
       // todo: replace with LOG
       System.out.println("Ruh-roh, can't save to a file that doesn't exist!");
-      new Alert(Alert.AlertType.ERROR, builderResource.getString("FileNotFoundError"));
+//      new Alert(Alert.AlertType.ERROR, builderResource.getString("FileNotFoundError"));
+      ErrorHandler.displayError(builderResource.getString("FileNotFoundError"), builderResource);
     }
   }
 
@@ -120,6 +121,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       myBuilderController.load(file.get().getPath());
     } else {
       // todo: display error
+      ErrorHandler.displayError(builderResource.getString("FileNotFoundError"), builderResource);
     }
   }
 

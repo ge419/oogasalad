@@ -7,8 +7,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import oogasalad.model.exception.ResourceReadException;
 import oogasalad.view.builder.BuilderUtility;
 import oogasalad.view.builder.BuilderView;
+import oogasalad.view.builder.exceptions.MethodReflectionException;
 
 /**
  * <p>Implementation of Abstract Bar for a menubar specifically.</p>
@@ -30,7 +32,7 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
    * @see AbstractItemPane#AbstractItemPane(ResourceBundle, String, BuilderView)
    */
   public MenuItemPane(ResourceBundle languageResource, String id,
-      BuilderView builder) {
+      BuilderView builder) throws ResourceReadException{
     super(languageResource, id, builder);
     myMenuOptionsResource = getResource(RESOURCE_FILE_WITH_MENUBAR_OPTIONS);
     myAddedMenus = new HashMap<>();
@@ -41,7 +43,7 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
   }
 
   @Override
-  public void addItems(String functionFileName) {
+  public void addItems(String functionFileName) throws ResourceReadException{
     ResourceBundle bundle = getResource(functionFileName);
     Menu newMenu = createMenu(functionFileName);
     myAddedMenus.put(functionFileName, newMenu);
@@ -56,7 +58,7 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
   }
 
   @Override
-  public void refreshItems(String newFunctionFileName) {
+  public void refreshItems(String newFunctionFileName) throws ResourceReadException {
     //Menu getMenu = myMenuBar.lookup(newFunctionFileName);
     Menu getMenu = myAddedMenus.get(newFunctionFileName);
     myMenuBar.getMenus().remove(getMenu);
@@ -75,7 +77,7 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
    * <p>Refreshes all current items in the menu.</p>
    * @see MenuItemPane#refreshItems(String)
    */
-  public void refreshItems() {
+  public void refreshItems() throws ResourceReadException {
     myMenuBar.getMenus().clear();
     createDefaultMenuOptions();
     for (String itemID : myAddedMenus.keySet()) {
@@ -86,7 +88,7 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
   }
 
   @Override
-  public void updateLanguage(String fileName) {
+  public void updateLanguage(String fileName) throws ResourceReadException {
     setLanguage(getResource(fileName));
     refreshItems();
   }
@@ -101,7 +103,7 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
    * @param optionName name of the menu you want to create
    * @return created menu
    */
-  private Menu createMenu(String optionName) {
+  private Menu createMenu(String optionName) throws ResourceReadException{
     Menu newOption = new Menu(getLanguage().getString(optionName));
     newOption.setId(optionName);
     createItemsInMenu(newOption);
@@ -116,8 +118,17 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
    */
   private void createItemsInMenu(Menu desiredMenu) {
     ResourceBundle menuBundle = getResource(desiredMenu.getId());
-    forEachResourceKey(menuBundle,
-        key -> addNewMenuItemToMenu(key, menuBundle.getString(key), desiredMenu));
+    try {
+      forEachResourceKey(menuBundle,
+          key -> addNewMenuItemToMenu(key, menuBundle.getString(key), desiredMenu));
+    }
+    catch (RuntimeException e){
+      throw new ResourceReadException(displayMessageWithArguments(
+          getLanguage(),
+          "ResourceReadException",
+          menuBundle.toString()
+      ));
+    }
 
   }
 
@@ -129,17 +140,35 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
    * @param parentMenu
    */
   private void addNewMenuItemToMenu(String key, String buttonClickMethodName, Menu parentMenu) {
-    MenuItem item = makeMenuItem(key, getLanguage(),
-        e -> runMethodFromString(buttonClickMethodName));
-    parentMenu.getItems().add(item);
+    try {
+      MenuItem item = makeMenuItem(key, getLanguage(),
+          e -> runMethodFromString(buttonClickMethodName));
+      parentMenu.getItems().add(item);
+    }
+    catch(RuntimeException e){
+      throw new MethodReflectionException(displayMessageWithArguments(
+          getLanguage(),
+          "ReflectionMethodError",
+          buttonClickMethodName
+      ));
+    }
   }
 
   /**
    * <p>Creates all the menus and their items as listed in the
    * default properties file.</p>
    */
-  private void createDefaultMenuOptions() {
-    forEachResourceKey(myMenuOptionsResource, key -> createMenu(key));
+  private void createDefaultMenuOptions(){
+    try {
+      forEachResourceKey(myMenuOptionsResource, key -> createMenu(key));
+    }
+    catch(Exception e){
+      throw new ResourceReadException(displayMessageWithArguments(
+          getLanguage(),
+          "ResourceReadError",
+          myMenuOptionsResource.toString()
+      ));
+    }
   }
 
   //////////////////////////////////////////////////////////////////////////////

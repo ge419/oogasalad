@@ -31,9 +31,9 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
   public ItemPane(ResourceBundle languageResource, String id, BuilderView builder) {
     // create pane
     super(languageResource, id, builder);
-    ScrollPane scrollablePane = new ScrollPane();
+//    ScrollPane scrollablePane = new ScrollPane();
     myPane = (Pane) makeVBox(id);
-    scrollablePane.setContent(myPane);
+//    scrollablePane.setContent(myPane);
   }
 
   @Override
@@ -54,13 +54,15 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
   }
 
   @Override
-  public void refreshItems(String newFunctionFileName) {
+  public void refreshItems(String newFunctionFileName)
+  throws MethodReflectionException, ResourceReadException{
     myPane.getChildren().clear();
     addItems(newFunctionFileName);
   }
 
   @Override
-  public void updateLanguage(String fileName) {
+  public void updateLanguage(String fileName)
+  throws MethodReflectionException, ResourceReadException{
     setLanguage(getResource(fileName));
     refreshItems(myCurrentBundleName);
   }

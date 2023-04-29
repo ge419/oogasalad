@@ -12,13 +12,12 @@ import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
 import oogasalad.model.engine.prompt.IntegerPromptOption;
 import oogasalad.model.engine.prompt.PromptOption;
-import oogasalad.view.gameplay.pieces.Pieces;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
 
 public class CreatePlayersAction implements Action {
   private final Provider<Player> playerProvider;
   private final Provider<Piece> pieceProvider;
-  private GameHolder gameholder;
+  private final GameHolder gameholder;
 
   @Inject
   public CreatePlayersAction(
@@ -34,8 +33,7 @@ public class CreatePlayersAction implements Action {
   @Override
   public void runAction(ActionParams actionParams) {
     List<IntegerPromptOption> options = new ArrayList<>();
-    // TODO get from attributes
-    for (int i = 1; i < 4; i++) {
+    for (int i = gameholder.minPlayer(); i <= gameholder.maxPlayer(); i++) {
       options.add(new IntegerPromptOption(i));
     }
 
@@ -56,10 +54,10 @@ public class CreatePlayersAction implements Action {
     }
     gameholder.setPlayers(new Players(players));
     gameholder.setPieces(pieceList);
-    Pieces pieces = new Pieces(pieceList);
-    for (PlayerPiece piece : pieces.getPieceList()) {
-      piece.moveToTile(gameholder.getBoard().getTiles().get(0));
-    }
+//    Pieces pieces = new Pieces(pieceList);
+//    for (PlayerPiece piece : pieces.getPieceList()) {
+//      piece.moveToTile(gameholder.getBoard().getTiles().get(0));
+//    }
     System.out.println(gameholder.getPlayers().getPlayers().get(0).getName());
   }
 }

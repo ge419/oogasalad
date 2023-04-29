@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import oogasalad.model.attribute.*;
 import oogasalad.model.constructable.GameConstruct;
 import oogasalad.view.builder.BuilderUtility;
+import oogasalad.view.builder.ErrorHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -80,7 +81,7 @@ public class PopupForm implements BuilderUtility {
         for (ParameterStrategy parameter : currentParameters) {
             if (!parameter.isInputValid()) {
                 LOGGER.error("Input for {} is invalid", parameter.getMetadata().getName());
-                new Alert(Alert.AlertType.ERROR, resourceBundle.getString("InvalidFormData"));
+                ErrorHandler.displayError(resourceBundle.getString("InvalidFormData"));
                 return;
             }
         }

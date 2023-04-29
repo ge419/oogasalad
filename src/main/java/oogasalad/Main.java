@@ -34,26 +34,28 @@ public class Main extends Application {
     return 0.001;
   }
 
-  @Override
-  public void start(Stage primaryStage) throws Exception {
-    Path saveDir = Path.of("data", "monopoly");
-    // TODO: use ControllableModule and SaveManager instead of putting game holder in module
-    Injector saveInjector = Guice.createInjector(
-        new ObjectMapperModule(),
-        new EngineModule(),
-        new ConstructableModule(saveDir)
-    );
-    GameHolder gameHolder = saveInjector.getInstance(SaveManager.class).loadGame();
-
-    Injector injector = Guice.createInjector(new GameControllerModule(gameHolder));
-    GameController controller = injector.getInstance(GameController.class);
-
-    Injector builderInject = Guice.createInjector(new BuilderControllerModule("English"));
-    BuilderController builderController = builderInject.getInstance(BuilderController.class);
-//    try {
-//      controller.setGame(primaryStage);
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
-}
-}
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Path saveDir = Path.of("data", "monopoly");
+        // TODO: use ControllableModule and SaveManager instead of putting game holder in module
+        Injector saveInjector = Guice.createInjector(
+            new ObjectMapperModule(),
+            new EngineModule(),
+            new ConstructableModule(saveDir)
+        );
+        GameHolder gameHolder = saveInjector.getInstance(SaveManager.class).loadGame();
+        
+        Injector injector = Guice.createInjector(new GameControllerModule(gameHolder),
+            new BuilderControllerModule("English"));
+        GameController controller = injector.getInstance(GameController.class);
+        try {
+            controller.setGame(primaryStage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        new BuilderView(new BuilderController());
+      injector.getInstance(BuilderController.class);
+    }
+    //new BuilderView(new BuilderController());
+//    injector.getInstance(BuilderView.class);
+  }

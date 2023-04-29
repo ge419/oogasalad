@@ -3,21 +3,23 @@ package oogasalad.view.builder;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import java.io.File;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import oogasalad.controller.BuilderController;
@@ -53,7 +55,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private static final Logger LOG = LogManager.getLogger(BuilderView.class);
   private ResourceBundle builderResource;
   private Pane myBoardPane;
-  private FlowPane myRulePane;
+  private BorderPane myRulePane;
   private BorderPane myCenterContainer;
   private final String defaultStylesheet;
   private boolean myTileCreationToggle = false;
@@ -235,10 +237,16 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private void initializeRulePane() {
     //myRulePane = makePane("RulePane", PANE_WIDTH, PANE_HEIGHT);
-    myRulePane = new FlowPane();
+    myRulePane = new BorderPane();
     setPaneSize(myRulePane, PANE_WIDTH, PANE_HEIGHT);
     myRulePane.setId("RulePane");
-    myRulePane.getChildren().add(new Rectangle(50, 50, 10, 10));
+    ListView<String> listView = new ListView<>();
+    listView.setItems(FXCollections.observableArrayList("Test1", "Test2"));
+    myRulePane.setLeft(listView);
+    ComboBox<String> test = new ComboBox<>();
+    test.setItems(FXCollections.observableArrayList("one test", "two test"));
+    myRulePane.setRight(test);
+//    myRulePane.getChildren().add(new Rectangle(50, 50, 10, 10));
   }
 
   private void setPaneSize(Pane pane, double width, double height) {

@@ -1,7 +1,9 @@
 package oogasalad.model.constructable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import java.util.Optional;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import oogasalad.model.attribute.AbstractAttribute;
 import oogasalad.model.attribute.Attribute;
@@ -24,7 +26,7 @@ import oogasalad.model.attribute.ObjectSchema;
  * The available attributes are guaranteed to match up with the current schema, but the schema
  * may change at any time due to a change in the factory attributes or a
  * {@link oogasalad.model.engine.rules.Rule}. Objects operating on general schemas are expected
- * to listen to {@link GameConstruct#getSchemaProperty()} for changes.
+ * to listen to {@link GameConstruct#schemaProperty()} for changes.
  *
  * @author Dominic Martinez
  * @see ObjectSchema
@@ -45,17 +47,18 @@ public interface GameConstruct {
    * @param key appropriate key from the {@link ObjectSchema}
    * @return an {@link Attribute} if the key exists, null otherwise
    */
-  Attribute getAttribute(String key);
+  Optional<Attribute> getAttribute(String key);
 
   /**
    * Returns the current schema for this {@link GameConstruct}. Note that the schema can change at
    * any point; make sure you really want this method instead of
-   * {@link GameConstruct#getSchemaProperty()}.
+   * {@link GameConstruct#schemaProperty()}.
    */
+  @JsonIgnore
   ObjectSchema getSchema();
 
   /**
    * Returns a property for this object's {@link ObjectSchema}.
    */
-  ReadOnlyObjectProperty<ObjectSchema> getSchemaProperty();
+  ReadOnlyObjectProperty<ObjectSchema> schemaProperty();
 }

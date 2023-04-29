@@ -6,8 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -18,6 +20,7 @@ import oogasalad.model.attribute.Attribute;
 import oogasalad.model.attribute.Metadata;
 import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.attribute.SchemaUtilities;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,24 +35,21 @@ public abstract class AbstractGameConstruct implements GameConstruct {
   @JsonIgnore
   private final SchemaDatabase database;
   private final Map<String, Attribute> attributeMap;
-  @JsonProperty("schema")
-  private String schemaName;
+  @JsonProperty("schemas")
+  private List<String> schemaNames;
+  private String baseSchema;
   private String id;
   private final ObjectProperty<ObjectSchema> schemaProperty;
 
-  protected AbstractGameConstruct(String schemaName, SchemaDatabase database) {
+  protected AbstractGameConstruct(String baseSchema, SchemaDatabase database) {
     this.id = UUID.randomUUID().toString();
-    this.schemaName = schemaName;
     this.database = database;
     this.attributeMap = new TreeMap<>();
     this.schemaProperty = new SimpleObjectProperty<>();
-    // TODO: put this somewhere else?
-    try {
-      this.loadSchema(schemaName);
-    } catch (Exception e) {
-      LOGGER.fatal("failed to construct schema {}", schemaName);
-      throw e;
-    }
+    this.baseSchema = baseSchema;
+
+    database.databaseProperty().addListener((observable, oldValue, newValue) -> refreshSchema());
+    setSchemaNames(List.of(baseSchema));
   }
 
   @Override
@@ -68,93 +68,112 @@ public abstract class AbstractGameConstruct implements GameConstruct {
 
   @JsonSetter("attributes")
   public void setAllAttributes(List<Attribute> attributeList) {
-    migrateAttributes(attributeList);
+    for (Attribute attribute : attributeList) {
+      Objects.requireNonNull(attribute);
+      attributeMap.put(attribute.getKey(), attribute);
+    }
+
+    reconcileAttributes();
   }
 
   @Override
   @JsonIgnore
-  public Attribute getAttribute(String key) {
-    return attributeMap.get(key);
+  public Optional<Attribute> getAttribute(String key) {
+    return Optional.ofNullable(attributeMap.get(key));
+  }
+
+  @JsonGetter("schemas")
+  public List<String> getSchemaNames() {
+    return schemaNames;
+  }
+
+  @JsonSetter("schemas")
+  public void setJsonSchemaNames(List<String> jsonSchemaNames) {
+    // Ensure base schema is covered
+    List<String> newNames = new ArrayList<>(jsonSchemaNames);
+    if (!jsonSchemaNames.contains(baseSchema)) {
+      newNames.add(baseSchema);
+    }
+
+    setSchemaNames(newNames);
+  }
+
+  private void refreshSchema() {
+    setSchemaNames(schemaNames);
   }
 
   @JsonIgnore
-  protected void setAttribute(String key, Attribute value) {
-    ObjectSchema schema = getSchema();
-    Optional<Metadata> optionalMetadata = schema.getMetadata(key);
-
-    if (optionalMetadata.isEmpty()) {
-      LOGGER.error("tried to set key {} that is not in schema", key);
-      throw new IllegalArgumentException("invalid key for schema");
+  protected void setSchemaNames(List<String> newSchemaNames) {
+    List<ObjectSchema> schemas = new ArrayList<>();
+    for (String newSchemaName : newSchemaNames.stream().distinct().toList()) {
+      Optional<ObjectSchema> schemaOptional = database.getSchema(newSchemaName);
+      if (schemaOptional.isEmpty()) {
+        LOGGER.warn("schema does not exist {}", newSchemaNames);
+      } else {
+        schemas.add(schemaOptional.get());
+      }
     }
 
-    Metadata metadata = optionalMetadata.get();
-    if (!metadata.isCorrectType(value)) {
-      LOGGER.error("tried to set {} to {} when schema requires {}",
-          key, value.getClass(), metadata.getAttributeClass());
-      throw new IllegalArgumentException("conflicting keys with different types");
-    }
-
-    if (!metadata.getKey().equals(value.getKey())) {
-      LOGGER.error("metadata key {} and value key {} conflict",
-          metadata.getKey(), value.getKey());
-      throw new IllegalArgumentException("conflicting metadata/value keys");
-    }
-
-    attributeMap.put(key, value);
-  }
-
-  @JsonGetter("schema")
-  public String getSchemaName() {
-    return schemaName;
-  }
-
-  @JsonIgnore
-  public void loadSchema(String newSchemaName) {
-    if (!database.containsSchema(newSchemaName)) {
-      LOGGER.error("schema does not exist {}", newSchemaName);
-      throw new IllegalArgumentException("invalid schema");
-    }
-    this.schemaName = newSchemaName;
-    ObjectSchema newSchema = database.getSchema(schemaName).get();
+    this.schemaNames = new ArrayList<>(newSchemaNames);
+    ObjectSchema newSchema = SchemaUtilities.concatenateSchemas(schemas);
     this.schemaProperty.setValue(newSchema);
-    setAllAttributes(newSchema.makeAllAttributes());
-    migrateAttributes(attributeMap);
-  }
-
-  private void migrateAttributes(List<Attribute> oldAttributes) {
-    Map<String, Attribute> attrMap = new TreeMap<>();
-    for (Attribute attribute : oldAttributes) {
-      attrMap.put(attribute.getKey(), attribute);
-    }
-    migrateAttributes(attrMap);
+    reconcileAttributes();
   }
 
   /**
-   * Migrate attributes from a map if they exist in the current schema.
+   * Reconcile current attributes with the current schema, migrating attributes when possible. This
+   * purposely keeps old attributes in the map so that deleted attributes retain their value if
+   * added back.
+   * TODO: add a mechanism to delete unused attributes before serialization?
    */
-  private void migrateAttributes(Map<String, Attribute> oldAttributes) {
+  private void reconcileAttributes() {
     for (Metadata metadata : getSchema().getAllMetadata()) {
       String key = metadata.getKey();
-      if (oldAttributes.containsKey(key)) {
-        setAttribute(key, oldAttributes.get(key));
+      boolean canKeepAttribute = attributeMap.containsKey(key)
+          && canMigrateAttribute(attributeMap.get(key), metadata);
+      if (!canKeepAttribute) {
+        Attribute attr = metadata.makeAttribute();
+        if (attr == null) {
+          LOGGER.fatal("metadata returned null attribute for key {}", key);
+          throw new IllegalStateException("bad attribute from metadata");
+        }
+
+        attributeMap.put(key, attr);
       }
     }
   }
 
-  @Override
-  public ObjectSchema getSchema() {
-    // TODO: Add rule schemas
-    Optional<ObjectSchema> schema = database.getSchema(getSchemaName());
-    if (schema.isEmpty()) {
-      LOGGER.error("contained schema name {} is not in database", getSchemaName());
-      throw new IllegalStateException("invalid contained schema");
+  private boolean canMigrateAttribute(Attribute attribute, Metadata metadata) {
+    if (!metadata.isCorrectType(attribute)) {
+      LOGGER.info("tried to set {} to {} when schema requires {}",
+          metadata.getKey(), attribute.getClass(), metadata.getAttributeClass());
+      return false;
     }
-    return schema.get();
+
+    if (!metadata.getKey().equals(attribute.getKey())) {
+      LOGGER.info("metadata key {} and value key {} conflict",
+          metadata.getKey(), attribute.getKey());
+      return false;
+    }
+
+    if (!metadata.isValid(attribute)) {
+      LOGGER.info("attribute {} invalid for metadata {}",
+          attribute, metadata);
+      return false;
+    }
+
+    return true;
   }
 
   @Override
   @JsonIgnore
-  public ReadOnlyObjectProperty<ObjectSchema> getSchemaProperty() {
+  public ObjectSchema getSchema() {
+    return schemaProperty.get();
+  }
+
+  @Override
+  @JsonIgnore
+  public ReadOnlyObjectProperty<ObjectSchema> schemaProperty() {
     return schemaProperty;
   }
 }

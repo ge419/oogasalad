@@ -1,9 +1,11 @@
 package oogasalad.view.gameplay.pieces;
 
+import java.util.List;
 import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import oogasalad.view.Backgroundable;
@@ -21,9 +23,9 @@ public class Cards extends GamePiece implements Backgroundable, Textable, Imagea
     this.imageURL = imageURL;
     //TODO: take this next part out
     imageURL = "view.gameplay/go.jpg";
-    ImageView cardImage = createImage(150, imageURL);
-    Rectangle background = tileBackground(150,190);
-    VBox content = new VBox(70/10, cardImage, createTextBox("Test Text", 70, 50));
+    ImageView cardImage = createImage(150, imageURL, 1);
+    Rectangle background = createBackground(150,190, Color.WHITE, Color.BLACK);
+    VBox content = new VBox(70/10, cardImage, createTextBox(List.of("Test Text"), 70, 50));
     content.setAlignment(Pos.CENTER);
     getChildren().addAll(background, content);
 //    setOnMouseClicked(this::showPopup);
@@ -52,12 +54,12 @@ public class Cards extends GamePiece implements Backgroundable, Textable, Imagea
     }
   }
 
+
   @Override
-  public VBox createTextBox(String info, double height, double width) {
+  public VBox createTextBox(List info, double height, double width) {
     VBox textBox = new VBox();
-    String[] infoList = info.split(",");
-    for (int i = 0; i < infoList.length; i++) {
-      Text text = new Text(infoList[i]);
+    for (int i = 0; i < info.size(); i++) {
+      Text text = new Text((String)info.get(i));
       resizeText(text, height, 8, width);
       textBox.getChildren().add(text);
     }

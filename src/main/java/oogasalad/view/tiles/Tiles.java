@@ -11,15 +11,15 @@ public class Tiles implements Renderable {
   private final List<Tile> BTiles;
   private final List<ViewTile> tileList = new ArrayList<>();
 
-  public Tiles(ArrayList<Tile> t) {
+  public Tiles(List<Tile> t) {
     this.BTiles = t;
   }
 
   @Override
   public void render(BorderPane pane) {
     RenderStrategy renderStrategy = new RenderStrategy();
-    for (int i = 0; i < BTiles.size(); i++) {
-      renderStrategy.renderTile(BTiles.get(i), pane, tileList);
+    for (Tile bTile : BTiles) {
+      renderStrategy.renderTile(bTile, pane, tileList);
     }
   }
 

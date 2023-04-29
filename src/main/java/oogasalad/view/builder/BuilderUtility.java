@@ -11,9 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -48,6 +50,15 @@ public interface BuilderUtility {
     btn.getStyleClass().add("button");
     btn.setId(property);
     return btn;
+  }
+
+  default MenuItem makeMenuItem(String property, ResourceBundle resourceBundle,
+      EventHandler<ActionEvent> event){
+    MenuItem item = new MenuItem(resourceBundle.getString(property));
+    item.setOnAction(event);
+    item.getStyleClass().add("menuItem");
+    item.setId(property);
+    return item;
   }
 
   default Node makePane(String property, double width, double height) {
@@ -93,6 +104,13 @@ public interface BuilderUtility {
     DirectoryChooser directChooser = new DirectoryChooser();
     directChooser.setTitle(resourceBundle.getString(property));
     return directChooser;
+  }
+
+  default Node makeCheckBox(String property, ResourceBundle resourceBundle){
+    CheckBox checker = new CheckBox(resourceBundle.getString(property));
+    checker.getStyleClass().add("checkbox");
+    checker.setId(property);
+    return checker;
   }
 
   default Node makeFileSelectButton(String property, ResourceBundle resourceBundle,
@@ -147,4 +165,9 @@ public interface BuilderUtility {
       spinner.setEditable(true);
       return spinner;
     }
+
+  default String displayMessageWithArguments(ResourceBundle language, String resourceKey,
+      Object... arguments) {
+    return String.format(language.getString(resourceKey), arguments);
+  }
 }

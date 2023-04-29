@@ -136,6 +136,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   public void cancelAction() {
     myTileCreationToggle = false;
     myDeleteToggle = false;
+    myTileNextRemovalToggle = false;
     //todo: make a better way of cancelling all the toggles, especially next
     myCurrentTile = Optional.empty();
     updateInfoText("RegularMode");
@@ -179,6 +180,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   public void switchToRules() {
+    cancelAction();
     switchCenterPane(myRulePane);
     updateInfoText("RulesMode");
   }
@@ -436,6 +438,12 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   public void toggleNextRemoval(){
+//    if (myDeleteToggle){
+//      toggleTileDeletion();
+//    }
+//    if (myTileCreationToggle){
+//      toggleTileCreation();
+//    }
 //    myTileNextRemovalToggle = !myTileNextRemovalToggle;
 //    if (myTileNextRemovalToggle){
 //      updateInfoText("NextRemoveMode");

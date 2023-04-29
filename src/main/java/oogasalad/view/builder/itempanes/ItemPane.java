@@ -131,4 +131,8 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
   private void createCustomTile(){
     new CustomObjectBuilder().start(null);
   }
+
+  private void toggleNextRemoval(){
+    getBuilder().toggleNextRemoval();
+  }
 }

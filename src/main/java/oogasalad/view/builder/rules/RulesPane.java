@@ -42,15 +42,16 @@ public class RulesPane extends BorderPane {
     myDeleteButton = new Button(myLanguage.getString("RemoveRule"));
     myEditButton.setOnAction(e -> {
       // tell builder controller to give me the properties for this rule.
-      System.out.println("Chosen: " + myCheckbox.getSelectionModel().getSelectedItem() + " " +
-          myRulesList.getSelectionModel().getSelectedItem());
+      String selectedRule = myRulesList.getSelectionModel().getSelectedItem();
+      String selectedTiletype = myCheckbox.getSelectionModel().getSelectedItem();
+      myBuilderController.makeRulesPopup(selectedTiletype, selectedRule);
     });
 
     myDeleteButton.setOnAction(e -> {
       //tell builder controller to delete rule from tile type
-      System.out.println(
-          "Trying to remove rule " + myRulesList.getSelectionModel().getSelectedItem()
-              + " from tiletype " + myCheckbox.getSelectionModel().getSelectedItem());
+      String selectedRule = myRulesList.getSelectionModel().getSelectedItem();
+      String selectedTiletype = myCheckbox.getSelectionModel().getSelectedItem();
+      myBuilderController.removeRuleFromTiletype(selectedTiletype, selectedRule);
     });
     return new VBox(myEditButton, myDeleteButton);
   }
@@ -70,10 +71,10 @@ public class RulesPane extends BorderPane {
   private void initializeTiletypesCheckbox() {
     myCheckbox = new ComboBox<>();
     myCheckbox.setPromptText(myLanguage.getString("SelectTiletype"));
+    myCheckbox.setItems(
+        FXCollections.observableArrayList(myBuilderController.getCurrentTiletypes()));
     myCheckbox.valueProperty().addListener(((observable, oldValue, newValue) -> {
       System.out.println("Oh my, you selected " + newValue);
     }));
-    myCheckbox.setItems(
-        FXCollections.observableArrayList(myBuilderController.getCurrentTiletypes()));
   }
 }

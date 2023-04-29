@@ -21,6 +21,12 @@ import oogasalad.model.constructable.GameConstruct;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Players;
 import oogasalad.model.constructable.Tile;
+import oogasalad.model.engine.rules.BuyTileRule;
+import oogasalad.model.engine.rules.DieMoveRule;
+import oogasalad.model.engine.rules.EditableRule;
+import oogasalad.model.engine.rules.NumberOfPlayerPieceRule;
+import oogasalad.model.engine.rules.NumberOfPlayersRule;
+import oogasalad.model.engine.rules.TurnRule;
 import oogasalad.util.SaveManager;
 import oogasalad.view.BuilderFactory;
 import oogasalad.view.Coordinate;
@@ -160,5 +166,17 @@ public class BuilderController {
         "Such",
         "Tiletype"
     );
+  }
+
+  public void makeRulesPopup(String tiletype, String ruleAsString){
+    logger.info("Chose to edit rule " + ruleAsString + " for tiletype " + tiletype);
+    // todo: change this to get the rule from whatever string was provided
+    EditableRule rule = new BuyTileRule(db, gameHolder);
+    createPopupForm(rule, builderView.getLanguage(), builderView.getPopupPane());
+  }
+
+  public void removeRuleFromTiletype(String tiletype, String ruleAsString){
+    logger.info("Trying to remove rule " + ruleAsString +
+        " from tiletype " + tiletype);
   }
 }

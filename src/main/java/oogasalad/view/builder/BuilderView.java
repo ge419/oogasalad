@@ -175,6 +175,14 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     updateInfoText("RegularMode");
   }
 
+  public ResourceBundle getLanguage(){
+    return builderResource;
+  }
+
+  public Pane getPopupPane(){
+    return sidePane;
+  }
+
   private Scene initScene() {
 //    VBox topMenu = createMenus();
     myMenubar = new MenuItemPane(builderResource, "MenuBar", this);

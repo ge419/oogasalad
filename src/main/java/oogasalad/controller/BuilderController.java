@@ -5,6 +5,7 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import java.nio.file.Path;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
@@ -32,8 +33,8 @@ import org.apache.logging.log4j.Logger;
 public class BuilderController {
 
   // following instances will be removed later
-  private String FILE_PATH  = "HARDCODE FILE PATH HERE";
-  private String FOLDER_NAME = "CUSTOM1";
+  private String FILE_PATH  = "data";
+  private String FOLDER_NAME = "testDirectory";
 
   private static final Logger logger = LogManager.getLogger(BuilderController.class);
   private final BuilderView builderView;
@@ -113,9 +114,12 @@ public class BuilderController {
 //    builderView.loadFile();
   }
 
-  public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Node parent) {
+  public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Node parent, SimpleBooleanProperty dragToggle) {
     node.setOnMouseClicked(mouseClickHandle);
     Dragger nodeDragger = new Dragger(node, true, MouseButton.PRIMARY, parent);
+    dragToggle.addListener((observable, oldValue, newValue) -> {
+      nodeDragger.setDraggable(newValue);
+    });
   }
 
   public BuilderView getBuilderView() {

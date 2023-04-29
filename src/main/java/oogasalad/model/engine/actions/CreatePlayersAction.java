@@ -12,7 +12,6 @@ import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
 import oogasalad.model.engine.prompt.IntegerPromptOption;
 import oogasalad.model.engine.prompt.PromptOption;
-import oogasalad.view.gameplay.pieces.Pieces;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
 
 public class CreatePlayersAction implements Action {
@@ -55,10 +54,10 @@ public class CreatePlayersAction implements Action {
     }
     gameholder.setPlayers(new Players(players));
     gameholder.setPieces(pieceList);
-    Pieces pieces = new Pieces(pieceList);
-    for (PlayerPiece piece : pieces.getPieceList()) {
-      piece.moveToTile(gameholder.getBoard().getTiles().get(0));
-    }
+//    Pieces pieces = new Pieces(pieceList);
+//    for (PlayerPiece piece : pieces.getPieceList()) {
+//      piece.moveToTile(gameholder.getBoard().getTiles().get(0));
+//    }
     System.out.println(gameholder.getPlayers().getPlayers().get(0).getName());
   }
 }

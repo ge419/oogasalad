@@ -1,18 +1,21 @@
 package oogasalad.view.gameplay.pieces;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Tile;
 import oogasalad.util.Util;
 import oogasalad.view.Coordinate;
+import oogasalad.view.Imageable;
+import oogasalad.view.gameplay.Movable;
 
 public class PlayerPiece extends GamePiece {
 
   private final Piece modelPiece;
 
-  public PlayerPiece(Piece modelPiece) {
-    //TODO: image getter for player, create image attribute
-    super("data/example/piece_1.png");
-    this.modelPiece = modelPiece;
+  public PlayerPiece(Piece BPiece) {
+    super(BPiece.getImage());
+    this.modelPiece = BPiece;
     //TODO: BIND PLAYER piece position to MODEL player
     //make sure it refreshes per tile change
 //    xProperty().bind(modelPlayer.getX());

@@ -448,4 +448,12 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myTileCount++;
   }
 
+  public void loadBoardSize(double width, double height){
+    setPaneSize(myBoardPane, width, height);
+  }
+
+  public void showError(String resourceKey){
+    ErrorHandler.displayError(builderResource.getString(resourceKey));
+  }
+
 }

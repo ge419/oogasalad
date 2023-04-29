@@ -1,0 +1,17 @@
+{
+  "@class": "oogasalad.model.attribute.SimpleObjectSchema",
+  "name": "playerPieceRule",
+  "fields": [
+    {
+      "@class": "oogasalad.model.attribute.IntMetadata",
+      "key": "numberOfPiecesPerPlayer",
+      "name": "Number of pieces",
+      "description": "Number of pieces for a player piece.",
+      "editable": true,
+      "viewable": true,
+      "defaultValue": 1,
+      "minValue": 1,
+      "maxValue": 4
+    }
+  ]
+}

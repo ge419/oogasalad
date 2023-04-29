@@ -27,8 +27,8 @@ public class PlayerPiece extends GamePiece {
 //    xProperty().bind(modelPlayer.getX());
 //    yProperty().bind(modelPlayer.getY());
 
-//    Util.initializeAndListen(modelPiece.get().concreteTileProperty(),
-//        optionalTile -> optionalTile.ifPresent(this::moveToTile));
+    Util.initializeAndListen(modelPiece.get().tileProperty(),
+        optionalTile -> optionalTile.ifPresent(this::moveToTile));
   }
 
   public ObjectProperty<Tile> positionProperty() {

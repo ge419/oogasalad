@@ -5,22 +5,20 @@ import com.google.inject.Provider;
 import java.util.ArrayList;
 import java.util.List;
 import oogasalad.model.constructable.GameHolder;
-import oogasalad.model.constructable.Player;
-import oogasalad.model.constructable.Players;
+import oogasalad.model.constructable.Piece;
 import oogasalad.model.engine.prompt.IntegerPromptOption;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
 
-
 public class CreatePlayerPieceAction implements Action {
-  private final Provider<PlayerPiece> playerPieceProvider;
+  private final Provider<Piece> pieceProvider;
   private GameHolder gameholder;
 
   @Inject
   public CreatePlayerPieceAction(
-      Provider<PlayerPiece> playerPieceProvider,
+      Provider<Piece> pieceProvider,
       GameHolder holder
   ) {
-    this.playerPieceProvider = playerPieceProvider;
+    this.pieceProvider = pieceProvider;
     this.gameholder = holder;
   }
 
@@ -41,10 +39,10 @@ public class CreatePlayerPieceAction implements Action {
     int selectedNumberOfPieces = selectedPlayerPieceNumber.getValue();
     int numberOfPlayers = gameholder.getPlayers().getPlayers().size();
     int totalNumberOfPieces = numberOfPlayers * selectedNumberOfPieces;
-    for (int i=0; i < totalNumberOfPieces; i += selectedNumberOfPieces) {
-      PlayerPiece playerPiece = playerPieceProvider.get();
-
-      playerPieces.add(playerPiece);
+    for (int i=0; i < totalNumberOfPieces; i ++) {
+      Piece piece = pieceProvider.get();
+      piece.setPlayer(gameholder.getPlayers().getPlayers().get(Math.floorDiv(i, numberOfPlayers)));
+      playerPieces.add(new PlayerPiece(piece));
     }
 
     //gameholder.setPlayers(new Players(players));

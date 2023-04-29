@@ -54,7 +54,7 @@ public class GameController {
 //            injector.getInstance(NumberOfPlayersRule.class),
             injector.getInstance(TurnRule.class),
             injector.getInstance(DieMoveRule.class),
-//            injector.getInstance(BuyTileRule.class),
+            injector.getInstance(BuyTileRule.class),
             new SetDieRule(gv.getDie())
         )
     );

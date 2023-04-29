@@ -4,9 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import oogasalad.model.exception.ResourceReadException;
 import oogasalad.view.builder.BuilderUtility;
 import oogasalad.view.builder.BuilderView;
@@ -24,6 +31,8 @@ import oogasalad.view.builder.exceptions.MethodReflectionException;
 public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
 
   private static final String RESOURCE_FILE_WITH_MENUBAR_OPTIONS = "MenubarOptions";
+  private static final String IMAGE_PATH = "boi.jpg";
+  private static final double DEFAULT_IMAGE_SIZE = 200;
   private final MenuBar myMenuBar;
   private final ResourceBundle myMenuOptionsResource;
   private final Map<String, Menu> myAddedMenus;
@@ -190,5 +199,9 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
   }
   private void test() {
     System.out.println("nothing!");
+  }
+
+  private void aboutWindow(){
+    getBuilder().displayAboutWindow();
   }
 }

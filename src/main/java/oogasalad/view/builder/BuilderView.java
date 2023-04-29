@@ -9,12 +9,15 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import oogasalad.controller.BuilderController;
@@ -24,7 +27,6 @@ import oogasalad.view.Coordinate;
 import oogasalad.view.builder.itempanes.MenuItemPane;
 import oogasalad.view.builder.itempanes.ItemPane;
 import oogasalad.view.builder.events.TileEvent;
-import oogasalad.view.builder.popupform.PopupForm;
 import oogasalad.view.builder.rules.RulesPane;
 import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
@@ -383,5 +385,12 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     node.setId(identifier);
     node.getStyleClass().add("clickable");
     myBoardPane.getChildren().add(node);
+  }
+
+  /**
+   * <p>Displays a basic about window for the project.</p>
+   */
+  public void displayAboutWindow(){
+    new AboutView(builderResource, DEFAULT_STYLESHEET);
   }
 }

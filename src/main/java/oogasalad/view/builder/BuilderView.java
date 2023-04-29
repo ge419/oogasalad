@@ -425,11 +425,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     new AboutView(builderResource, DEFAULT_STYLESHEET);
   }
 
-  public void createCustomTile(){
-    cancelAction();
-    new CustomObjectBuilder().start(myStage);
-  }
-
     private void toggle(SimpleBooleanProperty toggle, String resourceKey){
       cancelAction();
       toggle.set(true);

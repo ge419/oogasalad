@@ -1,5 +1,6 @@
 package oogasalad.view.tiles;
 
+import com.google.inject.Inject;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
@@ -10,10 +11,10 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
-import oogasalad.model.attribute.BooleanAttribute;
+import oogasalad.model.attribute.PlayerAttribute;
 import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.Tile;
-import oogasalad.model.engine.actions.BuyAction;
+import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.view.Backgroundable;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Imageable;
@@ -32,6 +33,7 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
 
   private final Tile modelTile;
 
+  @Inject
   public ImageTile(Tile BTile) {
     this.setPosition(BTile.getCoordinate());
     this.modelTile = BTile;
@@ -39,7 +41,7 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
     Rectangle tileBackground = createBackground(BTile.getWidth(), BTile.getHeight(), TILE_BACKGROUND, TILE_STROKE_COLOR);
 //    System.out.println(createBackground.getX());
     ImageView tileImage = createImage(BTile.getWidth(),
-        StringAttribute.from(BTile.getAttribute(IMAGE_ATTRIBUTE)).getValue(), IMAGE_SCALE);
+        StringAttribute.from(BTile.getAttribute(IMAGE_ATTRIBUTE).get()).getValue(), IMAGE_SCALE);
 
     VBox content = new VBox(BTile.getHeight() / MARGIN_SCALE, tileImage,
         createTextBox(BTile.getInfo(), BTile.getHeight(), BTile.getHeight()));
@@ -47,10 +49,11 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
     getChildren().addAll(tileBackground, content);
 
     //TODO: change this temporary behavior when tile is bought
-    BooleanAttribute ownedAttribute =
-        BooleanAttribute.from(modelTile.getAttribute(BuyAction.OWNED_ATTRIBUTE));
-    ownedAttribute.valueProperty().addListener(((observable, oldValue, isOwned) -> {
-      if (Boolean.TRUE.equals(isOwned)) {
+    //TODO: depend on if attribute is present
+    PlayerAttribute ownerAttribute =
+        PlayerAttribute.from(modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE).get());
+    ownerAttribute.idProperty().addListener(((observable, oldValue, isOwned) -> {
+      if (isOwned.isPresent()) {
         for (Node child : this.getChildren()) {
           child.setStyle("-fx-background-color: red;");
         }
@@ -73,7 +76,6 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
     return textBox;
   }
 
-  @Override
   public void setColor(Color color) {
 
   }
@@ -81,6 +83,12 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
   @Override
   public Tile getTile() {
     return this.modelTile;
+  }
+
+  @Override
+  public void setSize(double width, double height) {
+    this.setWidth(width);
+    this.setHeight(height);
   }
 
 
@@ -94,19 +102,16 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
     return this.modelTile.getId();
   }
 
-  @Override
   public Coordinate getPosition() {
     return null;
   }
 
-  @Override
   public void setPosition(Coordinate coord) {
     this.setLayoutX(coord.getXCoor());
     this.setLayoutY(coord.getYCoor());
     this.getTransforms().add(new Rotate(coord.getAngle(), Rotate.Z_AXIS));
   }
 
-  @Override
   public Paint getColor() {
     return null;
   }

@@ -1,32 +1,38 @@
 package oogasalad.view.gameplay.pieces;
 
+import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.layout.BorderPane;
-import oogasalad.model.constructable.Player;
+import oogasalad.model.constructable.Piece;
 import oogasalad.view.Renderable;
 
 public class Pieces implements Renderable {
 
-  private final List<Player> BPlayers;
-  private PlayerPiece piece;
+  private final List<PlayerPiece> pieceList;
 
-  public Pieces(List<Player> p) {
-    this.BPlayers = p;
+  public Pieces(List<Piece> p) {
+    this.pieceList = new ArrayList<>();
+    for (Piece piece : p) {
+      pieceList.add(new PlayerPiece(piece));
+    }
   }
 
   @Override
   public void render(BorderPane pane) {
     //TODO: add logic that decides how many pieces are parsed and with what images
-    for (Player p : BPlayers) {
-      piece = new PlayerPiece(p);
-      pane.getChildren().add(piece);
+    for (PlayerPiece p : pieceList) {
+      pane.getChildren().add(p);
     }
 //    piece = new PlayerPiece("data/example/piece_1.png", "Bob");
 //    piece.setId("Pieces");
 //    pane.getChildren().add(piece);
   }
 
+  public List<PlayerPiece> getPieceList() {
+    return pieceList;
+  }
+
   public PlayerPiece getPiece() {
-    return piece;
+    return pieceList.get(0);
   }
 }

@@ -1,0 +1,5 @@
+{
+  "@class": "oogasalad.model.attribute.SimpleObjectSchema",
+  "name": "turnRule",
+  "fields": []
+}

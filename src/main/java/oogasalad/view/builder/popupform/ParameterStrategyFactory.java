@@ -13,4 +13,6 @@ public interface ParameterStrategyFactory {
   PositionParameterStrategy buildPositionParameter(Attribute attr, Metadata meta);
   TileParameterStrategy buildTileParameter(Attribute attr, Metadata meta);
   TileListParameterStrategy buildTileListParameter(Attribute attr, Metadata meta);
+  ColorParameterStrategy buildColorParameter(Attribute attr, Metadata meta);
+  ImageParameterStrategy buildImageParameter(Attribute attr, Metadata meta);
 }

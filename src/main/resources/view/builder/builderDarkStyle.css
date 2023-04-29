@@ -1,0 +1,74 @@
+/* https://coolors.co/palette/7400b8-6930c3-5e60ce-5390d9-4ea8de-48bfe3-56cfe1-64dfdf-72efdd-80ffdb */
+.root{
+    -fx-font-size: 12pt;
+    -fx-font-family: "Courier New";
+    button-color: rgb(200, 200, 200);
+    background-color: rgb(150, 150, 150);
+    text-color: rgb(220, 220, 220);
+    board-color: black;
+    title-color: #4EA8DE;
+    delete-color: #6930C3;
+    tile-info-text-color: #5E60CE;
+    -fx-base: button-color;
+    -fx-background: background-color;
+    -fx-text-fill: text-color;
+}
+.button{
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+}
+.vBox{
+    -fx-spacing: 10px;
+}
+.hBox{
+    -fx-spacing: 5px;
+}
+.clickable{
+    -fx-cursor: hand;
+}
+
+.text{
+    -fx-border-width: 0.2;
+    -fx-alignment: center-left;
+}
+
+/*------------------------------------------------------------------------------------------------*/
+
+#TopBar{
+    -fx-alignment: center-left;
+    -fx-spacing: 100;
+}
+#BoardPane{
+    -fx-background-color: board-color;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+}
+#RulePane{
+    -fx-background-color: title-color;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+}
+#sideBar{
+    -fx-word-wrap: break-word;
+}
+#BuilderHeader{
+    -fx-fill: title-color;
+    -fx-stroke: text-color;
+    -fx-font-size: 28px;
+    -fx-stroke-width: 0.5px;
+    -fx-alignment: baseline-left;
+}
+#DeleteMode{
+    -fx-fill: delete-color;
+}
+
+#TileAdditionMode{
+    -fx-fill: tile-info-text-color;
+}
+
+#TileNextMode{
+    -fx-fill: tile-info-text-color;
+}

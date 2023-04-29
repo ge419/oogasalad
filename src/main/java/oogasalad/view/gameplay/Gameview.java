@@ -1,20 +1,17 @@
 package oogasalad.view.gameplay;
 
-import com.google.cloud.Tuple;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -25,15 +22,17 @@ import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
+import oogasalad.model.constructable.Tile;
 import oogasalad.model.observers.GameObserver;
 import oogasalad.view.Renderable;
 import oogasalad.view.gameplay.Players.ViewPlayers;
-import oogasalad.view.gameplay.pieces.ViewPieces;
 import oogasalad.view.gameplay.pieces.Cards;
+import oogasalad.view.gameplay.pieces.ViewPieces;
+import oogasalad.view.gameplay.pieces.ImageCard;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
 import oogasalad.view.gameplay.popup.HandDisplayPopup;
 import oogasalad.view.tiles.Tiles;
-import org.checkerframework.checker.units.qual.A;
+import oogasalad.view.tiles.ViewTile;
 
 public class Gameview implements GameObserver {
 
@@ -85,11 +84,17 @@ public class Gameview implements GameObserver {
 
     //TODO: take this out when cards are implemented
     Button button = new Button("Show Card Popup");
-    Cards card = new Cards("data/example/chance.jpg");
-    Cards card2 = new Cards("data/example/chance.jpg");
-    Cards card3 = new Cards("data/example/chance.jpg");
-    Cards[] cards = {card, card2, card3};
-    HandDisplayPopup popup = new HandDisplayPopup(cards);
+    button.setOnAction(event -> {
+      Cards cards = new Cards(game.getBoard().getTiles());
+      HandDisplayPopup popup = new HandDisplayPopup();
+      cards.render(popup);
+      List<ViewTile> cardList = cards.getCardList();
+      popup.addCards(cardList);
+//      Node anchor = UIroot.getScene().getWindow();
+      Point2D offset = new Point2D(UIroot.getLayoutX(), UIroot.getLayoutY());
+      popup.showHand(UIroot, offset);
+    });
+
 
     HBox hbox = new HBox();
     hbox.getChildren().addAll(button);
@@ -97,18 +102,9 @@ public class Gameview implements GameObserver {
     button.setId("Button");
     UIroot.setTop(hbox);
 
-    button.setOnAction(event -> {
-      Point2D offset = new Point2D(button.getScene().getX(), button.getScene().getY());
-      popup.showHand(button, offset);
-    });
 
     scene = new Scene(UIroot);
 
-//    for (PlayerPiece piece : viewPieces.getPieceList()) {
-//      piece.moveToTile(game.getBoard().getTiles().get(0));
-//    }
-
-//    scene = new Scene(UIroot);
 
     //TODO: refactor to read from property file
     primaryStage.setTitle("Monopoly");

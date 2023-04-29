@@ -225,7 +225,7 @@ public class BuilderController {
       }
       getBuilderView().loadTile(viewTileFactory.createDynamicViewTile(tile));
     }
-    
+
     if (lostTiles){
       getBuilderView().showError("InvalidTilesLoadedError");
     }

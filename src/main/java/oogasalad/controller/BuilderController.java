@@ -63,6 +63,10 @@ public class BuilderController {
     gameHolder = injector.getInstance(GameHolder.class);
     board = gameHolder.getBoard();
 
+    for (Tile tile : board.getTiles()){
+      getBuilderView().loadTile(viewTileFactory.createDynamicViewTile(tile));
+    }
+
 //    todo: Dominics example code for how to get rules using dependency injection
 //    Injector injector = Guice.createInjector(new EngineModule());
 //    String rule = "oogasalad.model.engine.rule.TurnRule";

@@ -290,11 +290,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   // todo: support different tile types.
   private void createTile(MouseEvent e) {
     ViewTile tile = myBuilderController.addTile(e);
-    tile.asNode().setOnMouseDragged(event -> fireDragEvent(event, tile));
-    initializeNode(tile.asNode(), "Tile" + myTileCount, tile_e -> handleTileClick(tile));
-    myTileCount++;
-//    myTileCreationToggle = false;
-//    updateInfoText("RegularMode");
+    loadTile(tile);
     LOG.debug("Successfully created tile " + tile.getTileId());
   }
 
@@ -446,5 +442,10 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       updateInfoText(resourceKey);
   }
 
+  public void loadTile(ViewTile tile){
+    tile.asNode().setOnMouseDragged(event -> fireDragEvent(event, tile));
+    initializeNode(tile.asNode(), "Tile" + myTileCount, tile_e -> handleTileClick(tile));
+    myTileCount++;
+  }
 
 }

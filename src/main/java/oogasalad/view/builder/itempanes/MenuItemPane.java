@@ -186,10 +186,6 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
     getBuilder().saveFile();
   }
 
-  private void loadFile() {
-    getBuilder().loadFile();
-  }
-
   private void toggleGuidelines() {
     getBuilder().toggleGuidelines();
   }

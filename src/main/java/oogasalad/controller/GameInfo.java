@@ -1,76 +1,56 @@
 package oogasalad.controller;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
-import java.util.List;
-
 public class GameInfo {
-
-  private final List<Object> components;
   private String title;
   private String description;
   private String genre;
   private double width;
   private double height;
-  private String imgSrc;
 
-  public GameInfo() {
-    this.components = new ArrayList<>();
-  }
-  @JsonCreator
-  public GameInfo(@JsonProperty("gameInfo") List<Object> g) {
-    this.components = new ArrayList<>(g);
-  }
-
-  //TODO: refactor this method
-  public void buildGameInfo(String title, String desc, String genre, double width, double height, String path) {
-    setTitle(title);
-    setDescription(desc);
-    setGenre(genre);
-    setWidth(width);
-    setHeight(height);
-    setImgSrc(path);
-  }
 
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public GameInfo setTitle(String title) {
     this.title = title;
+    return this;
   }
 
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public GameInfo setDescription(String description) {
     this.description = description;
+    return this;
   }
 
   public String getGenre() {
     return genre;
   }
 
-  public void setGenre(String genre) {
+  public GameInfo setGenre(String genre) {
     this.genre = genre;
+    return this;
   }
 
   public double getWidth() {
     return width;
   }
 
-  public void setWidth(double width) {
+  public GameInfo setWidth(double width) {
     this.width = width;
+    return this;
   }
 
   public double getHeight() {
     return height;
   }
 
-  public void setHeight(double height) {
+  public GameInfo setHeight(double height) {
     this.height = height;
+    return this;
   }
 
   public String getImgSrc() {

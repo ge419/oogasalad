@@ -1,151 +1,76 @@
 package oogasalad.model.attribute;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.inject.Singleton;
-import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.nio.file.Path;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
-import java.util.Set;
-import javafx.beans.property.ListProperty;
 import javafx.beans.property.MapProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleMapProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import oogasalad.model.engine.rules.Rule;
-import oogasalad.model.exception.FileReaderException;
-import oogasalad.model.exception.ResourceReadException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
- * This utility class hold all metaData and is useful for determining the parameter type that a
- * BMetaData takes or an
+ * Holds the available {@link oogasalad.model.constructable.GameConstruct} schemas. Consumers are
+ * expected to subscribe to the {@link #databaseProperty()} and listen for changes in schemas.
+ *
+ * @author Dominic Martinez
  */
-@Singleton
-public class SchemaDatabase {
+public interface SchemaDatabase {
 
-  public static final String SCHEMA_RESOURCE_PATH = "schemas";
-  private static final Logger logger = LogManager.getLogger(SchemaDatabase.class);
-  private final Map<String, ObjectSchema> resourceSchemaMap;
-  private final MapProperty<String, ObjectSchema> generatedSchemaMapProperty;
-  private final ListProperty<Rule> ruleListProperty;
+  /**
+   * Get a schema from the database if it exists.
+   *
+   * @param name Name of schema
+   * @return The schema if it exists, {@link Optional#empty()} otherwise
+   */
+  Optional<ObjectSchema> getSchema(String name);
 
+  /**
+   * Returns true if {@link #getSchema(String)} would return a schema, false otherwise.
+   */
+  boolean containsSchema(String name);
 
-  public SchemaDatabase() {
-    resourceSchemaMap = new HashMap<>();
-    generatedSchemaMapProperty = new SimpleMapProperty<>(FXCollections.observableHashMap());
-    ruleListProperty = new SimpleListProperty<>();
-    readResourceSchemaFiles();
-    generateSchemas();
-  }
+  /**
+   * This property is updated when schemas are added/removed, or an existing schema is updated.
+   *
+   * @return Property mapping schema names to their schema object.
+   */
+  MapProperty<String, ObjectSchema> databaseProperty();
 
-  public Optional<ObjectSchema> getSchema(String name) {
-    return Optional.ofNullable(generatedSchemaMapProperty.get().get(name));
-  }
+  /**
+   * Sets the rule list property to listen to. Rules are used to bind schema names together, so
+   * setting this property is required for the database to update properly.
+   *
+   * @param ruleListProperty Property list of global rules
+   * @see Rule#appliedSchemasProperty()
+   */
+  void setRuleListProperty(ObservableList<Rule> ruleListProperty);
 
-  public boolean containsSchema(String name) {
-    return generatedSchemaMapProperty.get().containsKey(name);
-  }
+  /**
+   * Add a schema to the database.
+   *
+   * @param schema schema to be added
+   */
+  void addCustomSchema(ObjectSchema schema);
 
-  public List<String> getAllSchemaNames() {
-    return generatedSchemaMapProperty.get().keySet().stream().toList();
-  }
+  /**
+   * Returns the schemas added during runtime, <em>not</em> from a resource file. These schemas are
+   * expected to be serialized.
+   */
+  List<ObjectSchema> getCustomSchemas();
 
-  public MapProperty<String, ObjectSchema> databaseProperty() {
-    return generatedSchemaMapProperty;
-  }
+  /**
+   * Reads a file containing a list of {@link ObjectSchema}, and adds them to the database.
+   *
+   * @param path file to read
+   * @return
+   */
+  List<ObjectSchema> readSchemaListFile(Path path) throws IOException;
 
-  @JsonIgnore
-  public void setRuleListProperty(ObservableList<Rule> ruleListProperty) {
-    this.ruleListProperty.set(ruleListProperty);
-    this.ruleListProperty.addListener((observable, oldValue, newValue) -> generateSchemas());
-    for (Rule rule : this.ruleListProperty) {
-      rule.appliedSchemasProperty()
-          .addListener((observable, oldValue, newValue) -> generateSchemas());
-    }
-
-    generateSchemas();
-  }
-
-  private void readResourceSchemaFiles() {
-    try {
-      for (File file : FileReader.readFiles(SCHEMA_RESOURCE_PATH)) {
-        readSchemaFile(file);
-      }
-    } catch (IOException | FileReaderException e) {
-      logger.fatal("Failed to read resource schema file", e);
-      throw new ResourceReadException(e);
-    }
-  }
-
-  private void readSchemaFile(File file) throws IOException {
-    ObjectMapper mapper = new ObjectMapper();
-    SimpleObjectSchema schema = mapper.readValue(file, SimpleObjectSchema.class);
-    String schemaName = schema.getName();
-
-    if (resourceSchemaMap.containsKey(schemaName)) {
-      logger.error("Duplicate schema name {}", schemaName);
-    }
-    resourceSchemaMap.put(schemaName, schema);
-  }
-
-  private void generateSchemas() {
-    Map<String, Set<String>> boundSchemaMap = mapSchemasToResources();
-    Map<String, ObjectSchema> generatedSchemaMap = new HashMap<>();
-
-    for (Entry<String, Set<String>> entry : boundSchemaMap.entrySet()) {
-      List<ObjectSchema> appliedSchemas =
-          entry.getValue().stream().map(resourceSchemaMap::get).toList();
-
-      ObjectSchema schema = SchemaUtilities.concatenateSchemas(entry.getKey(), appliedSchemas);
-      generatedSchemaMap.put(entry.getKey(), schema);
-    }
-
-    generatedSchemaMapProperty.set(FXCollections.observableMap(generatedSchemaMap));
-  }
-
-  private Map<String, Set<String>> mapSchemasToResources() {
-    Map<String, Set<String>> schemasToResources = new HashMap<>();
-
-    // Resource schemas are always present
-    for (String resourceSchema : resourceSchemaMap.keySet()) {
-      schemasToResources.put(resourceSchema, new HashSet<>(List.of(resourceSchema)));
-    }
-
-    // Bind sources to sinks
-    for (Rule rule : ruleListProperty) {
-      for (SchemaBinding binding : rule.getAppliedSchemas()) {
-        if (!schemasToResources.containsKey(binding.sink())) {
-          schemasToResources.put(binding.sink(), new HashSet<>());
-        }
-
-        schemasToResources.get(binding.sink()).add(binding.source());
-      }
-    }
-
-    // Traverse intermediaries
-    for (String key : schemasToResources.keySet()) {
-      traverseKey(key, schemasToResources);
-    }
-
-    return schemasToResources;
-  }
-
-  private void traverseKey(String key, Map<String, Set<String>> schemasToResources) {
-    for (String childKey : schemasToResources.get(key)) {
-      if (childKey.equals(key)) {
-        continue;
-      }
-
-      traverseKey(childKey, schemasToResources);
-      schemasToResources.get(key).addAll(schemasToResources.get(childKey));
-    }
-  }
+  /**
+   * Reads a file containing a single {@link ObjectSchema}, and adds it to the database.
+   *
+   * @param path file to read
+   * @return
+   */
+  ObjectSchema readSchemaFile(Path path) throws IOException;
 }

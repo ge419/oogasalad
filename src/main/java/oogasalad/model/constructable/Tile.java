@@ -20,6 +20,7 @@ public class Tile extends AbstractGameConstruct {
   public static final String WIDTH_ATTRIBUTE = "width";
   public static final String HEIGHT_ATTRIBUTE = "height";
   public static final String INFO_ATTRIBUTE = "info";
+  public static final String PRICE_ATTRIBUTE = "price";
 
   @Inject
   public Tile(@JacksonInject SchemaDatabase database) {
@@ -111,15 +112,29 @@ public class Tile extends AbstractGameConstruct {
     return StringAttribute.from(getAttribute(INFO_ATTRIBUTE).get()).getValue();
   }
 
-  @JsonIgnore
-  public String getPrice() {
-    return Double.toString(DoubleAttribute.from(getAttribute("price").get()).getValue());
-  }
+//  @JsonIgnore
+//  public String getPrice() {
+//    return Double.toString(DoubleAttribute.from(getAttribute("price").get()).getValue());
+//  }
 
   @JsonIgnore
   public String getViewType() {
     return viewTypeAttribute().getValue();
   }
 
+  @JsonIgnore
+  public DoubleAttribute getPriceAttribute() {
+    return DoubleAttribute.from(getAttribute(PRICE_ATTRIBUTE).get());
+  }
+
+  @JsonIgnore
+  public Double getPrice() {
+    return getPriceAttribute().getValue();
+  }
+
+  @JsonIgnore
+  public void setPrice(double newPrice) {
+    getPriceAttribute().setValue(newPrice);
+  }
 }
 

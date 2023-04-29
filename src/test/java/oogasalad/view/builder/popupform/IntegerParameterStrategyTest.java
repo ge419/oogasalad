@@ -5,12 +5,14 @@ import javafx.scene.control.Spinner;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oogasalad.model.attribute.*;
+import oogasalad.model.constructable.Tile;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
 import java.util.ResourceBundle;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class IntegerParameterStrategyTest extends DukeApplicationTest {
     private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
@@ -26,7 +28,9 @@ class IntegerParameterStrategyTest extends DukeApplicationTest {
         attr = meta.makeIntAttribute();
         integerParameterStrategy = new IntegerParameterStrategy(attr, meta);
         VBox root = new VBox();
-        root.getChildren().add(integerParameterStrategy.renderInput(resourceBundle, root));
+        Tile tileMock = mock(Tile.class);
+        root.getChildren().add(integerParameterStrategy.renderInput(resourceBundle, root,
+            tileMock.getId()));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

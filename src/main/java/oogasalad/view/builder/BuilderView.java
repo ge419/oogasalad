@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -31,6 +30,8 @@ import oogasalad.view.builder.customTile.CustomObjectBuilder;
 import oogasalad.view.builder.itempanes.MenuItemPane;
 import oogasalad.view.builder.itempanes.ItemPane;
 import oogasalad.view.builder.events.TileEvent;
+import oogasalad.view.builder.itempanes.ItemPane;
+import oogasalad.view.builder.itempanes.MenuItemPane;
 import oogasalad.view.builder.rules.RulesPane;
 import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
@@ -48,15 +49,12 @@ import org.apache.logging.log4j.Logger;
 public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
+  private static final String CONSTANTS_FILE = "BuilderConstants";
   private static final String DEFAULT_STYLESHEET = "builderDefaultStyle.css";
   private static final String DEFAULT_STYLESHEET_PATH = "/view/builder/" + DEFAULT_STYLESHEET;
-
-  private static final double PANE_WIDTH = 500;
-  private static final double PANE_HEIGHT = 500;
-  private static final double SCENE_WIDTH = 900;
-  private static final double SCENE_HEIGHT = 600;
   private static final Logger LOG = LogManager.getLogger(BuilderView.class);
   private ResourceBundle builderResource;
+  private ResourceBundle constantsResource;
   private Pane myBoardPane;
   private RulesPane myRulePane;
   private BorderPane myCenterContainer;
@@ -88,6 +86,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     this.myBuilderController = bc;
     builderResource = ResourceBundle.getBundle(
         BASE_RESOURCE_PACKAGE + languageString + "BuilderText");
+    constantsResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE+CONSTANTS_FILE);
 
     defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET_PATH).toExternalForm();
     myDraggableObjectsToggle = new SimpleBooleanProperty(true);
@@ -109,19 +108,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       // myBuilderController.save(givenDirectory);
       LOG.info("Saved to directory: " + givenDirectory);
     } else {
-      LOG.error("Either cancelled out of file save window or tried to save to a file that doesn't exist.");
-      ErrorHandler.displayError(builderResource.getString("FileNotFoundError"));
-    }
-  }
-
-  @Override
-  public void loadFile() {
-    Optional<File> file = directoryGet(builderResource, "LoadGameTitle");
-    if (file.isPresent()) {
-      System.out.println("Given directory: " + file.get().getPath());
-      myBuilderController.load(file.get().getPath());
-    } else {
-      LOG.error("Tried loading an invalid directory, or exited out of file chooser window.");
+      LOG.error(
+          "Either cancelled out of file save window or tried to save to a file that doesn't exist.");
       ErrorHandler.displayError(builderResource.getString("FileNotFoundError"));
     }
   }
@@ -190,11 +178,11 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     updateInfoText("RegularMode");
   }
 
-  public ResourceBundle getLanguage(){
+  public ResourceBundle getLanguage() {
     return builderResource;
   }
 
-  public Pane getPopupPane(){
+  public Pane getPopupPane() {
     return sidePane;
   }
 
@@ -205,7 +193,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     Node centralContainer = createCentralContainer();
     VBox root = (VBox) makeVBox("RootContainer", myMenubar.asNode(), topBar, centralContainer);
 
-    myScene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
+    myScene = new Scene(root, Double.parseDouble(constantsResource.getString("SCENE_WIDTH")), Double.parseDouble(constantsResource.getString("SCENE_HEIGHT")));
     myScene.getStylesheets().add(defaultStylesheet);
     return myScene;
   }
@@ -220,7 +208,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myTopButtonBox.addItems("TopBar");
 
     themeOptions = myBuilderController.getThemeOptions();
-    ObservableList<String> observableThemes = themeOptions.keySet().stream().collect(Collectors.toCollection(javafx.collections.FXCollections::observableArrayList));
+    ObservableList<String> observableThemes = themeOptions.keySet().stream()
+        .collect(Collectors.toCollection(javafx.collections.FXCollections::observableArrayList));
     themeSelector = (ComboBox) makeDropdown("ThemeSelector", observableThemes, e -> changeTheme());
     themeSelector.setValue(DEFAULT_STYLESHEET);
 
@@ -232,9 +221,11 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
     return topBar;
   }
+
   private void changeTheme() {
     myScene.getStylesheets().clear();
-    String newStyleSheet = getClass().getResource(themeOptions.get(themeSelector.getValue())).toExternalForm();
+    String newStyleSheet = getClass().getResource(themeOptions.get(themeSelector.getValue()))
+        .toExternalForm();
     myScene.getStylesheets().add(newStyleSheet);
   }
 
@@ -246,7 +237,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     initializeRulePane();
 
     sidePane = new VBox();
-    sidePane.setPrefWidth(300);
+    sidePane.setPrefWidth(Double.parseDouble(constantsResource.getString("SIDE_PANE_WIDTH")));
 
     myCenterContainer = new BorderPane();
     myCenterContainer.setId("CentralContainer");
@@ -259,8 +250,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void initializeBoardPane() {
-    myBoardPane = (Pane) makePane("BoardPane", PANE_WIDTH, PANE_HEIGHT);
-    setPaneSize(myBoardPane, PANE_WIDTH, PANE_HEIGHT);
+    myBoardPane = (Pane) makePane("BoardPane", Double.parseDouble(constantsResource.getString("PANE_WIDTH")), Double.parseDouble(constantsResource.getString("PANE_HEIGHT")));
+    setPaneSize(myBoardPane, Double.parseDouble(constantsResource.getString("PANE_WIDTH")), Double.parseDouble(constantsResource.getString("PANE_HEIGHT")));
 
     myBoardPane.setOnMouseClicked(e -> handleBoardClick(e));
     myBoardPane.addEventFilter(TileEvent.DELETE_TILE, e -> deleteTile(e));
@@ -273,7 +264,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private void initializeRulePane() {
     myRulePane = new RulesPane(this, myBuilderController, builderResource);
-    setPaneSize(myRulePane, PANE_WIDTH, PANE_HEIGHT);
+    setPaneSize(myRulePane, Double.parseDouble(constantsResource.getString("PANE_WIDTH")), Double.parseDouble(constantsResource.getString("PANE_HEIGHT")));
     LOG.debug("Initialized rule pane successfully.");
   }
 
@@ -323,7 +314,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void handleBoardClick(MouseEvent e) {
-    LOG.info(String.format("User clicked on board at scene coordinates {%f, %f} and board coordinates {%f, %f}", e.getSceneX(), e.getSceneY(), e.getX(), e.getY()));
+    LOG.info(String.format(
+        "User clicked on board at scene coordinates {%f, %f} and board coordinates {%f, %f}",
+        e.getSceneX(), e.getSceneY(), e.getX(), e.getY()));
 
     if (myTileCreationToggle) {
       createTile(e);
@@ -426,7 +419,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   /**
    * <p>Displays a basic about window for the project.</p>
    */
-  public void displayAboutWindow(){
+  public void displayAboutWindow() {
     new AboutView(builderResource, DEFAULT_STYLESHEET);
   }
 

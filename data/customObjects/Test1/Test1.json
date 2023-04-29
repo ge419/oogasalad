@@ -1,7 +1,7 @@
 {
   "name": "Test1",
-  "width": 250.0,
-  "height": 298.0,
+  "width": 232.0,
+  "height": 342.0,
   "customObjects": [
     {
       "type": "CustomColorBox",
@@ -24,7 +24,8 @@
       "translateY": -22.0,
       "type": "CustomText",
       "index": -1,
-      "editable": false
+      "editable": true,
+      "viewable": true
     },
     {
       "type": "CustomImage",

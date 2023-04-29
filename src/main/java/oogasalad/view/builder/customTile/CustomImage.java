@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,6 +50,8 @@ public class CustomImage extends ImageView implements CustomElement {
         this.y = jsonObject.get("y").getAsDouble();
         this.index = jsonObject.get("index").getAsInt();
         this.editable = jsonObject.get("editable").getAsBoolean();
+        this.destinationPath = Paths.get(jsonObject.get("filePath").getAsString());
+
 
     }
 

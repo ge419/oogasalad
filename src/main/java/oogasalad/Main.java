@@ -28,12 +28,12 @@ public class Main extends Application {
   public void start(Stage primaryStage) throws Exception {
     Path saveDir = Path.of("data", "monopoly");
 
-    GameController controller = new GameController(saveDir);
-    try {
-      controller.setGame(primaryStage);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+//    GameController controller = new GameController(saveDir);
+//    try {
+//      controller.setGame(primaryStage);
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
     new BuilderController("English", saveDir);
   }
 }

@@ -17,16 +17,23 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.FileChooser;
+import oogasalad.model.attribute.*;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
 import oogasalad.view.tiles.ViewTile;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class CustomTileFrontEnd extends Group implements ViewTile {
+    private static final Logger LOGGER = LogManager.getLogger(CustomTileFrontEnd.class);
 
     private double SCALE_DOWN_FACTOR = .4;
     private Color color;
@@ -35,13 +42,16 @@ public class CustomTileFrontEnd extends Group implements ViewTile {
 
     private final Tile modelTile;
     @Inject
-    public CustomTileFrontEnd(Tile BTile){
-        loadJson();
+    public CustomTileFrontEnd(Tile BTile, SchemaDatabase database) {
+        ObjectSchema schema = loadJson();
+        database.addCustomSchema(schema);
         this.modelTile = BTile;
-
+        ArrayList<String> names = new ArrayList<>(modelTile.getSchemaNames());
+        names.add(schema.getName());
+        modelTile.setJsonSchemaNames(names);
     }
 
-    void loadJson() {
+    ObjectSchema loadJson() {
         this.getChildren().clear();
 
         StackPane s = new StackPane();
@@ -55,6 +65,7 @@ public class CustomTileFrontEnd extends Group implements ViewTile {
                 //Something to preserve aspect ratio
                 name = jsonObject.get("name").getAsString();
                 JsonArray customObjects = jsonObject.getAsJsonArray("customObjects");
+                List<Metadata> metadataList = new ArrayList<>();
                 for (JsonElement jsonElement : customObjects) {
                     JsonObject customObject = jsonElement.getAsJsonObject();
                     CustomElement loadedObject = CustomElement.load(customObject);
@@ -65,12 +76,18 @@ public class CustomTileFrontEnd extends Group implements ViewTile {
                         s.getChildren().add((Node) loadedObject);
                     }
                     loadedObject.setLocation();
+                    Metadata elementMetaData = loadedObject.getMetaData();
+                    metadataList.add(elementMetaData);
                 }
                 this.getChildren().add(s);
+                LOGGER.info("creating schema {}", metadataList);
+                return new SimpleObjectSchema(UUID.randomUUID().toString(), metadataList);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
+        return new SimpleObjectSchema(UUID.randomUUID().toString(), List.of());
     }
 
     private JsonObject readJsonFromFile(File file) throws IOException {

@@ -34,6 +34,9 @@ public class CustomElementHelper extends VBox {
         Button toBackButton = new Button("Send to Back");
         toBackButton.setOnAction(event -> ((Node) thisCustomElement).toBack());
 
+        Button deleteButton = new Button("Delete Element");
+        toBackButton.setOnAction(event -> ((Node) thisCustomElement).toBack());
+
         CheckBox editableCheckBox = createEditableCheckBox(thisCustomElement, nameField);
 
         infoBox.getChildren().addAll(Arrays.asList(toFrontButton, toBackButton, editableCheckBox));

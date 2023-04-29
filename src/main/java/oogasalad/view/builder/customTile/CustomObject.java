@@ -173,6 +173,7 @@ public class CustomObject extends StackPane {
                     CustomElement loadedObject = CustomElement.load(customObject);
                     this.placeElm(loadedObject);
                     loadedObject.setLocation();
+                    loadedObject.getMetaData();
                 }
             } catch (IOException e) {
                 e.printStackTrace();

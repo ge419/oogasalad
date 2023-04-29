@@ -11,7 +11,7 @@ public class TileListMetadata extends AbstractMetadata {
   public static final Class<TileListAttribute> ATTRIBUTE_CLASS = TileListAttribute.class;
 
   @JsonCreator
-  protected TileListMetadata(@JsonProperty("key") String key) {
+  public TileListMetadata(@JsonProperty("key") String key) {
     super(key);
   }
 

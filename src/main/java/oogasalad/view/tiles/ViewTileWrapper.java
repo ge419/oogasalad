@@ -8,6 +8,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import oogasalad.model.constructable.Tile;
+import oogasalad.view.builder.popupform.PopupForm;
 
 /**
  * <p>ViewTileWrapper wraps around a backend tile and a view tile factory to create any
@@ -17,7 +18,7 @@ import oogasalad.model.constructable.Tile;
  * ViewTileFactory and the map contained in the constructor of the class.</p>
  * <p><strong>Important Note:</strong> Although this class does extend ViewTile, it only
  * does so so that it can be used in place of the regular ViewTile that it wraps. It should not
- * actually be used as a ViewTile!</p>
+ * be used as a unique ViewTile not wrappiny anything!</p>
  *
  * @author tmh85
  * @author dcm67
@@ -43,10 +44,8 @@ public class ViewTileWrapper implements ViewTile {
     );
     this.myTileFactory = tileFactory;
     myRoot = new Group();
-    myRoot.layoutXProperty().bindBidirectional(tile.positionAttribute().xProperty());
-    myRoot.layoutYProperty().bindBidirectional(tile.positionAttribute().yProperty());
-//    bindPositionAttributes(tile);
-//    bindRotationAttributes(tile);
+    bindPositionAttributes(tile);
+    bindRotationAttributes(tile);
     generateTile();
     tile.viewTypeAttribute().valueProperty().addListener(
         (observable, oldValue, newValue) -> generateTile()

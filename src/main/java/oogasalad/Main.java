@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import oogasalad.controller.BuilderController;
 import oogasalad.controller.GameController;
 
 /**
@@ -23,18 +24,16 @@ public class Main extends Application {
     return 0.001;
   }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-      Path saveDir = Path.of("data", "monopoly");
+  @Override
+  public void start(Stage primaryStage) throws Exception {
+    Path saveDir = Path.of("data", "monopoly");
 
-      GameController controller = new GameController(saveDir);
-      try {
-        controller.setGame(primaryStage);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-//        new BuilderView(new BuilderController());
+    GameController controller = new GameController(saveDir);
+    try {
+      controller.setGame(primaryStage);
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-    //new BuilderView(new BuilderController());
-//    injector.getInstance(BuilderView.class);
+    new BuilderController("English", saveDir);
   }
+}

@@ -1,15 +1,14 @@
 {
   "@class": "oogasalad.model.attribute.SimpleObjectSchema",
-  "name": "tile",
+  "name": "customTile1",
   "fields": [
     {
       "@class": "oogasalad.model.attribute.StringMetadata",
-      "key": "type",
-      "name": "View type",
-      "description": "View type of tile.",
-      "defaultValue": "basic",
-      "editable": true,
-      "viewable": true
+      "key": "customTile",
+      "name": "customTile",
+      "description": "Type of tile.",
+      "editable": false,
+      "viewable": false
     },
     {
       "@class": "oogasalad.model.attribute.PositionMetadata",
@@ -38,7 +37,8 @@
       "editable": true,
       "viewable": true,
       "defaultValue": 50,
-      "minValue": 0
+      "minValue": -2147483648,
+      "maxValue": 2147483647
     },
     {
       "@class": "oogasalad.model.attribute.DoubleMetadata",
@@ -48,7 +48,8 @@
       "editable": true,
       "viewable": true,
       "defaultValue": 50,
-      "minValue": 0
+      "minValue": -2147483648,
+      "maxValue": 2147483647
     },
     {
       "@class": "oogasalad.model.attribute.TileListMetadata",
@@ -59,19 +60,18 @@
       "viewable": true
     },
     {
-      "@class": "oogasalad.model.attribute.StringMetadata",
-      "key": "info",
-      "name": "Info",
-      "description": "Information to be stored by tile",
+      "@class": "oogasalad.model.attribute.ImageMetadata",
+      "key": "image",
+      "name": "Image",
+      "description": "Path to image of tile",
       "editable": true,
       "viewable": true
     },
     {
-      "@class": "oogasalad.model.attribute.ColorMetadata",
-      "key": "color",
-      "name": "Color",
-      "description": "Color of tile",
-      "defaultValue": "#add8e6",
+      "@class": "oogasalad.model.attribute.StringMetadata",
+      "key": "property name",
+      "name": "property name",
+      "description": "the property name can be filled in",
       "editable": true,
       "viewable": true
     }

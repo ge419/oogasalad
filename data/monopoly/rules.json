@@ -1,11 +1,21 @@
 [ {
+  "@class" : "oogasalad.model.engine.rules.NumberOfPlayersRule",
+  "id" : "8118a0ce-47e2-4e77-9fe5-bc5805e247d1",
+  "schemas" : [ "numberOfPlayersRule" ],
+  "attributes" : [ ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.NumberOfPlayerPieceRule",
+  "id" : "b69c4c6b-20ae-4a28-8f2b-477ff07ce367",
+  "schemas" : [ "numberOfPiecesPerPlayerRule" ],
+  "attributes" : [ ]
+}, {
   "@class" : "oogasalad.model.engine.rules.TurnRule",
-  "id" : "291fd230-836f-4f26-b5f3-95cc10a052b4",
+  "id" : "ab14c616-b79d-4fd9-8655-e141a3954c46",
   "schemas" : [ "turnRule" ],
   "attributes" : [ ]
 }, {
   "@class" : "oogasalad.model.engine.rules.BuyTileRule",
-  "id" : "b553448f-fcff-470a-9c4b-d348823734af",
+  "id" : "916fa55d-aa76-4155-8f2f-aefc62a59797",
   "schemas" : [ "buyTileRule" ],
   "attributes" : [ {
     "@class" : "oogasalad.model.attribute.StringAttribute",
@@ -14,7 +24,7 @@
   } ]
 }, {
   "@class" : "oogasalad.model.engine.rules.DieMoveRule",
-  "id" : "8da6d17a-d31e-4cff-a0ba-feddfa76a0ca",
+  "id" : "1c421903-2e02-45c5-9c45-386e0658773b",
   "schemas" : [ "dieRule" ],
   "attributes" : [ {
     "@class" : "oogasalad.model.attribute.IntAttribute",

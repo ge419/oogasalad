@@ -1,37 +1,41 @@
 {
   "name": "Test1",
-  "width": 491.0,
-  "height": 498.0,
+  "width": 250.0,
+  "height": 298.0,
   "customObjects": [
     {
-      "type": "CustomImage",
-      "x": 3.0,
-      "y": -72.0,
-      "name": "Screen Shot 2022-12-11 at 11.50.58 AM.png",
-      "height": 308.58620689655174,
-      "width": 471.0,
-      "filePath": "data/customObjects/Test1/Screen Shot 2022-12-11 at 11.50.58 AM.png",
-      "index": 0
+      "type": "CustomColorBox",
+      "name": "",
+      "color": "0xff000080",
+      "opacity": 1.0,
+      "index": 0,
+      "translatex": 0.0,
+      "translatey": 0.0,
+      "width": 50.0,
+      "height": 50.0,
+      "editable": false
     },
     {
-      "name": "Default Text",
-      "defaultContents": "Enter Text Here",
-      "fontSize": 20,
-      "bold": false,
-      "translateX": -86.0,
-      "translateY": 168.0,
-      "type": "CustomText",
-      "index": -1
-    },
-    {
-      "name": "Default Text",
+      "name": "Caption",
       "defaultContents": "Add photographer name",
       "fontSize": 14,
-      "bold": true,
-      "translateX": 162.0,
-      "translateY": 96.0,
+      "bold": false,
+      "translateX": 35.0,
+      "translateY": -22.0,
       "type": "CustomText",
-      "index": -1
+      "index": -1,
+      "editable": false
+    },
+    {
+      "type": "CustomImage",
+      "x": 5.0,
+      "y": -95.0,
+      "name": ".png",
+      "height": 108.55326814204831,
+      "width": 165.68656716417908,
+      "filePath": "data/customObjects/Test1/.png",
+      "index": 2,
+      "editable": false
     }
   ]
 }

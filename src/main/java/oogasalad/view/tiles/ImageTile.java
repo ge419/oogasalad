@@ -42,7 +42,7 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
         StringAttribute.from(BTile.getAttribute(IMAGE_ATTRIBUTE).get()).getValue(), IMAGE_SCALE);
 
     VBox content = new VBox(BTile.getHeight() / MARGIN_SCALE, tileImage,
-        createTextBox(List.of(BTile.getInfo(), BTile.getPrice()), BTile.getHeight(), BTile.getHeight()));
+        createTextBox(List.of(BTile.getInfo()), BTile.getHeight(), BTile.getHeight()));
     content.setAlignment(Pos.CENTER);
     getChildren().addAll(tileBackground, content);
 

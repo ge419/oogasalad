@@ -1,18 +1,19 @@
 package oogasalad.model.engine.actions;
 
-import com.fasterxml.jackson.annotation.JacksonInject;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import com.google.inject.assistedinject.Assisted;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
+import oogasalad.model.engine.events.ChooseNumberOfPlayersEvent;
 import oogasalad.model.engine.prompt.IntegerPromptOption;
-import oogasalad.model.engine.prompt.PromptOption;
-import oogasalad.view.gameplay.pieces.PlayerPiece;
+import oogasalad.model.exception.ResourceReadException;
 
 public class CreatePlayersAction implements Action {
   private final Provider<Player> playerProvider;
@@ -36,28 +37,51 @@ public class CreatePlayersAction implements Action {
     for (int i = gameholder.minPlayer(); i <= gameholder.maxPlayer(); i++) {
       options.add(new IntegerPromptOption(i));
     }
-
-    actionParams.prompter().selectSingleOption(
-        "Select number of players", options, this::createPlayers);
+    actionParams.prompter().selectSingleOption("Select number of players", options, this::createPlayers);
+    actionParams.emitter().emit(new ChooseNumberOfPlayersEvent());
   }
 
   private void createPlayers(IntegerPromptOption selectedPlayers) {
-    List<Player> players = new ArrayList<>();
+    Players players = setPlayers(selectedPlayers.getValue());
+    gameholder.setPlayers(players);
+    Map<Player, List<Piece>> playerPieceMap = setPlayersPieces(1, players);
     List<Piece> pieceList = new ArrayList<>();
-    for (int i=0; i<selectedPlayers.getValue(); i++) {
-      Player player = playerProvider.get();
-      Piece piece = pieceProvider.get();
-      players.add(player);
-      pieceList.add(piece);
-      piece.setPlayer(player);
-      player.getPieces().add(piece);
+    for (List<Piece> pList : playerPieceMap.values()) {
+      pieceList.addAll(pList);
     }
-    gameholder.setPlayers(new Players(players));
     gameholder.setPieces(pieceList);
-//    Pieces pieces = new Pieces(pieceList);
-//    for (PlayerPiece piece : pieces.getPieceList()) {
-//      piece.moveToTile(gameholder.getBoard().getTiles().get(0));
-//    }
-    System.out.println(gameholder.getPlayers().getPlayers().get(0).getName());
+    this.gameholder.notifyList();
+  }
+
+  private Players setPlayers(int numPlayers) {
+    List<Player> playerList = new ArrayList<>();
+    for (int i = 0; i < numPlayers; i++) {
+      Player player = playerProvider.get();
+      playerList.add(player);
+    }
+    Players gamePlayers = new Players(playerList);
+    try {
+      gamePlayers.randomize();
+    } catch (IOException e) {
+      throw new ResourceReadException(e);
+    }
+    return gamePlayers;
+  }
+
+  private Map<Player, List<Piece>> setPlayersPieces(int piecePerPlayer, Players players) {
+    Map<Player, List<Piece>> playerPieceMap = new HashMap<>();
+    for (Player p : players.getPlayers()) {
+      List<Piece> pieceList = new ArrayList<>();
+      for (int j = 0; j < piecePerPlayer; j++) {
+        Piece piece = pieceProvider.get();
+        piece.setImage(p.getImage());
+        piece.setPlayer(p);
+        piece.setTile(gameholder.getBoard().getTiles().get(0));
+        p.getPieces().add(piece);
+        pieceList.add(piece);
+      }
+      playerPieceMap.put(p, pieceList);
+    }
+    return playerPieceMap;
   }
 }

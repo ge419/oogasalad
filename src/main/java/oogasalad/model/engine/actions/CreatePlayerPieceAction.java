@@ -7,7 +7,6 @@ import java.util.List;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Players;
-import oogasalad.model.engine.events.ChooseNumberOfPlayersEvent;
 import oogasalad.model.engine.events.DieRolledEvent;
 import oogasalad.model.engine.prompt.IntegerPromptOption;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
@@ -35,12 +34,8 @@ public class CreatePlayerPieceAction implements Action {
 
     actionParams.prompter().selectSingleOption(
         "Select number of pieces for a given player", options, this::createPlayerPieces);
-    afterCreatedPlayers(actionParams);
   }
 
-  private void afterCreatedPlayers(ActionParams actionParams) {
-    actionParams.emitter().emit(new ChooseNumberOfPlayersEvent());
-  }
   private void createPlayerPieces(IntegerPromptOption selectedPlayerPieceNumber) {
     List<PlayerPiece> playerPieces = new ArrayList<>();
     int selectedNumberOfPieces = selectedPlayerPieceNumber.getValue();

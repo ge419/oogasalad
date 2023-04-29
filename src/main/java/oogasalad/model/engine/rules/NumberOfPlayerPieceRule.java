@@ -22,7 +22,7 @@ public class NumberOfPlayerPieceRule extends AbstractGameConstruct implements Ed
   private final ActionFactory actionFactory;
 
   @Inject
-  protected NumberOfPlayerPieceRule(String baseSchema,
+  protected NumberOfPlayerPieceRule(
       @JacksonInject SchemaDatabase database,
       @JacksonInject GameHolder gameHolder,
       @JacksonInject ActionFactory actionFactory) {

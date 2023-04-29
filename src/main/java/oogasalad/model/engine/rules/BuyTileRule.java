@@ -64,6 +64,7 @@ public class BuyTileRule extends AbstractGameConstruct implements EditableRule {
       BuyAction buyAction = new BuyAction(() -> {
         owner.setId(piece.getPlayer().get().getId());
         player.setScore(newMoney);
+        player.addCardToPlayer(tile);
       });
       eventHandlerParams.actionQueue().add(1, buyAction);
     }

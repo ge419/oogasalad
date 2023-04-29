@@ -1,19 +1,16 @@
 package oogasalad.view.builder.popupform;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import oogasalad.model.attribute.Attribute;
 import oogasalad.model.attribute.BooleanAttribute;
 import oogasalad.model.attribute.BooleanMetadata;
-import oogasalad.model.attribute.Metadata;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
-
-import java.util.ResourceBundle;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class BooleanParameterStrategyTest extends DukeApplicationTest {
     private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
@@ -29,7 +26,7 @@ class BooleanParameterStrategyTest extends DukeApplicationTest {
         attr = meta.makeBooleanAttribute();
         booleanParameterStrategy = new BooleanParameterStrategy(attr, meta);
         VBox root = new VBox();
-        root.getChildren().add(booleanParameterStrategy.renderInput(resourceBundle, root));
+        root.getChildren().add(booleanParameterStrategy.renderInput(resourceBundle, root, ""));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

@@ -1,17 +1,17 @@
 package oogasalad.controller;
 
-import com.google.inject.Inject;
-import javafx.beans.property.SimpleBooleanProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import java.nio.file.Path;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import oogasalad.controller.builderevents.Dragger;
+import oogasalad.model.attribute.AttributeModule;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.GameHolder;
@@ -54,11 +54,14 @@ public class BuilderController {
       BuilderFactory injectedBuilderFactory,
       ViewTileFactory tileFactory
   ) {
-    Injector injector = Guice.createInjector(new BuilderControllerModule(injectedLanguage));
+    Injector injector = Guice.createInjector(
+        new BuilderControllerModule(injectedLanguage),
+        new AttributeModule()
+    );
     builderView = injectedBuilderFactory.makeBuilder(injectedLanguage, this);
     viewTileFactory = tileFactory;
     logger.info("created builder");
-    db = new SchemaDatabase();
+    db = injector.getInstance(SchemaDatabase.class);
     gameHolder = GameHolder.createDefaultGame();
 //    saveManager = new SaveManager();
     board = gameHolder.getBoard();

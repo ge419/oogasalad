@@ -1,9 +1,14 @@
 package oogasalad.model.attribute;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.fasterxml.jackson.module.guice.ObjectMapperModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import java.util.List;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -17,20 +22,21 @@ class SchemaDatabaseTest {
 
   @BeforeEach
   void setUp() {
-    db = new SimpleSchemaDatabase();
+    Injector injector = Guice.createInjector(new ObjectMapperModule(), new AttributeModule());
+    db = injector.getInstance(SchemaDatabase.class);
   }
 
   @Test
   void resourceSchemas() {
-    assertTrue(db.containsSchema("basicTile"));
+    assertTrue(db.containsSchema("tile"));
     assertTrue(db.containsSchema("buyTileRule"));
     assertTrue(db.containsSchema("buyTileRule-tile"));
   }
 
   @Test
-  void appliedSchema() {
-    // Apply buyTileRule to basicTile
-    SchemaBinding binding = new SchemaBinding("basicTile", "buyTileRule-tile");
+  void appliedSchemas() {
+    // Apply buyTileRule to tile
+    SchemaBinding binding = new SchemaBinding("tile", "buyTileRule-tile");
 
     Rule mockRule = mock(Rule.class);
     when(mockRule.appliedSchemasProperty()).thenReturn(
@@ -38,13 +44,40 @@ class SchemaDatabaseTest {
     when(mockRule.getAppliedSchemas()).thenReturn(List.of(binding));
     db.setRuleListProperty(FXCollections.observableList(List.of(mockRule)));
 
-    ObjectSchema schema = db.getSchema("basicTile").get();
-    
+    ObjectSchema schema = db.getSchema("tile").get();
+
     assertTrue(schema.getMetadata("position").isPresent());
     assertTrue(schema.getMetadata("price").isPresent());
 
     schema = db.getSchema("buyTileRule").get();
     assertTrue(schema.getMetadata("tileType").isPresent());
     assertTrue(schema.getMetadata("price").isEmpty());
+  }
+
+  @Test
+  void customSchemas() {
+    ObjectSchema schema1 = new SimpleObjectSchema("!s1", List.of());
+    ObjectSchema schema2 = new SimpleObjectSchema("!s2", List.of());
+
+    db.addCustomSchema(schema1);
+    db.addCustomSchema(schema2);
+
+    assertTrue(db.getSchema("!s1").isPresent());
+    assertTrue(db.getSchema("!s2").isPresent());
+
+    List<ObjectSchema> customSchemas = db.getCustomSchemas();
+    assertEquals(2, customSchemas.size());
+    assertTrue(customSchemas.containsAll(List.of(schema1, schema2)));
+  }
+
+  @Test
+  void duplicateSchemas() {
+    // Adding a schema that already exists will fail
+    ObjectSchema schema = new SimpleObjectSchema("tile", List.of());
+    assertThrows(Exception.class, () -> db.addCustomSchema(schema));
+
+    ObjectSchema schema1 = new SimpleObjectSchema("!s1", List.of());
+    db.addCustomSchema(schema1);
+    assertThrows(Exception.class, () -> db.addCustomSchema(schema));
   }
 }

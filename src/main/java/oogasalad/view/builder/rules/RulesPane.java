@@ -1,0 +1,79 @@
+package oogasalad.view.builder.rules;
+
+import java.util.List;
+import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import oogasalad.controller.BuilderController;
+import oogasalad.view.builder.BuilderView;
+
+public class RulesPane extends BorderPane {
+
+  private BuilderView myBuilder;
+  private ResourceBundle myLanguage;
+  private BuilderController myBuilderController;
+  private ListView<String> myRulesList;
+  private ObservableList<String> myRules;
+  private ComboBox<String> myCheckbox;
+  private Button myEditButton;
+  private Button myDeleteButton;
+
+  public RulesPane(BuilderView builder, BuilderController bc, ResourceBundle language) {
+    super();
+    myLanguage = language;
+    myBuilder = builder;
+    myBuilderController = bc;
+    this.setId("RulesPane");
+    initializeRulesListview();
+    initializeTiletypesCheckbox();
+    VBox buttonBox = initializeButtons();
+    this.setLeft(myCheckbox);
+    this.setCenter(myRulesList);
+    this.setRight(buttonBox);
+  }
+
+  private VBox initializeButtons() {
+    myEditButton = new Button(myLanguage.getString("SetRule"));
+    myDeleteButton = new Button(myLanguage.getString("RemoveRule"));
+    myEditButton.setOnAction(e -> {
+      // tell builder controller to give me the properties for this rule.
+      System.out.println("Chosen: " + myCheckbox.getSelectionModel().getSelectedItem() + " " +
+          myRulesList.getSelectionModel().getSelectedItem());
+    });
+
+    myDeleteButton.setOnAction(e -> {
+      //tell builder controller to delete rule from tile type
+      System.out.println(
+          "Trying to remove rule " + myRulesList.getSelectionModel().getSelectedItem()
+              + " from tiletype " + myCheckbox.getSelectionModel().getSelectedItem());
+    });
+    return new VBox(myEditButton, myDeleteButton);
+  }
+
+
+  private void initializeRulesListview() {
+    myRulesList = new ListView<>();
+    myRules = FXCollections.observableArrayList(myBuilderController.getListOfRules());
+    myRulesList.setItems(myRules);
+    myRulesList.getSelectionModel().selectedItemProperty()
+        .addListener(((observable, oldValue, newValue) -> {
+          System.out.println(
+              "oh wow, you selected " + myRulesList.getSelectionModel().getSelectedItem());
+        }));
+  }
+
+  private void initializeTiletypesCheckbox() {
+    myCheckbox = new ComboBox<>();
+    myCheckbox.setPromptText(myLanguage.getString("SelectTiletype"));
+    myCheckbox.valueProperty().addListener(((observable, oldValue, newValue) -> {
+      System.out.println("Oh my, you selected " + newValue);
+    }));
+    myCheckbox.setItems(
+        FXCollections.observableArrayList(myBuilderController.getCurrentTiletypes()));
+  }
+}

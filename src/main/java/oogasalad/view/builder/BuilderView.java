@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -20,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import oogasalad.controller.BuilderController;
@@ -30,6 +32,7 @@ import oogasalad.view.builder.itempanes.MenuItemPane;
 import oogasalad.view.builder.itempanes.ItemPane;
 import oogasalad.view.builder.events.TileEvent;
 import oogasalad.view.builder.popupform.PopupForm;
+import oogasalad.view.builder.rules.RulesPane;
 import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -55,7 +58,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private static final Logger LOG = LogManager.getLogger(BuilderView.class);
   private ResourceBundle builderResource;
   private Pane myBoardPane;
-  private BorderPane myRulePane;
+  private RulesPane myRulePane;
   private BorderPane myCenterContainer;
   private final String defaultStylesheet;
   private boolean myTileCreationToggle = false;
@@ -236,17 +239,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void initializeRulePane() {
-    //myRulePane = makePane("RulePane", PANE_WIDTH, PANE_HEIGHT);
-    myRulePane = new BorderPane();
+    myRulePane = new RulesPane(this, myBuilderController, builderResource);
     setPaneSize(myRulePane, PANE_WIDTH, PANE_HEIGHT);
-    myRulePane.setId("RulePane");
-    ListView<String> listView = new ListView<>();
-    listView.setItems(FXCollections.observableArrayList("Test1", "Test2"));
-    myRulePane.setLeft(listView);
-    ComboBox<String> test = new ComboBox<>();
-    test.setItems(FXCollections.observableArrayList("one test", "two test"));
-    myRulePane.setRight(test);
-//    myRulePane.getChildren().add(new Rectangle(50, 50, 10, 10));
   }
 
   private void setPaneSize(Pane pane, double width, double height) {
@@ -336,14 +330,12 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private void displayTileForm(TileEvent event) {
     myCurrentTile = Optional.empty();
-//    event.getViewTile().setColor(Color.LIGHTBLUE);
-    new PopupForm(event.getTile(), builderResource, sidePane);
+    myBuilderController.createPopupForm(event.getTile(), builderResource, sidePane);
     updateInfoText("RegularMode");
   }
 
   private void selectTile(TileEvent event) {
     myCurrentTile = Optional.ofNullable(event.getViewTile());
-//    myCurrentTile.get().setColor(Color.BLUE);
     updateInfoText("TileNextMode");
   }
 

@@ -8,6 +8,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import oogasalad.model.constructable.Tile;
+import oogasalad.view.builder.popupform.PopupForm;
 
 /**
  * <p>ViewTileWrapper wraps around a backend tile and a view tile factory to create any

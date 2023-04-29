@@ -1,6 +1,8 @@
 package oogasalad.controller;
 
 import com.google.inject.Inject;
+import java.util.List;
+import java.util.ResourceBundle;
 import javafx.beans.property.SimpleBooleanProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Guice;
@@ -11,9 +13,11 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import oogasalad.controller.builderevents.Dragger;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
+import oogasalad.model.constructable.GameConstruct;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Players;
 import oogasalad.model.constructable.Tile;
@@ -21,6 +25,7 @@ import oogasalad.util.SaveManager;
 import oogasalad.view.BuilderFactory;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.BuilderView;
+import oogasalad.view.builder.popupform.PopupForm;
 import oogasalad.view.tiles.ViewTile;
 import oogasalad.view.tiles.ViewTileFactory;
 import org.apache.logging.log4j.LogManager;
@@ -131,7 +136,29 @@ public class BuilderController {
     return builderView;
   }
 
+  public PopupForm createPopupForm(GameConstruct construct, ResourceBundle language, Pane location){
+    return new PopupForm(construct, language, location);
+  }
+
   private void defaultRules() {
 //    saveManager.loadDefRules();
+  }
+
+  public List<String> getListOfRules(){
+    return List.of(
+        "Hello",
+        "This",
+        "Is",
+        "A",
+        "Test"
+        );
+  }
+
+  public List<String> getCurrentTiletypes(){
+    return List.of(
+        "Wow",
+        "Such",
+        "Tiletype"
+    );
   }
 }

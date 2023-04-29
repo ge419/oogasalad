@@ -138,4 +138,7 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
   private void saveGameInfo() {
     getBuilder().saveGameInfo();
   }
+  private void uploadThumbnailImage() {
+    getBuilder().uploadThumbnailImage();
+  }
 }

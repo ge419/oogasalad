@@ -4,8 +4,10 @@ import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
+import oogasalad.model.exception.ResourceReadException;
 import oogasalad.view.builder.BuilderUtility;
 import oogasalad.view.builder.BuilderView;
+import oogasalad.view.builder.exceptions.MethodReflectionException;
 
 /**
  * <p>Sidebar will implement and manage a pane of buttons for any UI.</p>
@@ -35,11 +37,20 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
   }
 
   @Override
-  public void addItems(String functionFileName) {
+  public void addItems(String functionFileName) throws MethodReflectionException{
     myCurrentBundleName = functionFileName;
     ResourceBundle bundle = getResource(functionFileName);
-    forEachResourceKey(bundle,
-        key -> createButton(key, bundle.getString(key)));
+    try {
+      forEachResourceKey(bundle,
+          key -> createButton(key, bundle.getString(key)));
+    }
+    catch(Exception e){
+      throw new ResourceReadException(displayMessageWithArguments(
+          getLanguage(),
+          "ResourceReadError",
+          bundle.toString()
+      ));
+    }
   }
 
   @Override
@@ -64,10 +75,19 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
    * @param key resource file key
    * @param buttonClickMethodName method name as a string
    */
-  private void createButton(String key, String buttonClickMethodName) {
-    Node button = makeButton(key, getLanguage(),
-        e -> runMethodFromString(buttonClickMethodName));
-    myPane.getChildren().add(button);
+  private void createButton(String key, String buttonClickMethodName){
+    try {
+      Node button = makeButton(key, getLanguage(),
+          e -> runMethodFromString(buttonClickMethodName));
+      myPane.getChildren().add(button);
+    }
+    catch(RuntimeException e){
+      throw new MethodReflectionException(displayMessageWithArguments(
+          getLanguage(),
+          "ReflectionMethodError",
+          buttonClickMethodName
+      ));
+    }
   }
 
   private void test() {

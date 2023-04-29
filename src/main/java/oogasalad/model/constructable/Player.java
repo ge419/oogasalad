@@ -73,9 +73,15 @@ public class Player extends AbstractGameConstruct {
   }
 
   @JsonIgnore
+  public void setColor(String color) {getColorAttribute().setValue(color);}
+
+  @JsonIgnore
   public String getImage() {
     return getImageAttribute().getValue();
   }
+
+  @JsonIgnore
+  public void setImage(String imagePath) {getImageAttribute().setValue(imagePath);}
 
   @JsonIgnore
   public List<Piece> getPieces() {

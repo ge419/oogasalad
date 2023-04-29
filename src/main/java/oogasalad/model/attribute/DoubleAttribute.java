@@ -6,7 +6,7 @@ import java.util.Objects;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
-public class DoubleAttribute extends Attribute {
+public class DoubleAttribute extends AbstractAttribute {
 
   private final DoubleProperty value;
 
@@ -17,7 +17,7 @@ public class DoubleAttribute extends Attribute {
   }
 
   public static DoubleAttribute from(Attribute attr) {
-    return Attribute.getAs(attr, DoubleAttribute.class);
+    return AbstractAttribute.getAs(attr, DoubleAttribute.class);
   }
 
   public double getValue() {
@@ -41,11 +41,13 @@ public class DoubleAttribute extends Attribute {
       return false;
     }
     DoubleAttribute that = (DoubleAttribute) o;
-    return Objects.equals(value, that.value);
+    boolean value = this.value.get() == that.value.get();
+    boolean key = this.getKey().equals(that.getKey());
+    return value && key;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(value);
+    return Objects.hash(getKey()+value.get());
   }
 }

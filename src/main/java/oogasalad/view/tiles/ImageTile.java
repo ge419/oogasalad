@@ -1,7 +1,9 @@
 package oogasalad.view.tiles;
 
-import java.util.Map;
+import java.util.List;
+import com.google.inject.Inject;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -9,41 +11,60 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
+import oogasalad.model.attribute.PlayerAttribute;
+import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.Tile;
+import oogasalad.model.engine.rules.BuyTileRule;
+import oogasalad.view.Backgroundable;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Imageable;
 import oogasalad.view.Textable;
 
-public class ImageTile extends StackPane implements ViewTile, Textable, Imageable {
+public class ImageTile extends StackPane implements ViewTile, Textable, Imageable, Backgroundable {
+
   private static final double TEXT_SCALE = 8;
   private static final double MARGIN_SCALE = 10;
+  private static final double IMAGE_SCALE = 1.5;
+  private static final Color TILE_BACKGROUND = Color.WHITE;
+  private static final Color TILE_STROKE_COLOR = Color.BLACK;
 
-  public ImageTile(int id, Coordinate coordinate, String imgPath, Map<String, String> textMap, double width,
-      double height) {
-    this.setPosition(coordinate);
-    //TODO: take this code out once we get backend tile
+  public static final String IMAGE_ATTRIBUTE = "image";
+  private final Tile modelTile;
 
-    Rectangle tileBackground = tileBackground(width, height);
-    ImageView tileImage = createImage(width, imgPath);
+  @Inject
+  public ImageTile(Tile BTile) {
+    this.setPosition(BTile.getCoordinate());
+    this.modelTile = BTile;
 
-    VBox content = new VBox(height / MARGIN_SCALE, tileImage, createTextBox(textMap, height, width));
+    Rectangle tileBackground = createBackground(BTile.getWidth(), BTile.getHeight(), TILE_BACKGROUND, TILE_STROKE_COLOR);
+    ImageView tileImage = createImage(BTile.getWidth(),
+        StringAttribute.from(BTile.getAttribute(IMAGE_ATTRIBUTE).get()).getValue(), IMAGE_SCALE);
+
+    VBox content = new VBox(BTile.getHeight() / MARGIN_SCALE, tileImage,
+        createTextBox(List.of(BTile.getInfo()), BTile.getHeight(), BTile.getHeight()));
     content.setAlignment(Pos.CENTER);
     getChildren().addAll(tileBackground, content);
-  }
 
-  private Rectangle tileBackground(double width, double height) {
-    Rectangle background = new Rectangle(width, height);
-    background.setFill(Color.WHITE);
-    background.setStroke(Color.BLACK);
-    background.setStrokeWidth(1);
-    return background;
+    //TODO: change this temporary behavior when tile is bought
+    //TODO: depend on if attribute is present
+    modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE)
+        .map(PlayerAttribute::from)
+        .map(PlayerAttribute::idProperty)
+        .ifPresent(prop -> prop.addListener((observable, oldValue, newValue) ->
+            newValue.ifPresentOrElse(
+                // Tile is owned
+                id -> this.setColor(Color.RED),
+                // Tile is not owned
+                () -> this.setColor(Color.LIGHTBLUE)
+            )));
   }
 
   @Override
-  public VBox createTextBox(Map<String, String> textMap, double height, double width) {
+  public VBox createTextBox(List info, double height, double width) {
     VBox textBox = new VBox();
-    for (String key : textMap.keySet()) {
-      Text text = new Text(textMap.get(key));
+    for (int i = 0; i < info.size(); i++) {
+      Text text = new Text(info.get(i).toString());
       resizeText(text, height, TEXT_SCALE, width);
       textBox.getChildren().add(text);
     }
@@ -51,33 +72,42 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
     return textBox;
   }
 
-  @Override
   public void setColor(Color color) {
 
   }
 
   @Override
   public Tile getTile() {
-    return null;
+    return this.modelTile;
+  }
+
+  @Override
+  public void setSize(double width, double height) {
+    this.setWidth(width);
+    this.setHeight(height);
+  }
+
+
+  @Override
+  public Node asNode() {
+    return this;
   }
 
   @Override
   public String getTileId() {
-    return null;
+    return this.modelTile.getId();
   }
 
-  @Override
   public Coordinate getPosition() {
     return null;
   }
 
-  @Override
   public void setPosition(Coordinate coord) {
     this.setLayoutX(coord.getXCoor());
     this.setLayoutY(coord.getYCoor());
+    this.getTransforms().add(new Rotate(coord.getAngle(), Rotate.Z_AXIS));
   }
 
-  @Override
   public Paint getColor() {
     return null;
   }

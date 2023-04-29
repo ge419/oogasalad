@@ -25,14 +25,10 @@ public class Die extends StackPane implements Renderable {
       addDot(dotArray[i]);
     }
 
-    this.setLayoutX(700);
+    this.setLayoutX(1200);
     this.setLayoutY(700);
-  }
 
-  public void setCallback(Runnable runnable) {
-    setOnMouseClicked(event -> {
-      runnable.run();
-    });
+    setOnMouseClicked(event -> fireEvent(new DieClickedEvent(DieClickedEvent.DIE_CLICKED, this)));
   }
 
   protected Circle createDot(int size) {

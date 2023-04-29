@@ -8,9 +8,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -45,6 +50,15 @@ public interface BuilderUtility {
     btn.getStyleClass().add("button");
     btn.setId(property);
     return btn;
+  }
+
+  default MenuItem makeMenuItem(String property, ResourceBundle resourceBundle,
+      EventHandler<ActionEvent> event){
+    MenuItem item = new MenuItem(resourceBundle.getString(property));
+    item.setOnAction(event);
+    item.getStyleClass().add("menuItem");
+    item.setId(property);
+    return item;
   }
 
   default Node makePane(String property, double width, double height) {
@@ -92,6 +106,13 @@ public interface BuilderUtility {
     return directChooser;
   }
 
+  default Node makeCheckBox(String property, ResourceBundle resourceBundle){
+    CheckBox checker = new CheckBox(resourceBundle.getString(property));
+    checker.getStyleClass().add("checkbox");
+    checker.setId(property);
+    return checker;
+  }
+
   default Node makeFileSelectButton(String property, ResourceBundle resourceBundle,
       FileChooser fileChooser) {
     return makeButton(property, resourceBundle,
@@ -116,5 +137,37 @@ public interface BuilderUtility {
   default void setNodeLocation(Node node, Coordinate coord) {
     node.setLayoutX(coord.getXCoor());
     node.setLayoutY(coord.getYCoor());
+  }
+  default Node makeWrappedText(String property, ResourceBundle resourceBundle, double wrappingWidth) {
+    Text text = (Text) makeText(property, resourceBundle);
+    text.setWrappingWidth(wrappingWidth);
+    return text;
+  }
+    default Node makeCheckBox(String property) {
+        CheckBox checkBox = new CheckBox();
+        checkBox.setId(property);
+        return checkBox;
+    }
+    default Node makeIntSpinner(String property, int min, int max, int initial) {
+      Spinner<Integer> spinner = new Spinner<>();
+      SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(
+          min, max, initial);
+      spinner.setValueFactory(valueFactory);
+      spinner.setId(property);
+      spinner.setEditable(true);
+      return spinner;
+    }
+    default Node makeDoubleSpinner(String property, double min, double max, double initial) {
+      Spinner<Double> spinner = new Spinner<>();
+      SpinnerValueFactory<Double> valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(min, max, initial);
+      spinner.setValueFactory(valueFactory);
+      spinner.setId(property);
+      spinner.setEditable(true);
+      return spinner;
+    }
+
+  default String displayMessageWithArguments(ResourceBundle language, String resourceKey,
+      Object... arguments) {
+    return String.format(language.getString(resourceKey), arguments);
   }
 }

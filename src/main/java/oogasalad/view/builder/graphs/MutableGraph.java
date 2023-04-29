@@ -2,6 +2,7 @@ package oogasalad.view.builder.graphs;
 
 import oogasalad.view.tiles.ViewTile;
 
+@Deprecated
 public interface MutableGraph {
 
   void addTile(ViewTile tile);

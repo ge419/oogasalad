@@ -8,21 +8,16 @@ import oogasalad.view.gameplay.Movable;
 
 abstract public class GamePiece extends ImageView implements Movable {
 
-  private static final double PIECE_SIZE = 20;
+  private static final double PIECE_SIZE = 40;
   protected Image image;
   private double xCoor;
   private double yCoor;
 
   public GamePiece(String imageURL) {
-
-    try {
-      image = new Image(new FileInputStream(imageURL));
-      this.setImage(image);
-      this.setFitHeight(PIECE_SIZE);
-      this.setFitWidth(PIECE_SIZE);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    image = new Image(imageURL);
+    this.setImage(image);
+    this.setFitHeight(PIECE_SIZE);
+    this.setFitWidth(PIECE_SIZE);
   }
 
   protected void setxCoor(double value) {

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
-public class BooleanMetadata extends Metadata {
+public class BooleanMetadata extends AbstractMetadata {
 
   public static final Class<BooleanAttribute> ATTRIBUTE_CLASS = BooleanAttribute.class;
   private final BooleanProperty defaultValue;
@@ -18,6 +18,12 @@ public class BooleanMetadata extends Metadata {
   }
 
   @Override
+  protected boolean checkPreconditions(Attribute attribute) {
+    boolean val = BooleanAttribute.from(attribute).getValue();
+    return isValidValue(val);
+  }
+
+  @Override
   public Attribute makeAttribute() {
     return makeBooleanAttribute();
   }
@@ -26,6 +32,15 @@ public class BooleanMetadata extends Metadata {
   @JsonIgnore
   public Class<? extends Attribute> getAttributeClass() {
     return ATTRIBUTE_CLASS;
+  }
+
+  public boolean isValidValue(boolean value) {
+    // No preconditions on booleans
+    return true;
+  }
+
+  public static BooleanMetadata from(Metadata meta) {
+    return getAs(meta, BooleanMetadata.class);
   }
 
   public BooleanAttribute makeBooleanAttribute() {

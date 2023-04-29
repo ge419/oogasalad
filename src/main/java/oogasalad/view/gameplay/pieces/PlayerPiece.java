@@ -1,45 +1,37 @@
 package oogasalad.view.gameplay.pieces;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Tile;
+import oogasalad.util.Util;
 import oogasalad.view.Coordinate;
+import oogasalad.view.Imageable;
+import oogasalad.view.gameplay.Movable;
 
 public class PlayerPiece extends GamePiece {
 
-  private String playerName;
-  private Tile currentTile;
+  private final Piece modelPiece;
 
-  public PlayerPiece(String imageURL, String playerName) {
-    super(imageURL);
-    this.playerName = playerName;
-
-    setOnMouseClicked(event -> {
-      //TODO: remove this and implement a button in GameView that passes in a coordinate
-      Coordinate coor = new Coordinate(300, 300);
-      moveDirectly(coor);
-    });
-
-  }
-
-  public String getPlayerName() {
-    return playerName;
-  }
-
-  public void changePlayerName(String newName) {
-    this.playerName = newName;
+  public PlayerPiece(Piece BPiece) {
+    super(BPiece.getImage());
+    this.modelPiece = BPiece;
+    Util.initializeAndListen(modelPiece.tileProperty(),
+        optionalTile -> optionalTile.ifPresent(this::moveToTile));
   }
 
   @Override
   public void move(Coordinate[] coorArray) {
-
+    //change player tile position attribute?
   }
 
   public void moveToTile(Tile tile) {
-    this.currentTile = tile;
+    modelPiece.setTile(tile);
     moveDirectly(tile.getCoordinate());
-  }
-
-  public Tile getCurrentTile() {
-    return currentTile;
   }
 
   @Override

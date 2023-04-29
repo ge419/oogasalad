@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import oogasalad.model.engine.actions.Action;
 import oogasalad.model.engine.actions.ActionParams;
+import oogasalad.model.engine.actions.CreatePlayersAction;
 import oogasalad.model.engine.actions.EventAction;
 import oogasalad.model.engine.events.StartGameEvent;
 import oogasalad.model.engine.prompt.Prompter;
@@ -23,7 +24,6 @@ public class SimpleEngine implements Engine {
   private static final Logger log = LogManager.getLogger(SimpleEngine.class);
   private final ActionQueue actionQueue;
   private final Provider<EventHandlerManager> managerProvider;
-  private final Prompter prompter;
   private EventHandlerManager currentManager;
 
   /**
@@ -32,15 +32,13 @@ public class SimpleEngine implements Engine {
   @Inject
   public SimpleEngine(
       ActionQueue actionQueue,
-      Provider<EventHandlerManager> managerProvider,
-      Prompter prompter
+      Provider<EventHandlerManager> managerProvider
   ) {
     this.actionQueue = actionQueue;
     this.managerProvider = managerProvider;
-    this.prompter = prompter;
 
     EventAction startGameAction = new EventAction(new StartGameEvent());
-    actionQueue.add(0, startGameAction);
+    actionQueue.add(3, startGameAction);
   }
 
   @Override
@@ -55,8 +53,9 @@ public class SimpleEngine implements Engine {
   }
 
   @Override
-  public void runNextAction() {
+  public void runNextAction(Prompter prompter) {
     Optional<Action> optAction = actionQueue.poll();
+    System.out.println(optAction.toString());
 
     if (optAction.isEmpty()) {
       log.warn("game ran out of actions");

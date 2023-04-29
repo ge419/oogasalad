@@ -3,25 +3,18 @@ package oogasalad.view.builder;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import java.io.File;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import oogasalad.controller.BuilderController;
@@ -94,8 +87,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     primaryStage.setScene(scene);
     primaryStage.setTitle(builderResource.getString("BuilderTitle"));
     primaryStage.show();
-//    System.out.println(myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getWidth());
-//    System.out.println(myBoardPane.localToScene(myBoardPane.getBoundsInLocal()).getHeight());
   }
 
   @Override
@@ -104,12 +95,10 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     if (file.isPresent()) {
       String givenDirectory = file.get().getPath();
       // myBuilderController.save(givenDirectory);
-      System.out.println(givenDirectory);
+      LOG.info("Saved to directory: " + givenDirectory);
     } else {
-      // todo: replace with LOG
-      System.out.println("Ruh-roh, can't save to a file that doesn't exist!");
-//      new Alert(Alert.AlertType.ERROR, builderResource.getString("FileNotFoundError"));
-      ErrorHandler.displayError(builderResource.getString("FileNotFoundError"), builderResource);
+      LOG.error("Either cancelled out of file save window or tried to save to a file that doesn't exist.");
+      ErrorHandler.displayError(builderResource.getString("FileNotFoundError"));
     }
   }
 
@@ -120,8 +109,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       System.out.println("Given directory: " + file.get().getPath());
       myBuilderController.load(file.get().getPath());
     } else {
-      // todo: display error
-      ErrorHandler.displayError(builderResource.getString("FileNotFoundError"), builderResource);
+      LOG.error("Tried loading an invalid directory, or exited out of file chooser window.");
+      ErrorHandler.displayError(builderResource.getString("FileNotFoundError"));
     }
   }
 
@@ -136,7 +125,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myTileCreationToggle = false;
     myDeleteToggle = false;
     //todo: make a better way of cancelling all the toggles, especially next
-//    myCurrentTile.ifPresent(viewTile -> viewTile.setColor(Color.LIGHTBLUE));
     myCurrentTile = Optional.empty();
     updateInfoText("RegularMode");
   }
@@ -205,8 +193,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myInfoText = text;
     myTopButtonBox = new ItemPane(builderResource, "ButtonBox", this);
     myTopButtonBox.addItems("TopBar");
-//    HBox buttonBox = (HBox) makeHBox("TopBar");
-//    addButtonsToPane(buttonBox, topBarResource);
 
     topBar.setLeft(title);
     topBar.setCenter(myInfoText);
@@ -246,11 +232,14 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myBoardPane.addEventFilter(TileEvent.SET_NEXT_TILE, e -> createTilePath(e));
     myBoardPane.addEventFilter(TileEvent.SHOW_FORM, e -> displayTileForm(e));
     myBoardPane.addEventFilter(TileEvent.SELECT_TILE, e -> selectTile(e));
+
+    LOG.debug("Initialized board pane successfully.");
   }
 
   private void initializeRulePane() {
     myRulePane = new RulesPane(this, myBuilderController, builderResource);
     setPaneSize(myRulePane, PANE_WIDTH, PANE_HEIGHT);
+    LOG.debug("Initialized rule pane successfully.");
   }
 
   private void setPaneSize(Pane pane, double width, double height) {
@@ -290,6 +279,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myTileCount++;
     myTileCreationToggle = false;
     updateInfoText("RegularMode");
+    LOG.debug("Successfully created tile " + tile.getTileId());
   }
 
   private void fireDragEvent(MouseEvent event, ViewTile tile) {
@@ -298,8 +288,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void handleBoardClick(MouseEvent e) {
-    System.out.println("hello, you clicked on x: " + e.getSceneX() + " and y: " + e.getSceneY());
-    System.out.println("relative x: " + e.getX() + " and y: " + e.getY());
+    LOG.info(String.format("User clicked on board at scene coordinates {%f, %f} and board coordinates {%f, %f}", e.getSceneX(), e.getSceneY(), e.getX(), e.getY()));
 
     if (myTileCreationToggle) {
       createTile(e);
@@ -307,6 +296,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void handleTileClick(ViewTile tile) {
+    LOG.debug("Clicked on tile " + tile.getTileId());
     if (myDeleteToggle) {
       TileEvent event = new TileEvent(TileEvent.DELETE_TILE, tile);
       myBoardPane.fireEvent(event);
@@ -323,10 +313,12 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void deleteTile(TileEvent event) {
+    String id = event.getTile().getId();
     myBuilderController.removeTile(event.getViewTile().getTileId());
     myTrailMaker.removeTrail(event.getViewTile().asNode());
     myTileCount = deleteNode(event.getViewTile().asNode(), myTileCount);
     myCurrentTile = Optional.empty();
+    LOG.debug("Deleted tile " + id);
   }
 
   private void createTilePath(TileEvent event) {

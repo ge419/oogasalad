@@ -1,86 +1,63 @@
 package oogasalad.controller;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
-import java.util.List;
-import javafx.scene.image.Image;
-
 public class GameInfo {
-
-  private List<Object> gameInfo;
-
   private String title;
   private String description;
   private String genre;
   private double width;
   private double height;
-  // TODO: change to image path
-//  private Image thumbnail;
 
-  public GameInfo() {
-    this.gameInfo = new ArrayList<>();
-  }
-  @JsonCreator
-  public GameInfo(@JsonProperty("gameInfo") List<Object> g) {
-    this.gameInfo = new ArrayList<>(g);
-  }
-
-  //TODO: refactor this method
-  public void setGameInfo(String title, String desc, String genre, double width, double height, Image thumbnail) {
-    setTitle(title);
-    setDescription(desc);
-    setGenre(genre);
-    setWidth(width);
-    setHeight(height);
-//    setThumbnail(thumbnail);
-  }
 
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
+  public GameInfo setTitle(String title) {
     this.title = title;
+    return this;
   }
 
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public GameInfo setDescription(String description) {
     this.description = description;
+    return this;
   }
 
   public String getGenre() {
     return genre;
   }
 
-  public void setGenre(String genre) {
+  public GameInfo setGenre(String genre) {
     this.genre = genre;
+    return this;
   }
 
   public double getWidth() {
     return width;
   }
 
-  public void setWidth(double width) {
+  public GameInfo setWidth(double width) {
     this.width = width;
+    return this;
   }
 
   public double getHeight() {
     return height;
   }
 
-  public void setHeight(double height) {
+  public GameInfo setHeight(double height) {
     this.height = height;
+    return this;
   }
 
-//  public Image getThumbnail() {
-//    return thumbnail;
-//  }
-//
-//  public void setThumbnail(Image thumbnail) {
-//    this.thumbnail = thumbnail;
-//  }
+  public String getImgSrc() {
+    return imgSrc;
+  }
+
+  public void setImgSrc(String path) {
+    this.imgSrc = path;
+  }
 }

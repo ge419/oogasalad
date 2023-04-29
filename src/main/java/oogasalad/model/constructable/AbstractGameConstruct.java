@@ -2,11 +2,11 @@ package oogasalad.model.constructable;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -35,9 +35,8 @@ public abstract class AbstractGameConstruct implements GameConstruct {
   @JsonIgnore
   private final SchemaDatabase database;
   private final Map<String, Attribute> attributeMap;
-  @JsonProperty("schemas")
   private List<String> schemaNames;
-  private String baseSchema;
+  private final String baseSchema;
   private String id;
   private final ObjectProperty<ObjectSchema> schemaProperty;
 
@@ -84,28 +83,17 @@ public abstract class AbstractGameConstruct implements GameConstruct {
 
   @JsonGetter("schemas")
   public List<String> getSchemaNames() {
-    return schemaNames;
+    return Collections.unmodifiableList(schemaNames);
   }
 
   @JsonSetter("schemas")
-  public void setJsonSchemaNames(List<String> jsonSchemaNames) {
+  public void setSchemaNames(List<String> newSchemaNames) {
     // Ensure base schema is covered
-    List<String> newNames = new ArrayList<>(jsonSchemaNames);
-    if (!jsonSchemaNames.contains(baseSchema)) {
-      newNames.add(baseSchema);
-    }
+    List<String> newNames = new ArrayList<>(newSchemaNames);
+    newNames.add(baseSchema);
 
-    setSchemaNames(newNames);
-  }
-
-  private void refreshSchema() {
-    setSchemaNames(schemaNames);
-  }
-
-  @JsonIgnore
-  protected void setSchemaNames(List<String> newSchemaNames) {
     List<ObjectSchema> schemas = new ArrayList<>();
-    for (String newSchemaName : newSchemaNames.stream().distinct().toList()) {
+    for (String newSchemaName : newNames.stream().distinct().toList()) {
       Optional<ObjectSchema> schemaOptional = database.getSchema(newSchemaName);
       if (schemaOptional.isEmpty()) {
         LOGGER.warn("schema does not exist {}", newSchemaNames);
@@ -118,6 +106,38 @@ public abstract class AbstractGameConstruct implements GameConstruct {
     ObjectSchema newSchema = SchemaUtilities.concatenateSchemas(schemas);
     this.schemaProperty.setValue(newSchema);
     reconcileAttributes();
+  }
+
+  @Override
+  @JsonIgnore
+  public ObjectSchema getSchema() {
+    return schemaProperty.get();
+  }
+
+  @Override
+  @JsonIgnore
+  public ReadOnlyObjectProperty<ObjectSchema> schemaProperty() {
+    return schemaProperty;
+  }
+
+  @Override
+  public void addSchema(String schemaName) {
+    this.schemaNames.add(schemaName);
+    refreshSchema();
+  }
+
+  @Override
+  public void addSchema(ObjectSchema schema) {
+    if (!database.containsSchema(schema.getName())) {
+      database.addCustomSchema(schema);
+    }
+
+    this.schemaNames.add(schema.getName());
+    refreshSchema();
+  }
+
+  private void refreshSchema() {
+    setSchemaNames(schemaNames);
   }
 
   /**
@@ -163,17 +183,5 @@ public abstract class AbstractGameConstruct implements GameConstruct {
     }
 
     return true;
-  }
-
-  @Override
-  @JsonIgnore
-  public ObjectSchema getSchema() {
-    return schemaProperty.get();
-  }
-
-  @Override
-  @JsonIgnore
-  public ReadOnlyObjectProperty<ObjectSchema> schemaProperty() {
-    return schemaProperty;
   }
 }

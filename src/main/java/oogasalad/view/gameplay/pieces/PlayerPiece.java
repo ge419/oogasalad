@@ -15,24 +15,13 @@ import oogasalad.view.gameplay.Movable;
 
 public class PlayerPiece extends GamePiece {
 
-  private final ObjectProperty<Piece> modelPiece;
-  private final ObjectProperty<Tile> position;
+  private final Piece modelPiece;
 
   public PlayerPiece(Piece BPiece) {
     super(BPiece.getImage());
-    this.modelPiece = new SimpleObjectProperty<>(BPiece);
-    position = new SimpleObjectProperty<>();
-    //TODO: BIND PLAYER piece position to MODEL piece
-    //make sure it refreshes per tile change
-//    xProperty().bind(modelPlayer.getX());
-//    yProperty().bind(modelPlayer.getY());
-
-    Util.initializeAndListen(modelPiece.get().tileProperty(),
+    this.modelPiece = BPiece;
+    Util.initializeAndListen(modelPiece.tileProperty(),
         optionalTile -> optionalTile.ifPresent(this::moveToTile));
-  }
-
-  public ObjectProperty<Tile> positionProperty() {
-    return this.position;
   }
 
   @Override
@@ -41,9 +30,7 @@ public class PlayerPiece extends GamePiece {
   }
 
   public void moveToTile(Tile tile) {
-    modelPiece.get().setTile(tile);
-    Bindings.bindBidirectional(this.positionProperty(), this.modelPiece.get().concreteTileProperty());
-
+    modelPiece.setTile(tile);
     moveDirectly(tile.getCoordinate());
   }
 

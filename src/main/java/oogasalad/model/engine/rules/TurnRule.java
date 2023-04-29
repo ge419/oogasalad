@@ -10,7 +10,9 @@ import oogasalad.model.constructable.Player;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.actions.ActionFactory;
+import oogasalad.model.engine.actions.CreatePlayersAction;
 import oogasalad.model.engine.actions.EventAction;
+import oogasalad.model.engine.events.ChooseNumberOfPlayersEvent;
 import oogasalad.model.engine.events.StartGameEvent;
 import oogasalad.model.engine.events.StartTurnEvent;
 
@@ -32,7 +34,7 @@ public class TurnRule extends AbstractGameConstruct implements EditableRule {
 
   @Override
   public void registerEventHandlers(EventRegistrar registrar) {
-    registrar.registerHandler(StartGameEvent.class, this::newTurn);
+    registrar.registerHandler(ChooseNumberOfPlayersEvent.class, this::newTurn);
     registrar.registerHandler(StartTurnEvent.class, this::newTurn);
   }
 
@@ -44,7 +46,7 @@ public class TurnRule extends AbstractGameConstruct implements EditableRule {
   }
 
   private Player getNextPlayer() {
-    List<Player> players = game.getPlayers().getPlayers();
+    List<Player> players = game.getPlayers().get().getPlayers();
     Player currentPlayer = game.getCurrentPlayer();
     int currentPlayerIndex = currentPlayer == null ? -1 : players.indexOf(currentPlayer);
 

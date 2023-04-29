@@ -80,7 +80,7 @@ public class BuilderController {
     gameHolder = GameHolder.createDefaultGame();
 //    saveManager = new SaveManager();
     board = gameHolder.getBoard();
-    players = gameHolder.getPlayers();
+    players = gameHolder.getPlayers().get();
     //TODO: fix filePath (get from view)
     String filePath = FILE_PATH + "/" + FOLDER_NAME;
     ObjectMapper mapper = new ObjectMapper();

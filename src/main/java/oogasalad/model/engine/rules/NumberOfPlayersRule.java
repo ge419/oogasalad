@@ -50,6 +50,6 @@ public class NumberOfPlayersRule extends AbstractGameConstruct implements Editab
   }
 
   private void generatePlayersOnSelection(EventHandlerParams<StartGameEvent> eventHandlerParams){
-    eventHandlerParams.actionQueue().add(1, actionFactory.makeCreatePlayersAction());
+    eventHandlerParams.actionQueue().add(0, actionFactory.makeCreatePlayersAction());
   }
 }

@@ -2,6 +2,7 @@ package oogasalad.view.gameplay.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javafx.scene.layout.BorderPane;
 import oogasalad.model.constructable.Piece;
 import oogasalad.view.Renderable;
@@ -10,10 +11,11 @@ public class ViewPieces implements Renderable {
 
   private final List<PlayerPiece> pieceList;
 
-  public ViewPieces(List<Piece> p) {
+  public ViewPieces(Optional<List<Piece>> p) {
     this.pieceList = new ArrayList<>();
-    for (Piece piece : p) {
-      pieceList.add(new PlayerPiece(piece));
+      for (Piece piece : p.get()) {
+        pieceList.add(new PlayerPiece(piece));
+
     }
   }
 

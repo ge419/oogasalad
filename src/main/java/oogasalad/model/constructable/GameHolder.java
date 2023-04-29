@@ -17,9 +17,9 @@ public class GameHolder {
   private int maxPlayerNum = 4;
   private GameInfo gameInfo;
   private BBoard board;
-  private Players players;
+  private Optional<Players> players;
   private Player currentPlayer;
-  private List<Piece> pieces;
+  private Optional<List<Piece>> pieces;
   private final ListProperty<Rule> rules = new SimpleListProperty<>(
       FXCollections.observableArrayList());
 
@@ -51,22 +51,22 @@ public class GameHolder {
 
   @JsonIgnore
   public void setPieces(List<Piece> pieces) {
-    this.pieces = pieces;
+    this.pieces = Optional.ofNullable(pieces);
   }
 
   @JsonIgnore
-  public List<Piece> getPieces() {
+  public Optional<List<Piece>> getPieces() {
     return this.pieces;
   }
 
   @JsonIgnore
-  public Players getPlayers() {
-    return players;
+  public Optional<Players> getPlayers() {
+    return this.players;
   }
 
   @JsonIgnore
   public void setPlayers(Players players) {
-    this.players = players;
+    this.players = Optional.ofNullable(players);
   }
 
   @JsonIgnore
@@ -80,7 +80,7 @@ public class GameHolder {
   }
 
   public Optional<Player> getPlayerById(String id) {
-    return players.getById(id);
+    return players.get().getById(id);
   }
 
   public Optional<Tile> getTileById(String id) {
@@ -88,7 +88,7 @@ public class GameHolder {
   }
 
   public Optional<Piece> getPieceById(String id) {
-    return players.getPieceById(id);
+    return players.get().getPieceById(id);
   }
 
 

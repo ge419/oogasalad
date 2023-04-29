@@ -18,7 +18,18 @@ public interface Prompter {
    */
   void rollDice(Runnable callback);
 
-  void yesNoDialog(Consumer<Boolean> callback);
+  /**
+   * Prompts the user to select yes/no
+   *
+   * @param callback consumes the selected boolean
+   */
+  default void yesNoDialog(String prompt, Consumer<Boolean> callback) {
+    selectSingleOption(
+        prompt,
+        List.of(new BooleanPromptOption(true), new BooleanPromptOption(false)),
+        option -> callback.accept(option.isTrue())
+    );
+  }
 
   /**
    * Prompts the user to select a single option.
@@ -28,18 +39,19 @@ public interface Prompter {
    *                 in the option list
    * @param <T>      type of the options to present
    */
-  <T extends PromptOption> void selectSingleOption(List<? extends T> options, Consumer<T> callback);
+  <T extends PromptOption>
+  void selectSingleOption(String prompt, List<? extends T> options, Consumer<T> callback);
 
-  /**
-   * Prompts the user to select multiple options.
-   * TODO: support selecting a minimum/maximum number of options
-   *
-   * @param options  list of options to be presented to the user
-   * @param callback consumes the selected options; should be given the exact same objects as what
-   *                 was in the option list
-   * @param <T>      type of the options to present
-   */
-  <T extends PromptOption> void selectMultipleOptions(
-      List<? extends T> options, Consumer<List<? extends T>> callback);
+//  /**
+//   * Prompts the user to select multiple options.
+//   * TODO: support selecting a minimum/maximum number of options
+//   *
+//   * @param options  list of options to be presented to the user
+//   * @param callback consumes the selected options; should be given the exact same objects as what
+//   *                 was in the option list
+//   * @param <T>      type of the options to present
+//   */
+//  <T extends PromptOption> void selectMultipleOptions(
+//      List<? extends T> options, Consumer<List<? extends T>> callback);
 
 }

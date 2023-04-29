@@ -1,13 +1,20 @@
 package oogasalad.view.tiles;
 
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import oogasalad.model.attribute.BooleanAttribute;
 import oogasalad.model.constructable.Tile;
+import oogasalad.view.Backgroundable;
 import oogasalad.model.engine.actions.BuyAction;
 import oogasalad.view.Coordinate;
 
-public interface ViewTile {
+/**
+ * <p>ViewTile interface composes the methods that are required for a ViewTile to function.</p>
+ *
+ * @author tmh85
+ */
+public interface ViewTile{
 
   /**
    * Returns the integer id for a given tile.
@@ -23,7 +30,8 @@ public interface ViewTile {
    *
    * @return double of size 2 with x and y position
    */
-  Coordinate getPosition();
+//  @Deprecated
+//  Coordinate getPosition();
 
   /**
    * <p>Sets the position of the tile.</p>
@@ -31,23 +39,51 @@ public interface ViewTile {
    *
    * @param coord Coordinate that you want the tile to go to.
    */
-  void setPosition(Coordinate coord);
+//  @Deprecated
+//  void setPosition(Coordinate coord);
 
   /**
    * Returns the current color of a tile.
    *
    * @return color of tile
    */
-  Paint getColor();
+//  @Deprecated
+//  Paint getColor();
 
   /**
    * Set the color of a tile using a color object.
    *
    * @param color color you want the tile to be.
    */
-  void setColor(Color color);
+//  @Deprecated
+//  void setColor(Color color);
 
+  /**
+   * Returns the backend tile contained within the frontend tile.
+   * @return backend tile
+   */
   Tile getTile();
 
-  void setId(String tiles);
+  /**
+   * Sets the ID for a given tile.
+   * @param tiles
+   */
+//  @Deprecated
+//  void setId(String tiles);
+
+  /**
+   * Sets the width and height of the given ViewTile
+   * @param width width as a double
+   * @param height height as a double
+   */
+  void setSize(double width, double height);
+
+  /**
+   * <p>Returns the node that encompasses this tile.
+   * (So if this tile extends Rectangle, it will return the Rectangle object.)</p>
+   * <p>For tiles that extend a node, this might seem a little redundant, but this is so that other
+   * objects can just use ViewTiles to manipulate <em>any</em> kind of tile visually.</p>
+   * @return Node
+   */
+  Node asNode();
 }

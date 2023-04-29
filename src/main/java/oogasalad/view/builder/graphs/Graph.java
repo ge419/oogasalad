@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import oogasalad.view.tiles.ViewTile;
 
+@Deprecated
 public class Graph implements GraphInterface, MutableGraph {
 
   private final HashMap<ViewTile, ArrayList<ViewTile>> myMap;

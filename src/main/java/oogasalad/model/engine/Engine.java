@@ -1,6 +1,7 @@
 package oogasalad.model.engine;
 
 import java.util.List;
+import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.Rule;
 
 /**
@@ -38,5 +39,5 @@ public interface Engine {
    *
    * @throws MissingActionsException if no actions are pending.
    */
-  void runNextAction();
+  void runNextAction(Prompter prompter);
 }

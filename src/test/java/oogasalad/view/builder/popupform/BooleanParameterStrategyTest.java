@@ -8,6 +8,8 @@ import oogasalad.model.attribute.Attribute;
 import oogasalad.model.attribute.BooleanAttribute;
 import oogasalad.model.attribute.BooleanMetadata;
 import oogasalad.model.attribute.Metadata;
+import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.constructable.Tile;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
@@ -29,7 +31,8 @@ class BooleanParameterStrategyTest extends DukeApplicationTest {
         attr = meta.makeBooleanAttribute();
         booleanParameterStrategy = new BooleanParameterStrategy(attr, meta);
         VBox root = new VBox();
-        root.getChildren().add(booleanParameterStrategy.renderInput(resourceBundle, root));
+        Tile myGameConstruct = new Tile(new SchemaDatabase());
+        root.getChildren().add(booleanParameterStrategy.renderInput(resourceBundle, root, myGameConstruct.getId()));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

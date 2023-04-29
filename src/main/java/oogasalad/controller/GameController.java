@@ -12,6 +12,7 @@ import oogasalad.model.engine.Engine;
 import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.model.engine.rules.DieMoveRule;
+import oogasalad.model.engine.rules.NumberOfPlayerPieceRule;
 import oogasalad.model.engine.rules.NumberOfPlayersRule;
 import oogasalad.model.engine.rules.TurnRule;
 import oogasalad.view.ViewFactory;
@@ -52,6 +53,7 @@ public class GameController {
     engine.setRules(
         List.of(
             injector.getInstance(NumberOfPlayersRule.class),
+            injector.getInstance(NumberOfPlayerPieceRule.class),
             injector.getInstance(TurnRule.class),
             injector.getInstance(DieMoveRule.class),
             injector.getInstance(BuyTileRule.class),

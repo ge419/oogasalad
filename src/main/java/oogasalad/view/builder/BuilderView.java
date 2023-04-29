@@ -53,8 +53,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private static final double PANE_WIDTH = 500;
   private static final double PANE_HEIGHT = 500;
-  private static final double SCENE_WIDTH = 900;
-  private static final double SCENE_HEIGHT = 600;
+  private static final double SCENE_WIDTH = 1400;
+  private static final double SCENE_HEIGHT = 700;
   private static final Logger LOG = LogManager.getLogger(BuilderView.class);
   private ResourceBundle builderResource;
   private Pane myBoardPane;
@@ -383,7 +383,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       updateInfoText("TileNextRemovalModePart2");
     }
     else {
-      updateInfoText("TileNextMode");
+      updateInfoText("TileSelectMode");
     }
   }
 

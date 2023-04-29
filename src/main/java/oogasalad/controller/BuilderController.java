@@ -213,7 +213,7 @@ public class BuilderController {
 
   private void loadIntoBuilder(){
     boolean lostTiles = false;
-    getBuilderView().loadBoardSize(gameInfo.getWidth(), gameInfo.getHeight());
+//    getBuilderView().loadBoardSize(gameInfo.getWidth(), gameInfo.getHeight());
 
     for (Tile tile : board.getTiles()){
       if (!checkTileValidity(tile, gameInfo.getWidth(), gameInfo.getHeight())){

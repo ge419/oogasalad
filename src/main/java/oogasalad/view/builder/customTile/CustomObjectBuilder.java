@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 
 public class CustomObjectBuilder extends Application implements BuilderUtility {
     private final String DEFAULT_TITLE = "CustomTileMaker";
-    private final String STYLE_PATH =  "/customTiles/customObjectBuilder.css";
+    final String STYLE_PATH =  "/customTiles/customObjectBuilder.css";
     private Stage stage;
     private LeftPane leftPane;
     private CustomObject rightPane;
@@ -33,10 +33,10 @@ public class CustomObjectBuilder extends Application implements BuilderUtility {
         start(PrimaryStage, "en-US");
     }
 
-    public void start(Stage PrimaryStage, String defaultLanguage) {
+    public void start(Stage PrimaryStage, String language) {
 //        stage = PrimaryStage;
         stage = new Stage();
-        this.languageBundle = ResourceBundle.getBundle("customTiles." + defaultLanguage);
+        this.languageBundle = ResourceBundle.getBundle("customTiles." + language);
 
         rightPane = new CustomObject(() -> leftPane.swapCurrentClicked(rightPane.currentClickedInfo, rightPane.newCurrentClickedInfo));
         leftPane = new LeftPane();

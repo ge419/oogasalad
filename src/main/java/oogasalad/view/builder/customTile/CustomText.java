@@ -12,13 +12,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import oogasalad.model.attribute.Metadata;
 import oogasalad.model.attribute.StringMetadata;
+import oogasalad.view.builder.BuilderUtility;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class CustomText extends Label implements CustomElement {
+public class CustomText extends Label implements CustomElement, BuilderUtility {
     private String name = "";
     private String defaultContents;
     private int fontSize;
@@ -121,7 +122,7 @@ public class CustomText extends Label implements CustomElement {
     public VBox getInfo() {
         List<Node> nodes = new ArrayList<>();
 
-        // Create a text field to edit the default text displayed
+
         TextField defaultTextField = new TextField(this.defaultContents);
         defaultTextField.setOnAction(event -> setDefaultContents(defaultTextField.getText()));
         nodes.add(new Label("Default Contents:"));
@@ -140,7 +141,7 @@ public class CustomText extends Label implements CustomElement {
         boldCheckbox.setOnAction(event -> setBold(boldCheckbox.isSelected()));
         nodes.add(new Label("Bold:"));
 
-        return CustomElementHelper.makeVbox(this, nodes);
+        return makeVbox(this, nodes);
     }
 
     @Override

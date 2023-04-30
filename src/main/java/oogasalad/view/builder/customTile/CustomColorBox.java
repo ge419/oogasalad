@@ -10,14 +10,16 @@ import javafx.scene.shape.Rectangle;
 import oogasalad.model.attribute.ColorMetadata;
 import oogasalad.model.attribute.Metadata;
 import oogasalad.model.attribute.StringMetadata;
+import oogasalad.view.builder.BuilderUtility;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
-public class CustomColorBox extends Rectangle implements CustomElement {
+public class CustomColorBox extends Rectangle implements CustomElement, BuilderUtility {
 
     private String name = "";
     private String defaultColor;
@@ -88,7 +90,7 @@ public class CustomColorBox extends Rectangle implements CustomElement {
         Label heightLabel = new Label("Height");
         colorBoxSpecificElements.add(heightLabel);
         colorBoxSpecificElements.add(createHeightSlider());
-        return CustomElementHelper.makeVbox(this, colorBoxSpecificElements);
+        return makeVbox(this, colorBoxSpecificElements);
     }
 
     @Override

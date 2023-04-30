@@ -77,7 +77,7 @@ public class CustomImage extends ImageView implements CustomElement {
         Slider sizeSlider = createSizeSlider();
         imageSpecificNodes.addAll(Arrays.asList(sizeLabel, sizeSlider));
 
-        return CustomElementHelper.makeVbox(this, imageSpecificNodes);
+        return makeVbox(this, imageSpecificNodes);
     }
 
     @Override

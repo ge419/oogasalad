@@ -65,6 +65,7 @@ public class RulesPane extends BorderPane {
         .addListener(((observable, oldValue, newValue) -> {
           System.out.println(
               "oh wow, you selected " + myRulesList.getSelectionModel().getSelectedItem());
+//          myBuilderController.makeRulesPopup(myBuilderController.getClassForRule(newValue));
         }));
   }
 

@@ -2,13 +2,10 @@ package oogasalad.view.tiles;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import java.util.Map;
-import java.util.function.BiFunction;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import oogasalad.model.constructable.Tile;
-import oogasalad.view.builder.popupform.PopupForm;
 
 /**
  * <p>ViewTileWrapper wraps around a backend tile and a view tile factory to create any
@@ -26,23 +23,16 @@ import oogasalad.view.builder.popupform.PopupForm;
 public class ViewTileWrapper implements ViewTile {
 
   private final Tile myTile;
-  private final ViewTileFactory myTileFactory;
-  private Map<String, BiFunction<ViewTileFactory, Tile, ViewTile>> myMap;
+  private final TileRenderStrategy renderStrategy;
   private ViewTile myConcreteTile;
   private final Group myRoot;
 
   @Inject
-  public ViewTileWrapper(@Assisted Tile tile, ViewTileFactory tileFactory) {
+  public ViewTileWrapper(@Assisted Tile tile, TileRenderStrategy renderStrategy) {
     this.myTile = tile;
     myTile.getHeight();
     //todo: error handle
-    myMap = Map.of(
-        "image", (factory, btile) -> factory.createImageTile(btile),
-        "basic", (factory, btile) -> factory.createBasicTile(btile),
-        "street", (factory, btile) -> factory.createStreetTile(btile),
-        "custom", (factory, btile) -> factory.createCustomTile(btile)
-    );
-    this.myTileFactory = tileFactory;
+    this.renderStrategy = renderStrategy;
     myRoot = new Group();
     bindPositionAttributes(tile);
     bindRotationAttributes(tile);
@@ -71,13 +61,8 @@ public class ViewTileWrapper implements ViewTile {
 
 
   private void generateTile() {
-    myConcreteTile = createConcreteTile(myTile.getViewType(), myTile);
+    myConcreteTile = renderStrategy.createViewTile(myTile);
     myRoot.getChildren().setAll(myConcreteTile.asNode());
-  }
-
-  public ViewTile createConcreteTile(String type, Tile tile) {
-    // todo: log tile being created
-    return myMap.get(type).apply(myTileFactory, tile);
   }
 
   @Override

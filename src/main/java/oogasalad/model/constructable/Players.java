@@ -8,11 +8,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import org.checkerframework.checker.units.qual.A;
 
 public class Players {
   private List<Player> players;
@@ -26,7 +24,7 @@ public class Players {
     this.players = new ArrayList<>(p);
   }
 
-  public List<Player> getPlayers() {
+  public List<Player> getList() {
     return players;
   }
 

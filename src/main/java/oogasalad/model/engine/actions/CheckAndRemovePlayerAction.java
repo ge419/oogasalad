@@ -25,7 +25,7 @@ public class CheckAndRemovePlayerAction implements Action {
   @Override
   public void runAction(ActionParams actionParams) {
     List<Player> playersToRemove = new ArrayList<>();
-    for (Player player : gameholder.getPlayers().get().getPlayers()) {
+    for (Player player : gameholder.getPlayers().getList()) {
       if (player.getScore() <= scoreMinBound) {
         playersToRemove.add(player);
         actionParams.emitter().emit(new PlayerRemovalEvent());

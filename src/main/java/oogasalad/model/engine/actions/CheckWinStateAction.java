@@ -26,7 +26,7 @@ public class CheckWinStateAction implements Action {
   public void runAction(ActionParams actionParams) {
     List<StringPromptOption> validation = new ArrayList<>();
     validation.add(new StringPromptOption("End Game"));
-    if (gameHolder.getPlayers().get().getPlayers().size()==lastNStanding) {
+    if (gameHolder.getPlayers().getList().size()==lastNStanding) {
       actionParams.prompter().selectSingleOption(String.format("Congratulations on Being the Last %d Player!", lastNStanding), validation, this::gameEnd);
     }
   }

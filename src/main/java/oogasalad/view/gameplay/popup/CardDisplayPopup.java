@@ -12,36 +12,31 @@ public class CardDisplayPopup {
 
   private Stage stage;
   private BorderPane root;
+  private String cardTitle;
+  private String cardDescription;
 
-  public CardDisplayPopup(String cardText) {
+  public CardDisplayPopup(String title, String description) {
     this.stage = new Stage();
     this.root = new BorderPane();
+    cardTitle = title;
+    cardDescription = description;
+    createPopupContent();
+  }
 
-    // Add the card text to a Label
-    Label cardLabel = new Label(cardText);
+   private void createPopupContent() {
+    Label cardLabel = new Label(cardDescription);
     cardLabel.setPadding(new Insets(10));
     cardLabel.setAlignment(Pos.CENTER);
-
-    // Add the Label to the center of the BorderPane
     root.setCenter(cardLabel);
 
-    // Add a close button to the bottom of the BorderPane
     HBox bottomBox = new HBox();
     bottomBox.setPadding(new Insets(10));
     bottomBox.setAlignment(Pos.CENTER);
     root.setBottom(bottomBox);
 
-    Label closeButton = new Label("Close");
-    closeButton.setStyle("-fx-background-color: lightgray; -fx-padding: 5;");
-    closeButton.setOnMouseClicked(event -> {
-      stage.close();
-    });
-    bottomBox.getChildren().add(closeButton);
-
-    // Set the scene and show the stage
     Scene scene = new Scene(root, 300, 200);
     stage.setScene(scene);
-    stage.setTitle("Card Display");
+    stage.setTitle(cardTitle);
   }
 
   public void showCard() {

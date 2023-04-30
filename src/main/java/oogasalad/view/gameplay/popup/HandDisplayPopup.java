@@ -2,6 +2,7 @@ package oogasalad.view.gameplay.popup;
 
 import java.util.List;
 
+import java.util.function.Consumer;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
@@ -13,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import oogasalad.view.gameplay.pieces.Cards;
 import oogasalad.view.tiles.ViewTile;
 
 public class HandDisplayPopup extends BorderPane {
@@ -59,7 +61,15 @@ public class HandDisplayPopup extends BorderPane {
     stage.close();
   }
 
-  public void cardClickedHandler(EventHandler<MouseEvent> handler) {
-    this.setOnMouseClicked(handler);
+  public void cardClickedHandler(Consumer<ViewTile> handler) {
+    this.setOnMouseClicked(event -> {
+      Node clickedNode = event.getPickResult().getIntersectedNode();
+      System.out.println("hh" + clickedNode);
+      if (clickedNode instanceof ViewTile clickedViewTile) {
+        handler.accept(clickedViewTile);
+      }
+    });
   }
+
+
 }

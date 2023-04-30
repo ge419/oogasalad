@@ -19,13 +19,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import oogasalad.controller.GameController;
+import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
+import oogasalad.model.constructable.Tile;
 import oogasalad.model.observers.GameObserver;
 import oogasalad.view.Renderable;
 import oogasalad.view.gameplay.Players.ViewPlayers;
+import oogasalad.view.gameplay.pieces.ImageCard;
 import oogasalad.view.gameplay.pieces.ViewPieces;
 import oogasalad.view.gameplay.pieces.Cards;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
@@ -51,6 +54,7 @@ public class Gameview implements GameObserver {
   private ViewPlayers viewPlayers = new ViewPlayers(null);
   private Stage myStage;
   private ViewPieces viewPieces;
+  private HandDisplayPopup popup;
 
   @Inject
   public Gameview(
@@ -84,23 +88,21 @@ public class Gameview implements GameObserver {
     // TODO: Dynamically watch players/pieces
 
 
-    //TODO: take this out when cards are implemented
+    //TODO: use button creator to make button
     Button button = new Button("Show Card Popup");
+
     button.setOnAction(event -> {
-      HandDisplayPopup popup = new HandDisplayPopup();
+      if (popup != null) {popup.hideHand();}
+      popup = new HandDisplayPopup();
+      //TODO: only pass in Player cards
       Cards cards = new Cards(game.getBoard().getTiles());
       cards.render(popup);
       List<ViewTile> cardList = cards.getCardList();
       popup.addCards(cardList);
-      popup.cardClickedHandler(card -> {
-        //TODO: add text
-        String cardText = "card.getTileId();";
-        CardDisplayPopup cardPopup = new CardDisplayPopup(cardText);
-        cardPopup.showCard();
-      });
       Point2D offset = new Point2D(UIroot.getLayoutX(), UIroot.getLayoutY());
       popup.showHand(UIroot, offset);
     });
+
 
 
 

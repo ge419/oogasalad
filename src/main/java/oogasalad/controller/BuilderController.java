@@ -6,11 +6,9 @@ import com.google.inject.Injector;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +62,6 @@ public class BuilderController {
   private SchemaDatabase db;
   private ViewTileFactory viewTileFactory;
   private BBoard board;
-//  private SaveManager saveManager;
   private final Injector injector;
   private String gameID;
   private GameDao gameDao;
@@ -162,10 +159,6 @@ public class BuilderController {
   public PopupForm createPopupForm(GameConstruct construct, ResourceBundle language,
       Pane location) {
     return new PopupForm(construct, language, location);
-  }
-
-  private void defaultRules() {
-//    saveManager.loadDefRules();
   }
 
   /**

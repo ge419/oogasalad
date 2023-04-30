@@ -306,7 +306,7 @@ public class BuilderController {
   }
   public String getRuleDescription(String ruleAsString){
     return rules.get(ruleAsString);
-//    return "This is a test string! Selected rule: " + ruleAsString;
+
   }
   public String getGameID() {
     return gameID;

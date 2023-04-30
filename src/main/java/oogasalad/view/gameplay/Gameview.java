@@ -51,6 +51,7 @@ public class Gameview implements GameObserver {
   private Scene scene;
   private BorderPane UIroot;
   private ViewPlayers viewPlayers = new ViewPlayers(null);
+  private ViewPieces viewPieces;
 
   @Inject
   public Gameview(
@@ -129,7 +130,7 @@ public class Gameview implements GameObserver {
 
   @Override
   public void updateOnPieces(List<Piece> pieces) {
-    ViewPieces viewPieces = new ViewPieces(game.getPieces());
+    viewPieces = new ViewPieces(game.getPieces());
     viewPieces.render(UIroot);
   }
 
@@ -137,7 +138,14 @@ public class Gameview implements GameObserver {
   public void updateOnPlayerRemoval(List<Player> players) {
     //TODO: make the player pieces be removed
     List<String> ids = new ArrayList<>();
-    for (Player p : players)  ids.add(p.getId());
+    List<Piece> pieces = new ArrayList<>();
+    for (Player p : players) {
+      ids.add(p.getId());
+      pieces.addAll(p.getPieces());
+    }
+    for (Piece piece : pieces) {
+      UIroot.getChildren().remove(viewPieces.getViewPieceByBPiece(piece));
+    }
     for (String id : ids) {
       UIroot.getChildren().remove(viewPlayers.getPlayer(id));
       Alert alert = new Alert(AlertType.INFORMATION);
@@ -146,6 +154,5 @@ public class Gameview implements GameObserver {
       alert.setContentText(String.format("Player %s Gets Removed!", id));
       alert.showAndWait();
     }
-
   }
 }

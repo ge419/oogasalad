@@ -132,7 +132,7 @@ public class SaveManager {
     String basename = filename.substring(0, extensionIndex);
     String extension = filename.substring(extensionIndex);
 
-    for (int i = 0; i < MAX_DUP_SEARCH; i++) {
+    for (int i = 1; i < MAX_DUP_SEARCH; i++) {
       String newName = basename + "_" + i + extension;
 
       if (!Files.exists(assetsDir.resolve(newName))) {
@@ -141,7 +141,7 @@ public class SaveManager {
     }
 
     // Resort to UUID
-    String newName = UUID.randomUUID().toString() + extension;
+    String newName = UUID.randomUUID() + extension;
     if (Files.exists(assetsDir.resolve(newName))) {
       // Give up
       throw new SaveManagerException("unable to generate unique asset filename");

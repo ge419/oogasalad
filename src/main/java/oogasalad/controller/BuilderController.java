@@ -93,6 +93,7 @@ public class BuilderController {
 
   public ViewTile addTile(MouseEvent e) {
     Coordinate pos = new Coordinate((double) e.getX(), (double) e.getY(), 0.0);
+    System.out.println(e.getX() + " " + e.getY());
     Tile t = new Tile(db);
     t.setCoordinate(pos);
     board.addTile(t);

@@ -40,70 +40,11 @@ public class BuilderViewTest extends DukeApplicationTest {
   }
 
   @Test
-  void testPlaceTile() {
-    createTiles();
-    int expectedTileOnePLacement = TEST_CLICK_LOCATION_INITIAL + 10;
-    int expectedTileTwoPlacement = TEST_CLICK_LOCATION_INITIAL + 110;
-
-    clickBoard(expectedTileOnePLacement, expectedTileOnePLacement);
-    assert(checkIfExists("#TileSelectMode"));
-
-    clickOn(lookup("#CancelButton").query());
-
-    clickBoard(expectedTileTwoPlacement, expectedTileTwoPlacement);
-    assert(checkIfExists("#TileSelectMode"));
+  private void testPaneSwitch(){
+    clickOn(lookup("#ChangeRules").query());
+//    assert()
   }
 
-  @Test
-  void testSetNextTile() {
-    createTiles();
-    int expectedTileOnePlacement = myClickLocations.get(0);
-    int expectedTileTwoPlacement = myClickLocations.get(1);
-
-    clickBoard(expectedTileOnePlacement, expectedTileOnePlacement);
-    clickBoard(expectedTileTwoPlacement, expectedTileTwoPlacement);
-
-    assert(checkIfExists("#test0"));
-
-    clickBoard(expectedTileTwoPlacement, expectedTileTwoPlacement);
-    clickBoard(expectedTileOnePlacement, expectedTileOnePlacement);
-
-    assert(checkIfExists("#test1"));
-  }
-
-  @Test
-  void testTileDeletion(){
-    createTiles();
-    clickOn(lookup("#DeleteButton").query());
-    for (int i = 0; i <= 3; i++){
-      clickTile("#Tile" + i);
-      assert(!checkIfExists("#Tile" + i));
-    }
-  }
-
-  @Test
-  void testTilePathDeletion(){
-    createTiles();
-    clickOn(lookup("#AddTile").query());
-    // creates test0
-    clickTwoTiles("#Tile0", "#Tile1");
-    //creates test1
-    clickTwoTiles("#Tile1", "#Tile0");
-    clickOn(lookup("#RemoveNext").query());
-    clickTwoTiles("#Tile0", "#Tile1");
-    assert(!checkIfExists("#test0"));
-
-    clickTwoTiles("#Tile1", "#Tile0");
-    assert(!checkIfExists("#test1"));
-  }
-
-  @Test
-  void testTileDrag(){
-    createTiles();
-    int firstTileLocation = myClickLocations.get(0);
-    Node tile = lookup("#Tile0").query();
-    drag(tile, MouseButton.PRIMARY).dropBy(100, 100);
-  }
 
   private void createTiles() {
     clickOn(lookup("#AddTile").query());

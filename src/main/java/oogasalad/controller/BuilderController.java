@@ -1,10 +1,13 @@
 package oogasalad.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +19,8 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import oogasalad.controller.builderevents.Dragger;
+import oogasalad.model.attribute.FileReader;
+import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.GameConstruct;
@@ -23,6 +28,9 @@ import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.model.engine.rules.EditableRule;
+import oogasalad.model.engine.rules.Rule;
+import oogasalad.model.exception.FileReaderException;
+import oogasalad.model.exception.ResourceReadException;
 import oogasalad.util.SaveManager;
 import oogasalad.view.BuilderFactory;
 import oogasalad.view.Coordinate;
@@ -243,5 +251,23 @@ public class BuilderController {
     }
 
     return true;
+  }
+
+  private List<String> readRules() {
+    try{
+      List<String> ruleList = new ArrayList<>();
+      for (File file: FileReader.readFiles("rules")) {
+//        ruleList.add(readRulesFile(file.toPath()).getAttribute());
+      }
+      return ruleList;
+    } catch (FileReaderException | IOException e) {
+      logger.fatal("Failed to read resource rule files", e);
+      throw new ResourceReadException(e);
+    }
+  }
+
+  private EditableRule readRulesFile(Path path) throws IOException {
+    ObjectMapper mapper = new ObjectMapper();
+    return mapper.readValue(path.toFile(), EditableRule.class);
   }
 }

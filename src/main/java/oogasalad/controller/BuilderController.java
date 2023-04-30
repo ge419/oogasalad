@@ -24,6 +24,7 @@ import javafx.scene.layout.Pane;
 import oogasalad.controller.builderevents.Dragger;
 import oogasalad.model.accesscontrol.dao.GameDao;
 import oogasalad.model.attribute.Attribute;
+import oogasalad.model.attribute.AttributeModule;
 import oogasalad.model.attribute.FileReader;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.attribute.SimpleObjectSchema;
@@ -78,7 +79,7 @@ public class BuilderController {
         new BuilderControllerModule(language, gameID, gameDao)
     );
     injector.getInstance(SaveManager.class).loadGame();
-    readDefaultRules();
+//    readDefaultRules();
     builderView = injector.getInstance(BuilderFactory.class).makeBuilder(language, this);
     viewTileFactory = injector.getInstance(ViewTileFactory.class);
     logger.info("created builder");
@@ -284,7 +285,8 @@ public class BuilderController {
         System.out.println(attributeList);
         RuleFactory ruleFactory = new RuleFactory();
         AbstractGameConstruct rule = ruleFactory.generate(simpleObjectSchema.getName(),
-            attributeList);
+            db);
+
         String name = StringAttribute.from(rule.getAttribute(RULE_NAME_KEY).get()).getValue();
         String desc = StringAttribute.from(rule.getAttribute(RULE_DESCRIPTION_KEY).get()).getValue();
         rules.putIfAbsent(name, desc);

@@ -34,6 +34,7 @@ public class BuilderControllerModule extends AbstractModule {
 
   @Override
   protected void configure() {
+    install(new AttributeModule());
     install(new GameHolderModule());
     install(new SaveManagerModule(saveDir));
     install(new ObjectMapperModule());

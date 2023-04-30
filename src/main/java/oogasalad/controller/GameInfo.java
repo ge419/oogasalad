@@ -6,6 +6,7 @@ public class GameInfo {
   private String genre;
   private double width;
   private double height;
+  private String imgSrc;
 
 
   public String getTitle() {

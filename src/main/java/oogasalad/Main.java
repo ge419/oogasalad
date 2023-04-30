@@ -28,7 +28,7 @@ public class Main extends Application {
   public void start(Stage primaryStage) throws Exception {
     Path saveDir = Path.of("data", "monopoly");
 
-    GameController controller = new GameController(saveDir);
+    GameController controller = new GameController(saveDir, "English");
     try {
       controller.setGame(primaryStage);
     } catch (IOException e) {

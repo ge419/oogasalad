@@ -15,8 +15,12 @@ import oogasalad.model.constructable.Players;
 import oogasalad.model.engine.events.PlayerCreationEvent;
 import oogasalad.model.engine.prompt.IntegerPromptOption;
 import oogasalad.model.exception.ResourceReadException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CreatePlayersAction implements Action {
+
+  private static final Logger LOGGER = LogManager.getLogger(CreatePlayersAction.class);
   private final Provider<Player> playerProvider;
   private final Provider<Piece> pieceProvider;
   private final GameHolder gameholder;
@@ -45,7 +49,9 @@ public class CreatePlayersAction implements Action {
       options.add(new IntegerPromptOption(i));
     }
     actionParams.prompter().selectSingleOption("Select number of players", options, this::createPlayers);
+    LOGGER.info("Create Game Players upon User Selection");
     actionParams.emitter().emit(new PlayerCreationEvent());
+    LOGGER.info("Emit Player Creation Event");
   }
 
   private void createPlayers(IntegerPromptOption selectedPlayers) {

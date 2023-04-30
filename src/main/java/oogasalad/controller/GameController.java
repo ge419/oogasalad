@@ -28,8 +28,8 @@ public class GameController {
   private final Injector injector;
   LinkedList<Effect> effects;
 
-  public GameController(Path saveDir) {
-    this.injector = Guice.createInjector(new GameControllerModule(saveDir));
+  public GameController(Path saveDir, String language) {
+    this.injector = Guice.createInjector(new GameControllerModule(saveDir, language));
     injector.getInstance(SaveManager.class).loadGame();
 
     gv = injector.getInstance(ViewFactory.class).makeGameview(this);

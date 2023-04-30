@@ -7,6 +7,7 @@ public enum UserSchema {
   EMAIL("email"),
   GAMES("games"),
   NAME("name"),
+  NUMGAMESPLAYED("number_of_games_played"),
   USERNAME("username"),
   PASSWORD("password"),
   PREFERRED_LANGUAGE("preferred_language"),

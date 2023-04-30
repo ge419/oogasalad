@@ -4,9 +4,9 @@ public class GameInfo {
   private String title;
   private String description;
   private String genre;
+  private String imgSrc;
   private double width;
   private double height;
-  private String imgSrc;
 
 
   public String getTitle() {

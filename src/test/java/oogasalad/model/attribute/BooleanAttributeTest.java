@@ -1,16 +1,18 @@
 package oogasalad.model.attribute;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 class BooleanAttributeTest {
+
   @Mock
   Attribute attribute;
   private static final String KEY = "testBoolean";
@@ -33,6 +35,7 @@ class BooleanAttributeTest {
   void testGetValue() {
     when(attribute.getKey()).thenReturn("testKey");
     assertEquals(true, booleanAttribute.getValue());
+    assertNotNull(booleanAttribute.valueProperty());
   }
 
   @Test
@@ -41,4 +44,14 @@ class BooleanAttributeTest {
     assertEquals(!VALUE, booleanAttribute.getValue());
   }
 
+  @Test
+  void testEqual(){
+    BooleanAttribute same = booleanAttribute;
+    BooleanAttribute diff = new BooleanAttribute("diff", true);
+    assertTrue(booleanAttribute.equals(same));
+    assertEquals(booleanAttribute.hashCode(), same.hashCode());
+    diff.setValue(false);
+    assertFalse((booleanAttribute.equals(diff)));
+  }
 }
+

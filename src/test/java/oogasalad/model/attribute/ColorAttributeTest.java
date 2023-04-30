@@ -1,12 +1,13 @@
 package oogasalad.model.attribute;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ColorAttributeTest {
+
   private static final String KEY = "testColor";
   private static final String VALUE = "red";
   ColorAttribute colorAttribute;

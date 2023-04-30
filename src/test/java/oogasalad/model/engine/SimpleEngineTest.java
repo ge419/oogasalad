@@ -20,6 +20,7 @@ import oogasalad.model.engine.events.AttributeEvent;
 import oogasalad.model.engine.events.StartGameEvent;
 import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.Rule;
+import oogasalad.view.tabexplorer.userpreferences.Languages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -35,7 +36,7 @@ class SimpleEngineTest {
   void setUp() {
     mockPrompter = mock(Prompter.class);
     injector = Guice.createInjector(
-        new EngineModule("English"),
+        new EngineModule(Languages.ENGLISH.getLocaleStr()),
         binder -> binder.bind(Prompter.class).toInstance(mockPrompter)
     );
     engine = injector.getInstance(SimpleEngine.class);

@@ -42,8 +42,8 @@ public class GameController {
     );
   }
 
-  public void setGame(Stage stage) throws IOException {
-    gv.renderGameview(stage);
+  public void setGame(Stage gameStage) throws IOException {
+    gv.renderGameview(gameStage);
     List<Rule> ruleList = new ArrayList<>(game.getRules());
     ruleList.add(new SetDieRule(gv.getDie()));
     engine.setRules(ruleList);

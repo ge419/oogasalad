@@ -9,7 +9,7 @@ public interface UserDao {
 
   Map<String, Object> getUserData(String userID);
 
-  boolean isUserRegistered(String userID);
+  boolean isUserRegistered(String username);
 
   String registerNewUser(String username, String password)
       throws ExecutionException, InterruptedException;

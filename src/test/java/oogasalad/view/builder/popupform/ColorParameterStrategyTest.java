@@ -29,7 +29,7 @@ class ColorParameterStrategyTest extends DukeApplicationTest {
 
     @Override
     public void start(Stage stage) {
-        ResourceBundle resourceBundle = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "en-USBuilderText");
         String attributeKey = "attr";
         meta = new ColorMetadata(attributeKey);
         meta.setName(attributeKey);

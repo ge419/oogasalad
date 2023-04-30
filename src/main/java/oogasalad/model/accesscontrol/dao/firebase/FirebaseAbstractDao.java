@@ -4,17 +4,15 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
-import com.google.firebase.cloud.FirestoreClient;
 import com.google.inject.Inject;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-import oogasalad.model.accesscontrol.database.FirebaseAccessor;
+import oogasalad.model.accesscontrol.database.firebase.FirebaseAccessor;
 
 public abstract class FirebaseAbstractDao {
 
   protected final FirebaseAccessor firebaseAccessor;
   protected final Firestore db;
-
   @Inject
   public FirebaseAbstractDao(FirebaseAccessor firebaseAccessor){
     this.firebaseAccessor = firebaseAccessor;
@@ -22,11 +20,10 @@ public abstract class FirebaseAbstractDao {
   }
 
   public Map<String, Object> getDocumentData(String collection, String documentID){
-    Firestore db = FirestoreClient.getFirestore();
     DocumentReference docRef = db.collection(collection).document(documentID);
-
     ApiFuture<DocumentSnapshot> future = docRef.get();
-    DocumentSnapshot document = null;
+
+    DocumentSnapshot document;
     try {
       document = future.get();
       if (document.exists()) {
@@ -47,7 +44,10 @@ public abstract class FirebaseAbstractDao {
 
 
   // todo add generic method to  update document
-
+  public void updateDocument(String collection, String documentID, Map<String, Object> updatedData){
+    DocumentReference docRef = db.collection(collection).document(documentID);
+    docRef.update(updatedData);
+  }
 
   // todo add generic method to delete document
 }

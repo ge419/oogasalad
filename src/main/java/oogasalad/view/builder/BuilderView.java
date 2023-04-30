@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -20,12 +20,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import oogasalad.controller.BuilderController;
 import oogasalad.controller.builderevents.Dragger;
 import oogasalad.controller.builderevents.TrailMaker;
 import oogasalad.controller.builderevents.TrailMakerAPI;
+import oogasalad.util.FileUploader;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.itempanes.MenuItemPane;
 import oogasalad.view.builder.itempanes.ItemPane;
@@ -78,6 +80,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private ComboBox themeSelector;
   private Scene myScene;
   private Stage myStage;
+  private TextField descriptionInput;
+  private TextField genreInput;
 
   @Inject
   public BuilderView(
@@ -85,6 +89,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       @Assisted String languageString
   ) {
     this.myBuilderController = bc;
+
     myBuilderResource = ResourceBundle.getBundle(
         BASE_RESOURCE_PACKAGE + languageString + "-BuilderText");
     constantsResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + CONSTANTS_FILE);
@@ -179,7 +184,29 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myScene.getStylesheets().add(defaultStylesheet);
     return myScene;
   }
-
+  public void displayGameInfoForm(Pane container) {
+    container.getChildren().clear();
+    Text descriptionLabel = (Text) makeText("GameDescriptionLabel", myBuilderResource);
+    descriptionInput = (TextField) makeTextField("GameDescriptionInput");
+    Text genreLabel = (Text) makeText("GameGenreLabel", myBuilderResource);
+    genreInput = (TextField) makeTextField("GameGenreInput");
+    Text widthLabel = (Text) makeText("BoardWidthLabel", myBuilderResource);
+    Spinner<Double> widthInput = (Spinner<Double>) makeDoubleSpinner("BoardWidthInput", Double.parseDouble(constantsResource.getString("BOARD_MIN_SIZE")), Double.parseDouble(constantsResource.getString("BOARD_MAX_SIZE")), myBoardPane.getWidth());
+    widthInput.valueProperty().addListener(((observable, oldValue, newValue) -> setPaneSize(myBoardPane, newValue, myBoardPane.getHeight())));
+    Text heightLabel = (Text) makeText("BoardHeightLabel", myBuilderResource);
+    Spinner<Double> heightInput = (Spinner<Double>) makeDoubleSpinner("BoardWidthInput", Double.parseDouble(constantsResource.getString("BOARD_MIN_SIZE")), Double.parseDouble(constantsResource.getString("BOARD_MAX_SIZE")), myBoardPane.getHeight());
+    heightInput.valueProperty().addListener(((observable, oldValue, newValue) -> setPaneSize(myBoardPane, myBoardPane.getWidth(), newValue)));
+    container.getChildren().add(new HBox(descriptionLabel, descriptionInput));
+    container.getChildren().add(new HBox(genreLabel, genreInput));
+    container.getChildren().add(new HBox(widthLabel, widthInput));
+    container.getChildren().add(new HBox(heightLabel, heightInput));
+  }
+  public void saveGameInfo() {
+    myBuilderController.saveInfo(genreInput.getCharacters().toString(), descriptionInput.getCharacters().toString());
+  }
+  public void uploadThumbnailImage() {
+    FileUploader.uploadGameThumbnail(myBuilderController.getGameID());
+  }
   private BorderPane createTopBar() {
     BorderPane topBar = new BorderPane();
     myTopBar = topBar;
@@ -219,13 +246,14 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     initializeBoardPane();
     initializeRulePane();
 
-    mySidepane = (VBox) makeVBox("PopupPane");
+    mySidepane = new VBox();
     mySidepane.setPrefWidth(Double.parseDouble(constantsResource.getString("SIDE_PANE_WIDTH")));
 
     myCenterContainer.setId("CentralContainer");
     myCenterContainer.setLeft(mySidebar.asNode());
     myCenterContainer.setCenter(myBoardPane);
     myCenterContainer.setRight(mySidepane);
+//    return (HBox) makeHBox("CentralContainer", sideBar1, boardPane, sidePane);
     return myCenterContainer;
   }
 
@@ -410,7 +438,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     return objCounter--;
   }
 
-
   // -----------------------------------------------------------------------------------------------------------------
   private boolean checkIfImage(Optional<File> thing) {
     final String IMAGE_FILE_SUFFIXES = String.format(".*\\.(%s)",
@@ -473,9 +500,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myTileCount++;
   }
 
-  public void loadBoardSize(double width, double height) {
-    System.out.println(width);
-    System.out.println(height);
+  public void loadBoardSize(double width, double height){
     setPaneSize(myBoardPane, width, height);
   }
 

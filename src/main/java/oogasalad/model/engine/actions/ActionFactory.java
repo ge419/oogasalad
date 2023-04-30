@@ -16,6 +16,7 @@ public interface ActionFactory {
       @Assisted("max") int max);
   CreatePlayerPieceAction makeCreatePlayerPieceAction();
   CheckAndRemovePlayerAction makeCheckAndRemovePlayerAction(int scoreMinBound);
-  CheckWinStateAction makeCheckWinStateAction(int lastN);
+  CheckStandingWinAction makeCheckWinStateAction(int lastN);
   AlterPlayerScoreAction makeAlterPlayerScoreAction(Player player, double delta);
+  CheckTileWinAction makeCheckTileWinAction(String landedTileId, List<String> tileIds);
 }

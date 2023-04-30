@@ -6,9 +6,7 @@ import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -27,14 +25,14 @@ import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
 import oogasalad.model.observers.GameObserver;
 import oogasalad.view.Renderable;
-import oogasalad.view.gameplay.Players.PlayerUI;
+import oogasalad.view.ViewFactory;
 import oogasalad.view.gameplay.Players.ViewPlayers;
-import oogasalad.view.gameplay.pieces.ViewPieces;
 import oogasalad.view.gameplay.pieces.Cards;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
+import oogasalad.view.gameplay.pieces.ViewPieces;
 import oogasalad.view.gameplay.popup.HandDisplayPopup;
 import oogasalad.view.tiles.Tiles;
-import org.checkerframework.checker.units.qual.A;
+import oogasalad.view.tiles.ViewTile;
 
 public class Gameview implements GameObserver {
 
@@ -55,6 +53,7 @@ public class Gameview implements GameObserver {
   private final int VIEW_HEIGHT = 1000;
   private final GameHolder game;
   private final Provider<Piece> pieceProvider;
+  private final ViewFactory viewFactory;
   private List<ObjectProperty<Player>> playerObjectProperty;
   private List<ObjectProperty<PlayerPiece>> playerPieceObjectProperty;
   private Tiles tiles;
@@ -63,6 +62,7 @@ public class Gameview implements GameObserver {
   private Scene scene;
   private BorderPane UIroot;
   private ViewPlayers viewPlayers = new ViewPlayers(null);
+  private Stage myStage;
   private ViewPieces viewPieces;
 
   @Inject
@@ -70,12 +70,14 @@ public class Gameview implements GameObserver {
       @Assisted GameController gc,
       GameHolder game,
       Provider<Player> playerProvider,
-      Provider<Piece> pieceProvider) {
+      Provider<Piece> pieceProvider,
+      ViewFactory viewFactory) {
     this.gc = gc;
     this.game = game;
     this.pieceProvider = pieceProvider;
     this.playerObjectProperty = new ArrayList<>();
     this.playerPieceObjectProperty = new ArrayList<>();
+    this.viewFactory = viewFactory;
     this.game.register(this);
   }
 
@@ -92,13 +94,14 @@ public class Gameview implements GameObserver {
    *
    */
   public void renderGameview(Stage primaryStage) throws IOException {
+    myStage = primaryStage;
     UIroot = new BorderPane();
 
     Renderable board = new Board();
     board.render(UIroot);
 
     // TODO: use either Tiles or BBoard, not both!
-    tiles = new Tiles(game.getBoard().getTiles());
+    tiles = viewFactory.makeTiles(game.getBoard().getTiles());
     tiles.render(UIroot);
 
     die = new Die();
@@ -109,11 +112,16 @@ public class Gameview implements GameObserver {
 
     //TODO: take this out when cards are implemented
     Button button = new Button("Show Card Popup");
-    Cards card = new Cards("view.gameplay/chance.jpg");
-    Cards card2 = new Cards("view.gameplay/chance.jpg");
-    Cards card3 = new Cards("view.gameplay/chance.jpg");
-    Cards[] cards = {card, card2, card3};
-    HandDisplayPopup popup = new HandDisplayPopup(cards);
+    button.setOnAction(event -> {
+      Cards cards = viewFactory.makeCards(game.getBoard().getTiles());
+      HandDisplayPopup popup = new HandDisplayPopup();
+      cards.render(popup);
+      List<ViewTile> cardList = cards.getCardList();
+      popup.addCards(cardList);
+      Point2D offset = new Point2D(UIroot.getLayoutX(), UIroot.getLayoutY());
+      popup.showHand(UIroot, offset);
+    });
+
 
     HBox hbox = new HBox();
     hbox.getChildren().addAll(button);
@@ -121,19 +129,16 @@ public class Gameview implements GameObserver {
     button.setId("Button");
     UIroot.setTop(hbox);
 
-    button.setOnAction(event -> {
-      Point2D offset = new Point2D(button.getScene().getX(), button.getScene().getY());
-      popup.showHand(button, offset);
-    });
 
     scene = new Scene(UIroot);
 
+
     //TODO: refactor to read from property file
-    primaryStage.setTitle("Monopoly");
-    primaryStage.setScene(scene);
-    primaryStage.setHeight(VIEW_HEIGHT);
-    primaryStage.setWidth(VIEW_WIDTH);
-    primaryStage.show();
+    myStage.setTitle("Monopoly");
+    myStage.setScene(scene);
+    myStage.setHeight(VIEW_HEIGHT);
+    myStage.setWidth(VIEW_WIDTH);
+    myStage.show();
   }
 
   public <T extends Event> void addEventHandler(EventType<T> type, EventHandler<T> action) {
@@ -177,5 +182,10 @@ public class Gameview implements GameObserver {
       alert.setContentText(String.format("Player %s Gets Removed!", id));
       alert.showAndWait();
     }
+  }
+
+  @Override
+  public void updateOnGameEnd() {
+    myStage.close();
   }
 }

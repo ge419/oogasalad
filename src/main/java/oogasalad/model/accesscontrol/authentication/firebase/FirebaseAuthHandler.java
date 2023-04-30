@@ -1,7 +1,8 @@
-package oogasalad.model.accesscontrol.authentication;
+package oogasalad.model.accesscontrol.authentication.firebase;
 
 import com.google.inject.Inject;
 import java.util.concurrent.ExecutionException;
+import oogasalad.model.accesscontrol.authentication.AuthenticationHandler;
 import oogasalad.model.accesscontrol.dao.UserDao;
 
 public class FirebaseAuthHandler implements AuthenticationHandler {
@@ -19,9 +20,6 @@ public class FirebaseAuthHandler implements AuthenticationHandler {
   @Override
   public void login(String username, String password)
       throws ExecutionException, InterruptedException {
-    if (!userDao.isUserRegistered(username)){
-      register( username,  password);
-    }
     activeUserUsername = username;
     activeUserID = userDao.getUserID(username);
     setUserLogInStatus(true);

@@ -2,8 +2,12 @@ package oogasalad.view.builder.itempanes;
 
 import java.util.ResourceBundle;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import oogasalad.model.exception.ResourceReadException;
 import oogasalad.view.builder.BuilderUtility;
 import oogasalad.view.builder.BuilderView;
@@ -126,6 +130,17 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
 
   private void cancelAction() {
     getBuilder().cancelAction();
+  }
+  private void displayGameInfoForm() {
+    myPane.getChildren().clear();
+    getBuilder().displayGameInfoForm(myPane);
+    addItems("GameInfoMenu");
+  }
+  private void saveGameInfo() {
+    getBuilder().saveGameInfo();
+  }
+  private void uploadThumbnailImage() {
+    getBuilder().uploadThumbnailImage();
   }
 
   private void createCustomTile(){

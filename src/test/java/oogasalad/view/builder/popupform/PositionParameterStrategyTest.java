@@ -28,7 +28,7 @@ class PositionParameterStrategyTest extends DukeApplicationTest {
     private static final String ROOT_ID = "BoardPane";
     @Override
     public void start(Stage stage) {
-        ResourceBundle resourceBundle = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "EnglishBuilderText");
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + "en-USBuilderText");
         String attributeKey = "attr";
         meta = new PositionMetadata(attributeKey);
         meta.setName(attributeKey);

@@ -4,11 +4,10 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
-import com.google.firebase.cloud.FirestoreClient;
 import com.google.inject.Inject;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-import oogasalad.model.accesscontrol.database.FirebaseAccessor;
+import oogasalad.model.accesscontrol.database.firebase.FirebaseAccessor;
 
 public abstract class FirebaseAbstractDao {
 
@@ -22,11 +21,10 @@ public abstract class FirebaseAbstractDao {
   }
 
   public Map<String, Object> getDocumentData(String collection, String documentID){
-    Firestore db = FirestoreClient.getFirestore();
     DocumentReference docRef = db.collection(collection).document(documentID);
-
     ApiFuture<DocumentSnapshot> future = docRef.get();
-    DocumentSnapshot document = null;
+
+    DocumentSnapshot document;
     try {
       document = future.get();
       if (document.exists()) {

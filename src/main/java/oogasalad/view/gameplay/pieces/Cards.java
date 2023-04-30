@@ -1,69 +1,46 @@
 package oogasalad.view.gameplay.pieces;
 
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
+import java.util.ArrayList;
 import java.util.List;
-import javafx.geometry.Pos;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-import oogasalad.view.Backgroundable;
-import oogasalad.view.Coordinate;
-import oogasalad.view.Imageable;
-import oogasalad.view.Textable;
-import oogasalad.view.gameplay.popup.CardDisplayPopup;
+import javafx.scene.layout.BorderPane;
+import oogasalad.model.constructable.Tile;
+import oogasalad.view.Renderable;
+import oogasalad.view.tiles.TileRenderStrategy;
+import oogasalad.view.tiles.ViewTile;
 
-public class Cards extends GamePiece implements Backgroundable, Textable, Imageable {
+public class Cards implements Renderable {
 
-  private final String imageURL;
+  private final List<Tile> BTiles;
+  private final List<ViewTile> cardList = new ArrayList<>();
+  private final TileRenderStrategy renderStrategy;
 
-  public Cards (String imageURL) {
-    super(imageURL);
-    this.imageURL = imageURL;
-    //TODO: take this next part out
-    imageURL = "view.gameplay/go.jpg";
-    ImageView cardImage = createImage(150, imageURL, 1);
-    Rectangle background = createBackground(150,190, Color.WHITE, Color.BLACK);
-    VBox content = new VBox(70/10, cardImage, createTextBox(List.of("Test Text"), 70, 50));
-    content.setAlignment(Pos.CENTER);
-    getChildren().addAll(background, content);
-//    setOnMouseClicked(this::showPopup);
+  @Inject
+  public Cards(@Assisted List<Tile> t, TileRenderStrategy renderStrategy) {
+    this.BTiles = t;
+    this.renderStrategy = renderStrategy;
   }
-
-  private void showPopup(MouseEvent event) {
-    CardDisplayPopup popup = new CardDisplayPopup(this);
-    popup.showHand(this, new javafx.geometry.Point2D(this.getScene().getX(), this.getScene().getY()));
-  }
-
 
   @Override
-  public void move(Coordinate[] coorArray) {
-
-  }
-
-  public String getImageURL() {
-    return imageURL;
-  }
-
-  public void setSelected(boolean selected) {
-    if (selected) {
-      setTranslateY(getTranslateY() - 10);
-    } else {
-      setTranslateY(getTranslateY() + 10);
+  public void render(BorderPane pane) {
+    for (Tile bTile : BTiles) {
+      ViewTile viewTile = renderStrategy.createViewTile(bTile);
+      pane.getChildren().add(viewTile.asNode());
+      cardList.add(viewTile);
     }
   }
 
+  public List<ViewTile> getCardList() {
+    return cardList;
+  }
 
-  @Override
-  public VBox createTextBox(List info, double height, double width) {
-    VBox textBox = new VBox();
-    for (int i = 0; i < info.size(); i++) {
-      Text text = new Text((String)info.get(i));
-      resizeText(text, height, 8, width);
-      textBox.getChildren().add(text);
+  public ViewTile getCard(String id) {
+    for (ViewTile card : cardList) {
+      if (card.getTileId().equals(id)) {
+        return card;
+      }
     }
-    textBox.setAlignment(Pos.CENTER);
-    return textBox;
+    throw new IllegalArgumentException("No card with id " + id);
   }
 }

@@ -168,15 +168,13 @@ public class GameLauncherTab implements Tab {
 
     TextField titleField = new TextField();
     titleField.setPromptText("Game Title");
-    TextField descriptionField = new TextField();
-    descriptionField.setPromptText("Description");
 
-    VBox vbox = new VBox(10, titleField, descriptionField);
+    VBox vbox = new VBox(10, titleField);
     dialog.getDialogPane().setContent(vbox);
 
     dialog.setResultConverter(dialogButton -> {
       if (dialogButton == createButtonType) {
-        return new String[]{titleField.getText(), descriptionField.getText()};
+        return new String[]{titleField.getText()};
       }
       return null;
     });
@@ -185,13 +183,13 @@ public class GameLauncherTab implements Tab {
     Optional<String[]> result = dialog.showAndWait();
     result.ifPresent(formData -> {
       String name = formData[0];
-      String numPlayers = formData[1];
+
       Map<String, Object> game = new HashMap<>();
       game.put("title", name);
-      game.put("description", numPlayers);
-      game.put("genre", "Board games");
 
-      gameDao.createGame(authHandler.getActiveUserID(), game);
+      String gameID = gameDao.createGame(authHandler.getActiveUserID());
+      gameDao.updateGame(gameID, game);
+      tabExplorer.launchGameBuilder(gameID);
     });
   }
 

@@ -40,14 +40,12 @@ public class CreatePlayerPieceAction implements Action {
   }
 
   private void createPlayerPieces(IntegerPromptOption selectedPlayerPieceNumber) {
-    List<PlayerPiece> playerPieces = new ArrayList<>();
     int selectedNumberOfPieces = selectedPlayerPieceNumber.getValue();
     int numberOfPlayers = gameholder.getPlayers().getList().size();
     int totalNumberOfPieces = numberOfPlayers * selectedNumberOfPieces;
     for (int i=0; i < totalNumberOfPieces; i ++) {
       Piece piece = pieceProvider.get();
       piece.setPlayer(gameholder.getPlayers().getList().get(Math.floorDiv(i, numberOfPlayers)));
-      playerPieces.add(new PlayerPiece(piece));
     }
   }
 }

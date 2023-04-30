@@ -18,7 +18,7 @@ import oogasalad.view.tabexplorer.TabModule;
  */
 public class Main extends Application {
 
-  private static final String DEFAULT_LANGUAGE_PROPERTY = "tabexplorer.languages.en_US";
+  private static final String DEFAULT_LANGUAGE_PROPERTY = "tabexplorer.languages.en-US";
 
   public static void main(String[] args) {
     launch(args);

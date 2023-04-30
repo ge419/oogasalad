@@ -53,11 +53,4 @@ public class GameInfo {
     return this;
   }
 
-//  public Image getThumbnail() {
-//    return thumbnail;
-//  }
-//
-//  public void setThumbnail(Image thumbnail) {
-//    this.thumbnail = thumbnail;
-//  }
 }

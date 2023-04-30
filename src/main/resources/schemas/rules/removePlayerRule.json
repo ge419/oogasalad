@@ -1,0 +1,15 @@
+{
+  "@class": "oogasalad.model.attribute.SimpleObjectSchema",
+  "name": "removePlayerRule",
+  "fields": [
+    {
+      "@class": "oogasalad.model.attribute.IntMetadata",
+      "key": "scoreMinBound",
+      "name": "minimum bound of score",
+      "description": "minimum score a player can have to continue playing game",
+      "editable": true,
+      "viewable": false,
+      "defaultValue": 0
+    }
+  ]
+}

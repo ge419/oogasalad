@@ -2,43 +2,61 @@ package oogasalad.model.engine.actions;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
-import oogasalad.model.engine.events.ChooseNumberOfPlayersEvent;
+import oogasalad.model.engine.EngineResourceBundle;
+import oogasalad.model.engine.events.PlayerCreationEvent;
 import oogasalad.model.engine.prompt.IntegerPromptOption;
 import oogasalad.model.exception.ResourceReadException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CreatePlayersAction implements Action {
+
+  private static final Logger LOGGER = LogManager.getLogger(CreatePlayersAction.class);
   private final Provider<Player> playerProvider;
   private final Provider<Piece> pieceProvider;
   private final GameHolder gameholder;
+  private final int minPlayerNumber;
+  private final int maxPlayerNumber;
+  private final ResourceBundle bundle;
 
   @Inject
   public CreatePlayersAction(
       Provider<Player> playerProvider,
       Provider<Piece> pieceProvider,
-      GameHolder holder
+      GameHolder holder,
+      @Assisted("min") int min,
+      @Assisted("max") int max,
+      @EngineResourceBundle ResourceBundle bundle
       ) {
     this.playerProvider = playerProvider;
     this.pieceProvider = pieceProvider;
     this.gameholder = holder;
+    this.minPlayerNumber = min;
+    this.maxPlayerNumber = max;
+    this.bundle = bundle;
   }
 
   @Override
   public void runAction(ActionParams actionParams) {
     List<IntegerPromptOption> options = new ArrayList<>();
-    for (int i = gameholder.minPlayer(); i <= gameholder.maxPlayer(); i++) {
+    for (int i = this.minPlayerNumber; i <= this.maxPlayerNumber; i++) {
       options.add(new IntegerPromptOption(i));
     }
-    actionParams.prompter().selectSingleOption("Select number of players", options, this::createPlayers);
-    actionParams.emitter().emit(new ChooseNumberOfPlayersEvent());
+    actionParams.prompter().selectSingleOption(bundle.getString(getClass().getSimpleName()), options, this::createPlayers);
+    LOGGER.info("Create Game Players upon User Selection");
+    actionParams.emitter().emit(new PlayerCreationEvent());
+    LOGGER.info("Emit Player Creation Event");
   }
 
   private void createPlayers(IntegerPromptOption selectedPlayers) {
@@ -70,7 +88,7 @@ public class CreatePlayersAction implements Action {
 
   private Map<Player, List<Piece>> setPlayersPieces(int piecePerPlayer, Players players) {
     Map<Player, List<Piece>> playerPieceMap = new HashMap<>();
-    for (Player p : players.getPlayers()) {
+    for (Player p : players.getList()) {
       List<Piece> pieceList = new ArrayList<>();
       for (int j = 0; j < piecePerPlayer; j++) {
         Piece piece = pieceProvider.get();

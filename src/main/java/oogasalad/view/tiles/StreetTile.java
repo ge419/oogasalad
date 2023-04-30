@@ -1,7 +1,8 @@
 package oogasalad.view.tiles;
 
-import java.util.List;
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
+import java.util.List;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -28,12 +29,13 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
   private final Tile modelTile;
 
   @Inject
-  public StreetTile(Tile BTile) {
+  public StreetTile(@Assisted Tile BTile) {
     this.modelTile = BTile;
 
     getChildren().addAll((createBarBox(BTile.getWidth(), BTile.getHeight(),
             StringAttribute.from(BTile.getAttribute(COLOR_ATTRIBUTE).get()).getValue())),
-        createTextBox(List.of(BTile.getInfo(), BTile.getPrice()), BTile.getHeight(), BTile.getWidth()));
+        createTextBox(List.of(BTile.getInfo(), BTile.getPrice()), BTile.getHeight(),
+            BTile.getWidth()));
     setPosition(BTile.getCoordinate());
 
     //TODO: change this temporary behavior when tile is bought

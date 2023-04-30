@@ -3,6 +3,7 @@ package oogasalad.model.constructable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import java.util.List;
 import java.util.Optional;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import oogasalad.model.attribute.AbstractAttribute;
@@ -61,4 +62,31 @@ public interface GameConstruct {
    * Returns a property for this object's {@link ObjectSchema}.
    */
   ReadOnlyObjectProperty<ObjectSchema> schemaProperty();
+
+  /**
+   * Get a list of schema names for this construct.
+   */
+  List<String> getSchemaNames();
+
+  /**
+   * Sets the schema names for this construct. The construct may add on default schemas to this list
+   * if not already present.
+   *
+   * @param schemaNames new schema names to set
+   */
+  void setSchemaNames(List<String> schemaNames);
+
+  /**
+   * Adds a schema to the schemas applied to this object.
+   *
+   * @param schemaName name of schema to add that exists in the database
+   */
+  void addSchema(String schemaName);
+
+  /**
+   * Adds a schema to the schemas applied to this object.
+   *
+   * @param schema schema to add, need not be in database
+   */
+  void addSchema(ObjectSchema schema);
 }

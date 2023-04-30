@@ -7,19 +7,25 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import oogasalad.controller.GameInfo;
+import oogasalad.model.attribute.AttributeModule;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
-import oogasalad.model.constructable.ConstructableModule;
 import oogasalad.model.constructable.GameHolder;
+import oogasalad.model.constructable.SaveManagerModule;
 import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.EngineModule;
 import oogasalad.model.engine.prompt.AIPrompter;
 import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.model.engine.rules.DieMoveRule;
+import oogasalad.model.engine.rules.LastStandingWinRule;
+import oogasalad.model.engine.rules.NumberOfPieceRule;
+import oogasalad.model.engine.rules.NumberOfPlayersRule;
+import oogasalad.model.engine.rules.RemovePlayerRule;
+import oogasalad.model.engine.rules.ScoreTileRule;
 import oogasalad.model.engine.rules.TurnRule;
 import oogasalad.util.SaveManager;
+import oogasalad.view.tabexplorer.userpreferences.Languages;
 
 
 public class GenerateSaves {
@@ -27,19 +33,27 @@ public class GenerateSaves {
   public static void main(String[] args)
       throws IOException {
     Path savePath = Path.of("data", "monopoly");
+
     Injector injector = Guice.createInjector(
         new ObjectMapperModule(),
-        new ConstructableModule(savePath),
-        binder -> binder.bind(Prompter.class).toInstance(new AIPrompter()),
-        binder -> binder.install(new EngineModule())
+        new SaveManagerModule(savePath),
+        new AttributeModule(),
+        new EngineModule(Languages.ENGLISH.getLocaleStr()),
+        binder -> binder.bind(Prompter.class).toInstance(new AIPrompter())
     );
 
-    GameHolder gameHolder = GameHolder.createDefaultGame();
+    GameHolder gameHolder = injector.getInstance(GameHolder.class);
+
     SchemaDatabase db = injector.getInstance(SchemaDatabase.class);
     db.setRuleListProperty(gameHolder.rulesProperty());
 
     gameHolder.setRules(
         List.of(
+            injector.getInstance(ScoreTileRule.class),
+            injector.getInstance(RemovePlayerRule.class),
+            injector.getInstance(LastStandingWinRule.class),
+            injector.getInstance(NumberOfPlayersRule.class),
+            injector.getInstance(NumberOfPieceRule.class),
             injector.getInstance(TurnRule.class),
             injector.getInstance(BuyTileRule.class),
             injector.getInstance(DieMoveRule.class)
@@ -86,11 +100,15 @@ public class GenerateSaves {
     BBoard board = new BBoard(tiles);
     gameHolder.setBoard(board);
 
-    gameHolder.getGameInfo().setGameInfo("title1", "First game", "board", 100.0, 100.0, null);
-    gameHolder.setGameInfo(gameHolder.getGameInfo());
+    gameHolder.getGameInfo()
+        .setTitle("Title")
+        .setDescription("Monopoly")
+        .setGenre("board")
+        .setWidth(100)
+        .setHeight(100);
 
     SaveManager saveManager = injector.getInstance(SaveManager.class);
-    saveManager.saveGame(gameHolder);
+    saveManager.saveGame();
   }
 
 

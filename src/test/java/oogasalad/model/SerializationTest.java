@@ -13,6 +13,7 @@ import oogasalad.model.attribute.IntMetadata;
 import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.attribute.SimpleObjectSchema;
+import oogasalad.model.attribute.SimpleSchemaDatabase;
 import oogasalad.model.attribute.StringMetadata;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,7 @@ public class SerializationTest {
   @BeforeEach
   void setUp() {
     mapper = new ObjectMapper();
-    database = new SchemaDatabase();
+    database = new SimpleSchemaDatabase();
     injector = Guice.createInjector(
         new ObjectMapperModule(),
         binder -> binder.bind(SchemaDatabase.class).toInstance(database)

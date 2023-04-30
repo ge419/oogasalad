@@ -9,16 +9,17 @@ import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
+import oogasalad.model.engine.Priority;
 import oogasalad.model.engine.actions.ActionFactory;
-import oogasalad.model.engine.actions.CreatePlayersAction;
 import oogasalad.model.engine.actions.EventAction;
-import oogasalad.model.engine.events.ChooseNumberOfPlayersEvent;
-import oogasalad.model.engine.events.StartGameEvent;
+import oogasalad.model.engine.events.PlayerCreationEvent;
 import oogasalad.model.engine.events.StartTurnEvent;
 
 public class TurnRule extends AbstractGameConstruct implements EditableRule {
 
   public static final String SCHEMA_NAME = "turnRule";
+  public static final int ABSENT = -1;
+  public static final int TURN_INCREMENT = 1;
   private final ActionFactory actionFactory;
   private final GameHolder game;
 
@@ -34,26 +35,26 @@ public class TurnRule extends AbstractGameConstruct implements EditableRule {
 
   @Override
   public void registerEventHandlers(EventRegistrar registrar) {
-    registrar.registerHandler(ChooseNumberOfPlayersEvent.class, this::newTurn);
+    registrar.registerHandler(PlayerCreationEvent.class, this::newTurn);
     registrar.registerHandler(StartTurnEvent.class, this::newTurn);
   }
 
   private void newTurn(EventHandlerParams<?> eventHandlerParams) {
     Player nextPlayer = getNextPlayer();
 
-    eventHandlerParams.actionQueue().add(10, actionFactory.makeSetCurrentPlayerAction(nextPlayer));
-    eventHandlerParams.actionQueue().add(10, new EventAction(new StartTurnEvent()));
+    eventHandlerParams.actionQueue().add(Priority.MEDIUM.getValue(), actionFactory.makeSetCurrentPlayerAction(nextPlayer));
+    eventHandlerParams.actionQueue().add(Priority.MEDIUM.getValue(), new EventAction(new StartTurnEvent()));
   }
 
   private Player getNextPlayer() {
-    List<Player> players = game.getPlayers().get().getPlayers();
+    List<Player> players = game.getPlayers().getList();
     Player currentPlayer = game.getCurrentPlayer();
-    int currentPlayerIndex = currentPlayer == null ? -1 : players.indexOf(currentPlayer);
+    int currentPlayerIndex = currentPlayer == null ? ABSENT : players.indexOf(currentPlayer);
 
-    if (currentPlayerIndex == -1) {
+    if (currentPlayerIndex == ABSENT) {
       return players.get(0);
     }
 
-    return players.get((currentPlayerIndex + 1) % players.size());
+    return players.get((currentPlayerIndex + TURN_INCREMENT) % players.size());
   }
 }

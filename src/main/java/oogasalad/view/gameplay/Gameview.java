@@ -11,8 +11,9 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -22,13 +23,11 @@ import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
-import oogasalad.model.constructable.Tile;
 import oogasalad.model.observers.GameObserver;
 import oogasalad.view.Renderable;
 import oogasalad.view.gameplay.Players.ViewPlayers;
-import oogasalad.view.gameplay.pieces.Cards;
 import oogasalad.view.gameplay.pieces.ViewPieces;
-import oogasalad.view.gameplay.pieces.ImageCard;
+import oogasalad.view.gameplay.pieces.Cards;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
 import oogasalad.view.gameplay.popup.HandDisplayPopup;
 import oogasalad.view.tiles.Tiles;
@@ -40,7 +39,6 @@ public class Gameview implements GameObserver {
   private final int VIEW_WIDTH = 1500;
   private final int VIEW_HEIGHT = 1000;
   private final GameHolder game;
-  private final Provider<Player> playerProvider;
   private final Provider<Piece> pieceProvider;
   private List<ObjectProperty<Player>> playerObjectProperty;
   private List<ObjectProperty<PlayerPiece>> playerPieceObjectProperty;
@@ -49,6 +47,7 @@ public class Gameview implements GameObserver {
   private final GameController gc;
   private Scene scene;
   private BorderPane UIroot;
+  private ViewPlayers viewPlayers = new ViewPlayers(null);
 
   @Inject
   public Gameview(
@@ -58,7 +57,6 @@ public class Gameview implements GameObserver {
       Provider<Piece> pieceProvider) {
     this.gc = gc;
     this.game = game;
-    this.playerProvider = playerProvider;
     this.pieceProvider = pieceProvider;
     this.playerObjectProperty = new ArrayList<>();
     this.playerPieceObjectProperty = new ArrayList<>();
@@ -125,7 +123,7 @@ public class Gameview implements GameObserver {
 
   @Override
   public void updateOnPlayers(Players players) {
-    ViewPlayers viewPlayers = new ViewPlayers(game.getPlayers());
+    viewPlayers = new ViewPlayers(game.getPlayers());
     viewPlayers.render(UIroot);
   }
 
@@ -133,5 +131,21 @@ public class Gameview implements GameObserver {
   public void updateOnPieces(List<Piece> pieces) {
     ViewPieces viewPieces = new ViewPieces(game.getPieces());
     viewPieces.render(UIroot);
+  }
+
+  @Override
+  public void updateOnPlayerRemoval(List<Player> players) {
+    //TODO: make the player pieces be removed
+    List<String> ids = new ArrayList<>();
+    for (Player p : players)  ids.add(p.getId());
+    for (String id : ids) {
+      UIroot.getChildren().remove(viewPlayers.getPlayer(id));
+      Alert alert = new Alert(AlertType.INFORMATION);
+      alert.setTitle("Information Dialog");
+      alert.setHeaderText("Game Change!");
+      alert.setContentText(String.format("Player %s Gets Removed!", id));
+      alert.showAndWait();
+    }
+
   }
 }

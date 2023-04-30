@@ -1,6 +1,7 @@
 package oogasalad.view.tiles;
 
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -21,14 +22,13 @@ public class BasicTile extends Rectangle implements ViewTile {
   private final Tile myModelTile;
 
   @Inject
-  public BasicTile(Tile tile) {
+  public BasicTile(@Assisted Tile tile) {
     super(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
     this.myModelTile = tile;
 
     this.setFill(Paint.valueOf(myModelTile.colorAttribute().getValue()));
 
     myModelTile.colorAttribute().valueProperty().addListener(((observable, oldValue, newValue) -> {
-      System.out.println("DOING THING");
       this.setFill(Paint.valueOf(newValue));
     }));
     this.setStroke(Color.BLACK);

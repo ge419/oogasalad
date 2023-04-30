@@ -28,7 +28,7 @@ public class BuilderControllerModule extends AbstractModule {
     install(new GameHolderModule());
     install(new SaveManagerModule(saveDir));
     install(new ObjectMapperModule());
-    install(new EngineModule());
+    install(new EngineModule(myLanguage));
     install(new AttributeModule());
     // TODO: Bind using annotation
     //bind(String.class).toInstance(myLanguage);

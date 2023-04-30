@@ -1,7 +1,8 @@
 package oogasalad.view.tiles;
 
-import java.util.List;
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
+import java.util.List;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
@@ -33,11 +34,12 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
   private final Tile modelTile;
 
   @Inject
-  public ImageTile(Tile BTile) {
+  public ImageTile(@Assisted Tile BTile) {
     this.setPosition(BTile.getCoordinate());
     this.modelTile = BTile;
 
-    Rectangle tileBackground = createBackground(BTile.getWidth(), BTile.getHeight(), TILE_BACKGROUND, TILE_STROKE_COLOR);
+    Rectangle tileBackground = createBackground(BTile.getWidth(), BTile.getHeight(),
+        TILE_BACKGROUND, TILE_STROKE_COLOR);
     ImageView tileImage = createImage(BTile.getWidth(),
         StringAttribute.from(BTile.getAttribute(IMAGE_ATTRIBUTE).get()).getValue(), IMAGE_SCALE);
 

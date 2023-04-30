@@ -18,8 +18,11 @@ import oogasalad.model.engine.prompt.AIPrompter;
 import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.model.engine.rules.DieMoveRule;
-import oogasalad.model.engine.rules.NumberOfPlayerPieceRule;
+import oogasalad.model.engine.rules.LastStandingWinRule;
+import oogasalad.model.engine.rules.NumberOfPieceRule;
 import oogasalad.model.engine.rules.NumberOfPlayersRule;
+import oogasalad.model.engine.rules.RemovePlayerRule;
+import oogasalad.model.engine.rules.ScoreTileRule;
 import oogasalad.model.engine.rules.TurnRule;
 import oogasalad.util.SaveManager;
 
@@ -34,7 +37,7 @@ public class GenerateSaves {
         new ObjectMapperModule(),
         new SaveManagerModule(savePath),
         new AttributeModule(),
-        new EngineModule(),
+        new EngineModule("English"),
         binder -> binder.bind(Prompter.class).toInstance(new AIPrompter())
     );
 
@@ -45,8 +48,11 @@ public class GenerateSaves {
 
     gameHolder.setRules(
         List.of(
+            injector.getInstance(ScoreTileRule.class),
+            injector.getInstance(RemovePlayerRule.class),
+            injector.getInstance(LastStandingWinRule.class),
             injector.getInstance(NumberOfPlayersRule.class),
-            injector.getInstance(NumberOfPlayerPieceRule.class),
+            injector.getInstance(NumberOfPieceRule.class),
             injector.getInstance(TurnRule.class),
             injector.getInstance(BuyTileRule.class),
             injector.getInstance(DieMoveRule.class)

@@ -12,13 +12,14 @@ import oogasalad.model.constructable.BoardImage;
 public class BoardImageTile extends ImageView {
 
   private BoardImage myBoardImage;
-  public BoardImageTile(BoardImage boardImage){
+
+  public BoardImageTile(BoardImage boardImage) {
     super();
     myBoardImage = boardImage;
     bindAttributes();
   }
 
-  private void bindAttributes(){
+  private void bindAttributes() {
     this.scaleXProperty().bindBidirectional(myBoardImage.scaleAttribute().valueProperty());
     this.scaleYProperty().bindBidirectional(myBoardImage.scaleAttribute().valueProperty());
     this.rotateProperty().bindBidirectional(myBoardImage.positionAttribute().angleProperty());
@@ -29,7 +30,7 @@ public class BoardImageTile extends ImageView {
     }));
   }
 
-  public BoardImage getBoardImage(){
+  public BoardImage getBoardImage() {
     return myBoardImage;
   }
 }

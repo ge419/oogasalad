@@ -294,11 +294,12 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       double imageSize = Double.parseDouble(constantsResource.getString("IMAGE_SIZE"));
       Optional<BoardImageTile> ourImage = turnFileToImage(file.get(), imageSize, imageSize,
           new Coordinate(0, 0, 0));
-      if (ourImage.isEmpty()){
+      if (ourImage.isEmpty()) {
         return;
       }
-      initializeNode(ourImage.get(), "Image" + myImageCount, e->myBuilderController.createPopupForm(
-          ourImage.get().getBoardImage(), myBuilderResource, mySidepane));
+      initializeNode(ourImage.get(), "Image" + myImageCount,
+          e -> myBuilderController.createPopupForm(
+              ourImage.get().getBoardImage(), myBuilderResource, mySidepane));
       myImageCount++;
     } else {
       //
@@ -417,19 +418,20 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     return thing.isPresent() && thing.get().getName().matches(IMAGE_FILE_SUFFIXES);
   }
 
-  private Optional<BoardImageTile> turnFileToImage(File file, double width, double height, Coordinate location) {
+  private Optional<BoardImageTile> turnFileToImage(File file, double width, double height,
+      Coordinate location) {
     Optional<BoardImageTile> image = myBuilderController.createBoardImage(file.toURI().toString());
-    if (image.isEmpty()){
+    if (image.isEmpty()) {
       return Optional.empty();
     }
     image.get().setPreserveRatio(true);
     image.get().setImage(new Image(
-        file.toURI().toString(),
-        width,
-        height,
-        true,
-        true
-    )
+            file.toURI().toString(),
+            width,
+            height,
+            true,
+            true
+        )
     );
     return image;
   }

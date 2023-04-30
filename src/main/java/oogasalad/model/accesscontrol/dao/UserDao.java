@@ -14,6 +14,8 @@ public interface UserDao {
   String registerNewUser(String username, String password)
       throws ExecutionException, InterruptedException;
 
+  void incrementNumberOfGamesPlayed(String userID);
+
   void setUserName(String userID, String newUsername);
 
   void setUserFullName(String userID, String newUserFullName);

@@ -22,29 +22,25 @@ public class GameController {
   private final Engine engine;
   private final Gameview gv;
   private final GameHolder game;
-  private final PrompterFactory prompterFactory;
-  // TODO get from player
   private final Prompter prompter;
-  private final Injector injector;
-  LinkedList<Effect> effects;
+  private final LinkedList<Effect> effects;
 
-  public GameController(Path saveDir) {
-    this.injector = Guice.createInjector(new GameControllerModule(saveDir));
+  public GameController(Path saveDir, String language) {
+    Injector injector = Guice.createInjector(new GameControllerModule(saveDir, language));
     injector.getInstance(SaveManager.class).loadGame();
-
     gv = injector.getInstance(ViewFactory.class).makeGameview(this);
     this.effects = new LinkedList<>();
     this.engine = injector.getInstance(Engine.class);
     this.game = injector.getInstance(GameHolder.class);
-    this.prompterFactory = injector.getInstance(PrompterFactory.class);
-    this.prompter = prompterFactory.makeDualPrompter(
+    PrompterFactory prompterFactory = injector.getInstance(PrompterFactory.class);
+    this.prompter = prompterFactory.makeHumanPrompter(
         effect -> effects.add(effect),
         gv
     );
   }
 
-  public void setGame(Stage stage) throws IOException {
-    gv.renderGameview(stage);
+  public void setGame(Stage gameStage) throws IOException {
+    gv.renderGameview(gameStage);
     List<Rule> ruleList = new ArrayList<>(game.getRules());
     ruleList.add(new SetDieRule(gv.getDie()));
     engine.setRules(ruleList);
@@ -58,7 +54,6 @@ public class GameController {
 
   public void doEffect() {
     if (!effects.isEmpty()) {
-      // If there is a pending effect, perform it and do the next one once done
       effects.poll().present(this::doEffect);
     } else {
       this.run();

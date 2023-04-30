@@ -24,7 +24,6 @@ public class BActionDB {
   public static void main(String[] args) throws IOException, FileReaderException {
     BActionDB db = new BActionDB();
     db.readFiles();
-    System.out.println(db.actionMap.get("buy").getSchema());
   }
 
   private void readFiles() {

@@ -13,16 +13,18 @@ import oogasalad.view.ViewFactory;
 public class GameControllerModule extends AbstractModule {
 
   private final Path saveDir;
+  private String language;
 
-  public GameControllerModule(Path saveDir) {
+  public GameControllerModule(Path saveDir, String language) {
     this.saveDir = saveDir;
+    this.language = language;
   }
 
   @Override
   protected void configure() {
     install(new GameHolderModule());
     install(new SaveManagerModule(saveDir));
-    install(new EngineModule());
+    install(new EngineModule(language));
     install(new AttributeModule());
     install(new ObjectMapperModule());
     install(new FactoryModuleBuilder().build(PrompterFactory.class));

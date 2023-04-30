@@ -28,29 +28,28 @@ public class PathFinder {
   public static String getUserAvatar(String userID){
     return FILE_PREFIX + getUserAvatarPath(userID);
   }
-
   public static String getGameThumbnailPath(String gameID) {
     return getGameDataPath(gameID) + BACKSLASH + GAME_THUMBNAIL;
   }
 
   public static String getGameThumbnail(String gameID) {
-    String basePath = "file:src/main/resources/"+"0hbvOqXKOQdhpgu3aLIO"+"/"; // Replace with the base path to your files
-
-    // Replace "Object1" with the name of your specific object
-    String objectPath = basePath + "thumbnail";
-
-    // Replace with the file extension of your object
-    String fileExtension = ".jpeg";
-
-    // Append the file extension to the object path
-    objectPath += fileExtension;
-
-//    System.out.println("Object path: "+objectPath);
-    // Return the full file path
-
-    // todo eventually
-    // return filePrefix + getGameThumbnailPath(gameID)
-    return objectPath;
+//    String basePath = "file:src/main/resources/"+"0hbvOqXKOQdhpgu3aLIO"+"/"; // Replace with the base path to your files
+//
+//    // Replace "Object1" with the name of your specific object
+//    String objectPath = basePath + "thumbnail";
+//
+//    // Replace with the file extension of your object
+//    String fileExtension = ".jpeg";
+//
+//    // Append the file extension to the object path
+//    objectPath += fileExtension;
+//
+////    System.out.println("Object path: "+objectPath);
+//    // Return the full file path
+//
+//    // todo eventually
+     return FILE_PREFIX + getGameThumbnailPath(gameID);
+//    return objectPath;
   }
 
   public static String getGameDataPath(String gameID){

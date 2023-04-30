@@ -53,6 +53,15 @@ public interface SchemaDatabase {
   void addCustomSchema(ObjectSchema schema);
 
   /**
+   * Get the type of the provided schema name.
+   *
+   * @param schemaName name to get type for
+   * @return type of schema
+   * @see SchemaType
+   */
+  SchemaType getSchemaType(String schemaName);
+
+  /**
    * Returns the schemas added during runtime, <em>not</em> from a resource file. These schemas are
    * expected to be serialized.
    */

@@ -54,7 +54,7 @@ public class CustomTileRendering extends Group implements ViewTile {
             ArrayList<String> names = new ArrayList<>(modelTile.getSchemaNames());
             names.add(schema.getName());
             modelTile.setSchemaNames(names);
-            bindListeners(names);
+            //bindListeners(names);
         }
         else{
             try {

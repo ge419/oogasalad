@@ -8,9 +8,12 @@ import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.engine.prompt.PromptOption;
 import oogasalad.model.engine.prompt.StringPromptOption;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class AlterPlayerScoreAction implements Action {
 
+  private static final Logger LOGGER = LogManager.getLogger(AlterPlayerScoreAction.class);
   private final Player player;
   private final double deltaScore;
 
@@ -27,6 +30,7 @@ public class AlterPlayerScoreAction implements Action {
   public void runAction(ActionParams actionParams) {
     List<StringPromptOption> validation = new ArrayList<>();
     validation.add(new StringPromptOption("OK"));
+    LOGGER.info("Update Player Score");
     actionParams.prompter().selectSingleOption(String.format("Player %s: %.2f Updated To Score", player.getId(), deltaScore), validation, this::updateScore);
   }
 

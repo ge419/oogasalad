@@ -1,0 +1,65 @@
+[ {
+  "@class" : "oogasalad.model.engine.rules.ScoreTileRule",
+  "id" : "22d3e341-d06c-4341-ad93-14db65723a39",
+  "schemas" : [ "scoreTileRule" ],
+  "attributes" : [ ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.RemovePlayerRule",
+  "id" : "5ee45cfa-f160-4fe5-b810-9cef171c2844",
+  "schemas" : [ "removePlayerRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "scoreMinBound",
+    "value" : 0
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.LastStandingWinRule",
+  "id" : "e4ee53a1-e3f5-4dfa-bfdb-1bbccd8308e7",
+  "schemas" : [ "lastStandingRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "numWinPlayer",
+    "value" : 1
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.NumberOfPlayersRule",
+  "id" : "6905a61d-a086-4e06-a1e9-cae83d6e77b9",
+  "schemas" : [ "numberOfPlayersRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "maxPlayer",
+    "value" : 4
+  }, {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "minPlayer",
+    "value" : 1
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.NumberOfPieceRule",
+  "id" : "58f98080-5c45-4bb2-abc7-f3552dcdd013",
+  "schemas" : [ "numberOfPiecesPerPlayerRule" ],
+  "attributes" : [ ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.TurnRule",
+  "id" : "7cb79d26-24eb-4f49-9d06-fc19f97325cf",
+  "schemas" : [ "turnRule" ],
+  "attributes" : [ ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.BuyTileRule",
+  "id" : "9b442882-a63f-400c-a3a7-044416041c49",
+  "schemas" : [ "buyTileRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.StringAttribute",
+    "key" : "tileType",
+    "value" : "tile"
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.DieMoveRule",
+  "id" : "34d480fb-7645-40b2-b82a-cb0f63bb9401",
+  "schemas" : [ "dieRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "numberOfDice",
+    "value" : 1
+  } ]
+} ]

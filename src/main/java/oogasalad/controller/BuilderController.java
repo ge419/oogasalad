@@ -19,8 +19,8 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import oogasalad.controller.builderevents.Dragger;
+import oogasalad.model.attribute.Attribute;
 import oogasalad.model.attribute.FileReader;
-import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.BBoard;
@@ -29,14 +29,12 @@ import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.model.engine.rules.EditableRule;
-import oogasalad.model.engine.rules.Rule;
 import oogasalad.model.exception.FileReaderException;
 import oogasalad.model.exception.ResourceReadException;
 import oogasalad.util.SaveManager;
 import oogasalad.view.BuilderFactory;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.BuilderView;
-import oogasalad.view.builder.ErrorHandler;
 import oogasalad.view.builder.popupform.PopupForm;
 import oogasalad.view.tiles.ViewTile;
 import oogasalad.view.tiles.ViewTileFactory;
@@ -64,6 +62,7 @@ public class BuilderController {
   private Map<String, String> rules;
   private static final String RULE_NAME_KEY = "name";
   private static final String RULE_DESCRIPTION_KEY = "description";
+  private List<String> tileTypes;
 
   public BuilderController(String language, Path saveDir) {
     injector = Guice.createInjector(
@@ -78,6 +77,7 @@ public class BuilderController {
     gameHolder = injector.getInstance(GameHolder.class);
     board = gameHolder.getBoard();
     gameInfo = gameHolder.getGameInfo();
+    tileTypes = new ArrayList<>();
 
     loadIntoBuilder();
 
@@ -269,10 +269,11 @@ public class BuilderController {
     try{
       rules = new HashMap<>();
       for (File file: FileReader.readFiles(RULE_PATH)) {
-        EditableRule rule = readRulesFile(file.toPath());
-        String name = StringAttribute.from(rule.getAttribute(RULE_NAME_KEY).get()).getValue();
-        String desc = StringAttribute.from(rule.getAttribute(RULE_DESCRIPTION_KEY).get()).getValue();
-        rules.putIfAbsent(name, desc);
+        //TODO: use reflection to build rules from schema
+//        EditableRule rule = readRulesFile(file.toPath());
+//        String name = StringAttribute.from(rule.getAttribute(RULE_NAME_KEY).get()).getValue();
+//        String desc = StringAttribute.from(rule.getAttribute(RULE_DESCRIPTION_KEY).get()).getValue();
+//        rules.putIfAbsent(name, desc);
       }
     } catch (FileReaderException | IOException e) {
       logger.fatal("Failed to read resource rule files", e);
@@ -280,10 +281,12 @@ public class BuilderController {
     }
   }
 
-  private EditableRule readRulesFile(Path path) throws IOException {
-    ObjectMapper mapper = new ObjectMapper();
-    return mapper.readValue(path.toFile(), EditableRule.class);
-  }
+//  private Attribute readRulesFile(Path path) throws IOException {
+//    AttributeFactory attributeFactory = new AttributeFactory();
+//    ObjectMapper mapper = new ObjectMapper();
+//    mapper.readValue(path.toFile(), Attribute)
+//    return mapper.readValue(path.toFile(), EditableRule.class);
+//  }
   public String getRuleDescription(String ruleAsString){
     return rules.get(ruleAsString);
 //    return "This is a test string! Selected rule: " + ruleAsString;

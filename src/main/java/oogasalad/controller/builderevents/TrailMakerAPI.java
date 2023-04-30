@@ -7,7 +7,9 @@ import javafx.scene.paint.Paint;
 /**
  * <p>TrailMakers will create some sort of trail between any given nodes, and then store all
  * created
- * trails inside itself. It will also visually place the trails inside the desired pane.</p>
+ * trails inside itself. </p>
+ * <p>It will also visually place the trails inside the desired pane.</p>
+ * <p>Trails can also be re-enabled and disabled based on a toggle method, toggleEnable.</p>
  *
  * @author tmh85
  */
@@ -65,7 +67,8 @@ public interface TrailMakerAPI {
   double getOpacity(String trailID);
 
   /**
-   * Flips the current enable state of the guidelines
+   * <p>Flips the current enable state of the guidelines</p>
+   * <p>If active, trails are visible. If not, they are not.</p>
    */
   void toggleEnable();
 

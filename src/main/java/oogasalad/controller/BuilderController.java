@@ -74,7 +74,7 @@ public class BuilderController {
         new BuilderControllerModule(language, saveDir)
     );
     injector.getInstance(SaveManager.class).loadGame();
-//    readDefaultRules();
+    readDefaultRules();
     builderView = injector.getInstance(BuilderFactory.class).makeBuilder(language, this);
     viewTileFactory = injector.getInstance(ViewTileFactory.class);
     logger.info("created builder");
@@ -270,19 +270,24 @@ public class BuilderController {
     return true;
   }
 
-  private void readDefaultRules() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
+  private void readDefaultRules() {
     try{
       rules = new HashMap<>();
       for (File file: FileReader.readFiles(RULE_PATH)) {
+        System.out.println(file);
         SimpleObjectSchema simpleObjectSchema = readRulesFile(file.toPath());
         List<Attribute> attributeList = simpleObjectSchema.makeAllAttributes();
+        System.out.println(attributeList);
         RuleFactory ruleFactory = new RuleFactory();
-        AbstractGameConstruct rule = ruleFactory.generate(simpleObjectSchema.getName(), attributeList);
+        AbstractGameConstruct rule = ruleFactory.generate(simpleObjectSchema.getName(),
+            attributeList);
         String name = StringAttribute.from(rule.getAttribute(RULE_NAME_KEY).get()).getValue();
         String desc = StringAttribute.from(rule.getAttribute(RULE_DESCRIPTION_KEY).get()).getValue();
         rules.putIfAbsent(name, desc);
       }
-    } catch (FileReaderException | IOException e) {
+    } catch (FileReaderException | IOException | ClassNotFoundException |
+        NoSuchMethodException | IllegalAccessException | InstantiationException |
+        InvocationTargetException e) {
       logger.fatal("Failed to read resource rule files", e);
       throw new ResourceReadException(e);
     }

@@ -152,11 +152,6 @@ public class Tile extends AbstractGameConstruct {
     return StringAttribute.from(getAttribute(INFO_ATTRIBUTE).get()).getValue();
   }
 
-//  @JsonIgnore
-//  public String getPrice() {
-//    return Double.toString(DoubleAttribute.from(getAttribute("price").get()).getValue());
-//  }
-
   @JsonIgnore
   public String getViewType() {
     return viewTypeAttribute().getValue();

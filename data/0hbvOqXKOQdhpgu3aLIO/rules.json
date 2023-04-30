@@ -12,11 +12,6 @@
     "value" : 1
   } ]
 }, {
-  "@class" : "oogasalad.model.engine.rules.NumberOfPlayerPieceRule",
-  "id" : "75ce70eb-e073-4c3a-93b7-d245bd689d96",
-  "schemas" : [ "numberOfPiecesPerPlayerRule" ],
-  "attributes" : [ ]
-}, {
   "@class" : "oogasalad.model.engine.rules.TurnRule",
   "id" : "44628ca4-e20c-4c45-a580-4f27a7195ca4",
   "schemas" : [ "turnRule" ],

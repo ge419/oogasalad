@@ -22,21 +22,17 @@ public class GameController {
   private final Engine engine;
   private final Gameview gv;
   private final GameHolder game;
-  private final PrompterFactory prompterFactory;
-  // TODO get from player
   private final Prompter prompter;
-  private final Injector injector;
-  LinkedList<Effect> effects;
+  private final LinkedList<Effect> effects;
 
   public GameController(Path saveDir, String language) {
-    this.injector = Guice.createInjector(new GameControllerModule(saveDir, language));
+    Injector injector = Guice.createInjector(new GameControllerModule(saveDir, language));
     injector.getInstance(SaveManager.class).loadGame();
-
     gv = injector.getInstance(ViewFactory.class).makeGameview(this);
     this.effects = new LinkedList<>();
     this.engine = injector.getInstance(Engine.class);
     this.game = injector.getInstance(GameHolder.class);
-    this.prompterFactory = injector.getInstance(PrompterFactory.class);
+    PrompterFactory prompterFactory = injector.getInstance(PrompterFactory.class);
     this.prompter = prompterFactory.makeHumanPrompter(
         effect -> effects.add(effect),
         gv

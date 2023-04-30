@@ -7,6 +7,7 @@ import oogasalad.model.constructable.AbstractGameConstruct;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
+import oogasalad.model.engine.Priority;
 import oogasalad.model.engine.actions.ActionFactory;
 import oogasalad.model.engine.events.PieceChosenEvent;
 import org.apache.logging.log4j.LogManager;
@@ -36,6 +37,6 @@ public class NumberOfPieceRule extends AbstractGameConstruct implements Editable
   }
 
   private void setPlayerPieces(EventHandlerParams<PieceChosenEvent> eventHandlerParams){
-    eventHandlerParams.actionQueue().add(1, actionFactory.makeCreatePlayerPieceAction());
+    eventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(), actionFactory.makeCreatePlayerPieceAction());
   }
 }

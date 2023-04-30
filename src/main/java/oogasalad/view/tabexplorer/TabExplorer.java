@@ -26,6 +26,7 @@ import oogasalad.view.tabexplorer.tabs.Tab;
 import oogasalad.view.tabexplorer.tabs.TabFactory;
 import oogasalad.view.tabexplorer.tabs.settings.SettingsTab;
 import oogasalad.view.tabexplorer.tabs.socialcenter.SocialCenterTab;
+import oogasalad.view.tabexplorer.userpreferences.Languages;
 import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
 
@@ -161,8 +162,11 @@ public class TabExplorer {
   }
 
   public void launchGame(String gameID){
-
-    GameController gameController = new GameController(Paths.get(PathFinder.getGameDataPath(gameID)), "English");
+    // todo should take in a userID and a userDao here
+    // userID = authHandler.getActiveUserID()
+    // userDao - instance var
+    GameController gameController = new GameController(Paths.get(PathFinder.getGameDataPath(gameID)),
+        Languages.ENGLISH.getLocaleStr());
     Stage gameStage = new Stage();
     try {
       gameController.setGame(gameStage);

@@ -1,7 +1,9 @@
 package oogasalad.model.attribute;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -38,7 +40,9 @@ public class AbstractAttributeTest {
   }
 
   private static class MockAttribute extends AbstractAttribute {
+
     private final StringProperty value;
+
     protected MockAttribute(String key, String value) {
       super(key);
       this.value = new SimpleStringProperty(value);

@@ -44,7 +44,7 @@ public class RulesPane extends BorderPane {
       // tell builder controller to give me the properties for this rule.
       String selectedRule = myRulesList.getSelectionModel().getSelectedItem();
       String selectedTiletype = myCheckbox.getSelectionModel().getSelectedItem();
-      myBuilderController.makeRulesPopup(selectedTiletype, selectedRule);
+      myBuilderController.makeRulesPopup(selectedRule);
     });
 
     myDeleteButton.setOnAction(e -> {
@@ -71,10 +71,17 @@ public class RulesPane extends BorderPane {
   private void initializeTiletypesCheckbox() {
     myCheckbox = new ComboBox<>();
     myCheckbox.setPromptText(myLanguage.getString("SelectTiletype"));
-    myCheckbox.setItems(
-        FXCollections.observableArrayList(myBuilderController.getCurrentTiletypes()));
+    updateTileTypes();
     myCheckbox.valueProperty().addListener(((observable, oldValue, newValue) -> {
       System.out.println("Oh my, you selected " + newValue);
     }));
+  }
+
+  /**
+   * <p>Update the tiletypes selectable by the user with the current set of tiletypes.</p>
+   */
+  public void updateTileTypes() {
+    myCheckbox.setItems(
+        FXCollections.observableArrayList(myBuilderController.getCurrentTiletypes()));
   }
 }

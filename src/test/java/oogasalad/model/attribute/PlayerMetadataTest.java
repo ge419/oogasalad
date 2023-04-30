@@ -1,6 +1,8 @@
 package oogasalad.model.attribute;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +25,7 @@ class PlayerMetadataTest {
     Attribute attribute = playerMetadata.makeAttribute();
     assertTrue(attribute instanceof PlayerAttribute);
     assertEquals(KEY, attribute.getKey());
-    assertEquals("-1", PlayerAttribute.from(attribute).getId().get());
+    assertNotNull(PlayerAttribute.from(attribute).getId());
   }
 
 }

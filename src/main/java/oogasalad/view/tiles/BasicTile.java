@@ -15,7 +15,7 @@ import oogasalad.view.Coordinate;
  * <p>A basic implementation of a ViewTile.</p>
  * <p>This type of tile is a basic rectangle that supports different kinds of colors.</p>
  *
- * @author tmh85
+ * @author tmh85, Woonggyu wj61
  */
 public class BasicTile extends Rectangle implements ViewTile {
 
@@ -23,7 +23,7 @@ public class BasicTile extends Rectangle implements ViewTile {
 
   @Inject
   public BasicTile(@Assisted Tile tile) {
-    super(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
+    super(0, 0, tile.getWidth(), tile.getHeight());
     this.myModelTile = tile;
 
     this.setFill(Paint.valueOf(myModelTile.colorAttribute().getValue()));
@@ -48,10 +48,16 @@ public class BasicTile extends Rectangle implements ViewTile {
             )));
   }
 
+  /**
+   * @return backend tile associated with this frontend tile
+   */
   public Tile getTile() {
     return this.myModelTile;
   }
 
+  /**
+   * Set the size of this frontend tile
+   */
   @Override
   public void setSize(double width, double height) {
     this.setWidth(width);
@@ -63,27 +69,45 @@ public class BasicTile extends Rectangle implements ViewTile {
     return this;
   }
 
+  /**
+   * Return the ID of the backend tile associated with this frontend tile
+   */
   public String getTileId() {
     return this.myModelTile.getId();
   }
 
+  /**
+   * Return Coordinate object associated with this frontend tile
+   */
   public Coordinate getPosition() {
     return myModelTile.getCoordinate();
   }
 
-  public void setPosition(Coordinate coord) {
+  /**
+   * Set position of this frontend tile
+   */
+  private void setPosition(Coordinate coord) {
     this.setX(coord.getXCoor());
     this.setY(coord.getYCoor());
   }
 
+  /**
+   * Get the color of this frontend tile
+   */
   public Paint getColor() {
     return this.getFill();
   }
 
+  /**
+   * Set the color of this frontend tile
+   */
   public void setColor(Color color) {
     this.setFill(color);
   }
 
+  /**
+   * Check for tile equality
+   */
   @Override
   public boolean equals(Object o) {
     if (o == null || getClass() != o.getClass()) {

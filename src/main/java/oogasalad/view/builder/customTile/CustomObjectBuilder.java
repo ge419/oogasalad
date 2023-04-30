@@ -8,12 +8,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
+import oogasalad.view.builder.BuilderUtility;
 
 import java.io.File;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class CustomObjectBuilder extends Application {
+public class CustomObjectBuilder extends Application implements BuilderUtility {
     private final String DEFAULT_TITLE = "CustomTileMaker";
     private final String STYLE_PATH =  "/customTiles/customObjectBuilder.css";
     private Stage stage;
@@ -118,6 +119,8 @@ public class CustomObjectBuilder extends Application {
 
             Button renameButton = new Button(languageBundle.getString("renameButton.label"));
             renameButton.setOnAction(e -> rightPane.nameObject());
+
+            MakeButton
 
             Button saveButton = new Button(languageBundle.getString("saveButton.label"));
             saveButton.setOnAction(e -> rightPane.saveLauncher());

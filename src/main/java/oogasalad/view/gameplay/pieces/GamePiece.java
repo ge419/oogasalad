@@ -1,11 +1,8 @@
 package oogasalad.view.gameplay.pieces;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import oogasalad.view.Imageable;
 import oogasalad.view.gameplay.Movable;
 
 abstract public class GamePiece extends StackPane implements Movable {

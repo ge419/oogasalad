@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
@@ -26,6 +27,7 @@ import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.BBoard;
+import oogasalad.model.constructable.BoardImage;
 import oogasalad.model.constructable.GameConstruct;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Tile;
@@ -37,6 +39,7 @@ import oogasalad.model.exception.ResourceReadException;
 import oogasalad.util.SaveManager;
 import oogasalad.view.BuilderFactory;
 import oogasalad.view.Coordinate;
+import oogasalad.view.builder.BoardImageTile;
 import oogasalad.view.builder.BuilderView;
 import oogasalad.view.builder.ErrorHandler;
 import oogasalad.view.builder.popupform.PopupForm;
@@ -60,6 +63,7 @@ public class BuilderController {
   private SchemaDatabase db;
   private ViewTileFactory viewTileFactory;
   private BBoard board;
+  private SaveManager saveManager;
   private final Injector injector;
   private String gameID;
   private GameDao gameDao;
@@ -83,7 +87,7 @@ public class BuilderController {
     gameInfo = gameHolder.getGameInfo();
 
     loadIntoBuilder();
-    readDefaultRules();
+//    readDefaultRules();
 
 //    todo: Dominics example code for how to get rules using dependency injection
 //    Injector injector = Guice.createInjector(new EngineModule());
@@ -107,7 +111,7 @@ public class BuilderController {
   }
 
   public boolean addNext(String currentId, String nextId) {
-    if (board.getById(currentId).get().getNextTileIds().contains(nextId)){
+    if (board.getById(currentId).get().getNextTileIds().contains(nextId)) {
       logger.info("Tried creating a path that already exists.");
       return false;
     }
@@ -118,12 +122,11 @@ public class BuilderController {
   }
 
   public boolean removeNext(String currentId, String nextId) {
-    if (board.getById(currentId).get().getNextTileIds().contains(nextId)){
+    if (board.getById(currentId).get().getNextTileIds().contains(nextId)) {
       board.getById(currentId).get().getNextTileIds().remove(nextId);
       logger.info("removed next attribute from tile");
       return true;
-    }
-    else{
+    } else {
       logger.info("tried to remove a next attribute that doesn't exist.");
       return false;
     }
@@ -194,7 +197,7 @@ public class BuilderController {
   }
 
   public List<String> getListOfRules() {
-    //return rules.keySet().stream().toList();
+//    return rules.keySet().stream().toList();
     return List.of(
         "Hello",
         "This",
@@ -224,12 +227,12 @@ public class BuilderController {
         " from tiletype " + tiletype);
   }
 
-  private void loadIntoBuilder(){
+  private void loadIntoBuilder() {
     boolean lostTiles = false;
-//    getBuilderView().loadBoardSize(gameInfo.getWidth(), gameInfo.getHeight());
+    getBuilderView().loadBoardSize(gameInfo.getWidth(), gameInfo.getHeight());
 
-    for (Tile tile : board.getTiles()){
-      if (!checkTileValidity(tile, gameInfo.getWidth(), gameInfo.getHeight())){
+    for (Tile tile : board.getTiles()) {
+      if (!checkTileValidity(tile, gameInfo.getWidth(), gameInfo.getHeight())) {
         logger.warn("Tried to load an invalid tile! Coordinate: " +
             tile.getCoordinate().toString() + " Width: " + tile.getWidth() + " Height: "
             + tile.getHeight());
@@ -239,33 +242,71 @@ public class BuilderController {
       getBuilderView().loadTile(viewTileFactory.createDynamicViewTile(tile));
     }
 
-    if (lostTiles){
+    if (lostTiles) {
       getBuilderView().showError("InvalidTilesLoadedError");
     }
   }
 
-  private boolean checkTileValidity(Tile tile, double boardWidth, double boardHeight){
+  /**
+   * <p>Checks if a tile is within the bounds of the given board or not.</p>
+   *
+   * @param tile        tile we are checking
+   * @param boardWidth  width of the board
+   * @param boardHeight height of the board
+   * @return true if valid, false if not
+   */
+  private boolean checkTileValidity(Tile tile, double boardWidth, double boardHeight) {
     Coordinate tileCoordinate = tile.getCoordinate();
-    if (tileCoordinate.getXCoor() - tile.getWidth() > boardWidth){
+    if (tileCoordinate.getXCoor() - tile.getWidth() > boardWidth) {
       return false;
     }
-    if (tileCoordinate.getYCoor() - tile.getHeight() > boardHeight){
+    if (tileCoordinate.getYCoor() - tile.getHeight() > boardHeight) {
       return false;
     }
-    if (tile.getHeight() > boardHeight || tile.getWidth() > boardWidth){
+    if (tile.getHeight() > boardHeight || tile.getWidth() > boardWidth) {
       return false;
     }
 
     return true;
   }
 
+  /**
+   * <p>Creates a board image tile object for the frontend, while also placing a
+   * backend image tile in the object.</p>
+   * <p>This method will also use the save manager to save the asset to the game itself.</p>
+   *
+   * @param imagePath path of the image
+   * @return a boardimagetile object
+   */
+  public Optional<BoardImageTile> createBoardImage(String imagePath) {
+    System.out.println("This is our image path: " + imagePath);
+    BoardImage backendImage = new BoardImage(db);
+    Coordinate coordinate = new Coordinate(0, 0, 0);
+    backendImage.setCoordinate(coordinate);
+
+    //todo: NOW, WE NEED TO CALL THE SAVE MANAGER TO UPLOAD ASSET!
+    // WHEN SAVE MANAGER IS WORKING, UNCOMMENT!
+//    if (!savePathAsAsset(imagePath)){
+//      return Optional.empty();
+//    }
+    backendImage.imageAttribute().valueProperty().addListener(((observable, oldValue, newValue) -> {
+//      if (!savePathAsAsset(newValue)){
+//        backendImage.setImage(oldValue);
+//      }
+    }));
+
+    return Optional.of(new BoardImageTile(backendImage));
+
+  }
+
   private void readDefaultRules() {
-    try{
+    try {
       rules = new HashMap<>();
-      for (File file: FileReader.readFiles("rules")) {
+      for (File file : FileReader.readFiles("rules")) {
         EditableRule rule = readRulesFile(file.toPath());
         String name = StringAttribute.from(rule.getAttribute(RULE_NAME_KEY).get()).getValue();
-        String desc = StringAttribute.from(rule.getAttribute(RULE_DESCRIPTION_KEY).get()).getValue();
+        String desc = StringAttribute.from(rule.getAttribute(RULE_DESCRIPTION_KEY).get())
+            .getValue();
         rules.putIfAbsent(name, desc);
       }
     } catch (FileReaderException | IOException e) {
@@ -277,6 +318,20 @@ public class BuilderController {
   private EditableRule readRulesFile(Path path) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
     return mapper.readValue(path.toFile(), EditableRule.class);
+  }
+
+  private boolean savePathAsAsset(String path) {
+    try {
+      saveManager.saveAsset(Path.of(path));
+      return true;
+    } catch (IOException e) {
+      getBuilderView().showError("ImagePathSaveError");
+      return false;
+    }
+  }
+  public String getRuleDescription(String ruleAsString){
+//    return "This is a test string! Selected rule: " + ruleAsString;
+    return rules.get(ruleAsString);
   }
   public String getGameID() {
     return gameID;

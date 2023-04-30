@@ -53,6 +53,11 @@ public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
   }
 
   @Override
+  public void incrementNumberOfGamesPlayed(String userID) {
+
+  }
+
+  @Override
   public void setUserName(String userID, String newUsername) {
 
   }

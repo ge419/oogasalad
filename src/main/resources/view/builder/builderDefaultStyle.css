@@ -63,14 +63,22 @@
 }
 #DeleteMode{
     -fx-fill: delete-color;
+    -fx-underline: true;
 }
 
 #TileAdditionMode{
     -fx-fill: tile-info-text-color;
 }
 
-#TileNextMode{
+#TileSelectMode{
     -fx-fill: tile-info-text-color;
+}
+#TileNextRemovalModePart1{
+    -fx-fill: delete-color;
+}
+#TileNextRemovalModePart2{
+    -fx-fill: delete-color;
+    -fx-underline: true;
 }
 
 #About{

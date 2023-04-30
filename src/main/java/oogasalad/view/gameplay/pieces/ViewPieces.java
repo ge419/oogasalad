@@ -11,9 +11,9 @@ public class ViewPieces implements Renderable {
 
   private final List<PlayerPiece> pieceList;
 
-  public ViewPieces(Optional<List<Piece>> p) {
+  public ViewPieces(List<Piece> p) {
     this.pieceList = new ArrayList<>();
-      for (Piece piece : p.get()) {
+      for (Piece piece : p) {
         pieceList.add(new PlayerPiece(piece));
     }
   }
@@ -31,5 +31,14 @@ public class ViewPieces implements Renderable {
 
   public PlayerPiece getPiece() {
     return pieceList.get(0);
+  }
+
+  public PlayerPiece getViewPieceByBPiece(Piece piece) {
+    for (PlayerPiece playerPiece : pieceList) {
+      if (piece.equals(playerPiece.getModelPiece())) {
+        return playerPiece;
+      }
+    }
+    throw new IllegalArgumentException("No such piece");
   }
 }

@@ -38,7 +38,7 @@ public class SimpleEngine implements Engine {
     this.managerProvider = managerProvider;
 
     EventAction startGameAction = new EventAction(new StartGameEvent());
-    actionQueue.add(3, startGameAction);
+    actionQueue.add(Priority.MEDIUM.getValue(), startGameAction);
   }
 
   @Override
@@ -55,7 +55,7 @@ public class SimpleEngine implements Engine {
   @Override
   public void runNextAction(Prompter prompter) {
     Optional<Action> optAction = actionQueue.poll();
-    System.out.println(optAction.toString());
+//    System.out.println(optAction.toString());
 
     if (optAction.isEmpty()) {
       log.warn("game ran out of actions");

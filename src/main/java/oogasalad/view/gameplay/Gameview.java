@@ -1,16 +1,12 @@
 package oogasalad.view.gameplay;
 
-import com.google.cloud.Tuple;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -29,14 +25,13 @@ import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
 import oogasalad.model.observers.GameObserver;
 import oogasalad.view.Renderable;
-import oogasalad.view.gameplay.Players.PlayerUI;
 import oogasalad.view.gameplay.Players.ViewPlayers;
 import oogasalad.view.gameplay.pieces.ViewPieces;
 import oogasalad.view.gameplay.pieces.Cards;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
 import oogasalad.view.gameplay.popup.HandDisplayPopup;
 import oogasalad.view.tiles.Tiles;
-import org.checkerframework.checker.units.qual.A;
+import oogasalad.view.tiles.ViewTile;
 
 public class Gameview implements GameObserver {
 
@@ -53,6 +48,7 @@ public class Gameview implements GameObserver {
   private Scene scene;
   private BorderPane UIroot;
   private ViewPlayers viewPlayers = new ViewPlayers(null);
+  private ViewPieces viewPieces;
 
   @Inject
   public Gameview(
@@ -87,11 +83,16 @@ public class Gameview implements GameObserver {
 
     //TODO: take this out when cards are implemented
     Button button = new Button("Show Card Popup");
-    Cards card = new Cards("view.gameplay/chance.jpg");
-    Cards card2 = new Cards("view.gameplay/chance.jpg");
-    Cards card3 = new Cards("view.gameplay/chance.jpg");
-    Cards[] cards = {card, card2, card3};
-    HandDisplayPopup popup = new HandDisplayPopup(cards);
+    button.setOnAction(event -> {
+      Cards cards = new Cards(game.getBoard().getTiles());
+      HandDisplayPopup popup = new HandDisplayPopup();
+      cards.render(popup);
+      List<ViewTile> cardList = cards.getCardList();
+      popup.addCards(cardList);
+      Point2D offset = new Point2D(UIroot.getLayoutX(), UIroot.getLayoutY());
+      popup.showHand(UIroot, offset);
+    });
+
 
     HBox hbox = new HBox();
     hbox.getChildren().addAll(button);
@@ -99,12 +100,9 @@ public class Gameview implements GameObserver {
     button.setId("Button");
     UIroot.setTop(hbox);
 
-    button.setOnAction(event -> {
-      Point2D offset = new Point2D(button.getScene().getX(), button.getScene().getY());
-      popup.showHand(button, offset);
-    });
 
     scene = new Scene(UIroot);
+
 
     //TODO: refactor to read from property file
     primaryStage.setTitle("Monopoly");
@@ -131,7 +129,7 @@ public class Gameview implements GameObserver {
 
   @Override
   public void updateOnPieces(List<Piece> pieces) {
-    ViewPieces viewPieces = new ViewPieces(game.getPieces());
+    viewPieces = new ViewPieces(game.getPieces());
     viewPieces.render(UIroot);
   }
 
@@ -139,7 +137,14 @@ public class Gameview implements GameObserver {
   public void updateOnPlayerRemoval(List<Player> players) {
     //TODO: make the player pieces be removed
     List<String> ids = new ArrayList<>();
-    for (Player p : players)  ids.add(p.getId());
+    List<Piece> pieces = new ArrayList<>();
+    for (Player p : players) {
+      ids.add(p.getId());
+      pieces.addAll(p.getPieces());
+    }
+    for (Piece piece : pieces) {
+      UIroot.getChildren().remove(viewPieces.getViewPieceByBPiece(piece));
+    }
     for (String id : ids) {
       UIroot.getChildren().remove(viewPlayers.getPlayer(id));
       Alert alert = new Alert(AlertType.INFORMATION);
@@ -148,6 +153,10 @@ public class Gameview implements GameObserver {
       alert.setContentText(String.format("Player %s Gets Removed!", id));
       alert.showAndWait();
     }
+  }
+
+  @Override
+  public void updateOnGameEnd() {
 
   }
 }

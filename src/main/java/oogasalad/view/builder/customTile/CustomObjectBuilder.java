@@ -32,7 +32,8 @@ public class CustomObjectBuilder extends Application {
     }
 
     public void start(Stage PrimaryStage, String defaultLanguage) {
-        stage = PrimaryStage;
+//        stage = PrimaryStage;
+        stage = new Stage();
         this.languageBundle = ResourceBundle.getBundle("oogasalad.languages."+ defaultLanguage);
 
         rightPane = new CustomObject(() -> leftPane.swapCurrentClicked(rightPane.currentClickedInfo, rightPane.newCurrentClickedInfo));

@@ -22,7 +22,7 @@ class SimpleActionQueueTest {
 
   @BeforeAll
   static void initClass() {
-    injector = Guice.createInjector(new EngineModule());
+    injector = Guice.createInjector(new EngineModule("English"));
   }
 
   @BeforeEach

@@ -1,17 +1,23 @@
 package oogasalad;
 
 
-import java.io.IOException;
-import java.nio.file.Path;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import java.nio.file.Paths;
+import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import oogasalad.controller.BuilderController;
-import oogasalad.controller.GameController;
+import oogasalad.view.tabexplorer.TabExplorer;
+import oogasalad.view.tabexplorer.TabModule;
+import oogasalad.view.tabexplorer.userpreferences.Languages;
 
 /**
  * Feel free to completely change this code or delete it entirely.
  */
 public class Main extends Application {
+
+  private static final String DEFAULT_LANGUAGE_PROPERTY = "tabexplorer.languages.en_US";
 
   public static void main(String[] args) {
     launch(args);
@@ -26,14 +32,16 @@ public class Main extends Application {
 
   @Override
   public void start(Stage primaryStage) throws Exception {
-    Path saveDir = Path.of("data", "monopoly");
 
-//    GameController controller = new GameController(saveDir);
-//    try {
-//      controller.setGame(primaryStage);
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
-    new BuilderController("English", saveDir);
+    ResourceBundle resourceBundle = ResourceBundle.getBundle(DEFAULT_LANGUAGE_PROPERTY);
+    Injector injector = Guice.createInjector(
+        new TabModule(resourceBundle),
+        binder -> binder.bind(Stage.class).toInstance(primaryStage)
+    );
+    TabExplorer launcher = injector.getInstance(TabExplorer.class);
+    launcher.render();
+
+    new BuilderController(Languages.ENGLISH.getLocaleStr(), Paths.get("data", "0TTYFzGUPQG2HXB2BsB4"));
+
   }
 }

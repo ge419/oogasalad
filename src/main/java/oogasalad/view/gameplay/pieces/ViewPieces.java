@@ -32,4 +32,13 @@ public class ViewPieces implements Renderable {
   public PlayerPiece getPiece() {
     return pieceList.get(0);
   }
+
+  public PlayerPiece getViewPieceByBPiece(Piece piece) {
+    for (PlayerPiece playerPiece : pieceList) {
+      if (piece.equals(playerPiece.getModelPiece())) {
+        return playerPiece;
+      }
+    }
+    throw new IllegalArgumentException("No such piece");
+  }
 }

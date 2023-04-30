@@ -3,15 +3,14 @@ package oogasalad;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import java.io.IOException;
-import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import oogasalad.controller.BuilderController;
-import oogasalad.controller.GameController;
 import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.TabModule;
+import oogasalad.view.tabexplorer.userpreferences.Languages;
 
 /**
  * Feel free to completely change this code or delete it entirely.
@@ -41,6 +40,8 @@ public class Main extends Application {
     );
     TabExplorer launcher = injector.getInstance(TabExplorer.class);
     launcher.render();
+
+//    new BuilderController(Languages.ENGLISH.getLocaleStr(), Paths.get("data", "0TTYFzGUPQG2HXB2BsB4"));
 
   }
 }

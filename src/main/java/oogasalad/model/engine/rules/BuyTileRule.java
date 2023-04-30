@@ -30,6 +30,7 @@ public class BuyTileRule extends AbstractGameConstruct implements EditableRule {
   public static final String PRICE_ATTRIBUTE = "price";
   public static final String OWNER_ATTRIBUTE = "owner";
   private static final Logger LOGGER = LogManager.getLogger(BuyTileRule.class);
+  public static final String IMAGE = "image";
   private final ListProperty<SchemaBinding> appliedSchemaProperty;
   private final GameHolder gameHolder;
   private final ResourceBundle bundle;
@@ -65,7 +66,7 @@ public class BuyTileRule extends AbstractGameConstruct implements EditableRule {
     DoubleAttribute price = getPriceAttribute(tile);
     double newMoney = player.getScore() - price.getValue();
 
-    if (owner.getId().isEmpty() && newMoney >= 0) {
+    if (owner.getId().isEmpty() && newMoney >= 0 && !tile.getViewType().equals(IMAGE)) {
       LOGGER.info("Prompted User to Buy Property with Remaining Money {}", newMoney);
       BuyAction buyAction = new BuyAction(() -> {
         tile.setOwned();

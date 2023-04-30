@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import oogasalad.model.exception.ResourceReadException;
 import oogasalad.view.builder.BuilderUtility;
 import oogasalad.view.builder.BuilderView;
+import oogasalad.view.builder.customTile.CustomObjectBuilder;
 import oogasalad.view.builder.exceptions.MethodReflectionException;
 
 /**
@@ -125,5 +126,14 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
 
   private void cancelAction() {
     getBuilder().cancelAction();
+  }
+
+  private void createCustomTile(){
+    getBuilder().cancelAction();
+    new CustomObjectBuilder().start(null);
+  }
+
+  private void toggleNextRemoval(){
+    getBuilder().toggleNextRemoval();
   }
 }

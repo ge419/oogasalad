@@ -26,14 +26,14 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import oogasalad.model.accesscontrol.authentication.AuthenticationHandler;
 import oogasalad.model.accesscontrol.dao.GameDao;
 import oogasalad.model.accesscontrol.dao.UserDao;
-import oogasalad.model.accesscontrol.database.DatabaseAccessor;
+import oogasalad.model.accesscontrol.database.schema.UserSchema;
 import oogasalad.view.tabexplorer.TabExplorer;
+import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
 public class GameLauncherTab implements Tab {
 

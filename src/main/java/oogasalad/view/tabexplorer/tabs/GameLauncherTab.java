@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -37,6 +38,7 @@ import oogasalad.model.accesscontrol.dao.GameDao;
 import oogasalad.model.accesscontrol.dao.UserDao;
 import oogasalad.model.accesscontrol.database.schema.GameSchema;
 import oogasalad.model.accesscontrol.database.schema.UserSchema;
+import oogasalad.util.AlertPopUp;
 import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
@@ -142,8 +144,17 @@ public class GameLauncherTab implements Tab {
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(75);
         imageView.setFitHeight(75);
-        VBox gameBox = new VBox(imageView, new Label(name));
+
+
+        editMenuItem = new MenuItem("edit");
+        deleteMenuItem = new MenuItem("delete");
+        MenuButton menuButton = new MenuButton("\u22EE", null,editMenuItem, deleteMenuItem);
+//        menuButton.setNodeOrientation(Nod.VERTICAL);
+        deleteMenuItem.setOnAction(e->userDao.deleteGame(gameID));
+        HBox container = new HBox(imageView, menuButton);
+        VBox gameBox = new VBox(container, new Label(name));
         gameBox.getStyleClass().add("game-box");
+
         gameBox.setOnMouseClicked(e-> tabExplorer.launchGame(gameID));
 //        gameBox.setOnMouseEntered(e->gameBox.setCursor(Cursor.HAND));
 //        gameBox.setPrefSize(100, 100);

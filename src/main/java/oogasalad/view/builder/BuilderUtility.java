@@ -7,14 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -41,6 +34,13 @@ public interface BuilderUtility {
     text.setId(property);
     text.getStyleClass().add("text");
     return text;
+  }
+
+  default Node makeLabel(String property, ResourceBundle resourceBundle) {
+    Label label = new Label(resourceBundle.getString(property));
+    label.setId(property);
+    label.getStyleClass().add("text");
+    return label;
   }
   /**
    * Creates a ComboBox object with ID = property and options from choices.

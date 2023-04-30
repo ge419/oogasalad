@@ -56,10 +56,11 @@ class PositionMetadataTest {
 
   @Test
   void testEquals() {
-    PositionMetadata same = new PositionMetadata(KEY);
+    PositionMetadata same = positionMetadata;
+    PositionMetadata diff = new PositionMetadata("diff");
     assertTrue(positionMetadata.equals(same));
     same.setDefaultX(54.0);
-    assertFalse((positionMetadata.equals(same)));
+    assertFalse((positionMetadata.equals(diff)));
   }
 
   @Test

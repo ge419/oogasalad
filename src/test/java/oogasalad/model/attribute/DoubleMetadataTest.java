@@ -66,4 +66,13 @@ class DoubleMetadataTest {
     metadata.setMaxValue(10.0);
     assertEquals(10.0, metadata.getMaxValue(), 0.01);
   }
+  @Test
+  void testEqual(){
+    DoubleMetadata same = metadata;
+    DoubleMetadata diff = new DoubleMetadata("diff");
+    assertTrue(metadata.equals(same));
+    assertEquals(metadata.hashCode(), same.hashCode());
+    diff.setDefaultValue(3.9);
+    assertFalse((metadata.equals(diff)));
+  }
 }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
@@ -24,6 +25,7 @@ import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.BBoard;
+import oogasalad.model.constructable.BoardImage;
 import oogasalad.model.constructable.GameConstruct;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Tile;
@@ -35,6 +37,7 @@ import oogasalad.model.exception.ResourceReadException;
 import oogasalad.util.SaveManager;
 import oogasalad.view.BuilderFactory;
 import oogasalad.view.Coordinate;
+import oogasalad.view.builder.BoardImageTile;
 import oogasalad.view.builder.BuilderView;
 import oogasalad.view.builder.ErrorHandler;
 import oogasalad.view.builder.popupform.PopupForm;
@@ -58,7 +61,7 @@ public class BuilderController {
   private SchemaDatabase db;
   private ViewTileFactory viewTileFactory;
   private BBoard board;
-//  private SaveManager saveManager;
+  private SaveManager saveManager;
   private final Injector injector;
   private Map<String, String> rules;
   private static final String RULE_NAME_KEY = "name";
@@ -93,7 +96,6 @@ public class BuilderController {
 
   public ViewTile addTile(MouseEvent e) {
     Coordinate pos = new Coordinate((double) e.getX(), (double) e.getY(), 0.0);
-    System.out.println(e.getX() + " " + e.getY());
     Tile t = new Tile(db);
     t.setCoordinate(pos);
     board.addTile(t);
@@ -277,6 +279,34 @@ public class BuilderController {
     // todo: complete
     return "This is a test string! Selected rule: " + ruleAsString;
   }
+
+  /**
+   * <p>Creates a board image tile object for the frontend, while also placing a
+   * backend image tile in the object.</p>
+   * <p>This method will also use the save manager to save the asset to the game itself.</p>
+   * @param imagePath path of the image
+   * @return a boardimagetile object
+   */
+  public Optional<BoardImageTile> createBoardImage(String imagePath) {
+    System.out.println("This is our image path: "+ imagePath);
+    BoardImage backendImage = new BoardImage(db);
+    Coordinate coordinate = new Coordinate(0, 0, 0);
+    backendImage.setCoordinate(coordinate);
+
+    //todo: NOW, WE NEED TO CALL THE SAVE MANAGER TO UPLOAD ASSET!
+    // WHEN SAVE MANAGER IS WORKING, UNCOMMENT!
+//    if (!savePathAsAsset(imagePath)){
+//      return Optional.empty();
+//    }
+    backendImage.imageAttribute().valueProperty().addListener(((observable, oldValue, newValue) -> {
+//      if (!savePathAsAsset(newValue)){
+//        backendImage.setImage(oldValue);
+//      }
+    }));
+
+    return Optional.of(new BoardImageTile(backendImage));
+
+  }
   private void readDefaultRules() {
     try{
       rules = new HashMap<>();
@@ -294,5 +324,15 @@ public class BuilderController {
   private EditableRule readRulesFile(Path path) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
     return mapper.readValue(path.toFile(), EditableRule.class);
+  }
+
+  private boolean savePathAsAsset(String path){
+    try {
+      saveManager.saveAsset(Path.of(path));
+      return true;
+    } catch (IOException e) {
+      getBuilderView().showError("ImagePathSaveError");
+      return false;
+    }
   }
 }

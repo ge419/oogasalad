@@ -29,16 +29,6 @@
       "viewable": true,
       "defaultValue": 1,
       "minValue": 0
-    },
-    {
-      "@class": "oogasalad.model.attribute.DoubleMetadata",
-      "key": "rotation",
-      "name": "Rotation",
-      "description": "Rotation of board image",
-      "editable": true,
-      "viewable": true,
-      "defaultValue": 0,
-      "minValue": 0
     }
   ]
 }

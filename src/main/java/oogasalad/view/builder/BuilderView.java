@@ -14,7 +14,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -52,7 +51,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private static final String DEFAULT_STYLESHEET = "builderDefaultStyle.css";
   private static final String DEFAULT_STYLESHEET_PATH = "/view/builder/" + DEFAULT_STYLESHEET;
   private static final Logger LOG = LogManager.getLogger(BuilderView.class);
-  private ResourceBundle builderResource;
+  private ResourceBundle myBuilderResource;
   private ResourceBundle constantsResource;
   private Pane myBoardPane;
   private RulesPane myRulePane;
@@ -67,6 +66,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private Node myInfoText;
   private BorderPane myTopBar;
   private int myTileCount = 0;
+  private int myImageCount = 0;
   private int myTrailCount = 0;
   private ItemPane mySidebar;
   private MenuItemPane myMenubar;
@@ -85,7 +85,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       @Assisted String languageString
   ) {
     this.myBuilderController = bc;
-    builderResource = ResourceBundle.getBundle(
+    myBuilderResource = ResourceBundle.getBundle(
         BASE_RESOURCE_PACKAGE + languageString + "-BuilderText");
     constantsResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE + CONSTANTS_FILE);
 
@@ -97,7 +97,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myTrailMaker = new TrailMaker(myBoardPane, true);
     Stage primaryStage = new Stage();
     primaryStage.setScene(scene);
-    primaryStage.setTitle(builderResource.getString("BuilderTitle"));
+    primaryStage.setTitle(myBuilderResource.getString("BuilderTitle"));
     primaryStage.show();
     myStage = primaryStage;
   }
@@ -109,7 +109,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   @Override
   public void updateInfoText(String key) {
-    myInfoText = makeText(key, builderResource);
+    myInfoText = makeText(key, myBuilderResource);
     myTopBar.setCenter(myInfoText);
   }
 
@@ -160,7 +160,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   public ResourceBundle getLanguage() {
-    return builderResource;
+    return myBuilderResource;
   }
 
   public Pane getPopupPane() {
@@ -169,7 +169,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private Scene initScene() {
 //    VBox topMenu = createMenus();
-    myMenubar = new MenuItemPane(builderResource, "MenuBar", this);
+    myMenubar = new MenuItemPane(myBuilderResource, "MenuBar", this);
     BorderPane topBar = createTopBar();
     Node centralContainer = createCentralContainer();
     VBox root = (VBox) makeVBox("RootContainer", myMenubar.asNode(), topBar, centralContainer);
@@ -183,10 +183,10 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private BorderPane createTopBar() {
     BorderPane topBar = new BorderPane();
     myTopBar = topBar;
-    Node title = makeText("BuilderHeader", builderResource);
-    Node text = makeText("RegularMode", builderResource);
+    Node title = makeText("BuilderHeader", myBuilderResource);
+    Node text = makeText("RegularMode", myBuilderResource);
     myInfoText = text;
-    myTopButtonBox = new ItemPane(builderResource, "ButtonBox", this);
+    myTopButtonBox = new ItemPane(myBuilderResource, "ButtonBox", this);
     myTopButtonBox.addItems("TopBar");
 
     themeOptions = myBuilderController.getThemeOptions();
@@ -212,7 +212,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private Pane createCentralContainer() {
-    mySidebar = new ItemPane(builderResource, "SideBar1", this);
+    mySidebar = new ItemPane(myBuilderResource, "SideBar1", this);
     mySidebar.addItems("SideBar1");
     myCenterContainer = new BorderPane();
 
@@ -268,7 +268,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void initializeRulePane() {
-    myRulePane = new RulesPane(this, myBuilderController, builderResource);
+    myRulePane = new RulesPane(this, myBuilderController, myBuilderResource);
     setPaneSize(myRulePane, Double.parseDouble(constantsResource.getString("RULES_WIDTH")),
         Double.parseDouble(constantsResource.getString("RULES_HEIGHT")));
     LOG.debug("Initialized rule pane successfully.");
@@ -286,21 +286,25 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   ///////////////////////////////////////////////////////////////////////////////////////////////
 
-  private void uploadImage() {
-    // todo: redo this method
-//    Optional<File> file = fileLoad(builderResource, "UploadImageTitle");
-//
-//    if (checkIfImage(file)) {
-//      System.out.println("Got an image from: " + file.get().getPath());
-//      ImageView ourImage = turnFileToImage(file.get(), DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT,
-//          new Coordinate(0, 0, 0));
-//      initializeNode(ourImage, "Image" + myImageCount, e->handleImageClick(ourImage));
-//      myImageCount++;
-//    } else {
-//      //
-//      System.out.println("ERROR -- Got a non-image or nothing from file.");
-//      new Alert(Alert.AlertType.ERROR, builderResource.getString("EmptyFileError"));
-//    }
+  public void uploadImage() {
+    Optional<File> file = fileLoad(myBuilderResource, "UploadImageTitle");
+
+    if (checkIfImage(file)) {
+      LOG.info("Got an image from: " + file.get().getPath());
+      double imageSize = Double.parseDouble(constantsResource.getString("IMAGE_SIZE"));
+      Optional<BoardImageTile> ourImage = turnFileToImage(file.get(), imageSize, imageSize,
+          new Coordinate(0, 0, 0));
+      if (ourImage.isEmpty()){
+        return;
+      }
+      initializeNode(ourImage.get(), "Image" + myImageCount, e->myBuilderController.createPopupForm(
+          ourImage.get().getBoardImage(), myBuilderResource, mySidepane));
+      myImageCount++;
+    } else {
+      //
+      LOG.warn("ERROR -- Got a non-image or nothing from file.");
+      showError("EmptyFileError");
+    }
   }
 
   // todo: support different tile types.
@@ -377,7 +381,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private void displayTileForm(TileEvent event) {
     myCurrentTile = Optional.empty();
-    myBuilderController.createPopupForm(event.getTile(), builderResource, mySidepane);
+    myBuilderController.createPopupForm(event.getTile(), myBuilderResource, mySidepane);
     updateInfoText("RegularMode");
   }
 
@@ -413,8 +417,13 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     return thing.isPresent() && thing.get().getName().matches(IMAGE_FILE_SUFFIXES);
   }
 
-  private ImageView turnFileToImage(File file, double width, double height, Coordinate location) {
-    ImageView image = new ImageView(new Image(
+  private Optional<BoardImageTile> turnFileToImage(File file, double width, double height, Coordinate location) {
+    Optional<BoardImageTile> image = myBuilderController.createBoardImage(file.toURI().toString());
+    if (image.isEmpty()){
+      return Optional.empty();
+    }
+    image.get().setPreserveRatio(true);
+    image.get().setImage(new Image(
         file.toURI().toString(),
         width,
         height,
@@ -422,8 +431,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         true
     )
     );
-
-    setNodeLocation(image, location);
     return image;
   }
 
@@ -449,7 +456,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
    * <p>Displays a basic about window for the project.</p>
    */
   public void displayAboutWindow() {
-    new AboutView(builderResource, DEFAULT_STYLESHEET);
+    new AboutView(myBuilderResource, DEFAULT_STYLESHEET);
   }
 
   private void toggle(SimpleBooleanProperty toggle, String resourceKey) {
@@ -471,7 +478,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   public void showError(String resourceKey) {
-    ErrorHandler.displayError(builderResource.getString(resourceKey));
+    ErrorHandler.displayError(myBuilderResource.getString(resourceKey));
   }
 
   public void toggleBoardDrag() {

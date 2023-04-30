@@ -136,4 +136,8 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
   private void toggleNextRemoval(){
     getBuilder().toggleNextRemoval();
   }
+
+  private void uploadImage(){
+    getBuilder().uploadImage();
+  }
 }

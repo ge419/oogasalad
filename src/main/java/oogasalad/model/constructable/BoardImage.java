@@ -6,6 +6,7 @@ import oogasalad.model.attribute.DoubleAttribute;
 import oogasalad.model.attribute.ImageAttribute;
 import oogasalad.model.attribute.PositionAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.view.Coordinate;
 
 public class BoardImage extends AbstractGameConstruct {
 
@@ -13,10 +14,9 @@ public class BoardImage extends AbstractGameConstruct {
   public static final String IMAGE_ATTRIBUTE = "image";
   public static final String POSITION_ATTRIBUTE = "position";
   public static final String SCALE_ATTRIBUTE = "scale";
-  public static final String ROTATION_ATTRIBUTE = "rotation";
 
   @Inject
-  protected BoardImage(SchemaDatabase database) {
+  public BoardImage(SchemaDatabase database) {
     super(SCHEMA_NAME, database);
   }
 
@@ -36,15 +36,17 @@ public class BoardImage extends AbstractGameConstruct {
   }
 
   @JsonIgnore
-  public DoubleAttribute rotationAttribute() {
-    return DoubleAttribute.from(getAttribute(ROTATION_ATTRIBUTE).get());
-  }
-
   public String getImage() {
     return imageAttribute().getValue();
   }
 
+  @JsonIgnore
   public void setImage(String name) {
     imageAttribute().setValue(name);
+  }
+
+  @JsonIgnore
+  public void setCoordinate(Coordinate coordinate) {
+    positionAttribute().setCoordinate(coordinate);
   }
 }

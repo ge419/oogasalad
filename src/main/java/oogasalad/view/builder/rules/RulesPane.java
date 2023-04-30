@@ -105,8 +105,7 @@ public class RulesPane extends BorderPane implements BuilderUtility {
   private void initializeTiletypesCheckbox() {
     myCheckbox = new ComboBox<>();
     myCheckbox.setPromptText(myLanguage.getString("SelectTiletype"));
-    myCheckbox.setItems(
-        FXCollections.observableArrayList(myBuilderController.getCurrentTiletypes()));
+    updateTileTypes();
     myCheckbox.valueProperty().addListener(((observable, oldValue, newValue) -> {
       LOG.info("The user selected tiletype " + newValue + " in the rule menu.");
     }));
@@ -129,5 +128,13 @@ public class RulesPane extends BorderPane implements BuilderUtility {
   private void updateText(String selectedRule) {
     myCurrentDescription = myBuilderController.getRuleDescription(selectedRule);
     myTextbox.setText(myCurrentDescription);
+  }
+
+  /**
+   * <p>Update the tiletypes selectable by the user with the current set of tiletypes.</p>
+   */
+  public void updateTileTypes() {
+    myCheckbox.setItems(
+        FXCollections.observableArrayList(myBuilderController.getCurrentTiletypes()));
   }
 }

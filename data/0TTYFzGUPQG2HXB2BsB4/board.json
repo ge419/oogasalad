@@ -3,7 +3,7 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "18",
-      "schemas" : [ "tile" ],
+      "schemas" : [ "ImageTile" ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -369,7 +369,7 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "24",
-      "schemas" : [ "tile" ],
+      "schemas" : [ "ImageTile" ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -740,7 +740,7 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "6",
-      "schemas" : [ "tile" ],
+      "schemas" : [ "ImageTile" ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -1106,7 +1106,7 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "12",
-      "schemas" : [ "tile" ],
+      "schemas" : [ "ImageTile" ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",

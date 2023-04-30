@@ -119,9 +119,7 @@ public class BuilderController {
 
   public void save() {
     injector.getInstance(SaveManager.class).saveGame();
-//    saveManager.saveGame();
 //    ImageList --> loop through and apply saveAsset to all imgages
-//    saveManager.saveAsset();
   }
 
   public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Node parent,

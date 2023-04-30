@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javax.swing.SwingUtilities;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.engine.EngineResourceBundle;
+import oogasalad.model.engine.events.GameEndEvent;
 import oogasalad.model.engine.prompt.PromptOption;
 import oogasalad.model.engine.prompt.StringPromptOption;
 import org.apache.logging.log4j.LogManager;
@@ -42,6 +43,7 @@ public class CheckStandingWinAction implements Action {
     if (gameHolder.getPlayers().getList().size()==lastNStanding) {
       LOGGER.info("Satisfied Condition, Ending Game");
       actionParams.prompter().selectSingleOption(String.format(bundle.getString(getClass().getSimpleName()), lastNStanding), validation, this::doNothing);
+      actionParams.emitter().emit(new GameEndEvent());
     }
   }
 

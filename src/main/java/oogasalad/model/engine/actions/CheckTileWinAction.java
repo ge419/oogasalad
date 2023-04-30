@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import oogasalad.model.engine.EngineResourceBundle;
+import oogasalad.model.engine.events.GameEndEvent;
 import oogasalad.model.engine.prompt.PromptOption;
 import oogasalad.model.engine.prompt.StringPromptOption;
 import org.apache.logging.log4j.LogManager;
@@ -38,6 +39,7 @@ public class CheckTileWinAction implements Action {
       List<StringPromptOption> validation = new ArrayList<>();
       validation.add(new StringPromptOption(bundle.getString(getClass().getSimpleName()+OPTION_1)));
       actionParams.prompter().selectSingleOption(String.format(bundle.getString(getClass().getSimpleName())), validation, this::doNothing);
+      actionParams.emitter().emit(new GameEndEvent());
     }
   }
 

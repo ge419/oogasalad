@@ -83,6 +83,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private ComboBox themeSelector;
   private Scene myScene;
   private Stage myStage;
+  private TextField descriptionInput;
+  private TextField genreInput;
 
   @Inject
   public BuilderView(
@@ -185,9 +187,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   public void displayGameInfoForm(Pane container) {
     container.getChildren().clear();
     Text descriptionLabel = (Text) makeText("GameDescriptionLabel", builderResource);
-    TextField descriptionInput = (TextField) makeTextField("GameDescriptionInput");
+    descriptionInput = (TextField) makeTextField("GameDescriptionInput");
     Text genreLabel = (Text) makeText("GameGenreLabel", builderResource);
-    TextField genreInput = (TextField) makeTextField("GameGenreInput");
+    genreInput = (TextField) makeTextField("GameGenreInput");
     Text widthLabel = (Text) makeText("BoardWidthLabel", builderResource);
     Spinner<Double> widthInput = (Spinner<Double>) makeDoubleSpinner("BoardWidthInput", Double.parseDouble(constantsResource.getString("BOARD_MIN_SIZE")), Double.parseDouble(constantsResource.getString("BOARD_MAX_SIZE")), myBoardPane.getWidth());
     widthInput.valueProperty().addListener(((observable, oldValue, newValue) -> setPaneSize(myBoardPane, newValue, myBoardPane.getHeight())));
@@ -200,12 +202,10 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     container.getChildren().add(new HBox(heightLabel, heightInput));
   }
   public void saveGameInfo() {
-    // get info for name, genre, description and save somewhere?
-
+    myBuilderController.saveInfo(genreInput.getCharacters().toString(), descriptionInput.getCharacters().toString());
   }
   public void uploadThumbnailImage() {
-    // call Chika's upload thumbnail method
-    //FileUploader.uploadGameThumbnail();
+    FileUploader.uploadGameThumbnail(myBuilderController.getGameID());
   }
   private BorderPane createTopBar() {
     BorderPane topBar = new BorderPane();

@@ -182,7 +182,7 @@ public class TabExplorer {
   }
 
   public void launchGameBuilder(String gameID){
-    BuilderController builderController = new BuilderController("en_US", gameID, gameDao);
+    BuilderController builderController = new BuilderController("en-US", gameID, gameDao);
 
   }
 

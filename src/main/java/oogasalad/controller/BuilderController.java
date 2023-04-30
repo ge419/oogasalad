@@ -20,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import oogasalad.controller.builderevents.Dragger;
 import oogasalad.model.accesscontrol.dao.GameDao;
+import oogasalad.model.accesscontrol.database.schema.GameSchema;
 import oogasalad.model.attribute.FileReader;
 import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.SchemaDatabase;
@@ -67,13 +68,13 @@ public class BuilderController {
   private static final String RULE_NAME_KEY = "name";
   private static final String RULE_DESCRIPTION_KEY = "description";
 
-
   public BuilderController(String language, String gameID, GameDao gameDao) {
     injector = Guice.createInjector(
         new BuilderControllerModule(language, gameID, gameDao)
     );
     injector.getInstance(SaveManager.class).loadGame();
-
+    this.gameID = gameID;
+    this.gameDao = gameDao;
     builderView = injector.getInstance(BuilderFactory.class).makeBuilder(language, this);
     viewTileFactory = injector.getInstance(ViewTileFactory.class);
     logger.info("created builder");
@@ -281,5 +282,14 @@ public class BuilderController {
   private EditableRule readRulesFile(Path path) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
     return mapper.readValue(path.toFile(), EditableRule.class);
+  }
+  public String getGameID() {
+    return gameID;
+  }
+  public void saveInfo(String genre, String description) {
+    Map<String, Object> game = new HashMap<>();
+    game.put(GameSchema.GENRE.getFieldName(), genre);
+    game.put(GameSchema.DESCRIPTION.getFieldName(), description);
+    gameDao.updateGame(gameID, game);
   }
 }

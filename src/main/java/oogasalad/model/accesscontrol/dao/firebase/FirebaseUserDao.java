@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import oogasalad.model.accesscontrol.dao.UserDao;
-import oogasalad.model.accesscontrol.database.FirebaseAccessor;
+import oogasalad.model.accesscontrol.database.firebase.FirebaseAccessor;
 
 public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
   // gets a DB
@@ -38,18 +38,24 @@ public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
     docData.put("name", "");
     docData.put("pronouns", "");
     docData.put("email", "");
+    docData.put("number_of_games_played", 0);
     docData.put("age", 0);
     docData.put("password", password);
     docData.put("games", Arrays.asList());
     docData.put("date_joined", Timestamp.of(new Date()));
     docData.put("preferred_theme", "light");
-    docData.put("preferred_language", "en_US");
+    docData.put("preferred_language", "en-US");
 
     CollectionReference collection = db.collection("users");
     DocumentReference newDocRef = collection.add(docData).get();
     String newDocId = newDocRef.getId();
     //System.out.println("Auto-generated ID for new document: " + newDocId);
     return newDocId;
+  }
+
+  @Override
+  public void incrementNumberOfGamesPlayed(String userID) {
+
   }
 
   @Override

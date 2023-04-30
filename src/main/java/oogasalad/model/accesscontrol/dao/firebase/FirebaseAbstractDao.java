@@ -13,7 +13,6 @@ public abstract class FirebaseAbstractDao {
 
   protected final FirebaseAccessor firebaseAccessor;
   protected final Firestore db;
-
   @Inject
   public FirebaseAbstractDao(FirebaseAccessor firebaseAccessor){
     this.firebaseAccessor = firebaseAccessor;
@@ -45,7 +44,10 @@ public abstract class FirebaseAbstractDao {
 
 
   // todo add generic method to  update document
-
+  public void updateDocument(String collection, String documentID, Map<String, Object> updatedData){
+    DocumentReference docRef = db.collection(collection).document(documentID);
+    docRef.update(updatedData);
+  }
 
   // todo add generic method to delete document
 }

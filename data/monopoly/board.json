@@ -1,2212 +1,1473 @@
 {
-  "tiles" : [ {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "c816388c-0f10-4fff-a602-dcded8e41e6c",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "8ce9edd8-91bf-4d01-bfe0-5194145a44d1" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 350.0,
-      "y" : 85.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "8ce9edd8-91bf-4d01-bfe0-5194145a44d1",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "7f2b1fa0-a865-41fd-85bb-7b31167aa314" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 400.0,
-      "y" : 85.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "7f2b1fa0-a865-41fd-85bb-7b31167aa314",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "8445a57a-e6e9-4fe0-a769-f99b685c1be3" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 450.0,
-      "y" : 85.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "8445a57a-e6e9-4fe0-a769-f99b685c1be3",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "a63a53d9-483c-4743-aca1-c60774b72dc4" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 500.0,
-      "y" : 85.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "a63a53d9-483c-4743-aca1-c60774b72dc4",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "286bccdf-722d-4f5e-af34-1bddd98c470f" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 550.0,
-      "y" : 85.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "286bccdf-722d-4f5e-af34-1bddd98c470f",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "a453fcce-232a-417e-ab0f-f744a9570bbc" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 600.0,
-      "y" : 85.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "a453fcce-232a-417e-ab0f-f744a9570bbc",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "deb95d05-bb66-4cbf-b596-74b9b40360df" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 650.0,
-      "y" : 85.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "deb95d05-bb66-4cbf-b596-74b9b40360df",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "c10621ee-d3f1-47f7-83bd-1c8e89be405a" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 700.0,
-      "y" : 85.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "c10621ee-d3f1-47f7-83bd-1c8e89be405a",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "b8bc86ec-35a5-450e-ab1b-d68e8dc122b5" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 750.0,
-      "y" : 85.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "b8bc86ec-35a5-450e-ab1b-d68e8dc122b5",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "e7989c65-5abb-4a02-8288-8365a49466d2" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 800.0,
-      "y" : 85.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "e7989c65-5abb-4a02-8288-8365a49466d2",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "8bf7e784-a0e2-4c16-89bc-250271e8fa78" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 850.0,
-      "y" : 85.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "8bf7e784-a0e2-4c16-89bc-250271e8fa78",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "dfd0135e-7dd5-42a9-ab15-4d032bea8cd5" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 850.0,
-      "y" : 85.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "dfd0135e-7dd5-42a9-ab15-4d032bea8cd5",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "8f98dcdb-3cf3-4a6d-a2ee-49a8352beb88" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 850.0,
-      "y" : 135.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "8f98dcdb-3cf3-4a6d-a2ee-49a8352beb88",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "bb164fc5-3354-4c10-bace-3527e7cc5343" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 850.0,
-      "y" : 185.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "bb164fc5-3354-4c10-bace-3527e7cc5343",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "d35b2e20-fe98-45c8-8542-8f8d724fa4e4" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 850.0,
-      "y" : 235.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "d35b2e20-fe98-45c8-8542-8f8d724fa4e4",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "cbd382b8-1a12-4bee-bf86-61cbfaefc053" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 850.0,
-      "y" : 285.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "cbd382b8-1a12-4bee-bf86-61cbfaefc053",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "ebf038ca-0cbd-42a7-9aa6-9449410963bd" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 850.0,
-      "y" : 335.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "ebf038ca-0cbd-42a7-9aa6-9449410963bd",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "fbf22c2e-79bc-4044-8921-03be07ccd244" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 850.0,
-      "y" : 385.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "fbf22c2e-79bc-4044-8921-03be07ccd244",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "ad1a6bb2-e22a-45fa-8299-70e1537f976b" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 850.0,
-      "y" : 435.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "ad1a6bb2-e22a-45fa-8299-70e1537f976b",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "03177e55-1a98-44a3-987d-5205f54d0a24" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 850.0,
-      "y" : 485.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "03177e55-1a98-44a3-987d-5205f54d0a24",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "7dee6379-51ed-4118-b5d7-fd6cc2f44168" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 850.0,
-      "y" : 535.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "7dee6379-51ed-4118-b5d7-fd6cc2f44168",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "1c9a06f1-b8dd-4b26-a89b-f2ed9b2fdc13" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 850.0,
-      "y" : 585.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "1c9a06f1-b8dd-4b26-a89b-f2ed9b2fdc13",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "b5f86546-907e-4c62-a3fe-df756f6338e7" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 850.0,
-      "y" : 635.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "b5f86546-907e-4c62-a3fe-df756f6338e7",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "025a0621-1738-4802-a582-2742e96116c9" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 850.0,
-      "y" : 635.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "025a0621-1738-4802-a582-2742e96116c9",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "12338797-0e6f-489c-b230-ae5dbee352e0" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 800.0,
-      "y" : 635.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "12338797-0e6f-489c-b230-ae5dbee352e0",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "501b486d-fd68-4353-bdca-a28ee91b2719" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 750.0,
-      "y" : 635.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "501b486d-fd68-4353-bdca-a28ee91b2719",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "d80fba37-48dd-4f73-aa55-530d236d9136" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 700.0,
-      "y" : 635.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "d80fba37-48dd-4f73-aa55-530d236d9136",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "c631000f-8282-430d-a866-3092fb5e61e5" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 650.0,
-      "y" : 635.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "c631000f-8282-430d-a866-3092fb5e61e5",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "2c639def-0453-43f4-bb43-9d5f9d6f7f99" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 600.0,
-      "y" : 635.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "2c639def-0453-43f4-bb43-9d5f9d6f7f99",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "3a0a399e-2c86-4eb9-a374-7a30e515e849" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 550.0,
-      "y" : 635.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "3a0a399e-2c86-4eb9-a374-7a30e515e849",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "a50fbe59-945a-4f78-a9d3-d0eac93b34de" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 500.0,
-      "y" : 635.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "a50fbe59-945a-4f78-a9d3-d0eac93b34de",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "8dac4d1c-fc0f-4db6-9608-943df5e3c5ef" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 450.0,
-      "y" : 635.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "8dac4d1c-fc0f-4db6-9608-943df5e3c5ef",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "45fb98ad-854a-4eed-8b03-4b0244dd8962" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 400.0,
-      "y" : 635.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "45fb98ad-854a-4eed-8b03-4b0244dd8962",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "7a839b84-4c34-43ef-a848-eb70a0f5e0e2" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 350.0,
-      "y" : 635.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "7a839b84-4c34-43ef-a848-eb70a0f5e0e2",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "d86a6c40-e887-41cb-8d3b-54bf4fe5dbfd" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 635.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "d86a6c40-e887-41cb-8d3b-54bf4fe5dbfd",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "2671e7f7-d629-4558-b39f-bb62ab096663" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 635.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "2671e7f7-d629-4558-b39f-bb62ab096663",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "2c973389-ab1a-4a0f-a808-a57f8f04a3bd" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 585.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "2c973389-ab1a-4a0f-a808-a57f8f04a3bd",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "32362ab6-e655-4bdb-bd79-a7f4673dffd5" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 535.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "32362ab6-e655-4bdb-bd79-a7f4673dffd5",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "3eed551b-1b70-493d-b01e-6e819d48e772" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 485.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "3eed551b-1b70-493d-b01e-6e819d48e772",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "b0e12020-b61e-4d09-a8a5-222894ca29c3" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 435.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "b0e12020-b61e-4d09-a8a5-222894ca29c3",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "99c4a88f-e749-4d16-bd0d-994ba4dd9ca9" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 385.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "99c4a88f-e749-4d16-bd0d-994ba4dd9ca9",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "4bdb5e4a-8a58-45db-81a1-e5d999834046" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 335.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "4bdb5e4a-8a58-45db-81a1-e5d999834046",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "87463fb6-d2ad-4d74-8268-a76e90b88dd3" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 285.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "87463fb6-d2ad-4d74-8268-a76e90b88dd3",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "0ee4b594-628b-4d45-a64d-717a451dadd8" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 235.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "0ee4b594-628b-4d45-a64d-717a451dadd8",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "2d23e876-cee0-4350-a8ff-52a3762accba" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 185.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "2d23e876-cee0-4350-a8ff-52a3762accba",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "f27faef8-8d72-4bc1-aa73-c22252e621b7" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 135.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  }, {
-    "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "f27faef8-8d72-4bc1-aa73-c22252e621b7",
-    "schemas" : [ "tile" ],
-    "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "color",
-      "value" : "#add8e6"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "height",
-      "value" : 50.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "info",
-      "value" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.TileListAttribute",
-      "key" : "next",
-      "ids" : [ "c816388c-0f10-4fff-a602-dcded8e41e6c" ]
-    }, {
-      "@class" : "oogasalad.model.attribute.BooleanAttribute",
-      "key" : "owned",
-      "value" : false
-    }, {
-      "@class" : "oogasalad.model.attribute.PlayerAttribute",
-      "key" : "owner",
-      "id" : ""
-    }, {
-      "@class" : "oogasalad.model.attribute.PositionAttribute",
-      "key" : "position",
-      "x" : 300.0,
-      "y" : 85.0,
-      "angle" : 0.0
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "price",
-      "value" : 200.0
-    }, {
-      "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
-    }, {
-      "@class" : "oogasalad.model.attribute.DoubleAttribute",
-      "key" : "width",
-      "value" : 50.0
-    } ]
-  } ]
+  "tiles" : [
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "1",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "2"
+          ]
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 550.0,
+          "y": 160.0,
+          "angle": 180
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 350.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Wellness Center"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "0000FF"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "2",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "3"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 650.0,
+          "y": 160.0,
+          "angle": 180
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 350.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "BC Plaza"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "0000FF"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "3",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "4"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 750.0,
+          "y": 160.0,
+          "angle": 180
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 350.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Perkins"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "0000FF"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "4",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "5"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 850.0,
+          "y": 160.0,
+          "angle": 180
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 350.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Bostock"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "0000FF"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "5",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "6"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 950.0,
+          "y": 160.0,
+          "angle": 180
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 350.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Wilkinson"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "0000FF"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "6",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "7"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 1075.0,
+          "y": 160.0,
+          "angle": 180
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 150
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "image"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "FREE PARKING"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ImageAttribute",
+          "key": "image",
+          "value": "view.gameplay/parking.jpg"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "7",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "8"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 1075.0,
+          "y": 285.0,
+          "angle": 270
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 450.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Hudson Hall"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "00FFFF"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "8",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "9"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 1075.0,
+          "y": 385.0,
+          "angle": 270
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 450.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "LRSC"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "00FFFF"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "9",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "10"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 1075.0,
+          "y": 485.0,
+          "angle": 270
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 450.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Physics"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "00FFFF"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "10",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "11"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 1075.0,
+          "y": 585.0,
+          "angle": 270
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 450.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Biological Sciences"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "00FFFF"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "11",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "12"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 1075.0,
+          "y": 685.0,
+          "angle": 270
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 450.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Gross Hall"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "00FFFF"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "12",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "13"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 1075.0,
+          "y": 810.0,
+          "angle": 0
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 150
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "image"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "GO TO JAIL"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ImageAttribute",
+          "key": "image",
+          "value": "view.gameplay/jail.jpg"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "13",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "14"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 950.0,
+          "y": 810.0,
+          "angle": 0
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 550.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Social Sciences"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "FFFF00"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "14",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "15"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 850.0,
+          "y": 810.0,
+          "angle": 0
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 550.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Reuben-Cooke"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "FFFF00"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "15",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "16"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 750.0,
+          "y": 810.0,
+          "angle": 0
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 550.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Old Chemistry"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "FFFF00"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "16",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "17"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 650.0,
+          "y": 810.0,
+          "angle": 0
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 550.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Languages"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "FFFF00"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "17",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "18"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 550.0,
+          "y": 810.0,
+          "angle": 0
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 550.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Allen"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "FFFF00"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "18",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "19"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 425.0,
+          "y": 810.0,
+          "angle": 0
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 150
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "image"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Collect salary as you pass"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ImageAttribute",
+          "key": "image",
+          "value": "view.gameplay/go.jpg"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "19",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "20"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 425.0,
+          "y": 685.0,
+          "angle": 90
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 250
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Hollows"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "FF00FF"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "20",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "21"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 425.0,
+          "y": 585.0,
+          "angle": 90
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 250
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Few"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "FF00FF"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "21",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "22"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 425.0,
+          "y": 485.0,
+          "angle": 90
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 250
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Crowell"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "FF00FF"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "22",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "23"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 425.0,
+          "y": 385.0,
+          "angle": 90
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 250
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Craven"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "FF00FF"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "23",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "24"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 425.0,
+          "y": 285.0,
+          "angle": 90
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 250
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Kilgo"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "FF00FF"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "24",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "1"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 425.0,
+          "y": 160.0,
+          "angle": 180
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 150
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "image"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "JUST VISITING"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ImageAttribute",
+          "key": "image",
+          "value": "view.gameplay/in_jail.jpg"
+        }
+      ]
+    }
+  ]
 }

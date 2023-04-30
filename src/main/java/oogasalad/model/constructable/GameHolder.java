@@ -21,6 +21,7 @@ public class GameHolder implements Observable<GameObserver> {
   private BBoard board;
   private Players players;
   private Player currentPlayer;
+  private Player previousPlayer;
   private List<Piece> pieces;
   private final ListProperty<Rule> rules = new SimpleListProperty<>(
       FXCollections.observableArrayList());
@@ -83,7 +84,12 @@ public class GameHolder implements Observable<GameObserver> {
 
   @JsonIgnore
   public void setCurrentPlayer(Player player) {
+    if (currentPlayer != null) {
+      this.previousPlayer = currentPlayer;
+      previousPlayer.toggleCurrent();
+    }
     this.currentPlayer = player;
+    currentPlayer.toggleCurrent();
   }
 
   public Optional<Player> getPlayerById(String id) {

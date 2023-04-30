@@ -40,8 +40,6 @@ public class Main extends Application {
     );
     TabExplorer launcher = injector.getInstance(TabExplorer.class);
     launcher.render();
-
 //    new BuilderController(Languages.ENGLISH.getLocaleStr(), Paths.get("data", "0TTYFzGUPQG2HXB2BsB4"));
-
   }
 }

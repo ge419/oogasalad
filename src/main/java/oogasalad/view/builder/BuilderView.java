@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -27,9 +26,9 @@ import oogasalad.controller.BuilderController;
 import oogasalad.controller.builderevents.TrailMaker;
 import oogasalad.controller.builderevents.TrailMakerAPI;
 import oogasalad.view.Coordinate;
-import oogasalad.view.builder.itempanes.MenuItemPane;
-import oogasalad.view.builder.itempanes.ItemPane;
 import oogasalad.view.builder.events.TileEvent;
+import oogasalad.view.builder.itempanes.ItemPane;
+import oogasalad.view.builder.itempanes.MenuItemPane;
 import oogasalad.view.builder.rules.RulesPane;
 import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
@@ -105,19 +104,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       // myBuilderController.save(givenDirectory);
       LOG.info("Saved to directory: " + givenDirectory);
     } else {
-      LOG.error("Either cancelled out of file save window or tried to save to a file that doesn't exist.");
-      ErrorHandler.displayError(builderResource.getString("FileNotFoundError"));
-    }
-  }
-
-  @Override
-  public void loadFile() {
-    Optional<File> file = directoryGet(builderResource, "LoadGameTitle");
-    if (file.isPresent()) {
-      System.out.println("Given directory: " + file.get().getPath());
-      myBuilderController.load(file.get().getPath());
-    } else {
-      LOG.error("Tried loading an invalid directory, or exited out of file chooser window.");
+      LOG.error(
+          "Either cancelled out of file save window or tried to save to a file that doesn't exist.");
       ErrorHandler.displayError(builderResource.getString("FileNotFoundError"));
     }
   }
@@ -173,11 +161,11 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     updateInfoText("RegularMode");
   }
 
-  public ResourceBundle getLanguage(){
+  public ResourceBundle getLanguage() {
     return builderResource;
   }
 
-  public Pane getPopupPane(){
+  public Pane getPopupPane() {
     return sidePane;
   }
 
@@ -203,7 +191,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myTopButtonBox.addItems("TopBar");
 
     themeOptions = myBuilderController.getThemeOptions();
-    ObservableList<String> observableThemes = themeOptions.keySet().stream().collect(Collectors.toCollection(javafx.collections.FXCollections::observableArrayList));
+    ObservableList<String> observableThemes = themeOptions.keySet().stream()
+        .collect(Collectors.toCollection(javafx.collections.FXCollections::observableArrayList));
     themeSelector = (ComboBox) makeDropdown("ThemeSelector", observableThemes, e -> changeTheme());
     themeSelector.setValue(DEFAULT_STYLESHEET);
 
@@ -215,9 +204,11 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
     return topBar;
   }
+
   private void changeTheme() {
     myScene.getStylesheets().clear();
-    String newStyleSheet = getClass().getResource(themeOptions.get(themeSelector.getValue())).toExternalForm();
+    String newStyleSheet = getClass().getResource(themeOptions.get(themeSelector.getValue()))
+        .toExternalForm();
     myScene.getStylesheets().add(newStyleSheet);
   }
 
@@ -306,7 +297,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void handleBoardClick(MouseEvent e) {
-    LOG.info(String.format("User clicked on board at scene coordinates {%f, %f} and board coordinates {%f, %f}", e.getSceneX(), e.getSceneY(), e.getX(), e.getY()));
+    LOG.info(String.format(
+        "User clicked on board at scene coordinates {%f, %f} and board coordinates {%f, %f}",
+        e.getSceneX(), e.getSceneY(), e.getX(), e.getY()));
 
     if (myTileCreationToggle) {
       createTile(e);
@@ -406,7 +399,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   /**
    * <p>Displays a basic about window for the project.</p>
    */
-  public void displayAboutWindow(){
+  public void displayAboutWindow() {
     new AboutView(builderResource, DEFAULT_STYLESHEET);
   }
 }

@@ -62,6 +62,8 @@ public class BuyTileRule extends AbstractGameConstruct implements EditableRule {
     if (owner.getId().isEmpty() && newMoney >= 0) {
       LOGGER.info("prompted to buy property with remaining money {}", newMoney);
       BuyAction buyAction = new BuyAction(() -> {
+        tile.setOwned();
+        tile.setOwnerId(player.getId());
         owner.setId(piece.getPlayer().get().getId());
         player.setScore(newMoney);
       });

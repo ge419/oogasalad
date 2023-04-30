@@ -70,6 +70,7 @@ public class BuilderController {
   private Map<String, String> rules;
   private static final String RULE_NAME_KEY = "name";
   private static final String RULE_DESCRIPTION_KEY = "description";
+  private static final String RESOURCE_PATH = "engine/ClassPath";
 
   public BuilderController(String language, String gameID, GameDao gameDao) {
     injector = Guice.createInjector(

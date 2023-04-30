@@ -148,4 +148,9 @@ public class Gameview implements GameObserver {
     }
 
   }
+
+  @Override
+  public void updateOnGameEnd() {
+
+  }
 }

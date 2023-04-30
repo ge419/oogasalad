@@ -42,11 +42,12 @@ public class CheckStandingWinAction implements Action {
     LOGGER.info("Checking if Current Game Players Status Satisfies Standing Winning Condition");
     if (gameHolder.getPlayers().getList().size()==lastNStanding) {
       LOGGER.info("Satisfied Condition, Ending Game");
-      actionParams.prompter().selectSingleOption(String.format(bundle.getString(getClass().getSimpleName()), lastNStanding), validation, this::doNothing);
+      actionParams.prompter().selectSingleOption(String.format(bundle.getString(getClass().getSimpleName()), lastNStanding), validation, this::notifyEnd);
       actionParams.emitter().emit(new GameEndEvent());
     }
   }
 
-  private void doNothing(PromptOption option) {
+  private void notifyEnd(PromptOption option) {
+    gameHolder.notifyGameEnd();
   }
 }

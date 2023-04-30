@@ -5,6 +5,7 @@ import com.google.inject.assistedinject.Assisted;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.engine.EngineResourceBundle;
 import oogasalad.model.engine.events.GameEndEvent;
 import oogasalad.model.engine.prompt.PromptOption;
@@ -17,6 +18,7 @@ public class CheckTileWinAction implements Action {
   private static final Logger LOGGER = LogManager.getLogger(CheckTileWinAction.class);
   private final List<String> winningTileIds;
   private final String landedTileId;
+  private final GameHolder gameHolder;
   private final ResourceBundle bundle;
   private static final String OPTION_1 = "Prompt1";
 
@@ -24,10 +26,12 @@ public class CheckTileWinAction implements Action {
   public CheckTileWinAction(
       @Assisted String landedTileId,
       @Assisted List<String> winningTileIds,
+      GameHolder holder,
       @EngineResourceBundle ResourceBundle bundle
   ) {
     this.landedTileId = landedTileId;
     this.winningTileIds = winningTileIds;
+    this.gameHolder = holder;
     this.bundle = bundle;
   }
 
@@ -38,11 +42,12 @@ public class CheckTileWinAction implements Action {
       LOGGER.info("Satisfied Condition, Ending Game");
       List<StringPromptOption> validation = new ArrayList<>();
       validation.add(new StringPromptOption(bundle.getString(getClass().getSimpleName()+OPTION_1)));
-      actionParams.prompter().selectSingleOption(String.format(bundle.getString(getClass().getSimpleName())), validation, this::doNothing);
+      actionParams.prompter().selectSingleOption(String.format(bundle.getString(getClass().getSimpleName())), validation, this::notifyEnd);
       actionParams.emitter().emit(new GameEndEvent());
     }
   }
 
-  private void doNothing(PromptOption option) {
+  private void notifyEnd(PromptOption option) {
+    gameHolder.notifyGameEnd();
   }
 }

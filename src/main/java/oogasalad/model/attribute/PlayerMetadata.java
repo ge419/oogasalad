@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class PlayerMetadata extends AbstractMetadata {
 
   public static final Class<PlayerAttribute> ATTRIBUTE_CLASS = PlayerAttribute.class;
-  public static final String DEFAULT_ID = "-1";
+  public static final String DEFAULT_ID = "";
 
   @JsonCreator
   public PlayerMetadata(@JsonProperty("key") String key) {

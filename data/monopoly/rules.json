@@ -1,21 +1,29 @@
 [ {
   "@class" : "oogasalad.model.engine.rules.NumberOfPlayersRule",
-  "id" : "8118a0ce-47e2-4e77-9fe5-bc5805e247d1",
+  "id" : "6d104387-e6e1-4986-b410-2e7a60d4c721",
   "schemas" : [ "numberOfPlayersRule" ],
-  "attributes" : [ ]
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "maxPlayer",
+    "value" : 4
+  }, {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "minPlayer",
+    "value" : 1
+  } ]
 }, {
   "@class" : "oogasalad.model.engine.rules.NumberOfPlayerPieceRule",
-  "id" : "b69c4c6b-20ae-4a28-8f2b-477ff07ce367",
+  "id" : "75ce70eb-e073-4c3a-93b7-d245bd689d96",
   "schemas" : [ "numberOfPiecesPerPlayerRule" ],
   "attributes" : [ ]
 }, {
   "@class" : "oogasalad.model.engine.rules.TurnRule",
-  "id" : "ab14c616-b79d-4fd9-8655-e141a3954c46",
+  "id" : "44628ca4-e20c-4c45-a580-4f27a7195ca4",
   "schemas" : [ "turnRule" ],
   "attributes" : [ ]
 }, {
   "@class" : "oogasalad.model.engine.rules.BuyTileRule",
-  "id" : "916fa55d-aa76-4155-8f2f-aefc62a59797",
+  "id" : "daa127e3-b202-4fd8-99e7-b050ba20840c",
   "schemas" : [ "buyTileRule" ],
   "attributes" : [ {
     "@class" : "oogasalad.model.attribute.StringAttribute",
@@ -24,7 +32,7 @@
   } ]
 }, {
   "@class" : "oogasalad.model.engine.rules.DieMoveRule",
-  "id" : "1c421903-2e02-45c5-9c45-386e0658773b",
+  "id" : "ef4115c2-2c56-4132-b55c-754d3133e4c5",
   "schemas" : [ "dieRule" ],
   "attributes" : [ {
     "@class" : "oogasalad.model.attribute.IntAttribute",

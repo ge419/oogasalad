@@ -1,0 +1,24 @@
+{
+  "@class": "oogasalad.model.attribute.SimpleObjectSchema",
+  "name": "numberOfPlayersRule",
+  "fields": [
+    {
+      "@class": "oogasalad.model.attribute.IntMetadata",
+      "key": "minPlayer",
+      "name": "minimum player number",
+      "description": "minimum number of players to play game",
+      "editable": true,
+      "viewable": false,
+      "defaultValue": 1
+    },
+    {
+      "@class": "oogasalad.model.attribute.IntMetadata",
+      "key": "maxPlayer",
+      "name": "maximum player number",
+      "description": "maximum number of players to play game",
+      "editable": true,
+      "viewable": false,
+      "defaultValue": 4
+    }
+  ]
+}

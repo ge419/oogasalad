@@ -21,12 +21,14 @@ public class Player extends AbstractGameConstruct {
   public static final String COLOR_ATTRIBUTE = "color";
   public static final String CURRENT_ATTRIBUTE = "current";
   private final List<Piece> pieces;
+  private List<Tile> cards;
 
 
   @Inject
   public Player(@JacksonInject SchemaDatabase database) {
     super(BASE_SCHEMA_NAME, database);
     pieces = new ArrayList<>();
+    cards = new ArrayList<>();
   }
 
   @JsonIgnore
@@ -104,9 +106,17 @@ public class Player extends AbstractGameConstruct {
   public Boolean getCurrent() {
     return getCurrentAttribute().getValue();
   }
-  
+
   @JsonIgnore
   public void toggleCurrent() {
     getCurrentAttribute().setValue(!getCurrent());
+  }
+
+  @JsonIgnore
+  public List<Tile> getCards(){return cards;}
+
+  @JsonIgnore
+  public void addCardToPlayer(Tile card){
+    this.cards.add(card);
   }
 }

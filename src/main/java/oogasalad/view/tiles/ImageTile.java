@@ -47,6 +47,7 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
   public ImageTile(@Assisted Tile BTile) {
     this.setPosition(BTile.getCoordinate());
     this.modelTile = BTile;
+    BTile.addSchema("ImageTile");
 
     Rectangle tileBackground = createBackground(BTile.getWidth(), BTile.getHeight(),
         TILE_BACKGROUND, TILE_STROKE_COLOR);

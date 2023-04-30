@@ -19,6 +19,14 @@
       "description": "The current tile owner",
       "editable": false,
       "viewable": false
+    },
+    {
+      "@class": "oogasalad.model.attribute.TileMetadata",
+      "key": "card",
+      "name": "Card",
+      "description": "Card gotten after buying",
+      "editable": true,
+      "viewable": true
     }
   ]
 }

@@ -6,7 +6,6 @@ import com.google.inject.Injector;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,25 +20,25 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import oogasalad.controller.builderevents.Dragger;
 import oogasalad.model.accesscontrol.dao.GameDao;
-import oogasalad.model.attribute.Attribute;
 import oogasalad.model.accesscontrol.database.schema.GameSchema;
 import oogasalad.model.attribute.FileReader;
+import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.SchemaDatabase;
-import oogasalad.model.attribute.SimpleObjectSchema;
 import oogasalad.model.attribute.StringAttribute;
-import oogasalad.model.constructable.AbstractGameConstruct;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.GameConstruct;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.model.engine.rules.EditableRule;
+import oogasalad.model.engine.rules.Rule;
 import oogasalad.model.exception.FileReaderException;
 import oogasalad.model.exception.ResourceReadException;
 import oogasalad.util.SaveManager;
 import oogasalad.view.BuilderFactory;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.BuilderView;
+import oogasalad.view.builder.ErrorHandler;
 import oogasalad.view.builder.popupform.PopupForm;
 import oogasalad.view.tiles.ViewTile;
 import oogasalad.view.tiles.ViewTileFactory;
@@ -54,8 +53,7 @@ public class BuilderController {
 
   private static final String DEFAULT_STYLESHEET_DIRECTORY = "/view/builder/";
   private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
-  private static final String RULE_PATH = "schemas/rules";
-  private static Logger logger = LogManager.getLogger(BuilderController.class);
+  private static final Logger logger = LogManager.getLogger(BuilderController.class);
   private final BuilderView builderView;
   private final GameHolder gameHolder;
   private final GameInfo gameInfo;
@@ -68,14 +66,12 @@ public class BuilderController {
   private Map<String, String> rules;
   private static final String RULE_NAME_KEY = "name";
   private static final String RULE_DESCRIPTION_KEY = "description";
-  private List<String> tileTypes;
 
   public BuilderController(String language, String gameID, GameDao gameDao) {
     injector = Guice.createInjector(
         new BuilderControllerModule(language, gameID, gameDao)
     );
     injector.getInstance(SaveManager.class).loadGame();
-//    readDefaultRules();
     this.gameID = gameID;
     this.gameDao = gameDao;
     builderView = injector.getInstance(BuilderFactory.class).makeBuilder(language, this);
@@ -85,9 +81,9 @@ public class BuilderController {
     gameHolder = injector.getInstance(GameHolder.class);
     board = gameHolder.getBoard();
     gameInfo = gameHolder.getGameInfo();
-    tileTypes = new ArrayList<>();
 
     loadIntoBuilder();
+    readDefaultRules();
 
 //    todo: Dominics example code for how to get rules using dependency injection
 //    Injector injector = Guice.createInjector(new EngineModule());
@@ -216,22 +212,16 @@ public class BuilderController {
     );
   }
 
-  public boolean makeRulesPopup(String tiletype, String ruleAsString) {
+  public void makeRulesPopup(String tiletype, String ruleAsString) {
     logger.info("Chose to edit rule " + ruleAsString + " for tiletype " + tiletype);
     // todo: change this to get the rule from whatever string was provided
     EditableRule rule = injector.getInstance(BuyTileRule.class);
     createPopupForm(rule, builderView.getLanguage(), builderView.getPopupPane());
-    return true;
-
-    // RETURN FALSE IF YOU CANNOT GET THE RULE FOR SOME REASON
   }
 
-  public boolean removeRuleFromTiletype(String tiletype, String ruleAsString) {
+  public void removeRuleFromTiletype(String tiletype, String ruleAsString) {
     logger.info("Trying to remove rule " + ruleAsString +
         " from tiletype " + tiletype);
-    return true;
-
-    // RETURN FALSE IF YOU CANNOT REMOVE THE RULE
   }
 
   private void loadIntoBuilder(){
@@ -272,34 +262,21 @@ public class BuilderController {
   private void readDefaultRules() {
     try{
       rules = new HashMap<>();
-      for (File file: FileReader.readFiles(RULE_PATH)) {
-        System.out.println(file);
-        SimpleObjectSchema simpleObjectSchema = readRulesFile(file.toPath());
-        List<Attribute> attributeList = simpleObjectSchema.makeAllAttributes();
-        System.out.println(attributeList);
-        RuleFactory ruleFactory = new RuleFactory();
-        AbstractGameConstruct rule = ruleFactory.generate(simpleObjectSchema.getName(),
-            db);
-
+      for (File file: FileReader.readFiles("rules")) {
+        EditableRule rule = readRulesFile(file.toPath());
         String name = StringAttribute.from(rule.getAttribute(RULE_NAME_KEY).get()).getValue();
         String desc = StringAttribute.from(rule.getAttribute(RULE_DESCRIPTION_KEY).get()).getValue();
         rules.putIfAbsent(name, desc);
       }
-    } catch (FileReaderException | IOException | ClassNotFoundException |
-        NoSuchMethodException | IllegalAccessException | InstantiationException |
-        InvocationTargetException e) {
+    } catch (FileReaderException | IOException e) {
       logger.fatal("Failed to read resource rule files", e);
       throw new ResourceReadException(e);
     }
   }
 
-  private SimpleObjectSchema readRulesFile(Path path) throws IOException {
+  private EditableRule readRulesFile(Path path) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
-    return mapper.readValue(path.toFile(), SimpleObjectSchema.class);
-  }
-  public String getRuleDescription(String ruleAsString){
-    return rules.get(ruleAsString);
-
+    return mapper.readValue(path.toFile(), EditableRule.class);
   }
   public String getGameID() {
     return gameID;

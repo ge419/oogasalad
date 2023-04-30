@@ -16,6 +16,7 @@ import oogasalad.model.attribute.StringMetadata;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class CustomText extends Label implements CustomElement {
     private String name = "";
@@ -165,22 +166,11 @@ public class CustomText extends Label implements CustomElement {
 
     @Override
     public Metadata getMetaData() {
-        //if name is null that means it a static string with key of default contents
-        if (this.name.isEmpty()){
-            StringMetadata metadata = new StringMetadata(this.defaultContents);
-            metadata.setEditable(editable);
-            metadata.setViewable(editable);
-            metadata.setDescription("A custom string typed to be displayed on a custom object ");
-            return metadata;
-        }
-        else{
-            StringMetadata metadata = new StringMetadata(this.name);
-            metadata.setDefaultValue(this.defaultContents);
-            metadata.setEditable(editable);
-            metadata.setViewable(editable);
-            metadata.setDescription("A custom string made by the user that represents " + this.name);
-            return metadata;
-        }
+        StringMetadata metadata = new StringMetadata(name.isEmpty() ? "Textfield-" + UUID.randomUUID().toString() : name);
+        metadata.setDefaultValue(this.defaultContents);
+        metadata.setEditable(editable);
+        metadata.setViewable(editable);
+        return metadata;
     }
 
     @Override

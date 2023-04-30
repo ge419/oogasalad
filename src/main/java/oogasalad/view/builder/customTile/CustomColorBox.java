@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import oogasalad.model.attribute.ColorMetadata;
 import oogasalad.model.attribute.Metadata;
 import oogasalad.model.attribute.StringMetadata;
 
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.UUID;
 
 public class CustomColorBox extends Rectangle implements CustomElement {
 
@@ -139,8 +141,12 @@ public class CustomColorBox extends Rectangle implements CustomElement {
 
     @Override
     public Metadata getMetaData() {
-        //TODO MAKE COLORBOX METADATA
-        return new StringMetadata("Reminder to create COLORBOX METADATA");
+        ColorMetadata metadata = new ColorMetadata(name.isEmpty() ? "Colorbox-" + UUID.randomUUID().toString() : name);
+        metadata.setDefaultValue(this.defaultColor);
+        metadata.setEditable(editable);
+        metadata.setViewable(editable);
+        metadata.setDescription("A custom colorbox");
+        return metadata;
     }
 
     @Override

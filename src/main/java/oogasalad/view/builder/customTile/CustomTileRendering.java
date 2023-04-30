@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -59,11 +61,14 @@ public class CustomTileRendering extends Group implements ViewTile {
         if (jsonFile.isEmpty()) {
             jsonFile = chooseJsonFile().toString();
             jsonFileAttribute.setValue(jsonFile);
-            ObjectSchema schema = loadJsonForBuilder(jsonFile);
-            database.addCustomSchema(schema);
+            ObjectSchema newSchema = loadJsonForBuilder(jsonFile);
+            database.addCustomSchema(newSchema);
             ArrayList<String> names = new ArrayList<>(modelTile.getSchemaNames());
-            names.add(schema.getName());
+            names.add(newSchema.getName());
             modelTile.setSchemaNames(names);
+            for (String name : names){
+                modelTile.addSchema(name);
+            }
             //bindListeners(names);
         }
         else{
@@ -75,14 +80,14 @@ public class CustomTileRendering extends Group implements ViewTile {
         }
     }
 
-//    private void bindListeners(ArrayList<String> names) {
-//        for (String name : names) {
-//            StringAttribute attribute = StringAttribute.from(modelTile.getAttribute(name).get());
-//            String attributeString = attribute.getValue();
-//            Node node = (Node) customElementMap.get(name);
-//            Bindings.bindBidirectional(node.idProperty(), attribute.valueProperty());
-//        }
-//    }
+    private void bindListeners(ArrayList<String> names) {
+        for (String name : names) {
+            StringAttribute attribute = StringAttribute.from(modelTile.getAttribute(name).get());
+            String attributeString = attribute.getValue();
+            Node node = (Node) customElementMap.get(name);
+            Bindings.bindBidirectional(node.idProperty(), attribute.valueProperty());
+        }
+    }
 
     private void loadForGamePlay(String jsonFile) throws IOException {
         StackPane s = new StackPane();

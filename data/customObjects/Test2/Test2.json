@@ -1,7 +1,7 @@
 {
   "name": "test2",
-  "width": 398.0,
-  "height": 422.0,
+  "width": 395.0,
+  "height": 392.0,
   "customObjects": [
     {
       "type": "CustomImage",
@@ -24,6 +24,19 @@
       "translateY": 67.0,
       "type": "CustomText",
       "index": 1,
+      "editable": true,
+      "viewable": true
+    },
+    {
+      "type": "CustomColorBox",
+      "name": "A",
+      "color": "0xff000080",
+      "opacity": 1.0,
+      "index": 2,
+      "translatex": -60.0,
+      "translatey": 26.0,
+      "width": 50.0,
+      "height": 307.4288224956063,
       "editable": true,
       "viewable": true
     }

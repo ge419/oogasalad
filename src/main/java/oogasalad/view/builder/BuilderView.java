@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -25,10 +26,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import oogasalad.controller.BuilderController;
+import oogasalad.controller.builderevents.Dragger;
 import oogasalad.controller.builderevents.TrailMaker;
 import oogasalad.controller.builderevents.TrailMakerAPI;
+import oogasalad.util.FileUploader;
 import oogasalad.view.Coordinate;
-import oogasalad.view.builder.customTile.CustomObjectBuilder;
 import oogasalad.view.builder.itempanes.MenuItemPane;
 import oogasalad.view.builder.itempanes.ItemPane;
 import oogasalad.view.builder.events.TileEvent;
@@ -61,18 +63,20 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private RulesPane myRulePane;
   private BorderPane myCenterContainer;
   private final String defaultStylesheet;
-  private boolean myTileCreationToggle = false;
-  private boolean myTileNextRemovalToggle = false;
+  private SimpleBooleanProperty myTileCreationToggle;
+  private SimpleBooleanProperty myTileNextRemovalToggle;
+  private SimpleBooleanProperty myDraggableObjectsToggle;
+  private SimpleBooleanProperty myDeleteToggle;
+  private SimpleBooleanProperty myBoardDragToggle;
+  private Optional<ViewTile> myCurrentTile = Optional.empty();
   private Node myInfoText;
   private BorderPane myTopBar;
   private int myTileCount = 0;
-  private Optional<ViewTile> myCurrentTile = Optional.empty();
+  private int myTrailCount = 0;
   private ItemPane mySidebar;
   private MenuItemPane myMenubar;
   private ItemPane myTopButtonBox;
   private final TrailMakerAPI myTrailMaker;
-  private SimpleBooleanProperty myDraggableObjectsToggle;
-  private boolean myDeleteToggle = false;
   private final BuilderController myBuilderController;
   private VBox sidePane;
   private Map<String, String> themeOptions;
@@ -91,6 +95,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     constantsResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE+CONSTANTS_FILE);
 
     defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET_PATH).toExternalForm();
+    initializeToggles();
     myDraggableObjectsToggle = new SimpleBooleanProperty(true);
 
     Scene scene = initScene();
@@ -104,16 +109,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   @Override
   public void saveFile() {
-    Optional<File> file = directoryGet(builderResource, "SaveGameTitle");
-    if (file.isPresent()) {
-      String givenDirectory = file.get().getPath();
-      // myBuilderController.save(givenDirectory);
-      LOG.info("Saved to directory: " + givenDirectory);
-    } else {
-      LOG.error(
-          "Either cancelled out of file save window or tried to save to a file that doesn't exist.");
-      ErrorHandler.displayError(builderResource.getString("FileNotFoundError"));
-    }
+    myBuilderController.save();
   }
 
   @Override
@@ -124,9 +120,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   @Override
   public void cancelAction() {
-    myTileCreationToggle = false;
-    myDeleteToggle = false;
-    myTileNextRemovalToggle = false;
+    myTileCreationToggle.set(false);
+    myDeleteToggle.set(false);
+    myTileNextRemovalToggle.set(false);
     //todo: make a better way of cancelling all the toggles, especially next
     myCurrentTile = Optional.empty();
     updateInfoText("RegularMode");
@@ -134,16 +130,11 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   @Override
   public void toggleTileCreation() {
-    if (myDeleteToggle){
-      toggleTileDeletion();
-    }
-    myTileCreationToggle = !myTileCreationToggle;
-    if (myTileCreationToggle){
-      updateInfoText("TileAdditionMode");
-    }
-    else{
-      updateInfoText("RegularMode");
-    }
+    toggle(myTileCreationToggle, "TileAdditionMode");
+  }
+
+  public void toggleNextRemoval(){
+    toggle(myTileNextRemovalToggle, "TileNextRemovalModePart1");
   }
 
   @Override
@@ -158,15 +149,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   @Override
   public void toggleTileDeletion() {
-    if (myTileCreationToggle){
-      toggleTileCreation();
-    }
-    myDeleteToggle = !myDeleteToggle;
-    if (myDeleteToggle) {
-      updateInfoText("DeleteMode");
-    } else {
-      updateInfoText("RegularMode");
-    }
+    toggle(myDeleteToggle, "DeleteMode");
   }
 
   public void switchToRules() {
@@ -201,9 +184,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
   public void displayGameInfoForm(Pane container) {
     container.getChildren().clear();
-    // thumbnail image, name, description, genre
-    Text nameLabel = (Text) makeText("GameNameLabel", builderResource);
-    TextField nameInput = (TextField) makeTextField("GameNameInput");
     Text descriptionLabel = (Text) makeText("GameDescriptionLabel", builderResource);
     TextField descriptionInput = (TextField) makeTextField("GameDescriptionInput");
     Text genreLabel = (Text) makeText("GameGenreLabel", builderResource);
@@ -214,7 +194,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     Text heightLabel = (Text) makeText("BoardHeightLabel", builderResource);
     Spinner<Double> heightInput = (Spinner<Double>) makeDoubleSpinner("BoardWidthInput", Double.parseDouble(constantsResource.getString("BOARD_MIN_SIZE")), Double.parseDouble(constantsResource.getString("BOARD_MAX_SIZE")), myBoardPane.getHeight());
     heightInput.valueProperty().addListener(((observable, oldValue, newValue) -> setPaneSize(myBoardPane, myBoardPane.getWidth(), newValue)));
-    container.getChildren().add(new HBox(nameLabel, nameInput));
     container.getChildren().add(new HBox(descriptionLabel, descriptionInput));
     container.getChildren().add(new HBox(genreLabel, genreInput));
     container.getChildren().add(new HBox(widthLabel, widthInput));
@@ -222,9 +201,11 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
   public void saveGameInfo() {
     // get info for name, genre, description and save somewhere?
+
   }
   public void uploadThumbnailImage() {
     // call Chika's upload thumbnail method
+    //FileUploader.uploadGameThumbnail();
   }
   private BorderPane createTopBar() {
     BorderPane topBar = new BorderPane();
@@ -260,6 +241,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private Pane createCentralContainer() {
     mySidebar = new ItemPane(builderResource, "SideBar1", this);
     mySidebar.addItems("SideBar1");
+    myCenterContainer = new BorderPane();
 
     initializeBoardPane();
     initializeRulePane();
@@ -267,12 +249,10 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     sidePane = new VBox();
     sidePane.setPrefWidth(Double.parseDouble(constantsResource.getString("SIDE_PANE_WIDTH")));
 
-    myCenterContainer = new BorderPane();
     myCenterContainer.setId("CentralContainer");
     myCenterContainer.setLeft(mySidebar.asNode());
     myCenterContainer.setCenter(myBoardPane);
     myCenterContainer.setRight(sidePane);
-
 //    return (HBox) makeHBox("CentralContainer", sideBar1, boardPane, sidePane);
     return myCenterContainer;
   }
@@ -280,14 +260,36 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private void initializeBoardPane() {
     myBoardPane = (Pane) makePane("BoardPane", Double.parseDouble(constantsResource.getString("PANE_WIDTH")), Double.parseDouble(constantsResource.getString("PANE_HEIGHT")));
     setPaneSize(myBoardPane, Double.parseDouble(constantsResource.getString("PANE_WIDTH")), Double.parseDouble(constantsResource.getString("PANE_HEIGHT")));
-
-    myBoardPane.setOnMouseClicked(e -> handleBoardClick(e));
-    myBoardPane.addEventFilter(TileEvent.DELETE_TILE, e -> deleteTile(e));
-    myBoardPane.addEventFilter(TileEvent.SET_NEXT_TILE, e -> createTilePath(e));
-    myBoardPane.addEventFilter(TileEvent.SHOW_FORM, e -> displayTileForm(e));
-    myBoardPane.addEventFilter(TileEvent.SELECT_TILE, e -> selectTile(e));
+    createBoardEventFilters();
+    initializeBoardDragger();
 
     LOG.debug("Initialized board pane successfully.");
+  }
+
+  private void createBoardEventFilters(){
+    myBoardPane.setOnMouseClicked(this::handleBoardClick);
+    myBoardPane.addEventFilter(TileEvent.DELETE_TILE, this::deleteTile);
+    myBoardPane.addEventFilter(TileEvent.SET_NEXT_TILE, this::createTilePath);
+    myBoardPane.addEventFilter(TileEvent.DELETE_NEXT_TILE, this::deleteTilePath);
+    myBoardPane.addEventFilter(TileEvent.SHOW_FORM, this::displayTileForm);
+    myBoardPane.addEventFilter(TileEvent.SELECT_TILE, this::selectTile);
+  }
+
+  private void initializeBoardDragger(){
+    Dragger boardDragger = new Dragger(myBoardPane, false, MouseButton.PRIMARY, myCenterContainer);
+    myBoardDragToggle = new SimpleBooleanProperty();
+    myBoardDragToggle.addListener(((observable, oldValue, newValue) -> {
+      boardDragger.setDraggable(newValue);
+    }));
+  }
+
+  private void removeBoardEventFilters(){
+    myBoardPane.removeEventFilter(MouseEvent.MOUSE_CLICKED, this::handleBoardClick);
+    myBoardPane.removeEventFilter(TileEvent.DELETE_TILE, this::deleteTile);
+    myBoardPane.removeEventFilter(TileEvent.SET_NEXT_TILE, this::createTilePath);
+    myBoardPane.removeEventFilter(TileEvent.DELETE_NEXT_TILE, this::deleteTilePath);
+    myBoardPane.removeEventFilter(TileEvent.SHOW_FORM, this::displayTileForm);
+    myBoardPane.removeEventFilter(TileEvent.SELECT_TILE, this::selectTile);
   }
 
   private void initializeRulePane() {
@@ -328,11 +330,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   // todo: support different tile types.
   private void createTile(MouseEvent e) {
     ViewTile tile = myBuilderController.addTile(e);
-    tile.asNode().setOnMouseDragged(event -> fireDragEvent(event, tile));
-    initializeNode(tile.asNode(), "Tile" + myTileCount, tile_e -> handleTileClick(tile));
-    myTileCount++;
-//    myTileCreationToggle = false;
-//    updateInfoText("RegularMode");
+    loadTile(tile);
     LOG.debug("Successfully created tile " + tile.getTileId());
   }
 
@@ -346,18 +344,22 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
         "User clicked on board at scene coordinates {%f, %f} and board coordinates {%f, %f}",
         e.getSceneX(), e.getSceneY(), e.getX(), e.getY()));
 
-    if (myTileCreationToggle) {
+    if (myTileCreationToggle.get()) {
       createTile(e);
     }
   }
 
   private void handleTileClick(ViewTile tile) {
     LOG.debug("Clicked on tile " + tile.getTileId());
-    if (myTileCreationToggle){
-      toggleTileCreation();
+    if (myTileCreationToggle.get()){
+      myTileCreationToggle.set(false);
+      updateInfoText("RegularMode");
     }
-    if (myDeleteToggle) {
+    if (myDeleteToggle.get()) {
       TileEvent event = new TileEvent(TileEvent.DELETE_TILE, tile);
+      myBoardPane.fireEvent(event);
+    } else if (myCurrentTile.isPresent() && myCurrentTile.get() != tile && myTileNextRemovalToggle.get()) {
+      TileEvent event = new TileEvent(TileEvent.DELETE_NEXT_TILE, tile);
       myBoardPane.fireEvent(event);
     } else if (myCurrentTile.isPresent() && myCurrentTile.get() != tile) {
       TileEvent event = new TileEvent(TileEvent.SET_NEXT_TILE, tile);
@@ -381,12 +383,19 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private void createTilePath(TileEvent event) {
-//    event.getViewTile().setColor(Color.LIGHTGREEN);
     setNextTile(myCurrentTile.get(), event.getViewTile());
-//    myCurrentTile.get().setColor(Color.LIGHTBLUE);
-    myCurrentTile = Optional.empty();
-//    event.getViewTile().setColor(Color.LIGHTBLUE);
-    updateInfoText("RegularMode");
+    cancelAction();
+  }
+
+  private void deleteTilePath(TileEvent event){
+    if (myBuilderController.removeNext(myCurrentTile.get().getTileId(), event.getViewTile().getTileId())){
+      myTrailMaker.removeTrail(myCurrentTile.get().asNode(), event.getViewTile().asNode());
+      myTrailCount--;
+      cancelAction();
+    }
+    else{
+      showError("DeletingImaginaryPathError");
+    }
   }
 
   private void displayTileForm(TileEvent event) {
@@ -397,17 +406,27 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private void selectTile(TileEvent event) {
     myCurrentTile = Optional.ofNullable(event.getViewTile());
-    updateInfoText("TileNextMode");
+    if (myTileNextRemovalToggle.get()){
+      updateInfoText("TileNextRemovalModePart2");
+    }
+    else {
+      updateInfoText("TileSelectMode");
+    }
   }
 
   private void setNextTile(ViewTile origin, ViewTile desiredNext) {
-    myBuilderController.addNext(origin.getTileId(), desiredNext.getTileId());
-    myTrailMaker.createTrailBetween(desiredNext.asNode(), origin.asNode(), "test" + myTileCount);
+    if(myBuilderController.addNext(origin.getTileId(), desiredNext.getTileId())){
+      myTrailMaker.createTrailBetween(desiredNext.asNode(), origin.asNode(), "test" + myTrailCount);
+      myTrailCount++;
+    }
+    else{
+      // Can be an error if desired.
+      showError("SamePathCreationError");
+    }
   }
 
   private int deleteNode(Node node, int objCounter) {
     myBoardPane.getChildren().remove(node);
-//    toggleTileDeletion();
     return objCounter--;
   }
 
@@ -442,6 +461,12 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     node.getStyleClass().add("clickable");
     myBoardPane.getChildren().add(node);
   }
+  private void initializeToggles(){
+    myDraggableObjectsToggle = new SimpleBooleanProperty(true);
+    myDeleteToggle = new SimpleBooleanProperty(false);
+    myTileCreationToggle = new SimpleBooleanProperty(false);
+    myTileNextRemovalToggle = new SimpleBooleanProperty(false);
+  }
 
   /**
    * <p>Displays a basic about window for the project.</p>
@@ -450,27 +475,37 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     new AboutView(builderResource, DEFAULT_STYLESHEET);
   }
 
-  public void createCustomTile(){
-    if (myDeleteToggle){
-      toggleTileDeletion();
-    }
-    new CustomObjectBuilder().start(myStage);
+  private void toggle(SimpleBooleanProperty toggle, String resourceKey){
+      cancelAction();
+      toggle.set(true);
+      updateInfoText(resourceKey);
   }
 
-  public void toggleNextRemoval(){
-//    if (myDeleteToggle){
-//      toggleTileDeletion();
-//    }
-//    if (myTileCreationToggle){
-//      toggleTileCreation();
-//    }
-//    myTileNextRemovalToggle = !myTileNextRemovalToggle;
-//    if (myTileNextRemovalToggle){
-//      updateInfoText("NextRemoveMode");
-//    }
-//    else{
-//      updateInfoText("RegularMode");
-//    }
+  public void loadTile(ViewTile tile){
+    tile.asNode().setOnMouseDragged(event -> fireDragEvent(event, tile));
+    initializeNode(tile.asNode(), "Tile" + myTileCount, tile_e -> handleTileClick(tile));
+    myTileCount++;
+  }
+
+  public void loadBoardSize(double width, double height){
+    setPaneSize(myBoardPane, width, height);
+  }
+
+  public void showError(String resourceKey){
+    ErrorHandler.displayError(builderResource.getString(resourceKey));
+  }
+
+  public void toggleBoardDrag(){
+    cancelAction();
+    if (myBoardDragToggle.get()){
+      createBoardEventFilters();
+      updateInfoText("RegularMode");
+    }
+    else{
+      removeBoardEventFilters();
+      updateInfoText("BoardDragMode");
+    }
+    myBoardDragToggle.set(!myBoardDragToggle.get());
   }
 
 }

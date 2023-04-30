@@ -22,19 +22,6 @@
     "value" : 1
   } ]
 }, {
-  "@class" : "oogasalad.model.engine.rules.NumberOfPlayersRule",
-  "id" : "636c91ee-4dd8-45b8-bdde-c1393f7ac01b",
-  "schemas" : [ "numberOfPlayersRule" ],
-  "attributes" : [ {
-    "@class" : "oogasalad.model.attribute.IntAttribute",
-    "key" : "maxPlayer",
-    "value" : 4
-  }, {
-    "@class" : "oogasalad.model.attribute.IntAttribute",
-    "key" : "minPlayer",
-    "value" : 1
-  } ]
-}, {
   "@class" : "oogasalad.model.engine.rules.TurnRule",
   "id" : "9ae1f498-1b6e-40c6-b0aa-cc9a423a5c4c",
   "schemas" : [ "turnRule" ],
@@ -57,4 +44,27 @@
     "key" : "numberOfDice",
     "value" : 1
   } ]
-} ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.NumberOfPlayersRule",
+  "id" : "6d104387-e6e1-4986-b410-2e7a60d4c721",
+  "schemas" : [ "numberOfPlayersRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "maxPlayer",
+    "value" : 4
+  }, {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "minPlayer",
+    "value" : 1
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.FiniteBoardWinRule",
+  "id" : "8a104387-e6e1-4986-a410-2e7a60d4c721",
+  "schemas" : [ "finiteBoardWinRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.TileListAttribute",
+    "key" : "winningTiles",
+    "ids" : [ "6" ]
+  } ]
+}
+]

@@ -13,6 +13,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import oogasalad.model.accesscontrol.authentication.AuthenticationHandler;
+import oogasalad.model.accesscontrol.dao.UserDao;
+import oogasalad.model.accesscontrol.database.schema.UserSchema;
+import oogasalad.util.AlertPopUp;
 import oogasalad.view.tabexplorer.TabExplorer;
 
 public class LoginTab implements Tab {
@@ -21,11 +24,13 @@ public class LoginTab implements Tab {
   private AuthenticationHandler authHandler;
   private TextField tfName;
   private PasswordField pfPwd;
+  private UserDao userDao;
 
   @Inject
-  public LoginTab(@Assisted TabExplorer tabExplorer, AuthenticationHandler authHandler){
+  public LoginTab(@Assisted TabExplorer tabExplorer, AuthenticationHandler authHandler, UserDao userDao){
     this.tabExplorer = tabExplorer;
     this.authHandler = authHandler;
+    this.userDao = userDao;
   }
 
   @Override
@@ -70,14 +75,22 @@ public class LoginTab implements Tab {
     String username = tfName.getText();
     String password = pfPwd.getText();
     if (username.length()== 0 || password.length() == 0){
-      Alert alert = new Alert(AlertType.ERROR);
-      alert.setTitle("Login failed");
-      alert.setHeaderText(null);
-      alert.setContentText("The username or password is invalid");
-      alert.showAndWait();
+      AlertPopUp.show(AlertType.ERROR, "Login failed","The username or password is invalid" );
     } else{
-      authHandler.login(username, password);
-      tabExplorer.displayDefaultTab();
+      // user is not registered so just signed them up
+      if (!userDao.isUserRegistered(username)){
+        authHandler.register(username,  password);
+      } else{
+        String userID = userDao.getUserID(username);
+        String userPwd = (String) userDao.getUserData(userID).get(UserSchema.PASSWORD.getFieldName());
+        // password is correct
+        if (userPwd.equals(password)){
+          authHandler.login(username, password);
+          tabExplorer.displayDefaultTab();
+        } else{ // password incorrect
+          AlertPopUp.show(AlertType.ERROR, "Incorrect login detail","The username or password is incorrect");
+        }
+      }
     }
   }
 }

@@ -1,10 +1,13 @@
 package oogasalad.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,17 +19,24 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import oogasalad.controller.builderevents.Dragger;
+import oogasalad.model.attribute.FileReader;
+import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.GameConstruct;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.model.engine.rules.EditableRule;
+import oogasalad.model.engine.rules.Rule;
+import oogasalad.model.exception.FileReaderException;
+import oogasalad.model.exception.ResourceReadException;
 import oogasalad.util.SaveManager;
 import oogasalad.view.BuilderFactory;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.BuilderView;
+import oogasalad.view.builder.ErrorHandler;
 import oogasalad.view.builder.popupform.PopupForm;
 import oogasalad.view.tiles.ViewTile;
 import oogasalad.view.tiles.ViewTileFactory;
@@ -44,11 +54,15 @@ public class BuilderController {
   private static final Logger logger = LogManager.getLogger(BuilderController.class);
   private final BuilderView builderView;
   private final GameHolder gameHolder;
+  private final GameInfo gameInfo;
   private SchemaDatabase db;
   private ViewTileFactory viewTileFactory;
   private BBoard board;
-  private SaveManager saveManager;
+//  private SaveManager saveManager;
   private final Injector injector;
+  private Map<String, String> rules;
+  private static final String RULE_NAME_KEY = "name";
+  private static final String RULE_DESCRIPTION_KEY = "description";
 
   public BuilderController(String language, Path saveDir) {
     injector = Guice.createInjector(
@@ -62,6 +76,10 @@ public class BuilderController {
     db = injector.getInstance(SchemaDatabase.class);
     gameHolder = injector.getInstance(GameHolder.class);
     board = gameHolder.getBoard();
+    gameInfo = gameHolder.getGameInfo();
+
+    loadIntoBuilder();
+    readDefaultRules();
 
 //    todo: Dominics example code for how to get rules using dependency injection
 //    Injector injector = Guice.createInjector(new EngineModule());
@@ -84,14 +102,27 @@ public class BuilderController {
     return tile;
   }
 
-  public void addNext(String currentId, String nextId) {
+  public boolean addNext(String currentId, String nextId) {
+    if (board.getById(currentId).get().getNextTileIds().contains(nextId)){
+      logger.info("Tried creating a path that already exists.");
+      return false;
+    }
+    System.out.println("Why hello: " + board.getById(currentId).get().getNextTileIds());
     board.getById(currentId).get().getNextTileIds().add(nextId);
     logger.info("added next attribute to tile");
+    return true;
   }
 
-  public void removeNext(String currentId, String nextId) {
-    board.getById(currentId).get().getNextTileIds().remove(nextId);
-    logger.info("removed next attribute from tile");
+  public boolean removeNext(String currentId, String nextId) {
+    if (board.getById(currentId).get().getNextTileIds().contains(nextId)){
+      board.getById(currentId).get().getNextTileIds().remove(nextId);
+      logger.info("removed next attribute from tile");
+      return true;
+    }
+    else{
+      logger.info("tried to remove a next attribute that doesn't exist.");
+      return false;
+    }
   }
 
   public void removeTile(String currentId) {
@@ -100,9 +131,8 @@ public class BuilderController {
   }
 
   public void save() {
-    saveManager.saveGame();
+    injector.getInstance(SaveManager.class).saveGame();
 //    ImageList --> loop through and apply saveAsset to all imgages
-//    saveManager.saveAsset();
   }
 
   public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Node parent,
@@ -164,6 +194,7 @@ public class BuilderController {
   }
 
   public List<String> getListOfRules() {
+    //return rules.keySet().stream().toList();
     return List.of(
         "Hello",
         "This",
@@ -191,5 +222,60 @@ public class BuilderController {
   public void removeRuleFromTiletype(String tiletype, String ruleAsString) {
     logger.info("Trying to remove rule " + ruleAsString +
         " from tiletype " + tiletype);
+  }
+
+  private void loadIntoBuilder(){
+    boolean lostTiles = false;
+//    getBuilderView().loadBoardSize(gameInfo.getWidth(), gameInfo.getHeight());
+
+    for (Tile tile : board.getTiles()){
+      if (!checkTileValidity(tile, gameInfo.getWidth(), gameInfo.getHeight())){
+        logger.warn("Tried to load an invalid tile! Coordinate: " +
+            tile.getCoordinate().toString() + " Width: " + tile.getWidth() + " Height: "
+            + tile.getHeight());
+        lostTiles = true;
+        continue;
+      }
+      getBuilderView().loadTile(viewTileFactory.createDynamicViewTile(tile));
+    }
+
+    if (lostTiles){
+      getBuilderView().showError("InvalidTilesLoadedError");
+    }
+  }
+
+  private boolean checkTileValidity(Tile tile, double boardWidth, double boardHeight){
+    Coordinate tileCoordinate = tile.getCoordinate();
+    if (tileCoordinate.getXCoor() - tile.getWidth() > boardWidth){
+      return false;
+    }
+    if (tileCoordinate.getYCoor() - tile.getHeight() > boardHeight){
+      return false;
+    }
+    if (tile.getHeight() > boardHeight || tile.getWidth() > boardWidth){
+      return false;
+    }
+
+    return true;
+  }
+
+  private void readDefaultRules() {
+    try{
+      rules = new HashMap<>();
+      for (File file: FileReader.readFiles("rules")) {
+        EditableRule rule = readRulesFile(file.toPath());
+        String name = StringAttribute.from(rule.getAttribute(RULE_NAME_KEY).get()).getValue();
+        String desc = StringAttribute.from(rule.getAttribute(RULE_DESCRIPTION_KEY).get()).getValue();
+        rules.putIfAbsent(name, desc);
+      }
+    } catch (FileReaderException | IOException e) {
+      logger.fatal("Failed to read resource rule files", e);
+      throw new ResourceReadException(e);
+    }
+  }
+
+  private EditableRule readRulesFile(Path path) throws IOException {
+    ObjectMapper mapper = new ObjectMapper();
+    return mapper.readValue(path.toFile(), EditableRule.class);
   }
 }

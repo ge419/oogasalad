@@ -26,11 +26,7 @@ public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
 
 
   @Override
-  public String registerNewUser(String username, String password)
-      throws ExecutionException, InterruptedException {
-
-    // add pronouns, emailaddr, age
-
+  public String registerNewUser(String username, String password) {
 
     // todo put in different method
     Map<String, Object> docData = new HashMap<>();
@@ -47,10 +43,17 @@ public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
     docData.put("preferred_language", "en-US");
 
     CollectionReference collection = db.collection("users");
-    DocumentReference newDocRef = collection.add(docData).get();
-    String newDocId = newDocRef.getId();
-    //System.out.println("Auto-generated ID for new document: " + newDocId);
-    return newDocId;
+    DocumentReference newDocRef ;
+    try {
+      newDocRef = collection.add(docData).get();
+      String newDocId = newDocRef.getId();
+      //System.out.println("Auto-generated ID for new document: " + newDocId);
+      return newDocId;
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    } catch (ExecutionException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override
@@ -64,21 +67,26 @@ public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
   }
 
   @Override
-  public String getUserID(String userName) throws ExecutionException, InterruptedException {
-    String documentId = null;
+  public String getUserID(String userName) {
+    String documentId;
     ApiFuture<QuerySnapshot> future = db.collection("users").whereEqualTo("username", userName).get();
-    List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-
-    if (documents.size() > 1){
-      throw new RuntimeException("Username should be unique!");
+    List<QueryDocumentSnapshot> documents = null;
+    try {
+      documents = future.get().getDocuments();
+      if (documents.size() > 1){
+        throw new RuntimeException("Username should be unique!");
+      }
+      if (documents.isEmpty()){
+        throw new RuntimeException("Username does not exist!");
+      }else{
+        documentId = documents.get(0).getId();
+      }
+      return documentId;
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    } catch (ExecutionException e) {
+      throw new RuntimeException(e);
     }
-    if (documents.isEmpty()){
-      throw new RuntimeException("Username does not exist!");
-    }else{
-      documentId = documents.get(0).getId();
-    }
-
-    return documentId;
   }
 
   @Override

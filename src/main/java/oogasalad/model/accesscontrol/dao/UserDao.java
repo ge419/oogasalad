@@ -5,14 +5,13 @@ import java.util.concurrent.ExecutionException;
 
 public interface UserDao {
 
-  String getUserID(String userName) throws ExecutionException, InterruptedException;
+  String getUserID(String userName);
 
   Map<String, Object> getUserData(String userID);
 
   boolean isUserRegistered(String username);
 
-  String registerNewUser(String username, String password)
-      throws ExecutionException, InterruptedException;
+  String registerNewUser(String username, String password);
 
   void incrementNumberOfGamesPlayed(String userID);
 

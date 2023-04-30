@@ -17,9 +17,6 @@ import oogasalad.model.observers.Observable;
 
 @Singleton
 public class GameHolder implements Observable<GameObserver> {
-
-  private int minPlayerNum = 1;
-  private int maxPlayerNum = 4;
   private GameInfo gameInfo;
   private BBoard board;
   private Players players;
@@ -51,16 +48,6 @@ public class GameHolder implements Observable<GameObserver> {
 
   public void setBoard(BBoard board) {
     this.board = board;
-  }
-
-  @JsonIgnore
-  public int minPlayer() {
-    return this.minPlayerNum;
-  }
-
-  @JsonIgnore
-  public int maxPlayer() {
-    return this.maxPlayerNum;
   }
 
   @JsonIgnore

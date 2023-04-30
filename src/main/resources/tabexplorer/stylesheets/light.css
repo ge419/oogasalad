@@ -1,0 +1,41 @@
+
+.root{
+  -fx-font-size: 12pt;
+  -fx-font-family: "Helvetica";
+  /* Set the background color of the scene to black */
+
+  -fx-background-color: #f6f2f2;
+
+}
+
+Text {
+  -fx-fill: #1f1d1d;
+}
+
+Label {
+  -fx-text-fill: #1f1d1d;
+}
+
+Button{
+  -fx-cursor: hand;
+}
+
+#welcome-text {
+  -fx-fill: #131212;
+  -fx-font-size: 30px;
+}
+
+
+.game-box {
+  -fx-background-color: red;
+  -fx-alignment: center;
+  -fx-spacing: 15;
+  -fx-pref-width: 100;
+  -fx-pref-height: 100;
+}
+
+.game-box:hover {
+  -fx-cursor: hand;
+}
+
+

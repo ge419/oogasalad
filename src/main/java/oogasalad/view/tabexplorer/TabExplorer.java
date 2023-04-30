@@ -120,7 +120,6 @@ public class TabExplorer {
 //       userPref.setLanguageResourceBundle(authHandler.getActiveUserID());
       renderMenuButton();
 //      refreshNavBar();
-      initMenuButton();
       gameLauncherTab.renderTabContent();
     } else{
       requestSignIn();
@@ -163,7 +162,7 @@ public class TabExplorer {
 
   public void launchGame(String gameID){
 
-    GameController gameController = new GameController(Paths.get(PathFinder.getGameDataPath(gameID)));
+    GameController gameController = new GameController(Paths.get(PathFinder.getGameDataPath(gameID)), "English");
     Stage gameStage = new Stage();
     try {
       gameController.setGame(gameStage);
@@ -184,10 +183,9 @@ public class TabExplorer {
   private void renderMenuButton(){
     String name = (String) userDao.getUserData(authHandler.getActiveUserID()).get(UserSchema.NAME.getFieldName());
     navBar.setMenuButton(name, authHandler.getActiveUserName(), authHandler.getActiveUserID());
-    menuButton = navBar.getMenuButton();
-    setting = navBar.getSettingMenuItem();
-    logout = navBar.getLogoutMenuItem();
-    initMenuItems();
+    navBar.onLanguageChange(userPref.getPreferredLanguagePath());
+
+    initMenuButton();
   }
 
   private void initMenuButton(){

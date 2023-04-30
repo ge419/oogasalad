@@ -25,7 +25,7 @@ public interface UserDao {
 
   void unCloneGame(String userID, String gameID); // can only unclone if not creator
 
-  void deleteGame(String userID, String gameID); // has to be creator to delete
+  void deleteGame(String gameID); // has to be creator to delete
 
   void updatePassword(String userID, String newPwd);
 

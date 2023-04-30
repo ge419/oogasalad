@@ -281,7 +281,11 @@ public class BuilderController {
 
   private EditableRule readRulesFile(Path path) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
-    return mapper.readValue(path.toFile(), EditableRule.class);
+    return mapper.readValue(path.toFile(), SimpleObjectSchema.class);
+  }
+  public String getRuleDescription(String ruleAsString){
+    return rules.get(ruleAsString);
+
   }
   public String getGameID() {
     return gameID;

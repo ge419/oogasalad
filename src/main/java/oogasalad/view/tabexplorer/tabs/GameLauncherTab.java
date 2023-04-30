@@ -31,6 +31,7 @@ import javafx.scene.text.Text;
 import oogasalad.model.accesscontrol.authentication.AuthenticationHandler;
 import oogasalad.model.accesscontrol.dao.GameDao;
 import oogasalad.model.accesscontrol.dao.UserDao;
+import oogasalad.model.accesscontrol.database.schema.GameSchema;
 import oogasalad.model.accesscontrol.database.schema.UserSchema;
 import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
@@ -185,7 +186,7 @@ public class GameLauncherTab implements Tab {
       String name = formData[0];
 
       Map<String, Object> game = new HashMap<>();
-      game.put("title", name);
+      game.put(GameSchema.DESCRIPTION.getFieldName(), name);
 
       String gameID = gameDao.createGame(authHandler.getActiveUserID());
       gameDao.updateGame(gameID, game);

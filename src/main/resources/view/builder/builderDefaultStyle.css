@@ -27,9 +27,6 @@
 .clickable{
     -fx-cursor: hand;
 }
-.clickable:hover{
-    -fx-effect: dropshadow(gaussian, text-color, 1, 0.5, 0, 0);
-}
 
 .text{
     -fx-border-width: 0.2;
@@ -49,9 +46,10 @@
     -fx-border-radius: 4;
 }
 #RulePane{
-    -fx-padding: 5px;
-    -fx-spacing: 5px;
-    -fx-alignment: left;
+    -fx-background-color: title-color;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
 }
 #sideBar{
     -fx-word-wrap: break-word;
@@ -91,17 +89,4 @@
 #AboutText{
     -fx-alignment:center;
     -fx-spacing: 20px;
-}
-#RulesDescriptionBox{
-    -fx-alignment: center;
-    -fx-wrap-text: true;
-    -fx-max-height: 100;
-    -fx-min-height: 30;
-}
-#RulesTiletypeSelector{
-    -fx-alignment: center;
-}
-#RulesListview{
-    -fx-min-width: 100;
-    -fx-min-height: 100;
 }

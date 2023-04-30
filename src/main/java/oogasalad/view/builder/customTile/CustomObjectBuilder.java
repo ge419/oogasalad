@@ -3,6 +3,7 @@ package oogasalad.view.builder.customTile;
 import javafx.application.Application;
 import javafx.geometry.Orientation;
 
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -29,13 +30,13 @@ public class CustomObjectBuilder extends Application implements BuilderUtility {
 
     @Override
     public void start(Stage PrimaryStage) {
-        start(PrimaryStage, "English");
+        start(PrimaryStage, "en-US");
     }
 
     public void start(Stage PrimaryStage, String defaultLanguage) {
 //        stage = PrimaryStage;
         stage = new Stage();
-        this.languageBundle = ResourceBundle.getBundle("oogasalad.languages."+ defaultLanguage);
+        this.languageBundle = ResourceBundle.getBundle("customTiles." + defaultLanguage);
 
         rightPane = new CustomObject(() -> leftPane.swapCurrentClicked(rightPane.currentClickedInfo, rightPane.newCurrentClickedInfo));
         leftPane = new LeftPane();
@@ -115,28 +116,14 @@ public class CustomObjectBuilder extends Application implements BuilderUtility {
         }
 
         private void AddButtons() {
-            // Load resource bundle for current locale
+            Node renameButton = makeButton("renameButton",languageBundle, e -> rightPane.nameObject());
+            Node saveButton = makeButton("saveButton",languageBundle, e -> rightPane.saveLauncher());
+            Node loadButton = makeButton("loadButton",languageBundle, e -> rightPane.loadJson());
 
-            Button renameButton = new Button(languageBundle.getString("renameButton.label"));
-            renameButton.setOnAction(e -> rightPane.nameObject());
+            Node addImageButton = makeButton("addImageButton",languageBundle, e -> addImage());
+            Node addTextButton = makeButton("addTextButton",languageBundle, e -> addText());
+            Node addColorButton  = makeButton("addColorButton",languageBundle, e -> addColorBox());
 
-            Button saveButton = new Button(languageBundle.getString("saveButton.label"));
-            saveButton.setOnAction(e -> rightPane.saveLauncher());
-
-            Button loadButton = new Button(languageBundle.getString("loadButton.label"));
-            loadButton.setOnAction(e -> rightPane.loadJson());
-
-            Button addImageButton = new Button(languageBundle.getString("addImageButton.label"));
-            addImageButton.setOnAction(e -> addImage());
-
-            Button addTextButton = new Button(languageBundle.getString("addTextButton.label"));
-            addTextButton.setOnAction(e -> addText());
-
-            Button addColorButton = new Button(languageBundle.getString("addColorButton.label"));
-            addColorButton.setOnAction(e -> addColorBox());
-
-
-            // Add image property fields to VBox
             this.getChildren().addAll(renameButton, saveButton, loadButton, addTextButton, addImageButton, addColorButton);
         }
 

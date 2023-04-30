@@ -21,7 +21,7 @@ public class ImageMetadata extends StringMetadata {
   @Override
   public boolean isValidValue(String val) {
     String[] splitVal = val.split("\\.");
-    if (validExtensions.contains(splitVal[1])) {
+    if (validExtensions.contains(splitVal[splitVal.length - 1])) {
       return true;
     }
     return false;

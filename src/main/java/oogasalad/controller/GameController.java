@@ -12,34 +12,32 @@ import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.engine.Engine;
 import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.Rule;
+import oogasalad.model.observers.GameObserver;
 import oogasalad.util.SaveManager;
 import oogasalad.view.ViewFactory;
 import oogasalad.view.gameplay.Gameview;
 import oogasalad.view.gameplay.SetDieRule;
 
-public class GameController {
-
+public class GameController implements GameObserver {
   private final Engine engine;
   private final Gameview gv;
   private final GameHolder game;
-  private final PrompterFactory prompterFactory;
-  // TODO get from player
   private final Prompter prompter;
-  private final Injector injector;
-  LinkedList<Effect> effects;
+  private final LinkedList<Effect> effects;
 
   public GameController(Path saveDir, String language) {
-    this.injector = Guice.createInjector(new GameControllerModule(saveDir, language));
+    Injector injector = Guice.createInjector(new GameControllerModule(saveDir, language));
     injector.getInstance(SaveManager.class).loadGame();
     gv = injector.getInstance(ViewFactory.class).makeGameview(this);
     this.effects = new LinkedList<>();
     this.engine = injector.getInstance(Engine.class);
     this.game = injector.getInstance(GameHolder.class);
-    this.prompterFactory = injector.getInstance(PrompterFactory.class);
+    PrompterFactory prompterFactory = injector.getInstance(PrompterFactory.class);
     this.prompter = prompterFactory.makeHumanPrompter(
-        effect -> effects.add(effect),
+        effects::add,
         gv
     );
+    game.register(this);
   }
 
   public void setGame(Stage gameStage) throws IOException {
@@ -63,5 +61,9 @@ public class GameController {
     }
   }
 
+  @Override
+  public void updateOnGameEnd() {
+
+  }
 }
 

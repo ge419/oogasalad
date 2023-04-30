@@ -113,6 +113,12 @@ public class Tile extends AbstractGameConstruct {
   }
 
   @JsonIgnore
+  public double getAngle() {return getCoordinate().getAngle();}
+
+  @JsonIgnore
+  public void setAngle(double angle) {positionAttribute().setAngle(angle);}
+
+  @JsonIgnore
   public DoubleAttribute widthAttribute() {
     return DoubleAttribute.from(getAttribute(WIDTH_ATTRIBUTE).get());
   }
@@ -151,11 +157,6 @@ public class Tile extends AbstractGameConstruct {
   public String getInfo() {
     return StringAttribute.from(getAttribute(INFO_ATTRIBUTE).get()).getValue();
   }
-
-//  @JsonIgnore
-//  public String getPrice() {
-//    return Double.toString(DoubleAttribute.from(getAttribute("price").get()).getValue());
-//  }
 
   @JsonIgnore
   public String getViewType() {

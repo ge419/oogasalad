@@ -1,6 +1,7 @@
 package oogasalad.model.engine.rules;
 
 import com.fasterxml.jackson.annotation.JacksonInject;
+import java.util.ResourceBundle;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ReadOnlyListProperty;
 import javax.inject.Inject;
@@ -13,8 +14,10 @@ import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Tile;
+import oogasalad.model.engine.EngineResourceBundle;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
+import oogasalad.model.engine.Priority;
 import oogasalad.model.engine.actions.BuyAction;
 import oogasalad.model.engine.events.TileLandedEvent;
 import org.apache.logging.log4j.LogManager;
@@ -27,17 +30,21 @@ public class BuyTileRule extends AbstractGameConstruct implements EditableRule {
   public static final String PRICE_ATTRIBUTE = "price";
   public static final String OWNER_ATTRIBUTE = "owner";
   private static final Logger LOGGER = LogManager.getLogger(BuyTileRule.class);
+  public static final String IMAGE = "image";
   private final ListProperty<SchemaBinding> appliedSchemaProperty;
   private final GameHolder gameHolder;
+  private final ResourceBundle bundle;
 
   @Inject
   public BuyTileRule(
       @JacksonInject SchemaDatabase database,
-      @JacksonInject GameHolder gameHolder
+      @JacksonInject GameHolder gameHolder,
+      @JacksonInject @EngineResourceBundle ResourceBundle bundle
   ) {
     super(SCHEMA_NAME, database);
     appliedSchemaProperty = RuleUtils.bindToTileType(this, APPLIED_SCHEMA_NAME);
     this.gameHolder = gameHolder;
+    this.bundle = bundle;
   }
 
   @Override
@@ -59,16 +66,15 @@ public class BuyTileRule extends AbstractGameConstruct implements EditableRule {
     DoubleAttribute price = getPriceAttribute(tile);
     double newMoney = player.getScore() - price.getValue();
 
-    if (owner.getId().isEmpty() && newMoney >= 0) {
+    if (owner.getId().isEmpty() && newMoney >= 0 && !tile.getViewType().equals(IMAGE)) {
       LOGGER.info("Prompted User to Buy Property with Remaining Money {}", newMoney);
       BuyAction buyAction = new BuyAction(() -> {
         tile.setOwned();
         tile.setOwnerId(player.getId());
         owner.setId(piece.getPlayer().get().getId());
         player.setScore(newMoney);
-        player.addCardToPlayer(tile);
-      });
-      eventHandlerParams.actionQueue().add(1, buyAction);
+      }, bundle);
+      eventHandlerParams.actionQueue().add(Priority.HIGH.getValue(), buyAction);
     }
   }
 

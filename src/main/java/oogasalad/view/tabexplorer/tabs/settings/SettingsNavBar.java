@@ -99,7 +99,7 @@ public class SettingsNavBar {
     separator2 = new Separator();
     separator2.setPadding(new Insets(5,0,5,0));
     logoutLink = new Hyperlink("Logout");
-    versionNumber = new Label("v0.69.4.20");
+    versionNumber = new Label("v0.02");
     container = new VBox(logoutLink, versionNumber);
     spacer1 = new Region();
     VBox.setVgrow(spacer1, Priority.ALWAYS);

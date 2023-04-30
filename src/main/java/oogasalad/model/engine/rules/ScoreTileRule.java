@@ -9,12 +9,14 @@ import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
+import oogasalad.model.engine.Priority;
 import oogasalad.model.engine.actions.ActionFactory;
 import oogasalad.model.engine.events.TileLandedEvent;
 
 public class ScoreTileRule extends AbstractGameConstruct implements EditableRule {
 
   public static final String SCHEMA_NAME = "scoreTileRule";
+  public static final int NEG = -1;
   private final ActionFactory actionFactory;
   private final GameHolder gameholder;
 
@@ -36,13 +38,14 @@ public class ScoreTileRule extends AbstractGameConstruct implements EditableRule
 
   private void alterPlayerScore(EventHandlerParams<TileLandedEvent> eventHandlerParams) {
     Tile tile = eventHandlerParams.event().landedTile();
-    if (tile.isOwned()) {
-      Player currentPlayer = gameholder.getCurrentPlayer();
-      String ownerId = tile.getOwnerId();
+    Player currentPlayer = gameholder.getCurrentPlayer();
+    String ownerId = tile.getOwnerId();
+    if (tile.isOwned() && !ownerId.equals(currentPlayer.getId())) {
       Player ownerPlayer = gameholder.getPlayers().getById(ownerId).get();
       double deltaScore = tile.getPrice();
-      eventHandlerParams.actionQueue().add(2, actionFactory.makeAlterPlayerScoreAction(currentPlayer, deltaScore*-1));
-      eventHandlerParams.actionQueue().add(2, actionFactory.makeAlterPlayerScoreAction(ownerPlayer, deltaScore));
+      eventHandlerParams.actionQueue().add(
+          Priority.HIGH.getValue(), actionFactory.makeAlterPlayerScoreAction(currentPlayer, deltaScore* NEG));
+      eventHandlerParams.actionQueue().add(Priority.HIGH.getValue(), actionFactory.makeAlterPlayerScoreAction(ownerPlayer, deltaScore));
     }
   }
 }

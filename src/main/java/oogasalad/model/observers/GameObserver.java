@@ -7,7 +7,8 @@ import oogasalad.model.constructable.Players;
 
 public interface GameObserver {
 
-  void updateOnPlayers(Players players);
-  void updateOnPieces(List<Piece> pieces);
-  void updateOnPlayerRemoval(List<Player> players);
+  default void updateOnPlayers(Players players) {}
+  default void updateOnPieces(List<Piece> pieces){}
+  default void updateOnPlayerRemoval(List<Player> players){}
+  void updateOnGameEnd();
 }

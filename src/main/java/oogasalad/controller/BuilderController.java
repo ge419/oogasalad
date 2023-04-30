@@ -155,7 +155,7 @@ public class BuilderController {
 
   public PopupForm createPopupForm(GameConstruct construct, ResourceBundle language,
       Pane location) {
-    return new PopupForm(construct, language, location);
+    return new PopupForm(construct, language, location, injector);
   }
 
   private void defaultRules() {

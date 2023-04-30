@@ -38,6 +38,18 @@ import org.checkerframework.checker.units.qual.A;
 
 public class Gameview implements GameObserver {
 
+  /**
+   * <p> The "Main" class for the gameplay frontend that renders all frontend components and
+   * displays in window
+   *
+   * <p>Assumptions: Any additional frontend components must implement the Renderable interface and be
+   * added to the renderGameview method
+   *
+   * <p>Dependencies: GameHolder, Tiles, Die, ViewPlayers, ViewPieces
+   *
+   * @author Woonggyu wj61
+   */
+
   //TODO: refactor to read from JSON file
   private final int VIEW_WIDTH = 1500;
   private final int VIEW_HEIGHT = 1000;
@@ -67,6 +79,18 @@ public class Gameview implements GameObserver {
     this.game.register(this);
   }
 
+  /**
+   * Receive the frontend player component that is associated with the backend player with specified ID
+   *
+   * <p>Assumptions: ID passed is valid.
+   *
+   * <p>Parameters:
+   * @param primaryStage is the stage that all frontend components are to be added to
+   *
+   * <p>Exceptions:
+   * @throws IOException if any frontend components' render method is faulty
+   *
+   */
   public void renderGameview(Stage primaryStage) throws IOException {
     UIroot = new BorderPane();
 
@@ -82,7 +106,6 @@ public class Gameview implements GameObserver {
 
     //TODO: retrieve number of players and piece per player from launcher/builder
     // TODO: Dynamically watch players/pieces
-
 
     //TODO: take this out when cards are implemented
     Button button = new Button("Show Card Popup");

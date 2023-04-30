@@ -48,6 +48,7 @@ public class Gameview implements GameObserver {
   private Scene scene;
   private BorderPane UIroot;
   private ViewPlayers viewPlayers = new ViewPlayers(null);
+  private Stage myStage;
   private ViewPieces viewPieces;
 
   @Inject
@@ -65,6 +66,7 @@ public class Gameview implements GameObserver {
   }
 
   public void renderGameview(Stage primaryStage) throws IOException {
+    myStage = primaryStage;
     UIroot = new BorderPane();
 
     Renderable board = new Board();
@@ -105,11 +107,11 @@ public class Gameview implements GameObserver {
 
 
     //TODO: refactor to read from property file
-    primaryStage.setTitle("Monopoly");
-    primaryStage.setScene(scene);
-    primaryStage.setHeight(VIEW_HEIGHT);
-    primaryStage.setWidth(VIEW_WIDTH);
-    primaryStage.show();
+    myStage.setTitle("Monopoly");
+    myStage.setScene(scene);
+    myStage.setHeight(VIEW_HEIGHT);
+    myStage.setWidth(VIEW_WIDTH);
+    myStage.show();
   }
 
   public <T extends Event> void addEventHandler(EventType<T> type, EventHandler<T> action) {
@@ -157,6 +159,6 @@ public class Gameview implements GameObserver {
 
   @Override
   public void updateOnGameEnd() {
-
+    myStage.close();
   }
 }

@@ -5,7 +5,6 @@ import com.google.inject.assistedinject.Assisted;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.engine.EngineResourceBundle;
 import oogasalad.model.engine.prompt.PromptOption;

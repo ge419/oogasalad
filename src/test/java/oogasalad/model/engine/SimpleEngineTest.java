@@ -35,7 +35,7 @@ class SimpleEngineTest {
   void setUp() {
     mockPrompter = mock(Prompter.class);
     injector = Guice.createInjector(
-        new EngineModule(),
+        new EngineModule("English"),
         binder -> binder.bind(Prompter.class).toInstance(mockPrompter)
     );
     engine = injector.getInstance(SimpleEngine.class);

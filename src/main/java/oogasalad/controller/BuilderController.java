@@ -199,16 +199,22 @@ public class BuilderController {
     );
   }
 
-  public void makeRulesPopup(String tiletype, String ruleAsString) {
+  public boolean makeRulesPopup(String tiletype, String ruleAsString) {
     logger.info("Chose to edit rule " + ruleAsString + " for tiletype " + tiletype);
     // todo: change this to get the rule from whatever string was provided
     EditableRule rule = injector.getInstance(BuyTileRule.class);
     createPopupForm(rule, builderView.getLanguage(), builderView.getPopupPane());
+    return false;
+
+    // RETURN FALSE IF YOU CANNOT GET THE RULE FOR SOME REASON
   }
 
-  public void removeRuleFromTiletype(String tiletype, String ruleAsString) {
+  public boolean removeRuleFromTiletype(String tiletype, String ruleAsString) {
     logger.info("Trying to remove rule " + ruleAsString +
         " from tiletype " + tiletype);
+    return false;
+
+    // RETURN FALSE IF YOU CANNOT REMOVE THE RULE
   }
 
   private void loadIntoBuilder(){
@@ -244,5 +250,10 @@ public class BuilderController {
     }
 
     return true;
+  }
+
+  public String getRuleDescription(String ruleAsString){
+    // todo: complete
+    return "This is a test string! Selected rule: " + ruleAsString;
   }
 }

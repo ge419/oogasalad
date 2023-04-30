@@ -267,7 +267,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private void initializeRulePane() {
     myRulePane = new RulesPane(this, myBuilderController, builderResource);
-    setPaneSize(myRulePane, Double.parseDouble(constantsResource.getString("PANE_WIDTH")), Double.parseDouble(constantsResource.getString("PANE_HEIGHT")));
+    myRulePane.setId("RulePane");
+    setPaneSize(myRulePane, Double.parseDouble(constantsResource.getString("RULES_WIDTH")), Double.parseDouble(constantsResource.getString("RULES_HEIGHT")));
     LOG.debug("Initialized rule pane successfully.");
   }
 
@@ -462,6 +463,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   public void loadBoardSize(double width, double height){
+    System.out.println(width);
+    System.out.println(height);
     setPaneSize(myBoardPane, width, height);
   }
 

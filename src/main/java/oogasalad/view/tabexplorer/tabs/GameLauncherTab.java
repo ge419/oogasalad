@@ -6,8 +6,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -28,6 +30,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import oogasalad.model.accesscontrol.authentication.AuthenticationHandler;
+import oogasalad.model.accesscontrol.dao.GameDao;
+import oogasalad.model.accesscontrol.dao.UserDao;
 import oogasalad.model.accesscontrol.database.DatabaseAccessor;
 import oogasalad.view.tabexplorer.TabExplorer;
 
@@ -35,41 +39,97 @@ public class GameLauncherTab implements Tab {
 
   private final TabExplorer tabExplorer;
   private final AuthenticationHandler authHandler;
-  private final DatabaseAccessor db;
+  private final UserDao userDao;
+  private final GameDao gameDao;
+  private ResourceBundle languageResourceBundle;
+  private final UserPreferences userPref;
+  private Text yourGames;
+  private Text welcomeText;
+  private Button createGameButton;
+  private TilePane tilePane;
+  private Region region;
+  private HBox hbox;
+  private VBox gameLauncher;
 
   @Inject
   public GameLauncherTab(
-      @Assisted TabExplorer tabExplorer, DatabaseAccessor db, AuthenticationHandler authHandler) {
+      @Assisted TabExplorer tabExplorer, AuthenticationHandler authHandler,
+      UserDao userDao, GameDao gameDao, UserPreferences userPref,
+      ResourceBundle languageResourceBundle) {
     this.tabExplorer = tabExplorer;
-    this.db = db;
     this.authHandler = authHandler;
+    this.userDao = userDao;
+    this.gameDao = gameDao;
+    this.userPref = userPref;
+    this.languageResourceBundle = languageResourceBundle;
+    userPref.addObserver(this::onLanguageChange);
   }
 
-  //todo refactor method, too long
-  public void switchScene() {
-    Text yourGames = new Text("Your games: ");
+  private void onLanguageChange(String pathToLanguageBundle) {
+    languageResourceBundle = ResourceBundle.getBundle(pathToLanguageBundle);
+    initTextOnNodes(pathToLanguageBundle);
+  }
+
+
+  private void initNodes() {
+    yourGames = new Text();
     yourGames.setFont(Font.font(20));
 
-    Text welcomeText = new Text("Welcome! " + authHandler.getActiveUser());
-    welcomeText.setFont(Font.font(30));
-    welcomeText.setFill(Color.MEDIUMAQUAMARINE);
+    welcomeText = new Text();
+    welcomeText.setId("welcome-text");
 
-    Button createGameButton = new Button("Create Game");
-    createGameButton.setOnAction(e -> {dialogHandle();}); // todo call GameBuilder
 
-    TilePane tilePane = new TilePane();
+    createGameButton = new Button();
+    createGameButton.setOnAction(e -> {
+      dialogHandle();
+    }); // todo call GameBuilder
+
+    tilePane = new TilePane();
     tilePane.setPadding(new Insets(10));
     tilePane.setHgap(5);
     tilePane.setVgap(5);
     tilePane.setPrefColumns(3);
     tilePane.setAlignment(Pos.CENTER);
 
-    db.getGamesForUser(authHandler.getActiveUser()).forEach(game -> {
-      String name = (String) game.get("name");
+    region = new Region();
+    hbox = new HBox();
+    hbox.getChildren().addAll(welcomeText, region, createGameButton);
+    HBox.setHgrow(region, Priority.ALWAYS);
+
+    gameLauncher = new VBox();
+    gameLauncher.setSpacing(10);
+    gameLauncher.getChildren().addAll(hbox, yourGames, tilePane);
+    BorderPane.setMargin(gameLauncher, new Insets(30, 30, 0, 30));
+  }
+
+  private void initTextOnNodes(String path) {
+    languageResourceBundle = ResourceBundle.getBundle(path);
+    yourGames.setText(languageResourceBundle.getString("YourGames"));
+    String username = (String) userDao.getUserData(authHandler.getActiveUserID())
+        .get(UserSchema.USERNAME.getFieldName());
+    welcomeText.setText(languageResourceBundle.getString("Welcome") + username);
+    createGameButton.setText(languageResourceBundle.getString("CreateGameBtn"));
+  }
+
+  public void switchScene() {
+    initNodes();
+    initTextOnNodes(userPref.getPreferredLanguagePath());
+    buildGameList();
+    tabExplorer.setCurrentTab(gameLauncher);
+  }
+
+  private void buildGameList() {
+    List<String> userGames = (List<String>) userDao.getUserData(authHandler.getActiveUserID())
+        .get(UserSchema.GAMES.getFieldName());
+
+    //System.out.println("active user: "+authHandler.getActiveUserID());
+    userGames.forEach(gameID -> {
+      Map<String, Object> gameMetaData = gameDao.getGameData(gameID);
+      String name = (String) gameMetaData.get("title");
       InputStream stream = null;
       try {
         //todo: load img_path from DB
-        String imageResourcePath = authHandler.getActiveUser().equals("rcd") ? "rcd_old.gif"
+        String imageResourcePath = authHandler.getActiveUserID().equals("rcd") ? "rcd_old.gif"
             : "game_img.png"; // lol, fun easter egg ig?
         stream = new FileInputStream("src/main/resources/" + imageResourcePath);
         Image image = new Image(stream);
@@ -77,9 +137,12 @@ public class GameLauncherTab implements Tab {
         imageView.setFitWidth(75);
         imageView.setFitHeight(75);
         VBox gameBox = new VBox(imageView, new Label(name));
-        gameBox.setAlignment(Pos.CENTER);
-        gameBox.setSpacing(5);
-        gameBox.setPrefSize(100, 100);
+        gameBox.getStyleClass().add("game-box");
+//        gameBox.setAlignment(Pos.CENTER);
+//        gameBox.setSpacing(5);
+        gameBox.setOnMouseClicked(e-> System.out.println("GameID: "+gameID));
+//        gameBox.setOnMouseEntered(e->gameBox.setCursor(Cursor.HAND));
+//        gameBox.setPrefSize(100, 100);
         tilePane.getChildren().add(gameBox);
       } catch (Exception e) {
         e.printStackTrace();
@@ -93,18 +156,6 @@ public class GameLauncherTab implements Tab {
         }
       }
     });
-
-    Region region = new Region();
-    HBox hbox = new HBox();
-    hbox.getChildren().addAll(welcomeText, region, createGameButton);
-    HBox.setHgrow(region, Priority.ALWAYS);
-
-    VBox gameLauncher = new VBox();
-    gameLauncher.setSpacing(10);
-    gameLauncher.getChildren().addAll(hbox, yourGames, tilePane);
-    BorderPane.setMargin(gameLauncher, new Insets(30, 30, 0, 30));
-
-    tabExplorer.setCurrentTab(gameLauncher);
   }
 
   //  todo: delete dialogHandle after adding game builder
@@ -115,17 +166,17 @@ public class GameLauncherTab implements Tab {
     ButtonType createButtonType = new ButtonType("Create", ButtonBar.ButtonData.OK_DONE);
     dialog.getDialogPane().getButtonTypes().addAll(createButtonType, ButtonType.CANCEL);
 
-    TextField nameField = new TextField();
-    nameField.setPromptText("Game Name");
-    TextField playersField = new TextField();
-    playersField.setPromptText("Number of Players");
+    TextField titleField = new TextField();
+    titleField.setPromptText("Game Title");
+    TextField descriptionField = new TextField();
+    descriptionField.setPromptText("Description");
 
-    VBox vbox = new VBox(10, nameField, playersField);
+    VBox vbox = new VBox(10, titleField, descriptionField);
     dialog.getDialogPane().setContent(vbox);
 
     dialog.setResultConverter(dialogButton -> {
       if (dialogButton == createButtonType) {
-        return new String[]{nameField.getText(), playersField.getText()};
+        return new String[]{titleField.getText(), descriptionField.getText()};
       }
       return null;
     });
@@ -136,10 +187,11 @@ public class GameLauncherTab implements Tab {
       String name = formData[0];
       String numPlayers = formData[1];
       Map<String, Object> game = new HashMap<>();
-      game.put("name", name);
-      game.put("numPlayers", numPlayers);
+      game.put("title", name);
+      game.put("description", numPlayers);
+      game.put("genre", "Board games");
 
-      db.createGame(authHandler.getActiveUser(), game);
+      gameDao.createGame(authHandler.getActiveUserID(), game);
     });
   }
 

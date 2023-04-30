@@ -49,6 +49,7 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
     VBox textBox = new VBox();
 
     Text playerName = new Text(info.get(0).toString());
+    playerName.textProperty().bind(modelPlayer.getNameAttribute().valueProperty());
     resizeText(playerName, height, USERNAME_TEXT_SCALE, width);
     playerName.setLayoutY(this.getLayoutY());
     Text scoreText = new Text(info.get(1).toString());

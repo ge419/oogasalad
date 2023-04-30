@@ -1,32 +1,19 @@
 package oogasalad.view.builder.rules;
 
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import oogasalad.controller.BuilderController;
-import oogasalad.view.builder.BuilderUtility;
 import oogasalad.view.builder.BuilderView;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-/**
- * <p>Extension of a BorderPane that automatically implements the rule pane and it's
- * functionality for use in the BuilderView.</p>
- *
- * @author tmh85
- */
-public class RulesPane extends BorderPane implements BuilderUtility {
+public class RulesPane extends BorderPane {
 
-  private static final Logger LOG = LogManager.getLogger(RulesPane.class);
   private BuilderView myBuilder;
   private ResourceBundle myLanguage;
   private BuilderController myBuilderController;
@@ -35,8 +22,6 @@ public class RulesPane extends BorderPane implements BuilderUtility {
   private ComboBox<String> myCheckbox;
   private Button myEditButton;
   private Button myDeleteButton;
-  private TextArea myTextbox;
-  private String myCurrentDescription;
 
   public RulesPane(BuilderView builder, BuilderController bc, ResourceBundle language) {
     super();
@@ -45,47 +30,30 @@ public class RulesPane extends BorderPane implements BuilderUtility {
     myBuilderController = bc;
     this.setId("RulesPane");
     initializeRulesListview();
-    this.setCenter(myRulesList);
     initializeTiletypesCheckbox();
+    VBox buttonBox = initializeButtons();
     this.setLeft(myCheckbox);
-    initializeRightSide();
-    initializeBottom();
-    this.setId("RulesPane");
+    this.setCenter(myRulesList);
+    this.setRight(buttonBox);
   }
 
-  private void initializeBottom() {
-    initializeTextbox();
-    HBox bottomBox = (HBox) makeHBox("RulesBottom", myTextbox);
-    this.setBottom(bottomBox);
-  }
-
-  private void initializeRightSide() {
-    initializeButtons();
-    VBox rightsideBox = (VBox) makeVBox("RulesRightside", myEditButton, myDeleteButton);
-    rightsideBox.setAlignment(Pos.CENTER);
-    this.setRight(rightsideBox);
-  }
-
-  private void initializeButtons() {
+  private VBox initializeButtons() {
     myEditButton = new Button(myLanguage.getString("SetRule"));
     myDeleteButton = new Button(myLanguage.getString("RemoveRule"));
     myEditButton.setOnAction(e -> {
       // tell builder controller to give me the properties for this rule.
       String selectedRule = myRulesList.getSelectionModel().getSelectedItem();
       String selectedTiletype = myCheckbox.getSelectionModel().getSelectedItem();
-      if (!myBuilderController.makeRulesPopup(selectedTiletype, selectedRule)) {
-        myBuilder.showError("UneditableRuleError");
-      }
+      myBuilderController.makeRulesPopup(selectedTiletype, selectedRule);
     });
 
     myDeleteButton.setOnAction(e -> {
       //tell builder controller to delete rule from tile type
       String selectedRule = myRulesList.getSelectionModel().getSelectedItem();
       String selectedTiletype = myCheckbox.getSelectionModel().getSelectedItem();
-      if (!myBuilderController.removeRuleFromTiletype(selectedTiletype, selectedRule)) {
-        myBuilder.showError("UnremovableRuleError");
-      }
+      myBuilderController.removeRuleFromTiletype(selectedTiletype, selectedRule);
     });
+    return new VBox(myEditButton, myDeleteButton);
   }
 
 
@@ -95,11 +63,9 @@ public class RulesPane extends BorderPane implements BuilderUtility {
     myRulesList.setItems(myRules);
     myRulesList.getSelectionModel().selectedItemProperty()
         .addListener(((observable, oldValue, newValue) -> {
-          LOG.info("The user selected the rule " + newValue + " in the rule menu.");
-          updateText(newValue);
+          System.out.println(
+              "oh wow, you selected " + myRulesList.getSelectionModel().getSelectedItem());
         }));
-    myRulesList.setId("RulesListview");
-//    myRulesList.setMinSize(100, 100);
   }
 
   private void initializeTiletypesCheckbox() {
@@ -108,26 +74,7 @@ public class RulesPane extends BorderPane implements BuilderUtility {
     myCheckbox.setItems(
         FXCollections.observableArrayList(myBuilderController.getCurrentTiletypes()));
     myCheckbox.valueProperty().addListener(((observable, oldValue, newValue) -> {
-      LOG.info("The user selected tiletype " + newValue + " in the rule menu.");
+      System.out.println("Oh my, you selected " + newValue);
     }));
-    myCheckbox.setId("RulesTiletypeSelector");
-  }
-
-  private void initializeTextbox() {
-    myTextbox = new TextArea();
-    resetText();
-    myTextbox.setEditable(false);
-    myTextbox.setId("RulesDescriptionBox");
-  }
-
-  private void resetText() {
-    myCurrentDescription = myLanguage.getString("DefaultRuleDescription");
-    myTextbox.clear();
-    myTextbox.setPromptText(myCurrentDescription);
-  }
-
-  private void updateText(String selectedRule) {
-    myCurrentDescription = myBuilderController.getRuleDescription(selectedRule);
-    myTextbox.setText(myCurrentDescription);
   }
 }

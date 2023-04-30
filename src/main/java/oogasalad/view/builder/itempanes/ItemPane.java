@@ -50,11 +50,11 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
           key -> createButton(key, bundle.getString(key)));
     }
     catch(Exception e){
-      /*throw new ResourceReadException(displayMessageWithArguments(
+      throw new ResourceReadException(displayMessageWithArguments(
           getLanguage(),
           "ResourceReadError",
           bundle.toString()
-      ));*/
+      ));
     }
   }
 

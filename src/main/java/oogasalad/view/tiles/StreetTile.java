@@ -22,6 +22,16 @@ import oogasalad.view.Backgroundable;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Textable;
 
+/**
+ * <p> Tile type that includes a name of tile and price of tile
+ *
+ * <p>Assumptions: Assumes that the tile is shaped like a standard Monopoly street tile
+ *
+ * <p>Dependencies: ViewTile, Textable, Backgroundable interface, Tile object
+ *
+ * @author Woonggyu wj61
+ */
+
 public class StreetTile extends StackPane implements ViewTile, Textable, Backgroundable {
 
   private static final double TEXT_SCALE = 8;
@@ -40,30 +50,9 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
 
     //TODO: change this temporary behavior when tile is bought
     //TODO: depend on if attribute is present
-
-    modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE)
-        .map(PlayerAttribute::from)
-        .map(PlayerAttribute::idProperty)
-        .ifPresent(prop -> prop.addListener((observable, oldValue, newValue) ->
-            newValue.ifPresentOrElse(
-                // Tile is owned
-                id -> this.setColor(Color.RED),
-                // Tile is not owned
-                () -> this.setColor(Color.LIGHTBLUE)
-            )));
-  }
-  private Rectangle createBar(double width, double height, String color) {
-    Rectangle bar = new Rectangle();
-    bar.setWidth(width);
-    bar.setHeight(height);
-    bar.setFill(Color.web(color));
-    bar.setStroke(Color.BLACK);
-    bar.setStrokeWidth(1);
-    return bar;
   }
 
   private VBox createBarBox(double width, double height, String color) {
-
     VBox barBox = new VBox();
     Rectangle topBar = createBackground(width, height / 6, Color.web(color), Color.BLACK);
     Rectangle bottomBar = createBackground(width, 5 * height / 6, Color.WHITE, Color.BLACK);
@@ -71,6 +60,9 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
     return barBox;
   }
 
+  /**
+   * @see Textable
+   */
   @Override
   public VBox createTextBox(List info, double height, double width) {
     VBox textBox = new VBox();
@@ -87,44 +79,43 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
     return textBox;
   }
 
-  public void setColor(Color color) {
-
-  }
-
+  /**
+   * @return backend tile associated with this frontend tile
+   */
   @Override
   public Tile getTile() {
     return this.modelTile;
   }
 
+  /**
+   * set the size of this frontend tile
+   */
   @Override
   public void setSize(double width, double height) {
     this.setWidth(width);
     this.setHeight(height);
   }
 
+  /**
+   * @return return this frontend tile
+   */
   @Override
   public Node asNode() {
     return this;
   }
 
-
+  /**
+   * @return the associated backend tile's ID
+   */
   @Override
   public String getTileId() {
     return this.modelTile.getId();
   }
 
-  public Coordinate getPosition() {
-    return null;
-  }
-
-  public void setPosition(Coordinate coord) {
+  private void setPosition(Coordinate coord) {
     this.setLayoutX(coord.getXCoor());
     this.setLayoutY(coord.getYCoor());
     this.getTransforms().add(new Rotate(coord.getAngle(), Rotate.Z_AXIS));
-  }
-
-  public Paint getColor() {
-    return null;
   }
 
 }

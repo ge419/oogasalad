@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,6 +82,7 @@ public class CustomTileRendering extends Group implements ViewTile {
                 throw new RuntimeException(e); //F-off
             }
         }
+        this.setSize(modelTile.getWidth(), modelTile.getHeight());
     }
 
     private void bindListeners(List<String> names) {
@@ -118,6 +120,7 @@ public class CustomTileRendering extends Group implements ViewTile {
             }
             loadedObject.setLocation();
             customElementMap.put(loadedObject.getName(),loadedObject);
+            this.getChildren().add(s);
         }
     }
 
@@ -214,18 +217,9 @@ public class CustomTileRendering extends Group implements ViewTile {
 
     @Override
     public void setSize(double width, double height) {
-
         Bounds bounds = this.getBoundsInLocal();
         double scaleX = width / bounds.getWidth();
         double scaleY = height / bounds.getHeight();
-
-
-        System.out.println("scaleY = " + scaleX);
-
-
-        System.out.println("scaleY = " + scaleY);
-
-
         this.setScaleX(scaleX);
         this.setScaleY(scaleY);
     }

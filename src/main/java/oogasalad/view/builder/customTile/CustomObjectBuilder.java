@@ -120,8 +120,6 @@ public class CustomObjectBuilder extends Application implements BuilderUtility {
             Button renameButton = new Button(languageBundle.getString("renameButton.label"));
             renameButton.setOnAction(e -> rightPane.nameObject());
 
-            MakeButton
-
             Button saveButton = new Button(languageBundle.getString("saveButton.label"));
             saveButton.setOnAction(e -> rightPane.saveLauncher());
 

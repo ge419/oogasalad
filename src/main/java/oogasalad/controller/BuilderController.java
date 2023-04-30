@@ -6,8 +6,11 @@ import com.google.inject.Injector;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +25,9 @@ import oogasalad.controller.builderevents.Dragger;
 import oogasalad.model.attribute.Attribute;
 import oogasalad.model.attribute.FileReader;
 import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.attribute.SimpleObjectSchema;
 import oogasalad.model.attribute.StringAttribute;
+import oogasalad.model.constructable.AbstractGameConstruct;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.GameConstruct;
 import oogasalad.model.constructable.GameHolder;
@@ -69,7 +74,7 @@ public class BuilderController {
         new BuilderControllerModule(language, saveDir)
     );
     injector.getInstance(SaveManager.class).loadGame();
-    readDefaultRules();
+//    readDefaultRules();
     builderView = injector.getInstance(BuilderFactory.class).makeBuilder(language, this);
     viewTileFactory = injector.getInstance(ViewTileFactory.class);
     logger.info("created builder");
@@ -265,15 +270,17 @@ public class BuilderController {
     return true;
   }
 
-  private void readDefaultRules() {
+  private void readDefaultRules() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
     try{
       rules = new HashMap<>();
       for (File file: FileReader.readFiles(RULE_PATH)) {
-        //TODO: use reflection to build rules from schema
-//        EditableRule rule = readRulesFile(file.toPath());
-//        String name = StringAttribute.from(rule.getAttribute(RULE_NAME_KEY).get()).getValue();
-//        String desc = StringAttribute.from(rule.getAttribute(RULE_DESCRIPTION_KEY).get()).getValue();
-//        rules.putIfAbsent(name, desc);
+        SimpleObjectSchema simpleObjectSchema = readRulesFile(file.toPath());
+        List<Attribute> attributeList = simpleObjectSchema.makeAllAttributes();
+        RuleFactory ruleFactory = new RuleFactory();
+        AbstractGameConstruct rule = ruleFactory.generate(simpleObjectSchema.getName(), attributeList);
+        String name = StringAttribute.from(rule.getAttribute(RULE_NAME_KEY).get()).getValue();
+        String desc = StringAttribute.from(rule.getAttribute(RULE_DESCRIPTION_KEY).get()).getValue();
+        rules.putIfAbsent(name, desc);
       }
     } catch (FileReaderException | IOException e) {
       logger.fatal("Failed to read resource rule files", e);
@@ -281,12 +288,10 @@ public class BuilderController {
     }
   }
 
-//  private Attribute readRulesFile(Path path) throws IOException {
-//    AttributeFactory attributeFactory = new AttributeFactory();
-//    ObjectMapper mapper = new ObjectMapper();
-//    mapper.readValue(path.toFile(), Attribute)
-//    return mapper.readValue(path.toFile(), EditableRule.class);
-//  }
+  private SimpleObjectSchema readRulesFile(Path path) throws IOException {
+    ObjectMapper mapper = new ObjectMapper();
+    return mapper.readValue(path.toFile(), SimpleObjectSchema.class);
+  }
   public String getRuleDescription(String ruleAsString){
     return rules.get(ruleAsString);
 //    return "This is a test string! Selected rule: " + ruleAsString;

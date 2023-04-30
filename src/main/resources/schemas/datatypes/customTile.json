@@ -4,9 +4,9 @@
   "fields": [
     {
       "@class": "oogasalad.model.attribute.StringMetadata",
-      "key": "customSchema",
-      "name": "Custom schema",
-      "description": "Schema used for custom rendering",
+      "key": "customJson",
+      "name": "Custom json path",
+      "description": "Path to JSON describing custom tile.",
       "editable": false,
       "viewable": false
     }

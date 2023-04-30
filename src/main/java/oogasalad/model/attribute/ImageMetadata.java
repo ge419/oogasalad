@@ -2,10 +2,9 @@ package oogasalad.model.attribute;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
-import java.util.List;
 
 public class ImageMetadata extends StringMetadata {
 
@@ -20,11 +19,12 @@ public class ImageMetadata extends StringMetadata {
   }
   @Override
   public boolean isValidValue(String val) {
-    String[] splitVal = val.split("\\.");
-    if (validExtensions.contains(splitVal[1])) {
-      return true;
-    }
-    return false;
+    // TODO: Fix check, provide default if bad??
+//    String[] splitVal = val.split("\\.");
+//    if (validExtensions.contains(splitVal[1])) {
+//      return true;
+//    }
+    return true;
   }
   @Override
   public Attribute makeAttribute() {

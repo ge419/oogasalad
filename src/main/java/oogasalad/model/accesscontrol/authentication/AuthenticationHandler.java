@@ -1,5 +1,7 @@
 package oogasalad.model.accesscontrol.authentication;
 
+import java.util.concurrent.ExecutionException;
+
 /**
  * The AuthenticationHandler interface provides methods to handle user authentication operations
  * such as login, logout and registration. It also provides methods to get the login status of the
@@ -42,5 +44,12 @@ public interface AuthenticationHandler {
    * Returns the username of the currently active user.
    * @return The username of the currently active user, or null if no user is currently logged in.
    */
-  String getActiveUser();
+  String getActiveUserName();
+
+  /**
+   * Returns the userID of the currently active user.
+   * @return The userID of the currently active user, or null if no user is currently logged in.
+   */
+  String getActiveUserID();
+
 }

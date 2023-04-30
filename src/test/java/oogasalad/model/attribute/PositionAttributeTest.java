@@ -27,12 +27,11 @@ class PositionAttributeTest {
         new PositionAttribute("Pos",X_CORD, Y_CORD, ANGLE);
   }
 
-  @AfterEach
-  void testSetValue() {
-  }
-
   @Test
   void testValueProperty() {
+    assertEquals(positionAttribute.xProperty().get(), positionAttribute.getX());
+    assertEquals(positionAttribute.yProperty().get(), positionAttribute.getY());
+    assertEquals(positionAttribute.angleProperty().get(), positionAttribute.getAngle());
   }
 
   @Test

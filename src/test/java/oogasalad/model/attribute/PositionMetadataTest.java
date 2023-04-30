@@ -32,16 +32,31 @@ class PositionMetadataTest {
   }
 
   @Test
-  void from() {
+  void testGetAttributeClass() {
+    assertNotEquals(positionMetadata.getAttributeClass(), ColorAttribute.class);
+    assertEquals(positionMetadata.getAttributeClass(), PositionAttribute.class);
   }
 
+
+
   @Test
-  void defaultYProperty() {
+  void testSettingDefaultYProperty() {
+    assertNotEquals(positionMetadata.getDefaultX(),null);
+    assertNotEquals(positionMetadata.getDefaultY(), null);
+    assertNotEquals(positionMetadata.getDefaultAngle(), null);
   }
   @Test
   void testToString() {
     PositionMetadata same = new PositionMetadata(KEY);
     assertEquals(same.toString(),positionMetadata.toString());
+  }
+
+  @Test
+  void testEquals(){
+    PositionMetadata same  = new PositionMetadata(KEY);
+    assertTrue(positionMetadata.equals(same));
+    same.setDefaultAngle(54.0);
+    assertFalse((positionMetadata.equals(same)));
   }
 
   @Test

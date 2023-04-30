@@ -2,11 +2,9 @@ package oogasalad.model.engine.rules;
 
 import com.fasterxml.jackson.annotation.JacksonInject;
 import com.google.inject.Inject;
-import java.util.ResourceBundle;
 import oogasalad.model.attribute.IntAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.AbstractGameConstruct;
-import oogasalad.model.engine.EngineResourceBundle;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.actions.ActionFactory;
@@ -16,17 +14,14 @@ public class LastStandingWinRule extends AbstractGameConstruct implements Editab
 
   public static final String SCHEMA_NAME = "lastStandingRule";
   private final ActionFactory actionFactory;
-  private ResourceBundle bundle;
 
   @Inject
   protected LastStandingWinRule(
       @JacksonInject SchemaDatabase database,
-      @JacksonInject ActionFactory actionFactory,
-      @JacksonInject @EngineResourceBundle ResourceBundle bundle
+      @JacksonInject ActionFactory actionFactory
   ) {
     super(SCHEMA_NAME, database);
     this.actionFactory = actionFactory;
-    this.bundle = bundle;
   }
 
   @Override

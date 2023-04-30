@@ -29,7 +29,6 @@ public class BasicTile extends Rectangle implements ViewTile {
     this.setFill(Paint.valueOf(myModelTile.colorAttribute().getValue()));
 
     myModelTile.colorAttribute().valueProperty().addListener(((observable, oldValue, newValue) -> {
-      System.out.println("DOING THING");
       this.setFill(Paint.valueOf(newValue));
     }));
     this.setStroke(Color.BLACK);

@@ -47,5 +47,8 @@ public class CreatePlayerPieceAction implements Action {
       Piece piece = pieceProvider.get();
       piece.setPlayer(gameholder.getPlayers().getList().get(Math.floorDiv(i, numberOfPlayers)));
     }
+
+    //gameholder.setPlayers(new Players(players));
+    System.out.println(gameholder.getPlayers().getList().get(0).getName());
   }
 }

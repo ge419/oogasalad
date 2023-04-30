@@ -25,6 +25,7 @@ import oogasalad.model.engine.rules.RemovePlayerRule;
 import oogasalad.model.engine.rules.ScoreTileRule;
 import oogasalad.model.engine.rules.TurnRule;
 import oogasalad.util.SaveManager;
+import oogasalad.view.tabexplorer.userpreferences.Languages;
 
 
 public class GenerateSaves {
@@ -37,7 +38,7 @@ public class GenerateSaves {
         new ObjectMapperModule(),
         new SaveManagerModule(savePath),
         new AttributeModule(),
-        new EngineModule("English"),
+        new EngineModule(Languages.ENGLISH.getLocaleStr()),
         binder -> binder.bind(Prompter.class).toInstance(new AIPrompter())
     );
 

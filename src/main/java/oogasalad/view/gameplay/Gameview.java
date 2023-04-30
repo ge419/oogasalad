@@ -1,12 +1,10 @@
 package oogasalad.view.gameplay;
 
-import com.google.cloud.Tuple;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javafx.beans.property.ObjectProperty;

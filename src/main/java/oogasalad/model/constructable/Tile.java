@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import oogasalad.model.attribute.BooleanAttribute;
 import oogasalad.model.attribute.ColorAttribute;
 import oogasalad.model.attribute.DoubleAttribute;
+import oogasalad.model.attribute.PlayerAttribute;
 import oogasalad.model.attribute.PositionAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.attribute.StringAttribute;
@@ -39,6 +40,21 @@ public class Tile extends AbstractGameConstruct {
   @JsonIgnore
   public BooleanAttribute ownedAttribute() {
     return BooleanAttribute.from(getAttribute(OWNED_ATTRIBUTE).get());
+  }
+
+  @JsonIgnore
+  public PlayerAttribute ownerAttribute() {
+    return PlayerAttribute.from(getAttribute("owner").get());
+  }
+
+  @JsonIgnore
+  public String getOwnerId() {
+    return ownerAttribute().getIdValue();
+  }
+
+  @JsonIgnore
+  public void setOwnerId(String id) {
+    ownerAttribute().setIdValue(id);
   }
 
   @JsonIgnore

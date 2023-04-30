@@ -38,8 +38,11 @@ public class ScoreTileRule extends AbstractGameConstruct implements EditableRule
     Tile tile = eventHandlerParams.event().landedTile();
     if (tile.isOwned()) {
       Player currentPlayer = gameholder.getCurrentPlayer();
+      String ownerId = tile.getOwnerId();
+      Player ownerPlayer = gameholder.getPlayers().get().getById(ownerId).get();
       double deltaScore = tile.getPrice();
-      eventHandlerParams.actionQueue().add(2, actionFactory.makeAlterPlayerScoreAction(currentPlayer, deltaScore));
+      eventHandlerParams.actionQueue().add(2, actionFactory.makeAlterPlayerScoreAction(currentPlayer, deltaScore*-1));
+      eventHandlerParams.actionQueue().add(2, actionFactory.makeAlterPlayerScoreAction(ownerPlayer, deltaScore));
     }
   }
 }

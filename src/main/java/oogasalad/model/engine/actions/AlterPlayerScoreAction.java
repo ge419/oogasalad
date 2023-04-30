@@ -27,12 +27,12 @@ public class AlterPlayerScoreAction implements Action {
   public void runAction(ActionParams actionParams) {
     List<StringPromptOption> validation = new ArrayList<>();
     validation.add(new StringPromptOption("OK"));
-    actionParams.prompter().selectSingleOption(String.format("You Landed On An Owned Tile: Pay $ %.2f", deltaScore), validation, this::updateScore);
+    actionParams.prompter().selectSingleOption(String.format("Player %s: %.2f Updated To Score", player.getId(), deltaScore), validation, this::updateScore);
   }
 
   private void updateScore(PromptOption option) {
     double score = player.getScore();
-    double newScore = score + (deltaScore*-1);
+    double newScore = score + (deltaScore);
     player.setScore(newScore);
   }
 }

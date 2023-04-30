@@ -79,6 +79,7 @@ public class BuilderController {
     gameInfo = gameHolder.getGameInfo();
 
     loadIntoBuilder();
+    readDefaultRules();
 
 //    todo: Dominics example code for how to get rules using dependency injection
 //    Injector injector = Guice.createInjector(new EngineModule());
@@ -262,8 +263,9 @@ public class BuilderController {
     try{
       rules = new HashMap<>();
       for (File file: FileReader.readFiles("rules")) {
-        String name = StringAttribute.from(readRulesFile(file.toPath()).getAttribute(RULE_NAME_KEY).get()).getValue();
-        String desc = StringAttribute.from(readRulesFile(file.toPath()).getAttribute(RULE_DESCRIPTION_KEY).get()).getValue();
+        EditableRule rule = readRulesFile(file.toPath());
+        String name = StringAttribute.from(rule.getAttribute(RULE_NAME_KEY).get()).getValue();
+        String desc = StringAttribute.from(rule.getAttribute(RULE_DESCRIPTION_KEY).get()).getValue();
         rules.putIfAbsent(name, desc);
       }
     } catch (FileReaderException | IOException e) {

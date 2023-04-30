@@ -115,7 +115,6 @@ public class BuilderController {
       logger.info("Tried creating a path that already exists.");
       return false;
     }
-    System.out.println("Why hello: " + board.getById(currentId).get().getNextTileIds());
     board.getById(currentId).get().getNextTileIds().add(nextId);
     logger.info("added next attribute to tile");
     return true;
@@ -283,7 +282,7 @@ public class BuilderController {
    * @return a boardimagetile object
    */
   public Optional<BoardImageTile> createBoardImage(String imagePath) {
-    System.out.println("This is our image path: " + imagePath);
+    logger.info("This is our image path: " + imagePath);
     BoardImage backendImage = new BoardImage(db);
     Coordinate coordinate = new Coordinate(0, 0, 0);
     backendImage.setCoordinate(coordinate);

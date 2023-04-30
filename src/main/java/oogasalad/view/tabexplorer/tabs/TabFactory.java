@@ -1,6 +1,8 @@
 package oogasalad.view.tabexplorer.tabs;
 
 import oogasalad.view.tabexplorer.TabExplorer;
+import oogasalad.view.tabexplorer.tabs.settings.SettingsTab;
+import oogasalad.view.tabexplorer.tabs.socialcenter.GameDetailsTab;
 import oogasalad.view.tabexplorer.tabs.socialcenter.SocialCenterTab;
 
 /**
@@ -10,24 +12,11 @@ import oogasalad.view.tabexplorer.tabs.socialcenter.SocialCenterTab;
  */
 public interface TabFactory {
 
-  /**
-   * Creates a LoginTab instance for the specified TabExplorer.
-   * @param tabExplorer the TabExplorer instance for the LoginTab
-   * @return a LoginTab instance
-   */
   LoginTab makeLoginTab(TabExplorer tabExplorer);
-  /**
-   * Creates a GameLauncherTab instance for the specified TabExplorer.
-   * @param tabExplorer the TabExplorer instance for the GameLauncherTab
-   * @returna GameLauncherTab instance
-   */
   GameLauncherTab makeGameLauncherTab(TabExplorer tabExplorer);
-  /**
-   * Creates a SocialCenterTab instance for the specified TabExplorer.
-   * @param tabExplorer the TabExplorer instance for the SocialCenterTab
-   * @return a SocialCenterTab instance
-   */
   SocialCenterTab makeSocialCenterTab(TabExplorer tabExplorer);
+  GameDetailsTab makeGameDetailsTab(TabExplorer tabExplorer);
+  SettingsTab makeSettingsTab(TabExplorer tabExplorer);
 }
 
 

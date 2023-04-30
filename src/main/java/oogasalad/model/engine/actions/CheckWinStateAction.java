@@ -24,7 +24,6 @@ public class CheckWinStateAction implements Action {
 
   @Override
   public void runAction(ActionParams actionParams) {
-    //TODO: Support Multiple Winning Players
     List<StringPromptOption> validation = new ArrayList<>();
     validation.add(new StringPromptOption("End Game"));
     if (gameHolder.getPlayers().get().getPlayers().size()==lastNStanding) {

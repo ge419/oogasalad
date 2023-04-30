@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JacksonInject;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 import javax.inject.Inject;
+import oogasalad.model.attribute.BooleanAttribute;
 import oogasalad.model.attribute.ColorAttribute;
 import oogasalad.model.attribute.DoubleAttribute;
 import oogasalad.model.attribute.PositionAttribute;
@@ -23,6 +24,7 @@ public class Tile extends AbstractGameConstruct {
   public static final String INFO_ATTRIBUTE = "info";
   public static final String PRICE_ATTRIBUTE = "price";
   public static final String COLOR_ATTRIBUTE = "color";
+  public static final String OWNED_ATTRIBUTE = "owned";
 
   @Inject
   public Tile(@JacksonInject SchemaDatabase database) {
@@ -32,6 +34,21 @@ public class Tile extends AbstractGameConstruct {
   @JsonIgnore
   public TileListAttribute nextAttribute() {
     return TileListAttribute.from(getAttribute(NEXT_ATTRIBUTE).get());
+  }
+
+  @JsonIgnore
+  public BooleanAttribute ownedAttribute() {
+    return BooleanAttribute.from(getAttribute(OWNED_ATTRIBUTE).get());
+  }
+
+  @JsonIgnore
+  public boolean isOwned() {
+    return ownedAttribute().getValue();
+  }
+
+  @JsonIgnore
+  public void setOwned() {
+    ownedAttribute().setValue(true);
   }
 
   @JsonIgnore

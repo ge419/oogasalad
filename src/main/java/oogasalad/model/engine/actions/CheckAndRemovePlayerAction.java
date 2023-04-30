@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Player;
-import oogasalad.model.engine.events.PlayerCreationEvent;
 import oogasalad.model.engine.events.PlayerRemovalEvent;
 
 public class CheckAndRemovePlayerAction implements Action {

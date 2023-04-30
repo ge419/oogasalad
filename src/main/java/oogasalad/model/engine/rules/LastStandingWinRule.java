@@ -5,7 +5,6 @@ import com.google.inject.Inject;
 import oogasalad.model.attribute.IntAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.AbstractGameConstruct;
-import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.actions.ActionFactory;

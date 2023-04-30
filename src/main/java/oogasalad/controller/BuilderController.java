@@ -160,10 +160,6 @@ public class BuilderController {
     return new PopupForm(construct, language, location);
   }
 
-  private void defaultRules() {
-//    saveManager.loadDefRules();
-  }
-
   /**
    * Creates a map of Key:Value pairs corresponding to Name:Filepath of all CSS files in the default
    * stylesheet directory
@@ -212,6 +208,7 @@ public class BuilderController {
   }
 
   public String getClassForRule(String ruleClass) {
+
     //TODO: get it from resource file
     return "";
   }
@@ -225,7 +222,7 @@ public class BuilderController {
     );
   }
 
-  public void makeRulesPopup(String ruleAsString) throws Exception {
+  public void makeRulesPopup(String ruleAsString){
     try {
       logger.info("Chose to edit rule " + ruleAsString);
       Class<? extends EditableRule> clazz = (Class<? extends EditableRule>) Class.forName(ruleAsString);
@@ -233,7 +230,7 @@ public class BuilderController {
       createPopupForm(rule, builderView.getLanguage(), builderView.getPopupPane());
     } catch (ClassNotFoundException e) {
       logger.fatal("Failed to create rule classes", e);
-      throw new Exception(e);
+//      throw new Exception(e);
     }
   }
 

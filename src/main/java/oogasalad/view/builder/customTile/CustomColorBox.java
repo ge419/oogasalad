@@ -29,7 +29,7 @@ public class CustomColorBox extends Rectangle implements CustomElement {
     private int index = -1; // it is -1 unless it is loaded from JSON
 
     private final String UNDERSPECIFIED_COLOR = "#FF0000";
-    private final double UNDERSPECIFIED_OPACITY = .5;
+    private final double UNDERSPECIFIED_OPACITY = 1;
     private final double UNDERSPECIFIED_LENGTH = 50;
 
 
@@ -38,7 +38,6 @@ public class CustomColorBox extends Rectangle implements CustomElement {
         this.setFill(Color.web(UNDERSPECIFIED_COLOR, UNDERSPECIFIED_OPACITY));
         this.setWidth(UNDERSPECIFIED_LENGTH);
         this.setHeight(UNDERSPECIFIED_LENGTH);
-        setIdChangeListener();
     }
 
     public CustomColorBox(JsonObject jsonObject) {
@@ -47,6 +46,7 @@ public class CustomColorBox extends Rectangle implements CustomElement {
 
         this.defaultOpacity = jsonObject.get("opacity").getAsDouble();
         this.setFill(Color.web(defaultColor,defaultOpacity));
+        System.out.println("defaultOpacity = " + defaultOpacity);
         this.setEditable(jsonObject.get("editable").getAsBoolean());
 
         this.setWidth(jsonObject.get("width").getAsDouble());
@@ -142,6 +142,7 @@ public class CustomColorBox extends Rectangle implements CustomElement {
     @Override
     public Metadata getMetaData() {
         ColorMetadata metadata = new ColorMetadata(name.isEmpty() ? "Colorbox-" + UUID.randomUUID().toString() : name);
+        metadata.setName(name);
         metadata.setDefaultValue(this.defaultColor);
         metadata.setEditable(editable);
         metadata.setViewable(editable);
@@ -152,14 +153,7 @@ public class CustomColorBox extends Rectangle implements CustomElement {
     @Override
     public void setValue(String loadedValue) {
         this.defaultColor = loadedValue;
-        this.setFill(Color.web(UNDERSPECIFIED_COLOR, this.defaultOpacity));
-    }
-
-    public void setIdChangeListener() {
-        this.idProperty().addListener((observable, oldValue, newValue) -> {
-            defaultColor = newValue;
-            this.setFill(Color.web(defaultColor, defaultOpacity));
-        });
+        this.setFill(Color.web(defaultColor, this.defaultOpacity));
     }
 
 }

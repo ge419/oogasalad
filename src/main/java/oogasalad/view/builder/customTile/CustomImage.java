@@ -37,7 +37,6 @@ public class CustomImage extends ImageView implements CustomElement {
     public CustomImage(File file) {
         super(new Image(file.toURI().toString()));
         originalFile = file;
-        setIdChangeListener();
         this.setPreserveRatio(true);
     }
 
@@ -177,12 +176,10 @@ public class CustomImage extends ImageView implements CustomElement {
     @Override
     public Metadata getMetaData() {
         ImageMetadata metadata = new ImageMetadata(this.name);
+        metadata.setName(name);
         metadata.setDefaultValue(this.destinationPath.toString());
-        Boolean named = (name == null);
-        String temp = (named ? "this" : "the " + name);
         metadata.setEditable(editable);
         metadata.setViewable(editable);
-        metadata.setDescription("The path to " + temp + " image");
         return metadata;
     }
     @Override
@@ -190,13 +187,6 @@ public class CustomImage extends ImageView implements CustomElement {
         this.originalFile = new File(loadedValue);
         this.destinationPath = Paths.get(loadedValue);
         this.setImage(new Image(originalFile.toURI().toString()));
-    }
-    private void setIdChangeListener() {
-        this.idProperty().addListener((observable, oldValue, newValue) -> {
-            File newFile = new File(newValue);
-            this.originalFile = newFile;
-            this.setImage(new Image(newFile.toURI().toString()));
-        });
     }
 
 }

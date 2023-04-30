@@ -69,7 +69,7 @@ public class CustomTileRendering extends Group implements ViewTile {
             for (String name : names){
                 modelTile.addSchema(name);
             }
-            //bindListeners(names);
+            bindListeners(newSchema.getAllMetadata().stream().map(Metadata::getKey).toList());
         }
         else{
             try {
@@ -80,12 +80,13 @@ public class CustomTileRendering extends Group implements ViewTile {
         }
     }
 
-    private void bindListeners(ArrayList<String> names) {
+    private void bindListeners(List<String> names) {
         for (String name : names) {
             StringAttribute attribute = StringAttribute.from(modelTile.getAttribute(name).get());
-            String attributeString = attribute.getValue();
-            Node node = (Node) customElementMap.get(name);
-            Bindings.bindBidirectional(node.idProperty(), attribute.valueProperty());
+            CustomElement node = customElementMap.get(name);
+            attribute.valueProperty().addListener((observable, oldValue, newValue) -> {
+                node.setValue(newValue);
+            });
         }
     }
 
@@ -113,6 +114,7 @@ public class CustomTileRendering extends Group implements ViewTile {
                 s.getChildren().add((Node) loadedObject);
             }
             loadedObject.setLocation();
+            customElementMap.put(loadedObject.getName(),loadedObject);
         }
     }
 
@@ -122,6 +124,7 @@ public class CustomTileRendering extends Group implements ViewTile {
         StackPane s = new StackPane();
 
         File selectedFile = new File(file);
+
         if (selectedFile != null) {
             try {
                 JsonObject jsonObject = readJsonFromFile(selectedFile);
@@ -132,6 +135,7 @@ public class CustomTileRendering extends Group implements ViewTile {
                 JsonArray customObjects = jsonObject.getAsJsonArray("customObjects");
                 List<Metadata> metadataList = new ArrayList<>();
                 //metadataList.add(makeNameMetadata());
+                customElementMap = new HashMap<>();
                 for (JsonElement jsonElement : customObjects) {
                     JsonObject customObject = jsonElement.getAsJsonObject();
                     CustomElement loadedObject = CustomElement.load(customObject);
@@ -144,6 +148,7 @@ public class CustomTileRendering extends Group implements ViewTile {
                     loadedObject.setLocation();
                     Metadata elementMetaData = loadedObject.getMetaData();
                     metadataList.add(elementMetaData);
+                    customElementMap.put(loadedObject.getName(),loadedObject);
                 }
                 this.getChildren().add(s);
                 LOGGER.info("creating schema {}", metadataList);

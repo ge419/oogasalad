@@ -28,9 +28,6 @@ public class CustomText extends Label implements CustomElement {
     int index = -1;
 
     private boolean editable = false;
-
-
-
     private final int UNDERSPECIFIED_FONTSIZE = 14 ;
 
 
@@ -39,8 +36,6 @@ public class CustomText extends Label implements CustomElement {
         this.fontSize = UNDERSPECIFIED_FONTSIZE;
         // Set the initial properties of the text field
         setText(defaultContents);
-        setIdChangeListener();
-
     }
 
     public CustomText(JsonObject jsonObject) {
@@ -167,6 +162,7 @@ public class CustomText extends Label implements CustomElement {
     @Override
     public Metadata getMetaData() {
         StringMetadata metadata = new StringMetadata(name.isEmpty() ? "Textfield-" + UUID.randomUUID().toString() : name);
+        metadata.setName(name);
         metadata.setDefaultValue(this.defaultContents);
         metadata.setEditable(editable);
         metadata.setViewable(editable);
@@ -178,14 +174,6 @@ public class CustomText extends Label implements CustomElement {
         this.setText(loadedValue);
         this.defaultContents = loadedValue;
     }
-
-    public void setIdChangeListener() {
-        idProperty().addListener((observable, oldValue, newValue) -> {
-            setText(newValue);
-            defaultContents = newValue;
-        });
-    }
-
 
 
 }

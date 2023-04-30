@@ -24,12 +24,12 @@
       "translateY": 67.0,
       "type": "CustomText",
       "index": 1,
-      "editable": true,
-      "viewable": true
+      "editable": false,
+      "viewable": false
     },
     {
       "type": "CustomColorBox",
-      "name": "A",
+      "name": "CustomBox",
       "color": "0xff000080",
       "opacity": 1.0,
       "index": 2,

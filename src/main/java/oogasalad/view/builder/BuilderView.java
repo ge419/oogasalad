@@ -12,10 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -194,13 +191,17 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     TextField descriptionInput = (TextField) makeTextField("GameDescriptionInput");
     Text genreLabel = (Text) makeText("GameGenreLabel", builderResource);
     TextField genreInput = (TextField) makeTextField("GameGenreInput");
-    //Button thumbnailInput = (Button) makeButton("GameThumbnailInput", builderResource, e -> System.out.println("Upload Thumbnail Button Clicked."));
-    //Button saveButton = (Button) makeButton("SaveGameInfoButton", builderResource, e -> System.out.println("Save Game Info Button Clicked."));
+    Text widthLabel = (Text) makeText("BoardWidthLabel", builderResource);
+    Spinner<Double> widthInput = (Spinner<Double>) makeDoubleSpinner("BoardWidthInput", 1, 9999, myBoardPane.getWidth());
+    widthInput.valueProperty().addListener(((observable, oldValue, newValue) -> setPaneSize(myBoardPane, newValue, myBoardPane.getHeight())));
+    Text heightLabel = (Text) makeText("BoardHeightLabel", builderResource);
+    Spinner<Double> heightInput = (Spinner<Double>) makeDoubleSpinner("BoardWidthInput", 1, 9999, myBoardPane.getHeight());
+    heightInput.valueProperty().addListener(((observable, oldValue, newValue) -> setPaneSize(myBoardPane, myBoardPane.getWidth(), newValue)));
     container.getChildren().add(new HBox(nameLabel, nameInput));
     container.getChildren().add(new HBox(descriptionLabel, descriptionInput));
     container.getChildren().add(new HBox(genreLabel, genreInput));
-    //container.getChildren().add(thumbnailInput);
-    //container.getChildren().add(saveButton);
+    container.getChildren().add(new HBox(widthLabel, widthInput));
+    container.getChildren().add(new HBox(heightLabel, heightInput));
   }
   public void saveGameInfo() {
     // get info for name, genre, description and save somewhere?

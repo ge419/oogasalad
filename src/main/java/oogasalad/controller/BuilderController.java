@@ -22,6 +22,7 @@ import oogasalad.controller.builderevents.Dragger;
 import oogasalad.model.attribute.FileReader;
 import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.GameConstruct;
 import oogasalad.model.constructable.GameHolder;
@@ -59,6 +60,9 @@ public class BuilderController {
   private BBoard board;
 //  private SaveManager saveManager;
   private final Injector injector;
+  private Map<String, String> rules;
+  private static final String RULE_NAME_KEY = "name";
+  private static final String RULE_DESCRIPTION_KEY = "description";
 
   public BuilderController(String language, Path saveDir) {
     injector = Guice.createInjector(
@@ -189,13 +193,14 @@ public class BuilderController {
   }
 
   public List<String> getListOfRules() {
-    return List.of(
-        "Hello",
-        "This",
-        "Is",
-        "A",
-        "Test"
-    );
+    return rules.keySet().stream().toList();
+//    return List.of(
+//        "Hello",
+//        "This",
+//        "Is",
+//        "A",
+//        "Test"
+//    );
   }
 
   public List<String> getCurrentTiletypes() {
@@ -253,13 +258,14 @@ public class BuilderController {
     return true;
   }
 
-  private List<String> readRules() {
+  private void readDefaultRules() {
     try{
-      List<String> ruleList = new ArrayList<>();
+      rules = new HashMap<>();
       for (File file: FileReader.readFiles("rules")) {
-//        ruleList.add(readRulesFile(file.toPath()).getAttribute());
+        String name = StringAttribute.from(readRulesFile(file.toPath()).getAttribute(RULE_NAME_KEY).get()).getValue();
+        String desc = StringAttribute.from(readRulesFile(file.toPath()).getAttribute(RULE_DESCRIPTION_KEY).get()).getValue();
+        rules.putIfAbsent(name, desc);
       }
-      return ruleList;
     } catch (FileReaderException | IOException e) {
       logger.fatal("Failed to read resource rule files", e);
       throw new ResourceReadException(e);

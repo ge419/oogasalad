@@ -16,6 +16,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import oogasalad.controller.builderevents.Dragger;
+import oogasalad.model.accesscontrol.dao.GameDao;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.GameConstruct;
@@ -49,10 +50,12 @@ public class BuilderController {
   private BBoard board;
   private SaveManager saveManager;
   private final Injector injector;
+  private String gameID;
+  private GameDao gameDao;
 
-  public BuilderController(String language, Path saveDir) {
+  public BuilderController(String language, String gameID, GameDao gameDao) {
     injector = Guice.createInjector(
-        new BuilderControllerModule(language, saveDir)
+        new BuilderControllerModule(language, gameID, gameDao)
     );
     injector.getInstance(SaveManager.class).loadGame();
 

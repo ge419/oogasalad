@@ -23,7 +23,7 @@ public class LoginTab implements Tab {
   private PasswordField pfPwd;
 
   @Inject
-  public LoginTab( @Assisted TabExplorer tabExplorer, AuthenticationHandler authHandler){
+  public LoginTab(@Assisted TabExplorer tabExplorer, AuthenticationHandler authHandler){
     this.tabExplorer = tabExplorer;
     this.authHandler = authHandler;
   }
@@ -39,7 +39,15 @@ public class LoginTab implements Tab {
 
     Button loginBtn = new Button("Login");
 
-    loginBtn.setOnAction(e->{login();});
+    loginBtn.setOnAction(e->{
+      try {
+        login();
+      } catch (ExecutionException ex) {
+        throw new RuntimeException(ex);
+      } catch (InterruptedException ex) {
+        throw new RuntimeException(ex);
+      }
+    });
 
     Label lblName = new Label("Username:");
     tfName = new TextField();
@@ -69,7 +77,7 @@ public class LoginTab implements Tab {
       alert.showAndWait();
     } else{
       authHandler.login(username, password);
-      tabExplorer.render();
+      tabExplorer.displayDefaultTab();
     }
   }
 }

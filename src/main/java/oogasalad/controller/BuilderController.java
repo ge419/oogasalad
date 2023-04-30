@@ -24,7 +24,7 @@ import javafx.scene.layout.Pane;
 import oogasalad.controller.builderevents.Dragger;
 import oogasalad.model.accesscontrol.dao.GameDao;
 import oogasalad.model.attribute.Attribute;
-import oogasalad.model.attribute.AttributeModule;
+import oogasalad.model.accesscontrol.database.schema.GameSchema;
 import oogasalad.model.attribute.FileReader;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.attribute.SimpleObjectSchema;
@@ -73,13 +73,14 @@ public class BuilderController {
   private static final String RULE_DESCRIPTION_KEY = "description";
   private List<String> tileTypes;
 
-
   public BuilderController(String language, String gameID, GameDao gameDao) {
     injector = Guice.createInjector(
         new BuilderControllerModule(language, gameID, gameDao)
     );
     injector.getInstance(SaveManager.class).loadGame();
 //    readDefaultRules();
+    this.gameID = gameID;
+    this.gameDao = gameDao;
     builderView = injector.getInstance(BuilderFactory.class).makeBuilder(language, this);
     viewTileFactory = injector.getInstance(ViewTileFactory.class);
     logger.info("created builder");
@@ -204,14 +205,14 @@ public class BuilderController {
   }
 
   public List<String> getListOfRules() {
-    return rules.keySet().stream().toList();
-//    return List.of(
-//        "Hello",
-//        "This",
-//        "Is",
-//        "A",
-//        "Test"
-//    );
+    //return rules.keySet().stream().toList();
+    return List.of(
+        "Hello",
+        "This",
+        "Is",
+        "A",
+        "Test"
+    );
   }
 
   public List<String> getCurrentTiletypes() {
@@ -306,5 +307,14 @@ public class BuilderController {
   public String getRuleDescription(String ruleAsString){
     return rules.get(ruleAsString);
 //    return "This is a test string! Selected rule: " + ruleAsString;
+  }
+  public String getGameID() {
+    return gameID;
+  }
+  public void saveInfo(String genre, String description) {
+    Map<String, Object> game = new HashMap<>();
+    game.put(GameSchema.GENRE.getFieldName(), genre);
+    game.put(GameSchema.DESCRIPTION.getFieldName(), description);
+    gameDao.updateGame(gameID, game);
   }
 }

@@ -30,7 +30,8 @@ import org.apache.logging.log4j.Logger;
  * Stage myStage = new Stage();
  * myStage.setScene(myScene);
  * myStage.show();
- * @author Jason Fitzpatrick, Dominic Martinez
+ * @author Jason Fitzpatrick
+ * @author Dominic Martinez
  */
 public class PopupForm implements BuilderUtility {
     private static final Logger LOGGER = LogManager.getLogger(PopupForm.class);

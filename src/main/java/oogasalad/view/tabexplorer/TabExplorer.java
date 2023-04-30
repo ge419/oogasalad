@@ -1,7 +1,6 @@
 package oogasalad.view.tabexplorer;
 
 import com.google.inject.Inject;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
@@ -169,20 +168,15 @@ public class TabExplorer {
     // todo should take in a userID and a userDao here
     // userID = authHandler.getActiveUserID()
     // userDao - instance var
-    System.out.println("local str: "+Languages.ENGLISH.getLocaleStr());
-    GameController gameController = new GameController(Paths.get(PathFinder.getGameDataPath(gameID)),
-        Languages.ENGLISH.getLocaleStr());
+    System.out.println("local str: " + Languages.ENGLISH.getLocaleStr());
+    GameController gameController = new GameController(
+        Languages.ENGLISH.getLocaleStr(), Paths.get(PathFinder.getGameDataPath(gameID)));
     Stage gameStage = new Stage();
-    try {
-      gameController.setGame(gameStage);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-
+    gameController.setGame(gameStage);
   }
 
   public void launchGameBuilder(String gameID){
-    BuilderController builderController = new BuilderController("en_US", gameID, gameDao);
+    BuilderController builderController = new BuilderController("en-US", gameID, gameDao);
 
   }
 

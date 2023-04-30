@@ -12,9 +12,7 @@ import oogasalad.model.constructable.SaveManagerModule;
 import oogasalad.model.engine.EngineModule;
 import oogasalad.util.PathFinder;
 import oogasalad.view.BuilderFactory;
-import oogasalad.view.tiles.ViewTile;
-import oogasalad.view.tiles.ViewTileFactory;
-import oogasalad.view.tiles.ViewTileWrapper;
+import oogasalad.view.tiles.TileModule;
 
 public class BuilderControllerModule extends AbstractModule {
 
@@ -43,9 +41,7 @@ public class BuilderControllerModule extends AbstractModule {
     // TODO: Bind using annotation
     //bind(String.class).toInstance(myLanguage);
     install(new FactoryModuleBuilder().build(BuilderFactory.class));
-    install(new FactoryModuleBuilder()
-        .implement(ViewTile.class, ViewTileWrapper.class)
-        .build(ViewTileFactory.class));
+    install(new TileModule());
 //    install(new BuilderModule(myLanguage, this));
   }
 }

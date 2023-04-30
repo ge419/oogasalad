@@ -23,6 +23,6 @@ public class PathFinder {
   }
 
   public static String getGameDataPath(String gameID){
-    return "data/"+gameID;
+    return "data/games/"+gameID;
   }
 }

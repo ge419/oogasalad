@@ -12,7 +12,7 @@ import oogasalad.model.engine.actions.ActionFactory;
  * @author Dominic Martinez
  */
 public class EngineModule extends AbstractModule {
-  private static final String DEFAULT_RESOURCE_PACKAGE = "engine.resource";
+  private static final String DEFAULT_RESOURCE_PACKAGE = "engine.";
   private final ResourceBundle resourceBundle;
 
   public EngineModule(String lang) {

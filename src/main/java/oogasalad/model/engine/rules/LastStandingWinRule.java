@@ -16,6 +16,7 @@ public class LastStandingWinRule extends AbstractGameConstruct implements Editab
 
   public static final String SCHEMA_NAME = "lastStandingRule";
   private final ActionFactory actionFactory;
+  private ResourceBundle bundle;
 
   @Inject
   protected LastStandingWinRule(
@@ -25,6 +26,7 @@ public class LastStandingWinRule extends AbstractGameConstruct implements Editab
   ) {
     super(SCHEMA_NAME, database);
     this.actionFactory = actionFactory;
+    this.bundle = bundle;
   }
 
   @Override

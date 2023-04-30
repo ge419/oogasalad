@@ -5,15 +5,16 @@ import com.google.inject.Inject;
 import oogasalad.model.attribute.IntAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.AbstractGameConstruct;
-import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
+import oogasalad.model.engine.Priority;
 import oogasalad.model.engine.actions.ActionFactory;
 import oogasalad.model.engine.events.PlayerRemovalEvent;
 
 public class LastStandingWinRule extends AbstractGameConstruct implements EditableRule {
 
-  public static final String SCHEMA_NAME = "lastStandingRule";
+  private static final String SCHEMA_NAME = "lastStandingRule";
+  private static final String NUM_WIN_PLAYER = "numWinPlayer";
   private final ActionFactory actionFactory;
 
   @Inject
@@ -31,7 +32,7 @@ public class LastStandingWinRule extends AbstractGameConstruct implements Editab
   }
 
   private void checkWinState(EventHandlerParams<PlayerRemovalEvent> eventEventHandlerParams) {
-    int lastN = IntAttribute.from(this.getAttribute("numWinPlayer").get()).getValue();
-    eventEventHandlerParams.actionQueue().add(0, actionFactory.makeCheckWinStateAction(lastN));
+    int lastN = IntAttribute.from(this.getAttribute(NUM_WIN_PLAYER).get()).getValue();
+    eventEventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(), actionFactory.makeCheckWinStateAction(lastN));
   }
 }

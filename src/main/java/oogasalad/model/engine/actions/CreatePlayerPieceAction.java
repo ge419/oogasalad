@@ -4,22 +4,27 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Piece;
+import oogasalad.model.engine.EngineResourceBundle;
 import oogasalad.model.engine.prompt.IntegerPromptOption;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
 
 public class CreatePlayerPieceAction implements Action {
   private final Provider<Piece> pieceProvider;
   private final GameHolder gameholder;
+  private final ResourceBundle bundle;
 
   @Inject
   public CreatePlayerPieceAction(
       Provider<Piece> pieceProvider,
-      GameHolder holder
+      GameHolder holder,
+      @EngineResourceBundle ResourceBundle bundle
   ) {
     this.pieceProvider = pieceProvider;
     this.gameholder = holder;
+    this.bundle = bundle;
   }
 
   @Override
@@ -31,17 +36,17 @@ public class CreatePlayerPieceAction implements Action {
     }
 
     actionParams.prompter().selectSingleOption(
-        "Select number of pieces for a given player", options, this::createPlayerPieces);
+        bundle.getString(getClass().getSimpleName()), options, this::createPlayerPieces);
   }
 
   private void createPlayerPieces(IntegerPromptOption selectedPlayerPieceNumber) {
     List<PlayerPiece> playerPieces = new ArrayList<>();
     int selectedNumberOfPieces = selectedPlayerPieceNumber.getValue();
-    int numberOfPlayers = gameholder.getPlayers().get().getPlayers().size();
+    int numberOfPlayers = gameholder.getPlayers().getList().size();
     int totalNumberOfPieces = numberOfPlayers * selectedNumberOfPieces;
     for (int i=0; i < totalNumberOfPieces; i ++) {
       Piece piece = pieceProvider.get();
-      piece.setPlayer(gameholder.getPlayers().get().getPlayers().get(Math.floorDiv(i, numberOfPlayers)));
+      piece.setPlayer(gameholder.getPlayers().getList().get(Math.floorDiv(i, numberOfPlayers)));
       playerPieces.add(new PlayerPiece(piece));
     }
   }

@@ -1,0 +1,31 @@
+{
+  "name": "Test1",
+  "width": 365.0,
+  "height": 405.0,
+  "customObjects": [
+    {
+      "name": "Caption",
+      "defaultContents": "Add Caption",
+      "fontSize": 14,
+      "bold": false,
+      "translateX": 80.0,
+      "translateY": 3.0,
+      "type": "CustomText",
+      "index": 0,
+      "editable": true,
+      "viewable": true
+    },
+    {
+      "type": "CustomImage",
+      "x": 22.0,
+      "y": -120.0,
+      "name": "SoccerPhoto.png",
+      "height": 120.0,
+      "width": 180.0,
+      "filePath": "data/customObjects/Test1/SoccerPhoto.png",
+      "index": 1,
+      "editable": false,
+      "viewable": false
+    }
+  ]
+}

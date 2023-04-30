@@ -1,0 +1,31 @@
+{
+  "name": "test2",
+  "width": 398.0,
+  "height": 422.0,
+  "customObjects": [
+    {
+      "type": "CustomImage",
+      "x": 0.0,
+      "y": -37.0,
+      "name": "A.png",
+      "height": 258.7931034482758,
+      "width": 394.99999999999994,
+      "filePath": "data/customObjects/test2/A.png",
+      "index": 0,
+      "editable": false,
+      "viewable": false
+    },
+    {
+      "name": "Caption",
+      "defaultContents": "Default Text",
+      "fontSize": 18,
+      "bold": false,
+      "translateX": 124.0,
+      "translateY": 67.0,
+      "type": "CustomText",
+      "index": 1,
+      "editable": true,
+      "viewable": true
+    }
+  ]
+}

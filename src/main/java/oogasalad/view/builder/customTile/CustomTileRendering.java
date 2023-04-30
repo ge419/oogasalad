@@ -8,15 +8,11 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Bounds;
-import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.FileChooser;
 import oogasalad.model.attribute.*;
@@ -32,8 +28,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public class CustomTileFrontEnd extends Group implements ViewTile {
-    private static final Logger LOGGER = LogManager.getLogger(CustomTileFrontEnd.class);
+public class CustomTileRendering extends Group implements ViewTile {
+    private static final Logger LOGGER = LogManager.getLogger(CustomTileRendering.class);
     private double SCALE_DOWN_FACTOR = .4;
     private Color color;
 
@@ -43,7 +39,7 @@ public class CustomTileFrontEnd extends Group implements ViewTile {
 
     private final Tile modelTile;
     @Inject
-    public CustomTileFrontEnd(@Assisted Tile BTile, SchemaDatabase database) {
+    public CustomTileRendering(@Assisted Tile BTile, SchemaDatabase database) {
         this.modelTile = BTile;
 
         String jsonFile = "";//StringAttribute.from(modelTile.getAttribute("customJson").get()).getValue();
@@ -58,7 +54,7 @@ public class CustomTileFrontEnd extends Group implements ViewTile {
             ArrayList<String> names = new ArrayList<>(modelTile.getSchemaNames());
             names.add(schema.getName());
             modelTile.setSchemaNames(names);
-            //bindListeners(names);
+            bindListeners(names);
         }
         else{
             try {
@@ -70,29 +66,13 @@ public class CustomTileFrontEnd extends Group implements ViewTile {
     }
 
 //    private void bindListeners(ArrayList<String> names) {
-//        for (String name : names){
+//        for (String name : names) {
 //            StringAttribute attribute = StringAttribute.from(modelTile.getAttribute(name).get());
 //            String attributeString = attribute.getValue();
 //            Node node = (Node) customElementMap.get(name);
-//            if (node != null) {
-//                node.setId(name);
-//                // Bind the id property of the node to the attribute value
-//                // and vice versa to keep them in sync
-//                Bindings.bindBidirectional(node.idProperty(), attribute.valueProperty());
-//            }
+//            Bindings.bindBidirectional(node.idProperty(), attribute.valueProperty());
 //        }
 //    }
-//private void bindListeners(ArrayList<String> names) {
-//    for (String name : names){
-//        StringAttribute attribute = StringAttribute.from(modelTile.getAttribute(name).get());
-//        String initialValue = attribute.getValue();
-//        CustomElement customElement = customElementMap.get(name);
-//        customElement.setValue(initialValue);
-//        attribute.addListener((observable, oldValue, newValue) -> {
-//            customElement.setValue(newValue);
-//        });
-//    }
-//}
 
     private void loadForGamePlay(String jsonFile) throws IOException {
         StackPane s = new StackPane();
@@ -206,33 +186,6 @@ public class CustomTileFrontEnd extends Group implements ViewTile {
         return this.modelTile;
     }
 
-//    @Override
-//    public void setSize(double width, double height) {
-//        double scaleX = width / this.getWidth();
-//        double scaleY = height / this.getHeight();
-//
-//        this.setScaleX(scaleX);
-//        this.setScaleY(scaleY);
-//
-//        for (Node child : this.getChildren()) {
-//            if (child instanceof Region) {
-//                Region region = (Region) child;
-//                region.setPrefWidth(width);
-//                region.setPrefHeight(height);
-//            }
-//            else if (child instanceof Text) {
-//                Text text = (Text) child;
-//                text.setFont(Font.font(text.getFont().getFamily(), text.getFont().getSize() * scaleX));
-//            } else if (child instanceof ImageView) {
-//                ImageView imageView = (ImageView) child;
-//                imageView.setFitWidth(width);
-//                imageView.setFitHeight(height);
-//            } else {
-//                child.setScaleX(scaleX);
-//                child.setScaleY(scaleY);
-//            }
-//        }
-//    }
 
     @Override
     public void setSize(double width, double height) {

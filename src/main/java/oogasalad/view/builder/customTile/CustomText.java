@@ -1,6 +1,7 @@
 package oogasalad.view.builder.customTile;
 
 import com.google.gson.JsonObject;
+import javafx.beans.property.Property;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -37,6 +38,7 @@ public class CustomText extends Label implements CustomElement {
         this.fontSize = UNDERSPECIFIED_FONTSIZE;
         // Set the initial properties of the text field
         setText(defaultContents);
+        setIdChangeListener();
 
     }
 
@@ -113,7 +115,7 @@ public class CustomText extends Label implements CustomElement {
         jsonObject.addProperty("translateX", this.getTranslateX());
         jsonObject.addProperty("translateY", this.getTranslateY());
         jsonObject.addProperty("type", "CustomText");
-        jsonObject.addProperty("index", this.index);
+        jsonObject.addProperty("index", this.getParent().getChildrenUnmodifiable().indexOf(this));
         jsonObject.addProperty("editable", this.editable);
         jsonObject.addProperty("viewable", this.editable);
 
@@ -186,5 +188,14 @@ public class CustomText extends Label implements CustomElement {
         this.setText(loadedValue);
         this.defaultContents = loadedValue;
     }
+
+    public void setIdChangeListener() {
+        idProperty().addListener((observable, oldValue, newValue) -> {
+            setText(newValue);
+            defaultContents = newValue;
+        });
+    }
+
+
 
 }

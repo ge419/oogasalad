@@ -24,7 +24,6 @@ import java.util.Optional;
 
 public class CustomObject extends StackPane {
     private final Path RESOURCE_PATH = Paths.get("data/customObjects");
-    private final SimpleSchemaDatabase schemaDatabase = new SimpleSchemaDatabase();
     private final Runnable swapCurrentClicked;
     private String name;
     VBox currentClickedInfo;
@@ -107,7 +106,7 @@ public class CustomObject extends StackPane {
     private void save() throws IOException {
         Path customObjectDirectory = RESOURCE_PATH.resolve(this.name);
         JsonObject customTileObject = createCustomElement(customObjectDirectory);
-        schemaDatabase.addCustomSchema(makeSchema());
+
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -123,21 +122,7 @@ public class CustomObject extends StackPane {
         try (FileWriter writer = new FileWriter(customObjectPath.toFile())) {
             writer.write(gson.toJson(customTileObject));
         }
-
-        Path schemaPath = customObjectDirectory.resolve(this.name + "_schema.json");
-        if (!Files.exists(schemaPath)) {
-            Files.createFile(schemaPath);
-        }
-
-//        try (FileWriter writer = new FileWriter(schemaPath.toFile())) {
-//            writer.write(gson.toJson(schema));
-//        }
     }
-
-    private void saveSchema(SimpleObjectSchema makeSchema) {
-    //    SchemaDatabase s = Sc
-    }
-
 
     private JsonObject createCustomElement(Path directory) throws IOException {
         JsonObject customTileObject = new JsonObject();

@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.util.Arrays;
@@ -35,12 +37,10 @@ public class CustomElementHelper extends VBox {
         toBackButton.setOnAction(event -> ((Node) thisCustomElement).toBack());
 
         Button deleteButton = new Button("Delete Element");
-        toBackButton.setOnAction(event -> ((Node) thisCustomElement).toBack());
+        deleteButton.setOnAction(event -> delete(thisCustomElement));
 
         CheckBox editableCheckBox = createEditableCheckBox(thisCustomElement, nameField);
-
-        infoBox.getChildren().addAll(Arrays.asList(toFrontButton, toBackButton, editableCheckBox));
-
+        infoBox.getChildren().addAll(Arrays.asList(toFrontButton, toBackButton, editableCheckBox, deleteButton));
 
 
         return infoBox;
@@ -65,4 +65,9 @@ public class CustomElementHelper extends VBox {
       });
       return editableCheckBox;
    }
+
+   private static void delete(CustomElement customElement) {
+      ((StackPane) ((Node) customElement).getParent()).getChildren().remove(customElement);
+   }
+
 }

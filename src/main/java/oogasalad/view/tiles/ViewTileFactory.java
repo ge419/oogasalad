@@ -1,9 +1,7 @@
 package oogasalad.view.tiles;
 
-import java.util.Map;
-import java.util.function.Function;
 import oogasalad.model.constructable.Tile;
-import oogasalad.view.builder.customTile.CustomTileFrontEnd;
+import oogasalad.view.builder.customTile.CustomTileRendering;
 
 /**
  * <p>Together with the Guice's dependency injection, this factory will create the tiles
@@ -23,7 +21,7 @@ public interface ViewTileFactory {
 
   public abstract StreetTile createStreetTile(Tile tile);
 
-  public abstract CustomTileFrontEnd createCustomTile(Tile tile);
+  public abstract CustomTileRendering createCustomTile(Tile tile);
 
   public abstract ViewTile createDynamicViewTile(Tile tile);
 }

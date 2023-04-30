@@ -36,6 +36,7 @@ public class CustomColorBox extends Rectangle implements CustomElement {
         this.setFill(Color.web(UNDERSPECIFIED_COLOR, UNDERSPECIFIED_OPACITY));
         this.setWidth(UNDERSPECIFIED_LENGTH);
         this.setHeight(UNDERSPECIFIED_LENGTH);
+        setIdChangeListener();
     }
 
     public CustomColorBox(JsonObject jsonObject) {
@@ -147,4 +148,12 @@ public class CustomColorBox extends Rectangle implements CustomElement {
         this.defaultColor = loadedValue;
         this.setFill(Color.web(UNDERSPECIFIED_COLOR, this.defaultOpacity));
     }
+
+    public void setIdChangeListener() {
+        this.idProperty().addListener((observable, oldValue, newValue) -> {
+            defaultColor = newValue;
+            this.setFill(Color.web(defaultColor, defaultOpacity));
+        });
+    }
+
 }

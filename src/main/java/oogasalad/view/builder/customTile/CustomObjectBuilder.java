@@ -10,17 +10,19 @@ import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CustomObjectBuilder extends Application {
-    private String defaultTitle = "CustomTileMaker";
+    private final String DEFAULT_TITLE = "CustomTileMaker";
+    private final String STYLE_PATH =  "/customTiles/customObjectBuilder.css";
     private Stage stage;
     private LeftPane leftPane;
     private CustomObject rightPane;
     private ResourceBundle languageBundle;
-    private static final int LEFT_PANE_WIDTH = 250;
-    private int RIGHT_PANE_STARTING_WIDTH = 500;
-    private int STARTING_HEIGHT = 500;
+    private static final int LEFT_PANE_WIDTH = 300;
+    private int RIGHT_PANE_STARTING_WIDTH = 800;
+    private int STARTING_HEIGHT = 800;
 
 
 
@@ -33,7 +35,6 @@ public class CustomObjectBuilder extends Application {
         stage = PrimaryStage;
         this.languageBundle = ResourceBundle.getBundle("oogasalad.languages."+ defaultLanguage);
 
-
         rightPane = new CustomObject(() -> leftPane.swapCurrentClicked(rightPane.currentClickedInfo, rightPane.newCurrentClickedInfo));
         leftPane = new LeftPane();
 
@@ -43,11 +44,13 @@ public class CustomObjectBuilder extends Application {
 
         // Create scene and add SplitPane
         Scene scene = new Scene(splitPane, LEFT_PANE_WIDTH+RIGHT_PANE_STARTING_WIDTH, STARTING_HEIGHT);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource(STYLE_PATH)).toExternalForm());
+
 
         // Set the scene and show the stage
         stage.setScene(scene);
         stage.show();
-        stage.setTitle(defaultTitle);
+        stage.setTitle(DEFAULT_TITLE);
 
         // Set listener for changes to window size
         stage.widthProperty().addListener((obs, oldVal, newVal) -> maintainSideBar());

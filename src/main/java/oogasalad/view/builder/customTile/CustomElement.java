@@ -1,6 +1,7 @@
 package oogasalad.view.builder.customTile;
 
 import com.google.gson.JsonObject;
+import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import oogasalad.model.attribute.Metadata;
 
@@ -46,6 +47,8 @@ public interface CustomElement {
     Metadata getMetaData();
 
     void setValue(String loadedValue);
+
+
 
 
     //TODO Figure out why the CustomImage class isn't found on reflect

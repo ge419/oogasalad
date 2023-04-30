@@ -6,27 +6,33 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import javafx.beans.binding.Bindings;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.layout.*;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.transform.Rotate;
 import javafx.stage.FileChooser;
-import oogasalad.model.attribute.*;
+import oogasalad.model.attribute.Metadata;
+import oogasalad.model.attribute.ObjectSchema;
+import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.attribute.SimpleObjectSchema;
+import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
 import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.*;
 
 public class CustomTileRendering extends Group implements ViewTile {
     private static final Logger LOGGER = LogManager.getLogger(CustomTileRendering.class);
@@ -41,20 +47,24 @@ public class CustomTileRendering extends Group implements ViewTile {
     @Inject
     public CustomTileRendering(@Assisted Tile BTile, SchemaDatabase database) {
         this.modelTile = BTile;
+        modelTile.addSchema("customTile");
 
-        String jsonFile = "";//StringAttribute.from(modelTile.getAttribute("customJson").get()).getValue();
+        StringAttribute jsonFileAttribute = StringAttribute.from(
+            modelTile.getAttribute("customJson").get());
+        String jsonFile = jsonFileAttribute.getValue();
 
         /*
         If jsonFile is empty this is coming from the builder
          */
         if (jsonFile.isEmpty()) {
             jsonFile = chooseJsonFile().toString();
+            jsonFileAttribute.setValue(jsonFile);
             ObjectSchema schema = loadJsonForBuilder(jsonFile);
             database.addCustomSchema(schema);
             ArrayList<String> names = new ArrayList<>(modelTile.getSchemaNames());
             names.add(schema.getName());
             modelTile.setSchemaNames(names);
-            bindListeners(names);
+            //bindListeners(names);
         }
         else{
             try {

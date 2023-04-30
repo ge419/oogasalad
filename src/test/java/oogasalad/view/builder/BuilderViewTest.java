@@ -19,12 +19,14 @@ public class BuilderViewTest extends DukeApplicationTest {
   private static final String TEST_LANGUAGE = "en-US";
   private static int TEST_CLICK_LOCATION_1 = 150;
   private static final int TEST_CLICK_LOCATION_2 = 300;
+  private static final int DEFAULT_BOARD_SIZE = 500;
 
   // todo: fix this test, all wrong right now.
   @Override
   public void start(Stage stage) {
     myBuilderController = new BuilderController(TEST_LANGUAGE, Path.of("data", "monopoly"));
     myBuilder = myBuilderController.getBuilderView();
+    myBuilder.loadBoardSize(DEFAULT_BOARD_SIZE, DEFAULT_BOARD_SIZE);
     //myView = new BuilderController(DEFAULT_LANGUAGE).getBuilderView();
   }
 

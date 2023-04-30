@@ -79,7 +79,7 @@ public class BuilderController {
     gameInfo = gameHolder.getGameInfo();
 
     loadIntoBuilder();
-    readDefaultRules();
+//    readDefaultRules();
 
 //    todo: Dominics example code for how to get rules using dependency injection
 //    Injector injector = Guice.createInjector(new EngineModule());
@@ -194,14 +194,14 @@ public class BuilderController {
   }
 
   public List<String> getListOfRules() {
-    return rules.keySet().stream().toList();
-//    return List.of(
-//        "Hello",
-//        "This",
-//        "Is",
-//        "A",
-//        "Test"
-//    );
+//    return rules.keySet().stream().toList();
+    return List.of(
+        "Hello",
+        "This",
+        "Is",
+        "A",
+        "Test"
+    );
   }
 
   public List<String> getCurrentTiletypes() {
@@ -250,6 +250,13 @@ public class BuilderController {
     }
   }
 
+  /**
+   * <p>Checks if a tile is within the bounds of the given board or not.</p>
+   * @param tile tile we are checking
+   * @param boardWidth width of the board
+   * @param boardHeight height of the board
+   * @return true if valid, false if not
+   */
   private boolean checkTileValidity(Tile tile, double boardWidth, double boardHeight){
     Coordinate tileCoordinate = tile.getCoordinate();
     if (tileCoordinate.getXCoor() - tile.getWidth() > boardWidth){
@@ -283,7 +290,6 @@ public class BuilderController {
       throw new ResourceReadException(e);
     }
   }
-
   private EditableRule readRulesFile(Path path) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
     return mapper.readValue(path.toFile(), EditableRule.class);

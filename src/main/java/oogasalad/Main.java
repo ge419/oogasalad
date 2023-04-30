@@ -27,7 +27,6 @@ public class Main extends Application {
   @Override
   public void start(Stage primaryStage) throws Exception {
     Path saveDir = Path.of("data", "monopoly");
-
     GameController controller = new GameController(saveDir, "English");
     try {
       controller.setGame(primaryStage);

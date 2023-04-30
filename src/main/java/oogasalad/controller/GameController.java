@@ -31,7 +31,6 @@ public class GameController {
   public GameController(Path saveDir, String language) {
     this.injector = Guice.createInjector(new GameControllerModule(saveDir, language));
     injector.getInstance(SaveManager.class).loadGame();
-
     gv = injector.getInstance(ViewFactory.class).makeGameview(this);
     this.effects = new LinkedList<>();
     this.engine = injector.getInstance(Engine.class);

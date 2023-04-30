@@ -1,6 +1,8 @@
 package oogasalad.view.tabexplorer;
 
 import com.google.inject.Inject;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -13,9 +15,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import oogasalad.controller.GameController;
 import oogasalad.model.accesscontrol.authentication.AuthenticationHandler;
 import oogasalad.model.accesscontrol.dao.UserDao;
 import oogasalad.model.accesscontrol.database.schema.UserSchema;
+import oogasalad.util.PathFinder;
 import oogasalad.view.tabexplorer.tabs.GameLauncherTab;
 import oogasalad.view.tabexplorer.tabs.LoginTab;
 import oogasalad.view.tabexplorer.tabs.Tab;
@@ -155,6 +159,18 @@ public class TabExplorer {
     System.out.println(styleSheet);
     scene.getStylesheets().clear();
     scene.getStylesheets().add(styleSheet);
+  }
+
+  public void launchGame(String gameID){
+
+    GameController gameController = new GameController(Paths.get(PathFinder.getGameDataPath(gameID)));
+    Stage gameStage = new Stage();
+    try {
+      gameController.setGame(gameStage);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
   }
 
 

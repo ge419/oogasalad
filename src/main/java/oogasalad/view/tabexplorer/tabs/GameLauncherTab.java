@@ -140,7 +140,7 @@ public class GameLauncherTab implements Tab {
         gameBox.getStyleClass().add("game-box");
 //        gameBox.setAlignment(Pos.CENTER);
 //        gameBox.setSpacing(5);
-        gameBox.setOnMouseClicked(e-> System.out.println("GameID: "+gameID));
+        gameBox.setOnMouseClicked(e-> tabExplorer.launchGame(gameID));
 //        gameBox.setOnMouseEntered(e->gameBox.setCursor(Cursor.HAND));
 //        gameBox.setPrefSize(100, 100);
         tilePane.getChildren().add(gameBox);

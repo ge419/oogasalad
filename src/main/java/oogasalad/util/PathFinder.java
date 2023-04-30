@@ -21,4 +21,8 @@ public class PathFinder {
   public static String getUserAvatar(String userID){
     return "file:data/users/"+userID+"/avatar.jpeg";
   }
+
+  public static String getGameDataPath(String gameID){
+    return "data/"+gameID;
+  }
 }

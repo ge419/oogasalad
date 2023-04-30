@@ -1,11 +1,8 @@
 package oogasalad.model.accesscontrol.authentication;
 
 import com.google.inject.Inject;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
-import oogasalad.model.accesscontrol.database.DatabaseAccessor;
+import oogasalad.model.accesscontrol.dao.UserDao;
 
 public class FirebaseAuthHandler implements AuthenticationHandler {
 

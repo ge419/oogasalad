@@ -8,6 +8,7 @@ import com.google.firebase.cloud.FirestoreClient;
 import com.google.inject.Inject;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import oogasalad.model.accesscontrol.database.FirebaseAccessor;
 
 public abstract class FirebaseAbstractDao {
 

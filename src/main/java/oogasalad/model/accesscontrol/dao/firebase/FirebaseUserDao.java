@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import oogasalad.model.accesscontrol.dao.UserDao;
+import oogasalad.model.accesscontrol.database.FirebaseAccessor;
 
 public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
   // gets a DB

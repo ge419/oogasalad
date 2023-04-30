@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import oogasalad.controller.BuilderController;
+import oogasalad.controller.BuilderControllerModule;
 import oogasalad.controller.GameController;
 import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.TabModule;
@@ -41,6 +42,6 @@ public class Main extends Application {
     );
     TabExplorer launcher = injector.getInstance(TabExplorer.class);
     launcher.render();
-
+    new BuilderController("en-US", Path.of("data", "monopoly"));
   }
 }

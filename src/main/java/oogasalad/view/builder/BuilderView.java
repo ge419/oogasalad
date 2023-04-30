@@ -88,7 +88,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   ) {
     this.myBuilderController = bc;
     builderResource = ResourceBundle.getBundle(
-        BASE_RESOURCE_PACKAGE + languageString + "BuilderText");
+        BASE_RESOURCE_PACKAGE + languageString + "-BuilderText");
     constantsResource = ResourceBundle.getBundle(BASE_RESOURCE_PACKAGE+CONSTANTS_FILE);
 
     defaultStylesheet = getClass().getResource(DEFAULT_STYLESHEET_PATH).toExternalForm();

@@ -1,7 +1,7 @@
 package oogasalad.view.tiles;
 
 import oogasalad.model.constructable.Tile;
-import oogasalad.view.builder.customTile.CustomTileRendering;
+import oogasalad.view.builder.customTile.CustomTileFrontEnd;
 
 /**
  * <p>Together with the Guice's dependency injection, this factory will create the tiles
@@ -15,13 +15,13 @@ import oogasalad.view.builder.customTile.CustomTileRendering;
  */
 public interface ViewTileFactory {
 
-  public abstract ImageTile createImageTile(Tile tile);
+  ImageTile createImageTile(Tile tile);
 
-  public abstract BasicTile createBasicTile(Tile tile);
+  BasicTile createBasicTile(Tile tile);
 
-  public abstract StreetTile createStreetTile(Tile tile);
+  StreetTile createStreetTile(Tile tile);
 
-  public abstract CustomTileRendering createCustomTile(Tile tile);
+  CustomTileFrontEnd createCustomTile(Tile tile);
 
-  public abstract ViewTile createDynamicViewTile(Tile tile);
+  ViewTile createDynamicViewTile(Tile tile);
 }

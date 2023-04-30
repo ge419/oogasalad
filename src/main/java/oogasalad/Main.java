@@ -3,16 +3,11 @@ package oogasalad;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import oogasalad.controller.BuilderController;
-
-import oogasalad.controller.BuilderControllerModule;
-import oogasalad.controller.GameController;
 import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.TabModule;
 import oogasalad.view.tabexplorer.userpreferences.Languages;
@@ -22,7 +17,7 @@ import oogasalad.view.tabexplorer.userpreferences.Languages;
  */
 public class Main extends Application {
 
-  private static final String DEFAULT_LANGUAGE_PROPERTY = "tabexplorer.languages.en_US";
+  private static final String DEFAULT_LANGUAGE_PROPERTY = "tabexplorer.languages.en-US";
 
   public static void main(String[] args) {
     launch(args);
@@ -46,6 +41,7 @@ public class Main extends Application {
     TabExplorer launcher = injector.getInstance(TabExplorer.class);
     launcher.render();
 
-    new BuilderController("en-US", Path.of("data", "monopoly"));
+//    new BuilderController(Languages.ENGLISH.getLocaleStr(), Paths.get("data", "0TTYFzGUPQG2HXB2BsB4"));
+
   }
 }

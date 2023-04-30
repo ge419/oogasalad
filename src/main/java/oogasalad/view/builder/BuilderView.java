@@ -13,7 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -22,12 +22,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import oogasalad.controller.BuilderController;
 import oogasalad.controller.builderevents.Dragger;
 import oogasalad.controller.builderevents.TrailMaker;
 import oogasalad.controller.builderevents.TrailMakerAPI;
+import oogasalad.util.FileUploader;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.itempanes.MenuItemPane;
 import oogasalad.view.builder.itempanes.ItemPane;
@@ -79,6 +82,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private ComboBox themeSelector;
   private Scene myScene;
   private Stage myStage;
+  private TextField descriptionInput;
+  private TextField genreInput;
 
   @Inject
   public BuilderView(
@@ -178,7 +183,29 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myScene.getStylesheets().add(defaultStylesheet);
     return myScene;
   }
-
+  public void displayGameInfoForm(Pane container) {
+    container.getChildren().clear();
+    Text descriptionLabel = (Text) makeText("GameDescriptionLabel", builderResource);
+    descriptionInput = (TextField) makeTextField("GameDescriptionInput");
+    Text genreLabel = (Text) makeText("GameGenreLabel", builderResource);
+    genreInput = (TextField) makeTextField("GameGenreInput");
+    Text widthLabel = (Text) makeText("BoardWidthLabel", builderResource);
+    Spinner<Double> widthInput = (Spinner<Double>) makeDoubleSpinner("BoardWidthInput", Double.parseDouble(constantsResource.getString("BOARD_MIN_SIZE")), Double.parseDouble(constantsResource.getString("BOARD_MAX_SIZE")), myBoardPane.getWidth());
+    widthInput.valueProperty().addListener(((observable, oldValue, newValue) -> setPaneSize(myBoardPane, newValue, myBoardPane.getHeight())));
+    Text heightLabel = (Text) makeText("BoardHeightLabel", builderResource);
+    Spinner<Double> heightInput = (Spinner<Double>) makeDoubleSpinner("BoardWidthInput", Double.parseDouble(constantsResource.getString("BOARD_MIN_SIZE")), Double.parseDouble(constantsResource.getString("BOARD_MAX_SIZE")), myBoardPane.getHeight());
+    heightInput.valueProperty().addListener(((observable, oldValue, newValue) -> setPaneSize(myBoardPane, myBoardPane.getWidth(), newValue)));
+    container.getChildren().add(new HBox(descriptionLabel, descriptionInput));
+    container.getChildren().add(new HBox(genreLabel, genreInput));
+    container.getChildren().add(new HBox(widthLabel, widthInput));
+    container.getChildren().add(new HBox(heightLabel, heightInput));
+  }
+  public void saveGameInfo() {
+    myBuilderController.saveInfo(genreInput.getCharacters().toString(), descriptionInput.getCharacters().toString());
+  }
+  public void uploadThumbnailImage() {
+    FileUploader.uploadGameThumbnail(myBuilderController.getGameID());
+  }
   private BorderPane createTopBar() {
     BorderPane topBar = new BorderPane();
     myTopBar = topBar;
@@ -400,7 +427,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myBoardPane.getChildren().remove(node);
     return objCounter--;
   }
-
 
   // -----------------------------------------------------------------------------------------------------------------
   private boolean checkIfImage(Optional<File> thing) {

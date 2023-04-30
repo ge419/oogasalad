@@ -19,6 +19,8 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import oogasalad.controller.builderevents.Dragger;
+import oogasalad.model.accesscontrol.dao.GameDao;
+import oogasalad.model.accesscontrol.database.schema.GameSchema;
 import oogasalad.model.attribute.FileReader;
 import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.SchemaDatabase;
@@ -51,7 +53,7 @@ public class BuilderController {
 
   private static final String DEFAULT_STYLESHEET_DIRECTORY = "/view/builder/";
   private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
-  private static Logger logger = LogManager.getLogger(BuilderController.class);
+  private static final Logger logger = LogManager.getLogger(BuilderController.class);
   private final BuilderView builderView;
   private final GameHolder gameHolder;
   private final GameInfo gameInfo;
@@ -60,16 +62,19 @@ public class BuilderController {
   private BBoard board;
 //  private SaveManager saveManager;
   private final Injector injector;
+  private String gameID;
+  private GameDao gameDao;
   private Map<String, String> rules;
   private static final String RULE_NAME_KEY = "name";
   private static final String RULE_DESCRIPTION_KEY = "description";
 
-  public BuilderController(String language, Path saveDir) {
+  public BuilderController(String language, String gameID, GameDao gameDao) {
     injector = Guice.createInjector(
-        new BuilderControllerModule(language, saveDir)
+        new BuilderControllerModule(language, gameID, gameDao)
     );
     injector.getInstance(SaveManager.class).loadGame();
-
+    this.gameID = gameID;
+    this.gameDao = gameDao;
     builderView = injector.getInstance(BuilderFactory.class).makeBuilder(language, this);
     viewTileFactory = injector.getInstance(ViewTileFactory.class);
     logger.info("created builder");
@@ -79,7 +84,7 @@ public class BuilderController {
     gameInfo = gameHolder.getGameInfo();
 
     loadIntoBuilder();
-//    readDefaultRules();
+    readDefaultRules();
 
 //    todo: Dominics example code for how to get rules using dependency injection
 //    Injector injector = Guice.createInjector(new EngineModule());
@@ -194,7 +199,7 @@ public class BuilderController {
   }
 
   public List<String> getListOfRules() {
-//    return rules.keySet().stream().toList();
+    //return rules.keySet().stream().toList();
     return List.of(
         "Hello",
         "This",
@@ -212,22 +217,16 @@ public class BuilderController {
     );
   }
 
-  public boolean makeRulesPopup(String tiletype, String ruleAsString) {
+  public void makeRulesPopup(String tiletype, String ruleAsString) {
     logger.info("Chose to edit rule " + ruleAsString + " for tiletype " + tiletype);
     // todo: change this to get the rule from whatever string was provided
     EditableRule rule = injector.getInstance(BuyTileRule.class);
     createPopupForm(rule, builderView.getLanguage(), builderView.getPopupPane());
-    return true;
-
-    // RETURN FALSE IF YOU CANNOT GET THE RULE FOR SOME REASON
   }
 
-  public boolean removeRuleFromTiletype(String tiletype, String ruleAsString) {
+  public void removeRuleFromTiletype(String tiletype, String ruleAsString) {
     logger.info("Trying to remove rule " + ruleAsString +
         " from tiletype " + tiletype);
-    return true;
-
-    // RETURN FALSE IF YOU CANNOT REMOVE THE RULE
   }
 
   private void loadIntoBuilder(){
@@ -250,13 +249,6 @@ public class BuilderController {
     }
   }
 
-  /**
-   * <p>Checks if a tile is within the bounds of the given board or not.</p>
-   * @param tile tile we are checking
-   * @param boardWidth width of the board
-   * @param boardHeight height of the board
-   * @return true if valid, false if not
-   */
   private boolean checkTileValidity(Tile tile, double boardWidth, double boardHeight){
     Coordinate tileCoordinate = tile.getCoordinate();
     if (tileCoordinate.getXCoor() - tile.getWidth() > boardWidth){
@@ -272,10 +264,6 @@ public class BuilderController {
     return true;
   }
 
-  public String getRuleDescription(String ruleAsString) {
-    // todo: complete
-    return "This is a test string! Selected rule: " + ruleAsString;
-  }
   private void readDefaultRules() {
     try{
       rules = new HashMap<>();
@@ -290,8 +278,18 @@ public class BuilderController {
       throw new ResourceReadException(e);
     }
   }
+
   private EditableRule readRulesFile(Path path) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
     return mapper.readValue(path.toFile(), EditableRule.class);
+  }
+  public String getGameID() {
+    return gameID;
+  }
+  public void saveInfo(String genre, String description) {
+    Map<String, Object> game = new HashMap<>();
+    game.put(GameSchema.GENRE.getFieldName(), genre);
+    game.put(GameSchema.DESCRIPTION.getFieldName(), description);
+    gameDao.updateGame(gameID, game);
   }
 }

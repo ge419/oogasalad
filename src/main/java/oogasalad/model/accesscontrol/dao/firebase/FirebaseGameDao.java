@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import oogasalad.model.accesscontrol.dao.GameDao;
-import oogasalad.model.accesscontrol.database.FirebaseAccessor;
+import oogasalad.model.accesscontrol.database.firebase.FirebaseAccessor;
 
 public class FirebaseGameDao extends FirebaseAbstractDao implements GameDao {
 
@@ -31,10 +31,15 @@ public class FirebaseGameDao extends FirebaseAbstractDao implements GameDao {
   }
 
   @Override
-  public String createGame(String userID, Map<String, Object> gameMetaData) {
+  public String createGame(String userID) {
     CollectionReference collection = db.collection("games");
     DocumentReference newDocRef;
 
+    Map<String, Object> gameMetaData = new HashMap<>();
+
+    gameMetaData.put("title", "");
+    gameMetaData.put("description", "");
+    gameMetaData.put("genre", "");
     gameMetaData.put("author", userID);
     gameMetaData.put("subscription_count", 1);
     gameMetaData.put("number_of_plays", 0);
@@ -62,8 +67,9 @@ public class FirebaseGameDao extends FirebaseAbstractDao implements GameDao {
   }
 
   @Override
-  public void updateGame (String gameID, Map < String, Object > game){
-
+  public void updateGame (String gameID, Map<String, Object> gameUpdate){
+    DocumentReference docRef = db.collection("games").document(gameID);
+    docRef.update(gameUpdate);
   }
 
   @Override

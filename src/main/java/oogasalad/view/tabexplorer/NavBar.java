@@ -57,7 +57,7 @@ public class NavBar {
 
   }
 
-  private void onLanguageChange(String pathToBundle) {
+  public void onLanguageChange(String pathToBundle) {
     languageResourceBundle = ResourceBundle.getBundle(pathToBundle);
     updateButtonText();
   }

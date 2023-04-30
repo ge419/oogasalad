@@ -1,4 +1,4 @@
-package oogasalad.model.accesscontrol.database;
+package oogasalad.model.accesscontrol.database.firebase;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.Firestore;

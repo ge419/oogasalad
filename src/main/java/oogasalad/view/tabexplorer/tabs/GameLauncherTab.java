@@ -199,12 +199,16 @@ public class GameLauncherTab implements Tab {
     result.ifPresent(formData -> {
       String name = formData[0];
 
-      Map<String, Object> game = new HashMap<>();
-      game.put(GameSchema.TITLE.getFieldName(), name);
+      if (name.isBlank()){
+        AlertPopUp.show(AlertType.ERROR,"Input cannot be null", "Please add a name for your game");
+      }else{
+        Map<String, Object> game = new HashMap<>();
+        game.put(GameSchema.TITLE.getFieldName(), name);
 
-      String gameID = gameDao.createGame(authHandler.getActiveUserID());
-      gameDao.updateGame(gameID, game);
-      tabExplorer.launchGameBuilder(gameID);
+        String gameID = gameDao.createGame(authHandler.getActiveUserID());
+        gameDao.updateGame(gameID, game);
+        tabExplorer.launchGameBuilder(gameID);
+      }
     });
   }
 

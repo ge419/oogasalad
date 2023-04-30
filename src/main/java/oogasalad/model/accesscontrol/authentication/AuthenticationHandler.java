@@ -20,7 +20,7 @@ public interface AuthenticationHandler {
    * @param username The username of the user to log in.
    * @param password The password of the user to log in
    */
-  void login(String username, String password);
+  void login(String username, String password) throws ExecutionException, InterruptedException;
 
   /**
    * Logs out the currently logged-in user.
@@ -32,7 +32,7 @@ public interface AuthenticationHandler {
    * @param username The username of the new user to register.
    * @param password The password of the new user to register.
    */
-  void register(String username, String password);
+  void register(String username, String password) throws ExecutionException, InterruptedException;
 
   /**
    * Returns the login status of the current user.

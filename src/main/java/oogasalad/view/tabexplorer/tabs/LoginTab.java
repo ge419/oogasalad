@@ -2,6 +2,7 @@ package oogasalad.view.tabexplorer.tabs;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import java.util.concurrent.ExecutionException;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -57,7 +58,7 @@ public class LoginTab implements Tab {
 
   }
 
-  private void login(){
+  private void login() throws ExecutionException, InterruptedException {
     String username = tfName.getText();
     String password = pfPwd.getText();
     if (username.length()== 0 || password.length() == 0){

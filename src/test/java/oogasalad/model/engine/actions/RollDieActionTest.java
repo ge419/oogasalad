@@ -12,6 +12,7 @@ import oogasalad.model.engine.EventEmitter;
 import oogasalad.model.engine.events.DieRolledEvent;
 import oogasalad.model.engine.events.MoveEvent;
 import oogasalad.model.engine.prompt.AIPrompter;
+import oogasalad.model.engine.prompt.TestPrompterPositive;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -29,7 +30,7 @@ class RollDieActionTest {
     emitter = mock(EventEmitter.class);
     dieResults = new int[]{4, 4};
 
-    actionParams = new ActionParams(emitter, new AIPrompter());
+    actionParams = new ActionParams(emitter, new TestPrompterPositive());
     action = new RollDieAction(dieResults);
   }
 

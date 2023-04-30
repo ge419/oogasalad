@@ -1,14 +1,21 @@
-//package oogasalad.view.builder;
-//
-//import oogasalad.view.Coordinate;
-//import oogasalad.view.builder.graphs.Graph;
-//import oogasalad.view.tiles.BasicTile;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import util.DukeApplicationTest;
-//import static org.junit.jupiter.api.Assertions.*;
-//
-//public class GraphTest extends DukeApplicationTest {
+package oogasalad.view.builder;
+
+import oogasalad.view.Coordinate;
+import oogasalad.view.builder.graphs.Graph;
+import oogasalad.view.tiles.BasicTile;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import util.DukeApplicationTest;
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * <p>Basic tests of the Graph objects in the BuilderView.</p>
+ *
+ * @Deprecated Graph object is no longer used in the BuilderView, so this test is not necessary.
+ * @author tmh85
+ */
+@Deprecated
+public class GraphTest extends DukeApplicationTest {
 //
 //  Graph myGraph;
 //  BasicTile myBasic;
@@ -43,4 +50,4 @@
 //    assertEquals(myGraph.getNextTiles(myBasic).get(0).getTileId(), 1);
 //    assertEquals(myGraph.getNextTiles(myBasic).get(1).getTileId(), 2);
 //  }
-//}
+}

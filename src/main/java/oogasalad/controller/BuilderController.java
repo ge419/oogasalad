@@ -51,7 +51,7 @@ public class BuilderController {
 
   private static final String DEFAULT_STYLESHEET_DIRECTORY = "/view/builder/";
   private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
-  private static final Logger logger = LogManager.getLogger(BuilderController.class);
+  private static Logger logger = LogManager.getLogger(BuilderController.class);
   private final BuilderView builderView;
   private final GameHolder gameHolder;
   private final GameInfo gameInfo;
@@ -69,7 +69,7 @@ public class BuilderController {
         new BuilderControllerModule(language, saveDir)
     );
     injector.getInstance(SaveManager.class).loadGame();
-
+    readDefaultRules();
     builderView = injector.getInstance(BuilderFactory.class).makeBuilder(language, this);
     viewTileFactory = injector.getInstance(ViewTileFactory.class);
     logger.info("created builder");
@@ -79,7 +79,6 @@ public class BuilderController {
     gameInfo = gameHolder.getGameInfo();
 
     loadIntoBuilder();
-    readDefaultRules();
 
 //    todo: Dominics example code for how to get rules using dependency injection
 //    Injector injector = Guice.createInjector(new EngineModule());
@@ -212,16 +211,22 @@ public class BuilderController {
     );
   }
 
-  public void makeRulesPopup(String tiletype, String ruleAsString) {
+  public boolean makeRulesPopup(String tiletype, String ruleAsString) {
     logger.info("Chose to edit rule " + ruleAsString + " for tiletype " + tiletype);
     // todo: change this to get the rule from whatever string was provided
     EditableRule rule = injector.getInstance(BuyTileRule.class);
     createPopupForm(rule, builderView.getLanguage(), builderView.getPopupPane());
+    return true;
+
+    // RETURN FALSE IF YOU CANNOT GET THE RULE FOR SOME REASON
   }
 
-  public void removeRuleFromTiletype(String tiletype, String ruleAsString) {
+  public boolean removeRuleFromTiletype(String tiletype, String ruleAsString) {
     logger.info("Trying to remove rule " + ruleAsString +
         " from tiletype " + tiletype);
+    return true;
+
+    // RETURN FALSE IF YOU CANNOT REMOVE THE RULE
   }
 
   private void loadIntoBuilder(){
@@ -277,5 +282,9 @@ public class BuilderController {
   private EditableRule readRulesFile(Path path) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
     return mapper.readValue(path.toFile(), EditableRule.class);
+  }
+  public String getRuleDescription(String ruleAsString){
+    return rules.get(ruleAsString);
+//    return "This is a test string! Selected rule: " + ruleAsString;
   }
 }

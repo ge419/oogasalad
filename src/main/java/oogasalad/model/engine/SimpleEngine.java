@@ -38,7 +38,7 @@ public class SimpleEngine implements Engine {
     this.managerProvider = managerProvider;
 
     EventAction startGameAction = new EventAction(new StartGameEvent());
-    actionQueue.add(3, startGameAction);
+    actionQueue.add(Priority.HIGH.getValue(), startGameAction);
   }
 
   @Override

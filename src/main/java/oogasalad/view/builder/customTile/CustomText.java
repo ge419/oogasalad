@@ -1,7 +1,6 @@
 package oogasalad.view.builder.customTile;
 
 import com.google.gson.JsonObject;
-import javafx.beans.property.Property;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -17,6 +16,7 @@ import oogasalad.view.builder.BuilderUtility;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
 public class CustomText extends Label implements CustomElement, BuilderUtility {
@@ -119,7 +119,7 @@ public class CustomText extends Label implements CustomElement, BuilderUtility {
         return jsonObject;
     }
 
-    public VBox getInfo() {
+    public VBox getInfo(ResourceBundle languageBundle) {
         List<Node> nodes = new ArrayList<>();
 
 

@@ -15,6 +15,7 @@ import java.lang.reflect.Constructor;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public interface CustomElement {
     JsonObject save(Path folderPath) throws IOException;
@@ -32,7 +33,7 @@ public interface CustomElement {
             throw new RuntimeException("Error loading CustomElement", e);
         }
     }
-    VBox getInfo();
+    VBox getInfo(ResourceBundle languageBundle);
 
     void setLocation();
 

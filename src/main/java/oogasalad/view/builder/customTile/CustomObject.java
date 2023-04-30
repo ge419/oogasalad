@@ -17,35 +17,27 @@ import java.io.FileReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class CustomObject extends StackPane {
     private final Path RESOURCE_PATH = Paths.get("data/customObjects");
     private final Runnable swapCurrentClicked;
+
+    private final ResourceBundle languageBundle;
+
     private String name;
     VBox currentClickedInfo;
     VBox newCurrentClickedInfo;
 
-
-
-
-//    @Inject
-//    public CustomObject(Runnable swapCurrentClicked, @Assisted SchemaDatabase schemaDatabase){
-//        this.swapCurrentClicked = swapCurrentClicked;
-//    }
-
-
-    public CustomObject(Runnable swapCurrentClicked){
+    public CustomObject(Runnable swapCurrentClicked, ResourceBundle languageBundle){
         this.swapCurrentClicked = swapCurrentClicked;
+        this.languageBundle = languageBundle;
     }
 
     void placeElm(CustomElement newObject) {
         Node newNode = (Node) newObject;
         newNode.setOnMouseClicked(event -> {
-            newCurrentClickedInfo = newObject.getInfo();
+            newCurrentClickedInfo = newObject.getInfo(languageBundle);
             if (newCurrentClickedInfo != currentClickedInfo) {
                 swapCurrentClicked.run();
                 currentClickedInfo = newCurrentClickedInfo;

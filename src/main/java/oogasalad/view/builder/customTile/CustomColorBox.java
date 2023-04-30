@@ -9,13 +9,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import oogasalad.model.attribute.ColorMetadata;
 import oogasalad.model.attribute.Metadata;
-import oogasalad.model.attribute.StringMetadata;
 import oogasalad.view.builder.BuilderUtility;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
@@ -82,7 +80,7 @@ public class CustomColorBox extends Rectangle implements CustomElement, BuilderU
         return jsonObject;
     }
     @Override
-    public VBox getInfo() {
+    public VBox getInfo(ResourceBundle languageBundle) {
         ArrayList colorBoxSpecificElements = new ArrayList();
         Label widthLabel = new Label("Width");
         colorBoxSpecificElements.add(widthLabel);

@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
@@ -21,6 +20,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class CustomImage extends ImageView implements CustomElement {
 
@@ -67,7 +67,7 @@ public class CustomImage extends ImageView implements CustomElement {
         this.setFitHeight(scale * height);
     }
 
-    public VBox getInfo() {
+    public VBox getInfo(ResourceBundle languageBundle) {
         List<Node> imageSpecificNodes = new ArrayList<>();
 
         // Create a label for the size slider

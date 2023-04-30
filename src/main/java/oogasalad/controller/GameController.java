@@ -12,13 +12,13 @@ import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.engine.Engine;
 import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.Rule;
+import oogasalad.model.observers.GameObserver;
 import oogasalad.util.SaveManager;
 import oogasalad.view.ViewFactory;
 import oogasalad.view.gameplay.Gameview;
 import oogasalad.view.gameplay.SetDieRule;
 
-public class GameController {
-
+public class GameController implements GameObserver {
   private final Engine engine;
   private final Gameview gv;
   private final GameHolder game;
@@ -34,9 +34,10 @@ public class GameController {
     this.game = injector.getInstance(GameHolder.class);
     PrompterFactory prompterFactory = injector.getInstance(PrompterFactory.class);
     this.prompter = prompterFactory.makeHumanPrompter(
-        effect -> effects.add(effect),
+        effects::add,
         gv
     );
+    game.register(this);
   }
 
   public void setGame(Stage gameStage) throws IOException {
@@ -60,5 +61,9 @@ public class GameController {
     }
   }
 
+  @Override
+  public void updateOnGameEnd() {
+
+  }
 }
 

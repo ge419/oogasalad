@@ -120,6 +120,12 @@ public class Tile extends AbstractGameConstruct {
   }
 
   @JsonIgnore
+  public double getAngle() {return getCoordinate().getAngle();}
+
+  @JsonIgnore
+  public void setAngle(double angle) {positionAttribute().setAngle(angle);}
+
+  @JsonIgnore
   public DoubleAttribute widthAttribute() {
     return DoubleAttribute.from(getAttribute(WIDTH_ATTRIBUTE).get());
   }

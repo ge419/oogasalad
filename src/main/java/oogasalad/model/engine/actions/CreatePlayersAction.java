@@ -8,10 +8,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
+import oogasalad.model.engine.EngineResourceBundle;
 import oogasalad.model.engine.events.PlayerCreationEvent;
 import oogasalad.model.engine.prompt.IntegerPromptOption;
 import oogasalad.model.exception.ResourceReadException;
@@ -26,6 +28,7 @@ public class CreatePlayersAction implements Action {
   private final GameHolder gameholder;
   private final int minPlayerNumber;
   private final int maxPlayerNumber;
+  private final ResourceBundle bundle;
 
   @Inject
   public CreatePlayersAction(
@@ -33,13 +36,15 @@ public class CreatePlayersAction implements Action {
       Provider<Piece> pieceProvider,
       GameHolder holder,
       @Assisted("min") int min,
-      @Assisted("max") int max
+      @Assisted("max") int max,
+      @EngineResourceBundle ResourceBundle bundle
       ) {
     this.playerProvider = playerProvider;
     this.pieceProvider = pieceProvider;
     this.gameholder = holder;
     this.minPlayerNumber = min;
     this.maxPlayerNumber = max;
+    this.bundle = bundle;
   }
 
   @Override
@@ -48,7 +53,7 @@ public class CreatePlayersAction implements Action {
     for (int i = this.minPlayerNumber; i <= this.maxPlayerNumber; i++) {
       options.add(new IntegerPromptOption(i));
     }
-    actionParams.prompter().selectSingleOption("Select number of players", options, this::createPlayers);
+    actionParams.prompter().selectSingleOption(bundle.getString(getClass().getSimpleName()), options, this::createPlayers);
     LOGGER.info("Create Game Players upon User Selection");
     actionParams.emitter().emit(new PlayerCreationEvent());
     LOGGER.info("Emit Player Creation Event");

@@ -4,7 +4,9 @@ public class BooleanPromptOption implements PromptOption {
 
   private final boolean value;
 
-  public BooleanPromptOption(boolean value) {
+  public BooleanPromptOption(
+      boolean value
+  ) {
     this.value = value;
   }
 

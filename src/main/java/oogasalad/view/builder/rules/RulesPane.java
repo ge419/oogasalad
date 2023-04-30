@@ -44,7 +44,7 @@ public class RulesPane extends BorderPane {
       // tell builder controller to give me the properties for this rule.
       String selectedRule = myRulesList.getSelectionModel().getSelectedItem();
       String selectedTiletype = myCheckbox.getSelectionModel().getSelectedItem();
-      myBuilderController.makeRulesPopup(selectedTiletype, selectedRule);
+      myBuilderController.makeRulesPopup(selectedRule);
     });
 
     myDeleteButton.setOnAction(e -> {

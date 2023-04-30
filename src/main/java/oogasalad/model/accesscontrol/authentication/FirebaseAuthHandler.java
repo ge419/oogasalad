@@ -19,9 +19,6 @@ public class FirebaseAuthHandler implements AuthenticationHandler {
   @Override
   public void login(String username, String password)
       throws ExecutionException, InterruptedException {
-    if (!userDao.isUserRegistered(username)){
-      register( username,  password);
-    }
     activeUserUsername = username;
     activeUserID = userDao.getUserID(username);
     setUserLogInStatus(true);

@@ -25,11 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.transform.Rotate;
 import javafx.stage.FileChooser;
-import oogasalad.model.attribute.Metadata;
-import oogasalad.model.attribute.ObjectSchema;
-import oogasalad.model.attribute.SchemaDatabase;
-import oogasalad.model.attribute.SimpleObjectSchema;
-import oogasalad.model.attribute.StringAttribute;
+import oogasalad.model.attribute.*;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.Coordinate;
 import oogasalad.view.tiles.ViewTile;
@@ -38,7 +34,7 @@ import org.apache.logging.log4j.Logger;
 
 public class CustomTileRendering extends Group implements ViewTile {
     private static final Logger LOGGER = LogManager.getLogger(CustomTileRendering.class);
-    private double SCALE_DOWN_FACTOR = .4;
+    private double SCALE_DOWN_FACTOR = .3;
     private Color color;
 
     private Map<String, CustomElement> customElementMap;
@@ -66,10 +62,17 @@ public class CustomTileRendering extends Group implements ViewTile {
             ArrayList<String> names = new ArrayList<>(modelTile.getSchemaNames());
             names.add(newSchema.getName());
             modelTile.setSchemaNames(names);
+//            for (String name : names){
+//                modelTile.addSchema(name);
+//            }
             for (String name : names){
-                modelTile.addSchema(name);
+                System.out.println("name = " + name);;
+            }
+            for (Attribute a :  modelTile.getAllAttributes()){
+                System.out.println(a.getKey() + " " +  a.toString());
             }
             bindListeners(newSchema.getAllMetadata().stream().map(Metadata::getKey).toList());
+
         }
         else{
             try {
@@ -134,7 +137,6 @@ public class CustomTileRendering extends Group implements ViewTile {
                 name = jsonObject.get("name").getAsString();
                 JsonArray customObjects = jsonObject.getAsJsonArray("customObjects");
                 List<Metadata> metadataList = new ArrayList<>();
-                //metadataList.add(makeNameMetadata());
                 customElementMap = new HashMap<>();
                 for (JsonElement jsonElement : customObjects) {
                     JsonObject customObject = jsonElement.getAsJsonObject();
@@ -160,6 +162,9 @@ public class CustomTileRendering extends Group implements ViewTile {
 
         return new SimpleObjectSchema(UUID.randomUUID().toString(), List.of());
     }
+
+//    private Metadata makeNameMetadata() {
+//    }
 
     private JsonObject readJsonFromFile(File file) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {

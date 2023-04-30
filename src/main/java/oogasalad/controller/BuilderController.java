@@ -49,7 +49,7 @@ public class BuilderController {
   private SchemaDatabase db;
   private ViewTileFactory viewTileFactory;
   private BBoard board;
-  private SaveManager saveManager;
+//  private SaveManager saveManager;
   private final Injector injector;
 
   public BuilderController(String language, Path saveDir) {
@@ -118,7 +118,8 @@ public class BuilderController {
   }
 
   public void save() {
-    saveManager.saveGame();
+    injector.getInstance(SaveManager.class).saveGame();
+//    saveManager.saveGame();
 //    ImageList --> loop through and apply saveAsset to all imgages
 //    saveManager.saveAsset();
   }

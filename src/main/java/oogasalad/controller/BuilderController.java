@@ -51,6 +51,7 @@ public class BuilderController {
 
   private static final String DEFAULT_STYLESHEET_DIRECTORY = "/view/builder/";
   private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
+  private static final String RULE_PATH = "schemas/rules";
   private static Logger logger = LogManager.getLogger(BuilderController.class);
   private final BuilderView builderView;
   private final GameHolder gameHolder;
@@ -267,7 +268,7 @@ public class BuilderController {
   private void readDefaultRules() {
     try{
       rules = new HashMap<>();
-      for (File file: FileReader.readFiles("rules")) {
+      for (File file: FileReader.readFiles(RULE_PATH)) {
         EditableRule rule = readRulesFile(file.toPath());
         String name = StringAttribute.from(rule.getAttribute(RULE_NAME_KEY).get()).getValue();
         String desc = StringAttribute.from(rule.getAttribute(RULE_DESCRIPTION_KEY).get()).getValue();

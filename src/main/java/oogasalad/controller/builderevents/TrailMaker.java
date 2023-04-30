@@ -45,11 +45,13 @@ public class TrailMaker implements TrailMakerAPI {
     myMap.put(trailID, trail);
     myPane.getChildren().add(newLine);
 
-    //System.out.println("made trail");
+    System.out.println("made trails: " + myMap.keySet());
   }
 
   @Override
   public void removeTrail(String trailID) {
+    System.out.println(myMap.keySet());
+    System.out.println(trailID);
     myPane.getChildren().remove(myMap.get(trailID).line());
     myMap.remove(trailID);
   }
@@ -84,8 +86,10 @@ public class TrailMaker implements TrailMakerAPI {
   @Override
   public String getTrailID(Node entry1, Node entry2) {
     for (String ID : myMap.keySet()) {
-      if (myMap.get(ID).startNode().equals(entry1)) {
-        if (myMap.get(ID).endNode().equals(entry2)) {
+      if (myMap.get(ID).startNode().equals(entry2)) {
+        System.out.println("well we got here");
+        if (myMap.get(ID).endNode().equals(entry1)) {
+          System.out.println("well we finish the job");
           return ID;
         }
       }

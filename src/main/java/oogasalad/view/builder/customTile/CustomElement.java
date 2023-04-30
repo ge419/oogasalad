@@ -45,7 +45,7 @@ public interface CustomElement {
 
     Metadata getMetaData();
 
-    //void setValue(String loadedValue);
+    void setValue(String loadedValue);
 
 
     //TODO Figure out why the CustomImage class isn't found on reflect

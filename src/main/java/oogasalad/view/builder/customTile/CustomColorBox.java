@@ -140,4 +140,10 @@ public class CustomColorBox extends Rectangle implements CustomElement {
         //TODO MAKE COLORBOX METADATA
         return new StringMetadata("Reminder to create COLORBOX METADATA");
     }
+
+    @Override
+    public void setValue(String loadedValue) {
+        this.defaultColor = loadedValue;
+        this.setFill(Color.web(UNDERSPECIFIED_COLOR, this.defaultOpacity));
+    }
 }

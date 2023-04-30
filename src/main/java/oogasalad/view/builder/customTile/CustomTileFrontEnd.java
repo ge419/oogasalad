@@ -46,8 +46,7 @@ public class CustomTileFrontEnd extends Group implements ViewTile {
     @Inject
     public CustomTileFrontEnd(@Assisted Tile BTile, SchemaDatabase database) {
         this.modelTile = BTile;
-        String jsonFile = "";
-                //StringAttribute.from(modelTile.getAttribute("customJson").get()).getValue();
+        String jsonFile = StringAttribute.from(modelTile.getAttribute("customJson").get()).getValue();
 
         /*
         If jsonFile is empty this is coming from the builder
@@ -83,7 +82,7 @@ public class CustomTileFrontEnd extends Group implements ViewTile {
             CustomElement loadedObject = CustomElement.load(customObject);
             String loadedValue = StringAttribute.from(modelTile.getAttribute(loadedObject.getName()).get()).getValue();
             if (!loadedValue.isEmpty()) {
-                //loadedObject.setValue(loadedValue);
+                loadedObject.setValue(loadedValue);
             }
             if (loadedObject.getIndex() != -1){
                 s.getChildren().add(loadedObject.getIndex(), (Node) loadedObject);

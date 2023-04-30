@@ -182,9 +182,10 @@ public class CustomImage extends ImageView implements CustomElement {
         metadata.setDescription("The path to " + temp + " image");
         return metadata;
     }
-//    @Override
-//    public void setValue(String loadedValue) {
-//        this.originalFile = new File(loadedValue);
-//        this.setImage(new Image(originalFile.toURI().toString()));
-//    }
+    @Override
+    public void setValue(String loadedValue) {
+        this.originalFile = new File(loadedValue);
+        this.destinationPath = Paths.get(loadedValue);
+        this.setImage(new Image(originalFile.toURI().toString()));
+    }
 }

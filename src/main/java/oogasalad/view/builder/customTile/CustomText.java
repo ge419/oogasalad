@@ -186,9 +186,10 @@ public class CustomText extends Label implements CustomElement {
         }
     }
 
-//    @Override
-//    public void setValue(String loadedValue) {
-//        this.setText();
-//    }
+    @Override
+    public void setValue(String loadedValue) {
+        this.setText(loadedValue);
+        this.defaultContents = loadedValue;
+    }
 
 }

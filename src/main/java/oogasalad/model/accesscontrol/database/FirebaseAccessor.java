@@ -2,6 +2,7 @@ package oogasalad.model.accesscontrol.database;
 
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.FieldValue;
@@ -12,6 +13,7 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.inject.Inject;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +47,23 @@ public class FirebaseAccessor implements DatabaseAccessor{
     db.collection("users").document(username).set(userData);
   }
 
+  @Override
+  public void setUserName(String userID, String newUsername) {
+
+  }
+
+  @Override
+  public void setUserFullName(String userID, String newUserFullName) {
+
+  }
+
+  @Override
+  public void getGames(String userID) {
+
+  }
+
+
+  // todo should be moved to
   public boolean isUserRegistered(String userID){
     DocumentReference docRef = db.collection("users").document(userID);
     ApiFuture<DocumentSnapshot> future = docRef.get();
@@ -66,10 +85,16 @@ public class FirebaseAccessor implements DatabaseAccessor{
     ApiFuture<WriteResult> arrayUnion =
         userRef.update("games", FieldValue.arrayUnion(game));
   }
+
   @Override
-  public void editGame(String gameID, Map<String, Object> game) {
+  public void updateGame(String gameID, Map<String, Object> game) {
 
   }
+
+//  @Override
+//  public void editGame(String gameID, Map<String, Object> game) {
+//
+//  }
   @Override
   public List<Map<String, Object>> getGamesForUser(String userID) {
     DocumentReference userRef = db.collection("users").document(userID);
@@ -99,5 +124,45 @@ public class FirebaseAccessor implements DatabaseAccessor{
   @Override
   public void cloneGame(String gameID, String userID) {
 
+  }
+
+  @Override
+  public void unCloneGame(String userID, String gameID) {
+
+  }
+
+  @Override
+  public void deleteGame(String userID, String gameID) {
+
+  }
+
+  @Override
+  public void setPassword(String userID, String newPwd) {
+
+  }
+
+  @Override
+  public Date getDateJoined(String userID) {
+    return null;
+  }
+
+  @Override
+  public String getEmailAddress(String userID) {
+    return null;
+  }
+
+  @Override
+  public void setEmailAddress(String userID, String email) {
+
+  }
+
+  @Override
+  public String getAge(String userID) {
+    return null;
+  }
+
+  @Override
+  public String setAge(String userID, int age) {
+    return null;
   }
 }

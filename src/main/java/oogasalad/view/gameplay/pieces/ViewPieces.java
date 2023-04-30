@@ -11,9 +11,9 @@ public class ViewPieces implements Renderable {
 
   private final List<PlayerPiece> pieceList;
 
-  public ViewPieces(Optional<List<Piece>> p) {
+  public ViewPieces(List<Piece> p) {
     this.pieceList = new ArrayList<>();
-      for (Piece piece : p.get()) {
+      for (Piece piece : p) {
         pieceList.add(new PlayerPiece(piece));
     }
   }

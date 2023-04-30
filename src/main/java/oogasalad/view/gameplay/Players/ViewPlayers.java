@@ -2,20 +2,17 @@ package oogasalad.view.gameplay.Players;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
-import javax.swing.text.html.Option;
 import oogasalad.model.constructable.Players;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Renderable;
 
 public class ViewPlayers implements Renderable {
 
-  Optional<Players> BPlayers;
+  Players BPlayers;
   private final List<PlayerUI> playerList = new ArrayList<>();
 
-  public ViewPlayers(Optional<Players> p) {
+  public ViewPlayers(Players p) {
     this.BPlayers = p;
   }
 
@@ -30,10 +27,10 @@ public class ViewPlayers implements Renderable {
 
   @Override
   public void render(BorderPane pane) {
-      for (int i = 0; i < BPlayers.get().getPlayers().size(); i++) {
+      for (int i = 0; i < BPlayers.getList().size(); i++) {
         //TODO: take in backend player
-        Coordinate playerCoordinate = playerPosition(i, BPlayers.get().getPlayers().size(), 1500, 1000);
-        PlayerUI playerUI = new PlayerUI(BPlayers.get().getPlayers().get(i), playerCoordinate);
+        Coordinate playerCoordinate = playerPosition(i, BPlayers.getList().size(), 1500, 1000);
+        PlayerUI playerUI = new PlayerUI(BPlayers.getList().get(i), playerCoordinate);
         playerList.add(playerUI);
         pane.getChildren().add(playerUI);
     }

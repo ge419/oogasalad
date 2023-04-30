@@ -17,15 +17,12 @@ import oogasalad.model.observers.Observable;
 
 @Singleton
 public class GameHolder implements Observable<GameObserver> {
-
-  private int minPlayerNum = 1;
-  private int maxPlayerNum = 4;
   private GameInfo gameInfo;
   private BBoard board;
-  private Optional<Players> players;
+  private Players players;
   private Player currentPlayer;
   private Player previousPlayer;
-  private Optional<List<Piece>> pieces;
+  private List<Piece> pieces;
   private final ListProperty<Rule> rules = new SimpleListProperty<>(
       FXCollections.observableArrayList());
 
@@ -35,7 +32,7 @@ public class GameHolder implements Observable<GameObserver> {
     setGameInfo(new GameInfo());
     setBoard(new BBoard());
     setPlayers(new Players());
-    pieces = Optional.of(new ArrayList<>());
+    pieces = new ArrayList<>();
   }
 
   public GameInfo getGameInfo() {
@@ -55,38 +52,28 @@ public class GameHolder implements Observable<GameObserver> {
   }
 
   @JsonIgnore
-  public int minPlayer() {
-    return this.minPlayerNum;
-  }
-
-  @JsonIgnore
-  public int maxPlayer() {
-    return this.maxPlayerNum;
-  }
-
-  @JsonIgnore
   public void setPieces(List<Piece> pieces) {
-    this.pieces = Optional.ofNullable(pieces);
+    this.pieces = pieces;
   }
 
   @JsonIgnore
-  public Optional<List<Piece>> getPieces() {
+  public List<Piece> getPieces() {
     return this.pieces;
   }
 
   @JsonIgnore
-  public Optional<Players> getPlayers() {
+  public Players getPlayers() {
     return this.players;
   }
 
   @JsonIgnore
   public void setPlayers(Players players) {
-    this.players = Optional.ofNullable(players);
+    this.players = players;
   }
 
   @JsonIgnore
   public void removePlayers(List<Player> playersList) {
-    this.players.get().getPlayers().removeAll(playersList);
+    this.players.getList().removeAll(playersList);
     this.notifyRemoval(playersList);
   }
 
@@ -106,7 +93,7 @@ public class GameHolder implements Observable<GameObserver> {
   }
 
   public Optional<Player> getPlayerById(String id) {
-    return players.get().getById(id);
+    return players.getById(id);
   }
 
   public Optional<Tile> getTileById(String id) {
@@ -114,7 +101,7 @@ public class GameHolder implements Observable<GameObserver> {
   }
 
   public Optional<Piece> getPieceById(String id) {
-    return players.get().getPieceById(id);
+    return players.getPieceById(id);
   }
 
 
@@ -145,8 +132,8 @@ public class GameHolder implements Observable<GameObserver> {
   @Override
   public void notifyList() {
     for (GameObserver observer : observers) {
-      observer.updateOnPlayers(this.players.get());
-      observer.updateOnPieces(this.pieces.get());
+      observer.updateOnPlayers(this.players);
+      observer.updateOnPieces(this.pieces);
     }
   }
 

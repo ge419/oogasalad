@@ -77,7 +77,7 @@ public class CreatePlayersAction implements Action {
 
   private Map<Player, List<Piece>> setPlayersPieces(int piecePerPlayer, Players players) {
     Map<Player, List<Piece>> playerPieceMap = new HashMap<>();
-    for (Player p : players.getPlayers()) {
+    for (Player p : players.getList()) {
       List<Piece> pieceList = new ArrayList<>();
       for (int j = 0; j < piecePerPlayer; j++) {
         Piece piece = pieceProvider.get();

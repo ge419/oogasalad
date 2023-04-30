@@ -37,7 +37,7 @@ public class GameController {
     this.engine = injector.getInstance(Engine.class);
     this.game = injector.getInstance(GameHolder.class);
     this.prompterFactory = injector.getInstance(PrompterFactory.class);
-    this.prompter = prompterFactory.makeDualPrompter(
+    this.prompter = prompterFactory.makeHumanPrompter(
         effect -> effects.add(effect),
         gv
     );
@@ -58,7 +58,6 @@ public class GameController {
 
   public void doEffect() {
     if (!effects.isEmpty()) {
-      // If there is a pending effect, perform it and do the next one once done
       effects.poll().present(this::doEffect);
     } else {
       this.run();

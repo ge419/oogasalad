@@ -88,7 +88,6 @@ public class Gameview implements GameObserver {
       cards.render(popup);
       List<ViewTile> cardList = cards.getCardList();
       popup.addCards(cardList);
-//      Node anchor = UIroot.getScene().getWindow();
       Point2D offset = new Point2D(UIroot.getLayoutX(), UIroot.getLayoutY());
       popup.showHand(UIroot, offset);
     });

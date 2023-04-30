@@ -142,4 +142,10 @@ public class GameHolder implements Observable<GameObserver> {
       observer.updateOnPlayerRemoval(players);
     }
   }
+
+  public void notifyGameEnd() {
+    for (GameObserver observer : observers) {
+      observer.updateOnGameEnd();
+    }
+  }
 }

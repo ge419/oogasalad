@@ -154,4 +154,9 @@ public class Gameview implements GameObserver {
       alert.showAndWait();
     }
   }
+
+  @Override
+  public void updateOnGameEnd() {
+
+  }
 }

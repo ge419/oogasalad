@@ -209,7 +209,6 @@ public class BuilderController {
   }
 
   public String getClassForRule(String ruleClass) {
-
     resources.getString(ruleClass);
     return "";
   }

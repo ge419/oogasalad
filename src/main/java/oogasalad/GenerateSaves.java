@@ -38,7 +38,7 @@ public class GenerateSaves {
         new ObjectMapperModule(),
         new SaveManagerModule(savePath),
         new AttributeModule(),
-        new EngineModule(),
+        new EngineModule("English"),
         binder -> binder.bind(Prompter.class).toInstance(new AIPrompter())
     );
 

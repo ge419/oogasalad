@@ -3,7 +3,6 @@ package oogasalad.view.builder;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import javafx.stage.FileChooser;
@@ -13,10 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.testfx.service.query.EmptyNodeQueryException;
-import org.testfx.service.query.PointQuery;
 import util.DukeApplicationTest;
 
-public class BuilderViewTest extends DukeApplicationTest {
+public class TileInteractionTests extends DukeApplicationTest {
 
   @Mock
   FileChooser fileChooser = Mockito.mock(FileChooser.class);

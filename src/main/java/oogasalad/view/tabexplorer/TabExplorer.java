@@ -1,21 +1,28 @@
 package oogasalad.view.tabexplorer;
 
 import com.google.inject.Inject;
+import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import oogasalad.model.accesscontrol.authentication.AuthenticationHandler;
-import oogasalad.model.accesscontrol.database.DatabaseAccessor;
+import oogasalad.model.accesscontrol.dao.UserDao;
+import oogasalad.model.accesscontrol.database.schema.UserSchema;
 import oogasalad.view.tabexplorer.tabs.GameLauncherTab;
 import oogasalad.view.tabexplorer.tabs.LoginTab;
 import oogasalad.view.tabexplorer.tabs.Tab;
 import oogasalad.view.tabexplorer.tabs.TabFactory;
+import oogasalad.view.tabexplorer.tabs.settings.SettingsTab;
+import oogasalad.view.tabexplorer.tabs.socialcenter.SocialCenterTab;
+import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
 
 /**
@@ -28,125 +35,203 @@ import oogasalad.view.tabexplorer.tabs.TabFactory;
 public class TabExplorer {
 
   private final TabFactory tabFactory;
-  private final AuthenticationHandler authHandler;
-  private final DatabaseAccessor db;
-  private final Stage primaryStage;
+  private AuthenticationHandler authHandler;
+  private Stage primaryStage;
   private BorderPane root;
   private Button gameLauncherButton;
   private Button socialCenterButton;
   private Button userProfileButton;
   private Button userPreferencesButton;
+  private MenuButton menuButton;
+  private MenuItem setting;
+  private MenuItem logout;
   private Button loginButton;
   private GameLauncherTab gameLauncherTab;
+  private SocialCenterTab socialCenterTab;
+  private SettingsTab settingsTab;
   private LoginTab loginTab;
-  private final NavBar navBar;
+  private NavBar navBar;
+  private UserDao userDao;
+  private ResourceBundle languageResourceBundle;
+  private String preferred_language;
+  private String preferred_theme;
+  //  public static String LANGUAGE_PROPERTIES_PATH = "tabexplorer.languages.";
+  private static String STYLESHEET_PROPERTIES_PATH = "/tabexplorer/stylesheets/";
+  private static final int STAGE_WIDTH = 700;
+  private static final int STAGE_HEIGHT= 700;
+  private UserPreferences userPref;
+  private Scene scene;
 
 
-  /** Creates a new TabExplorer instance with the specified dependencies.
-   *  @param authHandler The AuthenticationHandler used to manage user authentication.
-   *  @param db The DatabaseAccessor used to interact with the app's database.
-   *  @param primaryStage The main Stage object used to display the app's UI.
-   *  @param navBar The NavBar object used to display the app's navigation bar.
-   *  @param tabFactory The TabFactory object used to create and manage the app's tabs.
+
+  /**
+   *
+   * @param authHandler
+   * @param primaryStage
+   * @param navBar
+   * @param tabFactory
    */
+
   @Inject
-  public TabExplorer(AuthenticationHandler authHandler, DatabaseAccessor db, Stage primaryStage,
-      NavBar navBar,
-      TabFactory tabFactory) {
+  public TabExplorer(AuthenticationHandler authHandler, Stage primaryStage, NavBar navBar,
+      TabFactory tabFactory, UserDao userDao, UserPreferences userPref, ResourceBundle languageResourceBundle){
     this.authHandler = authHandler;
-    this.db = db;
     this.primaryStage = primaryStage;
     this.navBar = navBar;
     this.tabFactory = tabFactory;
-    gameLauncherButton = navBar.getGameLauncherButton();
+    this.userDao = userDao;
+    this.languageResourceBundle = languageResourceBundle;
+    this.userPref = userPref;
+//    languageResourceBundle = userPref.getLanguageResourceBundle();
+//    gameLauncherButton = navBar.getGameLauncherButton();
+    userPref.addObserver(this::onLanguageChange);
     initTabs();
     initButtons();
 
   }
 
-  /**
-   * Renders the app's UI by setting up the root BorderPane and displaying the default tab.
-   */
-  public void render() {
+  public void render(){
     root = new BorderPane();
     root.setTop(navBar.getNavBarLayout());
     displayDefaultTab();
-    primaryStage.setTitle("B-cubed");
-    primaryStage.setScene(new Scene(root, 700, 700));
+    primaryStage.setTitle(languageResourceBundle.getString("PrimaryStageTitle"));
+    scene = new Scene(root, STAGE_WIDTH, STAGE_HEIGHT);
+    String styleSheet = getClass().getResource(STYLESHEET_PROPERTIES_PATH+"light.css").toExternalForm();
+    System.out.println(styleSheet);
+    scene.getStylesheets().add(styleSheet);
+    primaryStage.setScene(scene);
     primaryStage.show();
   }
 
-  /**
-   * Sets the currently displayed tab to the specified Node.
-   * @param node The Node to set as the current tab.
-   */
-  public void setCurrentTab(Node node) {
+  public void setCurrentTab(Node node){
     root.setCenter(node);
   }
 
   /**
-   * Displays the default tab, which is either the GameLauncherTab or the LoginTab,
-   * depending on the user's login status.
+   * displayDefaultTab()...when logged in, GameLauncher, else LoginTab
    */
-  public void displayDefaultTab() {
-    if (authHandler.getUserLogInStatus()) {
+  public void displayDefaultTab(){
+    if (authHandler.getUserLogInStatus()){
+//      setLanguageResourceBundle();
+//       userPref.setLanguageResourceBundle(authHandler.getActiveUserID());
+      renderMenuButton();
+//      refreshNavBar();
+      initMenuButton();
       gameLauncherTab.renderTabContent();
-    } else {
+    } else{
       requestSignIn();
     }
   }
 
-  /**
-   * Handles a click on the login button by either logging the user out if they are already
-   * logged in, or displaying the LoginTab if they are not logged in.
-   */
-  public void handleLoginBtnClick() {
-    if (authHandler.getUserLogInStatus()) {
+  public void handleLoginBtnClick(){
+    if (authHandler.getUserLogInStatus()){
       authHandler.logout();
-      render(); //displayDefaultTab
-    } else {
+      navBar.setLoginButton();
+      displayDefaultTab(); //displayDefaultTab
+    } else{
       loginTab.renderTabContent();
     }
   }
 
-  private void handleButtonClick(Tab tab) {
-    if (authHandler.getUserLogInStatus()) {
+
+  public void refreshNavBar(){
+//    renderMenuButton();
+    String name = (String) userDao.getUserData(authHandler.getActiveUserID()).get(UserSchema.NAME.getFieldName());
+    navBar.updateMenuButton(name, authHandler.getActiveUserName(), authHandler.getActiveUserID());
+//    navBar.refresh();
+    System.out.println("in refresh nav bar");
+  }
+
+
+
+  public void updateUserPrefLanguage(String preferred_language){
+//    userPref.setUserPreferredLanguage(authHandler.getActiveUserID(), preferred_language);
+    userPref.setPreferredLanguage(preferred_language);
+//    refreshNavBar();
+  }
+
+  public void updateTheme(String newTheme){
+    String styleSheet = getClass().getResource(STYLESHEET_PROPERTIES_PATH+newTheme+".css").toExternalForm();
+    System.out.println(styleSheet);
+    scene.getStylesheets().clear();
+    scene.getStylesheets().add(styleSheet);
+  }
+
+
+  private void onLanguageChange(String pathToLanguageBundle){
+    languageResourceBundle = ResourceBundle.getBundle(pathToLanguageBundle);
+    primaryStage.setTitle(languageResourceBundle.getString("PrimaryStageTitle"));
+  }
+
+
+
+  private void renderMenuButton(){
+    String name = (String) userDao.getUserData(authHandler.getActiveUserID()).get(UserSchema.NAME.getFieldName());
+    navBar.setMenuButton(name, authHandler.getActiveUserName(), authHandler.getActiveUserID());
+    menuButton = navBar.getMenuButton();
+    setting = navBar.getSettingMenuItem();
+    logout = navBar.getLogoutMenuItem();
+    initMenuItems();
+  }
+
+  private void initMenuButton(){
+    menuButton = navBar.getMenuButton();
+    setting = navBar.getSettingMenuItem();
+    logout = navBar.getLogoutMenuItem();
+    initMenuItems();
+  }
+
+  private void initMenuItems(){
+    setting.setOnAction(e->{handleButtonClick(settingsTab);});
+    logout.setOnAction(e->handleLoginBtnClick());
+  }
+
+
+  private void handleButtonClick(Tab tab){
+    if (authHandler.getUserLogInStatus()){
+      refreshNavBar(); //latency issues sometiems DB call is slow from settings, doing this as a hack
       tab.renderTabContent();
-    } else {
+    }else{
       requestSignIn();
     }
   }
 
-  private void initTabs() {
-    // gameLauncherTab = inject.getInstance(
-    gameLauncherTab = tabFactory.makeGameLauncherTab(this);
-    loginTab = tabFactory.makeLoginTab(this);
+
+
+  public void setLanguageResourceBundle(){
+//    preferred_language = (String) userDao.getUserData(authHandler.getActiveUserID()).get(UserSchema.PREFERRED_LANGUAGE.getFieldName());
+//    System.out.println("Preferred Language: "+preferred_language);
+//    languageResourceBundle = ResourceBundle.getBundle(LANGUAGE_PROPERTIES_PATH +preferred_language);
   }
 
-  private void initButtons() {
+  private void initTabs(){
+    gameLauncherTab = tabFactory.makeGameLauncherTab(this);
+    loginTab = tabFactory.makeLoginTab(this);
+    socialCenterTab = tabFactory.makeSocialCenterTab(this);
+    settingsTab = tabFactory.makeSettingsTab(this);
+  }
+
+  private void initButtons(){
     // get buttons from navbar
     gameLauncherButton = navBar.getGameLauncherButton();
     socialCenterButton = navBar.getSocialCenterButton();
-    userProfileButton = navBar.getUserProfileButton();
-    userPreferencesButton = navBar.getUserPreferencesButton();
     loginButton = navBar.getLoginButton();
-    // set buttons action
-    gameLauncherButton.setOnAction(e -> {
-      handleButtonClick(gameLauncherTab);
-    });
-    loginButton.setOnAction(e -> {
-      handleLoginBtnClick();
-    });
+
+
+    gameLauncherButton.setOnAction(e->{handleButtonClick(gameLauncherTab);});
+    loginButton.setOnAction(e->{
+      handleLoginBtnClick();});
+    socialCenterButton.setOnAction(e->handleButtonClick(socialCenterTab));
   }
 
-  private void requestSignIn() {
-    Text loginText = new Text("Please ");
-    Hyperlink loginLink = new Hyperlink("login");
+  private void requestSignIn(){
+    Text loginText = new Text(languageResourceBundle.getString("Please"));
+    Hyperlink loginLink = new Hyperlink(languageResourceBundle.getString("Login"));
     loginLink.setOnAction(event -> {
       // call the login method when the login link is clicked
       handleLoginBtnClick();
     });
-    Text startText = new Text(" to start.");
+    Text startText = new Text(languageResourceBundle.getString("ToStart"));
     HBox pleaseLoginBox = new HBox();
     pleaseLoginBox.setAlignment(Pos.CENTER);
     pleaseLoginBox.getChildren().addAll(loginText, loginLink, startText);

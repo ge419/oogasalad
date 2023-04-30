@@ -29,6 +29,7 @@ import oogasalad.view.gameplay.Players.ViewPlayers;
 import oogasalad.view.gameplay.pieces.ViewPieces;
 import oogasalad.view.gameplay.pieces.Cards;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
+import oogasalad.view.gameplay.popup.CardDisplayPopup;
 import oogasalad.view.gameplay.popup.HandDisplayPopup;
 import oogasalad.view.tiles.Tiles;
 import oogasalad.view.tiles.ViewTile;
@@ -86,14 +87,21 @@ public class Gameview implements GameObserver {
     //TODO: take this out when cards are implemented
     Button button = new Button("Show Card Popup");
     button.setOnAction(event -> {
-      Cards cards = new Cards(game.getBoard().getTiles());
       HandDisplayPopup popup = new HandDisplayPopup();
+      Cards cards = new Cards(game.getBoard().getTiles());
       cards.render(popup);
       List<ViewTile> cardList = cards.getCardList();
       popup.addCards(cardList);
+      popup.cardClickedHandler(card -> {
+        //TODO: add text
+        String cardText = "card.getTileId();";
+        CardDisplayPopup cardPopup = new CardDisplayPopup(cardText);
+        cardPopup.showCard();
+      });
       Point2D offset = new Point2D(UIroot.getLayoutX(), UIroot.getLayoutY());
       popup.showHand(UIroot, offset);
     });
+
 
 
     HBox hbox = new HBox();

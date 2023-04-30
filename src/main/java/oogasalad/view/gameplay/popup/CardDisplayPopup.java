@@ -1,37 +1,50 @@
-//package oogasalad.view.gameplay.popup;
-//
-//import javafx.geometry.Point2D;
-//import javafx.scene.Node;
-//import javafx.scene.layout.BorderPane;
-//import javafx.stage.Popup;
-//import oogasalad.view.gameplay.pieces.ImageCard;
-//
-//public class CardDisplayPopup extends Popups {
-//
-//  private Popup popup;
-//
-//  public CardDisplayPopup(ImageCard card) {
-//    super();
-//    popup = getNewPopup();
-//    ImageCard dummyCard = new ImageCard(card.getImageURL());
-//    ((BorderPane)popup.getContent().get(0)).setCenter(dummyCard);
-//    popup.setOnHidden(event -> {
-//      hideHand();
-//    });
-//    popup.setAutoHide(true);
-//    popup.setHideOnEscape(true);
-//  }
-//  @Override
-//  public void showHand(Node anchor, Point2D offset) {
-//    double sceneWidth = anchor.getScene().getWindow().getWidth();
-//    double sceneHeight = anchor.getScene().getWindow().getHeight();
-//    double popupX = sceneWidth / 4 + offset.getX();
-//    double popupY = sceneHeight / 4 + offset.getY();
-//    popup.show(anchor.getScene().getWindow(), popupX, popupY);
-//  }
-//
-//  @Override
-//  public void hideHand() {
-//    popup.hide();
-//  }
-//}
+package oogasalad.view.gameplay.popup;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+
+public class CardDisplayPopup {
+
+  private Stage stage;
+  private BorderPane root;
+
+  public CardDisplayPopup(String cardText) {
+    this.stage = new Stage();
+    this.root = new BorderPane();
+
+    // Add the card text to a Label
+    Label cardLabel = new Label(cardText);
+    cardLabel.setPadding(new Insets(10));
+    cardLabel.setAlignment(Pos.CENTER);
+
+    // Add the Label to the center of the BorderPane
+    root.setCenter(cardLabel);
+
+    // Add a close button to the bottom of the BorderPane
+    HBox bottomBox = new HBox();
+    bottomBox.setPadding(new Insets(10));
+    bottomBox.setAlignment(Pos.CENTER);
+    root.setBottom(bottomBox);
+
+    Label closeButton = new Label("Close");
+    closeButton.setStyle("-fx-background-color: lightgray; -fx-padding: 5;");
+    closeButton.setOnMouseClicked(event -> {
+      stage.close();
+    });
+    bottomBox.getChildren().add(closeButton);
+
+    // Set the scene and show the stage
+    Scene scene = new Scene(root, 300, 200);
+    stage.setScene(scene);
+    stage.setTitle("Card Display");
+  }
+
+  public void showCard() {
+    stage.showAndWait();
+  }
+}

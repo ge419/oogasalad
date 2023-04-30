@@ -1,12 +1,15 @@
 package oogasalad.view.gameplay.popup;
 
 import java.util.List;
+
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -54,5 +57,9 @@ public class HandDisplayPopup extends BorderPane {
 
   public void hideHand() {
     stage.close();
+  }
+
+  public void cardClickedHandler(EventHandler<MouseEvent> handler) {
+    this.setOnMouseClicked(handler);
   }
 }

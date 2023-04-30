@@ -34,6 +34,15 @@
       "description": "Icon of player",
       "editable": true,
       "viewable": true
+    },
+    {
+      "@class": "oogasalad.model.attribute.BooleanMetadata",
+      "key": "current",
+      "name": "Current",
+      "description": "Whether or not it is this player's turn",
+      "editable": true,
+      "viewable": false,
+      "defaultValue": false
     }
   ]
 }

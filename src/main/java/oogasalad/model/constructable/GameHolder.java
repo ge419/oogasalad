@@ -99,10 +99,10 @@ public class GameHolder implements Observable<GameObserver> {
   public void setCurrentPlayer(Player player) {
     if (currentPlayer != null) {
       this.previousPlayer = currentPlayer;
-      previousPlayer.setName("Not me");
+      previousPlayer.toggleCurrent();
     }
     this.currentPlayer = player;
-    currentPlayer.setName("Me");
+    currentPlayer.toggleCurrent();
   }
 
   public Optional<Player> getPlayerById(String id) {

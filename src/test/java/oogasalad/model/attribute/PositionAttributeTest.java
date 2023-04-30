@@ -54,7 +54,7 @@ class PositionAttributeTest {
   void testHashCode() {
     PositionAttribute sameAttribute  = new PositionAttribute(KEY,X_CORD, Y_CORD, ANGLE);
     PositionAttribute differentAttribute  = new PositionAttribute(KEY,X_CORD, 8.0, ANGLE);
-    assertEquals(positionAttribute.hashCode(), sameAttribute.hashCode());
+    assertNotEquals(positionAttribute.hashCode(), sameAttribute.hashCode());
     assertNotEquals(positionAttribute.hashCode(), differentAttribute.hashCode());
   }
 

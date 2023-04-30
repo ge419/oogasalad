@@ -204,7 +204,7 @@ public class BuilderController {
     // todo: change this to get the rule from whatever string was provided
     EditableRule rule = injector.getInstance(BuyTileRule.class);
     createPopupForm(rule, builderView.getLanguage(), builderView.getPopupPane());
-    return false;
+    return true;
 
     // RETURN FALSE IF YOU CANNOT GET THE RULE FOR SOME REASON
   }
@@ -212,7 +212,7 @@ public class BuilderController {
   public boolean removeRuleFromTiletype(String tiletype, String ruleAsString) {
     logger.info("Trying to remove rule " + ruleAsString +
         " from tiletype " + tiletype);
-    return false;
+    return true;
 
     // RETURN FALSE IF YOU CANNOT REMOVE THE RULE
   }

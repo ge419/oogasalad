@@ -31,8 +31,6 @@ import oogasalad.view.Coordinate;
 import oogasalad.view.builder.itempanes.MenuItemPane;
 import oogasalad.view.builder.itempanes.ItemPane;
 import oogasalad.view.builder.events.TileEvent;
-import oogasalad.view.builder.itempanes.ItemPane;
-import oogasalad.view.builder.itempanes.MenuItemPane;
 import oogasalad.view.builder.rules.RulesPane;
 import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
@@ -75,7 +73,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private ItemPane myTopButtonBox;
   private final TrailMakerAPI myTrailMaker;
   private final BuilderController myBuilderController;
-  private VBox sidePane;
+  private VBox mySidepane;
   private Map<String, String> themeOptions;
   private ComboBox themeSelector;
   private Scene myScene;
@@ -165,7 +163,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   public Pane getPopupPane() {
-    return sidePane;
+    return mySidepane;
   }
 
   private Scene initScene() {
@@ -219,14 +217,13 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     initializeBoardPane();
     initializeRulePane();
 
-    sidePane = new VBox();
-    sidePane.setPrefWidth(Double.parseDouble(constantsResource.getString("SIDE_PANE_WIDTH")));
+    mySidepane = (VBox) makeVBox("PopupPane");
+    mySidepane.setPrefWidth(Double.parseDouble(constantsResource.getString("SIDE_PANE_WIDTH")));
 
     myCenterContainer.setId("CentralContainer");
     myCenterContainer.setLeft(mySidebar.asNode());
     myCenterContainer.setCenter(myBoardPane);
-    myCenterContainer.setRight(sidePane);
-//    return (HBox) makeHBox("CentralContainer", sideBar1, boardPane, sidePane);
+    myCenterContainer.setRight(mySidepane);
     return myCenterContainer;
   }
 
@@ -267,7 +264,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private void initializeRulePane() {
     myRulePane = new RulesPane(this, myBuilderController, builderResource);
-    myRulePane.setId("RulePane");
     setPaneSize(myRulePane, Double.parseDouble(constantsResource.getString("RULES_WIDTH")), Double.parseDouble(constantsResource.getString("RULES_HEIGHT")));
     LOG.debug("Initialized rule pane successfully.");
   }
@@ -374,7 +370,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private void displayTileForm(TileEvent event) {
     myCurrentTile = Optional.empty();
-    myBuilderController.createPopupForm(event.getTile(), builderResource, sidePane);
+    myBuilderController.createPopupForm(event.getTile(), builderResource, mySidepane);
     updateInfoText("RegularMode");
   }
 

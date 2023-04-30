@@ -18,6 +18,12 @@ import oogasalad.view.builder.BuilderView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * <p>Extension of a BorderPane that automatically implements the rule pane and it's
+ * functionality for use in the BuilderView.</p>
+ *
+ * @author tmh85
+ */
 public class RulesPane extends BorderPane implements BuilderUtility {
 
   private static final Logger LOG = LogManager.getLogger(RulesPane.class);
@@ -47,13 +53,13 @@ public class RulesPane extends BorderPane implements BuilderUtility {
     this.setId("RulesPane");
   }
 
-  private void initializeBottom(){
+  private void initializeBottom() {
     initializeTextbox();
     HBox bottomBox = (HBox) makeHBox("RulesBottom", myTextbox);
     this.setBottom(bottomBox);
   }
 
-  private void initializeRightSide(){
+  private void initializeRightSide() {
     initializeButtons();
     VBox rightsideBox = (VBox) makeVBox("RulesRightside", myEditButton, myDeleteButton);
     rightsideBox.setAlignment(Pos.CENTER);
@@ -67,7 +73,7 @@ public class RulesPane extends BorderPane implements BuilderUtility {
       // tell builder controller to give me the properties for this rule.
       String selectedRule = myRulesList.getSelectionModel().getSelectedItem();
       String selectedTiletype = myCheckbox.getSelectionModel().getSelectedItem();
-      if (!myBuilderController.makeRulesPopup(selectedTiletype, selectedRule)){
+      if (!myBuilderController.makeRulesPopup(selectedTiletype, selectedRule)) {
         myBuilder.showError("UneditableRuleError");
       }
     });
@@ -76,7 +82,7 @@ public class RulesPane extends BorderPane implements BuilderUtility {
       //tell builder controller to delete rule from tile type
       String selectedRule = myRulesList.getSelectionModel().getSelectedItem();
       String selectedTiletype = myCheckbox.getSelectionModel().getSelectedItem();
-      if (!myBuilderController.removeRuleFromTiletype(selectedTiletype, selectedRule)){
+      if (!myBuilderController.removeRuleFromTiletype(selectedTiletype, selectedRule)) {
         myBuilder.showError("UnremovableRuleError");
       }
     });
@@ -107,20 +113,20 @@ public class RulesPane extends BorderPane implements BuilderUtility {
     myCheckbox.setId("RulesTiletypeSelector");
   }
 
-  private void initializeTextbox(){
+  private void initializeTextbox() {
     myTextbox = new TextArea();
     resetText();
     myTextbox.setEditable(false);
     myTextbox.setId("RulesDescriptionBox");
   }
 
-  private void resetText(){
+  private void resetText() {
     myCurrentDescription = myLanguage.getString("DefaultRuleDescription");
     myTextbox.clear();
     myTextbox.setPromptText(myCurrentDescription);
   }
 
-  private void updateText(String selectedRule){
+  private void updateText(String selectedRule) {
     myCurrentDescription = myBuilderController.getRuleDescription(selectedRule);
     myTextbox.setText(myCurrentDescription);
   }

@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -29,16 +30,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 public class CustomTileFrontEnd extends Group implements ViewTile {
     private static final Logger LOGGER = LogManager.getLogger(CustomTileFrontEnd.class);
-
     private double SCALE_DOWN_FACTOR = .4;
     private Color color;
+
+    private Map<String, CustomElement> customElementMap;
 
     private String name;
 
@@ -46,7 +45,8 @@ public class CustomTileFrontEnd extends Group implements ViewTile {
     @Inject
     public CustomTileFrontEnd(@Assisted Tile BTile, SchemaDatabase database) {
         this.modelTile = BTile;
-        String jsonFile = StringAttribute.from(modelTile.getAttribute("customJson").get()).getValue();
+
+        String jsonFile = "";//StringAttribute.from(modelTile.getAttribute("customJson").get()).getValue();
 
         /*
         If jsonFile is empty this is coming from the builder
@@ -57,7 +57,8 @@ public class CustomTileFrontEnd extends Group implements ViewTile {
             database.addCustomSchema(schema);
             ArrayList<String> names = new ArrayList<>(modelTile.getSchemaNames());
             names.add(schema.getName());
-            modelTile.setJsonSchemaNames(names);
+            modelTile.setSchemaNames(names);
+            //bindListeners(names);
         }
         else{
             try {
@@ -68,6 +69,31 @@ public class CustomTileFrontEnd extends Group implements ViewTile {
         }
     }
 
+//    private void bindListeners(ArrayList<String> names) {
+//        for (String name : names){
+//            StringAttribute attribute = StringAttribute.from(modelTile.getAttribute(name).get());
+//            String attributeString = attribute.getValue();
+//            Node node = (Node) customElementMap.get(name);
+//            if (node != null) {
+//                node.setId(name);
+//                // Bind the id property of the node to the attribute value
+//                // and vice versa to keep them in sync
+//                Bindings.bindBidirectional(node.idProperty(), attribute.valueProperty());
+//            }
+//        }
+//    }
+//private void bindListeners(ArrayList<String> names) {
+//    for (String name : names){
+//        StringAttribute attribute = StringAttribute.from(modelTile.getAttribute(name).get());
+//        String initialValue = attribute.getValue();
+//        CustomElement customElement = customElementMap.get(name);
+//        customElement.setValue(initialValue);
+//        attribute.addListener((observable, oldValue, newValue) -> {
+//            customElement.setValue(newValue);
+//        });
+//    }
+//}
+
     private void loadForGamePlay(String jsonFile) throws IOException {
         StackPane s = new StackPane();
         File selectedFile = new File(jsonFile);
@@ -76,6 +102,7 @@ public class CustomTileFrontEnd extends Group implements ViewTile {
         s.setPrefWidth(jsonObject.get("width").getAsDouble()*SCALE_DOWN_FACTOR);
         //Something to preserve aspect ratio
         name = jsonObject.get("name").getAsString();
+        customElementMap = new HashMap<>();
         JsonArray customObjects = jsonObject.getAsJsonArray("customObjects");
         for (JsonElement jsonElement : customObjects) {
             JsonObject customObject = jsonElement.getAsJsonObject();

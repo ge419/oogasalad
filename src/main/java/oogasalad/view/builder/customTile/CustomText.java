@@ -115,18 +115,13 @@ public class CustomText extends Label implements CustomElement {
         jsonObject.addProperty("type", "CustomText");
         jsonObject.addProperty("index", this.index);
         jsonObject.addProperty("editable", this.editable);
+        jsonObject.addProperty("viewable", this.editable);
 
         return jsonObject;
     }
 
     public VBox getInfo() {
         List<Node> nodes = new ArrayList<>();
-
-        // Create a text field to edit the text field name
-        TextField textFieldNameField = new TextField(this.name);
-        textFieldNameField.setOnAction(event -> setName(textFieldNameField.getText()));
-        nodes.add(new Label("Text Field Name:"));
-        nodes.add(textFieldNameField);
 
         // Create a text field to edit the default text displayed
         TextField defaultTextField = new TextField(this.defaultContents);

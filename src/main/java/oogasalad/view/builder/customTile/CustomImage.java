@@ -142,6 +142,8 @@ public class CustomImage extends ImageView implements CustomElement {
         jsonObject.addProperty("filePath", destinationPath.toString()+"/"+this.name);
         jsonObject.addProperty("index", this.getParent().getChildrenUnmodifiable().indexOf(this));
         jsonObject.addProperty("editable", this.editable);
+        jsonObject.addProperty("viewable", this.editable);
+
 
         return jsonObject;
     }

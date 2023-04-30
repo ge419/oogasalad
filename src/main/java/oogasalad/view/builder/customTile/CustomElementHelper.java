@@ -21,7 +21,7 @@ public class CustomElementHelper extends VBox {
 
         // Create a text field to edit the image name
         TextField nameField = new TextField(thisCustomElement.getName());
-        nameField.setOnAction(event -> thisCustomElement.setName(nameField.getText()));
+        nameField.setOnKeyReleased(event ->  thisCustomElement.setName(nameField.getText()));
 
         infoBox.getChildren().add(nameLabel);
         infoBox.getChildren().add(nameField);

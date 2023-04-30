@@ -72,6 +72,7 @@ public class CustomColorBox extends Rectangle implements CustomElement {
         jsonObject.addProperty("width", this.getWidth());
         jsonObject.addProperty("height", this.getHeight());
         jsonObject.addProperty("editable", this.editable);
+        jsonObject.addProperty("viewable", this.editable);
 
         return jsonObject;
     }

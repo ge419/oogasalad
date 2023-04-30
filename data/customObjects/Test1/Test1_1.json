@@ -13,7 +13,9 @@
       "translatey": 0.0,
       "width": 50.0,
       "height": 50.0,
-      "editable": false
+      "editable": false,
+      "viewable": false
+
     },
     {
       "name": "Caption",
@@ -23,7 +25,7 @@
       "translateX": 35.0,
       "translateY": -22.0,
       "type": "CustomText",
-      "index": -1,
+      "index": 1,
       "editable": true,
       "viewable": true
     },
@@ -31,12 +33,13 @@
       "type": "CustomImage",
       "x": 5.0,
       "y": -95.0,
-      "name": ".png",
+      "name": "data/customObjects/Test1/.png",
       "height": 108.55326814204831,
       "width": 165.68656716417908,
       "filePath": "data/customObjects/Test1/.png",
       "index": 2,
-      "editable": false
+      "editable": false,
+      "viewable": false
     }
   ]
 }

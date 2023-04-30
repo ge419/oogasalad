@@ -1,6 +1,7 @@
 package oogasalad.model.attribute;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +31,6 @@ class PlayerListMetadataTest {
   public void testGetAttributeClass() {
     assertEquals(PlayerListAttribute.class, playerMetadata.getAttributeClass());
   }
-
 
 
 }

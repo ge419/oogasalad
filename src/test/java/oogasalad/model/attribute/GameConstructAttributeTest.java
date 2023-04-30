@@ -1,12 +1,13 @@
 package oogasalad.model.attribute;
 
-import javafx.beans.property.ObjectProperty;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Optional;
+import javafx.beans.property.ObjectProperty;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class GameConstructAttributeTest {
 
@@ -69,6 +70,7 @@ public class GameConstructAttributeTest {
   }
 
   private static class GameConstructAttributeImpl extends GameConstructAttribute {
+
     public GameConstructAttributeImpl(String key, String id) {
       super(key, id);
     }

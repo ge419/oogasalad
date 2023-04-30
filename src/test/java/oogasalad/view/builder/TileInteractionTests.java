@@ -14,6 +14,11 @@ import org.mockito.Mockito;
 import org.testfx.service.query.EmptyNodeQueryException;
 import util.DukeApplicationTest;
 
+/**
+ * <p>Tests of tile interactions, such as creating tile paths and deleting tiles.</p>
+ *
+ * @author tmh85
+ */
 public class TileInteractionTests extends DukeApplicationTest {
 
   @Mock

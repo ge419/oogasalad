@@ -1,6 +1,6 @@
 package oogasalad.model.attribute;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
 import javafx.beans.property.StringProperty;
@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ColorMetadataTest {
+
   private ColorMetadata colorMetadata;
   private StringProperty defaultValueMock;
   private static final String KEY = "color";

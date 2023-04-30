@@ -1,10 +1,9 @@
 package oogasalad.model.attribute;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import oogasalad.view.Coordinate;
-import org.checkerframework.checker.units.qual.A;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +23,7 @@ class PositionAttributeTest {
   @BeforeEach
   void setUp() {
     positionAttribute =
-        new PositionAttribute("Pos",X_CORD, Y_CORD, ANGLE);
+        new PositionAttribute("Pos", X_CORD, Y_CORD, ANGLE);
   }
 
   @Test
@@ -42,7 +41,8 @@ class PositionAttributeTest {
 
   @Test
   void testGetCoordinate() {
-    PositionAttribute testAttribute  = new PositionAttribute("Pos",X_CORD, Y_CORD, ANGLE);;
+    PositionAttribute testAttribute = new PositionAttribute("Pos", X_CORD, Y_CORD, ANGLE);
+    ;
     assertEquals(testAttribute.toString(), positionAttribute.toString());
     testAttribute.setCoordinate(new Coordinate(5.0, 70.5, 30.4));
     assertEquals(testAttribute.getCoordinate().getXCoor(), 5.0);
@@ -51,8 +51,8 @@ class PositionAttributeTest {
 
   @Test
   void testHashCode() {
-    PositionAttribute sameAttribute  = new PositionAttribute(KEY,X_CORD, Y_CORD, ANGLE);
-    PositionAttribute differentAttribute  = new PositionAttribute(KEY,X_CORD, 8.0, ANGLE);
+    PositionAttribute differentAttribute = new PositionAttribute(KEY, X_CORD, Y_CORD, ANGLE);
+    PositionAttribute sameAttribute = positionAttribute;
     assertEquals(positionAttribute.hashCode(), sameAttribute.hashCode());
     assertNotEquals(positionAttribute.hashCode(), differentAttribute.hashCode());
   }

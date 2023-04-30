@@ -1,6 +1,10 @@
 package oogasalad.model.attribute;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,9 +30,9 @@ class PositionMetadataTest {
   void testIsValidCoordinate() {
     ColorMetadata colorMetadata = new ColorMetadata("bad");
     Attribute goodAttribute = positionMetadata.makeAttribute();
-    Attribute badAttribute  = colorMetadata.makeAttribute();
+    Attribute badAttribute = colorMetadata.makeAttribute();
     assertTrue(positionMetadata.checkPreconditions(goodAttribute));
-    assertThrows(ClassCastException.class, ()->positionMetadata.checkPreconditions(badAttribute) );
+    assertThrows(ClassCastException.class, () -> positionMetadata.checkPreconditions(badAttribute));
   }
 
   @Test
@@ -37,25 +41,24 @@ class PositionMetadataTest {
     assertEquals(positionMetadata.getAttributeClass(), PositionAttribute.class);
   }
 
-
-
   @Test
   void testSettingDefaultYProperty() {
-    assertNotEquals(positionMetadata.getDefaultX(),null);
+    assertNotEquals(positionMetadata.getDefaultX(), null);
     assertNotEquals(positionMetadata.getDefaultY(), null);
     assertNotEquals(positionMetadata.getDefaultAngle(), null);
   }
+
   @Test
   void testToString() {
     PositionMetadata same = new PositionMetadata(KEY);
-    assertEquals(same.toString(),positionMetadata.toString());
+    assertEquals(same.toString(), positionMetadata.toString());
   }
 
   @Test
-  void testEquals(){
-    PositionMetadata same  = new PositionMetadata(KEY);
+  void testEquals() {
+    PositionMetadata same = new PositionMetadata(KEY);
     assertTrue(positionMetadata.equals(same));
-    same.setDefaultAngle(54.0);
+    same.setDefaultX(54.0);
     assertFalse((positionMetadata.equals(same)));
   }
 
@@ -74,7 +77,7 @@ class PositionMetadataTest {
   void testHashCode() {
     PositionMetadata sameContent = new PositionMetadata(KEY);
     PositionMetadata thing = positionMetadata;
-    assertNotEquals(sameContent.hashCode(),positionMetadata.hashCode());
-    assertEquals(positionMetadata.hashCode(), thing.hashCode() );
+    assertNotEquals(sameContent.hashCode(), positionMetadata.hashCode());
+    assertEquals(positionMetadata.hashCode(), thing.hashCode());
   }
 }

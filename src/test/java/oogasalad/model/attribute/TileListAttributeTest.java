@@ -10,13 +10,14 @@ import org.junit.jupiter.api.Test;
 class TileListAttributeTest {
 
   private TileListAttribute tileListAttribute;
-  private static final String  KEY = "testTileAttribute";
+  private static final String KEY = "testTileAttribute";
   private static final List<String> TILE_IDS = List.of("0");
 
   @BeforeEach
   public void setUp() {
     tileListAttribute = new TileListAttribute(KEY, TILE_IDS);
   }
+
   @Test
   void testFrom() {
     Attribute attribute = TileListAttribute.from(tileListAttribute);

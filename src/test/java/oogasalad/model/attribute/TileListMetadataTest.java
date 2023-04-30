@@ -1,8 +1,11 @@
 package oogasalad.model.attribute;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.checkerframework.checker.units.qual.K;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,16 +15,17 @@ class TileListMetadataTest {
   private static final String KEY = "testTileListMetadata";
 
   @BeforeEach
-  void setup(){
+  void setup() {
     tileListMetadata = new TileListMetadata(KEY);
   }
+
   @Test
   void testCheckPreconditions() {
     ColorMetadata colorMetadata = new ColorMetadata("bad");
     Attribute goodAttribute = tileListMetadata.makeAttribute();
-    Attribute badAttribute  = colorMetadata.makeAttribute();
+    Attribute badAttribute = colorMetadata.makeAttribute();
     assertTrue(tileListMetadata.checkPreconditions(goodAttribute));
-    assertThrows(ClassCastException.class, ()->tileListMetadata.checkPreconditions(badAttribute) );
+    assertThrows(ClassCastException.class, () -> tileListMetadata.checkPreconditions(badAttribute));
   }
 
 

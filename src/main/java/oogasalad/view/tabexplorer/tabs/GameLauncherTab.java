@@ -11,12 +11,16 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -51,6 +55,8 @@ public class GameLauncherTab implements Tab {
   private Region region;
   private HBox hbox;
   private VBox gameLauncher;
+  private MenuItem editMenuItem;
+  private MenuItem deleteMenuItem;
 
   @Inject
   public GameLauncherTab(
@@ -130,8 +136,7 @@ public class GameLauncherTab implements Tab {
       InputStream stream = null;
       try {
         //todo: load img_path from DB
-        String imageResourcePath = authHandler.getActiveUserID().equals("rcd") ? "rcd_old.gif"
-            : "game_img.png"; // lol, fun easter egg ig?
+        String imageResourcePath = "game_img.png"; // lol, fun easter egg ig?
         stream = new FileInputStream("src/main/resources/" + imageResourcePath);
         Image image = new Image(stream);
         ImageView imageView = new ImageView(image);
@@ -139,8 +144,6 @@ public class GameLauncherTab implements Tab {
         imageView.setFitHeight(75);
         VBox gameBox = new VBox(imageView, new Label(name));
         gameBox.getStyleClass().add("game-box");
-//        gameBox.setAlignment(Pos.CENTER);
-//        gameBox.setSpacing(5);
         gameBox.setOnMouseClicked(e-> tabExplorer.launchGame(gameID));
 //        gameBox.setOnMouseEntered(e->gameBox.setCursor(Cursor.HAND));
 //        gameBox.setPrefSize(100, 100);
@@ -186,7 +189,7 @@ public class GameLauncherTab implements Tab {
       String name = formData[0];
 
       Map<String, Object> game = new HashMap<>();
-      game.put(GameSchema.DESCRIPTION.getFieldName(), name);
+      game.put(GameSchema.TITLE.getFieldName(), name);
 
       String gameID = gameDao.createGame(authHandler.getActiveUserID());
       gameDao.updateGame(gameID, game);

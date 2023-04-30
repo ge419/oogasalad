@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import oogasalad.model.attribute.BooleanAttribute;
 import oogasalad.model.attribute.ColorAttribute;
 import oogasalad.model.attribute.DoubleAttribute;
 import oogasalad.model.attribute.ImageAttribute;
@@ -18,6 +19,7 @@ public class Player extends AbstractGameConstruct {
   public static final String SCORE_ATTRIBUTE = "score";
   public static final String ICON_ATTRIBUTE = "image";
   public static final String COLOR_ATTRIBUTE = "color";
+  public static final String CURRENT_ATTRIBUTE = "current";
   private final List<Piece> pieces;
   private List<Tile> cards;
 
@@ -54,6 +56,7 @@ public class Player extends AbstractGameConstruct {
   public String getName() {
     return getNameAttribute().getValue();
   }
+
   @JsonIgnore
   public void setName(String newName) {
     getNameAttribute().setValue(newName);
@@ -75,7 +78,9 @@ public class Player extends AbstractGameConstruct {
   }
 
   @JsonIgnore
-  public void setColor(String color) {getColorAttribute().setValue(color);}
+  public void setColor(String color) {
+    getColorAttribute().setValue(color);
+  }
 
   @JsonIgnore
   public String getImage() {
@@ -83,11 +88,28 @@ public class Player extends AbstractGameConstruct {
   }
 
   @JsonIgnore
-  public void setImage(String imagePath) {getImageAttribute().setValue(imagePath);}
+  public void setImage(String imagePath) {
+    getImageAttribute().setValue(imagePath);
+  }
 
   @JsonIgnore
   public List<Piece> getPieces() {
     return pieces;
+  }
+
+  @JsonIgnore
+  public BooleanAttribute getCurrentAttribute() {
+    return BooleanAttribute.from(getAttribute(CURRENT_ATTRIBUTE).get());
+  }
+
+  @JsonIgnore
+  public Boolean getCurrent() {
+    return getCurrentAttribute().getValue();
+  }
+
+  @JsonIgnore
+  public void toggleCurrent() {
+    getCurrentAttribute().setValue(!getCurrent());
   }
 
   @JsonIgnore
@@ -97,5 +119,4 @@ public class Player extends AbstractGameConstruct {
   public void addCardToPlayer(Tile card){
     this.cards.add(card);
   }
-
 }

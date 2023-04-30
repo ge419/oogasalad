@@ -9,14 +9,13 @@ import oogasalad.model.constructable.Tile;
 public interface ActionFactory {
 
   SetCurrentPlayerAction makeSetCurrentPlayerAction(Player player);
-
   RollDieAction makeRollDieAction(int[] dieResults);
-
   MoveAction makeMoveAction(Piece piece, List<Tile> moveSequence);
   CreatePlayersAction makeCreatePlayersAction(
       @Assisted("min") int min,
       @Assisted("max") int max);
   CreatePlayerPieceAction makeCreatePlayerPieceAction();
   CheckAndRemovePlayerAction makeCheckAndRemovePlayerAction(int scoreMinBound);
-  CheckWinStateAction makeCheckWinStateAction();
+  CheckWinStateAction makeCheckWinStateAction(int lastN);
+  AlterPlayerScoreAction makeAlterPlayerScoreAction(Player player, double delta);
 }

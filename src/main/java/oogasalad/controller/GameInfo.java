@@ -54,11 +54,4 @@ public class GameInfo {
     return this;
   }
 
-  public String getImgSrc() {
-    return imgSrc;
-  }
-
-  public void setImgSrc(String path) {
-    this.imgSrc = path;
-  }
 }

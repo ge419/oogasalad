@@ -44,7 +44,7 @@ public class TurnRule extends AbstractGameConstruct implements EditableRule {
   }
 
   private Player getNextPlayer() {
-    List<Player> players = game.getPlayers().get().getPlayers();
+    List<Player> players = game.getPlayers().getList();
     Player currentPlayer = game.getCurrentPlayer();
     int currentPlayerIndex = currentPlayer == null ? -1 : players.indexOf(currentPlayer);
 

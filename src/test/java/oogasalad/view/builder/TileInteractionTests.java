@@ -108,6 +108,7 @@ public class TileInteractionTests extends DukeApplicationTest {
     clickTwoTiles("#Tile0", "#Tile1");
     assert(!checkIfExists("#test0"));
 
+    clickOn(lookup("#RemoveNext").query());
     clickTwoTiles("#Tile1", "#Tile0");
     assert(!checkIfExists("#test1"));
   }

@@ -43,10 +43,18 @@ public class NodeStorer {
     return myMap.get(id);
   }
 
+  /**
+   * Adds a DraggerAPI to list of stored draggers
+   * @param dragger
+   */
   public void addDragger(DraggerAPI dragger) {
     myDraggers.add(dragger);
   }
 
+  /**
+   * Returns the list of DraggerAPIs in the game
+   * @return
+   */
   public List<DraggerAPI> getDraggers() {
     return myDraggers;
   }

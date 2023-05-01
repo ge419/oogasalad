@@ -2,7 +2,6 @@ package oogasalad.view.gameplay.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import javafx.scene.layout.BorderPane;
 import oogasalad.model.constructable.Piece;
 import oogasalad.view.Renderable;
@@ -24,10 +23,6 @@ public class ViewPieces implements Renderable {
       p.setId("Piece");
       pane.getChildren().add(p);
     }
-  }
-
-  public List<PlayerPiece> getPieceList() {
-    return pieceList;
   }
 
   public PlayerPiece getPiece() {

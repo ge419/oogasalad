@@ -1,0 +1,19 @@
+{
+  "name": "Test4",
+  "width": 791.0,
+  "height": 798.0,
+  "customObjects": [
+    {
+      "name": "",
+      "defaultContents": "Default Text",
+      "fontSize": 14,
+      "bold": false,
+      "translateX": 0.0,
+      "translateY": 0.0,
+      "type": "CustomText",
+      "index": 0,
+      "editable": false,
+      "viewable": false
+    }
+  ]
+}

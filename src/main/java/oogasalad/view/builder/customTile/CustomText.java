@@ -11,12 +11,15 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import oogasalad.model.attribute.Metadata;
 import oogasalad.model.attribute.StringMetadata;
+import oogasalad.view.builder.BuilderUtility;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
+import java.util.UUID;
 
-public class CustomText extends Label implements CustomElement {
+public class CustomText extends Label implements CustomElement, BuilderUtility {
     private String name = "";
     private String defaultContents;
     private int fontSize;
@@ -26,9 +29,6 @@ public class CustomText extends Label implements CustomElement {
     int index = -1;
 
     private boolean editable = false;
-
-
-
     private final int UNDERSPECIFIED_FONTSIZE = 14 ;
 
 
@@ -37,7 +37,6 @@ public class CustomText extends Label implements CustomElement {
         this.fontSize = UNDERSPECIFIED_FONTSIZE;
         // Set the initial properties of the text field
         setText(defaultContents);
-
     }
 
     public CustomText(JsonObject jsonObject) {
@@ -113,41 +112,35 @@ public class CustomText extends Label implements CustomElement {
         jsonObject.addProperty("translateX", this.getTranslateX());
         jsonObject.addProperty("translateY", this.getTranslateY());
         jsonObject.addProperty("type", "CustomText");
-        jsonObject.addProperty("index", this.index);
+        jsonObject.addProperty("index", this.getParent().getChildrenUnmodifiable().indexOf(this));
         jsonObject.addProperty("editable", this.editable);
+        jsonObject.addProperty("viewable", this.editable);
 
         return jsonObject;
     }
 
-    public VBox getInfo() {
+    public VBox getInfo(ResourceBundle languageBundle) {
         List<Node> nodes = new ArrayList<>();
 
-        // Create a text field to edit the text field name
-        TextField textFieldNameField = new TextField(this.name);
-        textFieldNameField.setOnAction(event -> setName(textFieldNameField.getText()));
-        nodes.add(new Label("Text Field Name:"));
-        nodes.add(textFieldNameField);
-
-        // Create a text field to edit the default text displayed
-        TextField defaultTextField = new TextField(this.defaultContents);
-        defaultTextField.setOnAction(event -> setDefaultContents(defaultTextField.getText()));
-        nodes.add(new Label("Default Contents:"));
+        nodes.add(makeLabel("defaultText", languageBundle));
+        Node defaultTextField = makeTextField(languageBundle.getString("defaultText"));
+        ((TextField) defaultTextField).setOnAction(event -> setDefaultContents(((TextField) defaultTextField).getText()));
         nodes.add(defaultTextField);
 
         // Create a slider to adjust the font size
-        Slider fontSizeSlider = new Slider(8, 72, this.getFontSize());
+        Slider fontSizeSlider = (Slider) makeSlider("fontSizeSlider", 8, 72, this.getFontSize());
         fontSizeSlider.setBlockIncrement(1);
         fontSizeSlider.valueProperty().addListener((obs, oldVal, newVal) -> setFontSize(newVal.intValue()));
-        nodes.add(new Label("Font Size:"));
+        nodes.add(makeLabel("fontSize", languageBundle));
         nodes.add(fontSizeSlider);
 
         // Create a checkbox to toggle bold font
-        CheckBox boldCheckbox = new CheckBox("Bold");
+        CheckBox boldCheckbox = (CheckBox) makeCheckBox("Bold", languageBundle);
         boldCheckbox.setSelected(this.isBold());
         boldCheckbox.setOnAction(event -> setBold(boldCheckbox.isSelected()));
-        nodes.add(new Label("Bold:"));
+        nodes.add(makeLabel("Bold", languageBundle));
 
-        return CustomElementHelper.makeVbox(this, nodes);
+        return makeVbox(this, nodes);
     }
 
     @Override
@@ -168,22 +161,19 @@ public class CustomText extends Label implements CustomElement {
 
     @Override
     public Metadata getMetaData() {
-        //if name is null that means it a static string with key of default contents
-        if (this.name.isEmpty()){
-            StringMetadata metadata = new StringMetadata(this.defaultContents);
-            metadata.setEditable(editable);
-            metadata.setViewable(editable);
-            metadata.setDescription("A custom string typed to be displayed on a custom object ");
-            return metadata;
-        }
-        else{
-            StringMetadata metadata = new StringMetadata(this.name);
-            metadata.setDefaultValue(this.defaultContents);
-            metadata.setEditable(editable);
-            metadata.setViewable(editable);
-            metadata.setDescription("A custom string made by the user that represents " + this.name);
-            return metadata;
-        }
+        StringMetadata metadata = new StringMetadata(name.isEmpty() ? "Textfield-" + UUID.randomUUID().toString() : name);
+        metadata.setName(name);
+        metadata.setDefaultValue(this.defaultContents);
+        metadata.setEditable(editable);
+        metadata.setViewable(editable);
+        return metadata;
     }
+
+    @Override
+    public void setValue(String loadedValue) {
+        this.setText(loadedValue);
+        this.defaultContents = loadedValue;
+    }
+
 
 }

@@ -33,8 +33,6 @@ public class BasicTile extends Rectangle implements ViewTile {
     }));
     this.setStroke(Color.BLACK);
 
-
-
     // Check if tiles have an owner attribute
     myModelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE)
         .map(PlayerAttribute::from)

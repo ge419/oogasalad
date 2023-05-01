@@ -11,7 +11,7 @@ import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.Priority;
 import oogasalad.model.engine.actions.ActionFactory;
-import oogasalad.model.engine.actions.EventAction;
+import oogasalad.model.engine.actions.emits.EventAction;
 import oogasalad.model.engine.events.PlayerCreationEvent;
 import oogasalad.model.engine.events.StartTurnEvent;
 

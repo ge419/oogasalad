@@ -1,6 +1,5 @@
 package oogasalad.model.engine.rules;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -24,9 +23,7 @@ import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.Priority;
 import oogasalad.model.engine.SimpleActionQueue;
 import oogasalad.model.engine.actions.ActionFactory;
-import oogasalad.model.engine.actions.AlterPlayerScoreAction;
-import oogasalad.model.engine.actions.CreatePlayersAction;
-import oogasalad.model.engine.events.StartGameEvent;
+import oogasalad.model.engine.actions.scores.AlterPlayerScoreAction;
 import oogasalad.model.engine.events.TileLandedEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

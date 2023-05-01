@@ -14,6 +14,11 @@ import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.attribute.TileListAttribute;
 import oogasalad.view.Coordinate;
 
+/**
+ * GameObject that represents a tile to be part of the game board.
+ *
+ * @author Jay Yoon
+ */
 public class Tile extends AbstractGameConstruct {
 
   public static final String BASE_SCHEMA_NAME = "tile";
@@ -27,15 +32,33 @@ public class Tile extends AbstractGameConstruct {
   public static final String PRICE_ATTRIBUTE = "price";
   public static final String COLOR_ATTRIBUTE = "color";
   public static final String OWNED_ATTRIBUTE = "owned";
+  private SchemaDatabase database;
 
   @Inject
   public Tile(@JacksonInject SchemaDatabase database) {
     super(BASE_SCHEMA_NAME, database);
+    this.database = database;
     typeAttribute().valueProperty()
         .addListener((observable, oldValue, newValue) -> setTileSchemas());
     viewTypeAttribute().valueProperty()
         .addListener((observable, oldValue, newValue) -> setTileSchemas());
   }
+
+  public Tile duplicate() {
+    Tile newTile = new Tile(database);
+    newTile.setViewType(this.getViewType());
+    newTile.setType(this.getType());
+    newTile.setCoordinate(this.getCoordinate());
+    newTile.setWidth(this.getWidth());
+    newTile.setHeight(this.getHeight());
+    newTile.colorAttribute().setValue(this.colorAttribute().getValue());
+    newTile.getPriceAttribute().setValue(this.getPrice());
+    newTile.getInfoAttribute().setValue(this.getInfo());
+    newTile.setOwnerId(this.getOwnerId());
+    newTile.setOwned();
+    return newTile;
+  }
+
 
   private void setTileSchemas() {
     setBuiltinSchemas(List.of(BASE_SCHEMA_NAME));
@@ -201,6 +224,11 @@ public class Tile extends AbstractGameConstruct {
   @JsonIgnore
   public DoubleAttribute getPriceAttribute() {
     return DoubleAttribute.from(getAttribute(PRICE_ATTRIBUTE).get());
+  }
+
+  @JsonIgnore
+  public StringAttribute getInfoAttribute() {
+    return StringAttribute.from(getAttribute(INFO_ATTRIBUTE).get());
   }
 
   @JsonIgnore

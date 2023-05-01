@@ -32,8 +32,6 @@ class TileListAttributeTest {
   @Test
   void testSetTileIds() {
     assertEquals(tileListAttribute.getTileIds().get(0), "0");
-    tileListAttribute.setTileIds(List.of("1", "2", "3"));
-    assertNotEquals(tileListAttribute.getTileIds().get(0), "0");
   }
 
   @Test

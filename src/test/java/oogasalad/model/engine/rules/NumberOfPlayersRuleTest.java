@@ -1,6 +1,5 @@
 package oogasalad.model.engine.rules;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -17,7 +16,7 @@ import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.Priority;
 import oogasalad.model.engine.SimpleActionQueue;
 import oogasalad.model.engine.actions.ActionFactory;
-import oogasalad.model.engine.actions.CreatePlayersAction;
+import oogasalad.model.engine.actions.creation.CreatePlayersAction;
 import oogasalad.model.engine.events.StartGameEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,13 +31,14 @@ class NumberOfPlayersRuleTest {
   private NumberOfPlayersRule rule;
   private static final int TEST_MIN = 1;
   private static final int TEST_MAX = 4;
+  private static final int TEST_PIECE = 1;
 
   @BeforeEach
   public void setUp() {
     mockActionFactory = mock(ActionFactory.class);
     mockedAction = mock(CreatePlayersAction.class);
     mockedQueue = mock(SimpleActionQueue.class);
-    when(mockActionFactory.makeCreatePlayersAction(TEST_MIN, TEST_MAX)).thenReturn(mockedAction);
+    when(mockActionFactory.makeCreatePlayersAction(TEST_MIN, TEST_MAX, TEST_PIECE)).thenReturn(mockedAction);
 
     Injector injector = Guice.createInjector(new AttributeModule());
     SchemaDatabase db = injector.getInstance(SchemaDatabase.class);
@@ -62,7 +62,7 @@ class NumberOfPlayersRuleTest {
   public void makesCreatePlayerAction() {
     rule.generatePlayersOnSelection(eventHandlerParams);
 
-    verify(mockActionFactory).makeCreatePlayersAction(TEST_MIN, TEST_MAX);
+    verify(mockActionFactory).makeCreatePlayersAction(TEST_MIN, TEST_MAX, TEST_PIECE);
   }
 
   @Test

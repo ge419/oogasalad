@@ -2,13 +2,20 @@
   "tiles" : [
     {
       "@class": "oogasalad.model.constructable.Tile",
-      "id": "1",
-      "schemas" : [ "tile" ],
+      "id": "18",
+      "schemas" : [ "ImageTile" ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
           "key": "height",
-          "value": 150.0
+          "value": 150
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "19"
+          ]
         },
         {
           "@class" : "oogasalad.model.attribute.PlayerAttribute",
@@ -23,8 +30,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 350.0,
-          "y": 750.0,
+          "x": 425.0,
+          "y": 810.0,
           "angle": 0
         },
         {
@@ -34,7 +41,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "image"
         },
         {
@@ -68,6 +75,377 @@
           "@class": "oogasalad.model.attribute.TileListAttribute",
           "key": "next",
           "ids": [
+            "20"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 425.0,
+          "y": 685.0,
+          "angle": 90
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 250
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Hollows"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "FF00FF"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "20",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "21"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 425.0,
+          "y": 585.0,
+          "angle": 90
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 250
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Few"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "FF00FF"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "21",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "22"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 425.0,
+          "y": 485.0,
+          "angle": 90
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 250
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Crowell"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "FF00FF"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "22",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "23"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 425.0,
+          "y": 385.0,
+          "angle": 90
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 250
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Craven"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "FF00FF"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "23",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "24"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 425.0,
+          "y": 285.0,
+          "angle": 90
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 100.0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "street"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 250
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Kilgo"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ColorAttribute",
+          "key": "color",
+          "value": "FF00FF"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "24",
+      "schemas" : [ "ImageTile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
+            "1"
+          ]
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 425.0,
+          "y": 160.0,
+          "angle": 180
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 150
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "type",
+          "value": "image"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "JUST VISITING"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ImageAttribute",
+          "key": "image",
+          "value": "view.gameplay/in_jail.jpg"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "1",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
+          "@class" : "oogasalad.model.attribute.PlayerAttribute",
+          "key" : "owner",
+          "id" : ""
+        },
+        {
+          "@class": "oogasalad.model.attribute.TileListAttribute",
+          "key": "next",
+          "ids": [
             "2"
           ]
         },
@@ -79,9 +457,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 375.0,
-          "y": 625.0,
-          "angle": 90
+          "x": 550.0,
+          "y": 160.0,
+          "angle": 180
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -145,9 +523,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 375.0,
-          "y": 525.0,
-          "angle": 90
+          "x": 650.0,
+          "y": 160.0,
+          "angle": 180
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -206,9 +584,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 375.0,
-          "y": 425.0,
-          "angle": 90
+          "x": 750.0,
+          "y": 160.0,
+          "angle": 180
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -267,9 +645,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 375.0,
-          "y": 325.0,
-          "angle": 90
+          "x": 850.0,
+          "y": 160.0,
+          "angle": 180
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -328,9 +706,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 375.0,
-          "y": 225.0,
-          "angle": 90
+          "x": 950.0,
+          "y": 160.0,
+          "angle": 180
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -362,7 +740,7 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "6",
-      "schemas" : [ "tile" ],
+      "schemas" : [ "ImageTile" ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -389,8 +767,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 350.0,
-          "y": 100.0,
+          "x": 1075.0,
+          "y": 160.0,
           "angle": 180
         },
         {
@@ -450,9 +828,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 500.0,
-          "y": 100.0,
-          "angle": 180
+          "x": 1075.0,
+          "y": 285.0,
+          "angle": 270
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -511,9 +889,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 600.0,
-          "y": 100.0,
-          "angle": 180
+          "x": 1075.0,
+          "y": 385.0,
+          "angle": 270
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -572,9 +950,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 700.0,
-          "y": 100.0,
-          "angle": 180
+          "x": 1075.0,
+          "y": 485.0,
+          "angle": 270
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -633,9 +1011,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 800.0,
-          "y": 100.0,
-          "angle": 180
+          "x": 1075.0,
+          "y": 585.0,
+          "angle": 270
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -694,9 +1072,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 900.0,
-          "y": 100.0,
-          "angle": 180
+          "x": 1075.0,
+          "y": 685.0,
+          "angle": 270
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -728,7 +1106,7 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "12",
-      "schemas" : [ "tile" ],
+      "schemas" : [ "ImageTile" ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -755,9 +1133,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 1000.0,
-          "y": 100.0,
-          "angle": 180
+          "x": 1075.0,
+          "y": 810.0,
+          "angle": 0
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -816,9 +1194,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 1025.0,
-          "y": 225.0,
-          "angle": 270
+          "x": 950.0,
+          "y": 810.0,
+          "angle": 0
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -877,9 +1255,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 1025.0,
-          "y": 325.0,
-          "angle": 270
+          "x": 850.0,
+          "y": 810.0,
+          "angle": 0
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -899,7 +1277,7 @@
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
           "key": "info",
-          "value": "LSRC"
+          "value": "Reuben-Cooke"
         },
         {
           "@class": "oogasalad.model.attribute.ColorAttribute",
@@ -938,9 +1316,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 1025.0,
-          "y": 425.0,
-          "angle": 270
+          "x": 750.0,
+          "y": 810.0,
+          "angle": 0
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -999,9 +1377,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 1025.0,
-          "y": 525.0,
-          "angle": 270
+          "x": 650.0,
+          "y": 810.0,
+          "angle": 0
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -1060,9 +1438,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 1025.0,
-          "y": 625.0,
-          "angle": 270
+          "x": 550.0,
+          "y": 810.0,
+          "angle": 0
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -1088,433 +1466,6 @@
           "@class": "oogasalad.model.attribute.ColorAttribute",
           "key": "color",
           "value": "FFFF00"
-        }
-      ]
-    },
-    {
-      "@class": "oogasalad.model.constructable.Tile",
-      "id": "18",
-      "schemas" : [ "tile" ],
-      "attributes": [
-        {
-          "@class": "oogasalad.model.attribute.DoubleAttribute",
-          "key": "height",
-          "value": 150
-        },
-        {
-          "@class": "oogasalad.model.attribute.TileListAttribute",
-          "key": "next",
-          "ids": [
-            "19"
-          ]
-        },
-        {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
-        },
-        {
-          "@class": "oogasalad.model.attribute.BooleanAttribute",
-          "key": "owned",
-          "value": false
-        },
-        {
-          "@class": "oogasalad.model.attribute.PositionAttribute",
-          "key": "position",
-          "x": 1000.0,
-          "y": 750.0,
-          "angle": 0
-        },
-        {
-          "@class": "oogasalad.model.attribute.DoubleAttribute",
-          "key": "width",
-          "value": 150
-        },
-        {
-          "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "type",
-          "value": "image"
-        },
-        {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 0
-        },
-        {
-          "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "info",
-          "value": "Collect salary as you pass"
-        },
-        {
-          "@class": "oogasalad.model.attribute.ImageAttribute",
-          "key": "image",
-          "value": "view.gameplay/go.jpg"
-        }
-      ]
-    },
-    {
-      "@class": "oogasalad.model.constructable.Tile",
-      "id": "19",
-      "schemas" : [ "tile" ],
-      "attributes": [
-        {
-          "@class": "oogasalad.model.attribute.DoubleAttribute",
-          "key": "height",
-          "value": 150.0
-        },
-        {
-          "@class": "oogasalad.model.attribute.TileListAttribute",
-          "key": "next",
-          "ids": [
-            "20"
-          ]
-        },
-        {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
-        },
-        {
-          "@class": "oogasalad.model.attribute.BooleanAttribute",
-          "key": "owned",
-          "value": false
-        },
-        {
-          "@class": "oogasalad.model.attribute.PositionAttribute",
-          "key": "position",
-          "x": 900.0,
-          "y": 750.0,
-          "angle": 0
-        },
-        {
-          "@class": "oogasalad.model.attribute.DoubleAttribute",
-          "key": "width",
-          "value": 100.0
-        },
-        {
-          "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "type",
-          "value": "street"
-        },
-        {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 250
-        },
-        {
-          "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "info",
-          "value": "Hollows"
-        },
-        {
-          "@class": "oogasalad.model.attribute.ColorAttribute",
-          "key": "color",
-          "value": "FF00FF"
-        }
-      ]
-    },
-    {
-      "@class": "oogasalad.model.constructable.Tile",
-      "id": "20",
-      "schemas" : [ "tile" ],
-      "attributes": [
-        {
-          "@class": "oogasalad.model.attribute.DoubleAttribute",
-          "key": "height",
-          "value": 150.0
-        },
-        {
-          "@class": "oogasalad.model.attribute.TileListAttribute",
-          "key": "next",
-          "ids": [
-            "21"
-          ]
-        },
-        {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
-        },
-        {
-          "@class": "oogasalad.model.attribute.BooleanAttribute",
-          "key": "owned",
-          "value": false
-        },
-        {
-          "@class": "oogasalad.model.attribute.PositionAttribute",
-          "key": "position",
-          "x": 800.0,
-          "y": 750.0,
-          "angle": 0
-        },
-        {
-          "@class": "oogasalad.model.attribute.DoubleAttribute",
-          "key": "width",
-          "value": 100.0
-        },
-        {
-          "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "type",
-          "value": "street"
-        },
-        {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 250
-        },
-        {
-          "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "info",
-          "value": "Few"
-        },
-        {
-          "@class": "oogasalad.model.attribute.ColorAttribute",
-          "key": "color",
-          "value": "FF00FF"
-        }
-      ]
-    },
-    {
-      "@class": "oogasalad.model.constructable.Tile",
-      "id": "21",
-      "schemas" : [ "tile" ],
-      "attributes": [
-        {
-          "@class": "oogasalad.model.attribute.DoubleAttribute",
-          "key": "height",
-          "value": 150.0
-        },
-        {
-          "@class": "oogasalad.model.attribute.TileListAttribute",
-          "key": "next",
-          "ids": [
-            "22"
-          ]
-        },
-        {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
-        },
-        {
-          "@class": "oogasalad.model.attribute.BooleanAttribute",
-          "key": "owned",
-          "value": false
-        },
-        {
-          "@class": "oogasalad.model.attribute.PositionAttribute",
-          "key": "position",
-          "x": 700.0,
-          "y": 750.0,
-          "angle": 0
-        },
-        {
-          "@class": "oogasalad.model.attribute.DoubleAttribute",
-          "key": "width",
-          "value": 100.0
-        },
-        {
-          "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "type",
-          "value": "street"
-        },
-        {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 250
-        },
-        {
-          "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "info",
-          "value": "Crowell"
-        },
-        {
-          "@class": "oogasalad.model.attribute.ColorAttribute",
-          "key": "color",
-          "value": "FF00FF"
-        }
-      ]
-    },
-    {
-      "@class": "oogasalad.model.constructable.Tile",
-      "id": "22",
-      "schemas" : [ "tile" ],
-      "attributes": [
-        {
-          "@class": "oogasalad.model.attribute.DoubleAttribute",
-          "key": "height",
-          "value": 150.0
-        },
-        {
-          "@class": "oogasalad.model.attribute.TileListAttribute",
-          "key": "next",
-          "ids": [
-            "23"
-          ]
-        },
-        {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
-        },
-        {
-          "@class": "oogasalad.model.attribute.BooleanAttribute",
-          "key": "owned",
-          "value": false
-        },
-        {
-          "@class": "oogasalad.model.attribute.PositionAttribute",
-          "key": "position",
-          "x": 600.0,
-          "y": 750.0,
-          "angle": 0
-        },
-        {
-          "@class": "oogasalad.model.attribute.DoubleAttribute",
-          "key": "width",
-          "value": 100.0
-        },
-        {
-          "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "type",
-          "value": "street"
-        },
-        {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 250
-        },
-        {
-          "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "info",
-          "value": "Craven"
-        },
-        {
-          "@class": "oogasalad.model.attribute.ColorAttribute",
-          "key": "color",
-          "value": "FF00FF"
-        }
-      ]
-    },
-    {
-      "@class": "oogasalad.model.constructable.Tile",
-      "id": "23",
-      "schemas" : [ "tile" ],
-      "attributes": [
-        {
-          "@class": "oogasalad.model.attribute.DoubleAttribute",
-          "key": "height",
-          "value": 150.0
-        },
-        {
-          "@class": "oogasalad.model.attribute.TileListAttribute",
-          "key": "next",
-          "ids": [
-            "24"
-          ]
-        },
-        {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
-        },
-        {
-          "@class": "oogasalad.model.attribute.BooleanAttribute",
-          "key": "owned",
-          "value": false
-        },
-        {
-          "@class": "oogasalad.model.attribute.PositionAttribute",
-          "key": "position",
-          "x": 500.0,
-          "y": 750.0,
-          "angle": 0
-        },
-        {
-          "@class": "oogasalad.model.attribute.DoubleAttribute",
-          "key": "width",
-          "value": 100.0
-        },
-        {
-          "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "type",
-          "value": "street"
-        },
-        {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 250
-        },
-        {
-          "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "info",
-          "value": "Kilgo"
-        },
-        {
-          "@class": "oogasalad.model.attribute.ColorAttribute",
-          "key": "color",
-          "value": "FF00FF"
-        }
-      ]
-    },
-    {
-      "@class": "oogasalad.model.constructable.Tile",
-      "id": "24",
-      "schemas" : [ "tile" ],
-      "attributes": [
-        {
-          "@class": "oogasalad.model.attribute.DoubleAttribute",
-          "key": "height",
-          "value": 150
-        },
-        {
-          "@class": "oogasalad.model.attribute.TileListAttribute",
-          "key": "next",
-          "ids": [
-            "1"
-          ]
-        },
-        {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
-        },
-        {
-          "@class": "oogasalad.model.attribute.BooleanAttribute",
-          "key": "owned",
-          "value": false
-        },
-        {
-          "@class": "oogasalad.model.attribute.PositionAttribute",
-          "key": "position",
-          "x": 425.0,
-          "y": 160.0,
-          "angle": 180
-        },
-        {
-          "@class": "oogasalad.model.attribute.DoubleAttribute",
-          "key": "width",
-          "value": 150
-        },
-        {
-          "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "type",
-          "value": "image"
-        },
-        {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 0
-        },
-        {
-          "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "info",
-          "value": "JUST VISITING"
-        },
-        {
-          "@class": "oogasalad.model.attribute.ImageAttribute",
-          "key": "image",
-          "value": "view.gameplay/in_jail.jpg"
         }
       ]
     }

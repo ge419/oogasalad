@@ -54,8 +54,4 @@ public class BooleanMetadata extends AbstractMetadata {
   public void setDefaultValue(boolean defaultValue) {
     this.defaultValue.set(defaultValue);
   }
-
-  public BooleanProperty defaultValueProperty() {
-    return defaultValue;
-  }
 }

@@ -1,7 +1,7 @@
 package oogasalad.view.gameplay.popup;
 
 import java.util.List;
-import javafx.geometry.Point2D;
+
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -44,11 +44,7 @@ public class HandDisplayPopup extends BorderPane {
     createScene(this);
   }
 
-  public void showHand(Node anchor, Point2D offset) {
-    double popupX = anchor.getScene().getWindow().getX() + offset.getX();
-    double popupY = anchor.getScene().getWindow().getY() + offset.getY();
-    stage.setX(popupX);
-    stage.setY(popupY);
+  public void showHand() {
     stage.show();
   }
 

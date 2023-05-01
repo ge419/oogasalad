@@ -3,9 +3,12 @@ package oogasalad.view.gameplay.Players;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.layout.BorderPane;
+import javax.swing.text.View;
+import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Players;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Renderable;
+import oogasalad.view.ViewFactory;
 
 /**
  * <p> Class that holds all PlayerUI objects to be rendered
@@ -29,9 +32,13 @@ public class ViewPlayers implements Renderable {
 
   Players BPlayers;
   private final List<PlayerUI> playerList = new ArrayList<>();
+  private ViewFactory viewFactory;
+  private GameHolder game;
 
-  public ViewPlayers(Players p) {
+  public ViewPlayers(Players p, ViewFactory viewFactory, GameHolder game) {
     this.BPlayers = p;
+    this.viewFactory = viewFactory;
+    this.game = game;
   }
 
   /**

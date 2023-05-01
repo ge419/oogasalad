@@ -1,37 +1,45 @@
-//package oogasalad.view.gameplay.popup;
-//
-//import javafx.geometry.Point2D;
-//import javafx.scene.Node;
-//import javafx.scene.layout.BorderPane;
-//import javafx.stage.Popup;
-//import oogasalad.view.gameplay.pieces.ImageCard;
-//
-//public class CardDisplayPopup extends Popups {
-//
-//  private Popup popup;
-//
-//  public CardDisplayPopup(ImageCard card) {
-//    super();
-//    popup = getNewPopup();
-//    ImageCard dummyCard = new ImageCard(card.getImageURL());
-//    ((BorderPane)popup.getContent().get(0)).setCenter(dummyCard);
-//    popup.setOnHidden(event -> {
-//      hideHand();
-//    });
-//    popup.setAutoHide(true);
-//    popup.setHideOnEscape(true);
-//  }
-//  @Override
-//  public void showHand(Node anchor, Point2D offset) {
-//    double sceneWidth = anchor.getScene().getWindow().getWidth();
-//    double sceneHeight = anchor.getScene().getWindow().getHeight();
-//    double popupX = sceneWidth / 4 + offset.getX();
-//    double popupY = sceneHeight / 4 + offset.getY();
-//    popup.show(anchor.getScene().getWindow(), popupX, popupY);
-//  }
-//
-//  @Override
-//  public void hideHand() {
-//    popup.hide();
-//  }
-//}
+package oogasalad.view.gameplay.popup;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+
+public class CardDisplayPopup {
+
+  private Stage stage;
+  private BorderPane root;
+  private String cardTitle;
+  private String cardDescription;
+
+  public CardDisplayPopup(String title, String description) {
+    this.stage = new Stage();
+    this.root = new BorderPane();
+    cardTitle = title;
+    cardDescription = description;
+    createPopupContent();
+  }
+
+  private void createPopupContent() {
+    Label cardLabel = new Label(cardDescription);
+    cardLabel.setPadding(new Insets(10));
+    cardLabel.setAlignment(Pos.CENTER);
+    root.setCenter(cardLabel);
+
+    HBox bottomBox = new HBox();
+    bottomBox.setPadding(new Insets(10));
+    bottomBox.setAlignment(Pos.CENTER);
+    root.setBottom(bottomBox);
+
+    Scene scene = new Scene(root, 300, 200);
+    stage.setScene(scene);
+    stage.setTitle(cardTitle);
+  }
+
+  public void showCard() {
+    stage.showAndWait();
+  }
+}

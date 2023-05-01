@@ -199,17 +199,9 @@ public class BuilderController {
 
   public List<String> getListOfRules() {
     return resources.keySet().stream().toList();
-//    return List.of(
-//        "Hello",
-//        "This",
-//        "Is",
-//        "A",
-//        "Test"
-//    );
   }
 
   public String getClassForRule(String ruleClass) {
-//    resources.getKeys();
     return resources.getString(ruleClass);
   }
 
@@ -222,17 +214,17 @@ public class BuilderController {
     );
   }
 
-  public void makeRulesPopup(String ruleAsString){
+  public void makeRulesPopup(String ruleAsString) throws Exception {
     try {
       logger.info("Chose to edit rule " + ruleAsString);
       Class<? extends EditableRule> clazz = (Class<? extends EditableRule>) Class.forName(ruleAsString);
       EditableRule rule = injector.getInstance(clazz);
       createPopupForm(rule, builderView.getLanguage(), builderView.getPopupPane());
-      //TODO: add the newly created rule to the gameholder
       gameHolder.getRules().add(rule);
+      logger.info("New rule added to GameHolder");
     } catch (ClassNotFoundException e) {
       logger.fatal("Failed to create rule classes", e);
-//      throw new Exception(e);
+      throw new Exception(e);
     }
   }
 

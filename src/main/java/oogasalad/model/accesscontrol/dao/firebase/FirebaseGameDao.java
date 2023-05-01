@@ -1,14 +1,10 @@
 package oogasalad.model.accesscontrol.dao.firebase;
 
-import com.google.api.core.ApiFuture;
 import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.FieldValue;
-import com.google.cloud.firestore.QuerySnapshot;
 import com.google.inject.Inject;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,26 +13,32 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import oogasalad.model.accesscontrol.dao.GameDao;
 import oogasalad.model.accesscontrol.database.firebase.FirebaseAccessor;
+import oogasalad.model.accesscontrol.database.schema.Collections;
+import oogasalad.model.accesscontrol.database.schema.GameSchema;
 import oogasalad.model.exception.InvalidDatabaseExecutionException;
 
+/**
+ * Concrete implementation of {@link GameDao} for accessing a firestore database.
+ *
+ * @author cgd19
+ */
 public class FirebaseGameDao extends FirebaseAbstractDao implements GameDao {
+
   @Inject
-  public FirebaseGameDao(FirebaseAccessor firebaseAccessor){
+  public FirebaseGameDao(FirebaseAccessor firebaseAccessor) {
     super(firebaseAccessor);
   }
 
   @Override
   public Map<String, Object> getGameData(String gameID) {
-    return getDocumentData("games", gameID);
+    return getDocumentData(GAMES_COLLECTION, gameID);
   }
 
   @Override
   public String createGame(String userID) {
     CollectionReference collection = db.collection(GAMES_COLLECTION);
     DocumentReference newDocRef;
-
     Map<String, Object> gameMetaData = getDefaultGameEntry(userID);
-
     try {
       newDocRef = collection.add(gameMetaData).get();
       String gameID = newDocRef.getId();
@@ -50,26 +52,27 @@ public class FirebaseGameDao extends FirebaseAbstractDao implements GameDao {
   }
 
   @Override
-  public void updateGame (String gameID, Map<String, Object> gameUpdate){
+  public void updateGame(String gameID, Map<String, Object> gameUpdate) {
     updateDocument(GAMES_COLLECTION, gameID, gameUpdate);
   }
 
   @Override
-  public List<String> getAllGames () {
+  public List<String> getAllGames() {
     return getAllDocumentsInCollection(GAMES_COLLECTION);
   }
 
   @Override
-  public void postGameReview (String review, String gameID, String userID){
+  public void postGameReview(String review, String gameID, String userID) {
     Map<String, Object> docData = new HashMap<>();
-    docData.put(REVIEW_AUTHOR_KEY,  userID);
+    docData.put(REVIEW_AUTHOR_KEY, userID);
     docData.put(REVIEW_DATE_POSTED_KEY, Timestamp.of(new Date()));
     docData.put(REVIEW_KEY, review);
 
-    updateDocument(GAMES_COLLECTION, gameID, createMap(GAME_REVIEWS_KEY, FieldValue.arrayUnion(docData)));
+    updateDocument(GAMES_COLLECTION, gameID,
+        createMap(GAME_REVIEWS_KEY, FieldValue.arrayUnion(docData)));
   }
 
-  private Map<String, Object> getDefaultGameEntry(String userID){
+  private Map<String, Object> getDefaultGameEntry(String userID) {
     Map<String, Object> gameMetaData = new HashMap<>();
     gameMetaData.put(TITLE_KEY, "");
     gameMetaData.put(DESCRIPTION_KEY, "");
@@ -80,7 +83,7 @@ public class FirebaseGameDao extends FirebaseAbstractDao implements GameDao {
     gameMetaData.put(THUMBNAIL_KEY, userID); //simplifying assumption, stored data folder
     gameMetaData.put(DATE_CREATED_KEY, Timestamp.of(new Date()));
     gameMetaData.put(GAME_DATA_KEY, "");
-    gameMetaData.put(GAME_REVIEWS_KEY, Arrays.asList());
+    gameMetaData.put(GAME_REVIEWS_KEY, List.of());
 
     return gameMetaData;
   }

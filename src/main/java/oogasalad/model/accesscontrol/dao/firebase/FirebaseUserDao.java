@@ -13,12 +13,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import oogasalad.model.accesscontrol.dao.GameDao;
 import oogasalad.model.accesscontrol.dao.UserDao;
 import oogasalad.model.accesscontrol.database.firebase.FirebaseAccessor;
 import oogasalad.model.exception.InvalidDatabaseExecutionException;
 import oogasalad.view.tabexplorer.userpreferences.Languages;
 import oogasalad.view.tabexplorer.userpreferences.Theme;
 
+/**
+ * Concrete implementation of {@link UserDao} for accessing a firestore database.
+ *
+ * @author cgd19
+ */
 public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
 
   @Inject

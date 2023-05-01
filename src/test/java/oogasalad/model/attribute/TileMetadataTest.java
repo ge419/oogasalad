@@ -1,5 +1,6 @@
 package oogasalad.model.attribute;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -23,7 +24,7 @@ class TileMetadataTest {
     IntMetadata intMetadata = new IntMetadata("3");
     Attribute goodAttribute = testTileMetadata.makeAttribute();
     Attribute badAttribute = intMetadata.makeAttribute();
-    assertTrue(testTileMetadata.checkPreconditions(goodAttribute));
+    assertFalse(testTileMetadata.checkPreconditions(goodAttribute));
     assertThrows(ClassCastException.class, () -> testTileMetadata.checkPreconditions(badAttribute));
   }
 
@@ -39,7 +40,7 @@ class TileMetadataTest {
   @Test
   void testGetAttributeClass() {
     assertNotEquals(testTileMetadata.getAttributeClass(), ColorAttribute.class);
-    assertEquals(testTileMetadata.getAttributeClass(), PositionAttribute.class);
+    assertEquals(testTileMetadata.getAttributeClass(), TileAttribute.class);
   }
 
   @Test
@@ -51,7 +52,7 @@ class TileMetadataTest {
     ColorMetadata colorMetadata = new ColorMetadata("bad");
     Attribute goodAttribute = testTileMetadata.makeAttribute();
     Attribute badAttribute = colorMetadata.makeAttribute();
-    assertTrue(testTileMetadata.checkPreconditions(goodAttribute));
+    assertFalse(testTileMetadata.checkPreconditions(goodAttribute));
     assertThrows(ClassCastException.class, () -> testTileMetadata.checkPreconditions(badAttribute));
   }
 }

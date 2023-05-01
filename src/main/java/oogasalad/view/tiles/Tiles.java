@@ -22,12 +22,12 @@ public class Tiles implements Renderable {
 
   private final List<Tile> BTiles;
   private final List<ViewTile> tileList = new ArrayList<>();
-  private final TileRenderStrategy renderStrategy;
+  private final ViewTileFactory viewTileFactory;
 
   @Inject
-  public Tiles(@Assisted List<Tile> t, TileRenderStrategy renderStrategy) {
+  public Tiles(@Assisted List<Tile> t, ViewTileFactory viewTileFactory) {
     this.BTiles = t;
-    this.renderStrategy = renderStrategy;
+    this.viewTileFactory = viewTileFactory;
   }
 
   /**
@@ -36,7 +36,7 @@ public class Tiles implements Renderable {
   @Override
   public void render(BorderPane pane) {
     for (Tile bTile : BTiles) {
-      ViewTile viewTile = renderStrategy.createViewTile(bTile);
+      ViewTile viewTile = viewTileFactory.createDynamicViewTile(bTile);
       pane.getChildren().add(viewTile.asNode());
       tileList.add(viewTile);
     }

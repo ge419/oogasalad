@@ -39,12 +39,14 @@ class TileTest {
 
   @Test
   void testSettingDefaultAttributes(){
+    assertEquals(testTile.getType(), "default");
     testTile.setX(32.8);
     testTile.setY(31.8);
     testTile.setAngle(7.6);
     testTile.setCoordinate(new Coordinate(3.4,5.6));
     testTile.setHeight(5.6);
     testTile.setWidth(3.7);
+    testTile.setViewType("BASIC");
     assertEquals(testTile.getX(), 3.4);
     assertEquals(testTile.getY(), 5.6);
     assertEquals(testTile.getAngle(), 0.0);

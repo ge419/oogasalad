@@ -30,8 +30,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 425.0,
-          "y": 810.0,
+          "x": 350.0,
+          "y": 750.0,
           "angle": 0
         },
         {
@@ -91,8 +91,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 425.0,
-          "y": 685.0,
+          "x": 375.0,
+          "y": 625.0,
           "angle": 90
         },
         {
@@ -152,8 +152,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 425.0,
-          "y": 585.0,
+          "x": 375.0,
+          "y": 525.0,
           "angle": 90
         },
         {
@@ -213,8 +213,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 425.0,
-          "y": 485.0,
+          "x": 375.0,
+          "y": 425.0,
           "angle": 90
         },
         {
@@ -274,8 +274,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 425.0,
-          "y": 385.0,
+          "x": 375.0,
+          "y": 325.0,
           "angle": 90
         },
         {
@@ -335,8 +335,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 425.0,
-          "y": 285.0,
+          "x": 375.0,
+          "y": 225.0,
           "angle": 90
         },
         {
@@ -396,8 +396,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 425.0,
-          "y": 160.0,
+          "x": 350.0,
+          "y": 100.0,
           "angle": 180
         },
         {
@@ -457,8 +457,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 550.0,
-          "y": 160.0,
+          "x": 500.0,
+          "y": 100.0,
           "angle": 180
         },
         {
@@ -523,8 +523,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 650.0,
-          "y": 160.0,
+          "x": 600.0,
+          "y": 100.0,
           "angle": 180
         },
         {
@@ -584,8 +584,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 750.0,
-          "y": 160.0,
+          "x": 700.0,
+          "y": 100.0,
           "angle": 180
         },
         {
@@ -645,8 +645,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 850.0,
-          "y": 160.0,
+          "x": 800.0,
+          "y": 100.0,
           "angle": 180
         },
         {
@@ -706,8 +706,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 950.0,
-          "y": 160.0,
+          "x": 900.0,
+          "y": 100.0,
           "angle": 180
         },
         {
@@ -767,8 +767,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 1075.0,
-          "y": 160.0,
+          "x": 1000.0,
+          "y": 100.0,
           "angle": 180
         },
         {
@@ -828,8 +828,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 1075.0,
-          "y": 285.0,
+          "x": 1025.0,
+          "y": 225.0,
           "angle": 270
         },
         {
@@ -889,8 +889,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 1075.0,
-          "y": 385.0,
+          "x": 1025.0,
+          "y": 325.0,
           "angle": 270
         },
         {
@@ -911,7 +911,7 @@
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
           "key": "info",
-          "value": "LRSC"
+          "value": "LSRC"
         },
         {
           "@class": "oogasalad.model.attribute.ColorAttribute",
@@ -950,8 +950,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 1075.0,
-          "y": 485.0,
+          "x": 1025.0,
+          "y": 425.0,
           "angle": 270
         },
         {
@@ -1011,8 +1011,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 1075.0,
-          "y": 585.0,
+          "x": 1025.0,
+          "y": 525.0,
           "angle": 270
         },
         {
@@ -1072,8 +1072,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 1075.0,
-          "y": 685.0,
+          "x": 1025.0,
+          "y": 625.0,
           "angle": 270
         },
         {
@@ -1133,8 +1133,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 1075.0,
-          "y": 810.0,
+          "x": 1000.0,
+          "y": 750.0,
           "angle": 0
         },
         {
@@ -1194,8 +1194,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 950.0,
-          "y": 810.0,
+          "x": 900.0,
+          "y": 750.0,
           "angle": 0
         },
         {
@@ -1255,8 +1255,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 850.0,
-          "y": 810.0,
+          "x": 800.0,
+          "y": 750.0,
           "angle": 0
         },
         {
@@ -1316,8 +1316,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 750.0,
-          "y": 810.0,
+          "x": 700.0,
+          "y": 750.0,
           "angle": 0
         },
         {
@@ -1377,8 +1377,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 650.0,
-          "y": 810.0,
+          "x": 600.0,
+          "y": 750.0,
           "angle": 0
         },
         {
@@ -1438,8 +1438,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 550.0,
-          "y": 810.0,
+          "x": 500.0,
+          "y": 750.0,
           "angle": 0
         },
         {

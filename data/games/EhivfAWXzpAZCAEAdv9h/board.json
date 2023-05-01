@@ -16,6 +16,55 @@
           "id" : ""
         },
         {
+          "@class": "oogasalad.model.attribute.BooleanAttribute",
+          "key": "owned",
+          "value": false
+        },
+        {
+          "@class": "oogasalad.model.attribute.PositionAttribute",
+          "key": "position",
+          "x": 350.0,
+          "y": 750.0,
+          "angle": 0
+        },
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "width",
+          "value": 150
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "viewtype",
+          "value": "image"
+        },
+        {
+          "@class" : "oogasalad.model.attribute.DoubleAttribute",
+          "key" : "price",
+          "value" : 0
+        },
+        {
+          "@class": "oogasalad.model.attribute.StringAttribute",
+          "key": "info",
+          "value": "Collect salary as you pass"
+        },
+        {
+          "@class": "oogasalad.model.attribute.ImageAttribute",
+          "key": "image",
+          "value": "view.gameplay/go.jpg"
+        }
+      ]
+    },
+    {
+      "@class": "oogasalad.model.constructable.Tile",
+      "id": "19",
+      "schemas" : [ "tile" ],
+      "attributes": [
+        {
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "height",
+          "value": 150.0
+        },
+        {
           "@class": "oogasalad.model.attribute.TileListAttribute",
           "key": "next",
           "ids": [
@@ -30,9 +79,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 550.0,
-          "y": 160.0,
-          "angle": 180
+          "x": 375.0,
+          "y": 625.0,
+          "angle": 90
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -96,9 +145,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 650.0,
-          "y": 160.0,
-          "angle": 180
+          "x": 375.0,
+          "y": 525.0,
+          "angle": 90
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -157,9 +206,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 750.0,
-          "y": 160.0,
-          "angle": 180
+          "x": 375.0,
+          "y": 425.0,
+          "angle": 90
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -218,9 +267,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 850.0,
-          "y": 160.0,
-          "angle": 180
+          "x": 375.0,
+          "y": 325.0,
+          "angle": 90
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -279,9 +328,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 950.0,
-          "y": 160.0,
-          "angle": 180
+          "x": 375.0,
+          "y": 225.0,
+          "angle": 90
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -340,8 +389,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 1075.0,
-          "y": 160.0,
+          "x": 350.0,
+          "y": 100.0,
           "angle": 180
         },
         {
@@ -401,9 +450,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 1075.0,
-          "y": 285.0,
-          "angle": 270
+          "x": 500.0,
+          "y": 100.0,
+          "angle": 180
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -462,9 +511,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 1075.0,
-          "y": 385.0,
-          "angle": 270
+          "x": 600.0,
+          "y": 100.0,
+          "angle": 180
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -523,9 +572,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 1075.0,
-          "y": 485.0,
-          "angle": 270
+          "x": 700.0,
+          "y": 100.0,
+          "angle": 180
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -584,9 +633,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 1075.0,
-          "y": 585.0,
-          "angle": 270
+          "x": 800.0,
+          "y": 100.0,
+          "angle": 180
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -645,9 +694,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 1075.0,
-          "y": 685.0,
-          "angle": 270
+          "x": 900.0,
+          "y": 100.0,
+          "angle": 180
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -706,9 +755,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 1075.0,
-          "y": 810.0,
-          "angle": 0
+          "x": 1000.0,
+          "y": 100.0,
+          "angle": 180
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -767,9 +816,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 950.0,
-          "y": 810.0,
-          "angle": 0
+          "x": 1025.0,
+          "y": 225.0,
+          "angle": 270
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -828,9 +877,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 850.0,
-          "y": 810.0,
-          "angle": 0
+          "x": 1025.0,
+          "y": 325.0,
+          "angle": 270
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -850,7 +899,7 @@
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
           "key": "info",
-          "value": "Reuben-Cooke"
+          "value": "LSRC"
         },
         {
           "@class": "oogasalad.model.attribute.ColorAttribute",
@@ -889,9 +938,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 750.0,
-          "y": 810.0,
-          "angle": 0
+          "x": 1025.0,
+          "y": 425.0,
+          "angle": 270
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -950,9 +999,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 650.0,
-          "y": 810.0,
-          "angle": 0
+          "x": 1025.0,
+          "y": 525.0,
+          "angle": 270
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -1011,9 +1060,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 550.0,
-          "y": 810.0,
-          "angle": 0
+          "x": 1025.0,
+          "y": 625.0,
+          "angle": 270
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -1072,8 +1121,8 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 425.0,
-          "y": 810.0,
+          "x": 1000.0,
+          "y": 750.0,
           "angle": 0
         },
         {
@@ -1133,9 +1182,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 425.0,
-          "y": 685.0,
-          "angle": 90
+          "x": 900.0,
+          "y": 750.0,
+          "angle": 0
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -1194,9 +1243,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 425.0,
-          "y": 585.0,
-          "angle": 90
+          "x": 800.0,
+          "y": 750.0,
+          "angle": 0
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -1255,9 +1304,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 425.0,
-          "y": 485.0,
-          "angle": 90
+          "x": 700.0,
+          "y": 750.0,
+          "angle": 0
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -1316,9 +1365,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 425.0,
-          "y": 385.0,
-          "angle": 90
+          "x": 600.0,
+          "y": 750.0,
+          "angle": 0
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -1377,9 +1426,9 @@
         {
           "@class": "oogasalad.model.attribute.PositionAttribute",
           "key": "position",
-          "x": 425.0,
-          "y": 285.0,
-          "angle": 90
+          "x": 500.0,
+          "y": 750.0,
+          "angle": 0
         },
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",

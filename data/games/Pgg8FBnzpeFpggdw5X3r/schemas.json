@@ -1,0 +1,21 @@
+[ {
+  "@class" : "oogasalad.model.attribute.SimpleObjectSchema",
+  "name" : "3dd813da-b60a-47bd-88d3-4a5ae4b24f65",
+  "fields" : [ {
+    "@class" : "oogasalad.model.attribute.StringMetadata",
+    "key" : "Caption",
+    "name" : "Caption",
+    "description" : "",
+    "defaultValue" : "Add Caption",
+    "editable" : true,
+    "viewable" : true
+  }, {
+    "@class" : "oogasalad.model.attribute.ImageMetadata",
+    "key" : "SoccerPhoto.png",
+    "name" : "SoccerPhoto.png",
+    "description" : "",
+    "defaultValue" : "data/customObjects/Test1/SoccerPhoto.png",
+    "editable" : true,
+    "viewable" : true
+  } ]
+} ]

@@ -1,0 +1,20 @@
+{
+  "name": "Test3",
+  "width": 791.0,
+  "height": 798.0,
+  "customObjects": [
+    {
+      "type": "CustomColorBox",
+      "name": "Background",
+      "color": "0xff0000ff",
+      "opacity": 1.0,
+      "index": 0,
+      "translatex": 1.0,
+      "translatey": 0.0,
+      "width": 791.0,
+      "height": 798.0,
+      "editable": false,
+      "viewable": false
+    }
+  ]
+}

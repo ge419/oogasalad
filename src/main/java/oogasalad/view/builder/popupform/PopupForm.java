@@ -97,7 +97,7 @@ public class PopupForm implements BuilderUtility {
             }
         }
 
-        for (ParameterStrategy parameter : currentParameters) {
+        for (ParameterStrategy parameter : new ArrayList<>(currentParameters)) {
             parameter.saveInput();
         }
     }

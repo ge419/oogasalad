@@ -1,0 +1,58 @@
+{
+  "tiles" : [ {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "1b0c1569-a3da-498d-9ed0-4a9b77f2c35c",
+    "schemas" : [ "tile", "customTile", "7f6aa945-7d31-47e9-b100-67c60e3d4246" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "Caption",
+      "value" : "Oh captain my captain"
+    }, {
+      "@class" : "oogasalad.model.attribute.ImageAttribute",
+      "key" : "SoccerPhoto.png",
+      "value" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "customJson",
+      "value" : "/Users/matthew/oogasalad_team03/data/customObjects/Test1/Test1.json"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 50.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : -4.8807220458984375,
+      "y" : 62.30085849761963,
+      "angle" : 12.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "type",
+      "value" : "a"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "viewtype",
+      "value" : "custom"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 50.0
+    } ]
+  } ]
+}

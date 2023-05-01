@@ -1,21 +1,24 @@
 package oogasalad.view.builder.customTile;
 
 import com.google.gson.JsonObject;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import oogasalad.model.attribute.ColorMetadata;
 import oogasalad.model.attribute.Metadata;
-import oogasalad.model.attribute.StringMetadata;
+import oogasalad.view.builder.BuilderUtility;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.ResourceBundle;
+import java.util.UUID;
 
-public class CustomColorBox extends Rectangle implements CustomElement {
+public class CustomColorBox extends Rectangle implements CustomElement, BuilderUtility {
 
     private String name = "";
     private String defaultColor;
@@ -27,13 +30,12 @@ public class CustomColorBox extends Rectangle implements CustomElement {
     private int index = -1; // it is -1 unless it is loaded from JSON
 
     private final String UNDERSPECIFIED_COLOR = "#FF0000";
-    private final double UNDERSPECIFIED_OPACITY = .5;
     private final double UNDERSPECIFIED_LENGTH = 50;
 
 
     public CustomColorBox() {
         super();
-        this.setFill(Color.web(UNDERSPECIFIED_COLOR, UNDERSPECIFIED_OPACITY));
+        this.setFill(Color.web(UNDERSPECIFIED_COLOR));
         this.setWidth(UNDERSPECIFIED_LENGTH);
         this.setHeight(UNDERSPECIFIED_LENGTH);
     }
@@ -42,8 +44,7 @@ public class CustomColorBox extends Rectangle implements CustomElement {
         this.name = jsonObject.get("name").getAsString();
         this.defaultColor = jsonObject.get("color").getAsString();
 
-        this.defaultOpacity = jsonObject.get("opacity").getAsDouble();
-        this.setFill(Color.web(defaultColor,defaultOpacity));
+        this.setFill(Color.web(defaultColor));
         this.setEditable(jsonObject.get("editable").getAsBoolean());
 
         this.setWidth(jsonObject.get("width").getAsDouble());
@@ -56,8 +57,6 @@ public class CustomColorBox extends Rectangle implements CustomElement {
 
         int index = jsonObject.get("index").getAsInt();
     }
-
-
 
     @Override
     public JsonObject save(Path folderPath) throws IOException {
@@ -72,19 +71,25 @@ public class CustomColorBox extends Rectangle implements CustomElement {
         jsonObject.addProperty("width", this.getWidth());
         jsonObject.addProperty("height", this.getHeight());
         jsonObject.addProperty("editable", this.editable);
+        jsonObject.addProperty("viewable", this.editable);
 
         return jsonObject;
     }
     @Override
-    public VBox getInfo() {
-        ArrayList colorBoxSpecificElements = new ArrayList();
-        Label widthLabel = new Label("Width");
-        colorBoxSpecificElements.add(widthLabel);
-        colorBoxSpecificElements.add(createWidthSlider());
-        Label heightLabel = new Label("Height");
-        colorBoxSpecificElements.add(heightLabel);
-        colorBoxSpecificElements.add(createHeightSlider());
-        return CustomElementHelper.makeVbox(this, colorBoxSpecificElements);
+    public VBox getInfo(ResourceBundle languageBundle) {
+        ArrayList colorBoxElms = new ArrayList();
+
+        ColorPicker colorPicker = (ColorPicker) makeColorPicker("color");
+        colorPicker.setOnAction(event -> setValue(colorPicker.getValue().toString()));
+        colorBoxElms.add(colorPicker);
+
+        Label widthLabel = (Label) makeLabel("width", languageBundle);
+        colorBoxElms.add(widthLabel);
+        colorBoxElms.add(createWidthSlider());
+        Label heightLabel = (Label) makeLabel("height", languageBundle);
+        colorBoxElms.add(heightLabel);
+        colorBoxElms.add(createHeightSlider());
+        return makeVbox(this, colorBoxElms);
     }
 
     @Override
@@ -106,7 +111,6 @@ public class CustomColorBox extends Rectangle implements CustomElement {
     @Override
     public void setName(String text) {
         name = text;
-
     }
 
     @Override
@@ -120,7 +124,7 @@ public class CustomColorBox extends Rectangle implements CustomElement {
     }
 
     private Slider createWidthSlider() {
-        Slider widthSlider = new Slider(10, ((Pane) this.getParent()).getWidth(), this.getWidth()*1.1); //1.1 so users don't have to perfectly align
+        Slider widthSlider = (Slider) makeSlider("width", 10, ((Pane) this.getParent()).getWidth(), this.getWidth()*1.1); //1.1 so users don't have to perfectly align
         widthSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
             this.setWidth(newVal.doubleValue());
         });
@@ -128,7 +132,7 @@ public class CustomColorBox extends Rectangle implements CustomElement {
     }
 
     private Slider createHeightSlider() {
-        Slider heightSlider = new Slider(10, ((Pane) this.getParent()).getHeight(), this.getHeight()*1.1); //1.1 so users don't have to perfectly align
+        Slider heightSlider = (Slider) makeSlider("height" ,10, ((Pane) this.getParent()).getHeight(), this.getHeight()*1.1); //1.1 so users don't have to perfectly align
         heightSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
             this.setHeight(newVal.doubleValue());
         });
@@ -137,7 +141,19 @@ public class CustomColorBox extends Rectangle implements CustomElement {
 
     @Override
     public Metadata getMetaData() {
-        //TODO MAKE COLORBOX METADATA
-        return new StringMetadata("Reminder to create COLORBOX METADATA");
+        ColorMetadata metadata = new ColorMetadata(name.isEmpty() ? "Colorbox-" + UUID.randomUUID().toString() : name);
+        metadata.setName(name);
+        metadata.setDefaultValue(this.defaultColor);
+        metadata.setEditable(editable);
+        metadata.setViewable(editable);
+        metadata.setDescription("A custom colorbox");
+        return metadata;
     }
+
+    @Override
+    public void setValue(String loadedValue) {
+        this.defaultColor = loadedValue;
+        this.setFill(Color.web(defaultColor));
+    }
+
 }

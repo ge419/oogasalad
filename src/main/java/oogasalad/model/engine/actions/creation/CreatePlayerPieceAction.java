@@ -12,6 +12,11 @@ import oogasalad.model.engine.actions.Action;
 import oogasalad.model.engine.actions.ActionParams;
 import oogasalad.model.engine.prompt.IntegerPromptOption;
 
+/**
+ * Action for creating pieces.
+ *
+ * @author Nathaniel Wullar, Jay
+ */
 public class CreatePlayerPieceAction implements Action {
 
   private final Provider<Piece> pieceProvider;
@@ -29,6 +34,9 @@ public class CreatePlayerPieceAction implements Action {
     this.bundle = bundle;
   }
 
+  /**
+   * Creates the prompt to take in user input for number of pieces and creates the pieces.
+   */
   @Override
   public void runAction(ActionParams actionParams) {
     List<IntegerPromptOption> options = new ArrayList<>();
@@ -49,8 +57,6 @@ public class CreatePlayerPieceAction implements Action {
       Piece piece = pieceProvider.get();
       piece.setPlayer(gameholder.getPlayers().getList().get(Math.floorDiv(i, numberOfPlayers)));
     }
-
     //gameholder.setPlayers(new Players(players));
-    System.out.println(gameholder.getPlayers().getList().get(0).getName());
   }
 }

@@ -188,7 +188,8 @@ public class Dragger implements DraggerAPI {
 
   /**
    * <p>Sets the maximum translation based on the current maximum width and height of the parent
-   * pane and the current location of the node.</p>
+   * pane
+   * and the current location of the node.</p>
    *
    * <p>Sets the minimum translation based off the origin point of the parent (assumed to be
    * zero) and the current location of the node.</p>
@@ -269,7 +270,8 @@ public class Dragger implements DraggerAPI {
   /**
    * <p>Checks the area clicked by the mouse to see if it is within the bounds of the parent.</p>
    * <p>If the area is within bounds, the given defaultXTranslation and defaultYTranslation are
-   * returned back to the user in a dimension object.</p>
+   * returned back to the
+   * user in a dimension object.</p>
    * <p>If the area is not within bounds, the result inside of the dimension object will be the
    * edge in the parent node closest to the mouse event (dictated by myMinTranslate and
    * myMaxTranslate

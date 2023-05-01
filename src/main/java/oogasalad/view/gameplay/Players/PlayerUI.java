@@ -49,9 +49,9 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
   private static final Color UI_STROKE_COLOR = Color.BLACK;
   private final Player modelPlayer;
   private final BooleanProperty current;
+  private HandDisplayPopup popup;
   private final ViewFactory viewFactory;
   private final GameHolder game;
-  private HandDisplayPopup popup;
 
   public PlayerUI(Player BPlayer, Coordinate coordinate, ViewFactory viewFactory, GameHolder game) {
     modelPlayer = BPlayer;

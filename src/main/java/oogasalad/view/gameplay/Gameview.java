@@ -33,7 +33,8 @@ public class Gameview implements GameObserver {
    * displays in window
    *
    * <p>Assumptions: Any additional frontend components must implement the Renderable interface and
-   * be added to the renderGameview method
+   * be
+   * added to the renderGameview method
    *
    * <p>Dependencies: GameHolder, Tiles, Die, ViewPlayers, ViewPieces
    */

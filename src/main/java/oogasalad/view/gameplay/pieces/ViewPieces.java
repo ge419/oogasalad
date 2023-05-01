@@ -25,10 +25,6 @@ public class ViewPieces implements Renderable {
     }
   }
 
-  public List<PlayerPiece> getPieceList() {
-    return pieceList;
-  }
-
   public PlayerPiece getPiece() {
     return pieceList.get(0);
   }

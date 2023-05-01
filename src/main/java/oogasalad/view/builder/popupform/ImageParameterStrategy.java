@@ -36,9 +36,9 @@ public class ImageParameterStrategy implements ParameterStrategy, BuilderUtility
   private static final Logger LOG = LogManager.getLogger(ImageParameterStrategy.class);
   private final ImageAttribute attr;
   private final ImageMetadata meta;
+  private String imagePath;
   private final List<String> validExtensions = List.of("jpg", "png");
   private final SaveManager manager;
-  private String imagePath;
 
   /**
    * Creates an instance of ImageParameterStrategy Can be used to display form data to a user for an

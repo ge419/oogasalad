@@ -128,9 +128,6 @@ public class NavBar {
   }
 
   private void initialize() {
-
-//    initButtons();
-
     gameLauncherButton = new Button(languageResourceBundle.getString("LauncherBtn"));
     gameLauncherButton.setOnMouseEntered(e -> gameLauncherButton.setCursor(Cursor.HAND));
     socialCenterButton = new Button(languageResourceBundle.getString("SocialCenterBtn"));
@@ -153,6 +150,5 @@ public class NavBar {
         spacer, loginButton);
 
     navBarLayout.setId("top-navbar");
-
   }
 }

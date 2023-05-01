@@ -9,7 +9,6 @@ import oogasalad.view.tabexplorer.tabs.settings.SettingsTab;
  * @author cgd19
  */
 public interface SettingsOptionsFactory {
-
   /**
    * Create new accounts settings page.
    *

@@ -67,7 +67,6 @@ public class GameDetailsTab implements Tab {
     String genre = (String) gameEntryMetadata.get("genre");
     Timestamp timestamp = (Timestamp) gameEntryMetadata.get("date_created");
     String date_created = dateFormat.format(timestamp.toDate());
-
     VBox mainLayout = new VBox();
 
     HBox gameRankingSection = new HBox();
@@ -121,14 +120,11 @@ public class GameDetailsTab implements Tab {
     gameDetails.getChildren()
         .addAll(thumbnail, labels);
     gridPane.add(gameDetails, 1, 0);
-
     CommentSection commentSection = new CommentSection(authHandler, userDao, gameDao, gameID, this);
     Region hey = (Region) commentSection.getCommentSection();
     hey.prefHeightProperty().bind(mainLayout.heightProperty().multiply(0.675));
-
     // Add the three sections to the main layout
     mainLayout.getChildren().addAll(gameRankingSection, container, gridPane, hey);
-
     // Wrap the comment section in a ScrollPane to allow for scrolling if there are too many comments
     ScrollPane scrollPane = new ScrollPane(mainLayout);
     scrollPane.setFitToWidth(true);

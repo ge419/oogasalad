@@ -20,7 +20,6 @@ public class Arrow extends Group {
   private final Line line;
   private final Line myArrow1;
   private final Line myArrow2;
-
   public Arrow() {
     this(new Line(), new Line(), new Line());
   }

@@ -19,6 +19,7 @@ public class FirebaseAuthHandler implements AuthenticationHandler {
   private String activeUserID = null;
   private String activeUserUsername = null;
 
+
   @Inject
   public FirebaseAuthHandler(UserDao userDao) {
     this.userDao = userDao;

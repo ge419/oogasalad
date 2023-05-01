@@ -15,7 +15,6 @@ import javafx.stage.FileChooser.ExtensionFilter;
  * @author cgd19
  */
 public class FileUploader {
-
   /**
    * Uploads a user avatar to a folder. Creates folder if DNE.
    *
@@ -40,8 +39,6 @@ public class FileUploader {
     fileChooser.setTitle("Upload an Image");
 
     String initialDir = System.getProperty("user.home") + "/Documents";
-    System.out.println(initialDir);
-    //    System.out.println(System.getProperty("user.home"));
     // Set the initial directory to the user's home directory
     fileChooser.setInitialDirectory(new File(initialDir));
     // Add a filter to show only image files

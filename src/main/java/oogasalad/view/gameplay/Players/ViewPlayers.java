@@ -28,9 +28,9 @@ public class ViewPlayers implements Renderable {
   private static final double SCREEN_WIDTH = 1500;
   private static final double SCREEN_HEIGHT = 1000;
   private final List<PlayerUI> playerList = new ArrayList<>();
+  Players BPlayers;
   private final ViewFactory viewFactory;
   private final GameHolder game;
-  Players BPlayers;
 
   public ViewPlayers(Players p, ViewFactory viewFactory, GameHolder game) {
     this.BPlayers = p;

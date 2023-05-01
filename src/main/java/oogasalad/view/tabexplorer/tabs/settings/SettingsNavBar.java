@@ -123,7 +123,6 @@ public class SettingsNavBar {
     VBox.setVgrow(spacer2, Priority.ALWAYS);
     settingsNavBarLayout = new VBox(accountLink, securityLink, appearanceLink,
         regionLink, separator1, tellAFriendLink, separator2, logoutLink, versionNumber, container);
-
     settingsNavBarLayout.setId("left-navbar");
   }
 }

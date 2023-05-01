@@ -181,7 +181,6 @@ public class SocialCenterTab implements Tab {
         // and also makes text not overflow requiring horizontal scrollbar to view
         gridPane.setPrefWidth(0);
         gridPane.setPadding(new Insets(0, 30, 0, 30));
-
         this.setOnMouseClicked(event -> {
               int selectedIndex = getListView().getSelectionModel().getSelectedIndex();
               tabFactory.makeGameDetailsTab(tabExplorer)

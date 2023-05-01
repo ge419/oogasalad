@@ -2161,18 +2161,30 @@
       "key" : "width",
       "value" : 50.0
     } ]
-  }, {
+  },{
     "@class" : "oogasalad.model.constructable.Tile",
-    "id" : "2dd5adf4-50d8-427d-a5b6-90118386c5d8",
-    "schemas" : [ "tile" ],
+    "id" : "f0e8c6f3-58a1-43f2-ba33-58379b5a554d",
+    "schemas" : [ "tile", "customTile", "7f6aa945-7d31-47e9-b100-67c60e3d4246" ],
     "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "Caption",
+      "value" : "Oh captain my captain"
+    }, {
+      "@class" : "oogasalad.model.attribute.ImageAttribute",
+      "key" : "SoccerPhoto.png",
+      "value" : ""
+    }, {
       "@class" : "oogasalad.model.attribute.ColorAttribute",
       "key" : "color",
-      "value" : "#add8e6"
+      "value" : "0x000FFF"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "customJson",
+      "value" : "/Users/matthew/oogasalad_team03/data/customObjects/Test1/Test1.json"
     }, {
       "@class" : "oogasalad.model.attribute.DoubleAttribute",
       "key" : "height",
-      "value" : 50.0
+      "value" : 100.0
     }, {
       "@class" : "oogasalad.model.attribute.StringAttribute",
       "key" : "info",
@@ -2192,7 +2204,7 @@
     }, {
       "@class" : "oogasalad.model.attribute.PositionAttribute",
       "key" : "position",
-      "x" : 300.0,
+      "x" : 250.0,
       "y" : 85.0,
       "angle" : 0.0
     }, {
@@ -2201,12 +2213,12 @@
       "value" : 200.0
     }, {
       "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "type",
-      "value" : "basic"
+      "key" : "viewType",
+      "value" : "custom"
     }, {
       "@class" : "oogasalad.model.attribute.DoubleAttribute",
       "key" : "width",
-      "value" : 50.0
-    } ]
+      "value" : 200.0
+    }  ]
   } ]
 }

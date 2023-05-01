@@ -20,7 +20,7 @@ import oogasalad.model.engine.EngineResourceBundle;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.Priority;
-import oogasalad.model.engine.actions.BuyAction;
+import oogasalad.model.engine.actions.scores.BuyAction;
 import oogasalad.model.engine.events.TileLandedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

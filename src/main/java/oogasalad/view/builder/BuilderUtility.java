@@ -7,14 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -42,6 +35,7 @@ public interface BuilderUtility {
     text.getStyleClass().add("text");
     return text;
   }
+
   /**
    * Creates a ComboBox object with ID = property and options from choices.
    * Assigns an event handler to when a new value is selected
@@ -131,6 +125,7 @@ public interface BuilderUtility {
     textField.setId(property);
     return textField;
   }
+
   /**
    * Creates a ColorPicker with ID = property.
    * Assigns an event handler to when a new value is selected
@@ -141,6 +136,17 @@ public interface BuilderUtility {
     ColorPicker colorPicker = new ColorPicker();
     colorPicker.setId(property);
     return colorPicker;
+  }
+
+  /**
+   * Creates a Slider with ID = property
+   * @param property string equal to the intended CSS ID and ResourceBundle key
+   * @return Node Slider
+   */
+  default Node makeSlider(String property, double min, double max, double intialValue) {
+    Slider slider = new Slider(min, max, intialValue);
+    slider.setId(property);
+    return slider;
   }
 
   /**
@@ -182,6 +188,12 @@ public interface BuilderUtility {
     CheckBox checkBox = new CheckBox();
     checkBox.setId(property);
     return checkBox;
+  }
+
+  default Node makeLabel(String property, ResourceBundle languageBundle) {
+    Label label = new Label(languageBundle.getString(property));
+    label.setId(property);
+    return label;
   }
 
   default Node makeFileSelectButton(String property, ResourceBundle resourceBundle,

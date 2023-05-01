@@ -1,41 +1,31 @@
 {
   "name": "Test1",
-  "width": 250.0,
-  "height": 298.0,
+  "width": 365.0,
+  "height": 405.0,
   "customObjects": [
     {
-      "type": "CustomColorBox",
-      "name": "",
-      "color": "0xff000080",
-      "opacity": 1.0,
-      "index": 0,
-      "translatex": 0.0,
-      "translatey": 0.0,
-      "width": 50.0,
-      "height": 50.0,
-      "editable": false
-    },
-    {
       "name": "Caption",
-      "defaultContents": "Add photographer name",
+      "defaultContents": "Add Caption",
       "fontSize": 14,
       "bold": false,
-      "translateX": 35.0,
-      "translateY": -22.0,
+      "translateX": 80.0,
+      "translateY": 3.0,
       "type": "CustomText",
-      "index": -1,
-      "editable": false
+      "index": 0,
+      "editable": true,
+      "viewable": true
     },
     {
       "type": "CustomImage",
-      "x": 5.0,
-      "y": -95.0,
-      "name": ".png",
-      "height": 108.55326814204831,
-      "width": 165.68656716417908,
-      "filePath": "data/customObjects/Test1/.png",
-      "index": 2,
-      "editable": false
+      "x": 22.0,
+      "y": -120.0,
+      "name": "SoccerPhoto.png",
+      "height": 120.0,
+      "width": 180.0,
+      "filePath": "data/customObjects/Test1/SoccerPhoto.png",
+      "index": 1,
+      "editable": true,
+      "viewable": true
     }
   ]
 }

@@ -1,0 +1,13 @@
+[ {
+  "@class" : "oogasalad.model.attribute.SimpleObjectSchema",
+  "name" : "fe56f80c-1e39-47cb-8e00-56ef4d03460b",
+  "fields" : [ {
+    "@class" : "oogasalad.model.attribute.ColorMetadata",
+    "key" : "Background",
+    "name" : "Background",
+    "description" : "A custom colorbox",
+    "defaultValue" : "0xff0000ff",
+    "editable" : false,
+    "viewable" : false
+  } ]
+} ]

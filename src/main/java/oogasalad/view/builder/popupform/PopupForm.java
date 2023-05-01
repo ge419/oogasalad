@@ -58,13 +58,13 @@ public class PopupForm implements BuilderUtility {
      * @param resourceBundle a resource bundle used to provide access to error strings and labels
      * @param form a pane intended to contain the form contents
      */
-    public PopupForm(GameConstruct gameConstruct, ResourceBundle resourceBundle, Pane form) {
+    public PopupForm(GameConstruct gameConstruct, ResourceBundle resourceBundle, Pane form, Injector outsideInjector) {
         this.resourceBundle = resourceBundle;
         this.gameConstruct = gameConstruct;
         this.form = form;
         this.objectID = gameConstruct.getId();
         // TODO: Create injector in controller
-        Injector injector = Guice.createInjector(new PopupFormModule());
+        Injector injector = outsideInjector.createChildInjector(new PopupFormModule());
         this.factory = injector.getInstance(ParameterStrategyFactory.class);
         strategyMap = createStrategyMap();
         currentParameters = new ArrayList<>();
@@ -97,7 +97,7 @@ public class PopupForm implements BuilderUtility {
             }
         }
 
-        for (ParameterStrategy parameter : currentParameters) {
+        for (ParameterStrategy parameter : new ArrayList<>(currentParameters)) {
             parameter.saveInput();
         }
     }

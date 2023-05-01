@@ -4,14 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import java.util.ArrayList;
-import java.util.List;
-import oogasalad.model.constructable.Piece;
-import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.EventEmitter;
+import oogasalad.model.engine.actions.moves.RollDieAction;
 import oogasalad.model.engine.events.DieRolledEvent;
-import oogasalad.model.engine.events.MoveEvent;
-import oogasalad.model.engine.prompt.AIPrompter;
 import oogasalad.model.engine.prompt.TestPrompterPositive;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

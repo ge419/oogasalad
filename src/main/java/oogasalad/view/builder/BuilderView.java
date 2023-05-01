@@ -41,7 +41,8 @@ import org.apache.logging.log4j.Logger;
 // assumptions made so far:
 
 /**
- * <p>BuilderView implements the JavaFX elements that composes the viewable Builder.</p>
+ * BuilderView implements the JavaFX elements that composes the viewable Builder.
+ * This allows the user to create and save a new game or edit an existing game
  *
  * @author tmh85
  * @author jf295
@@ -83,6 +84,11 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private TextField descriptionInput;
   private TextField genreInput;
 
+  /**
+   * Creates an instance of the BuilderView and initializes the starting window
+   * @param bc BuilderController
+   * @param languageString String locale used to select ResourceBundle with proper language
+   */
   @Inject
   public BuilderView(
       @Assisted BuilderController bc,
@@ -107,17 +113,27 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myStage = primaryStage;
   }
 
+  /**
+   * Uses the BuilderController to save the current game to the database
+   */
   @Override
   public void saveFile() {
     myBuilderController.save();
   }
 
+  /**
+   * Updates the text content of the top bar
+   * @param key String used to get the intended text from the ResourceBundle
+   */
   @Override
   public void updateInfoText(String key) {
     myInfoText = makeText(key, myBuilderResource);
     myTopBar.setCenter(myInfoText);
   }
 
+  /**
+   * Unselects any selected tiles, and cancels any actions such as deleting tiles
+   */
   @Override
   public void cancelAction() {
     myTileCreationToggle.set(false);
@@ -128,30 +144,55 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     updateInfoText("RegularMode");
   }
 
+  /**
+   * Toggles Tile creation mode. If Tile creation mode is active, all
+   * clicks on the board result in the creation of a new tile at the
+   * click location
+   */
   @Override
   public void toggleTileCreation() {
     toggle(myTileCreationToggle, "TileAdditionMode");
   }
 
+  /**
+   * Toggles next removal. When active, next removal removes the tiles
+   * selected as the "next" tile in the board sequence
+   */
   public void toggleNextRemoval() {
     toggle(myTileNextRemovalToggle, "TileNextRemovalModePart1");
   }
 
+  /**
+   * Toggles the visibility of the guidelines, which show the order in which the tiles are connected.
+   * Note that toggling does not change the order of tiles.
+   */
   @Override
   public void toggleGuidelines() {
     myTrailMaker.toggleEnable();
   }
 
+  /**
+   * Toggles draggability of draggable objects such as tiles. When active,
+   * draggable objects can be dragged in the board pane.
+   */
   @Override
   public void toggleDraggables() {
     myDraggableObjectsToggle.set(!myDraggableObjectsToggle.get());
   }
 
+  /**
+   * Toggles Tile deletion mode. If Tile deletion mode is active, all
+   * clicks on a tile result in the deletion of that tile
+   */
   @Override
   public void toggleTileDeletion() {
     toggle(myDeleteToggle, "DeleteMode");
   }
 
+  /**
+   * Switches the view to the Rules view, where users can edit and
+   * assign rules to Tiles
+   */
   public void switchToRules() {
     cancelAction();
     myRulePane.updateTileTypes();
@@ -159,15 +200,27 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     updateInfoText("RulesMode");
   }
 
+  /**
+   * Switches the view to the Board view, which is the standard view that appears
+   * when the builder is initialized
+   */
   public void switchToBoard() {
     switchCenterPane(myBoardPane);
     updateInfoText("RegularMode");
   }
 
+  /**
+   * Returns the current ResourceBundle, which is used to generate all text in the window
+   * @return ResourceBundle for the current language
+   */
   public ResourceBundle getLanguage() {
     return myBuilderResource;
   }
 
+  /**
+   * Returns the pane reserved for displaying forms for user input
+   * @return Pane used for displaying user input
+   */
   public Pane getPopupPane() {
     return mySidepane;
   }
@@ -184,6 +237,14 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     myScene.getStylesheets().add(defaultStylesheet);
     return myScene;
   }
+
+  /**
+   * Displays the inputs for the user to input general game information.
+   * Note that this is NOT generated with the popup form, since the information
+   * displayed is not for a game construct. Consider this a location to get the
+   * form for miscellaneous data
+   * @param container Pane meant to contain the form
+   */
   public void displayGameInfoForm(Pane container) {
     container.getChildren().clear();
     Text descriptionLabel = (Text) makeText("GameDescriptionLabel", myBuilderResource);
@@ -201,9 +262,18 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     container.getChildren().add(new HBox(widthLabel, widthInput));
     container.getChildren().add(new HBox(heightLabel, heightInput));
   }
+
+  /**
+   * Saves the Game Info to the database using the BuilderController
+   */
   public void saveGameInfo() {
     myBuilderController.saveInfo(genreInput.getCharacters().toString(), descriptionInput.getCharacters().toString());
   }
+
+  /**
+   * Prompts the user to input a thumbnail image for the game, and uploads the
+   * image to the database
+   */
   public void uploadThumbnailImage() {
     FileUploader.uploadGameThumbnail(myBuilderController.getGameID());
   }
@@ -314,6 +384,9 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   ///////////////////////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Allows the user to select an image from a file explorer, and displays the image on the board
+   */
   public void uploadImage() {
     Optional<File> file = fileLoad(myBuilderResource, "UploadImageTitle");
 
@@ -482,7 +555,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   /**
-   * <p>Displays a basic about window for the project.</p>
+   * Displays a basic about window for the project.
    */
   public void displayAboutWindow() {
     new AboutView(myBuilderResource, DEFAULT_STYLESHEET);
@@ -494,20 +567,37 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     updateInfoText(resourceKey);
   }
 
+  /**
+   * Adds a ViewTile to the board
+   * @param tile ViewTile
+   */
   public void loadTile(ViewTile tile) {
     tile.asNode().setOnMouseDragged(event -> fireDragEvent(event, tile));
     initializeNode(tile.asNode(), "Tile" + myTileCount, tile_e -> handleTileClick(tile));
     myTileCount++;
   }
 
+  /**
+   * Sets the size of the board using a width and height
+   * @param width double
+   * @param height double
+   */
   public void loadBoardSize(double width, double height){
     setPaneSize(myBoardPane, width, height);
   }
 
+  /**
+   * Displays an error message to the user.
+   * The message is looked up from the ResourceBundle using the provided resourceKey
+   * @param resourceKey String used to look up error message
+   */
   public void showError(String resourceKey) {
     ErrorHandler.displayError(myBuilderResource.getString(resourceKey));
   }
 
+  /**
+   * Toggles whether the board can be dragged by the user
+   */
   public void toggleBoardDrag() {
     cancelAction();
     if (myBoardDragToggle.get()) {

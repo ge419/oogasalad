@@ -11,9 +11,16 @@ import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.Priority;
 import oogasalad.model.engine.actions.ActionFactory;
 import oogasalad.model.engine.actions.wins.StandingWinningStrategy;
+import oogasalad.model.engine.actions.wins.TileWinningStrategy;
 import oogasalad.model.engine.actions.wins.WinningConditionStrategy;
 import oogasalad.model.engine.events.PlayerRemovalEvent;
+import oogasalad.model.engine.events.TileLandedEvent;
 
+/**
+ * Rule that outlines winning status of survival type board game.
+ *
+ * @Author Jay Yoon
+ */
 public class LastStandingWinRule extends AbstractGameConstruct implements EditableRule {
 
   private static final String SCHEMA_NAME = "lastStandingRule";
@@ -32,6 +39,17 @@ public class LastStandingWinRule extends AbstractGameConstruct implements Editab
     this.gameHolder = gameHolder;
   }
 
+  /**
+   * Listens for a {@link PlayerRemovalEvent} to run {@link #checkWinState(EventHandlerParams)} )}
+   *
+   * <p>
+   *   retrieves the number of winners from the rule attribute
+   *   uses {@link StandingWinningStrategy} as winning condition strategy to check for winning condition
+   *   adds {@link oogasalad.model.engine.actions.wins.CheckWinAndEndAction} to action queue for potential game end
+   * </p>
+   *
+   * @param registrar provides event registration methods
+   */
   @Override
   public void registerEventHandlers(EventRegistrar registrar) {
     registrar.registerHandler(PlayerRemovalEvent.class, this::checkWinState);

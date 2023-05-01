@@ -17,6 +17,11 @@ import oogasalad.model.engine.actions.turns.SetCurrentPlayerAction;
 import oogasalad.model.engine.actions.wins.CheckWinAndEndAction;
 import oogasalad.model.engine.actions.wins.WinningConditionStrategy;
 
+/**
+ * The primary abstraction for making Engine {@link Action} by Rules
+ *
+ * @author Dominic Martinez, Jay Yoon
+ */
 public interface ActionFactory {
 
   SetCurrentPlayerAction makeSetCurrentPlayerAction(Player player);

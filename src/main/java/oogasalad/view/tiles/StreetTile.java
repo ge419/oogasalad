@@ -46,9 +46,6 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
             StringAttribute.from(BTile.getAttribute(COLOR_ATTRIBUTE).get()).getValue())),
         createTextBox(List.of(BTile.getInfo(), BTile.getPrice()), BTile.getHeight(),
             BTile.getWidth()));
-
-    //TODO: change this temporary behavior when tile is bought
-    //TODO: depend on if attribute is present
   }
 
   private VBox createBarBox(double width, double height, String color) {

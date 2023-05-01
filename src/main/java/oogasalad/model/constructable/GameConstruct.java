@@ -29,7 +29,7 @@ import oogasalad.model.attribute.ObjectSchema;
  * {@link oogasalad.model.engine.rules.Rule}. Objects operating on general schemas are expected
  * to listen to {@link GameConstruct#schemaProperty()} for changes.
  *
- * @author Dominic Martinez
+ * @author Dominic Martinez, Jay Yoon
  * @see ObjectSchema
  * @see AbstractAttribute
  */

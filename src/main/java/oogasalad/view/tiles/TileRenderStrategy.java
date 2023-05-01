@@ -35,6 +35,12 @@ public class TileRenderStrategy {
           "custom", ViewTileFactory::createCustomTile
       );
 
+  private final Map<String, BiFunction<ViewTileFactory, Tile, ViewTile>> cardMap =
+      Map.of(
+          "image", ViewTileFactory::createImageCard,
+          "street", ViewTileFactory::createStreetCard
+      );
+
   /**
    * <p> This method takes in a backend tile and converts it into the appropriate frontend version.
    *
@@ -43,7 +49,7 @@ public class TileRenderStrategy {
    * tiles are street, image, and custom; all other types will be rendered as a basic tile:
    * <p>Parameters:
    *
-   * @param tile    the backend tile to be converted and added
+   * @param tile the backend tile to be converted and added
    */
   public ViewTile createViewTile(Tile tile) {
     String type = tile.getViewType();
@@ -54,5 +60,18 @@ public class TileRenderStrategy {
     }
 
     return renderMap.get(type).apply(factory, tile);
+  }
+
+  public ViewTile createCard(Tile tile) {
+    Tile dummyTile = tile.duplicate();
+    dummyTile.setAngle(0);
+    String type = dummyTile.getViewType();
+
+    if (!cardMap.containsKey(type)) {
+      LOGGER.error("View card type does not exist");
+      return factory.createImageCard(dummyTile);
+    }
+
+    return cardMap.get(type).apply(factory, dummyTile);
   }
 }

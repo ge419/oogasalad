@@ -1,10 +1,12 @@
 package oogasalad.util;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
+/**
+ * Class that gets path to a game/user resource.
+ *
+ * @author cgd19
+ */
 public class PathFinder {
   private static String FILE_PROPERTIES_PATH;
   private static ResourceBundle fileResourceBundle;

@@ -9,12 +9,25 @@ import java.nio.file.StandardCopyOption;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
+/**
+ * Util class to help with file uploading
+ *
+ * @author cgd19
+ */
 public class FileUploader {
 
+  /**
+   * Uploads a user avatar to a folder. Creates folder if DNE.
+   * @param userID
+   */
   public static void uploadUserAvatar(String userID){
     uploadFile(PathFinder.getUserAvatarPath(userID));
   }
 
+  /**
+   * Uploads a game thumbnail to a folder. Creates folder if DNE.
+   * @param gameID
+   */
   public static void uploadGameThumbnail(String gameID){
     uploadFile(PathFinder.getGameThumbnailPath(gameID));
   }

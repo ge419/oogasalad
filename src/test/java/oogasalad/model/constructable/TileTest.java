@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.NoSuchElementException;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.attribute.SimpleSchemaDatabase;
+import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.view.Coordinate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,15 +39,17 @@ class TileTest {
 
   @Test
   void testSettingDefaultAttributes(){
+    assertEquals(testTile.getType(), "default");
     testTile.setX(32.8);
     testTile.setY(31.8);
     testTile.setAngle(7.6);
     testTile.setCoordinate(new Coordinate(3.4,5.6));
     testTile.setHeight(5.6);
     testTile.setWidth(3.7);
+    testTile.setViewType("BASIC");
     assertEquals(testTile.getX(), 3.4);
     assertEquals(testTile.getY(), 5.6);
-    assertNotEquals(testTile.getAngle(), 0.0);
+    assertEquals(testTile.getAngle(), 0.0);
     assertTrue(testTile.getHeight() == 5.6 && testTile.getWidth() == 3.7);
   }
 
@@ -54,8 +57,9 @@ class TileTest {
   void testSettingTileOwnerId(){
     assertThrows(NoSuchElementException.class, ()->
         testTile.getOwnerId());
-//    testTile.setOwnerId("owner1");
-//    assertEquals(testTile.getOwnerId(), "owner1");
+    testTile.addSchema(BuyTileRule.APPLIED_SCHEMA_NAME);
+    testTile.setOwnerId("owner1");
+    assertEquals(testTile.getOwnerId(), "owner1");
      }
 
   @Test
@@ -64,8 +68,15 @@ class TileTest {
         testTile.getPrice());
     assertThrows(NoSuchElementException.class, ()->
         testTile.getPriceAttribute());
-//    testTile.setPrice(5.7);
-//  assertNotNull(testTile.getPrice());
+    testTile.addSchema(BuyTileRule.APPLIED_SCHEMA_NAME);
+    testTile.setPrice(5.7);
+    assertNotNull(testTile.getPrice());
   }
+
+//  @Test
+//  void testDuplicate(){
+//    Tile copy  = testTile.duplicate();
+//    assertTrue(copy.equals(testTile));
+//  }
 
 }

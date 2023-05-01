@@ -142,6 +142,10 @@ public class BuilderController {
     injector.getInstance(SaveManager.class).saveGame();
   }
 
+  public void saveImage(Path path) throws IOException {
+    injector.getInstance(SaveManager.class).saveAsset(path);
+  }
+
   public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Node parent,
       SimpleBooleanProperty dragToggle) {
     node.setOnMouseClicked(mouseClickHandle);

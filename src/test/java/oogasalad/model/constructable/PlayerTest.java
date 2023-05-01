@@ -1,14 +1,12 @@
 package oogasalad.model.constructable;
 
-import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.testfx.assertions.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.beans.property.SimpleDoubleProperty;
-import javax.print.SimpleDoc;
-import oogasalad.model.attribute.DoubleAttribute;
-import oogasalad.model.attribute.PlayerAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.attribute.SimpleSchemaDatabase;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,21 +21,21 @@ class PlayerTest {
   Tile mockTile;
 
   @BeforeEach
-  void setup(){
-    mockTile  = Mockito.mock(Tile.class);
+  void setup() {
+    mockTile = Mockito.mock(Tile.class);
     testObjectMapper = new ObjectMapper();
-    testSchemaDB =new SimpleSchemaDatabase(testObjectMapper);
+    testSchemaDB = new SimpleSchemaDatabase(testObjectMapper);
     testPlayer = new Player(testSchemaDB);
   }
 
   @Test
-  void testDefaultValues(){
+  void testDefaultValues() {
     assertNotNull(testPlayer.getScoreAttribute());
     assertNotNull(testPlayer.getName());
   }
 
   @Test
-  void setTestPlayer(){
+  void setTestPlayer() {
     assertNotNull(testPlayer.getColor());
     assertNotEquals(testPlayer.getScore(), 4.5);
     testPlayer.setScore(4.5);
@@ -45,7 +43,7 @@ class PlayerTest {
   }
 
   @Test
-  void testSetPlayerColor(){
+  void testSetPlayerColor() {
     assertTrue(testPlayer.getCards().isEmpty());
     testPlayer.addCardToPlayer(mockTile);
     assertFalse(testPlayer.getCards().isEmpty());

@@ -40,7 +40,8 @@ import org.apache.logging.log4j.Logger;
 
 
 /**
- * BuilderController saves and loads game configuration to the GameBuilder by interacting with BuilderView
+ * BuilderController saves and loads game configuration to the GameBuilder by interacting with
+ * BuilderView
  *
  * @author Changmin Shin
  */
@@ -49,21 +50,22 @@ public class BuilderController {
   private static final String DEFAULT_STYLESHEET_DIRECTORY = "/view/builder/";
   private static final String DEFAULT_STYLESHEET = "/view/builder/builderDefaultStyle.css";
   private static final Logger logger = LogManager.getLogger(BuilderController.class);
+  private static final String RESOURCE_PATH = "engine/ClassPath";
+  private static final ResourceBundle resources = ResourceBundle.getBundle(RESOURCE_PATH);
   private final BuilderView builderView;
   private final GameHolder gameHolder;
   private final GameInfo gameInfo;
-  private SchemaDatabase db;
-  private ViewTileFactory viewTileFactory;
-  private BBoard board;
-  private SaveManager saveManager;
   private final Injector injector;
-  private String gameID;
-  private GameDao gameDao;
-  private static final String RESOURCE_PATH = "engine/ClassPath";
-  private static final ResourceBundle resources = ResourceBundle.getBundle(RESOURCE_PATH);;
+  private final SchemaDatabase db;
+  private final ViewTileFactory viewTileFactory;
+  private final BBoard board;
+  private final SaveManager saveManager;
+  private final String gameID;
+  private final GameDao gameDao;
 
   /**
    * Creates {@link GameHolder} and {@link BuilderView} and initializes GameBuilder
+   *
    * @param language
    * @param gameID
    * @param gameDao
@@ -89,11 +91,12 @@ public class BuilderController {
 
   /**
    * Adds tile to the BBoard and creates ViewTile in the BuilderView
-   * @param e   MouseEvent
-   * @return    ViewTile created
+   *
+   * @param e MouseEvent
+   * @return ViewTile created
    */
   public ViewTile addTile(MouseEvent e) {
-    Coordinate pos = new Coordinate((double) e.getX(), (double) e.getY(), 0.0);
+    Coordinate pos = new Coordinate(e.getX(), e.getY(), 0.0);
     Tile t = new Tile(db);
     t.setCoordinate(pos);
     board.addTile(t);
@@ -105,9 +108,10 @@ public class BuilderController {
 
   /**
    * Adds next attribute in a tile
-   * @param currentId   Current tile id
-   * @param nextId      Next tile id
-   * @return            true if added, false if not added
+   *
+   * @param currentId Current tile id
+   * @param nextId    Next tile id
+   * @return true if added, false if not added
    */
   public boolean addNext(String currentId, String nextId) {
     if (board.getById(currentId).get().getNextTileIds().contains(nextId)) {
@@ -121,9 +125,10 @@ public class BuilderController {
 
   /**
    * Removes next attribute in a tile
-   * @param currentId   Current tile id
-   * @param nextId      Next tile id
-   * @return            true if removed, false if not removed
+   *
+   * @param currentId Current tile id
+   * @param nextId    Next tile id
+   * @return true if removed, false if not removed
    */
   public boolean removeNext(String currentId, String nextId) {
     if (board.getById(currentId).get().getNextTileIds().contains(nextId)) {
@@ -138,7 +143,8 @@ public class BuilderController {
 
   /**
    * Removes tile from the BBoard
-   * @param currentId   ID of the tile that is to be removed
+   *
+   * @param currentId ID of the tile that is to be removed
    */
   public void removeTile(String currentId) {
     board.remove(currentId);
@@ -163,7 +169,8 @@ public class BuilderController {
 
   /**
    * Getter method for BuilderView
-   * @return  BuilderView
+   *
+   * @return BuilderView
    */
   public BuilderView getBuilderView() {
     return builderView;
@@ -171,9 +178,10 @@ public class BuilderController {
 
   /**
    * Creates popup form given a GameConstruct object
-   * @param construct   GameConstruct object to be edited by the popup
-   * @param language    Language properties file to access to
-   * @param location    Location of the popup form
+   *
+   * @param construct GameConstruct object to be edited by the popup
+   * @param language  Language properties file to access to
+   * @param location  Location of the popup form
    * @return
    */
   public PopupForm createPopupForm(GameConstruct construct, ResourceBundle language,
@@ -219,7 +227,8 @@ public class BuilderController {
 
   /**
    * Takes the names of the default rules stored in properties file
-   * @return  List of default rule names
+   *
+   * @return List of default rule names
    */
   public List<String> getListOfRules() {
     return resources.keySet().stream().toList();
@@ -227,8 +236,9 @@ public class BuilderController {
 
   /**
    * Takes the name of a rule and returns the corresponding rule class
-   * @param ruleClass   Name of the rule
-   * @return            Name of the corresponding rule class
+   *
+   * @param ruleClass Name of the rule
+   * @return Name of the corresponding rule class
    */
   public String getClassForRule(String ruleClass) {
     return resources.getString(ruleClass);
@@ -244,13 +254,15 @@ public class BuilderController {
 
   /**
    * Creates a new rule and triggers popup form in the BuilderView to edit the rule
-   * @param ruleAsString    The name of the rule object to be created
+   *
+   * @param ruleAsString The name of the rule object to be created
    * @throws Exception
    */
   public void makeRulesPopup(String ruleAsString) throws Exception {
     try {
       logger.info("Chose to edit rule " + ruleAsString);
-      Class<? extends EditableRule> clazz = (Class<? extends EditableRule>) Class.forName(ruleAsString);
+      Class<? extends EditableRule> clazz = (Class<? extends EditableRule>) Class.forName(
+          ruleAsString);
       EditableRule rule = injector.getInstance(clazz);
       logger.info("New rule created");
       createPopupForm(rule, builderView.getLanguage(), builderView.getPopupPane());
@@ -303,11 +315,7 @@ public class BuilderController {
     if (tileCoordinate.getYCoor() - tile.getHeight() > boardHeight) {
       return false;
     }
-    if (tile.getHeight() > boardHeight || tile.getWidth() > boardWidth) {
-      return false;
-    }
-
-    return true;
+    return !(tile.getHeight() > boardHeight) && !(tile.getWidth() > boardWidth);
   }
 
   /**
@@ -318,16 +326,16 @@ public class BuilderController {
    * @param imagePath path of the image
    * @return a boardimagetile object
    */
-  public Optional<BoardImageTile> createBoardImage(Path imagePath){
-      System.out.println("This is our image path: " + imagePath);
-      BoardImage backendImage = new BoardImage(db);
-      Coordinate coordinate = new Coordinate(0, 0, 0);
-      backendImage.setCoordinate(coordinate);
+  public Optional<BoardImageTile> createBoardImage(Path imagePath) {
+    System.out.println("This is our image path: " + imagePath);
+    BoardImage backendImage = new BoardImage(db);
+    Coordinate coordinate = new Coordinate(0, 0, 0);
+    backendImage.setCoordinate(coordinate);
 
-      if (!savePathAsAsset(imagePath)) {
-        return Optional.empty();
-      }
-      return Optional.of(new BoardImageTile(backendImage));
+    if (!savePathAsAsset(imagePath)) {
+      return Optional.empty();
+    }
+    return Optional.of(new BoardImageTile(backendImage));
   }
 
   private boolean savePathAsAsset(Path path) {
@@ -346,7 +354,8 @@ public class BuilderController {
 
   /**
    * Updates width of the board and saves it in the GameInfo in GameHolder
-   * @param width   Width in double
+   *
+   * @param width Width in double
    */
   public void updateWidth(double width) {
     gameHolder.getGameInfo().setWidth(width);
@@ -354,20 +363,22 @@ public class BuilderController {
 
   /**
    * Updates width of the board and saves it in the GameInfo in GameHolder
-   * @param height   Height in double
+   *
+   * @param height Height in double
    */
   public void updateHeight(double height) {
     gameHolder.getGameInfo().setHeight(height);
   }
 
   /**
-   * Getter method for GameHolder
-   * Utilized only for testing purposes
-   * @return  GameHolder
+   * Getter method for GameHolder Utilized only for testing purposes
+   *
+   * @return GameHolder
    */
   protected GameHolder getGameHolder() {
     return gameHolder;
   }
+
   public void saveInfo(String genre, String description) {
     Map<String, Object> game = new HashMap<>();
     game.put(GameSchema.GENRE.getFieldName(), genre);

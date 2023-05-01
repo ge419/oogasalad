@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 
 class TileListMetadataTest {
 
-  TileListMetadata tileListMetadata;
   private static final String KEY = "testTileListMetadata";
+  TileListMetadata tileListMetadata;
 
   @BeforeEach
   void setup() {
@@ -38,7 +38,7 @@ class TileListMetadataTest {
   @Test
   void testFrom() {
     Metadata tileList = new TileListMetadata(KEY);
-    assertEquals(tileListMetadata.from(tileList).getAttributeClass(), TileListAttribute.class);
+    assertEquals(TileListMetadata.from(tileList).getAttributeClass(), TileListAttribute.class);
   }
 
   @Test

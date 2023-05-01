@@ -1,5 +1,5 @@
 
-.root{
+.root {
   -fx-font-size: 12pt;
   -fx-font-family: "Helvetica";
   /* Set the background color of the scene to black */
@@ -16,11 +16,11 @@ Label {
   -fx-text-fill: #1f1d1d;
 }
 
-Gridpane{
+Gridpane {
 
 }
 
-Button{
+Button {
   -fx-cursor: hand;
 }
 
@@ -42,13 +42,13 @@ Button{
   -fx-cursor: hand;
 }
 
-#top-navbar{
+#top-navbar {
   -fx-spacing: 10;
   -fx-alignment: center;
   -fx-background-color: #dbdbdb;
 }
 
-#left-navbar{
+#left-navbar {
   -fx-alignment: top-left;
   -fx-padding: 30 0 30 0;
   -fx-pref-width: 150;

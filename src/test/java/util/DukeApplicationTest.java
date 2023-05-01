@@ -5,7 +5,15 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.ButtonBase;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Slider;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -140,6 +148,7 @@ public class DukeApplicationTest extends ApplicationTest {
       sp.fireEvent(new ActionEvent());
     });
   }
+
   /**
    * Simulate setting the value of a double spinner
    */

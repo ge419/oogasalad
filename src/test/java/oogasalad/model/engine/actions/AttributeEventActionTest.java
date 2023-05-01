@@ -1,14 +1,15 @@
 package oogasalad.model.engine.actions;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 import oogasalad.model.engine.EventEmitter;
 import oogasalad.model.engine.actions.emits.AttributeEventAction;
 import oogasalad.model.engine.events.AttributeEvent;
 import oogasalad.model.engine.prompt.AIPrompter;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class AttributeEventActionTest {
 

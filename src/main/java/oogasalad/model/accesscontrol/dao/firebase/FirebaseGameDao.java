@@ -5,7 +5,6 @@ import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.FieldValue;
 import com.google.inject.Inject;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -13,8 +12,6 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import oogasalad.model.accesscontrol.dao.GameDao;
 import oogasalad.model.accesscontrol.database.firebase.FirebaseAccessor;
-import oogasalad.model.accesscontrol.database.schema.Collections;
-import oogasalad.model.accesscontrol.database.schema.GameSchema;
 import oogasalad.model.exception.InvalidDatabaseExecutionException;
 
 /**

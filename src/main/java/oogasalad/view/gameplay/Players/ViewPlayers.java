@@ -3,7 +3,6 @@ package oogasalad.view.gameplay.Players;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.layout.BorderPane;
-import javax.swing.text.View;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Players;
 import oogasalad.view.Coordinate;
@@ -28,12 +27,10 @@ public class ViewPlayers implements Renderable {
   private static final double FULL_TURN = 360;
   private static final double SCREEN_WIDTH = 1500;
   private static final double SCREEN_HEIGHT = 1000;
-
-
-  Players BPlayers;
   private final List<PlayerUI> playerList = new ArrayList<>();
-  private ViewFactory viewFactory;
-  private GameHolder game;
+  Players BPlayers;
+  private final ViewFactory viewFactory;
+  private final GameHolder game;
 
   public ViewPlayers(Players p, ViewFactory viewFactory, GameHolder game) {
     this.BPlayers = p;
@@ -72,8 +69,10 @@ public class ViewPlayers implements Renderable {
   @Override
   public void render(BorderPane pane) {
     for (int i = 0; i < BPlayers.getList().size(); i++) {
-      Coordinate playerCoordinate = playerPosition(i, BPlayers.getList().size(), SCREEN_WIDTH, SCREEN_HEIGHT);
-      PlayerUI playerUI = new PlayerUI(BPlayers.getList().get(i), playerCoordinate, viewFactory, game);
+      Coordinate playerCoordinate = playerPosition(i, BPlayers.getList().size(), SCREEN_WIDTH,
+          SCREEN_HEIGHT);
+      PlayerUI playerUI = new PlayerUI(BPlayers.getList().get(i), playerCoordinate, viewFactory,
+          game);
       playerList.add(playerUI);
       pane.getChildren().add(playerUI);
     }

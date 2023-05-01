@@ -5,7 +5,8 @@ package oogasalad.view.builder.exceptions;
  *
  * @author tmh85
  */
-public class MethodReflectionException extends RuntimeException{
+public class MethodReflectionException extends RuntimeException {
+
   public MethodReflectionException(String errorMessage, Throwable originalError) {
     super(errorMessage, originalError);
   }

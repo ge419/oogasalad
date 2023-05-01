@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class PlayerAttribute extends GameConstructAttribute {
+
   private final StringProperty id;
 
   @JsonCreator

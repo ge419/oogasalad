@@ -8,17 +8,17 @@ import oogasalad.view.gameplay.Movable;
 abstract public class GamePiece extends StackPane implements Movable {
 
   private static final double PIECE_SIZE = 40;
-  private Image image;
+  private final Image image;
   private double xCoor;
   private double yCoor;
-  private ImageView imageView;
+  private final ImageView imageView;
 
   public GamePiece(String imageURL) {
-      image = new Image(imageURL);
-      imageView = new ImageView(image);
-      imageView.setFitHeight(PIECE_SIZE);
-      imageView.setFitWidth(PIECE_SIZE);
-      getChildren().add(imageView);
+    image = new Image(imageURL);
+    imageView = new ImageView(image);
+    imageView.setFitHeight(PIECE_SIZE);
+    imageView.setFitWidth(PIECE_SIZE);
+    getChildren().add(imageView);
   }
 
   protected void setxCoor(double value) {

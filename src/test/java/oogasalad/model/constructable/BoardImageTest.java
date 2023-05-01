@@ -1,6 +1,7 @@
 package oogasalad.model.constructable;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import oogasalad.model.attribute.SchemaDatabase;
@@ -18,12 +19,13 @@ class BoardImageTest {
   Tile mockTile;
 
   @BeforeEach
-  void setup(){
-    mockTile  = Mockito.mock(Tile.class);
+  void setup() {
+    mockTile = Mockito.mock(Tile.class);
     testObjectMapper = new ObjectMapper();
-    testSchemaDB =new SimpleSchemaDatabase(testObjectMapper);
+    testSchemaDB = new SimpleSchemaDatabase(testObjectMapper);
     testBoardImage = new BoardImage(testSchemaDB);
   }
+
   @Test
   void testDefaultAttributes() {
     assertNotNull(testBoardImage.imageAttribute());

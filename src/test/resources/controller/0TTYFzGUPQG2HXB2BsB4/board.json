@@ -1,9 +1,11 @@
 {
-  "tiles" : [
+  "tiles": [
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "18",
-      "schemas" : [ "ImageTile" ],
+      "schemas": [
+        "ImageTile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -18,9 +20,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -45,9 +47,9 @@
           "value": "image"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 0
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 0
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -64,7 +66,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "19",
-      "schemas" : [ "tile" ],
+      "schemas": [
+        "tile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -79,9 +83,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -106,9 +110,9 @@
           "value": "street"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 250
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 250
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -125,7 +129,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "20",
-      "schemas" : [ "tile" ],
+      "schemas": [
+        "tile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -140,9 +146,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -167,9 +173,9 @@
           "value": "street"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 250
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 250
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -186,7 +192,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "21",
-      "schemas" : [ "tile" ],
+      "schemas": [
+        "tile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -201,9 +209,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -228,9 +236,9 @@
           "value": "street"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 250
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 250
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -247,7 +255,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "22",
-      "schemas" : [ "tile" ],
+      "schemas": [
+        "tile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -262,9 +272,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -289,9 +299,9 @@
           "value": "street"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 250
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 250
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -308,7 +318,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "23",
-      "schemas" : [ "tile" ],
+      "schemas": [
+        "tile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -323,9 +335,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -350,9 +362,9 @@
           "value": "street"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 250
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 250
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -369,7 +381,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "24",
-      "schemas" : [ "ImageTile" ],
+      "schemas": [
+        "ImageTile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -384,9 +398,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -411,9 +425,9 @@
           "value": "image"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 0
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 0
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -430,7 +444,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "1",
-      "schemas" : [ "tile" ],
+      "schemas": [
+        "tile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -438,9 +454,9 @@
           "value": 150.0
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.TileListAttribute",
@@ -472,9 +488,9 @@
           "value": "street"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 350.0
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 350.0
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -491,7 +507,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "2",
-      "schemas" : [ "tile" ],
+      "schemas": [
+        "tile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -506,14 +524,14 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -538,9 +556,9 @@
           "value": "street"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 350.0
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 350.0
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -557,7 +575,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "3",
-      "schemas" : [ "tile" ],
+      "schemas": [
+        "tile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -572,9 +592,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -599,9 +619,9 @@
           "value": "street"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 350.0
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 350.0
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -618,7 +638,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "4",
-      "schemas" : [ "tile" ],
+      "schemas": [
+        "tile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -633,9 +655,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -660,9 +682,9 @@
           "value": "street"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 350.0
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 350.0
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -679,7 +701,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "5",
-      "schemas" : [ "tile" ],
+      "schemas": [
+        "tile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -694,9 +718,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -721,9 +745,9 @@
           "value": "street"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 350.0
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 350.0
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -740,7 +764,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "6",
-      "schemas" : [ "ImageTile" ],
+      "schemas": [
+        "ImageTile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -755,9 +781,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -782,9 +808,9 @@
           "value": "image"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 0
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 0
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -801,7 +827,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "7",
-      "schemas" : [ "tile" ],
+      "schemas": [
+        "tile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -816,9 +844,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -843,9 +871,9 @@
           "value": "street"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 450.0
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 450.0
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -862,7 +890,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "8",
-      "schemas" : [ "tile" ],
+      "schemas": [
+        "tile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -877,9 +907,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -904,9 +934,9 @@
           "value": "street"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 450.0
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 450.0
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -923,7 +953,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "9",
-      "schemas" : [ "tile" ],
+      "schemas": [
+        "tile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -938,9 +970,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -965,9 +997,9 @@
           "value": "street"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 450.0
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 450.0
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -984,7 +1016,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "10",
-      "schemas" : [ "tile" ],
+      "schemas": [
+        "tile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -999,9 +1033,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -1026,9 +1060,9 @@
           "value": "street"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 450.0
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 450.0
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -1045,7 +1079,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "11",
-      "schemas" : [ "tile" ],
+      "schemas": [
+        "tile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -1060,9 +1096,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -1087,9 +1123,9 @@
           "value": "street"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 450.0
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 450.0
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -1106,7 +1142,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "12",
-      "schemas" : [ "ImageTile" ],
+      "schemas": [
+        "ImageTile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -1121,9 +1159,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -1148,9 +1186,9 @@
           "value": "image"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 0
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 0
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -1167,7 +1205,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "13",
-      "schemas" : [ "tile" ],
+      "schemas": [
+        "tile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -1182,9 +1222,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -1209,9 +1249,9 @@
           "value": "street"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 550.0
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 550.0
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -1228,7 +1268,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "14",
-      "schemas" : [ "tile" ],
+      "schemas": [
+        "tile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -1243,9 +1285,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -1270,9 +1312,9 @@
           "value": "street"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 550.0
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 550.0
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -1289,7 +1331,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "15",
-      "schemas" : [ "tile" ],
+      "schemas": [
+        "tile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -1304,9 +1348,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -1331,9 +1375,9 @@
           "value": "street"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 550.0
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 550.0
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -1350,7 +1394,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "16",
-      "schemas" : [ "tile" ],
+      "schemas": [
+        "tile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -1365,9 +1411,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -1392,9 +1438,9 @@
           "value": "street"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 550.0
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 550.0
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
@@ -1411,7 +1457,9 @@
     {
       "@class": "oogasalad.model.constructable.Tile",
       "id": "17",
-      "schemas" : [ "tile" ],
+      "schemas": [
+        "tile"
+      ],
       "attributes": [
         {
           "@class": "oogasalad.model.attribute.DoubleAttribute",
@@ -1426,9 +1474,9 @@
           ]
         },
         {
-          "@class" : "oogasalad.model.attribute.PlayerAttribute",
-          "key" : "owner",
-          "id" : ""
+          "@class": "oogasalad.model.attribute.PlayerAttribute",
+          "key": "owner",
+          "id": ""
         },
         {
           "@class": "oogasalad.model.attribute.BooleanAttribute",
@@ -1453,9 +1501,9 @@
           "value": "street"
         },
         {
-          "@class" : "oogasalad.model.attribute.DoubleAttribute",
-          "key" : "price",
-          "value" : 550.0
+          "@class": "oogasalad.model.attribute.DoubleAttribute",
+          "key": "price",
+          "value": 550.0
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",

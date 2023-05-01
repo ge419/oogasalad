@@ -26,7 +26,7 @@ public class Player extends AbstractGameConstruct {
   public static final String COLOR_ATTRIBUTE = "color";
   public static final String CURRENT_ATTRIBUTE = "current";
   private final List<Piece> pieces;
-  private List<Tile> cards;
+  private final List<Tile> cards;
 
 
   @Inject
@@ -118,10 +118,12 @@ public class Player extends AbstractGameConstruct {
   }
 
   @JsonIgnore
-  public List<Tile> getCards(){return cards;}
+  public List<Tile> getCards() {
+    return cards;
+  }
 
   @JsonIgnore
-  public void addCardToPlayer(Tile card){
+  public void addCardToPlayer(Tile card) {
     this.cards.add(card);
   }
 }

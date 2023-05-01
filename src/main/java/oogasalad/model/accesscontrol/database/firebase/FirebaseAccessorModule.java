@@ -9,8 +9,9 @@ import com.google.inject.Scopes;
  * @author cgd19
  */
 public class FirebaseAccessorModule extends AbstractModule {
+
   @Override
-  protected void configure(){
+  protected void configure() {
     bind(FirebaseAccessor.class).in(Scopes.SINGLETON);
   }
 }

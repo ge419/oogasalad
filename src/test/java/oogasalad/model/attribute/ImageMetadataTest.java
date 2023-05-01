@@ -12,9 +12,9 @@ import org.junit.jupiter.api.Test;
 
 public class ImageMetadataTest {
 
+  private static final String KEY = "imageKey";
   private StringProperty mockStringProperty;
   private ImageMetadata imageMetadata;
-  private static final String KEY = "imageKey";
 
   @BeforeEach
   public void setUp() {

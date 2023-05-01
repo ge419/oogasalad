@@ -1,7 +1,6 @@
 package oogasalad.view.gameplay.popup;
 
 import java.util.List;
-
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -31,7 +30,7 @@ public class HandDisplayPopup extends BorderPane {
 
   public void addCards(List<ViewTile> cardList) {
     HBox hand = new HBox();
-    for (ViewTile card: cardList) {
+    for (ViewTile card : cardList) {
       hand.getChildren().add((Node) card);
       hand.setAlignment(Pos.CENTER);
     }

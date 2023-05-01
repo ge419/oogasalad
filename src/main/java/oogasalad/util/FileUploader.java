@@ -18,22 +18,24 @@ public class FileUploader {
 
   /**
    * Uploads a user avatar to a folder. Creates folder if DNE.
+   *
    * @param userID
    */
-  public static void uploadUserAvatar(String userID){
+  public static void uploadUserAvatar(String userID) {
     uploadFile(PathFinder.getUserAvatarPath(userID));
   }
 
   /**
    * Uploads a game thumbnail to a folder. Creates folder if DNE.
+   *
    * @param gameID
    */
-  public static void uploadGameThumbnail(String gameID){
+  public static void uploadGameThumbnail(String gameID) {
     uploadFile(PathFinder.getGameThumbnailPath(gameID));
   }
 
 
-  private static void uploadFile(String dirPath){
+  private static void uploadFile(String dirPath) {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Upload an Image");
 

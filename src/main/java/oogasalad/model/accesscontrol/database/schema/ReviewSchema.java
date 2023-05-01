@@ -10,6 +10,7 @@ public enum ReviewSchema {
   ReviewSchema(String fieldName) {
     this.fieldName = fieldName;
   }
+
   public String getFieldName() {
     return fieldName;
   }

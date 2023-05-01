@@ -1,22 +1,5 @@
 package oogasalad.view.builder.popupform;
 
-import java.io.File;
-import java.util.Optional;
-import java.util.ResourceBundle;
-
-import com.google.inject.assistedinject.Assisted;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
-import javafx.scene.text.Text;
-import oogasalad.model.attribute.Attribute;
-import oogasalad.model.attribute.BooleanAttribute;
-import oogasalad.model.attribute.BooleanMetadata;
-import oogasalad.model.attribute.Metadata;
-import oogasalad.view.builder.BuilderUtility;
-
-import javax.inject.Inject;
-
 //class FileParameterStrategy implements ParameterStrategy, BuilderUtility {
 //    private final FileAttribute attr;
 //    private final FileMetadata meta;

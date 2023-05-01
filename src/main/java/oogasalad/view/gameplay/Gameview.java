@@ -1,22 +1,17 @@
 package oogasalad.view.gameplay;
 
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.beans.property.ObjectProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
-import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import oogasalad.controller.GameController;
 import oogasalad.model.constructable.GameHolder;
@@ -27,12 +22,9 @@ import oogasalad.model.observers.GameObserver;
 import oogasalad.view.Renderable;
 import oogasalad.view.ViewFactory;
 import oogasalad.view.gameplay.Players.ViewPlayers;
-import oogasalad.view.gameplay.pieces.Cards;
-import oogasalad.view.gameplay.pieces.PlayerPiece;
 import oogasalad.view.gameplay.pieces.ViewPieces;
 import oogasalad.view.gameplay.popup.HandDisplayPopup;
 import oogasalad.view.tiles.Tiles;
-import oogasalad.view.tiles.ViewTile;
 
 public class Gameview implements GameObserver {
 
@@ -40,11 +32,11 @@ public class Gameview implements GameObserver {
    * <p> The "Main" class for the gameplay frontend that renders all frontend components and
    * displays in window
    *
-   * <p>Assumptions: Any additional frontend components must implement the Renderable interface and be
+   * <p>Assumptions: Any additional frontend components must implement the Renderable interface and
+   * be
    * added to the renderGameview method
    *
    * <p>Dependencies: GameHolder, Tiles, Die, ViewPlayers, ViewPieces
-   *
    */
 
   //TODO: refactor to read from JSON file
@@ -52,13 +44,13 @@ public class Gameview implements GameObserver {
   private final int VIEW_HEIGHT = 1000;
   private final GameHolder game;
   private final ViewFactory viewFactory;
+  private final GameController gc;
   private Tiles tiles;
   private Die die;
-  private final GameController gc;
   private Scene scene;
   private BorderPane UIroot;
   private ViewPlayers viewPlayers;
-//      = new ViewPlayers(null, viewFactory);
+  //      = new ViewPlayers(null, viewFactory);
   private Stage myStage;
   private ViewPieces viewPieces;
   private HandDisplayPopup popup;
@@ -75,16 +67,17 @@ public class Gameview implements GameObserver {
   }
 
   /**
-   * Receive the frontend player component that is associated with the backend player with specified ID
+   * Receive the frontend player component that is associated with the backend player with specified
+   * ID
    *
    * <p>Assumptions: ID passed is valid.
    *
    * <p>Parameters:
+   *
    * @param primaryStage is the stage that all frontend components are to be added to
    *
-   * <p>Exceptions:
+   *                     <p>Exceptions:
    * @throws IOException if any frontend components' render method is faulty
-   *
    */
   public void renderGameview(Stage primaryStage) throws IOException {
     myStage = primaryStage;
@@ -104,7 +97,6 @@ public class Gameview implements GameObserver {
     // TODO: Dynamically watch players/pieces
 
     scene = new Scene(UIroot);
-
 
     //TODO: refactor to read from property file
     myStage.setTitle("Monopoly");

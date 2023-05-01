@@ -1,6 +1,7 @@
 package oogasalad.model.builder;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
@@ -45,7 +46,7 @@ public class AIPrompterTest {
           public String prompt() {
             return "Sell";
           }
-          },
+        },
         mockOption);
     boolean[] callbackCalled = {false};
     PromptOption[] selectedOption = {null};

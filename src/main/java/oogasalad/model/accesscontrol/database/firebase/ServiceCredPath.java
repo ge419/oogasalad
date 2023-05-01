@@ -8,8 +8,8 @@ import javax.inject.Qualifier;
 
 
 /**
- * This annotation is used for injecting the service credentials path dependency
- * to the {@link FirebaseAccessor}
+ * This annotation is used for injecting the service credentials path dependency to the
+ * {@link FirebaseAccessor}
  */
 @Qualifier
 @Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD})

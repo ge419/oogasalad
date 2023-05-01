@@ -1,6 +1,5 @@
 package oogasalad.model.engine.rules;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -44,7 +43,8 @@ public class LastStandingWinRuleTest {
     mockedQueue = mock(SimpleActionQueue.class);
     gameHolder = mock(GameHolder.class);
     winningConditionStrategy = new StandingWinningStrategy(gameHolder, TEST_N);
-    when(mockActionFactory.makeCheckWinStateAction(winningConditionStrategy)).thenReturn(mockedAction);
+    when(mockActionFactory.makeCheckWinStateAction(winningConditionStrategy)).thenReturn(
+        mockedAction);
 
     Injector injector = Guice.createInjector(new AttributeModule());
     SchemaDatabase db = injector.getInstance(SchemaDatabase.class);
@@ -68,7 +68,8 @@ public class LastStandingWinRuleTest {
   public void makesCheckWinStateAction() {
     rule.checkWinState(eventEventHandlerParams);
 
-    WinningConditionStrategy winningConditionStrategy = new StandingWinningStrategy(gameHolder, TEST_N);
+    WinningConditionStrategy winningConditionStrategy = new StandingWinningStrategy(gameHolder,
+        TEST_N);
     verify(mockActionFactory).makeCheckWinStateAction(winningConditionStrategy);
   }
 

@@ -1,5 +1,5 @@
 
-.root{
+.root {
   -fx-font-size: 12pt;
   -fx-font-family: "Helvetica";
   /* Set the background color of the scene to black */
@@ -21,7 +21,7 @@
   -fx-text-fill: text-color;
 }
 
- ListView, GridPane, VBox{
+ListView, GridPane, VBox {
   -fx-background-color: #484545;
 }
 
@@ -31,15 +31,14 @@
 /*}*/
 
 
- Text {
+Text {
   -fx-fill: white;
 }
 
- Button{
-   -fx-background-color: black;
-   -fx-text-fill: white;
- }
-
+Button {
+  -fx-background-color: black;
+  -fx-text-fill: white;
+}
 
 
 Label, RadioButton, Hyperlink {
@@ -65,7 +64,7 @@ Label, RadioButton, Hyperlink {
   -fx-cursor: hand;
 }
 
-#top-navbar{
+#top-navbar {
   -fx-spacing: 10;
   -fx-alignment: center;
   -fx-background-color: #020202;

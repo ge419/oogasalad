@@ -159,7 +159,7 @@ public abstract class FirebaseAbstractDao {
   protected List<String> getAllDocumentsInCollection(String collectionID) {
     CollectionReference collection = db.collection(collectionID);
 
-  // retrieve all document snapshots
+    // retrieve all document snapshots
     ApiFuture<QuerySnapshot> querySnapshotFuture = collection.get();
     QuerySnapshot querySnapshot = null;
     try {
@@ -179,6 +179,7 @@ public abstract class FirebaseAbstractDao {
 
   /**
    * Deletes a collection in the database.
+   *
    * @param collectionID The collection in which the document is located.
    */
   protected void deleteCollection(String collectionID) {

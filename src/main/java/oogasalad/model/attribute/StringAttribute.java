@@ -48,7 +48,7 @@ public class StringAttribute extends AbstractAttribute {
 
   @Override
   public int hashCode() {
-    return Objects.hash(getKey()+value.get());
+    return Objects.hash(getKey() + value.get());
   }
 
   @Override

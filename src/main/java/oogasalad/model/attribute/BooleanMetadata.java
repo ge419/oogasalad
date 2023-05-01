@@ -17,6 +17,10 @@ public class BooleanMetadata extends AbstractMetadata {
     this.defaultValue = new SimpleBooleanProperty(false);
   }
 
+  public static BooleanMetadata from(Metadata meta) {
+    return getAs(meta, BooleanMetadata.class);
+  }
+
   @Override
   protected boolean checkPreconditions(Attribute attribute) {
     boolean val = BooleanAttribute.from(attribute).getValue();
@@ -37,10 +41,6 @@ public class BooleanMetadata extends AbstractMetadata {
   public boolean isValidValue(boolean value) {
     // No preconditions on booleans
     return true;
-  }
-
-  public static BooleanMetadata from(Metadata meta) {
-    return getAs(meta, BooleanMetadata.class);
   }
 
   public BooleanAttribute makeBooleanAttribute() {

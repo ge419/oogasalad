@@ -2,10 +2,9 @@ package oogasalad.model.attribute;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
-import java.util.List;
 
 public class ImageMetadata extends StringMetadata {
 
@@ -18,17 +17,16 @@ public class ImageMetadata extends StringMetadata {
     super(key);
     this.defaultValue = new SimpleStringProperty("view.gameplay/default.jpg");
   }
+
   @Override
   public boolean isValidValue(String val) {
     if (val == null) {
       return false;
     }
     String[] splitVal = val.split("\\.");
-    if (validExtensions.contains(splitVal[splitVal.length - 1])) {
-      return true;
-    }
-    return false;
+    return validExtensions.contains(splitVal[splitVal.length - 1]);
   }
+
   @Override
   public Attribute makeAttribute() {
     return makeImageAttribute();

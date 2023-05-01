@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 
 class ColorMetadataTest {
 
-  private ColorMetadata colorMetadata;
-  private StringProperty defaultValueMock;
   private static final String KEY = "color";
   private static final String DEFAULT_TEST = "000000";
+  private ColorMetadata colorMetadata;
+  private StringProperty defaultValueMock;
 
   @BeforeEach
   void setUp() {

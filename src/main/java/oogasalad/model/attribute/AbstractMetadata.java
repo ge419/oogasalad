@@ -15,10 +15,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Abstraction that represents information about the attribute field
- * includes key, name, description, editable and viewable status
+ * Abstraction that represents information about the attribute field includes key, name,
+ * description, editable and viewable status
  * <p>
- *   default values of various data types are implemented by extending AbstractMetadata
+ * default values of various data types are implemented by extending AbstractMetadata
  * </p>
  *
  * @author Jay Yoon

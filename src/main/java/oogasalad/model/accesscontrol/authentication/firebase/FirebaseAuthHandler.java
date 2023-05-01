@@ -37,7 +37,7 @@ public class FirebaseAuthHandler implements AuthenticationHandler {
   }
 
   @Override
-  public void register(String username, String password){
+  public void register(String username, String password) {
     activeUserID = userDao.registerNewUser(username, password);
   }
 

@@ -2,19 +2,13 @@ package oogasalad.model.engine.rules;
 
 import com.fasterxml.jackson.annotation.JacksonInject;
 import com.google.inject.Inject;
-import java.util.List;
-import javafx.beans.property.ReadOnlyListProperty;
 import oogasalad.model.attribute.IntAttribute;
-import oogasalad.model.attribute.SchemaBinding;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.AbstractGameConstruct;
-import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.Priority;
 import oogasalad.model.engine.actions.ActionFactory;
-import oogasalad.model.engine.actions.wins.StandingWinningStrategy;
-import oogasalad.model.engine.events.PlayerRemovalEvent;
 import oogasalad.model.engine.events.StartGameEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,14 +18,13 @@ import org.apache.logging.log4j.Logger;
  *
  * @Author Jay Yoon
  */
-public class NumberOfPlayersRule extends AbstractGameConstruct implements EditableRule{
-
-  private static final Logger LOGGER = LogManager.getLogger(NumberOfPlayersRule.class);
+public class NumberOfPlayersRule extends AbstractGameConstruct implements EditableRule {
 
   public static final String SCHEMA_NAME = "numberOfPlayersRule";
+  public static final String PIECE_PER_PLAYER = "piecePerPlayer";
+  private static final Logger LOGGER = LogManager.getLogger(NumberOfPlayersRule.class);
   private static final String MIN_PLAYER = "minPlayer";
   private static final String MAX_PLAYER = "maxPlayer";
-  public static final String PIECE_PER_PLAYER = "piecePerPlayer";
   private final ActionFactory actionFactory;
 
   @Inject
@@ -43,11 +36,13 @@ public class NumberOfPlayersRule extends AbstractGameConstruct implements Editab
   }
 
   /**
-   * Listens for a {@link StartGameEvent} to run {@link #generatePlayersOnSelection(EventHandlerParams)}
+   * Listens for a {@link StartGameEvent} to run
+   * {@link #generatePlayersOnSelection(EventHandlerParams)}
    *
    * <p>
-   *   retrieves the number of minimum, maximum players to play game and number of pieces per player
-   *   adds {@link oogasalad.model.engine.actions.creation.CreatePlayersAction} to action queue for player creation
+   * retrieves the number of minimum, maximum players to play game and number of pieces per player
+   * adds {@link oogasalad.model.engine.actions.creation.CreatePlayersAction} to action queue for
+   * player creation
    * </p>
    *
    * @param registrar provides event registration methods
@@ -57,11 +52,12 @@ public class NumberOfPlayersRule extends AbstractGameConstruct implements Editab
     registrar.registerHandler(StartGameEvent.class, this::generatePlayersOnSelection);
   }
 
-  protected void generatePlayersOnSelection(EventHandlerParams<StartGameEvent> eventHandlerParams){
+  protected void generatePlayersOnSelection(EventHandlerParams<StartGameEvent> eventHandlerParams) {
     int min = IntAttribute.from(this.getAttribute(MIN_PLAYER).get()).getValue();
     int max = IntAttribute.from(this.getAttribute(MAX_PLAYER).get()).getValue();
     int piecePerPlayer = IntAttribute.from(this.getAttribute(PIECE_PER_PLAYER).get()).getValue();
     LOGGER.info("Add Create Players Action to ActionQueue");
-    eventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(), actionFactory.makeCreatePlayersAction(min, max, piecePerPlayer));
+    eventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(),
+        actionFactory.makeCreatePlayersAction(min, max, piecePerPlayer));
   }
 }

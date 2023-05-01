@@ -1,6 +1,8 @@
 package oogasalad.model.constructable;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -9,13 +11,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.guice.ObjectMapperModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import javax.xml.validation.Schema;
 import oogasalad.controller.GameInfo;
 import oogasalad.model.attribute.AttributeModule;
 import oogasalad.model.attribute.SchemaDatabase;
@@ -23,8 +21,6 @@ import oogasalad.model.attribute.SimpleSchemaDatabase;
 import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.model.engine.rules.EditableRule;
 import oogasalad.model.engine.rules.Rule;
-import oogasalad.model.observers.GameObserver;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +34,7 @@ class GameHolderTest {
   @BeforeEach
   void setup() {
     db = new SimpleSchemaDatabase();
-    mapper =  new ObjectMapper();
+    mapper = new ObjectMapper();
     gameHolder = new GameHolder();
     injector = Guice.createInjector(new ObjectMapperModule(),
         binder -> binder.bind(SchemaDatabase.class).toInstance(db));

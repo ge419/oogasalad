@@ -1,17 +1,9 @@
 package oogasalad.view.gameplay.pieces;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Tile;
 import oogasalad.util.Util;
 import oogasalad.view.Coordinate;
-import oogasalad.view.Imageable;
-import oogasalad.view.gameplay.Movable;
 
 public class PlayerPiece extends GamePiece {
 

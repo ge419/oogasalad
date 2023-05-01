@@ -1,6 +1,5 @@
 package oogasalad.view;
 
-import java.nio.file.NoSuchFileException;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

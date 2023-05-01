@@ -1,13 +1,13 @@
 package oogasalad.model.engine.events;
 
-import java.util.Arrays;
-import oogasalad.model.constructable.Tile;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import oogasalad.model.constructable.Tile;
+import org.junit.Test;
 
 public class MoveEventTest {
 

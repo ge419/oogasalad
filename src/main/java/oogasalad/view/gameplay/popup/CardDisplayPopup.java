@@ -10,10 +10,10 @@ import javafx.stage.Stage;
 
 public class CardDisplayPopup {
 
-  private Stage stage;
-  private BorderPane root;
-  private String cardTitle;
-  private String cardDescription;
+  private final Stage stage;
+  private final BorderPane root;
+  private final String cardTitle;
+  private final String cardDescription;
 
   public CardDisplayPopup(String title, String description) {
     this.stage = new Stage();

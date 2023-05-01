@@ -21,13 +21,13 @@ public class CustomColorBox extends Rectangle implements CustomElement, BuilderU
 
   private final String UNDERSPECIFIED_COLOR = "#FF0000";
   private final double UNDERSPECIFIED_LENGTH = 50;
+  private final int index = -1; // it is -1 unless it is loaded from JSON
   private String name = "";
   private String defaultColor;
   private double defaultOpacity;
   private double x;
   private double y;
   private boolean editable = false;
-  private final int index = -1; // it is -1 unless it is loaded from JSON
 
 
   public CustomColorBox() {

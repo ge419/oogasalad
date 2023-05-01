@@ -9,9 +9,9 @@ abstract public class GamePiece extends StackPane implements Movable {
 
   private static final double PIECE_SIZE = 40;
   private final Image image;
+  private final ImageView imageView;
   private double xCoor;
   private double yCoor;
-  private final ImageView imageView;
 
   public GamePiece(String imageURL) {
     image = new Image(imageURL);

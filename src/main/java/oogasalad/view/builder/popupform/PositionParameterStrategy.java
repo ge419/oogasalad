@@ -41,11 +41,11 @@ public class PositionParameterStrategy implements ParameterStrategy, BuilderUtil
   private static final String ROOT_ID = "#BoardPane";
   private final PositionAttribute attr;
   private final PositionMetadata meta;
+  private final double initValue = 0;
+  private final double initAngle = 0;
   private Spinner<Double> xElement;
   private Spinner<Double> yElement;
   private Spinner<Double> angleElement;
-  private final double initValue = 0;
-  private final double initAngle = 0;
   private String objectId;
   private Pane root;
 

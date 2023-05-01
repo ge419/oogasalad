@@ -62,6 +62,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private final BuilderController myBuilderController;
   private final ResourceBundle myBuilderResource;
   private final ResourceBundle constantsResource;
+  private final Stage myStage;
   private Pane myBoardPane;
   private RulesPane myRulePane;
   private BorderPane myCenterContainer;
@@ -83,7 +84,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   private Map<String, String> themeOptions;
   private ComboBox themeSelector;
   private Scene myScene;
-  private final Stage myStage;
   private TextField descriptionInput;
   private TextField genreInput;
 

@@ -18,12 +18,12 @@ public class CustomTileBuilder extends Application implements BuilderUtility {
   private static final int LEFT_PANE_WIDTH = 300;
   final String STYLE_PATH = "/customTiles/customObjectBuilder.css";
   private final String DEFAULT_TITLE = "CustomTileMaker";
+  private final int RIGHT_PANE_STARTING_WIDTH = 800;
+  private final int STARTING_HEIGHT = 800;
   private Stage stage;
   private LeftPane leftPane;
   private CustomTileBuilderView rightPane;
   private ResourceBundle languageBundle;
-  private final int RIGHT_PANE_STARTING_WIDTH = 800;
-  private final int STARTING_HEIGHT = 800;
 
   public static int getLeftPaneWidth() {
     return LEFT_PANE_WIDTH;

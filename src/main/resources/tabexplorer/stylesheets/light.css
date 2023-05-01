@@ -16,6 +16,10 @@ Label {
   -fx-text-fill: #1f1d1d;
 }
 
+Gridpane{
+
+}
+
 Button{
   -fx-cursor: hand;
 }
@@ -38,4 +42,16 @@ Button{
   -fx-cursor: hand;
 }
 
+#top-navbar{
+  -fx-spacing: 10;
+  -fx-alignment: center;
+  -fx-background-color: #dbdbdb;
+}
 
+#left-navbar{
+  -fx-alignment: top-left;
+  -fx-padding: 30 0 30 0;
+  -fx-pref-width: 150;
+  -fx-spacing: 15;
+  -fx-background-color: lightgrey;
+}

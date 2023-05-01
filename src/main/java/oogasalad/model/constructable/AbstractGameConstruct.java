@@ -69,7 +69,7 @@ public abstract class AbstractGameConstruct implements GameConstruct {
   }
 
   @JsonSetter("attributes")
-  protected void setAllAttributes(List<Attribute> attributeList) {
+  public void setAllAttributes(List<Attribute> attributeList) {
     for (Attribute attribute : attributeList) {
       Objects.requireNonNull(attribute);
       attributeMap.put(attribute.getKey(), attribute);

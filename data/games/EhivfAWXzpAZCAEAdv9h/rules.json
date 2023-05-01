@@ -4,6 +4,15 @@
   "schemas" : [ "scoreTileRule" ],
   "attributes" : [ ]
 }, {
+  "@class" : "oogasalad.model.engine.rules.RemovePlayerRule",
+  "id" : "1b38f01f-469b-4429-84d7-9d78051e6e36",
+  "schemas" : [ "removePlayerRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "scoreMinBound",
+    "value" : 0
+  } ]
+}, {
   "@class" : "oogasalad.model.engine.rules.LastStandingWinRule",
   "id" : "27cb9eed-49bb-4f25-bdbc-d70cb19ac0eb",
   "schemas" : [ "lastStandingRule" ],

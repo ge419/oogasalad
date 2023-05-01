@@ -1,6 +1,7 @@
 package oogasalad.view.builder.customTile;
 
 import com.google.gson.JsonObject;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
@@ -29,13 +30,12 @@ public class CustomColorBox extends Rectangle implements CustomElement, BuilderU
     private int index = -1; // it is -1 unless it is loaded from JSON
 
     private final String UNDERSPECIFIED_COLOR = "#FF0000";
-    private final double UNDERSPECIFIED_OPACITY = 1;
     private final double UNDERSPECIFIED_LENGTH = 50;
 
 
     public CustomColorBox() {
         super();
-        this.setFill(Color.web(UNDERSPECIFIED_COLOR, UNDERSPECIFIED_OPACITY));
+        this.setFill(Color.web(UNDERSPECIFIED_COLOR));
         this.setWidth(UNDERSPECIFIED_LENGTH);
         this.setHeight(UNDERSPECIFIED_LENGTH);
     }
@@ -44,9 +44,7 @@ public class CustomColorBox extends Rectangle implements CustomElement, BuilderU
         this.name = jsonObject.get("name").getAsString();
         this.defaultColor = jsonObject.get("color").getAsString();
 
-        this.defaultOpacity = jsonObject.get("opacity").getAsDouble();
-        this.setFill(Color.web(defaultColor,defaultOpacity));
-        System.out.println("defaultOpacity = " + defaultOpacity);
+        this.setFill(Color.web(defaultColor));
         this.setEditable(jsonObject.get("editable").getAsBoolean());
 
         this.setWidth(jsonObject.get("width").getAsDouble());
@@ -79,14 +77,19 @@ public class CustomColorBox extends Rectangle implements CustomElement, BuilderU
     }
     @Override
     public VBox getInfo(ResourceBundle languageBundle) {
-        ArrayList colorBoxSpecificElements = new ArrayList();
+        ArrayList colorBoxElms = new ArrayList();
+
+        ColorPicker colorPicker = (ColorPicker) makeColorPicker("color");
+        colorPicker.setOnAction(event -> setValue(colorPicker.getValue().toString()));
+        colorBoxElms.add(colorPicker);
+
         Label widthLabel = (Label) makeLabel("width", languageBundle);
-        colorBoxSpecificElements.add(widthLabel);
-        colorBoxSpecificElements.add(createWidthSlider());
+        colorBoxElms.add(widthLabel);
+        colorBoxElms.add(createWidthSlider());
         Label heightLabel = (Label) makeLabel("height", languageBundle);
-        colorBoxSpecificElements.add(heightLabel);
-        colorBoxSpecificElements.add(createHeightSlider());
-        return makeVbox(this, colorBoxSpecificElements);
+        colorBoxElms.add(heightLabel);
+        colorBoxElms.add(createHeightSlider());
+        return makeVbox(this, colorBoxElms);
     }
 
     @Override
@@ -150,7 +153,7 @@ public class CustomColorBox extends Rectangle implements CustomElement, BuilderU
     @Override
     public void setValue(String loadedValue) {
         this.defaultColor = loadedValue;
-        this.setFill(Color.web(defaultColor, this.defaultOpacity));
+        this.setFill(Color.web(defaultColor));
     }
 
 }

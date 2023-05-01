@@ -76,6 +76,15 @@
       "viewable": true
     },
     {
+      "@class": "oogasalad.model.attribute.StringMetadata",
+      "key": "description",
+      "name": "Description",
+      "description": "Tile card description (tile prices, rent, etc.)",
+      "defaultValue": "no description provided",
+      "editable": true,
+      "viewable": true
+    },
+    {
       "@class": "oogasalad.model.attribute.ColorMetadata",
       "key": "color",
       "name": "Color",

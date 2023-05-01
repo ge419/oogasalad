@@ -67,9 +67,10 @@ public class BuilderController {
   private final Injector injector;
   private String gameID;
   private GameDao gameDao;
-  private Map<String, String> rules;
   private static final String RULE_NAME_KEY = "name";
   private static final String RULE_DESCRIPTION_KEY = "description";
+  private static final String RESOURCE_PATH = "engine/ClassPath";
+  private static final ResourceBundle resources = ResourceBundle.getBundle(RESOURCE_PATH);;
 
   public BuilderController(String language, String gameID, GameDao gameDao) {
     injector = Guice.createInjector(
@@ -197,20 +198,19 @@ public class BuilderController {
   }
 
   public List<String> getListOfRules() {
-//    return rules.keySet().stream().toList();
-    return List.of(
-        "Hello",
-        "This",
-        "Is",
-        "A",
-        "Test"
-    );
+    return resources.keySet().stream().toList();
+//    return List.of(
+//        "Hello",
+//        "This",
+//        "Is",
+//        "A",
+//        "Test"
+//    );
   }
 
   public String getClassForRule(String ruleClass) {
-
-    //TODO: get it from resource file
-    return "";
+//    resources.getKeys();
+    return resources.getString(ruleClass);
   }
 
 
@@ -311,26 +311,26 @@ public class BuilderController {
 
   }
 
-  private void readDefaultRules() {
-    try {
-      rules = new HashMap<>();
-      for (File file : FileReader.readFiles("rules")) {
-        EditableRule rule = readRulesFile(file.toPath());
-        String name = StringAttribute.from(rule.getAttribute(RULE_NAME_KEY).get()).getValue();
-        String desc = StringAttribute.from(rule.getAttribute(RULE_DESCRIPTION_KEY).get())
-            .getValue();
-        rules.putIfAbsent(name, desc);
-      }
-    } catch (FileReaderException | IOException e) {
-      logger.fatal("Failed to read resource rule files", e);
-      throw new ResourceReadException(e);
-    }
-  }
-
-  private EditableRule readRulesFile(Path path) throws IOException {
-    ObjectMapper mapper = new ObjectMapper();
-    return mapper.readValue(path.toFile(), EditableRule.class);
-  }
+//  private void readDefaultRules() {
+//    try {
+//      rules = new HashMap<>();
+//      for (File file : FileReader.readFiles("rules")) {
+//        EditableRule rule = readRulesFile(file.toPath());
+//        String name = StringAttribute.from(rule.getAttribute(RULE_NAME_KEY).get()).getValue();
+//        String desc = StringAttribute.from(rule.getAttribute(RULE_DESCRIPTION_KEY).get())
+//            .getValue();
+//        rules.putIfAbsent(name, desc);
+//      }
+//    } catch (FileReaderException | IOException e) {
+//      logger.fatal("Failed to read resource rule files", e);
+//      throw new ResourceReadException(e);
+//    }
+//  }
+//
+//  private EditableRule readRulesFile(Path path) throws IOException {
+//    ObjectMapper mapper = new ObjectMapper();
+//    return mapper.readValue(path.toFile(), EditableRule.class);
+//  }
 
   private boolean savePathAsAsset(String path) {
     try {
@@ -341,10 +341,10 @@ public class BuilderController {
       return false;
     }
   }
-  public String getRuleDescription(String ruleAsString){
+//  public String getRuleDescription(String ruleAsString){
 //    return "This is a test string! Selected rule: " + ruleAsString;
-    return rules.get(ruleAsString);
-  }
+//    return rules.get(ruleAsString);
+//  }
   public String getGameID() {
     return gameID;
   }

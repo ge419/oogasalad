@@ -11,12 +11,17 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -33,6 +38,7 @@ import oogasalad.model.accesscontrol.dao.GameDao;
 import oogasalad.model.accesscontrol.dao.UserDao;
 import oogasalad.model.accesscontrol.database.schema.GameSchema;
 import oogasalad.model.accesscontrol.database.schema.UserSchema;
+import oogasalad.util.AlertPopUp;
 import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
@@ -51,6 +57,8 @@ public class GameLauncherTab implements Tab {
   private Region region;
   private HBox hbox;
   private VBox gameLauncher;
+  private MenuItem editMenuItem;
+  private MenuItem deleteMenuItem;
 
   @Inject
   public GameLauncherTab(
@@ -130,17 +138,23 @@ public class GameLauncherTab implements Tab {
       InputStream stream = null;
       try {
         //todo: load img_path from DB
-        String imageResourcePath = authHandler.getActiveUserID().equals("rcd") ? "rcd_old.gif"
-            : "game_img.png"; // lol, fun easter egg ig?
+        String imageResourcePath = "game_img.png"; // lol, fun easter egg ig?
         stream = new FileInputStream("src/main/resources/" + imageResourcePath);
         Image image = new Image(stream);
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(75);
         imageView.setFitHeight(75);
-        VBox gameBox = new VBox(imageView, new Label(name));
+
+
+        editMenuItem = new MenuItem("edit");
+        deleteMenuItem = new MenuItem("delete");
+        MenuButton menuButton = new MenuButton("\u22EE", null,editMenuItem, deleteMenuItem);
+//        menuButton.setNodeOrientation(Nod.VERTICAL);
+        deleteMenuItem.setOnAction(e->userDao.deleteGame(gameID));
+        HBox container = new HBox(imageView, menuButton);
+        VBox gameBox = new VBox(container, new Label(name));
         gameBox.getStyleClass().add("game-box");
-//        gameBox.setAlignment(Pos.CENTER);
-//        gameBox.setSpacing(5);
+
         gameBox.setOnMouseClicked(e-> tabExplorer.launchGame(gameID));
 //        gameBox.setOnMouseEntered(e->gameBox.setCursor(Cursor.HAND));
 //        gameBox.setPrefSize(100, 100);
@@ -185,12 +199,16 @@ public class GameLauncherTab implements Tab {
     result.ifPresent(formData -> {
       String name = formData[0];
 
-      Map<String, Object> game = new HashMap<>();
-      game.put(GameSchema.DESCRIPTION.getFieldName(), name);
+      if (name.isBlank()){
+        AlertPopUp.show(AlertType.ERROR,"Input cannot be null", "Please add a name for your game");
+      }else{
+        Map<String, Object> game = new HashMap<>();
+        game.put(GameSchema.TITLE.getFieldName(), name);
 
-      String gameID = gameDao.createGame(authHandler.getActiveUserID());
-      gameDao.updateGame(gameID, game);
-      tabExplorer.launchGameBuilder(gameID);
+        String gameID = gameDao.createGame(authHandler.getActiveUserID());
+        gameDao.updateGame(gameID, game);
+        tabExplorer.launchGameBuilder(gameID);
+      }
     });
   }
 

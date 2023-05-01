@@ -1,7 +1,9 @@
-package oogasalad.model.engine.actions;
+package oogasalad.model.engine.actions.moves;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import oogasalad.model.engine.actions.Action;
+import oogasalad.model.engine.actions.ActionParams;
 import oogasalad.model.engine.events.DieRolledEvent;
 
 public class RollDieAction implements Action {

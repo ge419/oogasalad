@@ -44,7 +44,11 @@ public class RulesPane extends BorderPane {
       // tell builder controller to give me the properties for this rule.
       String selectedRule = myRulesList.getSelectionModel().getSelectedItem();
       String selectedTiletype = myCheckbox.getSelectionModel().getSelectedItem();
-      myBuilderController.makeRulesPopup(myBuilderController.getClassForRule(selectedRule));
+      try {
+        myBuilderController.makeRulesPopup(myBuilderController.getClassForRule(selectedRule));
+      } catch (Exception ex) {
+        ex.printStackTrace();
+      }
     });
 
     myDeleteButton.setOnAction(e -> {
@@ -65,7 +69,6 @@ public class RulesPane extends BorderPane {
         .addListener(((observable, oldValue, newValue) -> {
           System.out.println(
               "oh wow, you selected " + myRulesList.getSelectionModel().getSelectedItem());
-//          myBuilderController.makeRulesPopup(myBuilderController.getClassForRule(newValue));
         }));
   }
 

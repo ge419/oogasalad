@@ -98,14 +98,13 @@ class SaveManagerTest {
   }
 
   private void testGameSaved() {
-    String gameTitle = "Test game";
-    gameHolder.setGameInfo(new GameInfo().setTitle(gameTitle));
+    gameHolder.setGameInfo(new GameInfo().setHeight(550));
     saveManager.saveGame();
 
     assertTrue(Files.exists(testDir));
 
     secondSaveManager.loadGame();
-    assertEquals(gameTitle, secondGameHolder.getGameInfo().getTitle());
+    assertEquals(550, secondGameHolder.getGameInfo().getHeight());
   }
 
   @Test

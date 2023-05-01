@@ -4,7 +4,7 @@ package oogasalad.model.engine.actions;
  * The primary abstraction for changing the game state. An action is generally an atomic,
  * unconditional operation.
  *
- * @author Dominic Martinez
+ * @author Dominic Martinez, Jay Yoon
  */
 public interface Action {
 

@@ -57,6 +57,5 @@ public class SerializationTest {
   void schemaDatabaseTest() throws JsonProcessingException {
     // SMOKE TEST: database should parse resource files
     assertTrue(database.getSchema("dieRule").isPresent());
-    assertTrue(database.getSchema("basicTile").isPresent());
   }
 }

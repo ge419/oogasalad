@@ -1,6 +1,6 @@
 {
   "@class": "oogasalad.model.attribute.SimpleObjectSchema",
-  "name": "playerPieceRule",
+  "name": "numberOfPiecesPerPlayerRule",
   "fields": [
     {
       "@class": "oogasalad.model.attribute.IntMetadata",

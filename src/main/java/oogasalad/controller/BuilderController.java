@@ -140,7 +140,6 @@ public class BuilderController {
 
   public void save() {
     injector.getInstance(SaveManager.class).saveGame();
-//    ImageList --> loop through and apply saveAsset to all imgages
   }
 
   public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Node parent,
@@ -284,27 +283,27 @@ public class BuilderController {
    * @param imagePath path of the image
    * @return a boardimagetile object
    */
-  public Optional<BoardImageTile> createBoardImage(String imagePath) {
-    System.out.println("This is our image path: " + imagePath);
-    BoardImage backendImage = new BoardImage(db);
-    Coordinate coordinate = new Coordinate(0, 0, 0);
-    backendImage.setCoordinate(coordinate);
+  public Optional<BoardImageTile> createBoardImage(String imagePath) throws IOException {
+      System.out.println("This is our image path: " + imagePath);
+      BoardImage backendImage = new BoardImage(db);
+      Coordinate coordinate = new Coordinate(0, 0, 0);
+      backendImage.setCoordinate(coordinate);
 
-    //todo: NOW, WE NEED TO CALL THE SAVE MANAGER TO UPLOAD ASSET!
-    // WHEN SAVE MANAGER IS WORKING, UNCOMMENT!
-//    if (!savePathAsAsset(imagePath)){
-//      return Optional.empty();
-//    }
-    backendImage.imageAttribute().valueProperty().addListener(((observable, oldValue, newValue) -> {
-//      if (!savePathAsAsset(newValue)){
-//        backendImage.setImage(oldValue);
-//      }
-    }));
-
-    return Optional.of(new BoardImageTile(backendImage));
+      //todo: NOW, WE NEED TO CALL THE SAVE MANAGER TO UPLOAD ASSET!
+      // WHEN SAVE MANAGER IS WORKING, UNCOMMENT!
+      if (!savePathAsAsset(imagePath)) {
+        return Optional.empty();
+      }
+      backendImage.imageAttribute().valueProperty()
+          .addListener(((observable, oldValue, newValue) -> {
+            if (!savePathAsAsset(newValue)) {
+              backendImage.setImage(oldValue);
+            }
+          }));
+      injector.getInstance(SaveManager.class).saveAsset(Path.of(imagePath));
+      return Optional.of(new BoardImageTile(backendImage));
 
   }
-
 //  private void readDefaultRules() {
 //    try {
 //      rules = new HashMap<>();

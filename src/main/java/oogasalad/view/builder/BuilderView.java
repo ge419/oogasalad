@@ -3,6 +3,7 @@ package oogasalad.view.builder;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -314,7 +315,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   ///////////////////////////////////////////////////////////////////////////////////////////////
 
-  public void uploadImage() {
+  public void uploadImage() throws IOException {
     Optional<File> file = fileLoad(myBuilderResource, "UploadImageTitle");
 
     if (checkIfImage(file)) {
@@ -322,6 +323,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       double imageSize = Double.parseDouble(constantsResource.getString("IMAGE_SIZE"));
       Optional<BoardImageTile> ourImage = turnFileToImage(file.get(), imageSize, imageSize,
           new Coordinate(0, 0, 0));
+      //TODO: call save asset in the BuilderController
+//      myBuilderController.
       if (ourImage.isEmpty()) {
         return;
       }
@@ -446,7 +449,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private Optional<BoardImageTile> turnFileToImage(File file, double width, double height,
-      Coordinate location) {
+      Coordinate location) throws IOException {
     Optional<BoardImageTile> image = myBuilderController.createBoardImage(file.toURI().toString());
     if (image.isEmpty()) {
       return Optional.empty();

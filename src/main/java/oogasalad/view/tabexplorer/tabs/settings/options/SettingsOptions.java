@@ -10,6 +10,12 @@ import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.tabs.settings.SettingsTab;
 import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
+/**
+ * Class for sub-settings that aren't exactly "Tabs" and so shouldn't implement Tab, only update in
+ * settings page.
+ *
+ * @author cgd19
+ */
 public abstract class SettingsOptions {
 
   protected final TabExplorer tabExplorer;
@@ -21,8 +27,7 @@ public abstract class SettingsOptions {
   protected UserPreferences userPref;
 
   /**
-   * Class for sub-settings that aren't exactly "Tabs" and so shouldn't implement Tab, only update
-   * in settings page. need
+   * Constructor params for settings options.
    *
    * @param settingsTab
    * @param tabExplorer

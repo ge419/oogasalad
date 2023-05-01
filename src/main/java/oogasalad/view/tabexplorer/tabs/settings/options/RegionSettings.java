@@ -18,6 +18,11 @@ import oogasalad.view.tabexplorer.tabs.settings.SettingsTab;
 import oogasalad.view.tabexplorer.userpreferences.Languages;
 import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
+/**
+ * Class for region settings options.
+ *
+ * @author cgd19
+ */
 public class RegionSettings extends SettingsOptions {
 
   /**
@@ -66,6 +71,16 @@ public class RegionSettings extends SettingsOptions {
 
     french.setOnAction(e -> {
       tabExplorer.updateUserPrefLanguage(Languages.FRENCH.getLocaleStr());
+      render();
+    });
+
+    korea.setOnAction(e -> {
+      tabExplorer.updateUserPrefLanguage(Languages.KOREAN.getLocaleStr());
+      render();
+    });
+
+    spanish.setOnAction(e -> {
+      tabExplorer.updateUserPrefLanguage(Languages.SPANISH.getLocaleStr());
       render();
     });
 

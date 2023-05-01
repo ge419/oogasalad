@@ -24,6 +24,11 @@ import oogasalad.view.tabexplorer.tabs.settings.options.SecuritySettings;
 import oogasalad.view.tabexplorer.tabs.settings.options.SettingsOptions;
 import oogasalad.view.tabexplorer.tabs.settings.options.SettingsOptionsFactory;
 
+/**
+ * The Settings Tab is the tab that allows users to access varying settings/preferences options
+ *
+ * @author cgd19
+ */
 public class SettingsTab implements Tab {
 
   private final TabExplorer tabExplorer;
@@ -62,21 +67,14 @@ public class SettingsTab implements Tab {
 
   @Override
   public void renderTabContent() {
-
     root = new BorderPane();
     VBox vbox = new VBox();
     vbox.setPrefWidth(200);
-//    vbox.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     vbox.getChildren().add(new Label("Online Users"));
-
     VBox container = new VBox();
-
     container.setPadding(new Insets(0, 50, 0, 50));
-
     root.setLeft(settingsNavBar.getSettingsNavBarLayout());
     accountSettings.render();
-    //displayDefaultOptionsPage
-
     tabExplorer.setCurrentTab(root);
   }
 
@@ -119,13 +117,9 @@ public class SettingsTab implements Tab {
       }
     });
     logoutLink.setOnAction(e -> tabExplorer.handleLoginBtnClick());
-//    statsLink.setOnAction(e->handleLinkClick(st));
   }
-
 
   private void handleLinkClick(SettingsOptions settingsOptions) {
     settingsOptions.render();
   }
-
-
 }

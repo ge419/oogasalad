@@ -11,6 +11,11 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
+/**
+ * Class for settings navbar in {@link SettingsTab}.
+ *
+ * @author cgd19
+ */
 public class SettingsNavBar {
 
   private final UserPreferences userPref;

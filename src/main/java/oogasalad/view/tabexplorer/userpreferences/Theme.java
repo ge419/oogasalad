@@ -1,5 +1,10 @@
 package oogasalad.view.tabexplorer.userpreferences;
 
+/**
+ * Supported themes for app.
+ *
+ * @author cgd
+ */
 public enum Theme {
   LIGHT("light"),
   DARK("dark"),

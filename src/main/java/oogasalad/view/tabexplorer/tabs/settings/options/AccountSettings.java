@@ -27,6 +27,11 @@ import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.tabs.settings.SettingsTab;
 import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
+/**
+ * Class for accounts settings options.
+ *
+ * @author cgd19
+ */
 public class AccountSettings extends SettingsOptions {
 
   private TextField nameField;

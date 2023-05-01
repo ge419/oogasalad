@@ -15,8 +15,14 @@ import oogasalad.model.accesscontrol.dao.GameDao;
 import oogasalad.model.accesscontrol.dao.UserDao;
 import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.tabs.settings.SettingsTab;
+import oogasalad.view.tabexplorer.userpreferences.Theme;
 import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
+/**
+ * Class for appearance settings options.
+ *
+ * @author cgd19
+ */
 public class AppearanceSettings extends SettingsOptions {
 
   /**
@@ -57,8 +63,9 @@ public class AppearanceSettings extends SettingsOptions {
     RadioButton darkMode = new RadioButton("Dark Mode");
     RadioButton dukeMode = new RadioButton("DDMF Mode");
 
-    lightMode.setOnAction(e -> tabExplorer.updateTheme("light"));
-    darkMode.setOnAction(e -> tabExplorer.updateTheme("dark"));
+    lightMode.setOnAction(e -> tabExplorer.updateTheme(Theme.LIGHT.getThemeValue()));
+    darkMode.setOnAction(e -> tabExplorer.updateTheme(Theme.DARK.getThemeValue()));
+    dukeMode.setOnAction(e -> tabExplorer.updateTheme(Theme.DDMF.getThemeValue()));
 
     ToggleGroup radioGroup = new ToggleGroup();
 
@@ -77,7 +84,6 @@ public class AppearanceSettings extends SettingsOptions {
     tab.getChildren().addAll(accountSettingLabel, horizontalContainer);
 
     settingsTab.setCurrentSettingsOption(tab);
-
   }
 
   @Override

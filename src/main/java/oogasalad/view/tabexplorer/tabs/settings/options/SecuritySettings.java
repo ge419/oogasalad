@@ -22,6 +22,11 @@ import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.tabs.settings.SettingsTab;
 import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
+/**
+ * Class for security settings options.
+ *
+ * @author cgd19
+ */
 public class SecuritySettings extends SettingsOptions {
 
   private TextField oldPwdField;

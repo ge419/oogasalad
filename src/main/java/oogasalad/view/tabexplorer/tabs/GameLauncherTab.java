@@ -40,6 +40,12 @@ import oogasalad.util.PathFinder;
 import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
+/**
+ * This class represents the game launcher tab which is an entry point to launching gameplay and
+ * game builder.
+ *
+ * @author cgd19
+ */
 public class GameLauncherTab implements Tab {
 
   private final TabExplorer tabExplorer;

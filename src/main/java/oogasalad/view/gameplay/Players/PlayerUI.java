@@ -2,7 +2,6 @@ package oogasalad.view.gameplay.Players;
 
 import java.util.List;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
@@ -17,6 +16,17 @@ import oogasalad.view.Backgroundable;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Imageable;
 import oogasalad.view.Textable;
+
+/**
+ * <p> JavaFX rendering of Player UI (information such as Player's score, icon, color)
+ *
+ * <p>Assumptions: None
+ *
+ * <p>Dependencies: Textable, Backgroundable, Imageable interfaces, Player object, Coordinate
+ * object
+ *
+ * @author Woonggyu wj61
+ */
 
 public class PlayerUI extends StackPane implements Textable, Backgroundable, Imageable {
 
@@ -43,7 +53,8 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
     ImageView playerIcon = createImage(PLAYER_WIDTH, BPlayer.getImage(), IMAGE_SCALE);
 
     getChildren().addAll(
-     createBackground(PLAYER_WIDTH, PLAYER_HEIGHT, Color.web(BPlayer.getColor()), UI_STROKE_COLOR),
+        createBackground(PLAYER_WIDTH, PLAYER_HEIGHT, Color.web(BPlayer.getColor()),
+            UI_STROKE_COLOR),
         playerIcon,
         createTextBox(List.of(BPlayer.getName(), BPlayer.getScore()), PLAYER_HEIGHT, PLAYER_WIDTH));
     this.setMargin(playerIcon, new Insets(0, PLAYER_WIDTH / 2, 0, 0));
@@ -67,15 +78,29 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
     return textBox;
   }
 
+  /**
+   * Receive the ID of the backend player associated with the frontend player component
+   *
+   * <p>Assumptions: None
+   *
+   * <p>Parameters: None
+   *
+   * <p>Exceptions: None, as a frontend player UI is always created with a backend player as an
+   * argument.
+   *
+   * <p>Other details: None
+   *
+   * @return The ID of backend player
+   */
   public String getPlayerId() {
     return this.modelPlayer.getId();
   }
 
   private void markCurrentPlayer() {
-      Rectangle marker = new Rectangle((int) PLAYER_WIDTH, (int) PLAYER_HEIGHT);
-      marker.setStroke(MARKER_COLOR);
-      marker.setStrokeWidth(MARKER_WIDTH);
-      marker.setFill(MARKER_FILL);
+    Rectangle marker = new Rectangle((int) PLAYER_WIDTH, (int) PLAYER_HEIGHT);
+    marker.setStroke(MARKER_COLOR);
+    marker.setStrokeWidth(MARKER_WIDTH);
+    marker.setFill(MARKER_FILL);
     current.addListener((observable, oldValue, newValue) -> {
       if (newValue) {
         getChildren().add(marker);

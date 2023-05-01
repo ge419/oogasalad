@@ -33,4 +33,8 @@ public class PlayerPiece extends GamePiece {
     modelPiece.setTile(tile);
     moveDirectly(tile.getCoordinate(), this);
   }
+
+  public Piece getModelPiece() {
+    return modelPiece;
+  }
 }

@@ -1,12 +1,13 @@
 package oogasalad.view.builder.itempanes;
 
+import java.io.IOException;
 import java.util.ResourceBundle;
 import javafx.scene.Node;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import oogasalad.model.exception.ResourceReadException;
 import oogasalad.view.builder.BuilderUtility;
 import oogasalad.view.builder.BuilderView;
+import oogasalad.view.builder.customTile.CustomTileBuilder;
 import oogasalad.view.builder.exceptions.MethodReflectionException;
 
 /**
@@ -48,7 +49,7 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
       throw new ResourceReadException(displayMessageWithArguments(
           getLanguage(),
           "ResourceReadError",
-          bundle.toString()
+          bundle.getBaseBundleName()
       ));
     }
   }
@@ -125,5 +126,29 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
 
   private void cancelAction() {
     getBuilder().cancelAction();
+  }
+  private void displayGameInfoForm() {
+    myPane.getChildren().clear();
+    getBuilder().displayGameInfoForm(myPane);
+    addItems("GameInfoMenu");
+  }
+  private void saveGameInfo() {
+    getBuilder().saveGameInfo();
+  }
+  private void uploadThumbnailImage() {
+    getBuilder().uploadThumbnailImage();
+  }
+
+  private void createCustomTile(){
+    getBuilder().cancelAction();
+    new CustomTileBuilder().start(null);
+  }
+
+  private void toggleNextRemoval(){
+    getBuilder().toggleNextRemoval();
+  }
+
+  private void uploadImage() throws IOException {
+    getBuilder().uploadImage();
   }
 }

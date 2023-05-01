@@ -179,29 +179,12 @@ public class AccountSettings extends SettingsOptions {
       userDao.updateUserPronouns(userID, pronouns);
       userDao.updateEmailAddress(userID, email);
       userDao.updateAge(userID, Integer.parseInt(age));
+
+      // DB latency hack to force refresh
+      tabExplorer.refreshNavBar();
+      tabExplorer.refreshNavBar();
+
+      render();
     }
-
-    // DB latency hack to force refresh
-    tabExplorer.refreshNavBar();
-    tabExplorer.refreshNavBar();
-
-    render();
-  }
-
-  private boolean isValidEmail(String email) {
-    String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-    return email.matches(regex);
-  }
-
-  private boolean isInteger(String s) {
-    try {
-      Integer.parseInt(s);
-    } catch (NumberFormatException e) {
-      return false;
-    } catch (NullPointerException e) {
-      return false;
-    }
-    // only got here if we didn't return false
-    return true;
   }
 }

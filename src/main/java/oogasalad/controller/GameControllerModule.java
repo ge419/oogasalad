@@ -9,6 +9,7 @@ import oogasalad.model.constructable.GameHolderModule;
 import oogasalad.model.constructable.SaveManagerModule;
 import oogasalad.model.engine.EngineModule;
 import oogasalad.view.ViewFactory;
+import oogasalad.view.tiles.TileModule;
 
 public class GameControllerModule extends AbstractModule {
 
@@ -29,5 +30,6 @@ public class GameControllerModule extends AbstractModule {
     install(new ObjectMapperModule());
     install(new FactoryModuleBuilder().build(PrompterFactory.class));
     install(new FactoryModuleBuilder().build(ViewFactory.class));
+    install(new TileModule());
   }
 }

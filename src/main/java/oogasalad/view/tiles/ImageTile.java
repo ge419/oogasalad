@@ -22,6 +22,16 @@ import oogasalad.view.Coordinate;
 import oogasalad.view.Imageable;
 import oogasalad.view.Textable;
 
+/**
+ * <p> Tile type that includes an image and text
+ *
+ * <p>Assumptions: Assumes that the image goes on top with text on bottom
+ *
+ * <p>Dependencies: ViewTile, Textable, Imageable, Backgroundable interface, Tile object
+ *
+ * @author Woonggyu wj61
+ */
+
 public class ImageTile extends StackPane implements ViewTile, Textable, Imageable, Backgroundable {
 
   private static final double TEXT_SCALE = 8;
@@ -35,8 +45,8 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
 
   @Inject
   public ImageTile(@Assisted Tile BTile) {
-    this.setPosition(BTile.getCoordinate());
     this.modelTile = BTile;
+    BTile.addSchema("ImageTile");
 
     Rectangle tileBackground = createBackground(BTile.getWidth(), BTile.getHeight(),
         TILE_BACKGROUND, TILE_STROKE_COLOR);
@@ -47,21 +57,11 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
         createTextBox(List.of(BTile.getInfo()), BTile.getHeight(), BTile.getHeight()));
     content.setAlignment(Pos.CENTER);
     getChildren().addAll(tileBackground, content);
-
-    //TODO: change this temporary behavior when tile is bought
-    //TODO: depend on if attribute is present
-    modelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE)
-        .map(PlayerAttribute::from)
-        .map(PlayerAttribute::idProperty)
-        .ifPresent(prop -> prop.addListener((observable, oldValue, newValue) ->
-            newValue.ifPresentOrElse(
-                // Tile is owned
-                id -> this.setColor(Color.RED),
-                // Tile is not owned
-                () -> this.setColor(Color.LIGHTBLUE)
-            )));
   }
 
+  /**
+   * @see Textable
+   */
   @Override
   public VBox createTextBox(List info, double height, double width) {
     VBox textBox = new VBox();
@@ -74,45 +74,37 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
     return textBox;
   }
 
-  public void setColor(Color color) {
-
-  }
-
+  /**
+   * @return backend tile associated with this frontend tile
+   */
   @Override
   public Tile getTile() {
     return this.modelTile;
   }
 
+  /**
+   * set the size of this frontend tile
+   */
   @Override
   public void setSize(double width, double height) {
     this.setWidth(width);
     this.setHeight(height);
   }
 
-
+  /**
+   * @return return this frontend tile
+   */
   @Override
   public Node asNode() {
     return this;
   }
 
+  /**
+   * @return the associated backend tile's ID
+   */
   @Override
   public String getTileId() {
     return this.modelTile.getId();
   }
-
-  public Coordinate getPosition() {
-    return null;
-  }
-
-  public void setPosition(Coordinate coord) {
-    this.setLayoutX(coord.getXCoor());
-    this.setLayoutY(coord.getYCoor());
-    this.getTransforms().add(new Rotate(coord.getAngle(), Rotate.Z_AXIS));
-  }
-
-  public Paint getColor() {
-    return null;
-  }
-
 
 }

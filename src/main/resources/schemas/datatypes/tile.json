@@ -3,11 +3,20 @@
   "name": "tile",
   "fields": [
     {
-      "@class": "oogasalad.model.attribute.StringMetadata",
-      "key": "type",
+      "@class": "oogasalad.model.attribute.BindingMetadata",
+      "key": "viewtype",
       "name": "View type",
       "description": "View type of tile.",
       "defaultValue": "basic",
+      "editable": true,
+      "viewable": true
+    },
+    {
+      "@class": "oogasalad.model.attribute.BindingMetadata",
+      "key": "type",
+      "name": "Type",
+      "description": "Type of tile.",
+      "defaultValue": "default",
       "editable": true,
       "viewable": true
     },
@@ -71,7 +80,7 @@
       "key": "color",
       "name": "Color",
       "description": "Color of tile",
-      "defaultValue": "#add8e6",
+      "defaultValue": "#FFFFFF",
       "editable": true,
       "viewable": true
     }

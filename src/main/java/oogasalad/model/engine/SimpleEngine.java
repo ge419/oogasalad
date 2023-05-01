@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import oogasalad.model.engine.actions.Action;
 import oogasalad.model.engine.actions.ActionParams;
-import oogasalad.model.engine.actions.CreatePlayersAction;
-import oogasalad.model.engine.actions.EventAction;
+import oogasalad.model.engine.actions.emits.EventAction;
 import oogasalad.model.engine.events.StartGameEvent;
 import oogasalad.model.engine.prompt.Prompter;
 import oogasalad.model.engine.rules.Rule;
@@ -38,7 +37,7 @@ public class SimpleEngine implements Engine {
     this.managerProvider = managerProvider;
 
     EventAction startGameAction = new EventAction(new StartGameEvent());
-    actionQueue.add(Priority.HIGH.getValue(), startGameAction);
+    actionQueue.add(Priority.MEDIUM.getValue(), startGameAction);
   }
 
   @Override

@@ -14,6 +14,7 @@ import oogasalad.model.accesscontrol.dao.GameDao;
 import oogasalad.model.accesscontrol.dao.UserDao;
 import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.tabs.settings.SettingsTab;
+import oogasalad.view.tabexplorer.userpreferences.Languages;
 
 public class RegionSettings extends SettingsOptions {
 
@@ -57,19 +58,13 @@ public class RegionSettings extends SettingsOptions {
     RadioButton spanish = new RadioButton("Spanish \uD83C\uDDEB\uD83C\uDDF7");
 
     english.setOnAction(e->{
-      tabExplorer.updateUserPrefLanguage("en_US");
-//      tabExplorer.displayDefaultTab();
-
+      tabExplorer.updateUserPrefLanguage(Languages.ENGLISH.getLocaleStr());
       render();
-
     });
 
     french.setOnAction(e->{
-      tabExplorer.updateUserPrefLanguage("fr_FR");
-//      tabExplorer.displayDefaultTab();
-
+      tabExplorer.updateUserPrefLanguage(Languages.FRENCH.getLocaleStr());
       render();
-
     });
 
     ToggleGroup radioGroup = new ToggleGroup();
@@ -80,12 +75,8 @@ public class RegionSettings extends SettingsOptions {
     spanish.setToggleGroup(radioGroup);
 
     VBox checkBoxContainer = new VBox();
-//    CheckBox lightMode = new CheckBox("Light Mode");
-//    CheckBox darkMode = new CheckBox("Dark Mode");
-//    CheckBox dukeMode = new CheckBox("DDMF Mode");
     checkBoxContainer.getChildren().addAll(english,french,korea,spanish);
     checkBoxContainer.setSpacing(10);
-
 
     horizontalContainer.getChildren().addAll(changeThemeLabel, checkBoxContainer);
     horizontalContainer.setPadding(new Insets(20));
@@ -93,7 +84,5 @@ public class RegionSettings extends SettingsOptions {
     tab.getChildren().addAll(accountSettingLabel, horizontalContainer);
 
     settingsTab.setCurrentSettingsOption(tab);
-
-
   }
 }

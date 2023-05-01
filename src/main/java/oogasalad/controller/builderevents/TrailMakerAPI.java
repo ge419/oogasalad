@@ -5,8 +5,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 /**
- * TrailMakers will create some sort of trail between any given nodes, and then store all created
- * trails inside itself. It will also visually place the trails inside the desired pane.
+ * <p>TrailMakers will create some sort of trail between any given nodes, and then store all
+ * created
+ * trails inside itself. </p>
+ * <p>It will also visually place the trails inside the desired pane.</p>
+ * <p>Trails can also be re-enabled and disabled based on a toggle method, toggleEnable.</p>
  *
  * @author tmh85
  */
@@ -30,10 +33,22 @@ public interface TrailMakerAPI {
   void removeTrail(String trailID);
 
   /**
-   * Removes the trail corresponding to a given node from the parent pane.
+   * <p>Removes all trails corresponding to a given node from the parent pane.</p>
+   *
    * @param node Node whose trail you would like to remove
    */
   void removeTrail(Node node);
+
+  /**
+   * <p>Convenience method that combines removeTrail and getTrailID.</p>
+   *
+   * @param entry1 originator node
+   * @param entry2 ending node
+   * @see TrailMakerAPI#removeTrail(String)
+   */
+  default void removeTrail(Node entry1, Node entry2) {
+    removeTrail(getTrailID(entry1, entry2));
+  }
 
   /**
    * Sets the opacity of a given trail.
@@ -52,7 +67,8 @@ public interface TrailMakerAPI {
   double getOpacity(String trailID);
 
   /**
-   * Flips the current enable state of the guidelines
+   * <p>Flips the current enable state of the guidelines</p>
+   * <p>If active, trails are visible. If not, they are not.</p>
    */
   void toggleEnable();
 

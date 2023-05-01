@@ -17,7 +17,8 @@ import oogasalad.view.Coordinate;
 public class Tile extends AbstractGameConstruct {
 
   public static final String BASE_SCHEMA_NAME = "tile";
-  public static final String VIEW_TYPE_ATTRIBUTE = "type";
+  public static final String VIEW_TYPE_ATTRIBUTE = "viewtype";
+  public static final String TYPE_ATTRIBUTE = "type";
   public static final String NEXT_ATTRIBUTE = "next";
   public static final String POSITION_ATTRIBUTE = "position";
   public static final String WIDTH_ATTRIBUTE = "width";
@@ -30,6 +31,22 @@ public class Tile extends AbstractGameConstruct {
   @Inject
   public Tile(@JacksonInject SchemaDatabase database) {
     super(BASE_SCHEMA_NAME, database);
+    typeAttribute().valueProperty()
+        .addListener((observable, oldValue, newValue) -> setTileSchemas());
+    viewTypeAttribute().valueProperty()
+        .addListener((observable, oldValue, newValue) -> setTileSchemas());
+  }
+
+  private void setTileSchemas() {
+    setBuiltinSchemas(List.of(BASE_SCHEMA_NAME));
+
+    if (!getViewType().isEmpty()) {
+      addSchema(getViewType());
+    }
+
+    if (!getType().isEmpty()) {
+      addSchema(getType());
+    }
   }
 
   @JsonIgnore
@@ -83,6 +100,11 @@ public class Tile extends AbstractGameConstruct {
   }
 
   @JsonIgnore
+  public StringAttribute typeAttribute() {
+    return StringAttribute.from(getAttribute(TYPE_ATTRIBUTE).get());
+  }
+
+  @JsonIgnore
   public Coordinate getCoordinate() {
     return positionAttribute().getCoordinate();
   }
@@ -111,6 +133,12 @@ public class Tile extends AbstractGameConstruct {
   public void setY(double y) {
     positionAttribute().setY(y);
   }
+
+  @JsonIgnore
+  public double getAngle() {return getCoordinate().getAngle();}
+
+  @JsonIgnore
+  public void setAngle(double angle) {positionAttribute().setAngle(angle);}
 
   @JsonIgnore
   public DoubleAttribute widthAttribute() {
@@ -152,14 +180,22 @@ public class Tile extends AbstractGameConstruct {
     return StringAttribute.from(getAttribute(INFO_ATTRIBUTE).get()).getValue();
   }
 
-//  @JsonIgnore
-//  public String getPrice() {
-//    return Double.toString(DoubleAttribute.from(getAttribute("price").get()).getValue());
-//  }
-
   @JsonIgnore
   public String getViewType() {
     return viewTypeAttribute().getValue();
+  }
+
+  public void setViewType(String type) {
+    viewTypeAttribute().setValue(type);
+  }
+
+  @JsonIgnore
+  public String getType() {
+    return typeAttribute().getValue();
+  }
+
+  public void setType(String type) {
+    typeAttribute().setValue(type);
   }
 
   @JsonIgnore

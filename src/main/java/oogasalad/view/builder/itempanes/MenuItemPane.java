@@ -135,7 +135,7 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
       throw new ResourceReadException(displayMessageWithArguments(
           getLanguage(),
           "ResourceReadException",
-          menuBundle.toString()
+          menuBundle.getBaseBundleName()
       ));
     }
 
@@ -175,7 +175,7 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
       throw new ResourceReadException(displayMessageWithArguments(
           getLanguage(),
           "ResourceReadError",
-          myMenuOptionsResource.toString()
+          myMenuOptionsResource.getBaseBundleName()
       ));
     }
   }

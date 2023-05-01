@@ -1,7 +1,6 @@
 package oogasalad.view.tabexplorer;
 
 import com.google.inject.Inject;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
@@ -15,8 +14,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import oogasalad.controller.BuilderController;
 import oogasalad.controller.GameController;
 import oogasalad.model.accesscontrol.authentication.AuthenticationHandler;
+import oogasalad.model.accesscontrol.dao.GameDao;
 import oogasalad.model.accesscontrol.dao.UserDao;
 import oogasalad.model.accesscontrol.database.schema.UserSchema;
 import oogasalad.util.PathFinder;
@@ -66,6 +67,7 @@ public class TabExplorer {
   private static final int STAGE_HEIGHT= 700;
   private UserPreferences userPref;
   private Scene scene;
+  private GameDao gameDao;
 
 
 
@@ -79,7 +81,7 @@ public class TabExplorer {
 
   @Inject
   public TabExplorer(AuthenticationHandler authHandler, Stage primaryStage, NavBar navBar,
-      TabFactory tabFactory, UserDao userDao, UserPreferences userPref, ResourceBundle languageResourceBundle){
+      TabFactory tabFactory, UserDao userDao, UserPreferences userPref, ResourceBundle languageResourceBundle, GameDao gameDao){
     this.authHandler = authHandler;
     this.primaryStage = primaryStage;
     this.navBar = navBar;
@@ -87,6 +89,7 @@ public class TabExplorer {
     this.userDao = userDao;
     this.languageResourceBundle = languageResourceBundle;
     this.userPref = userPref;
+    this.gameDao = gameDao;
 //    languageResourceBundle = userPref.getLanguageResourceBundle();
 //    gameLauncherButton = navBar.getGameLauncherButton();
     userPref.addObserver(this::onLanguageChange);
@@ -121,7 +124,6 @@ public class TabExplorer {
 //       userPref.setLanguageResourceBundle(authHandler.getActiveUserID());
       renderMenuButton();
 //      refreshNavBar();
-      initMenuButton();
       gameLauncherTab.renderTabContent();
     } else{
       requestSignIn();
@@ -163,15 +165,19 @@ public class TabExplorer {
   }
 
   public void launchGame(String gameID){
-
-    GameController gameController = new GameController(Paths.get(PathFinder.getGameDataPath(gameID)),
-        Languages.ENGLISH.getLocaleStr());
+    // todo should take in a userID and a userDao here
+    // userID = authHandler.getActiveUserID()
+    // userDao - instance var
+    System.out.println("local str: " + Languages.ENGLISH.getLocaleStr());
+    GameController gameController = new GameController(
+        Languages.ENGLISH.getLocaleStr(), Paths.get(PathFinder.getGameDataPath(gameID)));
+    System.out.println("paths: "+Paths.get(PathFinder.getGameDataPath(gameID)));
     Stage gameStage = new Stage();
-    try {
-      gameController.setGame(gameStage);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    gameController.setGame(gameStage);
+  }
+
+  public void launchGameBuilder(String gameID){
+    BuilderController builderController = new BuilderController("en-US", gameID, gameDao);
 
   }
 
@@ -186,10 +192,9 @@ public class TabExplorer {
   private void renderMenuButton(){
     String name = (String) userDao.getUserData(authHandler.getActiveUserID()).get(UserSchema.NAME.getFieldName());
     navBar.setMenuButton(name, authHandler.getActiveUserName(), authHandler.getActiveUserID());
-    menuButton = navBar.getMenuButton();
-    setting = navBar.getSettingMenuItem();
-    logout = navBar.getLogoutMenuItem();
-    initMenuItems();
+    navBar.onLanguageChange(userPref.getPreferredLanguagePath());
+
+    initMenuButton();
   }
 
   private void initMenuButton(){

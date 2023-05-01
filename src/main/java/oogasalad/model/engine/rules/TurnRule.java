@@ -11,7 +11,7 @@ import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.Priority;
 import oogasalad.model.engine.actions.ActionFactory;
-import oogasalad.model.engine.actions.EventAction;
+import oogasalad.model.engine.actions.emits.EventAction;
 import oogasalad.model.engine.events.PlayerCreationEvent;
 import oogasalad.model.engine.events.StartTurnEvent;
 
@@ -39,7 +39,7 @@ public class TurnRule extends AbstractGameConstruct implements EditableRule {
     registrar.registerHandler(StartTurnEvent.class, this::newTurn);
   }
 
-  private void newTurn(EventHandlerParams<?> eventHandlerParams) {
+  protected void newTurn(EventHandlerParams<?> eventHandlerParams) {
     Player nextPlayer = getNextPlayer();
 
     eventHandlerParams.actionQueue().add(Priority.MEDIUM.getValue(), actionFactory.makeSetCurrentPlayerAction(nextPlayer));

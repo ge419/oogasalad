@@ -1,28 +1,50 @@
 package oogasalad.controller;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
-import oogasalad.model.attribute.SchemaDatabase;
-import oogasalad.model.attribute.SimpleSchemaDatabase;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.nio.file.Paths;
+import java.util.ResourceBundle;
+import javafx.stage.Stage;
+import oogasalad.model.engine.Engine;
+import oogasalad.view.gameplay.Gameview;
+import oogasalad.view.tabexplorer.userpreferences.Languages;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
 
-class GameControllerTest {
-  SchemaDatabase db;
+public class GameControllerTest {
 
-  @BeforeEach
-  void setUp() {
-    db = new SimpleSchemaDatabase();
+  private GameController gameController;
+  private ResourceBundle bundle;
+
+  @Before
+  public void setUp() throws NoSuchFieldException, IllegalAccessException, IOException {
+    gameController = new GameController(Languages.ENGLISH.getLocaleStr(),
+        Paths.get("data","games", "0hbvOqXKOQdhpgu3aLIO"));
+  }
+
+  @Test
+  public void testSetGame() {
 
   }
 
   @Test
-  void loadSchemas() {
-    assertTrue(db.getSchema("tile").isPresent());
+  public void testRun() {
   }
 
   @Test
-  void engineEffectsAddition() {
+  public void testDoEffectWithEmptyEffects() {
+    gameController.doEffect();
+    verify(gameController).run();
+  }
+
+  @Test
+  public void testDoEffectWithNonEmptyEffects() {
 
   }
 

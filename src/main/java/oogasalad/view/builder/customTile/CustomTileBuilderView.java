@@ -178,8 +178,8 @@ public class CustomTileBuilderView extends StackPane {
         return this.name;
     }
 
-    protected String getStageName(){
-        return this.getScene().getWindow().getTitle();
-    }
+//    protected String getStageName(){
+//        return this.getScene().getWindow().getTitle();
+//    }
 
 }

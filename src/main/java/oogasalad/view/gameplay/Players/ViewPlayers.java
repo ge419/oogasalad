@@ -73,7 +73,7 @@ public class ViewPlayers implements Renderable {
   public void render(BorderPane pane) {
     for (int i = 0; i < BPlayers.getList().size(); i++) {
       Coordinate playerCoordinate = playerPosition(i, BPlayers.getList().size(), SCREEN_WIDTH, SCREEN_HEIGHT);
-      PlayerUI playerUI = new PlayerUI(BPlayers.getList().get(i), playerCoordinate);
+      PlayerUI playerUI = new PlayerUI(BPlayers.getList().get(i), playerCoordinate, viewFactory, game);
       playerList.add(playerUI);
       pane.getChildren().add(playerUI);
     }

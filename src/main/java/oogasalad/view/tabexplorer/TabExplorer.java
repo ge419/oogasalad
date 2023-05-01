@@ -109,7 +109,6 @@ public class TabExplorer {
     scene = new Scene(root, STAGE_WIDTH, STAGE_HEIGHT);
     String styleSheet = getClass().getResource(STYLESHEET_PROPERTIES_PATH + "light.css")
         .toExternalForm();
-    System.out.println(styleSheet);
     scene.getStylesheets().add(styleSheet);
     primaryStage.setScene(scene);
     primaryStage.show();

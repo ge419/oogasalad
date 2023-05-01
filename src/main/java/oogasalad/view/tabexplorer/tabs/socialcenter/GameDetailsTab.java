@@ -29,6 +29,11 @@ import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.tabs.Tab;
 import oogasalad.view.tabexplorer.tabs.TabFactory;
 
+/**
+ * Game details tab give more info on game listed in {@link SocialCenterTab}.
+ *
+ * @author cgd19
+ */
 public class GameDetailsTab implements Tab {
 
   private final TabExplorer tabExplorer;
@@ -91,7 +96,7 @@ public class GameDetailsTab implements Tab {
     container.setPadding(new Insets(0, 0, 25, 0));
     Label gameName = new Label(title);
     gameName.setStyle("-fx-font-weight: bold; -fx-font-size: 20;");
-    Button clone = new Button("clone");
+    Button clone = new Button("Subscribe");
     Region spacer = new Region();
     HBox.setHgrow(spacer, Priority.ALWAYS);
     container.getChildren().addAll(gameName, spacer, clone);
@@ -135,6 +140,11 @@ public class GameDetailsTab implements Tab {
     tabExplorer.setCurrentTab(root);
   }
 
+  /**
+   * Used the render game detail on specific game ID in {@link SocialCenterTab}
+   * @param gameID
+   * @param popularityIndex
+   */
   public void renderGameDetail(String gameID, int popularityIndex) {
     this.gameID = gameID;
     this.popularityIndex = popularityIndex;

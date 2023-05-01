@@ -86,6 +86,7 @@ public class BuilderController {
     gameHolder = injector.getInstance(GameHolder.class);
     board = gameHolder.getBoard();
     gameInfo = gameHolder.getGameInfo();
+    saveManager = injector.getInstance(SaveManager.class);
 
     loadIntoBuilder();
 //    readDefaultRules();
@@ -288,24 +289,21 @@ public class BuilderController {
    * @param imagePath path of the image
    * @return a boardimagetile object
    */
-  public Optional<BoardImageTile> createBoardImage(String imagePath) throws IOException {
+  public Optional<BoardImageTile> createBoardImage(Path imagePath) throws IOException {
       System.out.println("This is our image path: " + imagePath);
       BoardImage backendImage = new BoardImage(db);
       Coordinate coordinate = new Coordinate(0, 0, 0);
       backendImage.setCoordinate(coordinate);
 
-      //todo: NOW, WE NEED TO CALL THE SAVE MANAGER TO UPLOAD ASSET!
-      // WHEN SAVE MANAGER IS WORKING, UNCOMMENT!
       if (!savePathAsAsset(imagePath)) {
         return Optional.empty();
       }
-      backendImage.imageAttribute().valueProperty()
-          .addListener(((observable, oldValue, newValue) -> {
-            if (!savePathAsAsset(newValue)) {
-              backendImage.setImage(oldValue);
-            }
-          }));
-      injector.getInstance(SaveManager.class).saveAsset(Path.of(imagePath));
+//      backendImage.imageAttribute().valueProperty()
+//          .addListener(((observable, oldValue, newValue) -> {
+//            if (!savePathAsAsset(newValue)) {
+//              backendImage.setImage(oldValue);
+//            }
+//          }));
       return Optional.of(new BoardImageTile(backendImage));
 
   }
@@ -330,9 +328,9 @@ public class BuilderController {
 //    return mapper.readValue(path.toFile(), EditableRule.class);
 //  }
 
-  private boolean savePathAsAsset(String path) {
+  private boolean savePathAsAsset(Path path) {
     try {
-      saveManager.saveAsset(Path.of(path));
+      saveManager.saveAsset(path);
       return true;
     } catch (IOException e) {
       getBuilderView().showError("ImagePathSaveError");

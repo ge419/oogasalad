@@ -324,7 +324,6 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       Optional<BoardImageTile> ourImage = turnFileToImage(file.get(), imageSize, imageSize,
           new Coordinate(0, 0, 0));
       //TODO: call save asset in the BuilderController
-//      myBuilderController.
       if (ourImage.isEmpty()) {
         return;
       }
@@ -332,6 +331,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
           e -> myBuilderController.createPopupForm(
               ourImage.get().getBoardImage(), myBuilderResource, mySidepane));
       myImageCount++;
+//      myBuilderController.saveImage(file.get().toPath());
     } else {
       //
       LOG.warn("ERROR -- Got a non-image or nothing from file.");
@@ -450,7 +450,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   private Optional<BoardImageTile> turnFileToImage(File file, double width, double height,
       Coordinate location) throws IOException {
-    Optional<BoardImageTile> image = myBuilderController.createBoardImage(file.toURI().toString());
+    Optional<BoardImageTile> image = myBuilderController.createBoardImage(file.toPath());
     if (image.isEmpty()) {
       return Optional.empty();
     }

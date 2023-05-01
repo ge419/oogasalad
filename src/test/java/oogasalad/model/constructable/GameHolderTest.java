@@ -1,6 +1,9 @@
 package oogasalad.model.constructable;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.guice.ObjectMapperModule;
@@ -11,10 +14,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import javax.xml.validation.Schema;
 import oogasalad.controller.GameInfo;
+import oogasalad.model.attribute.AttributeModule;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.attribute.SimpleSchemaDatabase;
+import oogasalad.model.engine.rules.BuyTileRule;
+import oogasalad.model.engine.rules.EditableRule;
+import oogasalad.model.engine.rules.Rule;
+import oogasalad.model.observers.GameObserver;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -136,4 +145,59 @@ class GameHolderTest {
     assertEquals(gameHolder.getBoard().getTileCount(), 3);
     assertTrue(gameHolder.getTileById(id1).isPresent());
   }
+
+//  @Test
+//  void testResetOwners() {
+//    Injector injector = Guice.createInjector(new AttributeModule());
+//    db = injector.getInstance(SchemaDatabase.class);
+//
+//    Tile tile1 = new Tile(db);
+//    tile1.setOwnerId("a");
+//    String id1 = tile1.getOwnerId();
+//
+//    Tile tile2 = new Tile(db);
+//    tile2.setOwnerId("b");
+//    String id2 = tile2.getOwnerId();
+//
+//    BBoard board = new BBoard();
+//    board.addTile(tile1);
+//    board.addTile(tile2);
+//
+//    gameHolder.setBoard(board);
+//    gameHolder.resetOwners("a");
+//
+//    assertEquals(tile1.getOwnerId(), "a");
+//    assertEquals(tile2.getOwnerId(), "a");
+//  }
+
+  @Test
+  void testRules() {
+    Injector injector = Guice.createInjector(new AttributeModule());
+    db = injector.getInstance(SchemaDatabase.class);
+
+    ResourceBundle bundle = mock(ResourceBundle.class);
+    when(bundle.getString(any(String.class))).thenReturn("");
+
+    Player player = new Player(db);
+    gameHolder = new GameHolder();
+    gameHolder.setPlayers(new Players(List.of(player)));
+    gameHolder.setCurrentPlayer(player);
+
+    EditableRule buyRule = new BuyTileRule(db, gameHolder, bundle);
+    List<Rule> rules = new ArrayList<>();
+    rules.add(buyRule);
+    gameHolder.setRules(rules);
+    assertEquals(buyRule, gameHolder.getRules().get(0));
+    assertEquals(rules, gameHolder.rulesProperty());
+  }
+
+//  @Testq
+//  void testObservers() {
+//    GameObserver gameObserver = new GameObserver() {
+//      @Override
+//      public void updateOnGameEnd() {
+//
+//      }
+//    }
+//  }
 }

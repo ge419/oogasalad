@@ -57,7 +57,7 @@ public class BuyTileRule extends AbstractGameConstruct implements EditableRule {
     return appliedSchemaProperty;
   }
 
-  private void tryBuyProp(EventHandlerParams<TileLandedEvent> eventHandlerParams) {
+  protected void tryBuyProp(EventHandlerParams<TileLandedEvent> eventHandlerParams) {
     Tile tile = eventHandlerParams.event().landedTile();
     Piece piece = eventHandlerParams.event().piece();
     Player player = gameHolder.getCurrentPlayer();

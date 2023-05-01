@@ -3,25 +3,35 @@ package oogasalad.view.gameplay;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import oogasalad.view.Imageable;
 import oogasalad.view.Renderable;
 import oogasalad.view.Textable;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
-public class InterfaceTest extends ApplicationTest implements Textable, Renderable {
+public class InterfaceTest extends ApplicationTest implements Textable, Renderable, Imageable {
 
-  private static final double WRAPPING_BUFFER = 1.5;
   Rectangle testHappyRectangle = new Rectangle();
   Rectangle testSadRectangle = new Rectangle();
 
+  @BeforeClass
+  public static void initJFX() {
+    // initialize JavaFX environment
+    new JFXPanel();
+  }
 
   @Override
   public void start(Stage stage) {
@@ -29,6 +39,7 @@ public class InterfaceTest extends ApplicationTest implements Textable, Renderab
 
   @Test
   public void testResizeText() {
+    final double WRAPPING_BUFFER = 1.5;
     Text text = new Text("Test Text");
     double componentHeight = 100;
     double componentWidth = 200;
@@ -59,6 +70,26 @@ public class InterfaceTest extends ApplicationTest implements Textable, Renderab
     assertNotNull(root.getCenter());
     assertEquals(testHappyRectangle, root.getCenter());
     assertNotEquals(testSadRectangle, root.getCenter());
+  }
+
+  @Test
+  public void testCreateImage() {
+    double width = 200;
+    String imgPath = "view.gameplay/default.jpg";
+    double imgScale = 2.0;
+
+    // Call the method
+    ImageView imageView = createImage(width, imgPath, imgScale);
+
+    // Verify that the ImageView is properly created
+    assertNotNull(imageView);
+    Image img = imageView.getImage();
+    assertNotNull(img);
+    assertTrue(img.getUrl().contains(imgPath));
+    assertTrue(imageView.isPreserveRatio());
+    assertEquals(width / imgScale, imageView.getFitWidth(), 0.01);
+    assertTrue(imageView.isSmooth());
+    assertTrue(imageView.isCache());
   }
 
   @Override

@@ -41,7 +41,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "image"
         },
         {
@@ -102,7 +102,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "street"
         },
         {
@@ -163,7 +163,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "street"
         },
         {
@@ -224,7 +224,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "street"
         },
         {
@@ -285,7 +285,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "street"
         },
         {
@@ -346,7 +346,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "street"
         },
         {
@@ -407,7 +407,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "image"
         },
         {
@@ -468,7 +468,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "street"
         },
         {
@@ -534,7 +534,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "street"
         },
         {
@@ -595,7 +595,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "street"
         },
         {
@@ -656,7 +656,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "street"
         },
         {
@@ -717,7 +717,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "street"
         },
         {
@@ -778,7 +778,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "image"
         },
         {
@@ -839,7 +839,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "street"
         },
         {
@@ -900,7 +900,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "street"
         },
         {
@@ -961,7 +961,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "street"
         },
         {
@@ -1022,7 +1022,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "street"
         },
         {
@@ -1083,7 +1083,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "street"
         },
         {
@@ -1144,7 +1144,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "image"
         },
         {
@@ -1205,7 +1205,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "street"
         },
         {
@@ -1266,7 +1266,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "street"
         },
         {
@@ -1327,7 +1327,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "street"
         },
         {
@@ -1388,7 +1388,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "street"
         },
         {
@@ -1449,7 +1449,7 @@
         },
         {
           "@class": "oogasalad.model.attribute.StringAttribute",
-          "key": "viewtype",
+          "key": "type",
           "value": "street"
         },
         {

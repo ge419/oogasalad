@@ -2,6 +2,8 @@ package oogasalad.view.tiles;
 
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.builder.customTile.CustomTileFrontEnd;
+import oogasalad.view.gameplay.pieces.ImageCard;
+import oogasalad.view.gameplay.pieces.StreetCard;
 
 /**
  * <p>Together with the Guice's dependency injection, this factory will create the tiles
@@ -24,4 +26,7 @@ public interface ViewTileFactory {
   CustomTileFrontEnd createCustomTile(Tile tile);
 
   ViewTile createDynamicViewTile(Tile tile);
+
+  StreetCard createStreetCard(Tile tile);
+  ImageCard createImageCard(Tile tile);
 }

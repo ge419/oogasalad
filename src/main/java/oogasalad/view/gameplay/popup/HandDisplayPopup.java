@@ -1,15 +1,20 @@
 package oogasalad.view.gameplay.popup;
 
 import java.util.List;
+
+import java.util.function.Consumer;
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import oogasalad.view.gameplay.pieces.Cards;
 import oogasalad.view.tiles.ViewTile;
 
 public class HandDisplayPopup extends BorderPane {
@@ -44,11 +49,12 @@ public class HandDisplayPopup extends BorderPane {
     createScene(this);
   }
 
-  public void showHand(Node anchor, Point2D offset) {
-    double popupX = anchor.getScene().getWindow().getX() + offset.getX();
-    double popupY = anchor.getScene().getWindow().getY() + offset.getY();
-    stage.setX(popupX);
-    stage.setY(popupY);
+  public void showHand() {
+//    Node anchor, Point2D offset
+//    double popupX = anchor.getScene().getWindow().getX() + offset.getX();
+//    double popupY = anchor.getScene().getWindow().getY() + offset.getY();
+//    stage.setX(popupX);
+//    stage.setY(popupY);
     stage.show();
   }
 

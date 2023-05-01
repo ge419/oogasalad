@@ -3,19 +3,27 @@ package oogasalad.view.gameplay.Players;
 import java.util.List;
 import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
+import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Player;
 import oogasalad.view.Backgroundable;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Imageable;
 import oogasalad.view.Textable;
+import oogasalad.view.ViewFactory;
+import oogasalad.view.gameplay.pieces.Cards;
+import oogasalad.view.gameplay.popup.HandDisplayPopup;
+import oogasalad.view.tiles.ViewTile;
 
 /**
  * <p> JavaFX rendering of Player UI (information such as Player's score, icon, color)
@@ -41,11 +49,16 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
   private static final Color UI_STROKE_COLOR = Color.BLACK;
   private final Player modelPlayer;
   private BooleanProperty current;
+  private HandDisplayPopup popup;
+  private ViewFactory viewFactory;
+  private GameHolder game;
 
-  public PlayerUI(Player BPlayer, Coordinate coordinate) {
+  public PlayerUI(Player BPlayer, Coordinate coordinate, ViewFactory viewFactory, GameHolder game) {
     modelPlayer = BPlayer;
     current = modelPlayer.getCurrentAttribute().valueProperty();
 
+    this.game = game;
+    this.viewFactory = viewFactory;
     this.setPrefSize(PLAYER_WIDTH, PLAYER_HEIGHT);
     this.setLayoutX(coordinate.getXCoor());
     this.setLayoutY(coordinate.getYCoor());
@@ -60,6 +73,22 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
     this.setMargin(playerIcon, new Insets(0, PLAYER_WIDTH / 2, 0, 0));
 
     markCurrentPlayer();
+    this.setOnMouseClicked(this::displayPlayerHand);
+  }
+
+  private void displayPlayerHand(MouseEvent event) {
+//    Button button = new Button("Show Card Popup");
+//    button.setOnAction(event -> {
+      if (popup != null) {popup.hideHand();}
+      popup = new HandDisplayPopup();
+      //TODO: only pass in Player cards
+      Cards cards = viewFactory.makeCards(game.getBoard().getTiles());
+      cards.render(popup);
+      List<ViewTile> cardList = cards.getCardList();
+      popup.addCards(cardList);
+//      Point2D offset = new Point2D(UIroot.getLayoutX(), UIroot.getLayoutY());
+      popup.showHand();
+//    });
   }
 
   @Override

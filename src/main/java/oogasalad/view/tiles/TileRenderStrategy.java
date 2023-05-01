@@ -35,6 +35,12 @@ public class TileRenderStrategy {
           "custom", ViewTileFactory::createCustomTile
       );
 
+  private final Map<String, BiFunction<ViewTileFactory, Tile, ViewTile>> cardMap =
+      Map.of(
+          "image", ViewTileFactory::createImageCard,
+          "street", ViewTileFactory::createStreetCard
+      );
+
   /**
    * <p> This method takes in a backend tile and converts it into the appropriate frontend version.
    *
@@ -54,5 +60,17 @@ public class TileRenderStrategy {
     }
 
     return renderMap.get(type).apply(factory, tile);
+  }
+
+  public ViewTile createCard(Tile tile) {
+    tile.setAngle(0);
+    String type = tile.getViewType();
+
+    if (!cardMap.containsKey(type)) {
+      LOGGER.error("View card type does not exist");
+      return factory.createImageCard(tile);
+    }
+
+    return cardMap.get(type).apply(factory, tile);
   }
 }

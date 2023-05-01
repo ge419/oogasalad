@@ -73,4 +73,10 @@ class TileTest {
     assertNotNull(testTile.getPrice());
   }
 
+//  @Test
+//  void testDuplicate(){
+//    Tile copy  = testTile.duplicate();
+//    assertTrue(copy.equals(testTile));
+//  }
+
 }

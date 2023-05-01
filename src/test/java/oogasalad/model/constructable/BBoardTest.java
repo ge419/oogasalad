@@ -17,7 +17,6 @@ class BBoardTest {
   ObjectMapper testObjectMapper;
   Tile testTile;
 
-
   @BeforeEach
   void setup(){
     testObjectMapper = new ObjectMapper();
@@ -28,22 +27,11 @@ class BBoardTest {
   }
 
   @Test
-  void getTiles() {
-
-  }
-
-  @Test
-  void getTileCount() {
-    assertEquals(testBoard.getTileCount(), 2);
-  }
-
-  @Test
   void addTile() {
     Tile diffTile= new Tile(testSchemaDB);
     testBoard.addTile(diffTile);
-    assertEquals(testBoard.getTileCount(), 3);
+    assertEquals(testBoard.getTiles().size(), 3);
   }
-
   @Test
   void getById() {
     assertTrue(testBoard.getById("null").isEmpty());

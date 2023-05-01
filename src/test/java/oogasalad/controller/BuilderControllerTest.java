@@ -2,8 +2,6 @@
 //
 //import static org.junit.jupiter.api.Assertions.*;
 //
-//import com.google.inject.Guice;
-//import com.google.inject.Injector;
 //import oogasalad.model.accesscontrol.dao.GameDao;
 //import oogasalad.model.constructable.GameHolder;
 //import oogasalad.view.BuilderFactory;
@@ -16,15 +14,15 @@
 //import org.mockito.Mockito;
 //import util.DukeApplicationTest;
 //
-//public class BuilderControllerTest {
+//public class BuilderControllerTest extends DukeApplicationTest {
 //  GameHolder gameHolder;
-//  BuilderView builder;
-//  BuilderController bc;
-//  Injector injector;
+//  @Mock
+//  private BuilderView builder;
+//  private BuilderController bc;
 //  @Mock
 //  GameDao dao = Mockito.mock(GameDao.class);
 //  private static final String TEST_LANGUAGE = "en-US";
-//  private static final String TEST_GAME_ID = "hello";
+//  private static final String TEST_GAME_ID = "DEzmBuvsM4H3zLEhvQa0";
 //
 //  //Languages.ENGLISH.getLocaleStr(),"DEzmBuvsM4H3zLEhvQa0", null)
 //
@@ -33,7 +31,6 @@
 //    bc = new BuilderController(TEST_LANGUAGE, TEST_GAME_ID, dao);
 //    builder = bc.getBuilderView();
 //    gameHolder = bc.getGameHolder();
-//    injector = Guice.createInjector();
 //  }
 //
 //  @Test

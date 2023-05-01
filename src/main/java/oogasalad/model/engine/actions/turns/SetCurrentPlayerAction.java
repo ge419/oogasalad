@@ -7,6 +7,15 @@ import oogasalad.model.constructable.Player;
 import oogasalad.model.engine.actions.Action;
 import oogasalad.model.engine.actions.ActionParams;
 
+/**
+ * Action for updating current Player upon the start of every new Turn.
+ * <p>
+ *   updates current player on GameHolder accordingly
+ *   Added to the engine action queue by ex. {@link oogasalad.model.engine.rules.TurnRule}
+ * </p>
+ *
+ * @Author Jay Yoon
+ */
 public class SetCurrentPlayerAction implements Action {
 
   private final GameHolder game;

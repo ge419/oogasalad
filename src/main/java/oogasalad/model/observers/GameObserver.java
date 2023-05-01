@@ -10,5 +10,5 @@ public interface GameObserver {
   default void updateOnPlayers(Players players) {}
   default void updateOnPieces(List<Piece> pieces){}
   default void updateOnPlayerRemoval(List<Player> players){}
-  void updateOnGameEnd();
+  default void updateOnGameEnd(){};
 }

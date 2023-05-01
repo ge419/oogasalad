@@ -15,6 +15,15 @@ import oogasalad.model.engine.prompt.StringPromptOption;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Action for checking winning conditions and ending the Game if satisfied.
+ * <p>
+ *   notifies the {@link oogasalad.controller.GameController} and {@link oogasalad.view.gameplay.Gameview} to trigger appropriate actions
+ *   Added to the engine action queue by ex. {@link oogasalad.model.engine.rules.RemovePlayerRule}
+ * </p>
+ *
+ * @Author Jay Yoon
+ */
 public class CheckWinAndEndAction implements Action {
 
   private static final Logger LOGGER = LogManager.getLogger(CheckWinAndEndAction.class);

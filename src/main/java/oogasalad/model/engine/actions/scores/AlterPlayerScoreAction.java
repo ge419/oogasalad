@@ -14,6 +14,15 @@ import oogasalad.model.engine.prompt.StringPromptOption;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Action for updating Player score.
+ * <p>
+ *   Updates the player score residing in GameHolder
+ *   Added to the engine action queue by ex. {@link oogasalad.model.engine.rules.ScoreTileRule}
+ * </p>
+ *
+ * @Author Jay Yoon
+ */
 public class AlterPlayerScoreAction implements Action {
 
   private static final Logger LOGGER = LogManager.getLogger(AlterPlayerScoreAction.class);

@@ -19,10 +19,21 @@ import oogasalad.model.engine.actions.Action;
 import oogasalad.model.engine.actions.ActionParams;
 import oogasalad.model.engine.events.PlayerCreationEvent;
 import oogasalad.model.engine.prompt.IntegerPromptOption;
+import oogasalad.model.engine.rules.Rule;
 import oogasalad.model.exception.ResourceReadException;
+import oogasalad.view.gameplay.Gameview;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Action for creating players upon user selection after launching game.
+ * <p>
+ *   User selects from the prompt the number of players to play the game
+ *   Added to the engine action queue by {@link oogasalad.model.engine.rules.NumberOfPlayersRule}
+ * </p>
+ *
+ * @Author Jay Yoon
+ */
 public class CreatePlayersAction implements Action {
 
   private static final Logger LOGGER = LogManager.getLogger(CreatePlayersAction.class);

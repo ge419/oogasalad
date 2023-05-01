@@ -11,6 +11,15 @@ import oogasalad.model.engine.events.PlayerRemovalEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Action for removing players and updating GameHolder Players.
+ * <p>
+ *   Players whose scores are below given lower bound are removed from the GameHolder.
+ *   Added to the engine action queue by {@link oogasalad.model.engine.rules.RemovePlayerRule}
+ * </p>
+ *
+ * @Author Jay Yoon
+ */
 public class CheckAndRemovePlayerAction implements Action {
 
   private static final Logger LOGGER = LogManager.getLogger(CheckAndRemovePlayerAction.class);

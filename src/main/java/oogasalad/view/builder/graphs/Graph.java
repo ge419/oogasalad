@@ -77,8 +77,6 @@ public class Graph implements GraphInterface, MutableGraph {
     List<ViewTile> ourTiles = this.getTiles();
     int index = 0;
     for (ViewTile tile : ourTiles) {
-      System.out.println("Tile at index " + index + ": " + tile.toString());
-      System.out.println(this.getNextTiles(tile));
       ++index;
     }
   }

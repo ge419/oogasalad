@@ -150,7 +150,6 @@ public class SocialCenterTab implements Tab {
         HBox container = new HBox();
         Button cloneButton = new Button("Clone");
         cloneButton.setOnAction(e->{
-          System.out.println(gameEntryID);
           userDao.subscribeToGame(authHandler.getActiveUserID(), gameEntryID);
           renderTabContent();
         });
@@ -196,7 +195,6 @@ public class SocialCenterTab implements Tab {
 
         this.setOnMouseClicked(event -> {
               int selectedIndex = getListView().getSelectionModel().getSelectedIndex();
-              System.out.println("Selected Index: "+selectedIndex);
               tabFactory.makeGameDetailsTab(tabExplorer).renderGameDetail(gameEntryID, selectedIndex+1);
             }
         );

@@ -22,7 +22,6 @@ public class FirebaseAccessor {
   private void initDB() {
     try {
       InputStream serviceAccount = getClass().getResourceAsStream(SERVICE_ACCOUNT_CRED_PATH);
-      //System.out.println(serviceAccount);
       GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
       FirebaseOptions options = new FirebaseOptions.Builder()
           .setCredentials(credentials)

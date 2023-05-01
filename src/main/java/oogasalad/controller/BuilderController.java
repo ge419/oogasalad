@@ -318,7 +318,6 @@ public class BuilderController {
    * @return a boardimagetile object
    */
   public Optional<BoardImageTile> createBoardImage(Path imagePath){
-      System.out.println("This is our image path: " + imagePath);
       BoardImage backendImage = new BoardImage(db);
       Coordinate coordinate = new Coordinate(0, 0, 0);
       backendImage.setCoordinate(coordinate);

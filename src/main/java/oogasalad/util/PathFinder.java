@@ -44,7 +44,6 @@ public class PathFinder {
 //    // Append the file extension to the object path
 //    objectPath += fileExtension;
 //
-////    System.out.println("Object path: "+objectPath);
 //    // Return the full file path
 //
 //    // todo eventually

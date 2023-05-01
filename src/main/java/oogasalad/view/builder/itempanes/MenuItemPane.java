@@ -194,7 +194,6 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
     getBuilder().toggleDraggables();
   }
   private void test() {
-    System.out.println("nothing!");
   }
 
   private void aboutWindow(){

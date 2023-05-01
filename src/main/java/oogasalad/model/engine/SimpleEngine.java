@@ -54,7 +54,6 @@ public class SimpleEngine implements Engine {
   @Override
   public void runNextAction(Prompter prompter) {
     Optional<Action> optAction = actionQueue.poll();
-//    System.out.println(optAction.toString());
 
     if (optAction.isEmpty()) {
       log.warn("game ran out of actions");

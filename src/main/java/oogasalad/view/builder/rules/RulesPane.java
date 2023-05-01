@@ -67,8 +67,7 @@ public class RulesPane extends BorderPane {
     myRulesList.setItems(myRules);
     myRulesList.getSelectionModel().selectedItemProperty()
         .addListener(((observable, oldValue, newValue) -> {
-          System.out.println(
-              "oh wow, you selected " + myRulesList.getSelectionModel().getSelectedItem());
+          System.out.println(myRulesList.getSelectionModel().getSelectedItem());
         }));
   }
 
@@ -77,7 +76,6 @@ public class RulesPane extends BorderPane {
     myCheckbox.setPromptText(myLanguage.getString("SelectTiletype"));
     updateTileTypes();
     myCheckbox.valueProperty().addListener(((observable, oldValue, newValue) -> {
-      System.out.println("Oh my, you selected " + newValue);
     }));
   }
 

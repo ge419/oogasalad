@@ -1,0 +1,44 @@
+{
+  "name": "Bear",
+  "width": 791.0,
+  "height": 798.0,
+  "customObjects": [
+    {
+      "type": "CustomColorBox",
+      "name": "",
+      "color": "0x008080ff",
+      "opacity": 1.0,
+      "index": 0,
+      "translatex": -9.0,
+      "translatey": -26.0,
+      "width": 144.22759226713535,
+      "height": 188.4634446397188,
+      "editable": false,
+      "viewable": false
+    },
+    {
+      "name": "",
+      "defaultContents": "Default Text",
+      "fontSize": 14,
+      "bold": false,
+      "translateX": -11.0,
+      "translateY": -100.0,
+      "type": "CustomText",
+      "index": 1,
+      "editable": false,
+      "viewable": false
+    },
+    {
+      "type": "CustomImage",
+      "x": -9.0,
+      "y": -13.0,
+      "name": "smile.png",
+      "height": 120.39543057996485,
+      "width": 120.39543057996485,
+      "filePath": "data/customObjects/Bear/smile.png",
+      "index": 2,
+      "editable": false,
+      "viewable": false
+    }
+  ]
+}

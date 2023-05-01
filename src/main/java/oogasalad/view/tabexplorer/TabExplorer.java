@@ -105,7 +105,6 @@ public class TabExplorer {
     primaryStage.setTitle(languageResourceBundle.getString("PrimaryStageTitle"));
     scene = new Scene(root, STAGE_WIDTH, STAGE_HEIGHT);
     String styleSheet = getClass().getResource(STYLESHEET_PROPERTIES_PATH+"light.css").toExternalForm();
-    System.out.println(styleSheet);
     scene.getStylesheets().add(styleSheet);
     primaryStage.setScene(scene);
     primaryStage.show();
@@ -146,7 +145,6 @@ public class TabExplorer {
     String name = (String) userDao.getUserData(authHandler.getActiveUserID()).get(UserSchema.NAME.getFieldName());
     navBar.updateMenuButton(name, authHandler.getActiveUserName(), authHandler.getActiveUserID());
 //    navBar.refresh();
-    System.out.println("in refresh nav bar");
   }
 
 
@@ -159,7 +157,6 @@ public class TabExplorer {
 
   public void updateTheme(String newTheme){
     String styleSheet = getClass().getResource(STYLESHEET_PROPERTIES_PATH+newTheme+".css").toExternalForm();
-    System.out.println(styleSheet);
     scene.getStylesheets().clear();
     scene.getStylesheets().add(styleSheet);
   }
@@ -168,10 +165,8 @@ public class TabExplorer {
     // todo should take in a userID and a userDao here
     // userID = authHandler.getActiveUserID()
     // userDao - instance var
-    System.out.println("local str: " + Languages.ENGLISH.getLocaleStr());
     GameController gameController = new GameController(
         Languages.ENGLISH.getLocaleStr(), Paths.get(PathFinder.getGameDataPath(gameID)));
-    System.out.println("paths: "+Paths.get(PathFinder.getGameDataPath(gameID)));
     Stage gameStage = new Stage();
     gameController.setGame(gameStage);
   }

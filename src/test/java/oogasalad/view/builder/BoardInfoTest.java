@@ -110,7 +110,6 @@ public class BoardInfoTest extends DukeApplicationTest {
   }
 
   private void dummyErrorMessage(RuntimeException err) {
-    System.out.println(err.getMessage() + " : " + err.getCause());
   }
 
 }

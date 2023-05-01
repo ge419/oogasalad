@@ -95,7 +95,6 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
 
   private void test() {
     // nothing
-    System.out.println("why that button sure did do nothing!");
   }
 
   private void openTileMenu() {

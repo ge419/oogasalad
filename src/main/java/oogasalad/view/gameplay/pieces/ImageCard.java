@@ -23,7 +23,6 @@ public class ImageCard extends ImageTile implements Movable, Nodeable {
   private void createCardPopup(MouseEvent mouseEvent) {
     String title = StringAttribute.from(this.getTile().getAttribute("info").get()).getValue();
     String description = StringAttribute.from(this.getTile().getAttribute("description").get()).getValue();
-    System.out.println(title + " " + description);
     CardDisplayPopup cardPopup = new CardDisplayPopup(title, description);
     cardPopup.showCard();
   }

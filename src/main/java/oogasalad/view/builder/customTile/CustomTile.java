@@ -51,7 +51,6 @@ public class CustomTile extends Group implements ViewTile {
         /*
         If jsonFile is empty this is coming from the builder
          */
-        System.out.println("Fizz");
         if (jsonFile.isEmpty()) {
             jsonFile = chooseJsonFile().toString();
             jsonFileAttribute.setValue(jsonFile);
@@ -63,18 +62,11 @@ public class CustomTile extends Group implements ViewTile {
 //            for (String name : names){
 //                modelTile.addSchema(name);
 //            }
-            for (String name : names){
-                System.out.println("name = " + name);;
-            }
-            for (Attribute a :  modelTile.getAllAttributes()){
-                System.out.println(a.getKey() + " " +  a.toString());
-            }
             bindListeners(newSchema.getAllMetadata().stream().map(Metadata::getKey).toList());
 
         }
         else{
             try {
-                System.out.println("Buzz");
                 loadForGamePlay(jsonFile);
             } catch (IOException e) {
                 throw new RuntimeException(e); //F-off

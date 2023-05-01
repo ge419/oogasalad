@@ -13,14 +13,15 @@ public class ViewPieces implements Renderable {
 
   public ViewPieces(List<Piece> p) {
     this.pieceList = new ArrayList<>();
-      for (Piece piece : p) {
-        pieceList.add(new PlayerPiece(piece));
+    for (Piece piece : p) {
+      pieceList.add(new PlayerPiece(piece));
     }
   }
 
   @Override
   public void render(BorderPane pane) {
     for (PlayerPiece p : pieceList) {
+      p.setId("Piece");
       pane.getChildren().add(p);
     }
   }

@@ -19,6 +19,11 @@ import oogasalad.model.exception.InvalidDatabaseExecutionException;
 import oogasalad.view.tabexplorer.userpreferences.Languages;
 import oogasalad.view.tabexplorer.userpreferences.Theme;
 
+/**
+ * Concrete implementation of {@link UserDao} for accessing a firestore database.
+ *
+ * @author cgd19
+ */
 public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
 
   @Inject
@@ -45,10 +50,14 @@ public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
 
   @Override
   public void incrementNumberOfGamesPlayed(String userID) {
+    updateDocument(USERS_COLLECTION, userID,
+        createMap(NUMGAMESPLAYED_KEY, FieldValue.increment(1)));
   }
 
   @Override
-  public void setUserName(String userID, String newUsername) {
+  public void updateUserName(String userID, String newUsername) {
+    updateDocument(USERS_COLLECTION, userID,
+        createMap(USERNAME_KEY, newUsername));
   }
 
   @Override
@@ -75,11 +84,10 @@ public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
   }
 
   @Override
-  public void setUserFullName(String userID, String newUserFullName) {
+  public void updateUserFullName(String userID, String newUserFullName) {
     updateDocument(USERS_COLLECTION, userID,
         createMap(NAME_KEY, newUserFullName));
   }
-
 
   @Override
   public Map<String, Object> getUserData(String userID) {
@@ -140,7 +148,6 @@ public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
         createMap(PASSWORD_KEY, newPwd));
   }
 
-
   @Override
   public void updateEmailAddress(String userID, String email) {
     updateDocument(USERS_COLLECTION, userID,
@@ -169,6 +176,11 @@ public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
   public void updatedPreferredLanguage(String userID, String preferredLang) {
     DocumentReference docRef = db.collection(USERS_COLLECTION).document(userID);
     docRef.update(PREF_LANG_KEY, preferredLang);
+  }
+
+  @Override
+  public void deleteAllUsers() {
+    deleteCollection(USERS_COLLECTION);
   }
 
   private Map<String, Object> getDefaultUserEntry(String username, String password) {

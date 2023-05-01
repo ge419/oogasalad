@@ -6,19 +6,19 @@
         <Pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</Pattern>
       </PatternLayout>
     </Console>
-    <RollingFile name="file" filePattern="logs/app-%d{yyyy-MM-dd-HH}-%i.log"
-      immediateFlush="true" append="true">
-      <SizeBasedTriggeringPolicy size="10 MB" />
+    <RollingFile append="true" filePattern="logs/app-%d{yyyy-MM-dd-HH}-%i.log"
+      immediateFlush="true" name="file">
+      <DirectWriteRolloverStrategy maxFiles="5"/>
       <PatternLayout>
         <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
       </PatternLayout>
-      <DirectWriteRolloverStrategy maxFiles="5"/>
+      <SizeBasedTriggeringPolicy size="10 MB"/>
     </RollingFile>
   </Appenders>
   <Loggers>
     <Root level="all">
-      <AppenderRef ref="file" level="info"/>
-      <AppenderRef ref="console" level="info"/>
+      <AppenderRef level="info" ref="file"/>
+      <AppenderRef level="info" ref="console"/>
     </Root>
   </Loggers>
 </Configuration>

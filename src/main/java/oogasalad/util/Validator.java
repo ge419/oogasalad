@@ -3,8 +3,22 @@ package oogasalad.util;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * Class that helps validate user input.
+ *
+ * @author cgd19
+ */
 public class Validator {
 
+  /**
+   * Validates user personal info from form
+   *
+   * @param name
+   * @param pronouns
+   * @param email
+   * @param age
+   * @return
+   */
   public static Alert validateUserPersonalInfo(String name, String pronouns, String email,
       String age) {
     Alert alert = null;

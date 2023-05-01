@@ -2,6 +2,11 @@ package oogasalad.util;
 
 import java.util.ResourceBundle;
 
+/**
+ * Class that gets path to a game/user resource.
+ *
+ * @author cgd19
+ */
 public class PathFinder {
 
   private static final String FILE_PREFIX;
@@ -36,23 +41,7 @@ public class PathFinder {
   }
 
   public static String getGameThumbnail(String gameID) {
-//    String basePath = "file:src/main/resources/"+"0hbvOqXKOQdhpgu3aLIO"+"/"; // Replace with the base path to your files
-//
-//    // Replace "Object1" with the name of your specific object
-//    String objectPath = basePath + "thumbnail";
-//
-//    // Replace with the file extension of your object
-//    String fileExtension = ".jpeg";
-//
-//    // Append the file extension to the object path
-//    objectPath += fileExtension;
-//
-////    System.out.println("Object path: "+objectPath);
-//    // Return the full file path
-//
-//    // todo eventually
     return FILE_PREFIX + getGameThumbnailPath(gameID);
-//    return objectPath;
   }
 
   public static String getGameDataPath(String gameID) {

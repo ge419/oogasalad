@@ -17,14 +17,19 @@ import oogasalad.model.accesscontrol.database.schema.UserSchema;
 import oogasalad.util.AlertPopUp;
 import oogasalad.view.tabexplorer.TabExplorer;
 
+/**
+ * This class represents the login tab for logging/signing in.
+ *
+ * @author cgd19
+ */
 public class LoginTab implements Tab {
 
   private final TabExplorer tabExplorer;
-  private GridPane grid;
   private final AuthenticationHandler authHandler;
+  private final UserDao userDao;
+  private GridPane grid;
   private TextField tfName;
   private PasswordField pfPwd;
-  private final UserDao userDao;
 
   @Inject
   public LoginTab(@Assisted TabExplorer tabExplorer, AuthenticationHandler authHandler,

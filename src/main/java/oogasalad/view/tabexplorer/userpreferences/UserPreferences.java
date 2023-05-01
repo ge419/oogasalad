@@ -8,15 +8,20 @@ import oogasalad.model.accesscontrol.authentication.AuthenticationHandler;
 import oogasalad.model.accesscontrol.dao.UserDao;
 import oogasalad.model.accesscontrol.database.schema.UserSchema;
 
+/**
+ * This class serves as a Publisher (based on the observer pattern) to notify subscribers when there
+ * are changes made to user preferences (e.g. language, theme).
+ *
+ * @author cgd19
+ */
 public class UserPreferences {
 
   public static String LANGUAGE_PROPERTIES_PATH = "tabexplorer.languages.";
-  private static final String DEFAULT_LANGUAGE_PROPERTY = LANGUAGE_PROPERTIES_PATH + "en_US";
-
   private final UserDao userDao;
   private final AuthenticationHandler authHandler;
-  private String preferredLanguage;
   private final List<Consumer<String>> observers = new ArrayList<>();
+  private String preferredLanguage;
+
   @Inject
   public UserPreferences(UserDao userDao, AuthenticationHandler authHandler) {
     this.userDao = userDao;

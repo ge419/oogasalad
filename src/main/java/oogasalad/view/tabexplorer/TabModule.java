@@ -5,6 +5,7 @@ import com.google.inject.Scopes;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import java.util.ResourceBundle;
 import oogasalad.model.accesscontrol.AccessControlModule;
+import oogasalad.model.accesscontrol.database.firebase.ServiceCredPath;
 import oogasalad.view.tabexplorer.tabs.TabFactory;
 import oogasalad.view.tabexplorer.tabs.settings.options.SettingsOptionsFactory;
 import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
@@ -17,13 +18,16 @@ import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 public class TabModule extends AbstractModule {
 
   private final ResourceBundle resourceBundle;
+  private final String serviceCredPath;
 
-  public TabModule(ResourceBundle resourceBundle) {
+  public TabModule(ResourceBundle resourceBundle, String serviceCredPath) {
+    this.serviceCredPath = serviceCredPath;
     this.resourceBundle = resourceBundle;
   }
 
   @Override
   protected void configure() {
+    bind(String.class).annotatedWith(ServiceCredPath.class).toInstance(serviceCredPath);
     bind(ResourceBundle.class).toInstance(resourceBundle);
     bind(UserPreferences.class).in(Scopes.SINGLETON);
     install(new AccessControlModule());

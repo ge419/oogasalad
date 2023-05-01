@@ -6,14 +6,15 @@
       "attributes": {
         "move-tile": 80,
         "cost": 30,
-        "tile-types": [ "street" ]
+        "tile-types": [
+          "street"
+        ]
       }
     },
     {
       "rule_name": "buy",
       "buy_prompt": "Buy this",
       "attributes": {
-
       }
     }
   ],
@@ -25,8 +26,7 @@
         "name": "Boardwalk",
         "buyPrice": 200,
         "color": "#ffffff",
-        "one_house": 200,
-
+        "one_house": 200
       }
     }
   ]

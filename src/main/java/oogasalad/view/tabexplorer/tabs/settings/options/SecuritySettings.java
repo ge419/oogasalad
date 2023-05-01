@@ -2,6 +2,7 @@ package oogasalad.view.tabexplorer.tabs.settings.options;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import java.util.ResourceBundle;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -19,7 +20,13 @@ import oogasalad.model.accesscontrol.dao.UserDao;
 import oogasalad.model.accesscontrol.database.schema.UserSchema;
 import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.tabs.settings.SettingsTab;
+import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
+/**
+ * Class for security settings options.
+ *
+ * @author cgd19
+ */
 public class SecuritySettings extends SettingsOptions {
 
   private TextField oldPwdField;
@@ -42,8 +49,9 @@ public class SecuritySettings extends SettingsOptions {
       @Assisted TabExplorer tabExplorer,
       AuthenticationHandler authHandler,
       UserDao userDao,
-      GameDao gameDao) {
-    super(settingsTab, tabExplorer, authHandler, userDao, gameDao);
+      GameDao gameDao, UserPreferences userPref, ResourceBundle languageResourceBundle) {
+    super(settingsTab, tabExplorer, authHandler, userDao, gameDao, userPref,
+        languageResourceBundle);
   }
 
   @Override
@@ -70,6 +78,11 @@ public class SecuritySettings extends SettingsOptions {
 
   }
 
+  @Override
+  public void onLanguageChange(String pathToBundle) {
+
+  }
+
   private VBox getPwdForm() {
 
 //     create labels and text fields to display and edit the values
@@ -88,11 +101,10 @@ public class SecuritySettings extends SettingsOptions {
     updatePwd = new Button("Change Password");
     updatePwd.setOnAction(e -> handlePwdChange());
 
-// add the controls to a VBox
+    // add the controls to a VBox
     VBox personalSettingsContainer = new VBox(oldPwdContainer, pwdContainer,
         confirmPwdContainer, updatePwd);
     personalSettingsContainer.setSpacing(15);
-//    personalSettingsContainer.setPadding(new Insets(0,0,0,20));
     return personalSettingsContainer;
 
   }

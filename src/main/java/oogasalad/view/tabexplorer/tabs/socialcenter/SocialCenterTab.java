@@ -39,18 +39,22 @@ import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.tabs.Tab;
 import oogasalad.view.tabexplorer.tabs.TabFactory;
 
+/**
+ * This class represents the social center tab where users can see a list of other games made
+ * subscribe to games, and leave comments on things.
+ *
+ * @author cgd19
+ */
 public class SocialCenterTab implements Tab {
 
   private final TabExplorer tabExplorer;
   private final AuthenticationHandler authHandler;
   private final UserDao userDao;
   private final GameDao gameDao;
-
+  private final TabFactory tabFactory;
   ListView<String> mostPlayedGames;
   private ObservableList<String> gameEntries;
   private List<String> allGames;
-  //  private List<Map<String, String>> allGames;
-  private final TabFactory tabFactory;
 
   @Inject
   public SocialCenterTab(@Assisted TabExplorer tabExplorer, AuthenticationHandler authHandler,
@@ -66,7 +70,6 @@ public class SocialCenterTab implements Tab {
 
   @Override
   public void renderTabContent() {
-    //    StackPane root = new StackPane();
     BorderPane root = new BorderPane();
     VBox vbox = new VBox();
     vbox.setPrefWidth(200);
@@ -83,32 +86,20 @@ public class SocialCenterTab implements Tab {
 
     mostPlayedGames = getMostPlayedGames();
     VBox container = new VBox(mostPlayedGames);
-
     container.setPadding(new Insets(0, 50, 0, 50));
-
-//    mostPlayedGames.prefWidthProperty().bind(root.widthProperty());
-//    mostPlayedGames.setPrefWidth(200);
-//    mostPlayedGames.setMaxWidth(200);
-//    mostPlayedGames.minWidth(200);
-
     root.setCenter(mostPlayedGames);
-//    root.setLeft(vbox);
-
     tabExplorer.setCurrentTab(root);
-
   }
 
 
   private ListView<String> getMostPlayedGames() {
     gameEntries = FXCollections.observableArrayList();
-    allGames = gameDao.getAllGames(); // todo should prob return a List<String>, mostly so that i can have access to the gameID to then do things like clone
-    //System.out.println("all game ID: "+ allGames);
+    allGames = gameDao.getAllGames(); //
     gameEntries.addAll(allGames);
 
     ListView<String> listView = new ListView();
 
     listView.setEditable(true);
-//  WHERE DO I INSERT THIS?  listView.prefWidthProperty().bind(parentContainer.widthProperty());
     listView.setItems(gameEntries);
 
     listView.setCellFactory(gameListView -> new ListCell<String>() {
@@ -121,18 +112,14 @@ public class SocialCenterTab implements Tab {
           setGraphic(null);
           return;
         }
-
         setWrapText(true);
-//        setPrefHeight(50);
-        //System.out.println(gameEntryID+" is the gameID");
 
         Map<String, Object> gameEntryMetadata = gameDao.getGameData(gameEntryID);
 
         // Create a new GridPane for each game entry
         GridPane gridPane = new GridPane();
         ColumnConstraints col1 = new ColumnConstraints();
-//        col1.setMinWidth(100); // set the minimum width of the first column
-//        col1.setMaxWidth(100); // set the maximum width of the first column
+
         col1.setHgrow(Priority.NEVER); // do not allow the first column to grow
 
         ColumnConstraints col2 = new ColumnConstraints();
@@ -151,9 +138,8 @@ public class SocialCenterTab implements Tab {
         gridPane.add(imageView, 0, 0);
 
         HBox container = new HBox();
-        Button cloneButton = new Button("Clone");
+        Button cloneButton = new Button("Subscribe");
         cloneButton.setOnAction(e -> {
-          System.out.println(gameEntryID);
           userDao.subscribeToGame(authHandler.getActiveUserID(), gameEntryID);
           renderTabContent();
         });
@@ -195,11 +181,8 @@ public class SocialCenterTab implements Tab {
         // and also makes text not overflow requiring horizontal scrollbar to view
         gridPane.setPrefWidth(0);
         gridPane.setPadding(new Insets(0, 30, 0, 30));
-//        gridPane.setMaxHeight(150);
-
         this.setOnMouseClicked(event -> {
               int selectedIndex = getListView().getSelectionModel().getSelectedIndex();
-              System.out.println("Selected Index: " + selectedIndex);
               tabFactory.makeGameDetailsTab(tabExplorer)
                   .renderGameDetail(gameEntryID, selectedIndex + 1);
             }

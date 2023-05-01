@@ -3,7 +3,6 @@ package oogasalad.view.tabexplorer;
 import com.google.inject.Inject;
 import java.util.ResourceBundle;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.CustomMenuItem;
@@ -27,10 +26,9 @@ import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
  */
 public class NavBar {
 
+  private final UserPreferences userPref;
   private Button gameLauncherButton;
   private Button socialCenterButton;
-  //  private Button userProfileButton;
-//  private Button userPreferencesButton;
   private Button loginButton;
   private Region spacer;
   private Region spacer2;
@@ -42,14 +40,12 @@ public class NavBar {
   private MenuButton menuButton;
   private AuthenticationHandler authHandler;
   private ResourceBundle languageResourceBundle;
-  private final UserPreferences userPref;
   private Label userFullNameLabel;
   private Label userNameLabel;
   private ImageView imageView;
 
   @Inject
   public NavBar(UserPreferences userPref, ResourceBundle languageResourceBundle) {
-//    this.authHandler = authHandler;
     this.userPref = userPref;
     this.languageResourceBundle = languageResourceBundle;
     userPref.addObserver(this::onLanguageChange);
@@ -90,8 +86,7 @@ public class NavBar {
     imageView.setImage(new Image(PathFinder.getUserAvatar(userID)));
   }
 
-  public void setMenuButton(String userFullName, String userName,
-      String userID) { // todo negative test try setting menu button when authhandler is not active, actually prob not
+  public void setMenuButton(String userFullName, String userName, String userID) {
     userFullNameLabel = new Label(userFullName);
     userNameLabel = new Label("@" + userName);
     VBox userInfoBox = new VBox(userFullNameLabel, userNameLabel);
@@ -126,7 +121,6 @@ public class NavBar {
 
 
   private void updateButtonText() {
-    //todo load from properties file
     gameLauncherButton.setText(languageResourceBundle.getString("LauncherBtn"));
     socialCenterButton.setText(languageResourceBundle.getString("SocialCenterBtn"));
     settings.setText(languageResourceBundle.getString("Settings"));
@@ -134,9 +128,6 @@ public class NavBar {
   }
 
   private void initialize() {
-
-//    initButtons();
-
     gameLauncherButton = new Button(languageResourceBundle.getString("LauncherBtn"));
     gameLauncherButton.setOnMouseEntered(e -> gameLauncherButton.setCursor(Cursor.HAND));
     socialCenterButton = new Button(languageResourceBundle.getString("SocialCenterBtn"));
@@ -158,8 +149,6 @@ public class NavBar {
     navBarLayout.getChildren().addAll(bCubedLogo, spacer2, gameLauncherButton, socialCenterButton,
         spacer, loginButton);
 
-    navBarLayout.setSpacing(10);
-    navBarLayout.setAlignment(Pos.CENTER);
-    navBarLayout.setStyle("-fx-background-color: #dbdbdb;");
+    navBarLayout.setId("top-navbar");
   }
 }

@@ -2,7 +2,6 @@ package oogasalad.view.tabexplorer.tabs;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -37,9 +36,16 @@ import oogasalad.model.accesscontrol.dao.UserDao;
 import oogasalad.model.accesscontrol.database.schema.GameSchema;
 import oogasalad.model.accesscontrol.database.schema.UserSchema;
 import oogasalad.util.AlertPopUp;
+import oogasalad.util.PathFinder;
 import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
+/**
+ * This class represents the game launcher tab which is an entry point to launching gameplay and
+ * game builder.
+ *
+ * @author cgd19
+ */
 public class GameLauncherTab implements Tab {
 
   private final TabExplorer tabExplorer;
@@ -133,13 +139,10 @@ public class GameLauncherTab implements Tab {
     userGames.forEach(gameID -> {
       Map<String, Object> gameMetaData = gameDao.getGameData(gameID);
       String name = (String) gameMetaData.get("title");
+
       InputStream stream = null;
       try {
-        //todo: load img_path from DB
-        String imageResourcePath = "game_img.png"; // lol, fun easter egg ig?
-        stream = new FileInputStream("src/main/resources/" + imageResourcePath);
-        Image image = new Image(stream);
-        ImageView imageView = new ImageView(image);
+        ImageView imageView = new ImageView(new Image(PathFinder.getGameThumbnail(gameID)));
         imageView.setFitWidth(75);
         imageView.setFitHeight(75);
 
@@ -185,7 +188,6 @@ public class GameLauncherTab implements Tab {
     });
   }
 
-  //  todo: delete dialogHandle after adding game builder
   private void dialogHandle() {
     Dialog<String[]> dialog = new Dialog<>();
     dialog.setTitle("Game Builder");

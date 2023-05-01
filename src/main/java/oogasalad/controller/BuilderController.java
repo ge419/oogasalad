@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import oogasalad.controller.builderevents.Dragger;
 import oogasalad.model.accesscontrol.dao.GameDao;
+import oogasalad.model.accesscontrol.database.schema.GameSchema;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.BoardImage;
@@ -377,4 +378,12 @@ public class BuilderController {
   protected GameHolder getGameHolder() {
     return gameHolder;
   }
+
+  public void saveInfo(String genre, String description) {
+    Map<String, Object> game = new HashMap<>();
+    game.put(GameSchema.GENRE.getFieldName(), genre);
+    game.put(GameSchema.DESCRIPTION.getFieldName(), description);
+    gameDao.updateGame(gameID, game);
+  }
+
 }

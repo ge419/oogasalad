@@ -5,7 +5,6 @@ import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.FieldValue;
 import com.google.inject.Inject;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +14,11 @@ import oogasalad.model.accesscontrol.dao.GameDao;
 import oogasalad.model.accesscontrol.database.firebase.FirebaseAccessor;
 import oogasalad.model.exception.InvalidDatabaseExecutionException;
 
+/**
+ * Concrete implementation of {@link GameDao} for accessing a firestore database.
+ *
+ * @author cgd19
+ */
 public class FirebaseGameDao extends FirebaseAbstractDao implements GameDao {
 
   @Inject
@@ -24,16 +28,14 @@ public class FirebaseGameDao extends FirebaseAbstractDao implements GameDao {
 
   @Override
   public Map<String, Object> getGameData(String gameID) {
-    return getDocumentData("games", gameID);
+    return getDocumentData(GAMES_COLLECTION, gameID);
   }
 
   @Override
   public String createGame(String userID) {
     CollectionReference collection = db.collection(GAMES_COLLECTION);
     DocumentReference newDocRef;
-
     Map<String, Object> gameMetaData = getDefaultGameEntry(userID);
-
     try {
       newDocRef = collection.add(gameMetaData).get();
       String gameID = newDocRef.getId();
@@ -65,6 +67,11 @@ public class FirebaseGameDao extends FirebaseAbstractDao implements GameDao {
 
     updateDocument(GAMES_COLLECTION, gameID,
         createMap(GAME_REVIEWS_KEY, FieldValue.arrayUnion(docData)));
+  }
+
+  @Override
+  public void deleteAllGames() {
+    deleteCollection(GAMES_COLLECTION);
   }
 
   private Map<String, Object> getDefaultGameEntry(String userID) {

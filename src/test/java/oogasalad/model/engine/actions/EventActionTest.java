@@ -5,6 +5,7 @@ import static org.mockito.Mockito.verify;
 
 import oogasalad.model.engine.Event;
 import oogasalad.model.engine.EventEmitter;
+import oogasalad.model.engine.actions.emits.EventAction;
 import oogasalad.model.engine.prompt.AIPrompter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

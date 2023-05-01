@@ -1,4 +1,4 @@
-package oogasalad.model.engine.actions;
+package oogasalad.model.engine.actions.creation;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -8,6 +8,8 @@ import java.util.ResourceBundle;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.engine.EngineResourceBundle;
+import oogasalad.model.engine.actions.Action;
+import oogasalad.model.engine.actions.ActionParams;
 import oogasalad.model.engine.prompt.IntegerPromptOption;
 import oogasalad.view.gameplay.pieces.PlayerPiece;
 

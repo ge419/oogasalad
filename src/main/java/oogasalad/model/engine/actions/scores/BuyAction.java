@@ -1,7 +1,9 @@
-package oogasalad.model.engine.actions;
+package oogasalad.model.engine.actions.scores;
 
 import java.util.ResourceBundle;
 import oogasalad.model.engine.EngineResourceBundle;
+import oogasalad.model.engine.actions.Action;
+import oogasalad.model.engine.actions.ActionParams;
 
 public class BuyAction implements Action {
 

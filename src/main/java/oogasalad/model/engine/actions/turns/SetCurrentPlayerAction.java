@@ -1,9 +1,11 @@
-package oogasalad.model.engine.actions;
+package oogasalad.model.engine.actions.turns;
 
 import com.google.inject.assistedinject.Assisted;
 import javax.inject.Inject;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Player;
+import oogasalad.model.engine.actions.Action;
+import oogasalad.model.engine.actions.ActionParams;
 
 public class SetCurrentPlayerAction implements Action {
 

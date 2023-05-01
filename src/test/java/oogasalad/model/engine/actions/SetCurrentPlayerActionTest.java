@@ -1,17 +1,13 @@
 package oogasalad.model.engine.actions;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.engine.EventEmitter;
+import oogasalad.model.engine.actions.turns.SetCurrentPlayerAction;
 import oogasalad.model.engine.prompt.AIPrompter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

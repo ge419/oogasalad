@@ -1,6 +1,5 @@
 package oogasalad.model.engine.rules;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -18,11 +17,8 @@ import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.Priority;
 import oogasalad.model.engine.SimpleActionQueue;
 import oogasalad.model.engine.actions.ActionFactory;
-import oogasalad.model.engine.actions.CheckStandingWinAction;
-import oogasalad.model.engine.actions.CreatePlayerPieceAction;
+import oogasalad.model.engine.actions.creation.CreatePlayerPieceAction;
 import oogasalad.model.engine.events.PieceChosenEvent;
-import oogasalad.model.engine.events.PlayerRemovalEvent;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

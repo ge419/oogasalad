@@ -80,13 +80,19 @@ public class TextParameterStrategy implements ParameterStrategy, BuilderUtility 
   public Metadata getMetadata() {
     return meta;
   }
+
   /**
    * Gets StringAttribute
+   *
    * @return StringAttribute
    */
   @Override
   public Attribute getAttribute() {
     return attr;
+  }
+
+  protected TextField getElement() {
+    return element;
   }
 
   private String getFieldValue() {

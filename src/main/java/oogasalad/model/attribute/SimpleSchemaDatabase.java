@@ -96,6 +96,17 @@ public class SimpleSchemaDatabase implements SchemaDatabase {
   }
 
   @Override
+  public SchemaType getSchemaType(String schemaName) {
+    if (customSchemaKeys.contains(schemaName)) {
+      return SchemaType.CUSTOM;
+    }
+    if (baseSchemaMap.containsKey(schemaName)) {
+      return SchemaType.BUILT_IN;
+    }
+    return SchemaType.NONE;
+  }
+
+  @Override
   public List<ObjectSchema> getCustomSchemas() {
     return customSchemaKeys.stream().map(baseSchemaMap::get).toList();
   }

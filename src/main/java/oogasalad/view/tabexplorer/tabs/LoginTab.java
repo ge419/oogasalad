@@ -68,7 +68,6 @@ public class LoginTab implements Tab {
     grid.setAlignment(Pos.CENTER);
 
     tabExplorer.setCurrentTab(grid);
-
   }
 
   private void login() throws ExecutionException, InterruptedException {

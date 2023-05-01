@@ -56,7 +56,7 @@ public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
   }
 
   @Override
-  public void setUserName(String userID, String newUsername) {
+  public void updateUserName(String userID, String newUsername) {
     updateDocument(USERS_COLLECTION, userID,
         createMap(USERNAME_KEY, newUsername));
   }
@@ -85,7 +85,7 @@ public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
   }
 
   @Override
-  public void setUserFullName(String userID, String newUserFullName) {
+  public void updateUserFullName(String userID, String newUserFullName) {
     updateDocument(USERS_COLLECTION, userID,
         createMap(NAME_KEY, newUserFullName));
   }

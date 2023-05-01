@@ -175,7 +175,7 @@ public class AccountSettings extends SettingsOptions {
       alert.showAndWait();
     } else{
       // validations pass - update DB
-      userDao.setUserFullName(userID, name);
+      userDao.updateUserFullName(userID, name);
       userDao.updateUserPronouns(userID, pronouns);
       userDao.updateEmailAddress(userID, email);
       userDao.updateAge(userID, Integer.parseInt(age));

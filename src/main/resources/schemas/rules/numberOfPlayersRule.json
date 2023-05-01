@@ -8,7 +8,7 @@
       "name": "minimum player number",
       "description": "minimum number of players to play game",
       "editable": true,
-      "viewable": false,
+      "viewable": true,
       "defaultValue": 1
     },
     {
@@ -17,7 +17,7 @@
       "name": "maximum player number",
       "description": "maximum number of players to play game",
       "editable": true,
-      "viewable": false,
+      "viewable": true,
       "defaultValue": 4
     }
   ]

@@ -47,6 +47,7 @@ public class TrailMaker implements TrailMakerAPI {
     LineHolder trail = new LineHolder(newLine, entry1, entry2);
     newLine.setOpacity(myCurrentOpacity);
     newLine.setFill(Color.BLACK);
+    newLine.setId(trailID);
     myMap.put(trailID, trail);
     myPane.getChildren().add(newLine);
     LOG.info("Created a new trail of ID: " + trailID);
@@ -54,8 +55,6 @@ public class TrailMaker implements TrailMakerAPI {
 
   @Override
   public void removeTrail(String trailID) {
-    System.out.println(myMap.keySet());
-    System.out.println(trailID);
     myPane.getChildren().remove(myMap.get(trailID).line());
     myMap.remove(trailID);
 

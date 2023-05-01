@@ -86,6 +86,7 @@ public class BuilderController {
     gameHolder = injector.getInstance(GameHolder.class);
     board = gameHolder.getBoard();
     gameInfo = gameHolder.getGameInfo();
+    saveManager = injector.getInstance(SaveManager.class);
 
     loadIntoBuilder();
 //    readDefaultRules();
@@ -116,7 +117,6 @@ public class BuilderController {
       logger.info("Tried creating a path that already exists.");
       return false;
     }
-    System.out.println("Why hello: " + board.getById(currentId).get().getNextTileIds());
     board.getById(currentId).get().getNextTileIds().add(nextId);
     logger.info("added next attribute to tile");
     return true;
@@ -140,7 +140,10 @@ public class BuilderController {
 
   public void save() {
     injector.getInstance(SaveManager.class).saveGame();
-//    ImageList --> loop through and apply saveAsset to all imgages
+  }
+
+  public void saveImage(Path path) throws IOException {
+    injector.getInstance(SaveManager.class).saveAsset(path);
   }
 
   public void createEventsForNode(Node node, EventHandler<MouseEvent> mouseClickHandle, Node parent,
@@ -158,7 +161,7 @@ public class BuilderController {
 
   public PopupForm createPopupForm(GameConstruct construct, ResourceBundle language,
       Pane location) {
-    return new PopupForm(construct, language, location);
+    return new PopupForm(construct, language, location, injector);
   }
 
   /**
@@ -199,17 +202,9 @@ public class BuilderController {
 
   public List<String> getListOfRules() {
     return resources.keySet().stream().toList();
-//    return List.of(
-//        "Hello",
-//        "This",
-//        "Is",
-//        "A",
-//        "Test"
-//    );
   }
 
   public String getClassForRule(String ruleClass) {
-//    resources.getKeys();
     return resources.getString(ruleClass);
   }
 
@@ -222,15 +217,18 @@ public class BuilderController {
     );
   }
 
-  public void makeRulesPopup(String ruleAsString){
+  public void makeRulesPopup(String ruleAsString) throws Exception {
     try {
       logger.info("Chose to edit rule " + ruleAsString);
       Class<? extends EditableRule> clazz = (Class<? extends EditableRule>) Class.forName(ruleAsString);
       EditableRule rule = injector.getInstance(clazz);
+      logger.info("New rule created");
       createPopupForm(rule, builderView.getLanguage(), builderView.getPopupPane());
+      gameHolder.getRules().add(rule);
+      logger.info("New rule added to GameHolder");
     } catch (ClassNotFoundException e) {
       logger.fatal("Failed to create rule classes", e);
-//      throw new Exception(e);
+      throw new Exception(e);
     }
   }
 
@@ -290,27 +288,23 @@ public class BuilderController {
    * @param imagePath path of the image
    * @return a boardimagetile object
    */
-  public Optional<BoardImageTile> createBoardImage(String imagePath) {
-    System.out.println("This is our image path: " + imagePath);
-    BoardImage backendImage = new BoardImage(db);
-    Coordinate coordinate = new Coordinate(0, 0, 0);
-    backendImage.setCoordinate(coordinate);
+  public Optional<BoardImageTile> createBoardImage(Path imagePath){
+      System.out.println("This is our image path: " + imagePath);
+      BoardImage backendImage = new BoardImage(db);
+      Coordinate coordinate = new Coordinate(0, 0, 0);
+      backendImage.setCoordinate(coordinate);
 
-    //todo: NOW, WE NEED TO CALL THE SAVE MANAGER TO UPLOAD ASSET!
-    // WHEN SAVE MANAGER IS WORKING, UNCOMMENT!
-//    if (!savePathAsAsset(imagePath)){
-//      return Optional.empty();
-//    }
-    backendImage.imageAttribute().valueProperty().addListener(((observable, oldValue, newValue) -> {
-//      if (!savePathAsAsset(newValue)){
-//        backendImage.setImage(oldValue);
-//      }
-    }));
-
-    return Optional.of(new BoardImageTile(backendImage));
-
+      if (!savePathAsAsset(imagePath)) {
+        return Optional.empty();
+      }
+//      backendImage.imageAttribute().valueProperty()
+//          .addListener(((observable, oldValue, newValue) -> {
+//            if (!savePathAsAsset(newValue)) {
+//              backendImage.setImage(oldValue);
+//            }
+//          }));
+      return Optional.of(new BoardImageTile(backendImage));
   }
-
 //  private void readDefaultRules() {
 //    try {
 //      rules = new HashMap<>();
@@ -332,26 +326,31 @@ public class BuilderController {
 //    return mapper.readValue(path.toFile(), EditableRule.class);
 //  }
 
-  private boolean savePathAsAsset(String path) {
+  private boolean savePathAsAsset(Path path) {
     try {
-      saveManager.saveAsset(Path.of(path));
+      saveManager.saveAsset(path);
       return true;
     } catch (IOException e) {
       getBuilderView().showError("ImagePathSaveError");
       return false;
     }
   }
-//  public String getRuleDescription(String ruleAsString){
-//    return "This is a test string! Selected rule: " + ruleAsString;
-//    return rules.get(ruleAsString);
-//  }
+
   public String getGameID() {
     return gameID;
   }
-  public void saveInfo(String genre, String description) {
-    Map<String, Object> game = new HashMap<>();
-    game.put(GameSchema.GENRE.getFieldName(), genre);
-    game.put(GameSchema.DESCRIPTION.getFieldName(), description);
-    gameDao.updateGame(gameID, game);
+
+  public void updateWidth(double width) {
+    gameHolder.getGameInfo().setWidth(width);
   }
+
+  public void updateHeight(double height) {
+    gameHolder.getGameInfo().setHeight(height);
+  }
+//  public void saveInfo(String genre, String description) {
+//    Map<String, Object> game = new HashMap<>();
+//    game.put(GameSchema.GENRE.getFieldName(), genre);
+//    game.put(GameSchema.DESCRIPTION.getFieldName(), description);
+//    gameDao.updateGame(gameID, game);
+//  }
 }

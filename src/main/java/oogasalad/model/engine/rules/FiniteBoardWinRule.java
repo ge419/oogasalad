@@ -15,11 +15,7 @@ import oogasalad.model.engine.actions.wins.WinningConditionStrategy;
 import oogasalad.model.engine.events.TileLandedEvent;
 
 /**
- * Action for creating players upon user selection after launching game.
- * <p>
- *   User selects from the prompt the number of players to play the game
- *   Added to the engine action queue by {@link oogasalad.model.engine.rules.NumberOfPlayersRule}
- * </p>
+ * Rule that outlines winning status of finite board game.
  *
  * @Author Jay Yoon
  */
@@ -38,6 +34,17 @@ public class FiniteBoardWinRule extends AbstractGameConstruct implements Editabl
     this.actionFactory = actionFactory;
   }
 
+  /**
+   * Listens for a {@link TileLandedEvent} to run {@link #checkTileWin(EventHandlerParams)}
+   *
+   * <p>
+   *   retrieves list of winning tiles IDs from rule attribute and compares with landed tile
+   *   uses {@link TileWinningStrategy} as winning condition strategy to check for winning condition
+   *   adds {@link oogasalad.model.engine.actions.wins.CheckWinAndEndAction} to action queue for potential game end
+   * </p>
+   *
+   * @param registrar provides event registration methods
+   */
   @Override
   public void registerEventHandlers(EventRegistrar registrar) {
     registrar.registerHandler(TileLandedEvent.class, this::checkTileWin);

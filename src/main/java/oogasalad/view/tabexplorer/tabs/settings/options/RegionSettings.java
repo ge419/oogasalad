@@ -21,8 +21,8 @@ import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 public class RegionSettings extends SettingsOptions {
 
   /**
-   * Class for sub-settings that aren't exactly "Tabs" and so shouldn't implement Tab, only update in
-   * settings page. need
+   * Class for sub-settings that aren't exactly "Tabs" and so shouldn't implement Tab, only update
+   * in settings page. need
    *
    * @param settingsTab
    * @param tabExplorer
@@ -37,7 +37,8 @@ public class RegionSettings extends SettingsOptions {
       AuthenticationHandler authHandler,
       UserDao userDao,
       GameDao gameDao, UserPreferences userPref, ResourceBundle languageResourceBundle) {
-    super(settingsTab, tabExplorer, authHandler, userDao, gameDao, userPref, languageResourceBundle);
+    super(settingsTab, tabExplorer, authHandler, userDao, gameDao, userPref,
+        languageResourceBundle);
   }
 
   @Override
@@ -53,18 +54,17 @@ public class RegionSettings extends SettingsOptions {
     changeThemeLabel.setPrefWidth(150);
     changeThemeLabel.setFont(Font.font("Verdana", 15));
 
-
     RadioButton english = new RadioButton("English 🇺🇸");
     RadioButton french = new RadioButton("French 🇫🇷");
     RadioButton korea = new RadioButton("Korea 🇰🇷");
     RadioButton spanish = new RadioButton("Spanish \uD83C\uDDEB\uD83C\uDDF7");
 
-    english.setOnAction(e->{
+    english.setOnAction(e -> {
       tabExplorer.updateUserPrefLanguage(Languages.ENGLISH.getLocaleStr());
       render();
     });
 
-    french.setOnAction(e->{
+    french.setOnAction(e -> {
       tabExplorer.updateUserPrefLanguage(Languages.FRENCH.getLocaleStr());
       render();
     });
@@ -77,7 +77,7 @@ public class RegionSettings extends SettingsOptions {
     spanish.setToggleGroup(radioGroup);
 
     VBox checkBoxContainer = new VBox();
-    checkBoxContainer.getChildren().addAll(english,french,korea,spanish);
+    checkBoxContainer.getChildren().addAll(english, french, korea, spanish);
     checkBoxContainer.setSpacing(10);
 
     horizontalContainer.getChildren().addAll(changeThemeLabel, checkBoxContainer);

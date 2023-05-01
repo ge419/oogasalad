@@ -61,7 +61,8 @@ public class AccountSettings extends SettingsOptions {
       AuthenticationHandler authHandler,
       UserDao userDao,
       GameDao gameDao, UserPreferences userPref, ResourceBundle languageResourceBundle) {
-    super(settingsTab, tabExplorer, authHandler, userDao, gameDao, userPref, languageResourceBundle);
+    super(settingsTab, tabExplorer, authHandler, userDao, gameDao, userPref,
+        languageResourceBundle);
   }
 
   @Override
@@ -124,12 +125,12 @@ public class AccountSettings extends SettingsOptions {
   public void onLanguageChange(String pathToBundle) {
     languageResourceBundle = ResourceBundle.getBundle(pathToBundle);
 
-    saveButton.setText(languageResourceBundle.getString("Save")+":");
+    saveButton.setText(languageResourceBundle.getString("Save") + ":");
     uploadAvatarLabel.setText(languageResourceBundle.getString("UploadNewAvatar"));
     publicAvatarLabel.setText(languageResourceBundle.getString("PublicAvatar"));
     accountSettingLabel.setText(languageResourceBundle.getString("Account"));
     personalSettingsLabel.setText(languageResourceBundle.getString("PersonalSettings"));
-     uploadButton.setText(languageResourceBundle.getString("UploadButton"));
+    uploadButton.setText(languageResourceBundle.getString("UploadButton"));
     nameLabel.setText(languageResourceBundle.getString("Name"));
     pronounsLabel.setText(languageResourceBundle.getString("Pronouns"));
     emailLabel.setText(languageResourceBundle.getString("Email"));
@@ -139,29 +140,33 @@ public class AccountSettings extends SettingsOptions {
 
   private VBox getPersonalSettingsComponent() {
     // retrieve current values of account settings from database
-    String name = (String) userDao.getUserData(authHandler.getActiveUserID()).get(UserSchema.NAME.getFieldName());
-    String pronouns = (String) userDao.getUserData(authHandler.getActiveUserID()).get(UserSchema.PRONOUNS.getFieldName());;
-    String email = (String) userDao.getUserData(authHandler.getActiveUserID()).get(UserSchema.EMAIL.getFieldName());;
-    long age = (long) userDao.getUserData(authHandler.getActiveUserID()).get(UserSchema.AGE.getFieldName());;
+    String name = (String) userDao.getUserData(authHandler.getActiveUserID())
+        .get(UserSchema.NAME.getFieldName());
+    String pronouns = (String) userDao.getUserData(authHandler.getActiveUserID())
+        .get(UserSchema.PRONOUNS.getFieldName());
+    String email = (String) userDao.getUserData(authHandler.getActiveUserID())
+        .get(UserSchema.EMAIL.getFieldName());
+    long age = (long) userDao.getUserData(authHandler.getActiveUserID())
+        .get(UserSchema.AGE.getFieldName());
 
     // create labels and text fields to display and edit the values
-    nameLabel = new Label(languageResourceBundle.getString("Name")+":");
+    nameLabel = new Label(languageResourceBundle.getString("Name") + ":");
     nameField = new TextField(name);
     VBox nameFieldContainer = createPersonalSettingsEntry(nameLabel, nameField);
 
-    pronounsLabel = new Label(languageResourceBundle.getString("Pronouns")+":");
+    pronounsLabel = new Label(languageResourceBundle.getString("Pronouns") + ":");
     pronounsField = new TextField(pronouns);
     VBox pronounsFieldContainer = createPersonalSettingsEntry(pronounsLabel, pronounsField);
 
-    emailLabel = new Label(languageResourceBundle.getString("Email")+":");
+    emailLabel = new Label(languageResourceBundle.getString("Email") + ":");
     emailField = new TextField(email);
     VBox emailFieldContainer = createPersonalSettingsEntry(emailLabel, emailField);
 
-    ageLabel = new Label(languageResourceBundle.getString("Age")+":");
+    ageLabel = new Label(languageResourceBundle.getString("Age") + ":");
     ageField = new TextField(Long.toString(age));
     VBox ageFieldContainer = createPersonalSettingsEntry(ageLabel, ageField);
 
-    saveButton = new Button(languageResourceBundle.getString("Save")+":");
+    saveButton = new Button(languageResourceBundle.getString("Save") + ":");
     saveButton.setOnAction(e -> handleSaveEvent());
 
     VBox personalSettingsContainer = new VBox(nameFieldContainer, pronounsFieldContainer,
@@ -189,7 +194,7 @@ public class AccountSettings extends SettingsOptions {
     // run basic validations
     if (alert != null) {
       alert.showAndWait();
-    } else{
+    } else {
       // validations pass - update DB
       userDao.updateUserFullName(userID, name);
       userDao.updateUserPronouns(userID, pronouns);

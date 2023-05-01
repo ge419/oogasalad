@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
 public class SettingsNavBar {
+
   private Hyperlink accountLink;
   private Hyperlink statsLink;
   private Hyperlink securityLink;
@@ -26,11 +27,11 @@ public class SettingsNavBar {
   private Hyperlink logoutLink;
   private Label versionNumber;
   private VBox settingsNavBarLayout;
-  private UserPreferences userPref;
+  private final UserPreferences userPref;
   private ResourceBundle languageResourceBundle;
 
   @Inject
-  public SettingsNavBar(UserPreferences userPref, ResourceBundle languageResourceBundle ) {
+  public SettingsNavBar(UserPreferences userPref, ResourceBundle languageResourceBundle) {
     this.userPref = userPref;
     this.languageResourceBundle = languageResourceBundle;
     userPref.addObserver(this::onLanguageChange);
@@ -104,10 +105,10 @@ public class SettingsNavBar {
     appearanceLink = new Hyperlink(languageResourceBundle.getString("Appearance"));
     regionLink = new Hyperlink(languageResourceBundle.getString("LangRegion"));
     separator1 = new Separator();
-    separator1.setPadding(new Insets(5,0,5,0));
+    separator1.setPadding(new Insets(5, 0, 5, 0));
     tellAFriendLink = new Hyperlink(languageResourceBundle.getString("TellAFriend"));
     separator2 = new Separator();
-    separator2.setPadding(new Insets(5,0,5,0));
+    separator2.setPadding(new Insets(5, 0, 5, 0));
     logoutLink = new Hyperlink(languageResourceBundle.getString("Logout"));
     versionNumber = new Label("v0.02");
     container = new VBox(logoutLink, versionNumber);
@@ -116,7 +117,7 @@ public class SettingsNavBar {
     spacer2 = new Region();
     VBox.setVgrow(spacer2, Priority.ALWAYS);
     settingsNavBarLayout = new VBox(accountLink, securityLink, appearanceLink,
-        regionLink,separator1, tellAFriendLink, separator2,logoutLink, versionNumber, container);
+        regionLink, separator1, tellAFriendLink, separator2, logoutLink, versionNumber, container);
 
     settingsNavBarLayout.setId("left-navbar");
   }

@@ -13,18 +13,15 @@ public class UserPreferences {
   public static String LANGUAGE_PROPERTIES_PATH = "tabexplorer.languages.";
   private static final String DEFAULT_LANGUAGE_PROPERTY = LANGUAGE_PROPERTIES_PATH + "en_US";
 
-  private UserDao userDao;
-  private AuthenticationHandler authHandler;
-
+  private final UserDao userDao;
+  private final AuthenticationHandler authHandler;
+  private String preferredLanguage;
+  private final List<Consumer<String>> observers = new ArrayList<>();
   @Inject
-  public UserPreferences(UserDao userDao, AuthenticationHandler authHandler){
+  public UserPreferences(UserDao userDao, AuthenticationHandler authHandler) {
     this.userDao = userDao;
     this.authHandler = authHandler;
   }
-
-
-  private String preferredLanguage;
-  private List<Consumer<String>> observers = new ArrayList<>();
 
   public void setPreferredLanguage(String updatedLanguage) {
     String userID = authHandler.getActiveUserID();
@@ -34,7 +31,8 @@ public class UserPreferences {
 
   public String getPreferredLanguagePath() {
     String userID = authHandler.getActiveUserID();
-    preferredLanguage = (String)userDao.getUserData(userID).get(UserSchema.PREFERRED_LANGUAGE.getFieldName());
+    preferredLanguage = (String) userDao.getUserData(userID)
+        .get(UserSchema.PREFERRED_LANGUAGE.getFieldName());
     return LANGUAGE_PROPERTIES_PATH + preferredLanguage;
   }
 

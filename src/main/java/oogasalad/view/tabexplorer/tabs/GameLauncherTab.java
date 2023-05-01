@@ -2,7 +2,6 @@ package oogasalad.view.tabexplorer.tabs;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -37,6 +36,7 @@ import oogasalad.model.accesscontrol.dao.UserDao;
 import oogasalad.model.accesscontrol.database.schema.GameSchema;
 import oogasalad.model.accesscontrol.database.schema.UserSchema;
 import oogasalad.util.AlertPopUp;
+import oogasalad.util.PathFinder;
 import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
@@ -46,8 +46,8 @@ public class GameLauncherTab implements Tab {
   private final AuthenticationHandler authHandler;
   private final UserDao userDao;
   private final GameDao gameDao;
-  private ResourceBundle languageResourceBundle;
   private final UserPreferences userPref;
+  private ResourceBundle languageResourceBundle;
   private Text yourGames;
   private Text welcomeText;
   private Button createGameButton;
@@ -85,7 +85,6 @@ public class GameLauncherTab implements Tab {
 
     welcomeText = new Text();
     welcomeText.setId("welcome-text");
-
 
     createGameButton = new Button();
     createGameButton.setOnAction(e -> {
@@ -134,22 +133,18 @@ public class GameLauncherTab implements Tab {
     userGames.forEach(gameID -> {
       Map<String, Object> gameMetaData = gameDao.getGameData(gameID);
       String name = (String) gameMetaData.get("title");
+
       InputStream stream = null;
       try {
-        //todo: load img_path from DB
-        String imageResourcePath = "game_img.png"; // lol, fun easter egg ig?
-        stream = new FileInputStream("src/main/resources/" + imageResourcePath);
-        Image image = new Image(stream);
-        ImageView imageView = new ImageView(image);
+        ImageView imageView = new ImageView(new Image(PathFinder.getGameThumbnail(gameID)));
         imageView.setFitWidth(75);
         imageView.setFitHeight(75);
-
 
         editMenuItem = new MenuItem("edit");
         deleteMenuItem = new MenuItem("delete");
         unsubscribeMenuItem = new MenuItem("unsubscribe");
-        MenuButton menuButton = new MenuButton(null, null,editMenuItem);
-        menuButton.setPrefSize(3,3);
+        MenuButton menuButton = new MenuButton(null, null, editMenuItem);
+        menuButton.setPrefSize(3, 3);
 
         String author = (String) gameMetaData.get(GameSchema.AUTHOR.getFieldName());
 
@@ -157,21 +152,21 @@ public class GameLauncherTab implements Tab {
 
         menuButton.getItems().add(isAuthorOfGame ? deleteMenuItem : unsubscribeMenuItem);
 
-        deleteMenuItem.setOnAction(e-> {
+        deleteMenuItem.setOnAction(e -> {
           userDao.deleteGame(gameID);
           renderTabContent();
         });
-        unsubscribeMenuItem.setOnAction(e-> {
+        unsubscribeMenuItem.setOnAction(e -> {
           userDao.unsubscribeToGame(authHandler.getActiveUserID(), gameID);
           renderTabContent();
         });
-        editMenuItem.setOnAction(e->tabExplorer.launchGameBuilder(gameID));
+        editMenuItem.setOnAction(e -> tabExplorer.launchGameBuilder(gameID));
 
         HBox container = new HBox(imageView, menuButton);
         VBox gameBox = new VBox(container, new Label(name));
         gameBox.getStyleClass().add("game-box");
 
-        gameBox.setOnMouseClicked(e-> tabExplorer.launchGame(gameID));
+        gameBox.setOnMouseClicked(e -> tabExplorer.launchGame(gameID));
         tilePane.getChildren().add(gameBox);
       } catch (Exception e) {
         e.printStackTrace();
@@ -187,7 +182,6 @@ public class GameLauncherTab implements Tab {
     });
   }
 
-  //  todo: delete dialogHandle after adding game builder
   private void dialogHandle() {
     Dialog<String[]> dialog = new Dialog<>();
     dialog.setTitle("Game Builder");
@@ -213,9 +207,9 @@ public class GameLauncherTab implements Tab {
     result.ifPresent(formData -> {
       String name = formData[0];
 
-      if (name.isBlank()){
-        AlertPopUp.show(AlertType.ERROR,"Input cannot be null", "Please add a name for your game");
-      }else{
+      if (name.isBlank()) {
+        AlertPopUp.show(AlertType.ERROR, "Input cannot be null", "Please add a name for your game");
+      } else {
         Map<String, Object> game = new HashMap<>();
         game.put(GameSchema.TITLE.getFieldName(), name);
 

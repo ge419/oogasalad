@@ -11,6 +11,7 @@ import oogasalad.view.tabexplorer.tabs.settings.SettingsTab;
 import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
 public abstract class SettingsOptions {
+
   protected final TabExplorer tabExplorer;
   protected final AuthenticationHandler authHandler;
   protected final UserDao userDao;

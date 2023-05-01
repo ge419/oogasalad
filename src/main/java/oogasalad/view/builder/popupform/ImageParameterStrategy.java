@@ -1,6 +1,8 @@
 package oogasalad.view.builder.popupform;
 
 import com.google.inject.assistedinject.Assisted;
+import java.io.IOException;
+import java.nio.file.Path;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -8,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import oogasalad.model.attribute.*;
+import oogasalad.util.SaveManager;
 import oogasalad.view.builder.BuilderUtility;
 
 import javax.inject.Inject;
@@ -17,6 +20,10 @@ import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import oogasalad.view.builder.BuilderView;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * A strategy used by the popup form to display a form element when
  * an image path is required from the user via user input. This consists
@@ -32,6 +39,8 @@ public class ImageParameterStrategy implements ParameterStrategy, BuilderUtility
     private final ImageMetadata meta;
     private String imagePath;
     private List<String> validExtensions = List.of("jpg", "png");
+    private SaveManager manager;
+    private static final Logger LOG = LogManager.getLogger(ImageParameterStrategy.class);
     /**
      * Creates an instance of ImageParameterStrategy
      * Can be used to display form data to a user for an image,
@@ -43,9 +52,11 @@ public class ImageParameterStrategy implements ParameterStrategy, BuilderUtility
     @Inject
     public ImageParameterStrategy(
             @Assisted Attribute attr,
-            @Assisted Metadata meta) {
+            @Assisted Metadata meta,
+            SaveManager manager) {
         this.attr = ImageAttribute.from(attr);
         this.meta = (ImageMetadata) ImageMetadata.from(meta);
+        this.manager = manager;
     }
     /**
      * Returns a JavaFX form element for a image attribute
@@ -64,7 +75,7 @@ public class ImageParameterStrategy implements ParameterStrategy, BuilderUtility
                 try {
                     imagePath = file.get().getPath().toString();
                 } catch (Exception e) {
-                    System.out.println("File for image not found");
+                    LOG.warn("User uploaded null or non-image file");
                 }
             }
         });
@@ -75,7 +86,12 @@ public class ImageParameterStrategy implements ParameterStrategy, BuilderUtility
      */
     @Override
     public void saveInput() {
-        attr.setValue(getFieldValue());
+        try {
+            String filename = manager.saveAsset(Path.of(getFieldValue()));
+            attr.setValue(filename);
+        } catch (IOException e) {
+            LOG.error("Unable to save user asset with SaveManager");
+        }
     }
     /**
      * Uses metadata to validate user input

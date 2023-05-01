@@ -9,15 +9,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import oogasalad.model.attribute.ColorMetadata;
 import oogasalad.model.attribute.Metadata;
-import oogasalad.model.attribute.StringMetadata;
+import oogasalad.view.builder.BuilderUtility;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
-public class CustomColorBox extends Rectangle implements CustomElement {
+public class CustomColorBox extends Rectangle implements CustomElement, BuilderUtility {
 
     private String name = "";
     private String defaultColor;
@@ -60,8 +60,6 @@ public class CustomColorBox extends Rectangle implements CustomElement {
         int index = jsonObject.get("index").getAsInt();
     }
 
-
-
     @Override
     public JsonObject save(Path folderPath) throws IOException {
         JsonObject jsonObject = new JsonObject();
@@ -80,15 +78,15 @@ public class CustomColorBox extends Rectangle implements CustomElement {
         return jsonObject;
     }
     @Override
-    public VBox getInfo() {
+    public VBox getInfo(ResourceBundle languageBundle) {
         ArrayList colorBoxSpecificElements = new ArrayList();
-        Label widthLabel = new Label("Width");
+        Label widthLabel = (Label) makeLabel("width", languageBundle);
         colorBoxSpecificElements.add(widthLabel);
         colorBoxSpecificElements.add(createWidthSlider());
-        Label heightLabel = new Label("Height");
+        Label heightLabel = (Label) makeLabel("height", languageBundle);
         colorBoxSpecificElements.add(heightLabel);
         colorBoxSpecificElements.add(createHeightSlider());
-        return CustomElementHelper.makeVbox(this, colorBoxSpecificElements);
+        return makeVbox(this, colorBoxSpecificElements);
     }
 
     @Override
@@ -110,7 +108,6 @@ public class CustomColorBox extends Rectangle implements CustomElement {
     @Override
     public void setName(String text) {
         name = text;
-
     }
 
     @Override
@@ -124,7 +121,7 @@ public class CustomColorBox extends Rectangle implements CustomElement {
     }
 
     private Slider createWidthSlider() {
-        Slider widthSlider = new Slider(10, ((Pane) this.getParent()).getWidth(), this.getWidth()*1.1); //1.1 so users don't have to perfectly align
+        Slider widthSlider = (Slider) makeSlider("width", 10, ((Pane) this.getParent()).getWidth(), this.getWidth()*1.1); //1.1 so users don't have to perfectly align
         widthSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
             this.setWidth(newVal.doubleValue());
         });
@@ -132,7 +129,7 @@ public class CustomColorBox extends Rectangle implements CustomElement {
     }
 
     private Slider createHeightSlider() {
-        Slider heightSlider = new Slider(10, ((Pane) this.getParent()).getHeight(), this.getHeight()*1.1); //1.1 so users don't have to perfectly align
+        Slider heightSlider = (Slider) makeSlider("height" ,10, ((Pane) this.getParent()).getHeight(), this.getHeight()*1.1); //1.1 so users don't have to perfectly align
         heightSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
             this.setHeight(newVal.doubleValue());
         });

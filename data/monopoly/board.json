@@ -2165,23 +2165,27 @@
   }, {
     "@class" : "oogasalad.model.constructable.Tile",
     "id" : "f0e8c6f3-58a1-43f2-ba33-58379b5a554d",
-    "schemas" : [ "tile", "customTile", "fe56f80c-1e39-47cb-8e00-56ef4d03460b" ],
+    "schemas" : [ "tile", "customTile", "7f6aa945-7d31-47e9-b100-67c60e3d4246" ],
     "attributes" : [ {
-      "@class" : "oogasalad.model.attribute.ColorAttribute",
-      "key" : "Background",
-      "value" : "0xff0000ff"
-    }, {
       "@class" : "oogasalad.model.attribute.StringAttribute",
-      "key" : "customJson",
-      "value" : "/Users/matthew/oogasalad_team03/data/customObjects/Test3/Test3.json"
+      "key" : "Caption",
+      "value" : "Oh captain my captain"
+    }, {
+      "@class" : "oogasalad.model.attribute.ImageAttribute",
+      "key" : "SoccerPhoto.png",
+      "value" : ""
     }, {
       "@class" : "oogasalad.model.attribute.ColorAttribute",
       "key" : "color",
-      "value" : "#add8e6"
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "customJson",
+      "value" : "/Users/matthew/oogasalad_team03/data/customObjects/Test1/Test1.json"
     }, {
       "@class" : "oogasalad.model.attribute.DoubleAttribute",
       "key" : "height",
-      "value" : 50.0
+      "value" : 100.0
     }, {
       "@class" : "oogasalad.model.attribute.StringAttribute",
       "key" : "info",
@@ -2215,7 +2219,7 @@
     }, {
       "@class" : "oogasalad.model.attribute.DoubleAttribute",
       "key" : "width",
-      "value" : 50.0
+      "value" : 100.0
     } ]
   } ]
 }

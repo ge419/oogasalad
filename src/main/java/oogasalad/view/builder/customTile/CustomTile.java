@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javafx.beans.binding.Bindings;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -25,29 +24,26 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.transform.Rotate;
 import javafx.stage.FileChooser;
-import oogasalad.model.attribute.Metadata;
-import oogasalad.model.attribute.ObjectSchema;
-import oogasalad.model.attribute.SchemaDatabase;
-import oogasalad.model.attribute.SimpleObjectSchema;
-import oogasalad.model.attribute.StringAttribute;
+import oogasalad.model.attribute.*;
 import oogasalad.model.constructable.Tile;
+import oogasalad.util.SaveManager;
 import oogasalad.view.Coordinate;
 import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class CustomTileRendering extends Group implements ViewTile {
-    private static final Logger LOGGER = LogManager.getLogger(CustomTileRendering.class);
-    private double SCALE_DOWN_FACTOR = .4;
+public class CustomTile extends Group implements ViewTile {
+    private static final Logger LOGGER = LogManager.getLogger(CustomTile.class);
     private Color color;
-
     private Map<String, CustomElement> customElementMap;
 
     private String name;
 
+    private SaveManager manager;
+
     private final Tile modelTile;
     @Inject
-    public CustomTileRendering(@Assisted Tile BTile, SchemaDatabase database) {
+    public CustomTile(@Assisted Tile BTile, SchemaDatabase database) {
         this.modelTile = BTile;
         modelTile.addSchema("customTile");
 
@@ -58,6 +54,7 @@ public class CustomTileRendering extends Group implements ViewTile {
         /*
         If jsonFile is empty this is coming from the builder
          */
+        System.out.println("Fizz");
         if (jsonFile.isEmpty()) {
             jsonFile = chooseJsonFile().toString();
             jsonFileAttribute.setValue(jsonFile);
@@ -66,13 +63,12 @@ public class CustomTileRendering extends Group implements ViewTile {
             ArrayList<String> names = new ArrayList<>(modelTile.getSchemaNames());
             names.add(newSchema.getName());
             modelTile.setSchemaNames(names);
-            for (String name : names){
-                modelTile.addSchema(name);
-            }
             bindListeners(newSchema.getAllMetadata().stream().map(Metadata::getKey).toList());
+
         }
         else{
             try {
+                System.out.println("Buzz");
                 loadForGamePlay(jsonFile);
             } catch (IOException e) {
                 throw new RuntimeException(e); //F-off
@@ -87,6 +83,7 @@ public class CustomTileRendering extends Group implements ViewTile {
             CustomElement node = customElementMap.get(name);
             attribute.valueProperty().addListener((observable, oldValue, newValue) -> {
                 node.setValue(newValue);
+                //System.out.println(name +" changed to " + newValue);
             });
         }
     }
@@ -95,8 +92,8 @@ public class CustomTileRendering extends Group implements ViewTile {
         StackPane s = new StackPane();
         File selectedFile = new File(jsonFile);
         JsonObject jsonObject = readJsonFromFile(selectedFile);
-        s.setPrefHeight(jsonObject.get("height").getAsDouble()*SCALE_DOWN_FACTOR);
-        s.setPrefWidth(jsonObject.get("width").getAsDouble()*SCALE_DOWN_FACTOR);
+        s.setPrefHeight(jsonObject.get("height").getAsDouble());
+        s.setPrefWidth(jsonObject.get("width").getAsDouble());
         //Something to preserve aspect ratio
         name = jsonObject.get("name").getAsString();
         customElementMap = new HashMap<>();
@@ -116,6 +113,7 @@ public class CustomTileRendering extends Group implements ViewTile {
             }
             loadedObject.setLocation();
             customElementMap.put(loadedObject.getName(),loadedObject);
+            this.getChildren().add(s);
         }
     }
 
@@ -129,13 +127,12 @@ public class CustomTileRendering extends Group implements ViewTile {
         if (selectedFile != null) {
             try {
                 JsonObject jsonObject = readJsonFromFile(selectedFile);
-                s.setPrefHeight(jsonObject.get("height").getAsDouble()*SCALE_DOWN_FACTOR);
-                s.setPrefWidth(jsonObject.get("width").getAsDouble()*SCALE_DOWN_FACTOR);
+                s.setPrefHeight(jsonObject.get("height").getAsDouble());
+                s.setPrefWidth(jsonObject.get("width").getAsDouble());
                 //Something to preserve aspect ratio
                 name = jsonObject.get("name").getAsString();
                 JsonArray customObjects = jsonObject.getAsJsonArray("customObjects");
                 List<Metadata> metadataList = new ArrayList<>();
-                //metadataList.add(makeNameMetadata());
                 customElementMap = new HashMap<>();
                 for (JsonElement jsonElement : customObjects) {
                     JsonObject customObject = jsonElement.getAsJsonObject();
@@ -161,6 +158,9 @@ public class CustomTileRendering extends Group implements ViewTile {
 
         return new SimpleObjectSchema(UUID.randomUUID().toString(), List.of());
     }
+
+//    private Metadata makeNameMetadata() {
+//    }
 
     private JsonObject readJsonFromFile(File file) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -210,18 +210,9 @@ public class CustomTileRendering extends Group implements ViewTile {
 
     @Override
     public void setSize(double width, double height) {
-
         Bounds bounds = this.getBoundsInLocal();
         double scaleX = width / bounds.getWidth();
         double scaleY = height / bounds.getHeight();
-
-
-        System.out.println("scaleY = " + scaleX);
-
-
-        System.out.println("scaleY = " + scaleY);
-
-
         this.setScaleX(scaleX);
         this.setScaleY(scaleY);
     }

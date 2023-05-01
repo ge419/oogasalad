@@ -1,0 +1,19 @@
+{
+  "name": "Test5",
+  "width": 791.0,
+  "height": 798.0,
+  "customObjects": [
+    {
+      "type": "CustomImage",
+      "x": 0.0,
+      "y": 0.0,
+      "name": "The Image.png",
+      "height": 514.0,
+      "width": 771.0,
+      "filePath": "data/customObjects/Test5/The Image.png",
+      "index": 0,
+      "editable": true,
+      "viewable": true
+    }
+  ]
+}

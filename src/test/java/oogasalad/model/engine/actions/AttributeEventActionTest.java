@@ -1,6 +1,7 @@
 package oogasalad.model.engine.actions;
 
 import oogasalad.model.engine.EventEmitter;
+import oogasalad.model.engine.actions.emits.AttributeEventAction;
 import oogasalad.model.engine.events.AttributeEvent;
 import oogasalad.model.engine.prompt.AIPrompter;
 import org.junit.Test;

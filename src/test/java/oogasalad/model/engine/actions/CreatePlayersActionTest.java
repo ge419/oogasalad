@@ -18,10 +18,9 @@ import oogasalad.model.constructable.BBoard;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Player;
-import oogasalad.model.constructable.Players;
 import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.EventEmitter;
-import oogasalad.model.engine.prompt.TestPrompterNegative;
+import oogasalad.model.engine.actions.creation.CreatePlayersAction;
 import oogasalad.model.engine.prompt.TestPrompterPositive;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,7 +57,7 @@ class CreatePlayersActionTest {
     bundle = mock(ResourceBundle.class);
     when(bundle.getString(any(String.class))).thenReturn("");
 
-    action = new CreatePlayersAction(playerProvider, pieceProvider, gameHolder, 1, 2, bundle);
+    action = new CreatePlayersAction(playerProvider, pieceProvider, gameHolder, 1, 2, 1, bundle);
   }
 
   @Test

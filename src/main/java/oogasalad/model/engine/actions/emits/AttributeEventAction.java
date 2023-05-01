@@ -1,6 +1,8 @@
-package oogasalad.model.engine.actions;
+package oogasalad.model.engine.actions.emits;
 
 import java.util.Objects;
+import oogasalad.model.engine.actions.Action;
+import oogasalad.model.engine.actions.ActionParams;
 import oogasalad.model.engine.events.AttributeEvent;
 
 public record AttributeEventAction(String event) implements Action {

@@ -21,9 +21,11 @@ import oogasalad.model.engine.EventHandler;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.Priority;
-import oogasalad.model.engine.SimpleActionQueue;
 import oogasalad.model.engine.actions.ActionFactory;
 import oogasalad.model.engine.actions.CheckTileWinAction;
+import oogasalad.model.engine.actions.wins.CheckWinAndEndAction;
+import oogasalad.model.engine.actions.wins.TileWinningStrategy;
+import oogasalad.model.engine.actions.wins.WinningConditionStrategy;
 import oogasalad.model.engine.events.TileLandedEvent;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +40,7 @@ public class FiniteBoardWinRuleTest {
   private ActionFactory mockActionFactory;
   private ActionQueue actionQueue;
   private FiniteBoardWinRule rule;
-  private CheckTileWinAction mockedAction;
+  private CheckWinAndEndAction mockedAction;
   private EventHandlerParams<TileLandedEvent> eventEventHandlerParams;
   private Attribute winningTiles;
   private ArrayList<String> ids;
@@ -47,8 +49,8 @@ public class FiniteBoardWinRuleTest {
   @Before
   public void setUp() {
     mockActionFactory = mock(ActionFactory.class);
-    mockedAction = mock(CheckTileWinAction.class);
-    when(mockActionFactory.makeCheckTileWinAction(any(String.class), any(List.class))).thenReturn(mockedAction);
+    mockedAction = mock(CheckWinAndEndAction.class);
+    when(mockActionFactory.makeCheckWinStateAction(any(WinningConditionStrategy.class))).thenReturn(mockedAction);
 
     Injector injector = Guice.createInjector(new AttributeModule());
     db = injector.getInstance(SchemaDatabase.class);
@@ -81,7 +83,8 @@ public class FiniteBoardWinRuleTest {
   public void makesCheckTileWinAction() {
     rule.checkTileWin(eventEventHandlerParams);
 
-    verify(mockActionFactory).makeCheckTileWinAction(LANDED_TILE_ID, ids);
+    WinningConditionStrategy winningConditionStrategy = new TileWinningStrategy(LANDED_TILE_ID, ids);
+    verify(mockActionFactory).makeCheckWinStateAction(winningConditionStrategy);
   }
 
   @Test

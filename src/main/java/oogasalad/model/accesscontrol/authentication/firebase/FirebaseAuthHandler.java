@@ -1,7 +1,6 @@
 package oogasalad.model.accesscontrol.authentication.firebase;
 
 import com.google.inject.Inject;
-import java.util.concurrent.ExecutionException;
 import oogasalad.model.accesscontrol.authentication.AuthenticationHandler;
 import oogasalad.model.accesscontrol.dao.UserDao;
 

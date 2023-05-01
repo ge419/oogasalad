@@ -12,6 +12,7 @@ import oogasalad.model.engine.actions.ActionFactory;
  * @author Dominic Martinez
  */
 public class EngineModule extends AbstractModule {
+
   private static final String DEFAULT_RESOURCE_PACKAGE = "engine.";
   private final ResourceBundle resourceBundle;
 
@@ -24,7 +25,7 @@ public class EngineModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(ActionFactory.class));
     bind(ResourceBundle.class)
         .annotatedWith(EngineResourceBundle.class)
-            .toInstance(resourceBundle);
+        .toInstance(resourceBundle);
     bind(ActionQueue.class).to(SimpleActionQueue.class);
     bind(Engine.class).to(SimpleEngine.class);
     bind(EventHandlerManager.class).to(SimpleEventHandlerManager.class);

@@ -18,6 +18,7 @@ public class ImageMetadata extends StringMetadata {
     super(key);
     this.defaultValue = new SimpleStringProperty("view.gameplay/default.jpg");
   }
+
   @Override
   public boolean isValidValue(String val) {
     if (val == null) {
@@ -29,6 +30,7 @@ public class ImageMetadata extends StringMetadata {
     }
     return false;
   }
+
   @Override
   public Attribute makeAttribute() {
     return makeImageAttribute();

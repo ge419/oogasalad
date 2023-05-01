@@ -14,11 +14,11 @@ abstract public class GamePiece extends StackPane implements Movable {
   private ImageView imageView;
 
   public GamePiece(String imageURL) {
-      image = new Image(imageURL);
-      imageView = new ImageView(image);
-      imageView.setFitHeight(PIECE_SIZE);
-      imageView.setFitWidth(PIECE_SIZE);
-      getChildren().add(imageView);
+    image = new Image(imageURL);
+    imageView = new ImageView(image);
+    imageView.setFitHeight(PIECE_SIZE);
+    imageView.setFitWidth(PIECE_SIZE);
+    getChildren().add(imageView);
   }
 
   protected void setxCoor(double value) {

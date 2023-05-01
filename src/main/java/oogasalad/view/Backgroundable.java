@@ -36,7 +36,6 @@ public interface Backgroundable {
    * @param height          is the height of the background
    * @param backgroundColor is the color of the background
    * @param strokeColor     is the color of the border of the background
-   *
    * @return Background as rectangle
    */
   default Rectangle createBackground(double width, double height, Color backgroundColor,

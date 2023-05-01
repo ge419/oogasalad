@@ -11,8 +11,8 @@ import oogasalad.model.engine.events.PlayerCreationEvent;
 /**
  * Action for updating current Player upon the start of every new Turn.
  * <p>
- *   updates current player on GameHolder accordingly
- *   Added to the engine action queue by ex. {@link oogasalad.model.engine.rules.TurnRule}
+ * updates current player on GameHolder accordingly Added to the engine action queue by ex.
+ * {@link oogasalad.model.engine.rules.TurnRule}
  * </p>
  *
  * @Author Jay Yoon
@@ -32,9 +32,10 @@ public class SetCurrentPlayerAction implements Action {
   /**
    * executed action: sets the current player of the Turn.
    * <p>
-   *   retrieves the current player and updates the GameHolder accordingly
-   *   specific implementation details are found {@link oogasalad.model.engine.rules.TurnRule}
+   * retrieves the current player and updates the GameHolder accordingly specific implementation
+   * details are found {@link oogasalad.model.engine.rules.TurnRule}
    * </p>*
+   *
    * @param actionParams incl. emitter, prompter
    */
   @Override

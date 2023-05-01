@@ -75,8 +75,9 @@ public class CommentSection extends VBox {
 
     comments = FXCollections.observableArrayList();
     // get all comments from DB
-    List<Map<String, Object>> allComments = (List<Map<String, Object>>) gameDao.getGameData(gameID).get(
-        GameSchema.REVIEWS.getFieldName()); // we want this reversed
+    List<Map<String, Object>> allComments = (List<Map<String, Object>>) gameDao.getGameData(gameID)
+        .get(
+            GameSchema.REVIEWS.getFieldName()); // we want this reversed
     Collections.reverse(allComments);
     comments.addAll(allComments);
     commentList.setItems(comments);

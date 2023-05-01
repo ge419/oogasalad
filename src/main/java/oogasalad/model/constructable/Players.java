@@ -18,6 +18,7 @@ import java.util.Random;
  * @author Jay Yoon, Woongyu Jin
  */
 public class Players {
+
   private List<Player> players;
 
   public Players() {

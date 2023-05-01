@@ -1,6 +1,6 @@
 package oogasalad.model.engine.prompt;
 
-public class StringPromptOption implements PromptOption{
+public class StringPromptOption implements PromptOption {
 
   private final String value;
 

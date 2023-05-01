@@ -13,9 +13,13 @@ import oogasalad.view.tabexplorer.tabs.socialcenter.SocialCenterTab;
 public interface TabFactory {
 
   LoginTab makeLoginTab(TabExplorer tabExplorer);
+
   GameLauncherTab makeGameLauncherTab(TabExplorer tabExplorer);
+
   SocialCenterTab makeSocialCenterTab(TabExplorer tabExplorer);
+
   GameDetailsTab makeGameDetailsTab(TabExplorer tabExplorer);
+
   SettingsTab makeSettingsTab(TabExplorer tabExplorer);
 }
 

@@ -60,9 +60,15 @@ public class PositionAttribute extends AbstractAttribute {
     return y;
   }
 
-  public double getAngle() { return angle.get(); };
+  public double getAngle() {
+    return angle.get();
+  }
 
-  public void setAngle(double angle) { this.angle.set(angle);}
+  ;
+
+  public void setAngle(double angle) {
+    this.angle.set(angle);
+  }
 
   public DoubleProperty angleProperty() {
     return angle;

@@ -32,6 +32,7 @@ public class TileMetadata extends AbstractMetadata {
   public String getDefaultValue() {
     return defaultValue.get();
   }
+
   public void setDefaultValue(String defaultValue) {
     this.defaultValue.set(defaultValue);
   }

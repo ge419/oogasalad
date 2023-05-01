@@ -14,8 +14,8 @@ import oogasalad.model.constructable.Tile;
  * specific viewtiles. Now any viewtile can be created so long as they are present in the
  * ViewTileFactory and the map contained in the constructor of the class.</p>
  * <p><strong>Important Note:</strong> Although this class does extend ViewTile, it only
- * does so so that it can be used in place of the regular ViewTile that it wraps. It should not
- * be used as a unique ViewTile not wrappiny anything!</p>
+ * does so so that it can be used in place of the regular ViewTile that it wraps. It should not be
+ * used as a unique ViewTile not wrappiny anything!</p>
  *
  * @author tmh85
  * @author dcm67

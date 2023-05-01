@@ -9,6 +9,7 @@ import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.tabs.settings.SettingsTab;
 
 public abstract class SettingsOptions {
+
   protected final TabExplorer tabExplorer;
   protected final AuthenticationHandler authHandler;
   protected final UserDao userDao;
@@ -35,6 +36,7 @@ public abstract class SettingsOptions {
     this.userDao = userDao;
     this.gameDao = gameDao;
   }
+
   /**
    * Method that renders the settings options clicked on the scene (settings tab)
    */

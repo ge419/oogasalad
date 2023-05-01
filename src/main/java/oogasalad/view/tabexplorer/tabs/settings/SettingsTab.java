@@ -48,7 +48,8 @@ public class SettingsTab implements Tab {
   @Inject
   public SettingsTab(
       @Assisted TabExplorer tabExplorer, AuthenticationHandler authHandler,
-      UserDao userDao, GameDao gameDao, SettingsOptionsFactory settingsOptionsFactory, SettingsNavBar settingsNavBar) {
+      UserDao userDao, GameDao gameDao, SettingsOptionsFactory settingsOptionsFactory,
+      SettingsNavBar settingsNavBar) {
     this.tabExplorer = tabExplorer;
     this.authHandler = authHandler;
     this.userDao = userDao;
@@ -68,10 +69,9 @@ public class SettingsTab implements Tab {
 //    vbox.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     vbox.getChildren().add(new Label("Online Users"));
 
-
     VBox container = new VBox();
 
-    container.setPadding(new Insets(0,50,0,50));
+    container.setPadding(new Insets(0, 50, 0, 50));
 
     root.setLeft(settingsNavBar.getSettingsNavBarLayout());
     accountSettings.render();
@@ -80,22 +80,22 @@ public class SettingsTab implements Tab {
     tabExplorer.setCurrentTab(root);
   }
 
-  public void setCurrentSettingsOption(Node node){
+  public void setCurrentSettingsOption(Node node) {
     root.setCenter(node);
   }
 
-  public void refreshNavBar(){
+  public void refreshNavBar() {
 
   }
 
-  private void initOptions(){
+  private void initOptions() {
     accountSettings = settingsOptionsFactory.makeAccountSettingsPage(this, tabExplorer);
-    securitySettings = settingsOptionsFactory.makeSecuritySettingsPage(this,tabExplorer);
-    appearanceSettings = settingsOptionsFactory.makeAppearanceSettingsPage(this,tabExplorer);
-    regionSettings = settingsOptionsFactory.makeRegionsSettings(this,tabExplorer);
+    securitySettings = settingsOptionsFactory.makeSecuritySettingsPage(this, tabExplorer);
+    appearanceSettings = settingsOptionsFactory.makeAppearanceSettingsPage(this, tabExplorer);
+    regionSettings = settingsOptionsFactory.makeRegionsSettings(this, tabExplorer);
   }
 
-  private void initLinks(){
+  private void initLinks() {
     accountLink = settingsNavBar.getAccountLink();
     securityLink = settingsNavBar.getSecurityLink();
     appearanceLink = settingsNavBar.getAppearanceLink();
@@ -105,12 +105,12 @@ public class SettingsTab implements Tab {
     setLinkAction();
   }
 
-  private void setLinkAction(){
-    accountLink.setOnAction(e->handleLinkClick(accountSettings));
-    securityLink.setOnAction(e->handleLinkClick(securitySettings));
-    appearanceLink.setOnAction(e->handleLinkClick(appearanceSettings));
-    regionLink.setOnAction(e->handleLinkClick(regionSettings));
-    tellAFriendLink.setOnAction(e->{
+  private void setLinkAction() {
+    accountLink.setOnAction(e -> handleLinkClick(accountSettings));
+    securityLink.setOnAction(e -> handleLinkClick(securitySettings));
+    appearanceLink.setOnAction(e -> handleLinkClick(appearanceSettings));
+    regionLink.setOnAction(e -> handleLinkClick(regionSettings));
+    tellAFriendLink.setOnAction(e -> {
       String url = "https://twitter.com/intent/tweet?text=%E2%9C%85%20Yo!%20Checkout%20my%20awesome%20monopoly%20game%20builder%20%F0%9F%9A%80%20www.bcubed.app";
       try {
         Desktop.getDesktop().browse(new URI(url));
@@ -118,15 +118,14 @@ public class SettingsTab implements Tab {
         ex.printStackTrace();
       }
     });
-    logoutLink.setOnAction(e->tabExplorer.handleLoginBtnClick());
+    logoutLink.setOnAction(e -> tabExplorer.handleLoginBtnClick());
 //    statsLink.setOnAction(e->handleLinkClick(st));
   }
 
 
-  private void handleLinkClick(SettingsOptions settingsOptions){
+  private void handleLinkClick(SettingsOptions settingsOptions) {
     settingsOptions.render();
   }
-
 
 
 }

@@ -113,10 +113,17 @@ public class AccountSettings extends SettingsOptions {
 
   private VBox getPersonalSettingsComponent() {
     // retrieve current values of account settings from database
-    String name = (String) userDao.getUserData(authHandler.getActiveUserID()).get(UserSchema.NAME.getFieldName());
-    String pronouns = (String) userDao.getUserData(authHandler.getActiveUserID()).get(UserSchema.PRONOUNS.getFieldName());;
-    String email = (String) userDao.getUserData(authHandler.getActiveUserID()).get(UserSchema.EMAIL.getFieldName());;
-    long age = (long) userDao.getUserData(authHandler.getActiveUserID()).get(UserSchema.AGE.getFieldName());;
+    String name = (String) userDao.getUserData(authHandler.getActiveUserID())
+        .get(UserSchema.NAME.getFieldName());
+    String pronouns = (String) userDao.getUserData(authHandler.getActiveUserID())
+        .get(UserSchema.PRONOUNS.getFieldName());
+    ;
+    String email = (String) userDao.getUserData(authHandler.getActiveUserID())
+        .get(UserSchema.EMAIL.getFieldName());
+    ;
+    long age = (long) userDao.getUserData(authHandler.getActiveUserID())
+        .get(UserSchema.AGE.getFieldName());
+    ;
 
 // create labels and text fields to display and edit the values
     Label nameLabel = new Label("Name:");
@@ -153,7 +160,6 @@ public class AccountSettings extends SettingsOptions {
     return container;
   }
 
-
 //  private VBox createLabelContainers(Label ...labels){
 //    VBox container = new VBox(labels);
 //    container.setAlignment(Pos.CENTER_RIGHT);
@@ -173,7 +179,7 @@ public class AccountSettings extends SettingsOptions {
     // run basic validations
     if (alert != null) {
       alert.showAndWait();
-    } else{
+    } else {
       // validations pass - update DB
       userDao.setUserFullName(userID, name);
       userDao.updateUserPronouns(userID, pronouns);

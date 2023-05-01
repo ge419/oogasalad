@@ -41,7 +41,7 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
    * @see AbstractItemPane#AbstractItemPane(ResourceBundle, String, BuilderView)
    */
   public MenuItemPane(ResourceBundle languageResource, String id,
-      BuilderView builder) throws ResourceReadException{
+      BuilderView builder) throws ResourceReadException {
     super(languageResource, id, builder);
     myMenuOptionsResource = getResource(RESOURCE_FILE_WITH_MENUBAR_OPTIONS);
     myAddedMenus = new HashMap<>();
@@ -52,7 +52,7 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
   }
 
   @Override
-  public void addItems(String functionFileName) throws ResourceReadException{
+  public void addItems(String functionFileName) throws ResourceReadException {
     ResourceBundle bundle = getResource(functionFileName);
     Menu newMenu = createMenu(functionFileName);
     myAddedMenus.put(functionFileName, newMenu);
@@ -84,6 +84,7 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
 
   /**
    * <p>Refreshes all current items in the menu.</p>
+   *
    * @see MenuItemPane#refreshItems(String)
    */
   public void refreshItems() throws ResourceReadException {
@@ -109,10 +110,11 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
 
   /**
    * <p>Creates a menu object and any sub menuitems that compose it.</p>
+   *
    * @param optionName name of the menu you want to create
    * @return created menu
    */
-  private Menu createMenu(String optionName) throws ResourceReadException{
+  private Menu createMenu(String optionName) throws ResourceReadException {
     Menu newOption = new Menu(getLanguage().getString(optionName));
     newOption.setId(optionName);
     createItemsInMenu(newOption);
@@ -123,6 +125,7 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
 
   /**
    * <p>Creates the MenuItems for a desired menu.</p>
+   *
    * @param desiredMenu
    */
   private void createItemsInMenu(Menu desiredMenu) {
@@ -130,8 +133,7 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
     try {
       forEachResourceKey(menuBundle,
           key -> addNewMenuItemToMenu(key, menuBundle.getString(key), desiredMenu));
-    }
-    catch (RuntimeException e){
+    } catch (RuntimeException e) {
       throw new ResourceReadException(displayMessageWithArguments(
           getLanguage(),
           "ResourceReadException",
@@ -144,6 +146,7 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
   /**
    * <p>Uses reflection to create a menu item from a string and adds it to the
    * parent.</p>
+   *
    * @param key
    * @param buttonClickMethodName
    * @param parentMenu
@@ -153,8 +156,7 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
       MenuItem item = makeMenuItem(key, getLanguage(),
           e -> runMethodFromString(buttonClickMethodName));
       parentMenu.getItems().add(item);
-    }
-    catch(RuntimeException e){
+    } catch (RuntimeException e) {
       throw new MethodReflectionException(displayMessageWithArguments(
           getLanguage(),
           "ReflectionMethodError",
@@ -167,11 +169,10 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
    * <p>Creates all the menus and their items as listed in the
    * default properties file.</p>
    */
-  private void createDefaultMenuOptions(){
+  private void createDefaultMenuOptions() {
     try {
       forEachResourceKey(myMenuOptionsResource, key -> createMenu(key));
-    }
-    catch(Exception e){
+    } catch (Exception e) {
       throw new ResourceReadException(displayMessageWithArguments(
           getLanguage(),
           "ResourceReadError",
@@ -193,10 +194,11 @@ public class MenuItemPane extends AbstractItemPane implements BuilderUtility {
   private void toggleDraggables() {
     getBuilder().toggleDraggables();
   }
+
   private void test() {
   }
 
-  private void aboutWindow(){
+  private void aboutWindow() {
     getBuilder().displayAboutWindow();
   }
 }

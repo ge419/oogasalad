@@ -118,10 +118,12 @@ public class Player extends AbstractGameConstruct {
   }
 
   @JsonIgnore
-  public List<Tile> getCards(){return cards;}
+  public List<Tile> getCards() {
+    return cards;
+  }
 
   @JsonIgnore
-  public void addCardToPlayer(Tile card){
+  public void addCardToPlayer(Tile card) {
     this.cards.add(card);
   }
 }

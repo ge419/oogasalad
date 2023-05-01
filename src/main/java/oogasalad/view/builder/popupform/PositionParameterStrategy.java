@@ -18,122 +18,130 @@ import oogasalad.view.builder.events.TileEvent;
 import oogasalad.view.tiles.ViewTile;
 
 /**
- * A strategy used by the popup form to display a form element when
- * a position is required from the user via user input. This consists
- * of three labeled double spinners for the user to input X, Y, and Angle values.
- * Additionally, an event handler is placed on the window to automatically
- * change the value displayed in the spinner depending on the location when dragged.
- * A key assumption is that the strategy assumes if the game construct is draggable,
- * dragging must fire a TileEvent.TILE_DRAGGED event. Otherwise, the form will not
- * update as the game construct is dragged.
- * Example Usage:
- * VBox form = new VBox();
- * PositionParameterStrategy strategy = new PositionParameterStrategy(myPositionAttribute, myPositionMetadata);
+ * A strategy used by the popup form to display a form element when a position is required from the
+ * user via user input. This consists of three labeled double spinners for the user to input X, Y,
+ * and Angle values. Additionally, an event handler is placed on the window to automatically change
+ * the value displayed in the spinner depending on the location when dragged. A key assumption is
+ * that the strategy assumes if the game construct is draggable, dragging must fire a
+ * TileEvent.TILE_DRAGGED event. Otherwise, the form will not update as the game construct is
+ * dragged. Example Usage: VBox form = new VBox(); PositionParameterStrategy strategy = new
+ * PositionParameterStrategy(myPositionAttribute, myPositionMetadata);
  * form.getChildren().add(strategy.renderInput(myResourceBundle, form));
+ *
  * @author Jason Fitzpatrick
  */
 public class PositionParameterStrategy implements ParameterStrategy, BuilderUtility {
 
-    private final PositionAttribute attr;
-    private final PositionMetadata meta;
-    private Spinner<Double> xElement;
-    private Spinner<Double> yElement;
-    private Spinner<Double> angleElement;
-    private static final double minValue = -999;
-    private static final double maxValue = 999;
-    private double initValue = 0;
-    private static final double minAngle = -360;
-    private static final double maxAngle = 360;
-    private double initAngle = 0;
-    private static final String ROOT_ID = "#BoardPane";
-    private String objectId;
-    private Pane root;
+  private final PositionAttribute attr;
+  private final PositionMetadata meta;
+  private Spinner<Double> xElement;
+  private Spinner<Double> yElement;
+  private Spinner<Double> angleElement;
+  private static final double minValue = -999;
+  private static final double maxValue = 999;
+  private double initValue = 0;
+  private static final double minAngle = -360;
+  private static final double maxAngle = 360;
+  private double initAngle = 0;
+  private static final String ROOT_ID = "#BoardPane";
+  private String objectId;
+  private Pane root;
 
-    /**
-     * Creates an instance of PositionParameterStrategy
-     * Can be used to display form data to a user for coordinates,
-     * validate the input, save to an attribute, and access
-     * the corresponding PositionAttribute and PositionMetadata
-     * @param attr PositionAttribute
-     * @param meta PositionMetadata
-     */
-    @Inject
-    public PositionParameterStrategy(
-            @Assisted Attribute attr,
-            @Assisted Metadata meta) {
-        this.attr = PositionAttribute.from(attr);
-        this.meta = PositionMetadata.from(meta);
-    }
+  /**
+   * Creates an instance of PositionParameterStrategy Can be used to display form data to a user for
+   * coordinates, validate the input, save to an attribute, and access the corresponding
+   * PositionAttribute and PositionMetadata
+   *
+   * @param attr PositionAttribute
+   * @param meta PositionMetadata
+   */
+  @Inject
+  public PositionParameterStrategy(
+      @Assisted Attribute attr,
+      @Assisted Metadata meta) {
+    this.attr = PositionAttribute.from(attr);
+    this.meta = PositionMetadata.from(meta);
+  }
 
-    /**
-     * Returns a JavaFX form element for a coordinate attribute
-     * @param resourceBundle
-     * @param form parent pane of element
-     * @return HBox containing labeled JavaFX spinners for X, Y, Angle
-     */
-    @Override
-    public Node renderInput(ResourceBundle resourceBundle, Pane form, String objectId) {
-        this.objectId = objectId;
-        String name = meta.getName();
-        Node textLabel = new Text(name);
-        Node xLabel = new Text("X");
-        xElement = (Spinner<Double>) makeDoubleSpinner(name+resourceBundle.getString("X"), minValue, maxValue, attr.getX());
-        Node yLabel = new Text("Y");
-        yElement = (Spinner<Double>) makeDoubleSpinner(name+resourceBundle.getString("Y"), minValue, maxValue, attr.getY());
-        Node angleLabel = new Text("Angle");
-        angleElement = (Spinner<Double>) makeDoubleSpinner(name+resourceBundle.getString("Angle"), minAngle, maxAngle, attr.getAngle());
-        VBox elementContainer = new VBox(new HBox(xLabel, xElement), new HBox(yLabel, yElement), new HBox(angleLabel, angleElement));
-        Scene scene = form.getScene();
-        this.root = (Pane) scene.lookup(ROOT_ID);
-        addHandlerToRoot();
-        return makeHBox(String.format("%sPositionInput", name), textLabel, elementContainer);
-    }
-    private void addHandlerToRoot() {
-        root.addEventHandler(TileEvent.DRAG_TILE, event -> {
-            if (event.getTile().getId() == objectId) {
-                ViewTile viewTile = event.getViewTile();
-                xElement.getValueFactory().setValue(viewTile.asNode().getBoundsInParent().getMinX());
-                yElement.getValueFactory().setValue(viewTile.asNode().getBoundsInParent().getMinY());
-            }
-        });
-    }
+  /**
+   * Returns a JavaFX form element for a coordinate attribute
+   *
+   * @param resourceBundle
+   * @param form           parent pane of element
+   * @return HBox containing labeled JavaFX spinners for X, Y, Angle
+   */
+  @Override
+  public Node renderInput(ResourceBundle resourceBundle, Pane form, String objectId) {
+    this.objectId = objectId;
+    String name = meta.getName();
+    Node textLabel = new Text(name);
+    Node xLabel = new Text("X");
+    xElement = (Spinner<Double>) makeDoubleSpinner(name + resourceBundle.getString("X"), minValue,
+        maxValue, attr.getX());
+    Node yLabel = new Text("Y");
+    yElement = (Spinner<Double>) makeDoubleSpinner(name + resourceBundle.getString("Y"), minValue,
+        maxValue, attr.getY());
+    Node angleLabel = new Text("Angle");
+    angleElement = (Spinner<Double>) makeDoubleSpinner(name + resourceBundle.getString("Angle"),
+        minAngle, maxAngle, attr.getAngle());
+    VBox elementContainer = new VBox(new HBox(xLabel, xElement), new HBox(yLabel, yElement),
+        new HBox(angleLabel, angleElement));
+    Scene scene = form.getScene();
+    this.root = (Pane) scene.lookup(ROOT_ID);
+    addHandlerToRoot();
+    return makeHBox(String.format("%sPositionInput", name), textLabel, elementContainer);
+  }
 
-    /**
-     * Saves input to instance's PositionAttribute
-     */
-    @Override
-    public void saveInput() {
-        attr.setCoordinate(new Coordinate(xElement.getValue(), yElement.getValue(), angleElement.getValue()));
-    }
+  private void addHandlerToRoot() {
+    root.addEventHandler(TileEvent.DRAG_TILE, event -> {
+      if (event.getTile().getId() == objectId) {
+        ViewTile viewTile = event.getViewTile();
+        xElement.getValueFactory().setValue(viewTile.asNode().getBoundsInParent().getMinX());
+        yElement.getValueFactory().setValue(viewTile.asNode().getBoundsInParent().getMinY());
+      }
+    });
+  }
 
-    /**
-     * Uses metadata to validate user input
-     * @return boolean (true means input is valid)
-     */
-    @Override
-    public boolean isInputValid() {
-        return meta.isValidCoordinate(getFieldValue());
-    }
+  /**
+   * Saves input to instance's PositionAttribute
+   */
+  @Override
+  public void saveInput() {
+    attr.setCoordinate(
+        new Coordinate(xElement.getValue(), yElement.getValue(), angleElement.getValue()));
+  }
 
-    /**
-     * Gets PositionMetadata
-     * @return PositionMetadata
-     */
-    @Override
-    public Metadata getMetadata() {
-        return meta;
-    }
+  /**
+   * Uses metadata to validate user input
+   *
+   * @return boolean (true means input is valid)
+   */
+  @Override
+  public boolean isInputValid() {
+    return meta.isValidCoordinate(getFieldValue());
+  }
 
-    /**
-     * Gets PositionAttribute
-     * @return PositionAttribute
-     */
-    @Override
-    public Attribute getAttribute() {
-        return attr;
-    }
+  /**
+   * Gets PositionMetadata
+   *
+   * @return PositionMetadata
+   */
+  @Override
+  public Metadata getMetadata() {
+    return meta;
+  }
 
-    private Coordinate getFieldValue() {
-        return new Coordinate(xElement.getValue(), yElement.getValue(), angleElement.getValue());
-    }
+  /**
+   * Gets PositionAttribute
+   *
+   * @return PositionAttribute
+   */
+  @Override
+  public Attribute getAttribute() {
+    return attr;
+  }
+
+  private Coordinate getFieldValue() {
+    return new Coordinate(xElement.getValue(), yElement.getValue(), angleElement.getValue());
+  }
 }

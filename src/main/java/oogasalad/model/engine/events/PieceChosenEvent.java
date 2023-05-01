@@ -1,6 +1,7 @@
 package oogasalad.model.engine.events;
 
 import oogasalad.model.engine.Event;
+
 public record PieceChosenEvent(Integer numberOfPieces) implements Event<PieceChosenEvent> {
 
   @Override

@@ -31,7 +31,7 @@ public class HandDisplayPopup extends BorderPane {
 
   public void addCards(List<ViewTile> cardList) {
     HBox hand = new HBox();
-    for (ViewTile card: cardList) {
+    for (ViewTile card : cardList) {
       hand.getChildren().add((Node) card);
       hand.setAlignment(Pos.CENTER);
     }

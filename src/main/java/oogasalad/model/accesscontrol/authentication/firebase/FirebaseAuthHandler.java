@@ -13,7 +13,7 @@ public class FirebaseAuthHandler implements AuthenticationHandler {
   private UserDao userDao;
 
   @Inject
-  public FirebaseAuthHandler(UserDao userDao){
+  public FirebaseAuthHandler(UserDao userDao) {
     this.userDao = userDao;
   }
 
@@ -33,7 +33,7 @@ public class FirebaseAuthHandler implements AuthenticationHandler {
   @Override
   public void register(String username, String password)
       throws ExecutionException, InterruptedException {
-    activeUserID = userDao.registerNewUser(username,password);
+    activeUserID = userDao.registerNewUser(username, password);
   }
 
   @Override
@@ -50,6 +50,7 @@ public class FirebaseAuthHandler implements AuthenticationHandler {
   public String getActiveUserName() {
     return activeUserUsername;
   }
+
   private void setUserLogInStatus(boolean logInStatus) {
     userLogInStatus = logInStatus;
   }

@@ -28,5 +28,6 @@ public interface ViewTileFactory {
   ViewTile createDynamicViewTile(Tile tile);
 
   StreetCard createStreetCard(Tile tile);
+
   ImageCard createImageCard(Tile tile);
 }

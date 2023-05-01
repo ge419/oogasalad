@@ -16,9 +16,11 @@ import javafx.stage.Stage;
  * @author tmh85
  */
 public class AboutView {
+
   private static final String BOI_PATH = "boi.jpg";
   private static final double BOI_SIZE = 300;
-  public AboutView(ResourceBundle language, String stylesheetPath){
+
+  public AboutView(ResourceBundle language, String stylesheetPath) {
     HBox entireBox = new HBox();
     VBox aboutTextBox = new VBox();
     aboutTextBox.getChildren().add(new Label(language.getString("TeamName")));

@@ -79,11 +79,13 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
   }
 
   private void displayPlayerHand(MouseEvent event) {
-    if (popup != null) {popup.hideHand();}
+    if (popup != null) {
+      popup.hideHand();
+    }
     popup = new HandDisplayPopup();
     //TODO: only pass in Player cards
     List<Tile> tiles = new ArrayList<>();
-    for (Tile tile: game.getBoard().getTiles()) {
+    for (Tile tile : game.getBoard().getTiles()) {
       if (tile.getOwnerId().equals(modelPlayer.getId())) {
         tiles.add(tile);
       }

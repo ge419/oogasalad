@@ -109,7 +109,7 @@ public class PositionMetadata extends AbstractMetadata {
     }
     PositionMetadata that = (PositionMetadata) o;
     return Objects.equals(getDefaultX(), that.getDefaultX()) && Objects.equals(getDefaultY(),
-        that.getDefaultY()) && Objects.equals(getDefaultAngle(), that.defaultAngle) ;
+        that.getDefaultY()) && Objects.equals(getDefaultAngle(), that.defaultAngle);
   }
 
   @Override

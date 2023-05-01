@@ -1,8 +1,8 @@
 package oogasalad.model.engine;
 
 /**
- * Enum that represents the priority of the {@link oogasalad.model.engine.actions.Action}
- * Actions with high priority are executed before those with lower priorities
+ * Enum that represents the priority of the {@link oogasalad.model.engine.actions.Action} Actions
+ * with high priority are executed before those with lower priorities
  *
  * @author Jay Yoon
  */

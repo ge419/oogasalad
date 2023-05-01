@@ -18,8 +18,8 @@ import oogasalad.view.tabexplorer.tabs.settings.SettingsTab;
 public class AppearanceSettings extends SettingsOptions {
 
   /**
-   * Class for sub-settings that aren't exactly "Tabs" and so shouldn't implement Tab, only update in
-   * settings page. need
+   * Class for sub-settings that aren't exactly "Tabs" and so shouldn't implement Tab, only update
+   * in settings page. need
    *
    * @param settingsTab
    * @param tabExplorer
@@ -54,8 +54,8 @@ public class AppearanceSettings extends SettingsOptions {
     RadioButton darkMode = new RadioButton("Dark Mode");
     RadioButton dukeMode = new RadioButton("DDMF Mode");
 
-    lightMode.setOnAction(e->tabExplorer.updateTheme("light"));
-    darkMode.setOnAction(e->tabExplorer.updateTheme("dark"));
+    lightMode.setOnAction(e -> tabExplorer.updateTheme("light"));
+    darkMode.setOnAction(e -> tabExplorer.updateTheme("dark"));
 
     ToggleGroup radioGroup = new ToggleGroup();
 
@@ -65,9 +65,8 @@ public class AppearanceSettings extends SettingsOptions {
 
     VBox checkBoxContainer = new VBox();
 
-    checkBoxContainer.getChildren().addAll(lightMode,darkMode,dukeMode);
+    checkBoxContainer.getChildren().addAll(lightMode, darkMode, dukeMode);
     checkBoxContainer.setSpacing(10);
-
 
     horizontalContainer.getChildren().addAll(changeThemeLabel, checkBoxContainer);
     horizontalContainer.setPadding(new Insets(20));

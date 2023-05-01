@@ -20,8 +20,9 @@ import oogasalad.model.accesscontrol.database.firebase.FirebaseAccessor;
 import oogasalad.model.exception.InvalidDatabaseExecutionException;
 
 public class FirebaseGameDao extends FirebaseAbstractDao implements GameDao {
+
   @Inject
-  public FirebaseGameDao(FirebaseAccessor firebaseAccessor){
+  public FirebaseGameDao(FirebaseAccessor firebaseAccessor) {
     super(firebaseAccessor);
   }
 
@@ -50,26 +51,27 @@ public class FirebaseGameDao extends FirebaseAbstractDao implements GameDao {
   }
 
   @Override
-  public void updateGame (String gameID, Map<String, Object> gameUpdate){
+  public void updateGame(String gameID, Map<String, Object> gameUpdate) {
     updateDocument(GAMES_COLLECTION, gameID, gameUpdate);
   }
 
   @Override
-  public List<String> getAllGames () {
+  public List<String> getAllGames() {
     return getAllDocumentsInCollection(GAMES_COLLECTION);
   }
 
   @Override
-  public void postGameReview (String review, String gameID, String userID){
+  public void postGameReview(String review, String gameID, String userID) {
     Map<String, Object> docData = new HashMap<>();
-    docData.put(REVIEW_AUTHOR_KEY,  userID);
+    docData.put(REVIEW_AUTHOR_KEY, userID);
     docData.put(REVIEW_DATE_POSTED_KEY, Timestamp.of(new Date()));
     docData.put(REVIEW_KEY, review);
 
-    updateDocument(GAMES_COLLECTION, gameID, createMap(GAME_REVIEWS_KEY, FieldValue.arrayUnion(docData)));
+    updateDocument(GAMES_COLLECTION, gameID,
+        createMap(GAME_REVIEWS_KEY, FieldValue.arrayUnion(docData)));
   }
 
-  private Map<String, Object> getDefaultGameEntry(String userID){
+  private Map<String, Object> getDefaultGameEntry(String userID) {
     Map<String, Object> gameMetaData = new HashMap<>();
     gameMetaData.put(TITLE_KEY, "");
     gameMetaData.put(DESCRIPTION_KEY, "");

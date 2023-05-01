@@ -19,8 +19,9 @@ import org.apache.logging.log4j.Logger;
 /**
  * Action for checking winning conditions and ending the Game if satisfied.
  * <p>
- *   notifies the {@link oogasalad.controller.GameController} and {@link oogasalad.view.gameplay.Gameview} to trigger appropriate actions
- *   Added to the engine action queue by ex. {@link oogasalad.model.engine.rules.RemovePlayerRule}
+ * notifies the {@link oogasalad.controller.GameController} and
+ * {@link oogasalad.view.gameplay.Gameview} to trigger appropriate actions Added to the engine
+ * action queue by ex. {@link oogasalad.model.engine.rules.RemovePlayerRule}
  * </p>
  *
  * @Author Jay Yoon
@@ -47,11 +48,11 @@ public class CheckWinAndEndAction implements Action {
   /**
    * executed action: checks winning condition and ends game if satisfied*
    * <p>
-   *   constructs mandatory String prompter selection option for user to validate
-   *   notifies {@link oogasalad.controller.GameController} and {@link oogasalad.view.gameplay.Gameview} to trigger appropriate actions
-   *   including automatically exiting current window
+   * constructs mandatory String prompter selection option for user to validate notifies
+   * {@link oogasalad.controller.GameController} and {@link oogasalad.view.gameplay.Gameview} to
+   * trigger appropriate actions including automatically exiting current window
    * </p>
-   *
+   * <p>
    * emits {@link GameEndEvent} that triggers end of game
    *
    * @param actionParams incl. emitter, prompter
@@ -62,8 +63,11 @@ public class CheckWinAndEndAction implements Action {
     if (winningCondition.isSatisfied()) {
       LOGGER.info("Satisfied Condition, Ending Game");
       List<StringPromptOption> validation = new ArrayList<>();
-      validation.add(new StringPromptOption(bundle.getString(getClass().getSimpleName()+VALIDATION_OPTION)));
-      actionParams.prompter().selectSingleOption(String.format(bundle.getString(getClass().getSimpleName())), validation, this::notifyEnd);
+      validation.add(
+          new StringPromptOption(bundle.getString(getClass().getSimpleName() + VALIDATION_OPTION)));
+      actionParams.prompter()
+          .selectSingleOption(String.format(bundle.getString(getClass().getSimpleName())),
+              validation, this::notifyEnd);
       actionParams.emitter().emit(new GameEndEvent());
     }
   }

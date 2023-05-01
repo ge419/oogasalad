@@ -11,7 +11,7 @@ public enum Theme {
     this.theme = theme;
   }
 
-  public String getThemeValue(){
+  public String getThemeValue() {
     return theme;
   }
 }

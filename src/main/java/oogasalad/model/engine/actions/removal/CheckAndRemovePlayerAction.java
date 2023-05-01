@@ -15,8 +15,8 @@ import org.apache.logging.log4j.Logger;
 /**
  * Action for removing players and updating GameHolder Players.
  * <p>
- *   Players whose scores are below given lower bound are removed from the GameHolder.
- *   Added to the engine action queue by {@link oogasalad.model.engine.rules.RemovePlayerRule}
+ * Players whose scores are below given lower bound are removed from the GameHolder. Added to the
+ * engine action queue by {@link oogasalad.model.engine.rules.RemovePlayerRule}
  * </p>
  *
  * @Author Jay Yoon
@@ -45,11 +45,12 @@ public class CheckAndRemovePlayerAction implements Action {
   /**
    * executed action: removal of players from the game, updating GameHolder accordingly.*
    * <p>
-   *   uses {@link PlayerRemovalStrategy} to remove players from the game with given conditions
-   *   uses {@link TileResetStrategy} to set the tiles of the list of removed players to unowned
+   * uses {@link PlayerRemovalStrategy} to remove players from the game with given conditions uses
+   * {@link TileResetStrategy} to set the tiles of the list of removed players to unowned
    * </p>
-   *
-   * emits {@link PlayerRemovalEvent} that triggers other rules ex. {@link oogasalad.model.engine.actions.wins.CheckWinAndEndAction}
+   * <p>
+   * emits {@link PlayerRemovalEvent} that triggers other rules ex.
+   * {@link oogasalad.model.engine.actions.wins.CheckWinAndEndAction}
    *
    * @param actionParams
    */

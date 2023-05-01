@@ -7,5 +7,6 @@ package oogasalad.controller;
  */
 @FunctionalInterface
 public interface Effect {
+
   void present(Runnable callback);
 }

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerListMetadata extends AbstractMetadata{
+public class PlayerListMetadata extends AbstractMetadata {
 
   public static final Class<PlayerListAttribute> ATTRIBUTE_CLASS = PlayerListAttribute.class;
 

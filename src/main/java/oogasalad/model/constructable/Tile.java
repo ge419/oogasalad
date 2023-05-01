@@ -158,10 +158,14 @@ public class Tile extends AbstractGameConstruct {
   }
 
   @JsonIgnore
-  public double getAngle() {return getCoordinate().getAngle();}
+  public double getAngle() {
+    return getCoordinate().getAngle();
+  }
 
   @JsonIgnore
-  public void setAngle(double angle) {positionAttribute().setAngle(angle);}
+  public void setAngle(double angle) {
+    positionAttribute().setAngle(angle);
+  }
 
   @JsonIgnore
   public DoubleAttribute widthAttribute() {
@@ -194,7 +198,7 @@ public class Tile extends AbstractGameConstruct {
   }
 
   @JsonIgnore
-  public ColorAttribute colorAttribute(){
+  public ColorAttribute colorAttribute() {
     return ColorAttribute.from(getAttribute(COLOR_ATTRIBUTE).get());
   }
 

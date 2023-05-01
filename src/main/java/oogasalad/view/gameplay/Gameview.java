@@ -40,11 +40,11 @@ public class Gameview implements GameObserver {
    * <p> The "Main" class for the gameplay frontend that renders all frontend components and
    * displays in window
    *
-   * <p>Assumptions: Any additional frontend components must implement the Renderable interface and be
+   * <p>Assumptions: Any additional frontend components must implement the Renderable interface and
+   * be
    * added to the renderGameview method
    *
    * <p>Dependencies: GameHolder, Tiles, Die, ViewPlayers, ViewPieces
-   *
    */
 
   //TODO: refactor to read from JSON file
@@ -58,7 +58,7 @@ public class Gameview implements GameObserver {
   private Scene scene;
   private BorderPane UIroot;
   private ViewPlayers viewPlayers;
-//      = new ViewPlayers(null, viewFactory);
+  //      = new ViewPlayers(null, viewFactory);
   private Stage myStage;
   private ViewPieces viewPieces;
   private HandDisplayPopup popup;
@@ -75,16 +75,17 @@ public class Gameview implements GameObserver {
   }
 
   /**
-   * Receive the frontend player component that is associated with the backend player with specified ID
+   * Receive the frontend player component that is associated with the backend player with specified
+   * ID
    *
    * <p>Assumptions: ID passed is valid.
    *
    * <p>Parameters:
+   *
    * @param primaryStage is the stage that all frontend components are to be added to
    *
-   * <p>Exceptions:
+   *                     <p>Exceptions:
    * @throws IOException if any frontend components' render method is faulty
-   *
    */
   public void renderGameview(Stage primaryStage) throws IOException {
     myStage = primaryStage;
@@ -104,7 +105,6 @@ public class Gameview implements GameObserver {
     // TODO: Dynamically watch players/pieces
 
     scene = new Scene(UIroot);
-
 
     //TODO: refactor to read from property file
     myStage.setTitle("Monopoly");

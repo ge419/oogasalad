@@ -16,9 +16,8 @@ import oogasalad.view.tiles.TileModule;
 /**
  * Module for constructing {@link GameController} used for dependency injection
  * <p>
- *   includes other modules used in controller, including AttributeModule for SchemaDatabase
- *   factorymodulebuilder to support constructing prompters,
- *   engine module to construct the engine
+ * includes other modules used in controller, including AttributeModule for SchemaDatabase
+ * factorymodulebuilder to support constructing prompters, engine module to construct the engine
  *
  * @Author Jay Yoon
  */

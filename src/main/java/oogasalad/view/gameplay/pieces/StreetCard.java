@@ -1,6 +1,6 @@
 package oogasalad.view.gameplay.pieces;
 
- import com.google.inject.Inject;
+import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import javafx.scene.input.MouseEvent;
 import oogasalad.model.attribute.StringAttribute;
@@ -21,7 +21,8 @@ public class StreetCard extends StreetTile implements Movable {
 
   private void createCardPopup(MouseEvent mouseEvent) {
     String title = StringAttribute.from(this.getTile().getAttribute("info").get()).getValue();
-    String description = StringAttribute.from(this.getTile().getAttribute("description").get()).getValue();
+    String description = StringAttribute.from(this.getTile().getAttribute("description").get())
+        .getValue();
     CardDisplayPopup cardPopup = new CardDisplayPopup(title, description);
     cardPopup.showCard();
   }

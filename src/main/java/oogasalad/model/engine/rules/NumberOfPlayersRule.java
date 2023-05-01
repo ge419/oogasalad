@@ -24,7 +24,7 @@ import org.apache.logging.log4j.Logger;
  *
  * @Author Jay Yoon
  */
-public class NumberOfPlayersRule extends AbstractGameConstruct implements EditableRule{
+public class NumberOfPlayersRule extends AbstractGameConstruct implements EditableRule {
 
   private static final Logger LOGGER = LogManager.getLogger(NumberOfPlayersRule.class);
 
@@ -43,11 +43,13 @@ public class NumberOfPlayersRule extends AbstractGameConstruct implements Editab
   }
 
   /**
-   * Listens for a {@link StartGameEvent} to run {@link #generatePlayersOnSelection(EventHandlerParams)}
+   * Listens for a {@link StartGameEvent} to run
+   * {@link #generatePlayersOnSelection(EventHandlerParams)}
    *
    * <p>
-   *   retrieves the number of minimum, maximum players to play game and number of pieces per player
-   *   adds {@link oogasalad.model.engine.actions.creation.CreatePlayersAction} to action queue for player creation
+   * retrieves the number of minimum, maximum players to play game and number of pieces per player
+   * adds {@link oogasalad.model.engine.actions.creation.CreatePlayersAction} to action queue for
+   * player creation
    * </p>
    *
    * @param registrar provides event registration methods
@@ -57,11 +59,12 @@ public class NumberOfPlayersRule extends AbstractGameConstruct implements Editab
     registrar.registerHandler(StartGameEvent.class, this::generatePlayersOnSelection);
   }
 
-  protected void generatePlayersOnSelection(EventHandlerParams<StartGameEvent> eventHandlerParams){
+  protected void generatePlayersOnSelection(EventHandlerParams<StartGameEvent> eventHandlerParams) {
     int min = IntAttribute.from(this.getAttribute(MIN_PLAYER).get()).getValue();
     int max = IntAttribute.from(this.getAttribute(MAX_PLAYER).get()).getValue();
     int piecePerPlayer = IntAttribute.from(this.getAttribute(PIECE_PER_PLAYER).get()).getValue();
     LOGGER.info("Add Create Players Action to ActionQueue");
-    eventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(), actionFactory.makeCreatePlayersAction(min, max, piecePerPlayer));
+    eventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(),
+        actionFactory.makeCreatePlayersAction(min, max, piecePerPlayer));
   }
 }

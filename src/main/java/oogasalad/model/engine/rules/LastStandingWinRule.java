@@ -43,9 +43,10 @@ public class LastStandingWinRule extends AbstractGameConstruct implements Editab
    * Listens for a {@link PlayerRemovalEvent} to run {@link #checkWinState(EventHandlerParams)} )}
    *
    * <p>
-   *   retrieves the number of winners from the rule attribute
-   *   uses {@link StandingWinningStrategy} as winning condition strategy to check for winning condition
-   *   adds {@link oogasalad.model.engine.actions.wins.CheckWinAndEndAction} to action queue for potential game end
+   * retrieves the number of winners from the rule attribute uses {@link StandingWinningStrategy} as
+   * winning condition strategy to check for winning condition adds
+   * {@link oogasalad.model.engine.actions.wins.CheckWinAndEndAction} to action queue for potential
+   * game end
    * </p>
    *
    * @param registrar provides event registration methods
@@ -58,6 +59,7 @@ public class LastStandingWinRule extends AbstractGameConstruct implements Editab
   protected void checkWinState(EventHandlerParams<PlayerRemovalEvent> eventEventHandlerParams) {
     int lastN = IntAttribute.from(this.getAttribute(NUM_WIN_PLAYER).get()).getValue();
     WinningConditionStrategy winningCondition = new StandingWinningStrategy(gameHolder, lastN);
-    eventEventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(), actionFactory.makeCheckWinStateAction(winningCondition));
+    eventEventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(),
+        actionFactory.makeCheckWinStateAction(winningCondition));
   }
 }

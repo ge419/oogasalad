@@ -17,7 +17,7 @@ public class UserPreferences {
   private AuthenticationHandler authHandler;
 
   @Inject
-  public UserPreferences(UserDao userDao, AuthenticationHandler authHandler){
+  public UserPreferences(UserDao userDao, AuthenticationHandler authHandler) {
     this.userDao = userDao;
     this.authHandler = authHandler;
   }
@@ -34,7 +34,8 @@ public class UserPreferences {
 
   public String getPreferredLanguagePath() {
     String userID = authHandler.getActiveUserID();
-    preferredLanguage = (String)userDao.getUserData(userID).get(UserSchema.PREFERRED_LANGUAGE.getFieldName());
+    preferredLanguage = (String) userDao.getUserData(userID)
+        .get(UserSchema.PREFERRED_LANGUAGE.getFieldName());
     return LANGUAGE_PROPERTIES_PATH + preferredLanguage;
   }
 

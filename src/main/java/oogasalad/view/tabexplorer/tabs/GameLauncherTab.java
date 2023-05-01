@@ -148,7 +148,8 @@ public class GameLauncherTab implements Tab {
         editMenuItem = new MenuItem("edit");
         deleteMenuItem = new MenuItem("delete");
         unsubscribeMenuItem = new MenuItem("unsubscribe");
-        MenuButton menuButton = new MenuButton("\u22EE", null,editMenuItem);
+        MenuButton menuButton = new MenuButton(null, null,editMenuItem);
+        menuButton.setPrefSize(3,3);
 
         String author = (String) gameMetaData.get(GameSchema.AUTHOR.getFieldName());
 
@@ -156,9 +157,15 @@ public class GameLauncherTab implements Tab {
 
         menuButton.getItems().add(isAuthorOfGame ? deleteMenuItem : unsubscribeMenuItem);
 
-        deleteMenuItem.setOnAction(e->userDao.deleteGame(gameID));
-        unsubscribeMenuItem.setOnAction(e->userDao.unsubscribeToGame(authHandler.getActiveUserID(), gameID));
-        editMenuItem.setOnAction(e->tabExplorer.launchGame(gameID));
+        deleteMenuItem.setOnAction(e-> {
+          userDao.deleteGame(gameID);
+          renderTabContent();
+        });
+        unsubscribeMenuItem.setOnAction(e-> {
+          userDao.unsubscribeToGame(authHandler.getActiveUserID(), gameID);
+          renderTabContent();
+        });
+        editMenuItem.setOnAction(e->tabExplorer.launchGameBuilder(gameID));
 
         HBox container = new HBox(imageView, menuButton);
         VBox gameBox = new VBox(container, new Label(name));
@@ -215,6 +222,7 @@ public class GameLauncherTab implements Tab {
         String gameID = gameDao.createGame(authHandler.getActiveUserID());
         gameDao.updateGame(gameID, game);
         tabExplorer.launchGameBuilder(gameID);
+        renderTabContent();
       }
     });
   }

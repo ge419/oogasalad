@@ -7,6 +7,7 @@ import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.engine.actions.Action;
 import oogasalad.model.engine.actions.ActionParams;
+import oogasalad.model.engine.events.PlayerCreationEvent;
 import oogasalad.model.engine.events.PlayerRemovalEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -41,6 +42,17 @@ public class CheckAndRemovePlayerAction implements Action {
     this.tileResetStrategy = tileResetStrategy;
   }
 
+  /**
+   * executed action: removal of players from the game, updating GameHolder accordingly.*
+   * <p>
+   *   uses {@link PlayerRemovalStrategy} to remove players from the game with given conditions
+   *   uses {@link TileResetStrategy} to set the tiles of the list of removed players to unowned
+   * </p>
+   *
+   * emits {@link PlayerRemovalEvent} that triggers other rules ex. {@link oogasalad.model.engine.actions.wins.CheckWinAndEndAction}
+   *
+   * @param actionParams
+   */
   @Override
   public void runAction(ActionParams actionParams) {
     List<Player> playersToRemove = removalStrategy.removePlayers(gameholder, scoreMinBound);

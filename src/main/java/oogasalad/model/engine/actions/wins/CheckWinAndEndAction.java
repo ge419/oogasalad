@@ -10,6 +10,7 @@ import oogasalad.model.engine.EngineResourceBundle;
 import oogasalad.model.engine.actions.Action;
 import oogasalad.model.engine.actions.ActionParams;
 import oogasalad.model.engine.events.GameEndEvent;
+import oogasalad.model.engine.events.PlayerCreationEvent;
 import oogasalad.model.engine.prompt.PromptOption;
 import oogasalad.model.engine.prompt.StringPromptOption;
 import org.apache.logging.log4j.LogManager;
@@ -43,6 +44,18 @@ public class CheckWinAndEndAction implements Action {
     this.bundle = bundle;
   }
 
+  /**
+   * executed action: checks winning condition and ends game if satisfied*
+   * <p>
+   *   constructs mandatory String prompter selection option for user to validate
+   *   notifies {@link oogasalad.controller.GameController} and {@link oogasalad.view.gameplay.Gameview} to trigger appropriate actions
+   *   including automatically exiting current window
+   * </p>
+   *
+   * emits {@link GameEndEvent} that triggers end of game
+   *
+   * @param actionParams incl. emitter, prompter
+   */
   @Override
   public void runAction(ActionParams actionParams) {
     LOGGER.info("Checking if Current Game Player Status Satisfies Winning Condition");

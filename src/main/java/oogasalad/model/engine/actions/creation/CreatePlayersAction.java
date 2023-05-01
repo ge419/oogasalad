@@ -64,6 +64,19 @@ public class CreatePlayersAction implements Action {
     this.bundle = bundle;
   }
 
+  /**
+   * executed action: creation of specific number of players, updating GameHolder Players accordingly
+   * constructs mandatory integer selection options to be presented by prompter to user
+   *
+   * <p>
+   *   randomize player color and piece image, and binds the corresponding game piece to player
+   *   updates the GameHolder with newly generated Players and List of Pieces
+   * </p>
+   *
+   * emits {@link PlayerCreationEvent} that triggers other rules ex. {@link oogasalad.model.engine.rules.TurnRule}
+   *
+   * @param actionParams incl. emitter, prompter
+   */
   @Override
   public void runAction(ActionParams actionParams) {
     List<IntegerPromptOption> options = new ArrayList<>();

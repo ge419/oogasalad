@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 import oogasalad.model.engine.EngineResourceBundle;
 import oogasalad.model.engine.actions.Action;
 import oogasalad.model.engine.actions.ActionParams;
+import oogasalad.model.engine.events.PlayerCreationEvent;
 
 /**
  * Action for buying Tiles.
@@ -24,6 +25,14 @@ public class BuyAction implements Action {
     this.bundle = bundle;
   }
 
+  /**
+   * executed action: prompts the user to select whether to buy Tile*
+   * <p>
+   *   constructs the Boolean prompter option for the user to select whether to buy the landed tile
+   *   if selected positive, runs the callback to process buying, including updating tile owner and player score
+   * </p>*
+   * @param actionParams incl. prompter
+   */
   @Override
   public void runAction(ActionParams actionParams) {
     actionParams.prompter().yesNoDialog(bundle.getString(getClass().getSimpleName()), this::maybeBuy);

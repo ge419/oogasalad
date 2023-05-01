@@ -101,7 +101,7 @@ public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
   }
 
   @Override
-  public void cloneGame(String userID, String gameID) {
+  public void subscribeToGame(String userID, String gameID) {
     updateDocument(USERS_COLLECTION, userID,
         createMap(GAMES_KEY, FieldValue.arrayUnion(gameID)));
 
@@ -110,9 +110,9 @@ public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
   }
 
   @Override
-  public void unCloneGame(String userID, String gameID) {
-
-    // todo remove gameID from userID games[]
+  public void unsubscribeToGame(String userID, String gameID) {
+    // remove the game from user games array
+    removeGameForUser(userID, gameID);
 
     //decrement subscription count
     updateDocument(GAMES_COLLECTION, gameID,
@@ -129,7 +129,7 @@ public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
         removeGameForUser(userID, gameID);
       }
     }catch (Exception e){
-      LOG.debug("Game deletion process ran into errros");
+      LOG.debug("Game deletion process ran into errors");
       throw new InvalidDatabaseExecutionException("Could not delete game properly", e);
     }
   }

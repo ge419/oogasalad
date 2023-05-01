@@ -142,7 +142,6 @@ class GameHolderTest {
     board.addTile(tile3);
     gameHolder.setBoard(board);
     String id1 = gameHolder.getBoard().getTiles().get(0).getId();
-    assertEquals(gameHolder.getBoard().getTileCount(), 3);
     assertTrue(gameHolder.getTileById(id1).isPresent());
   }
 

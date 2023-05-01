@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import oogasalad.model.attribute.FileReader;
 import oogasalad.model.exception.FileReaderException;
 
+@Deprecated
 public class BActionDB {
 
   Logger logger = Logger.getLogger(String.valueOf(FileReader.class));

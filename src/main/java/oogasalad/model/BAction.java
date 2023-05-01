@@ -3,6 +3,7 @@ package oogasalad.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
+@Deprecated
 public class BAction {
 
   @JsonProperty("name")

@@ -1,13 +1,13 @@
 package oogasalad.model.accesscontrol.database.schema;
 
-public enum ReviewsSchema {
+public enum ReviewSchema {
   AUTHOR("author"),
   DATE_POSTED("date_posted"),
   REVIEW("review");
 
   private final String fieldName;
 
-  ReviewsSchema(String fieldName) {
+  ReviewSchema(String fieldName) {
     this.fieldName = fieldName;
   }
   public String getFieldName() {

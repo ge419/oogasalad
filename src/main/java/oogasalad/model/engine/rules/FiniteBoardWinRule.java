@@ -35,7 +35,7 @@ public class FiniteBoardWinRule extends AbstractGameConstruct implements Editabl
     registrar.registerHandler(TileLandedEvent.class, this::checkTileWin);
   }
 
-  private void checkTileWin(EventHandlerParams<TileLandedEvent> eventEventHandlerParams) {
+  protected void checkTileWin(EventHandlerParams<TileLandedEvent> eventEventHandlerParams) {
     List<String> winningTileIds = TileListAttribute.from(this.getAttribute(WINNING_TILES).get()).getTileIds();
     String landedTileId = eventEventHandlerParams.event().landedTile().getId();
     eventEventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(), actionFactory.makeCheckTileWinAction(landedTileId, winningTileIds));

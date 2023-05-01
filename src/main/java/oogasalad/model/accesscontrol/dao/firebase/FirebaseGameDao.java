@@ -17,9 +17,9 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import oogasalad.model.accesscontrol.dao.GameDao;
 import oogasalad.model.accesscontrol.database.firebase.FirebaseAccessor;
+import oogasalad.model.exception.InvalidDatabaseExecutionException;
 
 public class FirebaseGameDao extends FirebaseAbstractDao implements GameDao {
-
   @Inject
   public FirebaseGameDao(FirebaseAccessor firebaseAccessor){
     super(firebaseAccessor);
@@ -32,83 +32,56 @@ public class FirebaseGameDao extends FirebaseAbstractDao implements GameDao {
 
   @Override
   public String createGame(String userID) {
-    CollectionReference collection = db.collection("games");
+    CollectionReference collection = db.collection(GAMES_COLLECTION);
     DocumentReference newDocRef;
 
-    Map<String, Object> gameMetaData = new HashMap<>();
-
-    gameMetaData.put("title", "");
-    gameMetaData.put("description", "");
-    gameMetaData.put("genre", "");
-    gameMetaData.put("author", userID);
-    gameMetaData.put("subscription_count", 1);
-    gameMetaData.put("number_of_plays", 0);
-    gameMetaData.put("thumbnail", userID); //simplifying assumption, stored data folder
-    gameMetaData.put("date_created", Timestamp.of(new Date()));
-    gameMetaData.put("game_data", "");
-    gameMetaData.put("reviews", Arrays.asList());
+    Map<String, Object> gameMetaData = getDefaultGameEntry(userID);
 
     try {
       newDocRef = collection.add(gameMetaData).get();
       String gameID = newDocRef.getId();
-
-      //System.out.println("Auto-generated ID for new document: " + gameID);
-
-      DocumentReference userRef = db.collection("users").document(userID);
-      userRef.update("games", FieldValue.arrayUnion(gameID));
-
+      DocumentReference userRef = db.collection(USERS_COLLECTION).document(userID);
+      userRef.update(GAMES_KEY, FieldValue.arrayUnion(gameID));
       return gameID;
-    } catch (InterruptedException e) {
-      // TODO use logger and add custom exception class
-      throw new RuntimeException(e);
-    } catch (ExecutionException e) {
-      throw new RuntimeException(e);
+    } catch (InterruptedException | ExecutionException e) {
+      LOG.debug("failed to create game in createGame method");
+      throw new InvalidDatabaseExecutionException("Failed to create game!", e);
     }
   }
 
   @Override
   public void updateGame (String gameID, Map<String, Object> gameUpdate){
-    DocumentReference docRef = db.collection("games").document(gameID);
-    docRef.update(gameUpdate);
+    updateDocument(GAMES_COLLECTION, gameID, gameUpdate);
   }
 
   @Override
   public List<String> getAllGames () {
-    CollectionReference collection = db.collection("games");
-
-// retrieve all document snapshots
-    ApiFuture<QuerySnapshot> querySnapshotFuture = collection.get();
-    QuerySnapshot querySnapshot = null;
-    try {
-      querySnapshot = querySnapshotFuture.get();
-      // loop through the document snapshots and get their IDs
-      List<String> documentIds = new ArrayList<>();
-      for (DocumentSnapshot documentSnapshot : querySnapshot.getDocuments()) {
-        documentIds.add(documentSnapshot.getId());
-      }
-
-      return documentIds;
-
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
-    } catch (ExecutionException e) {
-      throw new RuntimeException(e);
-    }
-
+    return getAllDocumentsInCollection(GAMES_COLLECTION);
   }
 
   @Override
   public void postGameReview (String review, String gameID, String userID){
     Map<String, Object> docData = new HashMap<>();
-    docData.put("author",  userID);
-    docData.put("date_posted", Timestamp.of(new Date()));
-    docData.put("review", review);
-    // Get a reference to the document
-    DocumentReference userDocRef = db.collection("games").document(gameID);
-    // Execute the update
-    userDocRef.update("reviews", FieldValue.arrayUnion(docData));
+    docData.put(REVIEW_AUTHOR_KEY,  userID);
+    docData.put(REVIEW_DATE_POSTED_KEY, Timestamp.of(new Date()));
+    docData.put(REVIEW_KEY, review);
 
-//      //todo add update method to Dao, might be useful for other things
-//
+    updateDocument(GAMES_COLLECTION, gameID, createMap(GAME_REVIEWS_KEY, FieldValue.arrayUnion(docData)));
+  }
+
+  private Map<String, Object> getDefaultGameEntry(String userID){
+    Map<String, Object> gameMetaData = new HashMap<>();
+    gameMetaData.put(TITLE_KEY, "");
+    gameMetaData.put(DESCRIPTION_KEY, "");
+    gameMetaData.put(GENRE_KEY, "");
+    gameMetaData.put(GAME_AUTHOR_KEY, userID);
+    gameMetaData.put(SUBSCRIPTION_COUNT_KEY, 1);
+    gameMetaData.put(NUMBER_OF_PLAYS_KEY, 0);
+    gameMetaData.put(THUMBNAIL_KEY, userID); //simplifying assumption, stored data folder
+    gameMetaData.put(DATE_CREATED_KEY, Timestamp.of(new Date()));
+    gameMetaData.put(GAME_DATA_KEY, "");
+    gameMetaData.put(GAME_REVIEWS_KEY, Arrays.asList());
+
+    return gameMetaData;
   }
 }

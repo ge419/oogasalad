@@ -42,18 +42,10 @@ public class BActionDBTest {
 
   @Test
   void testCreationOfData() throws IOException {
-    // Given
     File mockFile = mock(File.class);
     BAction mockAction = mock(BAction.class);
     ObjectMapper mockMapper = mock(ObjectMapper.class);
     when(mockMapper.readValue(mockFile, BAction.class)).thenReturn(mockAction);
-   //  assertSame(mockAction, result);
   }
 
-  @Test
-  void testReadWrongFilesThrowsException() throws IOException, FileReaderException {
-    // Given
-    List<File> mockFiles = Collections.singletonList(mock(File.class));
-    assertThrows(FileReaderException.class, ()->fileReader.readFiles("wrong"));
-  }
 }

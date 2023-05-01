@@ -171,6 +171,7 @@ public class TabExplorer {
     System.out.println("local str: " + Languages.ENGLISH.getLocaleStr());
     GameController gameController = new GameController(
         Languages.ENGLISH.getLocaleStr(), Paths.get(PathFinder.getGameDataPath(gameID)));
+    System.out.println("paths: "+Paths.get(PathFinder.getGameDataPath(gameID)));
     Stage gameStage = new Stage();
     gameController.setGame(gameStage);
   }

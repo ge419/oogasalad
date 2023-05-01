@@ -8,7 +8,13 @@ import com.google.firebase.cloud.FirestoreClient;
 import com.google.inject.Inject;
 import java.io.InputStream;
 
-
+/**
+ * This class provides an interface to the Firebase database using the Firestore client. The
+ * FirebaseAccessor class initializes the database client using a service account credential file,
+ * which is loaded from the specified file path.
+ *
+ * @author cgd19
+ */
 public class FirebaseAccessor {
 
   private final String serviceCredPath;

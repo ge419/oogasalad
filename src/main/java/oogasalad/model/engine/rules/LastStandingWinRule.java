@@ -31,7 +31,7 @@ public class LastStandingWinRule extends AbstractGameConstruct implements Editab
     registrar.registerHandler(PlayerRemovalEvent.class, this::checkWinState);
   }
 
-  private void checkWinState(EventHandlerParams<PlayerRemovalEvent> eventEventHandlerParams) {
+  protected void checkWinState(EventHandlerParams<PlayerRemovalEvent> eventEventHandlerParams) {
     int lastN = IntAttribute.from(this.getAttribute(NUM_WIN_PLAYER).get()).getValue();
     eventEventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(), actionFactory.makeCheckWinStateAction(lastN));
   }

@@ -1,0 +1,76 @@
+package oogasalad.model.engine.rules;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import oogasalad.model.attribute.AttributeModule;
+import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.engine.ActionQueue;
+import oogasalad.model.engine.EventHandler;
+import oogasalad.model.engine.EventHandlerParams;
+import oogasalad.model.engine.EventRegistrar;
+import oogasalad.model.engine.Priority;
+import oogasalad.model.engine.SimpleActionQueue;
+import oogasalad.model.engine.actions.ActionFactory;
+import oogasalad.model.engine.actions.CheckAndRemovePlayerAction;
+import oogasalad.model.engine.actions.CreatePlayersAction;
+import oogasalad.model.engine.events.StartGameEvent;
+import oogasalad.model.engine.events.StartTurnEvent;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+
+class RemovePlayerRuleTest {
+
+  private ActionFactory mockActionFactory;
+  private CheckAndRemovePlayerAction mockedAction;
+  private ActionQueue mockedQueue;
+  private EventHandlerParams<StartTurnEvent> eventHandlerParams;
+  private RemovePlayerRule rule;
+  private static final int TEST_MIN = 0;
+
+  @BeforeEach
+  public void setUp() {
+    mockActionFactory = mock(ActionFactory.class);
+    mockedAction = mock(CheckAndRemovePlayerAction.class);
+    mockedQueue = mock(SimpleActionQueue.class);
+    when(mockActionFactory.makeCheckAndRemovePlayerAction(TEST_MIN)).thenReturn(mockedAction);
+
+    Injector injector = Guice.createInjector(new AttributeModule());
+    SchemaDatabase db = injector.getInstance(SchemaDatabase.class);
+
+    eventHandlerParams = new EventHandlerParams<>(
+        new StartTurnEvent(), mockedQueue
+    );
+    rule = new RemovePlayerRule(db, mockActionFactory);
+  }
+
+  @Test
+  public void listensToStartTurnEvent() {
+    EventRegistrar registrar = mock(EventRegistrar.class);
+    rule.registerEventHandlers(registrar);
+
+    ArgumentCaptor<EventHandler> handlerCaptor = ArgumentCaptor.forClass(EventHandler.class);
+    verify(registrar).registerHandler(eq(StartTurnEvent.class), handlerCaptor.capture());
+  }
+
+  @Test
+  public void makesRemovePlayersAction() {
+    rule.removePlayers(eventHandlerParams);
+
+    verify(mockActionFactory).makeCheckAndRemovePlayerAction(TEST_MIN);
+  }
+
+  @Test
+  public void addsGeneratedActionToQueue() {
+    rule.removePlayers(eventHandlerParams);
+
+    verify(mockedQueue).add(Priority.MOST_HIGH.getValue(), mockedAction);
+  }
+
+}

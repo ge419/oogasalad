@@ -8,7 +8,7 @@
       "name": "minimum bound of score",
       "description": "minimum score a player can have to continue playing game",
       "editable": true,
-      "viewable": false,
+      "viewable": true,
       "defaultValue": 0
     }
   ]

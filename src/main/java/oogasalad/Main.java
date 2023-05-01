@@ -3,18 +3,17 @@ package oogasalad;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import oogasalad.controller.BuilderController;
+import oogasalad.controller.GameController;
 import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.TabModule;
 import oogasalad.view.tabexplorer.userpreferences.Languages;
 
-/**
- * Feel free to completely change this code or delete it entirely.
- */
 public class Main extends Application {
 
   private static final String SERVICE_ACCOUNT_CRED_PATH = "/accesscontrol/service_account.json";
@@ -24,13 +23,6 @@ public class Main extends Application {
 
   public static void main(String[] args) {
     launch(args);
-  }
-
-  /**
-   * A method to test (and a joke :).
-   */
-  public double getVersion() {
-    return 0.001;
   }
 
   @Override
@@ -43,8 +35,5 @@ public class Main extends Application {
     );
     TabExplorer launcher = injector.getInstance(TabExplorer.class);
     launcher.render();
-
-//    new BuilderController(Languages.ENGLISH.getLocaleStr(), Paths.get("data", "0TTYFzGUPQG2HXB2BsB4"));
-
   }
 }

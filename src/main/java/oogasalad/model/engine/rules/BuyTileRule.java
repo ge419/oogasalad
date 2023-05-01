@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JacksonInject;
 import java.util.ResourceBundle;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ReadOnlyListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 import javax.inject.Inject;
 import oogasalad.model.attribute.DoubleAttribute;
 import oogasalad.model.attribute.PlayerAttribute;
@@ -18,7 +20,7 @@ import oogasalad.model.engine.EngineResourceBundle;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.Priority;
-import oogasalad.model.engine.actions.BuyAction;
+import oogasalad.model.engine.actions.scores.BuyAction;
 import oogasalad.model.engine.events.TileLandedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,7 +33,7 @@ public class BuyTileRule extends AbstractGameConstruct implements EditableRule {
   public static final String OWNER_ATTRIBUTE = "owner";
   private static final Logger LOGGER = LogManager.getLogger(BuyTileRule.class);
   public static final String IMAGE = "image";
-  private final ListProperty<SchemaBinding> appliedSchemaProperty;
+  private ListProperty<SchemaBinding> appliedSchemaProperty;
   private final GameHolder gameHolder;
   private final ResourceBundle bundle;
 
@@ -42,7 +44,6 @@ public class BuyTileRule extends AbstractGameConstruct implements EditableRule {
       @JacksonInject @EngineResourceBundle ResourceBundle bundle
   ) {
     super(SCHEMA_NAME, database);
-    appliedSchemaProperty = RuleUtils.bindToTileType(this, APPLIED_SCHEMA_NAME);
     this.gameHolder = gameHolder;
     this.bundle = bundle;
   }
@@ -57,7 +58,15 @@ public class BuyTileRule extends AbstractGameConstruct implements EditableRule {
     return appliedSchemaProperty;
   }
 
-  private void tryBuyProp(EventHandlerParams<TileLandedEvent> eventHandlerParams) {
+  @Override
+  protected void setAttributeListeners() {
+    if (appliedSchemaProperty == null) {
+      appliedSchemaProperty = new SimpleListProperty<>(FXCollections.observableArrayList());
+    }
+    RuleUtils.bindToTileType(this, APPLIED_SCHEMA_NAME, appliedSchemaProperty);
+  }
+
+  protected void tryBuyProp(EventHandlerParams<TileLandedEvent> eventHandlerParams) {
     Tile tile = eventHandlerParams.event().landedTile();
     Piece piece = eventHandlerParams.event().piece();
     Player player = gameHolder.getCurrentPlayer();

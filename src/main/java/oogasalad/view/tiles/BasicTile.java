@@ -23,7 +23,7 @@ public class BasicTile extends Rectangle implements ViewTile {
 
   @Inject
   public BasicTile(@Assisted Tile tile) {
-    super(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
+    super(0, 0, tile.getWidth(), tile.getHeight());
     this.myModelTile = tile;
 
     this.setFill(Paint.valueOf(myModelTile.colorAttribute().getValue()));
@@ -32,8 +32,6 @@ public class BasicTile extends Rectangle implements ViewTile {
       this.setFill(Paint.valueOf(newValue));
     }));
     this.setStroke(Color.BLACK);
-
-
 
     // Check if tiles have an owner attribute
     myModelTile.getAttribute(BuyTileRule.OWNER_ATTRIBUTE)

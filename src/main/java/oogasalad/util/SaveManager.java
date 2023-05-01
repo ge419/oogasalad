@@ -86,6 +86,8 @@ public class SaveManager {
           }
         }
     );
+
+    schemaDatabase.setRuleListProperty(game.rulesProperty());
   }
 
   /**
@@ -98,12 +100,16 @@ public class SaveManager {
   public String saveAsset(Path assetPath) throws IOException {
     ensureAssetsDir();
 
+    System.out.println("Path: " + assetPath);
     String filename = assetPath.getFileName().toString();
+    System.out.println(filename);
     if (Files.exists(assetsDir.resolve(filename))) {
       filename = generateUniqueAssetFilename(filename);
+      System.out.println(filename);
     }
 
     Path newAssetPath = assetsDir.resolve(filename);
+    System.out.println(newAssetPath);
     Files.copy(assetPath, newAssetPath);
 
     return filename;
@@ -132,7 +138,7 @@ public class SaveManager {
     String basename = filename.substring(0, extensionIndex);
     String extension = filename.substring(extensionIndex);
 
-    for (int i = 0; i < MAX_DUP_SEARCH; i++) {
+    for (int i = 1; i < MAX_DUP_SEARCH; i++) {
       String newName = basename + "_" + i + extension;
 
       if (!Files.exists(assetsDir.resolve(newName))) {
@@ -141,7 +147,7 @@ public class SaveManager {
     }
 
     // Resort to UUID
-    String newName = UUID.randomUUID().toString() + extension;
+    String newName = UUID.randomUUID() + extension;
     if (Files.exists(assetsDir.resolve(newName))) {
       // Give up
       throw new SaveManagerException("unable to generate unique asset filename");

@@ -13,9 +13,10 @@ import static org.mockito.Mockito.verify;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import java.util.List;
+import oogasalad.model.attribute.AttributeModule;
 import oogasalad.model.engine.actions.Action;
 import oogasalad.model.engine.actions.ActionParams;
-import oogasalad.model.engine.actions.EventAction;
+import oogasalad.model.engine.actions.emits.EventAction;
 import oogasalad.model.engine.events.AttributeEvent;
 import oogasalad.model.engine.events.StartGameEvent;
 import oogasalad.model.engine.prompt.Prompter;
@@ -37,6 +38,7 @@ class SimpleEngineTest {
     mockPrompter = mock(Prompter.class);
     injector = Guice.createInjector(
         new EngineModule(Languages.ENGLISH.getLocaleStr()),
+        new AttributeModule(),
         binder -> binder.bind(Prompter.class).toInstance(mockPrompter)
     );
     engine = injector.getInstance(SimpleEngine.class);

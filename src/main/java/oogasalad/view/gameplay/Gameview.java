@@ -45,38 +45,31 @@ public class Gameview implements GameObserver {
    *
    * <p>Dependencies: GameHolder, Tiles, Die, ViewPlayers, ViewPieces
    *
-   * @author Woonggyu wj61
    */
 
   //TODO: refactor to read from JSON file
   private final int VIEW_WIDTH = 1500;
   private final int VIEW_HEIGHT = 1000;
   private final GameHolder game;
-  private final Provider<Piece> pieceProvider;
   private final ViewFactory viewFactory;
-  private List<ObjectProperty<Player>> playerObjectProperty;
-  private List<ObjectProperty<PlayerPiece>> playerPieceObjectProperty;
   private Tiles tiles;
   private Die die;
   private final GameController gc;
   private Scene scene;
   private BorderPane UIroot;
-  private ViewPlayers viewPlayers = new ViewPlayers(null);
+  private ViewPlayers viewPlayers;
+//      = new ViewPlayers(null, viewFactory);
   private Stage myStage;
   private ViewPieces viewPieces;
+  private HandDisplayPopup popup;
 
   @Inject
   public Gameview(
       @Assisted GameController gc,
       GameHolder game,
-      Provider<Player> playerProvider,
-      Provider<Piece> pieceProvider,
       ViewFactory viewFactory) {
     this.gc = gc;
     this.game = game;
-    this.pieceProvider = pieceProvider;
-    this.playerObjectProperty = new ArrayList<>();
-    this.playerPieceObjectProperty = new ArrayList<>();
     this.viewFactory = viewFactory;
     this.game.register(this);
   }
@@ -110,26 +103,6 @@ public class Gameview implements GameObserver {
     //TODO: retrieve number of players and piece per player from launcher/builder
     // TODO: Dynamically watch players/pieces
 
-    //TODO: take this out when cards are implemented
-    Button button = new Button("Show Card Popup");
-    button.setOnAction(event -> {
-      Cards cards = viewFactory.makeCards(game.getBoard().getTiles());
-      HandDisplayPopup popup = new HandDisplayPopup();
-      cards.render(popup);
-      List<ViewTile> cardList = cards.getCardList();
-      popup.addCards(cardList);
-      Point2D offset = new Point2D(UIroot.getLayoutX(), UIroot.getLayoutY());
-      popup.showHand(UIroot, offset);
-    });
-
-
-    HBox hbox = new HBox();
-    hbox.getChildren().addAll(button);
-
-    button.setId("Button");
-    UIroot.setTop(hbox);
-
-
     scene = new Scene(UIroot);
 
 
@@ -152,7 +125,7 @@ public class Gameview implements GameObserver {
 
   @Override
   public void updateOnPlayers(Players players) {
-    viewPlayers = new ViewPlayers(game.getPlayers());
+    viewPlayers = new ViewPlayers(game.getPlayers(), viewFactory, game);
     viewPlayers.render(UIroot);
   }
 

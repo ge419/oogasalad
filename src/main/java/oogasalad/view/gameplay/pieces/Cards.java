@@ -25,7 +25,7 @@ public class Cards implements Renderable {
   @Override
   public void render(BorderPane pane) {
     for (Tile bTile : BTiles) {
-      ViewTile viewTile = renderStrategy.createViewTile(bTile);
+      ViewTile viewTile = renderStrategy.createCard(bTile);
       pane.getChildren().add(viewTile.asNode());
       cardList.add(viewTile);
     }

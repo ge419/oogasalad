@@ -15,8 +15,17 @@ import oogasalad.model.engine.rules.Rule;
 import oogasalad.model.observers.GameObserver;
 import oogasalad.model.observers.Observable;
 
+/**
+ * GameHolder that holds game status and information including:
+ * list of tiles, players, pieces, rules
+ * current player, previous player, and general game information
+ *
+ * @author Jay Yoon, Dominic Martinez, Changmin Shin
+ */
 @Singleton
 public class GameHolder implements Observable<GameObserver> {
+
+  public static final String EMPTY = "";
   private GameInfo gameInfo;
   private BBoard board;
   private Players players;
@@ -92,43 +101,37 @@ public class GameHolder implements Observable<GameObserver> {
     currentPlayer.toggleCurrent();
   }
 
-  public Optional<Player> getPlayerById(String id) {
-    return players.getById(id);
+  @JsonIgnore
+  public void resetOwners(String playerId) {
+    for (Tile tile : board.getTiles()) {
+      if (tile.getOwnerId().equals(playerId)) {
+        tile.setOwnerId(EMPTY);
+      }
+    }
   }
 
   public Optional<Tile> getTileById(String id) {
     return board.getById(id);
   }
-
-  public Optional<Piece> getPieceById(String id) {
-    return players.getPieceById(id);
-  }
-
-
   public ListProperty<Rule> rulesProperty() {
     return rules;
   }
-
   @JsonGetter("rules")
   public List<Rule> getRules() {
     return rules;
   }
-
   @JsonSetter("rules")
   public void setRules(List<Rule> rules) {
     this.rules.setAll(rules);
   }
-
   @Override
   public void register(GameObserver observer) {
     this.observers.add(observer);
   }
-
   @Override
   public void remove(GameObserver observer) {
     this.observers.remove(observer);
   }
-
   @Override
   public void notifyList() {
     for (GameObserver observer : observers) {
@@ -136,7 +139,6 @@ public class GameHolder implements Observable<GameObserver> {
       observer.updateOnPieces(this.pieces);
     }
   }
-
   public void notifyRemoval(List<Player> players) {
     for (GameObserver observer : observers) {
       observer.updateOnPlayerRemoval(players);

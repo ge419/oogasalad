@@ -45,8 +45,8 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
 
   @Inject
   public ImageTile(@Assisted Tile BTile) {
-    this.setPosition(BTile.getCoordinate());
     this.modelTile = BTile;
+    BTile.addSchema("ImageTile");
 
     Rectangle tileBackground = createBackground(BTile.getWidth(), BTile.getHeight(),
         TILE_BACKGROUND, TILE_STROKE_COLOR);
@@ -106,12 +106,5 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
   public String getTileId() {
     return this.modelTile.getId();
   }
-
-  private void setPosition(Coordinate coord) {
-    this.setLayoutX(coord.getXCoor());
-    this.setLayoutY(coord.getYCoor());
-    this.getTransforms().add(new Rotate(coord.getAngle(), Rotate.Z_AXIS));
-  }
-
 
 }

@@ -7,10 +7,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import oogasalad.model.attribute.*;
+import oogasalad.model.attribute.Attribute;
+import oogasalad.model.attribute.BindingMetadata;
+import oogasalad.model.attribute.ColorMetadata;
+import oogasalad.model.attribute.DoubleMetadata;
+import oogasalad.model.attribute.ImageMetadata;
+import oogasalad.model.attribute.IntMetadata;
+import oogasalad.model.attribute.Metadata;
+import oogasalad.model.attribute.ObjectSchema;
+import oogasalad.model.attribute.PositionMetadata;
+import oogasalad.model.attribute.StringMetadata;
+import oogasalad.model.attribute.TileListMetadata;
+import oogasalad.model.attribute.TileMetadata;
 import oogasalad.model.constructable.GameConstruct;
 import oogasalad.view.builder.BuilderUtility;
 import oogasalad.view.builder.ErrorHandler;
@@ -49,20 +58,20 @@ public class PopupForm implements BuilderUtility {
      * @param resourceBundle a resource bundle used to provide access to error strings and labels
      * @param form a pane intended to contain the form contents
      */
-    public PopupForm(GameConstruct gameConstruct, ResourceBundle resourceBundle, Pane form) {
+    public PopupForm(GameConstruct gameConstruct, ResourceBundle resourceBundle, Pane form, Injector outsideInjector) {
         this.resourceBundle = resourceBundle;
         this.gameConstruct = gameConstruct;
         this.form = form;
         this.objectID = gameConstruct.getId();
         // TODO: Create injector in controller
-        Injector injector = Guice.createInjector(new PopupFormModule());
+        Injector injector = outsideInjector.createChildInjector(new PopupFormModule());
         this.factory = injector.getInstance(ParameterStrategyFactory.class);
         strategyMap = createStrategyMap();
         currentParameters = new ArrayList<>();
 
-        createFormFields();
+        createFormFields(null, gameConstruct.getSchema());
         this.gameConstruct.schemaProperty().addListener(
-            (observable, oldValue, newValue) -> createFormFields());
+            (observable, oldValue, newValue) -> createFormFields(oldValue, newValue));
     }
 
     private Map<Class<? extends Metadata>, ParameterStrategyCreator> createStrategyMap() {
@@ -74,7 +83,8 @@ public class PopupForm implements BuilderUtility {
             TileMetadata.class, factory::buildTileParameter,
             TileListMetadata.class, factory::buildTileListParameter,
             ColorMetadata.class, factory::buildColorParameter,
-            ImageMetadata.class, factory::buildImageParameter
+            ImageMetadata.class, factory::buildImageParameter,
+            BindingMetadata.class, factory::buildBindingParameter
         );
     }
 
@@ -87,7 +97,7 @@ public class PopupForm implements BuilderUtility {
             }
         }
 
-        for (ParameterStrategy parameter : currentParameters) {
+        for (ParameterStrategy parameter : new ArrayList<>(currentParameters)) {
             parameter.saveInput();
         }
     }
@@ -104,12 +114,16 @@ public class PopupForm implements BuilderUtility {
         return Optional.of(creator.build(attribute, metadata));
     }
 
-    private void createFormFields() {
-        ObjectSchema schema = gameConstruct.getSchema();
+    private void createFormFields(ObjectSchema oldSchema, ObjectSchema newSchema) {
+        if (oldSchema != null
+            && oldSchema.getAllMetadata().equals(newSchema.getAllMetadata())) {
+            return;
+        }
+
         form.getChildren().clear();
         currentParameters.clear();
 
-        for (Metadata metadata : schema.getAllMetadata()) {
+        for (Metadata metadata : newSchema.getAllMetadata()) {
             if (!metadata.isViewable()) {
                 continue;
             }

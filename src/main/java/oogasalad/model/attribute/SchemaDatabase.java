@@ -12,7 +12,7 @@ import oogasalad.model.engine.rules.Rule;
  * Holds the available {@link oogasalad.model.constructable.GameConstruct} schemas. Consumers are
  * expected to subscribe to the {@link #databaseProperty()} and listen for changes in schemas.
  *
- * @author Dominic Martinez
+ * @author Dominic Martinez, Jay Yoon
  */
 public interface SchemaDatabase {
 
@@ -51,6 +51,15 @@ public interface SchemaDatabase {
    * @param schema schema to be added
    */
   void addCustomSchema(ObjectSchema schema);
+
+  /**
+   * Get the type of the provided schema name.
+   *
+   * @param schemaName name to get type for
+   * @return type of schema
+   * @see SchemaType
+   */
+  SchemaType getSchemaType(String schemaName);
 
   /**
    * Returns the schemas added during runtime, <em>not</em> from a resource file. These schemas are

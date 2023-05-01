@@ -46,10 +46,6 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
             StringAttribute.from(BTile.getAttribute(COLOR_ATTRIBUTE).get()).getValue())),
         createTextBox(List.of(BTile.getInfo(), BTile.getPrice()), BTile.getHeight(),
             BTile.getWidth()));
-    setPosition(BTile.getCoordinate());
-
-    //TODO: change this temporary behavior when tile is bought
-    //TODO: depend on if attribute is present
   }
 
   private VBox createBarBox(double width, double height, String color) {
@@ -110,12 +106,6 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
   @Override
   public String getTileId() {
     return this.modelTile.getId();
-  }
-
-  private void setPosition(Coordinate coord) {
-    this.setLayoutX(coord.getXCoor());
-    this.setLayoutY(coord.getYCoor());
-    this.getTransforms().add(new Rotate(coord.getAngle(), Rotate.Z_AXIS));
   }
 
 }

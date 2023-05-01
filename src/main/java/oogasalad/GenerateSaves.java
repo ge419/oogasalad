@@ -101,9 +101,6 @@ public class GenerateSaves {
     gameHolder.setBoard(board);
 
     gameHolder.getGameInfo()
-        .setTitle("Title")
-        .setDescription("Monopoly")
-        .setGenre("board")
         .setWidth(100)
         .setHeight(100);
 

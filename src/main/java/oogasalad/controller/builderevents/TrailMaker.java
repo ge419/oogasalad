@@ -12,15 +12,20 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.Arrow;
+import oogasalad.view.builder.BuilderView;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
- * Basic implementation of TrailMaker using arrows.
+ * <p>TrailMaker creates trails between two selected nodes by placing an arrow between them.</p>
+ * @see TrailMakerAPI
  *
  * @author tmh85
  * @author dcm67
  */
 public class TrailMaker implements TrailMakerAPI {
 
+  private static final Logger LOG = LogManager.getLogger(TrailMaker.class);
   private static final double INVISIBLE = 0.0;
   private static final double VISIBLE = 1.0;
   private final Map<String, LineHolder> myMap;
@@ -42,27 +47,25 @@ public class TrailMaker implements TrailMakerAPI {
     LineHolder trail = new LineHolder(newLine, entry1, entry2);
     newLine.setOpacity(myCurrentOpacity);
     newLine.setFill(Color.BLACK);
+    newLine.setId(trailID);
     myMap.put(trailID, trail);
     myPane.getChildren().add(newLine);
-
-    System.out.println("made trails: " + myMap.keySet());
+    LOG.info("Created a new trail of ID: " + trailID);
   }
 
   @Override
   public void removeTrail(String trailID) {
-    System.out.println(myMap.keySet());
-    System.out.println(trailID);
     myPane.getChildren().remove(myMap.get(trailID).line());
     myMap.remove(trailID);
+
+    LOG.info("Removed trail of ID: " + trailID);
   }
 
   @Override
   public void removeTrail(Node node){
     for (LineHolder trail : myMap.values()){
       if (trail.startNode().equals(node) || trail.endNode().equals(node)){
-        myPane.getChildren().remove(trail.line());
-        System.out.println("removed trail");
-        myMap.remove(getTrailID(trail.startNode(), trail.endNode()));
+        removeTrail(getTrailID(trail.startNode(), trail.endNode()));
       }
     }
   }
@@ -79,21 +82,20 @@ public class TrailMaker implements TrailMakerAPI {
 
   @Override
   public void toggleEnable() {
-    //System.out.println("Is this line currently visible: " + this.myEnabledLines.get());
-    this.myEnabledLines.set(!this.myEnabledLines.get());
+    myEnabledLines.set(!myEnabledLines.get());
+    LOG.info("Toggled guidelines enable to: " + myEnabledLines.get());
   }
 
   @Override
   public String getTrailID(Node entry1, Node entry2) {
     for (String ID : myMap.keySet()) {
       if (myMap.get(ID).startNode().equals(entry2)) {
-        System.out.println("well we got here");
         if (myMap.get(ID).endNode().equals(entry1)) {
-          System.out.println("well we finish the job");
           return ID;
         }
       }
     }
+    LOG.warn("Could not find trail ID for start node ID " + entry1.getId() + " and end node ID " + entry2.getId());
     return null;
   }
 
@@ -143,17 +145,6 @@ public class TrailMaker implements TrailMakerAPI {
     return newLine;
   }
 
-  private void updateAllTrailLocation() {
-    for (String ID : myMap.keySet()) {
-      removeTrail(ID);
-      Node copy1 = myMap.get(ID).startNode();
-      Node copy2 = myMap.get(ID).endNode();
-      Arrow newLine = createTrail(myMap.get(ID).startNode(), myMap.get(ID).endNode());
-      myMap.remove(ID);
-      myMap.put(ID, new LineHolder(newLine, copy1, copy2));
-    }
-  }
-
   private void initializeEnabler() {
     myEnabledLines = new SimpleBooleanProperty();
     myEnabledLines.addListener(((observable, oldValue, newValue) -> {
@@ -179,7 +170,7 @@ public class TrailMaker implements TrailMakerAPI {
 }
 
 /**
- * LineHolder record will be used to link together a line and it's corresponding nodes.
+ * <p>LineHolder record will be used to link together a line and it's corresponding nodes.</p>
  *
  * @param line      line that is the trail between the two nodes
  * @param startNode the first node clicked-- the starting point

@@ -54,7 +54,6 @@ public class DieMoveRule extends AbstractGameConstruct implements EditableRule {
       total += rolls[i];
     }
 
-    // TODO: Multiple pieces?
     Piece piece = gameHolder.getCurrentPlayer().getPieces().get(0);
     List<Tile> moves = makeMoveSequence(piece, total);
 

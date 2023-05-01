@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import com.google.common.collect.Streams;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +21,7 @@ import oogasalad.model.attribute.Attribute;
 import oogasalad.model.attribute.Metadata;
 import oogasalad.model.attribute.ObjectSchema;
 import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.attribute.SchemaType;
 import oogasalad.model.attribute.SchemaUtilities;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -49,6 +51,7 @@ public abstract class AbstractGameConstruct implements GameConstruct {
 
     database.databaseProperty().addListener((observable, oldValue, newValue) -> refreshSchema());
     setSchemaNames(List.of(baseSchema));
+    setAttributeListeners();
   }
 
   @Override
@@ -73,6 +76,7 @@ public abstract class AbstractGameConstruct implements GameConstruct {
     }
 
     reconcileAttributes(getSchema());
+    setAttributeListeners();
   }
 
   @Override
@@ -94,9 +98,13 @@ public abstract class AbstractGameConstruct implements GameConstruct {
 
     List<ObjectSchema> schemas = new ArrayList<>();
     for (String newSchemaName : newNames.stream().distinct().toList()) {
+      if (newSchemaName.isEmpty()) {
+        continue;
+      }
+
       Optional<ObjectSchema> schemaOptional = database.getSchema(newSchemaName);
       if (schemaOptional.isEmpty()) {
-        LOGGER.warn("schema does not exist {}", newSchemaNames);
+        LOGGER.warn("schema does not exist {}", newSchemaName);
       } else {
         schemas.add(schemaOptional.get());
       }
@@ -107,6 +115,28 @@ public abstract class AbstractGameConstruct implements GameConstruct {
     reconcileAttributes(newSchema);
 
     this.schemaProperty.setValue(newSchema);
+  }
+
+  /**
+   * Notifies inheritors when they should refresh their attribute listeners
+   */
+  protected void setAttributeListeners() {
+    // Does nothing by default
+  }
+
+  /**
+   * Set schema names, preserving any custom schemas that were added
+   *
+   * @param newSchemaNames schema names to set for built-in schemas
+   */
+  protected void setBuiltinSchemas(List<String> newSchemaNames) {
+    List<String> schemas = Streams.concat(
+            getSchemaNames().stream()
+                .filter(schema -> database.getSchemaType(schema) == SchemaType.CUSTOM),
+            newSchemaNames.stream())
+        .toList();
+
+    setSchemaNames(schemas);
   }
 
   @Override

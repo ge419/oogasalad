@@ -36,7 +36,7 @@ public class NumberOfPieceRule extends AbstractGameConstruct implements Editable
     registrar.registerHandler(PieceChosenEvent.class, this::setPlayerPieces);
   }
 
-  private void setPlayerPieces(EventHandlerParams<PieceChosenEvent> eventHandlerParams){
+  protected void setPlayerPieces(EventHandlerParams<PieceChosenEvent> eventHandlerParams){
     eventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(), actionFactory.makeCreatePlayerPieceAction());
   }
 }

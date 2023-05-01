@@ -1,13 +1,16 @@
 package oogasalad.model.attribute;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 
 class DoubleMetadataTest {
+
   private DoubleAttribute doubleAttribute;
   private DoubleMetadata metadata;
   private static final String KEY = "doubleKey";
@@ -62,5 +65,14 @@ class DoubleMetadataTest {
   public void testSetMaxValue() {
     metadata.setMaxValue(10.0);
     assertEquals(10.0, metadata.getMaxValue(), 0.01);
+  }
+  @Test
+  void testEqual(){
+    DoubleMetadata same = metadata;
+    DoubleMetadata diff = new DoubleMetadata("diff");
+    assertTrue(metadata.equals(same));
+    assertEquals(metadata.hashCode(), same.hashCode());
+    diff.setDefaultValue(3.9);
+    assertFalse((metadata.equals(diff)));
   }
 }

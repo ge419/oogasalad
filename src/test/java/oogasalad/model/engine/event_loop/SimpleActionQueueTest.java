@@ -5,12 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import oogasalad.model.attribute.AttributeModule;
 import oogasalad.model.engine.EngineModule;
 import oogasalad.model.engine.SimpleActionQueue;
 import oogasalad.model.engine.TestEvent;
 import oogasalad.model.engine.actions.Action;
-import oogasalad.model.engine.actions.EventAction;
+import oogasalad.model.engine.actions.emits.EventAction;
 import oogasalad.model.engine.events.AttributeEvent;
+import oogasalad.view.tabexplorer.userpreferences.Languages;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +24,10 @@ class SimpleActionQueueTest {
 
   @BeforeAll
   static void initClass() {
-    injector = Guice.createInjector(new EngineModule("English"));
+    injector = Guice.createInjector(
+        new EngineModule(Languages.ENGLISH.getLocaleStr()),
+        new AttributeModule()
+    );
   }
 
   @BeforeEach

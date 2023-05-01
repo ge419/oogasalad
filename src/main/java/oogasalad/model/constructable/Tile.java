@@ -14,6 +14,11 @@ import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.attribute.TileListAttribute;
 import oogasalad.view.Coordinate;
 
+/**
+ * GameObject that represents a tile to be part of the game board.
+ *
+ * @author Jay Yoon
+ */
 public class Tile extends AbstractGameConstruct {
 
   public static final String BASE_SCHEMA_NAME = "tile";

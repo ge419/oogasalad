@@ -12,6 +12,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+/**
+ * Class that represents a List of Players
+ *
+ * @author Jay Yoon, Woongyu Jin
+ */
 public class Players {
   private List<Player> players;
 
@@ -37,19 +42,6 @@ public class Players {
     for (Player p : players) {
       if (p.getId().equals(id)) {
         return Optional.of(p);
-      }
-    }
-
-    return Optional.empty();
-  }
-
-  @JsonIgnore
-  public Optional<Piece> getPieceById(String id) {
-    for (Player player : players) {
-      for (Piece p : player.getPieces()) {
-        if (p.getId().equals(id)) {
-          return Optional.of(p);
-        }
       }
     }
 

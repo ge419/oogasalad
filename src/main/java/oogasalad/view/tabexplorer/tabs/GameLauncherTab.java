@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -21,7 +20,6 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -59,6 +57,7 @@ public class GameLauncherTab implements Tab {
   private VBox gameLauncher;
   private MenuItem editMenuItem;
   private MenuItem deleteMenuItem;
+  private MenuItem unsubscribeMenuItem;
 
   @Inject
   public GameLauncherTab(
@@ -148,16 +147,24 @@ public class GameLauncherTab implements Tab {
 
         editMenuItem = new MenuItem("edit");
         deleteMenuItem = new MenuItem("delete");
-        MenuButton menuButton = new MenuButton("\u22EE", null,editMenuItem, deleteMenuItem);
-//        menuButton.setNodeOrientation(Nod.VERTICAL);
+        unsubscribeMenuItem = new MenuItem("unsubscribe");
+        MenuButton menuButton = new MenuButton("\u22EE", null,editMenuItem);
+
+        String author = (String) gameMetaData.get(GameSchema.AUTHOR.getFieldName());
+
+        boolean isAuthorOfGame = authHandler.getActiveUserID().equals(author);
+
+        menuButton.getItems().add(isAuthorOfGame ? deleteMenuItem : unsubscribeMenuItem);
+
         deleteMenuItem.setOnAction(e->userDao.deleteGame(gameID));
+        unsubscribeMenuItem.setOnAction(e->userDao.unsubscribeToGame(authHandler.getActiveUserID(), gameID));
+        editMenuItem.setOnAction(e->tabExplorer.launchGame(gameID));
+
         HBox container = new HBox(imageView, menuButton);
         VBox gameBox = new VBox(container, new Label(name));
         gameBox.getStyleClass().add("game-box");
 
         gameBox.setOnMouseClicked(e-> tabExplorer.launchGame(gameID));
-//        gameBox.setOnMouseEntered(e->gameBox.setCursor(Cursor.HAND));
-//        gameBox.setPrefSize(100, 100);
         tilePane.getChildren().add(gameBox);
       } catch (Exception e) {
         e.printStackTrace();

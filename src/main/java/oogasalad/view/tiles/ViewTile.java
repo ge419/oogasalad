@@ -1,7 +1,10 @@
 package oogasalad.view.tiles;
 
+import javafx.scene.input.MouseEvent;
+import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.Tile;
 import oogasalad.view.Nodeable;
+import oogasalad.view.gameplay.popup.CardDisplayPopup;
 
 /**
  * <p>ViewTile interface composes the methods that are required for a ViewTile to function.</p>
@@ -71,4 +74,12 @@ public interface ViewTile extends Nodeable {
    * @param height height as a double
    */
   void setSize(double width, double height);
+
+  default void createCardPopup(MouseEvent mouseEvent) {
+    String title = StringAttribute.from(this.getTile().getAttribute("info").get()).getValue();
+    String description = StringAttribute.from(this.getTile().getAttribute("description").get()).getValue();
+    System.out.println(title + " " + description);
+    CardDisplayPopup cardPopup = new CardDisplayPopup(title, description);
+    cardPopup.showCard();
+  }
 }

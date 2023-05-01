@@ -1,6 +1,5 @@
 package oogasalad.model.engine.rules;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -17,9 +16,9 @@ import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.Priority;
 import oogasalad.model.engine.SimpleActionQueue;
 import oogasalad.model.engine.actions.ActionFactory;
-import oogasalad.model.engine.actions.CheckAndRemovePlayerAction;
-import oogasalad.model.engine.actions.CreatePlayersAction;
-import oogasalad.model.engine.events.StartGameEvent;
+import oogasalad.model.engine.actions.removal.CheckAndRemovePlayerAction;
+import oogasalad.model.engine.actions.removal.PlayerRemovalStrategy;
+import oogasalad.model.engine.actions.removal.TileResetStrategy;
 import oogasalad.model.engine.events.StartTurnEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,6 +31,8 @@ class RemovePlayerRuleTest {
   private ActionQueue mockedQueue;
   private EventHandlerParams<StartTurnEvent> eventHandlerParams;
   private RemovePlayerRule rule;
+  private PlayerRemovalStrategy mockedRemovalStrategy;
+  private TileResetStrategy tileResetStrategy;
   private static final int TEST_MIN = 0;
 
   @BeforeEach
@@ -39,7 +40,9 @@ class RemovePlayerRuleTest {
     mockActionFactory = mock(ActionFactory.class);
     mockedAction = mock(CheckAndRemovePlayerAction.class);
     mockedQueue = mock(SimpleActionQueue.class);
-    when(mockActionFactory.makeCheckAndRemovePlayerAction(TEST_MIN)).thenReturn(mockedAction);
+    mockedRemovalStrategy = mock(PlayerRemovalStrategy.class);
+    tileResetStrategy = mock(TileResetStrategy.class);
+    when(mockActionFactory.makeCheckAndRemovePlayerAction(TEST_MIN, mockedRemovalStrategy, tileResetStrategy)).thenReturn(mockedAction);
 
     Injector injector = Guice.createInjector(new AttributeModule());
     SchemaDatabase db = injector.getInstance(SchemaDatabase.class);
@@ -63,7 +66,7 @@ class RemovePlayerRuleTest {
   public void makesRemovePlayersAction() {
     rule.removePlayers(eventHandlerParams);
 
-    verify(mockActionFactory).makeCheckAndRemovePlayerAction(TEST_MIN);
+    verify(mockActionFactory).makeCheckAndRemovePlayerAction(TEST_MIN, mockedRemovalStrategy, tileResetStrategy);
   }
 
   @Test

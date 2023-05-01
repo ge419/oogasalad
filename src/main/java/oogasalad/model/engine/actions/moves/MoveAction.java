@@ -1,10 +1,12 @@
-package oogasalad.model.engine.actions;
+package oogasalad.model.engine.actions.moves;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import java.util.List;
 import oogasalad.model.constructable.Piece;
 import oogasalad.model.constructable.Tile;
+import oogasalad.model.engine.actions.Action;
+import oogasalad.model.engine.actions.ActionParams;
 import oogasalad.model.engine.events.MoveEvent;
 import oogasalad.model.engine.events.TileLandedEvent;
 

@@ -5,11 +5,14 @@ import com.google.inject.Inject;
 import oogasalad.model.attribute.IntAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.AbstractGameConstruct;
-import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.Priority;
 import oogasalad.model.engine.actions.ActionFactory;
+import oogasalad.model.engine.actions.removal.LowScoreRemovalStrategy;
+import oogasalad.model.engine.actions.removal.PlayerRemovalStrategy;
+import oogasalad.model.engine.actions.removal.RemovedPlayerTileResetStrategy;
+import oogasalad.model.engine.actions.removal.TileResetStrategy;
 import oogasalad.model.engine.events.StartTurnEvent;
 
 public class RemovePlayerRule extends AbstractGameConstruct implements EditableRule {
@@ -34,6 +37,8 @@ public class RemovePlayerRule extends AbstractGameConstruct implements EditableR
 
   protected void removePlayers(EventHandlerParams<StartTurnEvent> eventEventHandlerParams) {
     int scoreMinBound = IntAttribute.from(this.getAttribute(SCORE_MIN_BOUND).get()).getValue();
-    eventEventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(), actionFactory.makeCheckAndRemovePlayerAction(scoreMinBound));
+    PlayerRemovalStrategy playerRemovalStrategy = new LowScoreRemovalStrategy();
+    TileResetStrategy tileResetStrategy = new RemovedPlayerTileResetStrategy();
+    eventEventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(), actionFactory.makeCheckAndRemovePlayerAction(scoreMinBound, playerRemovalStrategy, tileResetStrategy));
   }
 }

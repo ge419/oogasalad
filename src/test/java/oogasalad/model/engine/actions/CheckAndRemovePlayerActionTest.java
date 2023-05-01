@@ -7,13 +7,16 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
 import oogasalad.model.engine.EventEmitter;
+import oogasalad.model.engine.actions.removal.CheckAndRemovePlayerAction;
+import oogasalad.model.engine.actions.removal.LowScoreRemovalStrategy;
+import oogasalad.model.engine.actions.removal.PlayerRemovalStrategy;
+import oogasalad.model.engine.actions.removal.RemovedPlayerTileResetStrategy;
+import oogasalad.model.engine.actions.removal.TileResetStrategy;
 import oogasalad.model.engine.events.PlayerRemovalEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +45,9 @@ public class CheckAndRemovePlayerActionTest {
     player2 = mock(Player.class);
     emitter = mock(EventEmitter.class);
     actionParams = new ActionParams(emitter, null);
-    action = new CheckAndRemovePlayerAction(gameHolder, SCORE_MIN_BOUND);
+    PlayerRemovalStrategy removalStrategy = new LowScoreRemovalStrategy();
+    TileResetStrategy tileResetStrategy = new RemovedPlayerTileResetStrategy();
+    action = new CheckAndRemovePlayerAction(gameHolder, SCORE_MIN_BOUND, removalStrategy, tileResetStrategy);
     players = new Players(List.of(player1, player2));
     gameHolder.setPlayers(players);
 

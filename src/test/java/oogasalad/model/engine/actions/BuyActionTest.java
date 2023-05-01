@@ -8,14 +8,13 @@ import static org.mockito.Mockito.when;
 
 import java.util.ResourceBundle;
 
+import oogasalad.model.engine.actions.scores.BuyAction;
 import oogasalad.model.engine.prompt.TestPrompterNegative;
 import oogasalad.model.engine.prompt.TestPrompterPositive;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import oogasalad.model.constructable.Player;
 import oogasalad.model.engine.EventEmitter;
-import oogasalad.model.engine.prompt.AIPrompter;
 
 public class BuyActionTest {
 

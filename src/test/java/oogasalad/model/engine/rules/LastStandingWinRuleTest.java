@@ -10,6 +10,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import oogasalad.model.attribute.AttributeModule;
 import oogasalad.model.attribute.SchemaDatabase;
+import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.engine.ActionQueue;
 import oogasalad.model.engine.EventHandler;
 import oogasalad.model.engine.EventHandlerParams;
@@ -17,7 +18,9 @@ import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.Priority;
 import oogasalad.model.engine.SimpleActionQueue;
 import oogasalad.model.engine.actions.ActionFactory;
-import oogasalad.model.engine.actions.CheckStandingWinAction;
+import oogasalad.model.engine.actions.wins.CheckWinAndEndAction;
+import oogasalad.model.engine.actions.wins.StandingWinningStrategy;
+import oogasalad.model.engine.actions.wins.WinningConditionStrategy;
 import oogasalad.model.engine.events.PlayerRemovalEvent;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,15 +32,18 @@ public class LastStandingWinRuleTest {
   private ActionFactory mockActionFactory;
   private EventHandlerParams<PlayerRemovalEvent> eventEventHandlerParams;
   private LastStandingWinRule rule;
-  private CheckStandingWinAction mockedAction;
+  private CheckWinAndEndAction mockedAction;
   private ActionQueue mockedQueue;
+  private GameHolder gameHolder;
 
   @Before
   public void setUp() {
     mockActionFactory = mock(ActionFactory.class);
-    mockedAction = mock(CheckStandingWinAction.class);
+    mockedAction = mock(CheckWinAndEndAction.class);
     mockedQueue = mock(SimpleActionQueue.class);
-    when(mockActionFactory.makeCheckWinStateAction(TEST_N)).thenReturn(mockedAction);
+    gameHolder = mock(GameHolder.class);
+    WinningConditionStrategy winningConditionStrategy = new StandingWinningStrategy(gameHolder, TEST_N)
+    when(mockActionFactory.makeCheckWinStateAction(winningConditionStrategy)).thenReturn(mockedAction);
 
     Injector injector = Guice.createInjector(new AttributeModule());
     SchemaDatabase db = injector.getInstance(SchemaDatabase.class);
@@ -45,7 +51,7 @@ public class LastStandingWinRuleTest {
     eventEventHandlerParams = new EventHandlerParams<>(
         new PlayerRemovalEvent(), mockedQueue
     );
-    rule = new LastStandingWinRule(db, mockActionFactory);
+    rule = new LastStandingWinRule(db, gameHolder, mockActionFactory);
   }
 
   @Test
@@ -61,7 +67,8 @@ public class LastStandingWinRuleTest {
   public void makesCheckWinStateAction() {
     rule.checkWinState(eventEventHandlerParams);
 
-    verify(mockActionFactory).makeCheckWinStateAction(TEST_N);
+    WinningConditionStrategy winningConditionStrategy = new StandingWinningStrategy(gameHolder, TEST_N);
+    verify(mockActionFactory).makeCheckWinStateAction(winningConditionStrategy);
   }
 
   @Test

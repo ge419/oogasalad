@@ -14,6 +14,15 @@ import oogasalad.model.engine.actions.wins.TileWinningStrategy;
 import oogasalad.model.engine.actions.wins.WinningConditionStrategy;
 import oogasalad.model.engine.events.TileLandedEvent;
 
+/**
+ * Action for creating players upon user selection after launching game.
+ * <p>
+ *   User selects from the prompt the number of players to play the game
+ *   Added to the engine action queue by {@link oogasalad.model.engine.rules.NumberOfPlayersRule}
+ * </p>
+ *
+ * @Author Jay Yoon
+ */
 public class FiniteBoardWinRule extends AbstractGameConstruct implements EditableRule {
 
   private static final String SCHEMA_NAME = "finiteBoardWinRule";

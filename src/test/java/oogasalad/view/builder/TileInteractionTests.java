@@ -1,6 +1,7 @@
 package oogasalad.view.builder;
 
-import java.nio.file.Path;
+import static org.mockito.Mockito.mock;
+
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.Node;
@@ -8,9 +9,9 @@ import javafx.scene.input.MouseButton;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import oogasalad.controller.BuilderController;
+import oogasalad.model.accesscontrol.dao.GameDao;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.testfx.service.query.EmptyNodeQueryException;
 import util.DukeApplicationTest;
 
@@ -22,7 +23,7 @@ import util.DukeApplicationTest;
 public class TileInteractionTests extends DukeApplicationTest {
 
   @Mock
-  FileChooser fileChooser = Mockito.mock(FileChooser.class);
+  FileChooser fileChooser = mock(FileChooser.class);
   private BuilderView myBuilder;
   private BuilderController myBuilderController;
   private static final String TEST_LANGUAGE = "en-US";
@@ -35,7 +36,8 @@ public class TileInteractionTests extends DukeApplicationTest {
   // todo: fix this test, all wrong right now.
   @Override
   public void start(Stage stage) {
-    myBuilderController = new BuilderController(TEST_LANGUAGE, Path.of("data", "monopoly"));
+    myBuilderController = new BuilderController(TEST_LANGUAGE, "0TTYFzGUPQG2HXB2BsB4",
+        mock(GameDao.class));
     myBuilder = myBuilderController.getBuilderView();
     myBuilder.loadBoardSize(DEFAULT_BOARD_SIZE, DEFAULT_BOARD_SIZE);
     myClickLocations = new ArrayList<>();

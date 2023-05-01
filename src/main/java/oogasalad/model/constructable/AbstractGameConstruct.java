@@ -51,6 +51,7 @@ public abstract class AbstractGameConstruct implements GameConstruct {
 
     database.databaseProperty().addListener((observable, oldValue, newValue) -> refreshSchema());
     setSchemaNames(List.of(baseSchema));
+    setAttributeListeners();
   }
 
   @Override
@@ -68,13 +69,14 @@ public abstract class AbstractGameConstruct implements GameConstruct {
   }
 
   @JsonSetter("attributes")
-  public void setAllAttributes(List<Attribute> attributeList) {
+  protected void setAllAttributes(List<Attribute> attributeList) {
     for (Attribute attribute : attributeList) {
       Objects.requireNonNull(attribute);
       attributeMap.put(attribute.getKey(), attribute);
     }
 
     reconcileAttributes(getSchema());
+    setAttributeListeners();
   }
 
   @Override
@@ -102,7 +104,7 @@ public abstract class AbstractGameConstruct implements GameConstruct {
 
       Optional<ObjectSchema> schemaOptional = database.getSchema(newSchemaName);
       if (schemaOptional.isEmpty()) {
-        LOGGER.warn("schema does not exist {}", newSchemaNames);
+        LOGGER.warn("schema does not exist {}", newSchemaName);
       } else {
         schemas.add(schemaOptional.get());
       }
@@ -113,6 +115,13 @@ public abstract class AbstractGameConstruct implements GameConstruct {
     reconcileAttributes(newSchema);
 
     this.schemaProperty.setValue(newSchema);
+  }
+
+  /**
+   * Notifies inheritors when they should refresh their attribute listeners
+   */
+  protected void setAttributeListeners() {
+    // Does nothing by default
   }
 
   /**

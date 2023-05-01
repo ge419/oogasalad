@@ -10,8 +10,11 @@ import com.fasterxml.jackson.module.guice.ObjectMapperModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import java.util.List;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.rules.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,6 +39,11 @@ class SchemaDatabaseTest {
   @Test
   void appliedSchemas() {
     // Apply buyTileRule to tile
+    ObjectSchema schema = db.getSchema("tile").get();
+
+    assertTrue(schema.getMetadata("position").isPresent());
+    assertTrue(schema.getMetadata("price").isEmpty());
+
     SchemaBinding binding = new SchemaBinding("tile", "buyTileRule-tile");
 
     Rule mockRule = mock(Rule.class);
@@ -44,7 +52,7 @@ class SchemaDatabaseTest {
     when(mockRule.getAppliedSchemas()).thenReturn(List.of(binding));
     db.setRuleListProperty(FXCollections.observableList(List.of(mockRule)));
 
-    ObjectSchema schema = db.getSchema("tile").get();
+    schema = db.getSchema("tile").get();
 
     assertTrue(schema.getMetadata("position").isPresent());
     assertTrue(schema.getMetadata("price").isPresent());
@@ -52,6 +60,20 @@ class SchemaDatabaseTest {
     schema = db.getSchema("buyTileRule").get();
     assertTrue(schema.getMetadata("tileType").isPresent());
     assertTrue(schema.getMetadata("price").isEmpty());
+  }
+
+  @Test
+  void appliedVirtualSchema() {
+    SchemaBinding binding = new SchemaBinding("monopoly", "buyTileRule-tile");
+    ListProperty<SchemaBinding> prop = new SimpleListProperty<>(
+        FXCollections.observableArrayList());
+
+    db.setRuleListProperty(FXCollections.observableList(List.of(new TestRule(prop))));
+
+    prop.add(binding);
+    ObjectSchema schema = db.getSchema("monopoly").get();
+
+    assertTrue(schema.getMetadata("price").isPresent());
   }
 
   @Test
@@ -82,5 +104,24 @@ class SchemaDatabaseTest {
     db.addCustomSchema(schema1);
     db.addCustomSchema(schema2);
     assertEquals(schema2, db.getSchema("!s1").get());
+  }
+
+  class TestRule implements Rule {
+
+    private final ReadOnlyListProperty<SchemaBinding> prop;
+
+    public TestRule(ReadOnlyListProperty<SchemaBinding> prop) {
+      this.prop = prop;
+    }
+
+    @Override
+    public void registerEventHandlers(EventRegistrar registrar) {
+
+    }
+
+    @Override
+    public ReadOnlyListProperty<SchemaBinding> appliedSchemasProperty() {
+      return prop;
+    }
   }
 }

@@ -40,11 +40,11 @@ public class GameDetailsTab implements Tab {
   private final AuthenticationHandler authHandler;
   private final UserDao userDao;
   private final GameDao gameDao;
+  private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
+  private final TabFactory tabFactory;
   private Map<String, Object> gameEntryMetadata;
   private String gameID;
-  private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
   private int popularityIndex;
-  private final TabFactory tabFactory;
 
   @Inject
   public GameDetailsTab(@Assisted TabExplorer tabExplorer, AuthenticationHandler authHandler,
@@ -142,6 +142,7 @@ public class GameDetailsTab implements Tab {
 
   /**
    * Used the render game detail on specific game ID in {@link SocialCenterTab}
+   *
    * @param gameID
    * @param popularityIndex
    */

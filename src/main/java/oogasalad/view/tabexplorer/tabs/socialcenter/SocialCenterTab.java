@@ -51,11 +51,10 @@ public class SocialCenterTab implements Tab {
   private final AuthenticationHandler authHandler;
   private final UserDao userDao;
   private final GameDao gameDao;
-
+  private final TabFactory tabFactory;
   ListView<String> mostPlayedGames;
   private ObservableList<String> gameEntries;
   private List<String> allGames;
-  private final TabFactory tabFactory;
 
   @Inject
   public SocialCenterTab(@Assisted TabExplorer tabExplorer, AuthenticationHandler authHandler,

@@ -12,6 +12,7 @@ public interface SettingsOptionsFactory {
 
   /**
    * Create new accounts settings page.
+   *
    * @param settingsTab
    * @param tabExplorer
    * @return account settings page
@@ -20,6 +21,7 @@ public interface SettingsOptionsFactory {
 
   /**
    * Create new security settings page.
+   *
    * @param settingsTab
    * @param tabExplorer
    * @return security settings page
@@ -28,6 +30,7 @@ public interface SettingsOptionsFactory {
 
   /**
    * Create new appearance settings page.
+   *
    * @param settingsTab
    * @param tabExplorer
    * @return appearance settings page
@@ -36,6 +39,7 @@ public interface SettingsOptionsFactory {
 
   /**
    * Create new regions settings page.
+   *
    * @param settingsTab
    * @param tabExplorer
    * @return regions settings page

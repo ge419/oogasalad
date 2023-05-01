@@ -26,6 +26,7 @@ import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
  */
 public class NavBar {
 
+  private final UserPreferences userPref;
   private Button gameLauncherButton;
   private Button socialCenterButton;
   private Button loginButton;
@@ -39,7 +40,6 @@ public class NavBar {
   private MenuButton menuButton;
   private AuthenticationHandler authHandler;
   private ResourceBundle languageResourceBundle;
-  private final UserPreferences userPref;
   private Label userFullNameLabel;
   private Label userNameLabel;
   private ImageView imageView;
@@ -121,7 +121,6 @@ public class NavBar {
 
 
   private void updateButtonText() {
-    //todo load from properties file
     gameLauncherButton.setText(languageResourceBundle.getString("LauncherBtn"));
     socialCenterButton.setText(languageResourceBundle.getString("SocialCenterBtn"));
     settings.setText(languageResourceBundle.getString("Settings"));

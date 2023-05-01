@@ -15,8 +15,9 @@ public class UserPreferences {
 
   private final UserDao userDao;
   private final AuthenticationHandler authHandler;
-  private String preferredLanguage;
   private final List<Consumer<String>> observers = new ArrayList<>();
+  private String preferredLanguage;
+
   @Inject
   public UserPreferences(UserDao userDao, AuthenticationHandler authHandler) {
     this.userDao = userDao;

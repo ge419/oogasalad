@@ -137,7 +137,6 @@ public class CommentSection extends VBox {
           Region spacer = new Region();
           HBox.setHgrow(spacer, Priority.ALWAYS);
 
-
           userNameContainer.getChildren().addAll(container, spacer, ellipsis);
 
           commentMetaDataBox.add(imageView, 0, 0);

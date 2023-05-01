@@ -13,6 +13,7 @@ import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
 public class SettingsNavBar {
 
+  private final UserPreferences userPref;
   private Hyperlink accountLink;
   private Hyperlink statsLink;
   private Hyperlink securityLink;
@@ -27,7 +28,6 @@ public class SettingsNavBar {
   private Hyperlink logoutLink;
   private Label versionNumber;
   private VBox settingsNavBarLayout;
-  private final UserPreferences userPref;
   private ResourceBundle languageResourceBundle;
 
   @Inject

@@ -44,4 +44,9 @@ public interface GameDao {
    * @param userID the ID of the user posting the review
    */
   void postGameReview(String review, String gameID, String userID);
+
+  /**
+   * Deletes all users.
+   */
+  void deleteAllGames();
 }

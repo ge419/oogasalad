@@ -179,6 +179,11 @@ public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
     docRef.update(PREF_LANG_KEY, preferredLang);
   }
 
+  @Override
+  public void deleteAllUsers() {
+    deleteCollection(USERS_COLLECTION);
+  }
+
   private Map<String, Object> getDefaultUserEntry(String username, String password) {
     Map<String, Object> docData = new HashMap<>();
     docData.put(USERNAME_KEY, username);

@@ -5,6 +5,7 @@ import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.inject.Inject;
 import java.util.ArrayList;
@@ -174,4 +175,33 @@ public abstract class FirebaseAbstractDao {
       throw new InvalidDatabaseExecutionException("Failed to get get all docs!", e);
     }
   }
+
+
+  /**
+   * Deletes a collection in the database.
+   * @param collectionID The collection in which the document is located.
+   */
+  protected void deleteCollection(String collectionID) {
+    CollectionReference collection = db.collection(collectionID);
+    int batchSize = 100;
+    try {
+      // retrieve a small batch of documents to avoid out-of-memory errors
+      ApiFuture<QuerySnapshot> future = collection.limit(batchSize).get();
+      int deleted = 0;
+      // future.get() blocks on document retrieval
+      List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+      for (QueryDocumentSnapshot document : documents) {
+        document.getReference().delete();
+        ++deleted;
+      }
+      if (deleted >= batchSize) {
+        // retrieve and delete another batch
+        deleteCollection(collectionID);
+      }
+    } catch (Exception e) {
+      LOG.debug(String.format("Failed to delete %s collection", collection));
+      throw new InvalidDatabaseExecutionException("Failed to delete collection");
+    }
+  }
+
 }

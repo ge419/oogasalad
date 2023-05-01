@@ -72,6 +72,11 @@ public class FirebaseGameDao extends FirebaseAbstractDao implements GameDao {
         createMap(GAME_REVIEWS_KEY, FieldValue.arrayUnion(docData)));
   }
 
+  @Override
+  public void deleteAllGames() {
+    deleteCollection(GAMES_COLLECTION);
+  }
+
   private Map<String, Object> getDefaultGameEntry(String userID) {
     Map<String, Object> gameMetaData = new HashMap<>();
     gameMetaData.put(TITLE_KEY, "");

@@ -121,4 +121,9 @@ public interface UserDao {
    * @param preferredLang the updated preferred language of the user
    */
   void updatedPreferredLanguage(String userID, String preferredLang);
+
+  /**
+   * Deletes all users.
+   */
+  void deleteAllUsers();
 }

@@ -289,7 +289,7 @@ public class BuilderController {
    * @param imagePath path of the image
    * @return a boardimagetile object
    */
-  public Optional<BoardImageTile> createBoardImage(Path imagePath) throws IOException {
+  public Optional<BoardImageTile> createBoardImage(Path imagePath){
       System.out.println("This is our image path: " + imagePath);
       BoardImage backendImage = new BoardImage(db);
       Coordinate coordinate = new Coordinate(0, 0, 0);
@@ -337,17 +337,22 @@ public class BuilderController {
       return false;
     }
   }
-//  public String getRuleDescription(String ruleAsString){
-//    return "This is a test string! Selected rule: " + ruleAsString;
-//    return rules.get(ruleAsString);
-//  }
+
   public String getGameID() {
     return gameID;
   }
-  public void saveInfo(String genre, String description) {
-    Map<String, Object> game = new HashMap<>();
-    game.put(GameSchema.GENRE.getFieldName(), genre);
-    game.put(GameSchema.DESCRIPTION.getFieldName(), description);
-    gameDao.updateGame(gameID, game);
+
+  public void updateWidth(double width) {
+    gameHolder.getGameInfo().setWidth(width);
   }
+
+  public void updateHeight(double height) {
+    gameHolder.getGameInfo().setHeight(height);
+  }
+//  public void saveInfo(String genre, String description) {
+//    Map<String, Object> game = new HashMap<>();
+//    game.put(GameSchema.GENRE.getFieldName(), genre);
+//    game.put(GameSchema.DESCRIPTION.getFieldName(), description);
+//    gameDao.updateGame(gameID, game);
+//  }
 }

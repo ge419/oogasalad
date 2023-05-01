@@ -194,16 +194,19 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     Text widthLabel = (Text) makeText("BoardWidthLabel", myBuilderResource);
     Spinner<Double> widthInput = (Spinner<Double>) makeDoubleSpinner("BoardWidthInput", Double.parseDouble(constantsResource.getString("BOARD_MIN_SIZE")), Double.parseDouble(constantsResource.getString("BOARD_MAX_SIZE")), myBoardPane.getWidth());
     widthInput.valueProperty().addListener(((observable, oldValue, newValue) -> setPaneSize(myBoardPane, newValue, myBoardPane.getHeight())));
+    widthInput.valueProperty().addListener((((observable, oldValue, newValue) -> myBuilderController.updateWidth(newValue))));
     Text heightLabel = (Text) makeText("BoardHeightLabel", myBuilderResource);
     Spinner<Double> heightInput = (Spinner<Double>) makeDoubleSpinner("BoardWidthInput", Double.parseDouble(constantsResource.getString("BOARD_MIN_SIZE")), Double.parseDouble(constantsResource.getString("BOARD_MAX_SIZE")), myBoardPane.getHeight());
     heightInput.valueProperty().addListener(((observable, oldValue, newValue) -> setPaneSize(myBoardPane, myBoardPane.getWidth(), newValue)));
+    heightInput.valueProperty().addListener((((observable, oldValue, newValue) -> myBuilderController.updateHeight(newValue))));
     container.getChildren().add(new HBox(descriptionLabel, descriptionInput));
     container.getChildren().add(new HBox(genreLabel, genreInput));
     container.getChildren().add(new HBox(widthLabel, widthInput));
     container.getChildren().add(new HBox(heightLabel, heightInput));
   }
   public void saveGameInfo() {
-    myBuilderController.saveInfo(genreInput.getCharacters().toString(), descriptionInput.getCharacters().toString());
+//    myBuilderController.saveInfo(genreInput.getCharacters().toString(), descriptionInput.getCharacters().toString());
+    //TODO: update board dimension
   }
   public void uploadThumbnailImage() {
     FileUploader.uploadGameThumbnail(myBuilderController.getGameID());

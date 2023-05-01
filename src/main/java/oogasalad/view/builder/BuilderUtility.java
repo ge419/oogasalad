@@ -125,6 +125,7 @@ public interface BuilderUtility {
     textField.setId(property);
     return textField;
   }
+
   /**
    * Creates a ColorPicker with ID = property.
    * Assigns an event handler to when a new value is selected
@@ -187,6 +188,12 @@ public interface BuilderUtility {
     CheckBox checkBox = new CheckBox();
     checkBox.setId(property);
     return checkBox;
+  }
+
+  default Node makeLabel(String property, ResourceBundle languageBundle) {
+    Label label = new Label(languageBundle.getString(property));
+    label.setId(property);
+    return label;
   }
 
   default Node makeFileSelectButton(String property, ResourceBundle resourceBundle,

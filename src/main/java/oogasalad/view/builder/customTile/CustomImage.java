@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import oogasalad.model.attribute.ImageMetadata;
 import oogasalad.model.attribute.Metadata;
+import oogasalad.view.builder.BuilderUtility;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CustomImage extends ImageView implements CustomElement {
+public class CustomImage extends ImageView implements CustomElement, BuilderUtility {
 
     String name = "";
     Path destinationPath;
@@ -51,10 +52,36 @@ public class CustomImage extends ImageView implements CustomElement {
         this.index = jsonObject.get("index").getAsInt();
         this.editable = jsonObject.get("editable").getAsBoolean();
         this.destinationPath = Paths.get(jsonObject.get("filePath").getAsString());
-
-
     }
 
+    @Override
+    public Metadata getMetaData() {
+        ImageMetadata metadata = new ImageMetadata(this.name);
+        metadata.setName(name);
+        metadata.setDefaultValue(this.destinationPath.toString());
+        metadata.setEditable(editable);
+        metadata.setViewable(editable);
+        return metadata;
+    }
+    @Override
+    public void setValue(String loadedValue) {
+        this.originalFile = new File(loadedValue);
+        this.destinationPath = Paths.get(loadedValue);
+        this.setImage(new Image(originalFile.toURI().toString()));
+    }
+
+    public VBox getInfo(ResourceBundle languageBundle) {
+        List<Node> imageSpecificNodes = new ArrayList<>();
+
+        // Create a label for the size slider
+        imageSpecificNodes.add(makeLabel("imageSize", languageBundle));
+
+        // Create a slider to scale the image
+        Slider sizeSlider = createSizeSlider();
+        imageSpecificNodes.add(sizeSlider);
+
+        return makeVbox(this, imageSpecificNodes);
+    }
 
     public void fitImage(double rightPaneWidth, double rightPaneHeight) {
         // Resize the image to fit within the bounds of the StackPane
@@ -65,19 +92,6 @@ public class CustomImage extends ImageView implements CustomElement {
         double scale = Math.min(maxWidth / width, maxHeight / height);
         this.setFitWidth(scale * width);
         this.setFitHeight(scale * height);
-    }
-
-    public VBox getInfo(ResourceBundle languageBundle) {
-        List<Node> imageSpecificNodes = new ArrayList<>();
-
-        // Create a label for the size slider
-        Label sizeLabel = new Label("Image Size:");
-
-        // Create a slider to scale the image
-        Slider sizeSlider = createSizeSlider();
-        imageSpecificNodes.addAll(Arrays.asList(sizeLabel, sizeSlider));
-
-        return makeVbox(this, imageSpecificNodes);
     }
 
     @Override
@@ -98,7 +112,8 @@ public class CustomImage extends ImageView implements CustomElement {
 
 
     private Slider createSizeSlider() {
-        Slider sizeSlider = new Slider(10, ((Pane) this.getParent()).getWidth(), this.getFitWidth());
+        Slider sizeSlider = (Slider) makeSlider("sizeSlider", 10, ((Pane) this.getParent()).getWidth(), this.getFitWidth());
+
         sizeSlider.setBlockIncrement(10);
         sizeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
             double scalingFactor = newVal.doubleValue() / oldVal.doubleValue();
@@ -121,6 +136,15 @@ public class CustomImage extends ImageView implements CustomElement {
     @Override
     public void setEditable(boolean selected) {
         this.editable = selected;
+    }
+
+
+    private String resolveImageName(String saveName) {
+        if (this.name.isEmpty()) {
+            this.name = this.originalFile.getName();
+        }
+        this.name = this.name.endsWith(".png") ? this.name : this.name + ".png";
+        return name;
     }
 
     public JsonObject save(Path directory) throws IOException {
@@ -148,45 +172,16 @@ public class CustomImage extends ImageView implements CustomElement {
         return jsonObject;
     }
 
-
-
-
     private void saveImage(File originalFile, Path directoryPath) throws IOException {
         String saveName = this.name;
         saveName = resolveImageName(saveName);
 
-        System.out.println("saveName = " + saveName);
         Path newFilePath = directoryPath.resolve(saveName);
         if (!Files.exists(newFilePath)) {
             Files.createFile(newFilePath); //Line Errors
         }
 
         Files.copy(originalFile.toPath(), newFilePath, StandardCopyOption.REPLACE_EXISTING);
-    }
-
-    private String resolveImageName(String saveName) {
-        if (this.name.isEmpty()) {
-            this.name = this.originalFile.getName();
-            System.out.println("this.originalFile.getName() = " + this.originalFile.getName());
-        }
-        this.name = this.name.endsWith(".png") ? this.name : this.name + ".png";
-        return name;
-    }
-
-    @Override
-    public Metadata getMetaData() {
-        ImageMetadata metadata = new ImageMetadata(this.name);
-        metadata.setName(name);
-        metadata.setDefaultValue(this.destinationPath.toString());
-        metadata.setEditable(editable);
-        metadata.setViewable(editable);
-        return metadata;
-    }
-    @Override
-    public void setValue(String loadedValue) {
-        this.originalFile = new File(loadedValue);
-        this.destinationPath = Paths.get(loadedValue);
-        this.setImage(new Image(originalFile.toURI().toString()));
     }
 
 }

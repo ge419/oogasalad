@@ -107,11 +107,8 @@ public class SettingsNavBar {
     VBox.setVgrow(spacer2, Priority.ALWAYS);
     settingsNavBarLayout = new VBox(accountLink, securityLink, appearanceLink,
         regionLink,separator1, tellAFriendLink, separator2,logoutLink, versionNumber, container);
-    settingsNavBarLayout.setAlignment(Pos.TOP_LEFT);
-    settingsNavBarLayout.setPadding(new Insets(30,0,30,0));
-    settingsNavBarLayout.setPrefWidth(150);
-    settingsNavBarLayout.setSpacing(15);
-    settingsNavBarLayout.setStyle("-fx-background-color: lightgrey;");
+
+    settingsNavBarLayout.setId("left-navbar");
   }
 
   // have render with only

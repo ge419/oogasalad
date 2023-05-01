@@ -29,8 +29,6 @@ public class NavBar {
 
   private Button gameLauncherButton;
   private Button socialCenterButton;
-  //  private Button userProfileButton;
-//  private Button userPreferencesButton;
   private Button loginButton;
   private Region spacer;
   private Region spacer2;
@@ -49,7 +47,6 @@ public class NavBar {
 
   @Inject
   public NavBar(UserPreferences userPref, ResourceBundle languageResourceBundle) {
-//    this.authHandler = authHandler;
     this.userPref = userPref;
     this.languageResourceBundle = languageResourceBundle;
     userPref.addObserver(this::onLanguageChange);
@@ -90,7 +87,7 @@ public class NavBar {
     imageView.setImage(new Image(PathFinder.getUserAvatar(userID)));
   }
 
-  public void setMenuButton(String userFullName, String userName, String userID){ // todo negative test try setting menu button when authhandler is not active, actually prob not
+  public void setMenuButton(String userFullName, String userName, String userID){
     userFullNameLabel = new Label(userFullName);
     userNameLabel = new Label("@"+userName);
     VBox userInfoBox = new VBox(userFullNameLabel, userNameLabel);
@@ -159,8 +156,7 @@ public class NavBar {
     navBarLayout.getChildren().addAll(bCubedLogo, spacer2, gameLauncherButton, socialCenterButton,
         spacer, loginButton);
 
-    navBarLayout.setSpacing(10);
-    navBarLayout.setAlignment(Pos.CENTER);
-    navBarLayout.setStyle("-fx-background-color: #dbdbdb;");
+    navBarLayout.setId("top-navbar");
+
   }
 }

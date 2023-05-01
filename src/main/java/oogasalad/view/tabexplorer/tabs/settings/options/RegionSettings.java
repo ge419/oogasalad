@@ -2,6 +2,7 @@ package oogasalad.view.tabexplorer.tabs.settings.options;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import java.util.ResourceBundle;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -15,6 +16,7 @@ import oogasalad.model.accesscontrol.dao.UserDao;
 import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.tabs.settings.SettingsTab;
 import oogasalad.view.tabexplorer.userpreferences.Languages;
+import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
 public class RegionSettings extends SettingsOptions {
 
@@ -34,8 +36,8 @@ public class RegionSettings extends SettingsOptions {
       @Assisted TabExplorer tabExplorer,
       AuthenticationHandler authHandler,
       UserDao userDao,
-      GameDao gameDao) {
-    super(settingsTab, tabExplorer, authHandler, userDao, gameDao);
+      GameDao gameDao, UserPreferences userPref, ResourceBundle languageResourceBundle) {
+    super(settingsTab, tabExplorer, authHandler, userDao, gameDao, userPref, languageResourceBundle);
   }
 
   @Override
@@ -84,5 +86,10 @@ public class RegionSettings extends SettingsOptions {
     tab.getChildren().addAll(accountSettingLabel, horizontalContainer);
 
     settingsTab.setCurrentSettingsOption(tab);
+  }
+
+  @Override
+  public void onLanguageChange(String pathToBundle) {
+
   }
 }

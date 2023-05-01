@@ -122,24 +122,23 @@ public class CustomText extends Label implements CustomElement, BuilderUtility {
     public VBox getInfo(ResourceBundle languageBundle) {
         List<Node> nodes = new ArrayList<>();
 
-
-        TextField defaultTextField = new TextField(this.defaultContents);
-        defaultTextField.setOnAction(event -> setDefaultContents(defaultTextField.getText()));
-        nodes.add(new Label("Default Contents:"));
+        nodes.add(new Label(languageBundle.getString("defaultText")));
+        Node defaultTextField = makeTextField(languageBundle.getString("defaultText"));
+        ((TextField) defaultTextField).setOnAction(event -> setDefaultContents(((TextField) defaultTextField).getText()));
         nodes.add(defaultTextField);
 
         // Create a slider to adjust the font size
-        Slider fontSizeSlider = new Slider(8, 72, this.getFontSize());
+        Slider fontSizeSlider = (Slider) makeSlider("fontSizeSlider", 8, 72, this.getFontSize());
         fontSizeSlider.setBlockIncrement(1);
         fontSizeSlider.valueProperty().addListener((obs, oldVal, newVal) -> setFontSize(newVal.intValue()));
-        nodes.add(new Label("Font Size:"));
+        nodes.add(new Label(languageBundle.getString("fontSize")));
         nodes.add(fontSizeSlider);
 
         // Create a checkbox to toggle bold font
-        CheckBox boldCheckbox = new CheckBox("Bold");
+        CheckBox boldCheckbox = (CheckBox) makeCheckBox("Bold", languageBundle);
         boldCheckbox.setSelected(this.isBold());
         boldCheckbox.setOnAction(event -> setBold(boldCheckbox.isSelected()));
-        nodes.add(new Label("Bold:"));
+        nodes.add(new Label(languageBundle.getString("Bold")));
 
         return makeVbox(this, nodes);
     }

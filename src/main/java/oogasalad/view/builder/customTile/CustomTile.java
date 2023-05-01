@@ -10,14 +10,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javafx.beans.binding.Bindings;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -33,18 +31,16 @@ import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class CustomTileRendering extends Group implements ViewTile {
-    private static final Logger LOGGER = LogManager.getLogger(CustomTileRendering.class);
-    private double SCALE_DOWN_FACTOR = .3;
+public class CustomTile extends Group implements ViewTile {
+    private static final Logger LOGGER = LogManager.getLogger(CustomTile.class);
     private Color color;
-
     private Map<String, CustomElement> customElementMap;
 
     private String name;
 
     private final Tile modelTile;
     @Inject
-    public CustomTileRendering(@Assisted Tile BTile, SchemaDatabase database) {
+    public CustomTile(@Assisted Tile BTile, SchemaDatabase database) {
         this.modelTile = BTile;
         modelTile.addSchema("customTile");
 
@@ -99,8 +95,8 @@ public class CustomTileRendering extends Group implements ViewTile {
         StackPane s = new StackPane();
         File selectedFile = new File(jsonFile);
         JsonObject jsonObject = readJsonFromFile(selectedFile);
-        s.setPrefHeight(jsonObject.get("height").getAsDouble()*SCALE_DOWN_FACTOR);
-        s.setPrefWidth(jsonObject.get("width").getAsDouble()*SCALE_DOWN_FACTOR);
+        s.setPrefHeight(jsonObject.get("height").getAsDouble());
+        s.setPrefWidth(jsonObject.get("width").getAsDouble());
         //Something to preserve aspect ratio
         name = jsonObject.get("name").getAsString();
         customElementMap = new HashMap<>();
@@ -134,8 +130,8 @@ public class CustomTileRendering extends Group implements ViewTile {
         if (selectedFile != null) {
             try {
                 JsonObject jsonObject = readJsonFromFile(selectedFile);
-                s.setPrefHeight(jsonObject.get("height").getAsDouble()*SCALE_DOWN_FACTOR);
-                s.setPrefWidth(jsonObject.get("width").getAsDouble()*SCALE_DOWN_FACTOR);
+                s.setPrefHeight(jsonObject.get("height").getAsDouble());
+                s.setPrefWidth(jsonObject.get("width").getAsDouble());
                 //Something to preserve aspect ratio
                 name = jsonObject.get("name").getAsString();
                 JsonArray customObjects = jsonObject.getAsJsonArray("customObjects");

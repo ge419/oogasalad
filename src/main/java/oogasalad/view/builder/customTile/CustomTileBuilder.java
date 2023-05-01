@@ -15,12 +15,12 @@ import java.io.File;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class CustomObjectBuilder extends Application implements BuilderUtility {
+public class CustomTileBuilder extends Application implements BuilderUtility {
     private final String DEFAULT_TITLE = "CustomTileMaker";
     final String STYLE_PATH =  "/customTiles/customObjectBuilder.css";
     private Stage stage;
     private LeftPane leftPane;
-    private CustomObject rightPane;
+    private CustomTileBuilderView rightPane;
     private ResourceBundle languageBundle;
     private static final int LEFT_PANE_WIDTH = 300;
     private int RIGHT_PANE_STARTING_WIDTH = 800;
@@ -38,7 +38,7 @@ public class CustomObjectBuilder extends Application implements BuilderUtility {
         stage = new Stage();
         this.languageBundle = ResourceBundle.getBundle("customTiles." + language);
 
-        rightPane = new CustomObject(() -> leftPane.swapCurrentClicked(rightPane.currentClickedInfo, rightPane.newCurrentClickedInfo));
+        rightPane = new CustomTileBuilderView(() -> leftPane.swapCurrentClicked(rightPane.currentClickedInfo, rightPane.newCurrentClickedInfo), languageBundle);
         leftPane = new LeftPane();
 
         // Create SplitPane and add left and right panes
@@ -65,7 +65,7 @@ public class CustomObjectBuilder extends Application implements BuilderUtility {
         splitPane.getItems().addAll(leftPane, rightPane);
 
         // Set initial position of the divider
-        splitPane.setDividerPositions(0.3);
+        splitPane.setDividerPositions(LEFT_PANE_WIDTH/(LEFT_PANE_WIDTH+RIGHT_PANE_STARTING_WIDTH));
 
         // Set listener for changes to divider position
         splitPane.getDividers().get(0).positionProperty().addListener((obs, oldVal, newVal) -> {
@@ -75,9 +75,6 @@ public class CustomObjectBuilder extends Application implements BuilderUtility {
         });
     }
 
-
-
-
     private void maintainSideBar() {
         double height = stage.getHeight();
         double width = stage.getWidth() - LEFT_PANE_WIDTH;
@@ -85,17 +82,6 @@ public class CustomObjectBuilder extends Application implements BuilderUtility {
 
     public static int getLeftPaneWidth(){
         return LEFT_PANE_WIDTH;
-    }
-
-
-
-
-    public void launch() {
-        launch(new String[]{});
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
 
@@ -138,15 +124,11 @@ public class CustomObjectBuilder extends Application implements BuilderUtility {
 
         private CustomImage getImageFromFile() {
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle(languageBundle.getString("selectImageFile.label"));
-            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg","*.jpeg", "*.gif"));
+            fileChooser.setTitle(languageBundle.getString("selectImageFile"));
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(languageBundle.getString("imageFiles"), "*.png", "*.jpg","*.jpeg", "*.gif"));
             File selectedFile = fileChooser.showOpenDialog(getScene().getWindow());
-
             if (selectedFile != null) {
                 return new CustomImage(selectedFile);
-                // rest of the code here
-            } else {
-                System.out.println("Error: selected file is null.");
             }
             return null;
         }
@@ -159,9 +141,6 @@ public class CustomObjectBuilder extends Application implements BuilderUtility {
         private void addColorBox() {
             CustomColorBox newBox = new CustomColorBox();
             rightPane.placeElm(newBox);
-            this.setTranslateX(0);
-            this.setTranslateY(0);
-
         }
 
         private void swapCurrentClicked(VBox oldClickedInfo, VBox newClickedInfo){

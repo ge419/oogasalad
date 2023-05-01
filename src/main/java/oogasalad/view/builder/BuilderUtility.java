@@ -36,12 +36,6 @@ public interface BuilderUtility {
     return text;
   }
 
-  default Node makeLabel(String property, ResourceBundle resourceBundle) {
-    Label label = new Label(resourceBundle.getString(property));
-    label.setId(property);
-    label.getStyleClass().add("text");
-    return label;
-  }
   /**
    * Creates a ComboBox object with ID = property and options from choices.
    * Assigns an event handler to when a new value is selected
@@ -141,6 +135,17 @@ public interface BuilderUtility {
     ColorPicker colorPicker = new ColorPicker();
     colorPicker.setId(property);
     return colorPicker;
+  }
+
+  /**
+   * Creates a Slider with ID = property
+   * @param property string equal to the intended CSS ID and ResourceBundle key
+   * @return Node Slider
+   */
+  default Node makeSlider(String property, double min, double max, double intialValue) {
+    Slider slider = new Slider(min, max, intialValue);
+    slider.setId(property);
+    return slider;
   }
 
   /**

@@ -1,8 +1,6 @@
 package oogasalad.view.builder.customTile;
 
 import com.google.gson.*;
-import com.google.inject.Inject;
-import com.google.inject.assistedinject.Assisted;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
@@ -10,7 +8,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import oogasalad.model.attribute.*;
 
 import java.io.*;
 import java.io.FileReader;
@@ -19,17 +16,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class CustomObject extends StackPane {
+public class CustomTileBuilderView extends StackPane {
     private final Path RESOURCE_PATH = Paths.get("data/customObjects");
     private final Runnable swapCurrentClicked;
-
     private final ResourceBundle languageBundle;
-
     private String name;
     VBox currentClickedInfo;
     VBox newCurrentClickedInfo;
 
-    public CustomObject(Runnable swapCurrentClicked, ResourceBundle languageBundle){
+    public CustomTileBuilderView(Runnable swapCurrentClicked, ResourceBundle languageBundle){
         this.swapCurrentClicked = swapCurrentClicked;
         this.languageBundle = languageBundle;
     }
@@ -71,19 +66,18 @@ public class CustomObject extends StackPane {
 
     void nameObject() {
         TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Name CustomTile");
-        dialog.setHeaderText("Enter a new name for the CustomTile:");
+        dialog.setTitle(languageBundle.getString("nametitle"));
+        dialog.setHeaderText(languageBundle.getString("nametext"));
         Optional<String> result = dialog.showAndWait();
-        result.ifPresent(n -> {
-            Stage stage = (Stage) getScene().getWindow();
-            stage.setTitle(n);
-            name = n;
+        result.ifPresent(newName -> {
+            ((Stage) getScene().getWindow()).setTitle(newName);
+            name = newName;
         });
     }
 
     void saveLauncher(){
         if (name == null){
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Please enter a file name before saving.");
+            Alert alert = new Alert(Alert.AlertType.WARNING, "noNameWarning");
             alert.showAndWait();
             return;
         }
@@ -158,14 +152,10 @@ public class CustomObject extends StackPane {
         }
     }
 
-
-
-
-
     private File chooseJsonFile() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Json File");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files", "*.json"));
+        fileChooser.setTitle(languageBundle.getString("jsonFileChooser"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON", "*.json"));
         return fileChooser.showOpenDialog(null);
     }
 
@@ -176,49 +166,10 @@ public class CustomObject extends StackPane {
         }
     }
 
-    private SimpleObjectSchema makeSchema(){
-        List<Metadata> metadataList = new ArrayList<>();
-        metadataList.addAll(getDefaultTileMetadata());
-
-        for (Node node : this.getChildren()) {
-            CustomElement customElm = (CustomElement) node;
-            Metadata elementMetaData = customElm.getMetaData();
-            metadataList.add(elementMetaData);
-        }
-
-        return new SimpleObjectSchema(this.name, metadataList);
-    }
-
-    private Collection<Metadata> getDefaultTileMetadata() {
-        List<Metadata> metadataList = new ArrayList<>();
-        StringMetadata type = new StringMetadata("customTile");
-        type.setViewable(false);
-        metadataList.add(type);
-        metadataList.add(new PositionMetadata("position"));
-        BooleanMetadata owned = new BooleanMetadata("owned");
-        owned.setViewable(false);
-        metadataList.add(new BooleanMetadata("owned"));
-        DoubleMetadata widthMetaData = new DoubleMetadata("width");
-        DoubleMetadata heightMetaData = new DoubleMetadata("height");
-        widthMetaData.setDefaultValue(50);
-        heightMetaData.setDefaultValue(50);
-        metadataList.add(widthMetaData);
-        metadataList.add(heightMetaData);
-        metadataList.add(new TileListMetadata("next"));
-        return metadataList;
-    }
-
     private void resizeWindow(Double height, Double rightPaneWidth) {
         Stage stage = (Stage) this.getScene().getWindow();
 
-        stage.setWidth(CustomObjectBuilder.getLeftPaneWidth() + rightPaneWidth);
+        stage.setWidth(CustomTileBuilder.getLeftPaneWidth() + rightPaneWidth);
         stage.setHeight(height);
     }
-
-    private Node getAsNode() {
-        return (Node) this;
-    }
-
-
-
 }

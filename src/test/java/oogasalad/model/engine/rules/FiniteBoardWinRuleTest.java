@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,27 +43,40 @@ import oogasalad.model.engine.events.TileLandedEvent;
 
 public class FiniteBoardWinRuleTest {
 
+  public static final String E_1 = "195";
+  public static final String E_2 = "200";
+  public static final String WINNING_TILES = "winningTiles";
   private SchemaDatabase db;
   private ActionFactory mockActionFactory;
-  private FiniteBoardWinRule rule;
   private ActionQueue actionQueue;
+  private FiniteBoardWinRule rule;
+  private CheckTileWinAction mockedAction;
+  private EventHandlerParams<TileLandedEvent> eventEventHandlerParams;
+  private Attribute winningTiles;
+  private ArrayList<String> ids;
+  private static final String LANDED_TILE_ID = "001";
 
   @Before
   public void setUp() {
-    CheckTileWinAction mockedAction = mock(CheckTileWinAction.class);
     mockActionFactory = mock(ActionFactory.class);
+    mockedAction = mock(CheckTileWinAction.class);
     when(mockActionFactory.makeCheckTileWinAction(any(String.class), any(List.class))).thenReturn(mockedAction);
+
     Injector injector = Guice.createInjector(new AttributeModule());
     db = injector.getInstance(SchemaDatabase.class);
-    actionQueue = new SimpleActionQueue();
+
     Tile mockedTileLanded = mock(Tile.class);
-    when(mockedTileLanded.getId()).thenReturn("0");
+    when(mockedTileLanded.getId()).thenReturn(LANDED_TILE_ID);
+    Piece mockedPiece = mock(Piece.class);
+    actionQueue = mock(ActionQueue.class);
 
-    EventHandlerParams<TileLandedEvent> params = mock(EventHandlerParams.class);
-    when(params.actionQueue()).thenReturn(actionQueue);
+    eventEventHandlerParams = new EventHandlerParams<>(
+        new TileLandedEvent(mockedPiece, mockedTileLanded),
+        actionQueue
+    );
     rule = new FiniteBoardWinRule(db, mockActionFactory);
-
-    Attribute winningTiles = new TileListAttribute("winningTiles", List.of("195", "200"));
+    ids = new ArrayList<>(List.of(E_1, E_2));
+    winningTiles = new TileListAttribute(WINNING_TILES, ids);
     rule.setAllAttributes(List.of(winningTiles));
   }
 
@@ -76,8 +90,17 @@ public class FiniteBoardWinRuleTest {
   }
 
   @Test
-  public void testCheckTileWin_withWinningTile() {
+  public void makesCheckTileWinAction() {
+    rule.checkTileWin(eventEventHandlerParams);
 
+    verify(mockActionFactory).makeCheckTileWinAction(LANDED_TILE_ID, ids);
+  }
+
+  @Test
+  public void addsActionToQueue() {
+    rule.checkTileWin(eventEventHandlerParams);
+
+    verify(actionQueue).add(Priority.MOST_HIGH.getValue(), mockedAction);
   }
 
 }

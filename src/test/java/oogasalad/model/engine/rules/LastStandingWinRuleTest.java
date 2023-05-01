@@ -42,7 +42,7 @@ public class LastStandingWinRuleTest {
     mockedAction = mock(CheckWinAndEndAction.class);
     mockedQueue = mock(SimpleActionQueue.class);
     gameHolder = mock(GameHolder.class);
-    WinningConditionStrategy winningConditionStrategy = new StandingWinningStrategy(gameHolder, TEST_N)
+    WinningConditionStrategy winningConditionStrategy = new StandingWinningStrategy(gameHolder, TEST_N);
     when(mockActionFactory.makeCheckWinStateAction(winningConditionStrategy)).thenReturn(mockedAction);
 
     Injector injector = Guice.createInjector(new AttributeModule());

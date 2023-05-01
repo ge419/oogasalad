@@ -4,6 +4,7 @@
 //
 //import oogasalad.model.constructable.GameHolder;
 //import oogasalad.view.BuilderFactory;
+//import oogasalad.view.tabexplorer.userpreferences.Languages;
 //import org.junit.jupiter.api.BeforeAll;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
@@ -11,13 +12,11 @@
 //public class BuilderControllerTest {
 //  GameHolder gameHolder;
 //  BuilderController bc;
-////  BuilderFactory builderFactory;
 //
 //  @BeforeEach
 //  void setup() {
-////    builderFactory =
-//    gameHolder = GameHolder.createDefaultGame();
-////    bc = new BuilderController("English", );
+//    bc = new BuilderController(Languages.ENGLISH.getLocaleStr(),"DEzmBuvsM4H3zLEhvQa0", null);
+//    gameHolder = bc.getGameHolder();
 //  }
 //
 //  @Test
@@ -28,6 +27,16 @@
 //
 //  @Test
 //  void gameHolderPlayerTest() {
+//
+//  }
+//
+//  @Test
+//  void createBoardImageTest() {
+//
+//  }
+//
+//  @Test
+//  void makeRulesPopupTest() {
 //
 //  }
 //

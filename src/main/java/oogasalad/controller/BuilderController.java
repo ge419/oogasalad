@@ -358,4 +358,13 @@ public class BuilderController {
   public void updateHeight(double height) {
     gameHolder.getGameInfo().setHeight(height);
   }
+
+  /**
+   * Getter method for GameHolder
+   * Utilized only for testing purposes
+   * @return  GameHolder
+   */
+  protected GameHolder getGameHolder() {
+    return gameHolder;
+  }
 }

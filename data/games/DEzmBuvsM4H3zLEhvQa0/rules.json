@@ -1,0 +1,63 @@
+[ {
+  "@class" : "oogasalad.model.engine.rules.BuyTileRule",
+  "id" : "3321606f-fac0-4b5d-b5ae-f9f8c0d1b789",
+  "schemas" : [ "buyTileRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.StringAttribute",
+    "key" : "tileType",
+    "value" : "tile"
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.DieMoveRule",
+  "id" : "e5b30ec1-3a2e-48bb-afbb-eed328002fd8",
+  "schemas" : [ "dieRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "numberOfDice",
+    "value" : 1
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.RemovePlayerRule",
+  "id" : "c0713c56-2e94-46f6-a4a5-96c9ec9f2d1d",
+  "schemas" : [ "removePlayerRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "scoreMinBound",
+    "value" : 0
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.FiniteBoardWinRule",
+  "id" : "e418d43c-861e-4a1e-b07c-c6bee5c78433",
+  "schemas" : [ "finiteBoardWinRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.TileListAttribute",
+    "key" : "winningTiles",
+    "ids" : [ ]
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.NumberOfPieceRule",
+  "id" : "d693f597-7433-4149-8bce-c69505ebe901",
+  "schemas" : [ "numberOfPiecesPerPlayerRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "numberOfPiecesPerPlayer",
+    "value" : 1
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.NumberOfPlayersRule",
+  "id" : "31d48db4-f4aa-49b8-8eff-77e62ce69543",
+  "schemas" : [ "numberOfPlayersRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "maxPlayer",
+    "value" : 4
+  }, {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "minPlayer",
+    "value" : 1
+  }, {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "piecePerPlayer",
+    "value" : 1
+  } ]
+} ]

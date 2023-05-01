@@ -95,6 +95,10 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
     popup.showHand();
   }
 
+
+  /**
+   * @see Textable
+   */
   @Override
   public VBox createTextBox(List info, double height, double width) {
     VBox textBox = new VBox();

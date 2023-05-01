@@ -1,4 +1,4 @@
-package oogasalad.view.gameplay;
+package oogasalad.view;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -17,10 +17,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import oogasalad.view.Backgroundable;
-import oogasalad.view.Imageable;
-import oogasalad.view.Renderable;
-import oogasalad.view.Textable;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -67,11 +63,10 @@ public class InterfaceTest extends ApplicationTest implements Textable, Renderab
     BorderPane root = new BorderPane();
 
     render(root);
-
-    // Verify that the component is added to the center of the root BorderPane
     assertNotNull(root.getCenter());
     assertEquals(testHappyRectangle, root.getCenter());
     assertNotEquals(testSadRectangle, root.getCenter());
+
   }
 
   @Test

@@ -3,6 +3,7 @@ package oogasalad.view.builder;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -193,16 +194,19 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
     Text widthLabel = (Text) makeText("BoardWidthLabel", myBuilderResource);
     Spinner<Double> widthInput = (Spinner<Double>) makeDoubleSpinner("BoardWidthInput", Double.parseDouble(constantsResource.getString("BOARD_MIN_SIZE")), Double.parseDouble(constantsResource.getString("BOARD_MAX_SIZE")), myBoardPane.getWidth());
     widthInput.valueProperty().addListener(((observable, oldValue, newValue) -> setPaneSize(myBoardPane, newValue, myBoardPane.getHeight())));
+    widthInput.valueProperty().addListener((((observable, oldValue, newValue) -> myBuilderController.updateWidth(newValue))));
     Text heightLabel = (Text) makeText("BoardHeightLabel", myBuilderResource);
     Spinner<Double> heightInput = (Spinner<Double>) makeDoubleSpinner("BoardWidthInput", Double.parseDouble(constantsResource.getString("BOARD_MIN_SIZE")), Double.parseDouble(constantsResource.getString("BOARD_MAX_SIZE")), myBoardPane.getHeight());
     heightInput.valueProperty().addListener(((observable, oldValue, newValue) -> setPaneSize(myBoardPane, myBoardPane.getWidth(), newValue)));
+    heightInput.valueProperty().addListener((((observable, oldValue, newValue) -> myBuilderController.updateHeight(newValue))));
     container.getChildren().add(new HBox(descriptionLabel, descriptionInput));
     container.getChildren().add(new HBox(genreLabel, genreInput));
     container.getChildren().add(new HBox(widthLabel, widthInput));
     container.getChildren().add(new HBox(heightLabel, heightInput));
   }
   public void saveGameInfo() {
-    myBuilderController.saveInfo(genreInput.getCharacters().toString(), descriptionInput.getCharacters().toString());
+//    myBuilderController.saveInfo(genreInput.getCharacters().toString(), descriptionInput.getCharacters().toString());
+    //TODO: update board dimension
   }
   public void uploadThumbnailImage() {
     FileUploader.uploadGameThumbnail(myBuilderController.getGameID());
@@ -314,7 +318,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
 
   ///////////////////////////////////////////////////////////////////////////////////////////////
 
-  public void uploadImage() {
+  public void uploadImage() throws IOException {
     Optional<File> file = fileLoad(myBuilderResource, "UploadImageTitle");
 
     if (checkIfImage(file)) {
@@ -322,6 +326,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
       double imageSize = Double.parseDouble(constantsResource.getString("IMAGE_SIZE"));
       Optional<BoardImageTile> ourImage = turnFileToImage(file.get(), imageSize, imageSize,
           new Coordinate(0, 0, 0));
+      //TODO: call save asset in the BuilderController
       if (ourImage.isEmpty()) {
         return;
       }
@@ -329,6 +334,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
           e -> myBuilderController.createPopupForm(
               ourImage.get().getBoardImage(), myBuilderResource, mySidepane));
       myImageCount++;
+//      myBuilderController.saveImage(file.get().toPath());
     } else {
       //
       LOG.warn("ERROR -- Got a non-image or nothing from file.");
@@ -446,8 +452,8 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
   }
 
   private Optional<BoardImageTile> turnFileToImage(File file, double width, double height,
-      Coordinate location) {
-    Optional<BoardImageTile> image = myBuilderController.createBoardImage(file.toURI().toString());
+      Coordinate location) throws IOException {
+    Optional<BoardImageTile> image = myBuilderController.createBoardImage(file.toPath());
     if (image.isEmpty()) {
       return Optional.empty();
     }

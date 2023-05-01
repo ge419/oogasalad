@@ -228,6 +228,8 @@ public class BuilderController {
       Class<? extends EditableRule> clazz = (Class<? extends EditableRule>) Class.forName(ruleAsString);
       EditableRule rule = injector.getInstance(clazz);
       createPopupForm(rule, builderView.getLanguage(), builderView.getPopupPane());
+      //TODO: add the newly created rule to the gameholder
+      gameHolder.getRules().add(rule);
     } catch (ClassNotFoundException e) {
       logger.fatal("Failed to create rule classes", e);
 //      throw new Exception(e);

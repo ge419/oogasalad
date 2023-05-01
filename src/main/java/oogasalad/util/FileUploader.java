@@ -11,16 +11,16 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 public class FileUploader {
 
-  public static void uploadUserAvatar(String userID){
+  public static void uploadUserAvatar(String userID) {
     uploadFile(PathFinder.getUserAvatarPath(userID));
   }
 
-  public static void uploadGameThumbnail(String gameID){
+  public static void uploadGameThumbnail(String gameID) {
     uploadFile(PathFinder.getGameThumbnailPath(gameID));
   }
 
 
-  private static void uploadFile(String dirPath){
+  private static void uploadFile(String dirPath) {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Upload an Image");
 

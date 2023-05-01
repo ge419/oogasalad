@@ -15,7 +15,7 @@ public class GameHolderBuilder {
 //   Optional<List<Card>> cards;
 
   public GameHolderBuilder setPlayers(Players players) {
-    this.players =  players;
+    this.players = players;
 //    this.gameObjectType = GameObjectType.PLAYER;
     return this;
   }

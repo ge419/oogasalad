@@ -12,6 +12,7 @@ import oogasalad.model.accesscontrol.database.firebase.FirebaseAccessorModule;
  * @author Chika Dueke-Eze
  */
 public class AccessControlModule extends AbstractModule {
+
   @Override
   protected void configure() {
     install(new FirebaseAuthHandlerModule());

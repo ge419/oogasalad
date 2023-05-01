@@ -5,9 +5,9 @@ import javafx.scene.Node;
 
 public interface Holdable {
 
- void showHand(Node anchor, Point2D offset);
+  void showHand(Node anchor, Point2D offset);
 
- void hideHand();
+  void hideHand();
 
 
 }

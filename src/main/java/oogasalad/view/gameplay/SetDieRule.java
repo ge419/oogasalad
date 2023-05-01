@@ -7,7 +7,7 @@ import oogasalad.model.engine.rules.Rule;
 
 public class SetDieRule implements Rule {
 
-  private Die die;
+  private final Die die;
 
   public SetDieRule(Die die) {
     this.die = die;

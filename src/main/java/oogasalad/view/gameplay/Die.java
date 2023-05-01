@@ -9,43 +9,26 @@ import oogasalad.view.Renderable;
 
 /**
  * This class represents a die that can be rolled to generate a random number between 1 and 6.
- *
- * Assumptions:
- * - The die can only generate values between 1 and 6.
- *
- * Dependencies:
- * - javafx.scene.layout.BorderPane
- * - javafx.scene.layout.StackPane
- * - javafx.scene.paint.Color
- * - javafx.scene.shape.Circle
- * - javafx.scene.shape.Rectangle
- * - oogasalad.view.Renderable
- *
+ * <p>
+ * Assumptions: - The die can only generate values between 1 and 6.
+ * <p>
+ * Dependencies: - javafx.scene.layout.BorderPane - javafx.scene.layout.StackPane -
+ * javafx.scene.paint.Color - javafx.scene.shape.Circle - javafx.scene.shape.Rectangle -
+ * oogasalad.view.Renderable
+ * <p>
  * Example Usage:
- *
- * // Creating a new Die
- * Die die = new Die();
- *
- * // Rolling the die with a specified value
- * try {
- *   die.rollDice(4);
- * } catch (IllegalArgumentException e) {
- *   System.out.println("Invalid value specified.");
- * }
- *
- * Public Methods:
- * - rollDice(int value) throws IllegalArgumentException
- *   Purpose: Rolls the die and sets the face to the specified value.
- *   Assumptions: The value must be between 1 and 6.
- *   Parameters:
- *     - value: an integer between 1 and 6 representing the face value of the die
- *   Exceptions:
- *     - IllegalArgumentException: if the value is not between 1 and 6
- * - render(BorderPane pane)
- *   Purpose: Renders the die onto the specified BorderPane.
- *   Parameters:
- *     - pane: the BorderPane to render the die onto
- *
+ * <p>
+ * // Creating a new Die Die die = new Die();
+ * <p>
+ * // Rolling the die with a specified value try { die.rollDice(4); } catch
+ * (IllegalArgumentException e) { System.out.println("Invalid value specified."); }
+ * <p>
+ * Public Methods: - rollDice(int value) throws IllegalArgumentException Purpose: Rolls the die and
+ * sets the face to the specified value. Assumptions: The value must be between 1 and 6. Parameters:
+ * - value: an integer between 1 and 6 representing the face value of the die Exceptions: -
+ * IllegalArgumentException: if the value is not between 1 and 6 - render(BorderPane pane) Purpose:
+ * Renders the die onto the specified BorderPane. Parameters: - pane: the BorderPane to render the
+ * die onto
  *
  * @author ajo24, dcm67, wj61, jy320
  */

@@ -27,7 +27,7 @@ public class SettingsNavBar {
   private Hyperlink logoutLink;
   private Label versionNumber;
   private VBox settingsNavBarLayout;
-  private UserPreferences userPref;
+  private final UserPreferences userPref;
 
   @Inject
   public SettingsNavBar(UserPreferences userPref) {
@@ -94,10 +94,10 @@ public class SettingsNavBar {
     appearanceLink = new Hyperlink("Appearance");
     regionLink = new Hyperlink("Language/Region");
     separator1 = new Separator();
-    separator1.setPadding(new Insets(5,0,5,0));
+    separator1.setPadding(new Insets(5, 0, 5, 0));
     tellAFriendLink = new Hyperlink("Tell a Friend!");
     separator2 = new Separator();
-    separator2.setPadding(new Insets(5,0,5,0));
+    separator2.setPadding(new Insets(5, 0, 5, 0));
     logoutLink = new Hyperlink("Logout");
     versionNumber = new Label("v0.02");
     container = new VBox(logoutLink, versionNumber);
@@ -106,9 +106,9 @@ public class SettingsNavBar {
     spacer2 = new Region();
     VBox.setVgrow(spacer2, Priority.ALWAYS);
     settingsNavBarLayout = new VBox(accountLink, securityLink, appearanceLink,
-        regionLink,separator1, tellAFriendLink, separator2,logoutLink, versionNumber, container);
+        regionLink, separator1, tellAFriendLink, separator2, logoutLink, versionNumber, container);
     settingsNavBarLayout.setAlignment(Pos.TOP_LEFT);
-    settingsNavBarLayout.setPadding(new Insets(30,0,30,0));
+    settingsNavBarLayout.setPadding(new Insets(30, 0, 30, 0));
     settingsNavBarLayout.setPrefWidth(150);
     settingsNavBarLayout.setSpacing(15);
     settingsNavBarLayout.setStyle("-fx-background-color: lightgrey;");

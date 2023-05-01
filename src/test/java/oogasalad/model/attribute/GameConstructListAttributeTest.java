@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 
 public class GameConstructListAttributeTest {
 
-  GameConstructListAttribute attribute;
   private static final String KEY = "constructKey";
+  GameConstructListAttribute attribute;
 
   @BeforeEach
   public void setUp() {

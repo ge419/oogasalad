@@ -5,7 +5,8 @@ import javafx.scene.control.Alert.AlertType;
 
 public class Validator {
 
-  public static Alert validateUserPersonalInfo(String name, String pronouns, String email, String age ){
+  public static Alert validateUserPersonalInfo(String name, String pronouns, String email,
+      String age) {
     Alert alert = null;
     if (!isValidEmail(email) || !isInteger(age) || name.isBlank() || pronouns.isBlank()) {
       alert = new Alert(AlertType.ERROR);

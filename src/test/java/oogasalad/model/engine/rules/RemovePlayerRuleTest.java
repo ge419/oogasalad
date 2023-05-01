@@ -26,6 +26,7 @@ import org.mockito.ArgumentCaptor;
 
 class RemovePlayerRuleTest {
 
+  private static final int TEST_MIN = 0;
   private ActionFactory mockActionFactory;
   private CheckAndRemovePlayerAction mockedAction;
   private ActionQueue mockedQueue;
@@ -33,7 +34,6 @@ class RemovePlayerRuleTest {
   private RemovePlayerRule rule;
   private PlayerRemovalStrategy mockedRemovalStrategy;
   private TileResetStrategy tileResetStrategy;
-  private static final int TEST_MIN = 0;
 
   @BeforeEach
   public void setUp() {
@@ -42,7 +42,8 @@ class RemovePlayerRuleTest {
     mockedQueue = mock(SimpleActionQueue.class);
     mockedRemovalStrategy = mock(PlayerRemovalStrategy.class);
     tileResetStrategy = mock(TileResetStrategy.class);
-    when(mockActionFactory.makeCheckAndRemovePlayerAction(TEST_MIN, mockedRemovalStrategy, tileResetStrategy)).thenReturn(mockedAction);
+    when(mockActionFactory.makeCheckAndRemovePlayerAction(TEST_MIN, mockedRemovalStrategy,
+        tileResetStrategy)).thenReturn(mockedAction);
 
     Injector injector = Guice.createInjector(new AttributeModule());
     SchemaDatabase db = injector.getInstance(SchemaDatabase.class);
@@ -66,7 +67,8 @@ class RemovePlayerRuleTest {
   public void makesRemovePlayersAction() {
     rule.removePlayers(eventHandlerParams);
 
-    verify(mockActionFactory).makeCheckAndRemovePlayerAction(TEST_MIN, mockedRemovalStrategy, tileResetStrategy);
+    verify(mockActionFactory).makeCheckAndRemovePlayerAction(TEST_MIN, mockedRemovalStrategy,
+        tileResetStrategy);
   }
 
   @Test

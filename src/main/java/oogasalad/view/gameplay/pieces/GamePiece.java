@@ -6,17 +6,19 @@ import javafx.scene.layout.StackPane;
 import oogasalad.view.gameplay.Movable;
 
 /**
- * This class represents a game piece that can be moved on the game board. It extends the JavaFX StackPane and implements the Movable interface.
- *
- * This class should be subclassed by specific game pieces that define their unique movement behaviors.
- *
- * Assumptions: The image at the provided imageURL is valid and can be loaded by the JavaFX Image class.
- *
- * Dependencies: This class depends on the JavaFX Image and ImageView classes, as well as the oogasalad.view.gameplay.Movable interface.
- *
- * Example usage:
- * GamePiece piece = new SpecificGamePiece("image.png");
- * gameBoard.add(piece, x, y);
+ * This class represents a game piece that can be moved on the game board. It extends the JavaFX
+ * StackPane and implements the Movable interface.
+ * <p>
+ * This class should be subclassed by specific game pieces that define their unique movement
+ * behaviors.
+ * <p>
+ * Assumptions: The image at the provided imageURL is valid and can be loaded by the JavaFX Image
+ * class.
+ * <p>
+ * Dependencies: This class depends on the JavaFX Image and ImageView classes, as well as the
+ * oogasalad.view.gameplay.Movable interface.
+ * <p>
+ * Example usage: GamePiece piece = new SpecificGamePiece("image.png"); gameBoard.add(piece, x, y);
  *
  * @author ajo24
  */

@@ -18,14 +18,13 @@ import oogasalad.model.accesscontrol.database.schema.GameSchema;
 import oogasalad.model.accesscontrol.database.schema.ReviewSchema;
 import oogasalad.model.accesscontrol.database.schema.UserSchema;
 import oogasalad.model.exception.InvalidDatabaseExecutionException;
-import oogasalad.view.builder.BuilderView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public abstract class FirebaseAbstractDao {
 
-  protected final FirebaseAccessor firebaseAccessor;
   protected static final Logger LOG = LogManager.getLogger(FirebaseAbstractDao.class);
+  protected final FirebaseAccessor firebaseAccessor;
   protected final Firestore db;
   protected final String USERS_COLLECTION = Collections.USERS.getString();
   protected final String GAMES_COLLECTION = Collections.GAMES.getString();
@@ -61,12 +60,12 @@ public abstract class FirebaseAbstractDao {
   protected final String REVIEW_KEY = ReviewSchema.REVIEW.getFieldName();
 
   @Inject
-  public FirebaseAbstractDao(FirebaseAccessor firebaseAccessor){
+  public FirebaseAbstractDao(FirebaseAccessor firebaseAccessor) {
     this.firebaseAccessor = firebaseAccessor;
     this.db = firebaseAccessor.getFirestoreClientInstance();
   }
 
-  protected Map<String, Object> getDocumentData(String collection, String documentID){
+  protected Map<String, Object> getDocumentData(String collection, String documentID) {
     DocumentReference docRef = db.collection(collection).document(documentID);
     ApiFuture<DocumentSnapshot> future = docRef.get();
 
@@ -89,22 +88,24 @@ public abstract class FirebaseAbstractDao {
     }
   }
 
-  protected void updateDocument(String collection, String documentID, Map<String, Object> updatedData){
+  protected void updateDocument(String collection, String documentID,
+      Map<String, Object> updatedData) {
     DocumentReference docRef = db.collection(collection).document(documentID);
     docRef.update(updatedData);
   }
+
   protected Map<String, Object> createMap(String key, Object value) {
     Map<String, Object> map = new HashMap<>();
     map.put(key, value);
     return map;
   }
 
-  protected void deleteDocument(String collection, String documentID){
+  protected void deleteDocument(String collection, String documentID) {
     DocumentReference docRef = db.collection(collection).document(documentID);
     docRef.delete();
   }
 
-  protected List<String> getAllDocumentsInCollection(String collectionID){
+  protected List<String> getAllDocumentsInCollection(String collectionID) {
     CollectionReference collection = db.collection(collectionID);
 
 // retrieve all document snapshots

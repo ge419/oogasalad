@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 
 public class PlayerListAttributeTest {
 
-  private PlayerListAttribute attribute;
   private static final String KEY = "playerListKey";
+  private PlayerListAttribute attribute;
 
   @BeforeEach
   public void setUp() {

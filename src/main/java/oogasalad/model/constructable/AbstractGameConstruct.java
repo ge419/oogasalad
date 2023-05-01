@@ -37,10 +37,10 @@ public abstract class AbstractGameConstruct implements GameConstruct {
   @JsonIgnore
   private final SchemaDatabase database;
   private final Map<String, Attribute> attributeMap;
-  private List<String> schemaNames;
   private final String baseSchema;
-  private String id;
   private final ObjectProperty<ObjectSchema> schemaProperty;
+  private List<String> schemaNames;
+  private String id;
 
   protected AbstractGameConstruct(String baseSchema, SchemaDatabase database) {
     this.id = UUID.randomUUID().toString();

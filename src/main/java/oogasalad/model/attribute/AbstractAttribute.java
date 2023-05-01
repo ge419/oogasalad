@@ -6,8 +6,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Abstraction that represents the attributes of the different Game Constructs
- * including String, Tile, Boolean, Color, List, etc. Attributes to represent different data forms.
+ * Abstraction that represents the attributes of the different Game Constructs including String,
+ * Tile, Boolean, Color, List, etc. Attributes to represent different data forms.
  *
  * @author Jay Yoon
  */

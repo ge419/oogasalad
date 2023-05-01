@@ -1,7 +1,6 @@
 package oogasalad.model.attribute;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,9 +8,9 @@ import org.junit.jupiter.api.Test;
 
 class TileListAttributeTest {
 
-  private TileListAttribute tileListAttribute;
   private static final String KEY = "testTileAttribute";
   private static final List<String> TILE_IDS = List.of("0");
+  private TileListAttribute tileListAttribute;
 
   @BeforeEach
   public void setUp() {

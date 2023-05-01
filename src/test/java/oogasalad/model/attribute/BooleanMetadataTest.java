@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 
 class BooleanMetadataTest {
 
-  private BooleanMetadata metadata;
   private static final String KEY = "testBoolean";
+  private BooleanMetadata metadata;
 
   @BeforeEach
   public void setUp() {

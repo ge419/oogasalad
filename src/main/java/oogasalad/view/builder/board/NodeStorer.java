@@ -45,6 +45,7 @@ public class NodeStorer {
 
   /**
    * Adds a DraggerAPI to list of stored draggers
+   *
    * @param dragger
    */
   public void addDragger(DraggerAPI dragger) {
@@ -53,6 +54,7 @@ public class NodeStorer {
 
   /**
    * Returns the list of DraggerAPIs in the game
+   *
    * @return
    */
   public List<DraggerAPI> getDraggers() {

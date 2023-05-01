@@ -49,13 +49,10 @@ public class Tiles implements Renderable {
    * <p>Assumptions: ID is passed in as a String
    *
    * <p>Parameters:
+   *
    * @param id is the ID of the backend tile that is associated with the frontend tile being found
-   *
-   * <p>Exceptions:
-   * @throws IllegalArgumentException when there is no ViewTile with specified ID.
-
-   *
    * @return Frontend tile associated with this ID
+   * @throws IllegalArgumentException when there is no ViewTile with specified ID.
    */
   public ViewTile getTile(String id) {
     for (ViewTile tile : tileList) {

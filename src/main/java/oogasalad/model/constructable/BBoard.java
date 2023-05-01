@@ -28,7 +28,10 @@ public class BBoard {
   public List<Tile> getTiles() {
     return tiles;
   }
-  public void setTiles(List<Tile> tiles) {this.tiles = tiles;}
+
+  public void setTiles(List<Tile> tiles) {
+    this.tiles = tiles;
+  }
 
   @JsonIgnore
   public void addTile(Tile t) {
@@ -46,7 +49,7 @@ public class BBoard {
   }
 
   @JsonIgnore
-  public void remove(String id){
+  public void remove(String id) {
     tiles.removeIf(t -> t.getId().equals(id));
   }
 }

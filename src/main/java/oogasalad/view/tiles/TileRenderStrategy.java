@@ -21,12 +21,6 @@ public class TileRenderStrategy {
 
   private static final Logger LOGGER = LogManager.getLogger(TileRenderStrategy.class);
   private final ViewTileFactory factory;
-
-  @Inject
-  public TileRenderStrategy(ViewTileFactory factory) {
-    this.factory = factory;
-  }
-
   private final Map<String, BiFunction<ViewTileFactory, Tile, ViewTile>> renderMap =
       Map.of(
           "image", ViewTileFactory::createImageTile,
@@ -34,12 +28,16 @@ public class TileRenderStrategy {
           "street", ViewTileFactory::createStreetTile,
           "custom", ViewTileFactory::createCustomTile
       );
-
   private final Map<String, BiFunction<ViewTileFactory, Tile, ViewTile>> cardMap =
       Map.of(
           "image", ViewTileFactory::createImageCard,
           "street", ViewTileFactory::createStreetCard
       );
+
+  @Inject
+  public TileRenderStrategy(ViewTileFactory factory) {
+    this.factory = factory;
+  }
 
   /**
    * <p> This method takes in a backend tile and converts it into the appropriate frontend version.

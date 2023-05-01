@@ -32,7 +32,7 @@ public class Tile extends AbstractGameConstruct {
   public static final String PRICE_ATTRIBUTE = "price";
   public static final String COLOR_ATTRIBUTE = "color";
   public static final String OWNED_ATTRIBUTE = "owned";
-  private SchemaDatabase database;
+  private final SchemaDatabase database;
 
   @Inject
   public Tile(@JacksonInject SchemaDatabase database) {
@@ -158,10 +158,14 @@ public class Tile extends AbstractGameConstruct {
   }
 
   @JsonIgnore
-  public double getAngle() {return getCoordinate().getAngle();}
+  public double getAngle() {
+    return getCoordinate().getAngle();
+  }
 
   @JsonIgnore
-  public void setAngle(double angle) {positionAttribute().setAngle(angle);}
+  public void setAngle(double angle) {
+    positionAttribute().setAngle(angle);
+  }
 
   @JsonIgnore
   public DoubleAttribute widthAttribute() {
@@ -179,13 +183,13 @@ public class Tile extends AbstractGameConstruct {
   }
 
   @JsonIgnore
-  public double getHeight() {
-    return heightAttribute().getValue();
+  public void setWidth(double width) {
+    widthAttribute().setValue(width);
   }
 
   @JsonIgnore
-  public void setWidth(double width) {
-    widthAttribute().setValue(width);
+  public double getHeight() {
+    return heightAttribute().getValue();
   }
 
   @JsonIgnore
@@ -194,7 +198,7 @@ public class Tile extends AbstractGameConstruct {
   }
 
   @JsonIgnore
-  public ColorAttribute colorAttribute(){
+  public ColorAttribute colorAttribute() {
     return ColorAttribute.from(getAttribute(COLOR_ATTRIBUTE).get());
   }
 

@@ -1,6 +1,5 @@
 package oogasalad.view.builder.rules;
 
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,9 +13,9 @@ import oogasalad.view.builder.BuilderView;
 
 public class RulesPane extends BorderPane {
 
-  private BuilderView myBuilder;
-  private ResourceBundle myLanguage;
-  private BuilderController myBuilderController;
+  private final BuilderView myBuilder;
+  private final ResourceBundle myLanguage;
+  private final BuilderController myBuilderController;
   private ListView<String> myRulesList;
   private ObservableList<String> myRules;
   private ComboBox<String> myCheckbox;

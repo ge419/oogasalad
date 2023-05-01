@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 
 class IntAttributeTest {
 
-  private IntAttribute intAttribute;
   private static final String KEY = "intKey";
+  private IntAttribute intAttribute;
 
   @BeforeEach
   void setUp() {
@@ -52,8 +52,8 @@ class IntAttributeTest {
     IntAttribute sameAttribute = new IntAttribute(KEY, 10);
     IntAttribute differentAttribute = new IntAttribute(KEY, 20);
 
-    assertTrue(intAttribute.equals(sameAttribute));
-    assertFalse(intAttribute.equals(differentAttribute));
+    assertEquals(intAttribute, sameAttribute);
+    assertNotEquals(intAttribute, differentAttribute);
   }
 
   @Test

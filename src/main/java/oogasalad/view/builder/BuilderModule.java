@@ -9,11 +9,10 @@ import oogasalad.controller.BuilderController;
 /**
  * Basic Guice module for the {@link BuilderView}
  *
- * @deprecated Could not figure out a way to have Guice work with dependency
- * injection on both the BuilderController and the BuilderView, so, this is
- * had to become deprecated in lieu of BuilderControllerModule.
- *
  * @author tmh85
+ * @deprecated Could not figure out a way to have Guice work with dependency injection on both the
+ * BuilderController and the BuilderView, so, this is had to become deprecated in lieu of
+ * BuilderControllerModule.
  */
 @Deprecated
 public class BuilderModule extends AbstractModule {
@@ -52,7 +51,7 @@ public class BuilderModule extends AbstractModule {
     bind(String.class).toInstance(DEFAULT_STYLESHEET);
   }
 
-  private String getLanguage(){
+  private String getLanguage() {
     return myDefaultLanguage + "BuilderText";
   }
 }

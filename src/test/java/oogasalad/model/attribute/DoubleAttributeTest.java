@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
 
 public class DoubleAttributeTest {
 
-  private DoubleAttribute doubleAttribute;
   private static final String KEY = "doubleKey";
   private static final String NEW_KEY = "anotherKey";
   private static final Double VALUE = 1.0;
   private static final Double NEW_VALUE = 2.0;
+  private DoubleAttribute doubleAttribute;
 
   @BeforeEach
   public void setUp() {
@@ -37,8 +37,8 @@ public class DoubleAttributeTest {
     DoubleAttribute sameAttribute = new DoubleAttribute(KEY, VALUE);
     DoubleAttribute differentAttribute = new DoubleAttribute(NEW_KEY, VALUE);
 
-    assertTrue(doubleAttribute.equals(sameAttribute));
-    assertFalse(doubleAttribute.equals(differentAttribute));
+    assertEquals(doubleAttribute, sameAttribute);
+    assertNotEquals(doubleAttribute, differentAttribute);
   }
 
   @Test

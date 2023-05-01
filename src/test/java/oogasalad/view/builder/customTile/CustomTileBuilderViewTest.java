@@ -1,57 +1,56 @@
 package oogasalad.view.builder.customTile;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import javafx.embed.swing.JFXPanel;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
-import static org.junit.Assert.*;
-
 public class CustomTileBuilderViewTest extends DukeApplicationTest {
-    private CustomTileBuilder builder;
 
-    @BeforeClass
-    public static void initToolkit() {
-        new JFXPanel(); // initializes JavaFX environment
-    }
+  private CustomTileBuilder builder;
 
-    @Override
-    public void start(Stage stage) {
-        builder = new CustomTileBuilder();
-        builder.start(stage);
-    }
+  @BeforeClass
+  public static void initToolkit() {
+    new JFXPanel(); // initializes JavaFX environment
+  }
 
-    @Test
-    public void testLeftPaneWidth() {
-        assertEquals(300, CustomTileBuilder.getLeftPaneWidth());
-    }
+  @Override
+  public void start(Stage stage) {
+    builder = new CustomTileBuilder();
+    builder.start(stage);
+  }
 
-    @Test
-    public void testLeftPaneRender() {
-        assertNotNull(lookup("#renameButton").query());
-        assertNotNull(lookup("#saveButton").query());
-        assertNotNull(lookup("#loadButton").query());
-        assertNotNull(lookup("#addImageButton").query());
-        assertNotNull(lookup("#addTextButton").query());
-        assertNotNull(lookup("#addColorButton").query());
-    }
+  @Test
+  public void testLeftPaneWidth() {
+    assertEquals(300, CustomTileBuilder.getLeftPaneWidth());
+  }
 
-    @Test
-    public void testRenameButton() {
-        // Given
+  @Test
+  public void testLeftPaneRender() {
+    assertNotNull(lookup("#renameButton").query());
+    assertNotNull(lookup("#saveButton").query());
+    assertNotNull(lookup("#loadButton").query());
+    assertNotNull(lookup("#addImageButton").query());
+    assertNotNull(lookup("#addTextButton").query());
+    assertNotNull(lookup("#addColorButton").query());
+  }
 
+  @Test
+  public void testRenameButton() {
+    // Given
 
-        // When
-        clickOn("#renameButton");
-        //extInputDialog dialog = lookup(".dialog-pane").queryAs(TextInputDialog.class);
-        write("newTitle");
-        //clickOn(dialog.getDialogPane().lookupButton(ButtonType.OK));
+    // When
+    clickOn("#renameButton");
+    //extInputDialog dialog = lookup(".dialog-pane").queryAs(TextInputDialog.class);
+    write("newTitle");
+    //clickOn(dialog.getDialogPane().lookupButton(ButtonType.OK));
 
-        //assertEquals(this.builder.getName(), stage.getTitle());
-    }
+    //assertEquals(this.builder.getName(), stage.getTitle());
+  }
 
 
 }

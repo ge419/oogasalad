@@ -1,6 +1,6 @@
 package oogasalad.model.engine.actions;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -29,10 +29,13 @@ class CheckWinAndEndActionTest {
   private GameHolder gameHolder;
   @Mock
   private Player player1;
-  @Mock private Player player2;
-  @Mock private Player player3;
+  @Mock
+  private Player player2;
+  @Mock
+  private Player player3;
   private Players players;
-  @Mock private EventEmitter emitter;
+  @Mock
+  private EventEmitter emitter;
   private ActionParams actionParams;
   private CheckWinAndEndAction action;
   private ResourceBundle bundle;
@@ -50,7 +53,8 @@ class CheckWinAndEndActionTest {
     bundle = mock(ResourceBundle.class);
     when(bundle.getString(any(String.class))).thenReturn("");
     actionParams = new ActionParams(emitter, new AIPrompter());
-    WinningConditionStrategy winningConditionStrategy = new StandingWinningStrategy(gameHolder, LAST_N_STANDING);
+    WinningConditionStrategy winningConditionStrategy = new StandingWinningStrategy(gameHolder,
+        LAST_N_STANDING);
     action = new CheckWinAndEndAction(gameHolder, winningConditionStrategy, bundle);
   }
 
@@ -69,7 +73,8 @@ class CheckWinAndEndActionTest {
     players = new Players(List.of(player1, player2, player3, player4));
     gameHolder.setPlayers(players);
 
-    WinningConditionStrategy winningConditionStrategy = new StandingWinningStrategy(gameHolder, LAST_N_STANDING);
+    WinningConditionStrategy winningConditionStrategy = new StandingWinningStrategy(gameHolder,
+        LAST_N_STANDING);
     action = new CheckWinAndEndAction(gameHolder, winningConditionStrategy, bundle);
     action.runAction(actionParams);
 

@@ -21,9 +21,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Initially sets up the engine with a set of {@link Rule}
- * Controls the engine to run the next action on action queue by turn
- * Presents UI effects to {@link Gameview}
+ * Initially sets up the engine with a set of {@link Rule} Controls the engine to run the next
+ * action on action queue by turn Presents UI effects to {@link Gameview}
  *
  * @Author Jay Yoon
  */
@@ -52,9 +51,8 @@ public class GameController implements GameObserver {
   }
 
   /**
-   * sets the Gameview stage to gameStage
-   * sets the engine with the list of backend rules and creates/adds frontend rules
-   * starts the engine
+   * sets the Gameview stage to gameStage sets the engine with the list of backend rules and
+   * creates/adds frontend rules starts the engine
    *
    * @param gameStage
    */
@@ -72,10 +70,9 @@ public class GameController implements GameObserver {
   }
 
   /**
-   * runs the next Action on engine action queue
-   * if there is pending effect, runs the UI effect
-   * @see GameController#doEffect()
+   * runs the next Action on engine action queue if there is pending effect, runs the UI effect
    *
+   * @see GameController#doEffect()
    */
   public void run() {
     engine.runNextAction(prompter);

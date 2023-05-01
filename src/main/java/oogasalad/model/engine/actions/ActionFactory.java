@@ -25,15 +25,23 @@ import oogasalad.model.engine.actions.wins.WinningConditionStrategy;
 public interface ActionFactory {
 
   SetCurrentPlayerAction makeSetCurrentPlayerAction(Player player);
+
   RollDieAction makeRollDieAction(int[] dieResults);
+
   MoveAction makeMoveAction(Piece piece, List<Tile> moveSequence);
+
   CreatePlayersAction makeCreatePlayersAction(
       @Assisted("min") int min,
       @Assisted("max") int max,
       @Assisted("piecePerPlayer") int piecePerPlayer)
       ;
+
   CreatePlayerPieceAction makeCreatePlayerPieceAction();
-  CheckAndRemovePlayerAction makeCheckAndRemovePlayerAction(int scoreMinBound, PlayerRemovalStrategy playerRemovalStrategy, TileResetStrategy tileResetStrategy);
+
+  CheckAndRemovePlayerAction makeCheckAndRemovePlayerAction(int scoreMinBound,
+      PlayerRemovalStrategy playerRemovalStrategy, TileResetStrategy tileResetStrategy);
+
   CheckWinAndEndAction makeCheckWinStateAction(WinningConditionStrategy strategy);
+
   AlterPlayerScoreAction makeAlterPlayerScoreAction(Player player, double delta);
 }

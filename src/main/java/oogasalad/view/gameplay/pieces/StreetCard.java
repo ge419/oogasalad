@@ -8,30 +8,23 @@ import oogasalad.view.gameplay.Movable;
 import oogasalad.view.tiles.StreetTile;
 
 /**
- * This class represents a street card that extends the StreetTile class and implements the Movable interface.
- * A street card is movable and clickable to bring up a popup with additional information about the card.
- *
- * Assumptions:
- * - The BTile argument passed to the constructor is not null.
- *
- * Dependencies:
- * - com.google.inject.Inject
- * - com.google.inject.assistedinject.Assisted
- * - oogasalad.model.constructable.Tile
- * - oogasalad.view.Coordinate
- * - oogasalad.view.gameplay.Movable
+ * This class represents a street card that extends the StreetTile class and implements the Movable
+ * interface. A street card is movable and clickable to bring up a popup with additional information
+ * about the card.
+ * <p>
+ * Assumptions: - The BTile argument passed to the constructor is not null.
+ * <p>
+ * Dependencies: - com.google.inject.Inject - com.google.inject.assistedinject.Assisted -
+ * oogasalad.model.constructable.Tile - oogasalad.view.Coordinate - oogasalad.view.gameplay.Movable
  * - oogasalad.view.tiles.StreetTile
- *
- * Example usage:
- * Tile BTile = new Tile();
- * StreetCard streetCard = new StreetCard(BTile);
- * streetCard.setSelected(true);
- * streetCard.move(new Coordinate[]{new Coordinate(0,0), new Coordinate(1,1)});
- *
- * Additional details:
- * - This class is used in the gameplay view to display street cards on the game board.
- * - This class allows for the street card to be selected and moved around the game board.
- * - This class depends on the Tile class to initialize the street card object.
+ * <p>
+ * Example usage: Tile BTile = new Tile(); StreetCard streetCard = new StreetCard(BTile);
+ * streetCard.setSelected(true); streetCard.move(new Coordinate[]{new Coordinate(0,0), new
+ * Coordinate(1,1)});
+ * <p>
+ * Additional details: - This class is used in the gameplay view to display street cards on the game
+ * board. - This class allows for the street card to be selected and moved around the game board. -
+ * This class depends on the Tile class to initialize the street card object.
  *
  * @author ajo24
  */
@@ -60,7 +53,8 @@ public class StreetCard extends StreetTile implements Movable {
   }
 
   /**
-   * Sets whether the street card is selected or not. If selected, the card will be raised by 10 pixels.
+   * Sets whether the street card is selected or not. If selected, the card will be raised by 10
+   * pixels.
    *
    * @param selected a boolean value indicating whether the street card is selected or not.
    */

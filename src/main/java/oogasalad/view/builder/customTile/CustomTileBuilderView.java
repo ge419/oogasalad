@@ -172,4 +172,14 @@ public class CustomTileBuilderView extends StackPane {
         stage.setWidth(CustomTileBuilder.getLeftPaneWidth() + rightPaneWidth);
         stage.setHeight(height);
     }
+
+    //PROTECTED METHODS FOR TESTING
+    protected String getName(){
+        return this.name;
+    }
+
+    protected String getStageName(){
+        return this.getScene().getWindow().getTitle();
+    }
+
 }

@@ -45,7 +45,6 @@ public class Gameview implements GameObserver {
    *
    * <p>Dependencies: GameHolder, Tiles, Die, ViewPlayers, ViewPieces
    *
-   * @author Woonggyu wj61
    */
 
   //TODO: refactor to read from JSON file

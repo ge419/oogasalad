@@ -62,6 +62,10 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
     markCurrentPlayer();
   }
 
+
+  /**
+   * @see Textable
+   */
   @Override
   public VBox createTextBox(List info, double height, double width) {
     VBox textBox = new VBox();

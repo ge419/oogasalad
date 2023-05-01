@@ -37,6 +37,7 @@ public class Tiles implements Renderable {
   public void render(BorderPane pane) {
     for (Tile bTile : BTiles) {
       ViewTile viewTile = viewTileFactory.createDynamicViewTile(bTile);
+      viewTile.asNode().setId("Tile");
       pane.getChildren().add(viewTile.asNode());
       tileList.add(viewTile);
     }

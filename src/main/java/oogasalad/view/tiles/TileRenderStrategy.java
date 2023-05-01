@@ -43,7 +43,7 @@ public class TileRenderStrategy {
    * tiles are street, image, and custom; all other types will be rendered as a basic tile:
    * <p>Parameters:
    *
-   * @param tile    the backend tile to be converted and added
+   * @param tile the backend tile to be converted and added
    */
   public ViewTile createViewTile(Tile tile) {
     String type = tile.getViewType();

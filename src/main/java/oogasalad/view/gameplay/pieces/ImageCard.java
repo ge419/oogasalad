@@ -2,7 +2,6 @@ package oogasalad.view.gameplay.pieces;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.Tile;
@@ -13,8 +12,6 @@ import oogasalad.view.gameplay.popup.CardDisplayPopup;
 import oogasalad.view.tiles.ImageTile;
 
 public class ImageCard extends ImageTile implements Movable, Nodeable {
-
-// private final Tile BTile;
 
   @Inject
   public ImageCard(@Assisted Tile BTile) {

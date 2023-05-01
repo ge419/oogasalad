@@ -1,5 +1,6 @@
 package oogasalad.view.gameplay.Players;
 
+import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Insets;
@@ -16,6 +17,7 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Player;
+import oogasalad.model.constructable.Tile;
 import oogasalad.view.Backgroundable;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Imageable;
@@ -77,18 +79,20 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
   }
 
   private void displayPlayerHand(MouseEvent event) {
-//    Button button = new Button("Show Card Popup");
-//    button.setOnAction(event -> {
-      if (popup != null) {popup.hideHand();}
-      popup = new HandDisplayPopup();
-      //TODO: only pass in Player cards
-      Cards cards = viewFactory.makeCards(game.getBoard().getTiles());
-      cards.render(popup);
-      List<ViewTile> cardList = cards.getCardList();
-      popup.addCards(cardList);
-//      Point2D offset = new Point2D(UIroot.getLayoutX(), UIroot.getLayoutY());
-      popup.showHand();
-//    });
+    if (popup != null) {popup.hideHand();}
+    popup = new HandDisplayPopup();
+    //TODO: only pass in Player cards
+    List<Tile> tiles = new ArrayList<>();
+    for (Tile tile: game.getBoard().getTiles()) {
+      if (tile.getOwnerId().equals(modelPlayer.getId())) {
+        tiles.add(tile);
+      }
+    }
+    Cards cards = viewFactory.makeCards(tiles);
+    cards.render(popup);
+    List<ViewTile> cardList = cards.getCardList();
+    popup.addCards(cardList);
+    popup.showHand();
   }
 
   @Override

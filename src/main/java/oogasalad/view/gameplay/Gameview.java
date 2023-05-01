@@ -112,28 +112,6 @@ public class Gameview implements GameObserver {
     //TODO: retrieve number of players and piece per player from launcher/builder
     // TODO: Dynamically watch players/pieces
 
-
-//    Button button = new Button("Show Card Popup");
-//    button.setOnAction(event -> {
-//      if (popup != null) {popup.hideHand();}
-//      popup = new HandDisplayPopup();
-//      //TODO: only pass in Player cards
-//      Cards cards = viewFactory.makeCards(game.getBoard().getTiles());
-//      cards.render(popup);
-//      List<ViewTile> cardList = cards.getCardList();
-//      popup.addCards(cardList);
-//      Point2D offset = new Point2D(UIroot.getLayoutX(), UIroot.getLayoutY());
-//      popup.showHand(UIroot, offset);
-//    });
-
-
-//    HBox hbox = new HBox();
-//    hbox.getChildren().addAll(button);
-//
-//    button.setId("Button");
-//    UIroot.setTop(hbox);
-
-
     scene = new Scene(UIroot);
 
 

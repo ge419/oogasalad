@@ -8,7 +8,7 @@
       "name": "number of winning players",
       "description": "specifies how many players can win in this game",
       "editable": true,
-      "viewable": false,
+      "viewable": true,
       "defaultValue": 1
     }
   ]

@@ -1,5 +1,6 @@
 package oogasalad.view.builder.itempanes;
 
+import java.io.IOException;
 import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -152,7 +153,7 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
     getBuilder().toggleNextRemoval();
   }
 
-  private void uploadImage(){
+  private void uploadImage() throws IOException {
     getBuilder().uploadImage();
   }
 }

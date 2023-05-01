@@ -4,19 +4,21 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 
 public class TileListAttribute extends AbstractAttribute {
 
   @JsonProperty
-  private List<String> tileIds;
+  private ListProperty<String> tileIds;
 
   @JsonCreator
   public TileListAttribute(@JsonProperty("key") String key,
       @JsonProperty("ids") List<String> tileIds) {
     super(key);
-    this.tileIds = new ArrayList<>(tileIds);
+    this.tileIds = new SimpleListProperty<>(FXCollections.observableList(tileIds));
   }
 
   public static TileListAttribute from(Attribute attr) {
@@ -30,10 +32,10 @@ public class TileListAttribute extends AbstractAttribute {
 
   @JsonSetter("ids")
   public void setTileIds(List<String> tileIds) {
-    this.tileIds = tileIds;
+    this.tileIds.setAll(tileIds);
   }
 
-  public List<String> tileIdsProperty() {
+  public ListProperty<String> tileIdsProperty() {
     return tileIds;
   }
 

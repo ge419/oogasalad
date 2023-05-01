@@ -39,7 +39,7 @@ public class TurnRule extends AbstractGameConstruct implements EditableRule {
     registrar.registerHandler(StartTurnEvent.class, this::newTurn);
   }
 
-  private void newTurn(EventHandlerParams<?> eventHandlerParams) {
+  protected void newTurn(EventHandlerParams<?> eventHandlerParams) {
     Player nextPlayer = getNextPlayer();
 
     eventHandlerParams.actionQueue().add(Priority.MEDIUM.getValue(), actionFactory.makeSetCurrentPlayerAction(nextPlayer));

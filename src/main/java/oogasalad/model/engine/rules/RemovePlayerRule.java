@@ -32,7 +32,7 @@ public class RemovePlayerRule extends AbstractGameConstruct implements EditableR
     registrar.registerHandler(StartTurnEvent.class, this::removePlayers);
   }
 
-  private void removePlayers(EventHandlerParams<StartTurnEvent> eventEventHandlerParams) {
+  protected void removePlayers(EventHandlerParams<StartTurnEvent> eventEventHandlerParams) {
     int scoreMinBound = IntAttribute.from(this.getAttribute(SCORE_MIN_BOUND).get()).getValue();
     eventEventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(), actionFactory.makeCheckAndRemovePlayerAction(scoreMinBound));
   }

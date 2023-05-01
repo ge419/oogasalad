@@ -3,10 +3,14 @@ package oogasalad.controller;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.file.Paths;
+import java.util.ResourceBundle;
 import javafx.stage.Stage;
+import oogasalad.model.engine.Engine;
 import oogasalad.view.gameplay.Gameview;
 import oogasalad.view.tabexplorer.userpreferences.Languages;
 import org.junit.Before;
@@ -16,29 +20,21 @@ import org.mockito.Mock;
 public class GameControllerTest {
 
   private GameController gameController;
-  @Mock private Stage stage;
-  @Mock private Gameview mockGameview;
+  private ResourceBundle bundle;
 
   @Before
   public void setUp() throws NoSuchFieldException, IllegalAccessException, IOException {
     gameController = new GameController(Languages.ENGLISH.getLocaleStr(),
-        Paths.get("data", "0hbvOqXKOQdhpgu3aLIO"));
-    stage = mock(Stage.class);
-    mockGameview = mock(Gameview.class);
-    Field gvField = gameController.getClass().getDeclaredField("gv");
-    gvField.setAccessible(true);
-    gvField.set(gameController, mockGameview);
-    gameController.setGame(stage);
+        Paths.get("data","games", "0hbvOqXKOQdhpgu3aLIO"));
   }
 
   @Test
-  public void testSetGame() throws IOException {
+  public void testSetGame() {
 
   }
 
   @Test
   public void testRun() {
-
   }
 
   @Test

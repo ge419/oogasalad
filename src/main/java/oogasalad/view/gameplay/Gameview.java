@@ -52,10 +52,7 @@ public class Gameview implements GameObserver {
   private final int VIEW_WIDTH = 1500;
   private final int VIEW_HEIGHT = 1000;
   private final GameHolder game;
-  private final Provider<Piece> pieceProvider;
   private final ViewFactory viewFactory;
-  private List<ObjectProperty<Player>> playerObjectProperty;
-  private List<ObjectProperty<PlayerPiece>> playerPieceObjectProperty;
   private Tiles tiles;
   private Die die;
   private final GameController gc;
@@ -69,14 +66,9 @@ public class Gameview implements GameObserver {
   public Gameview(
       @Assisted GameController gc,
       GameHolder game,
-      Provider<Player> playerProvider,
-      Provider<Piece> pieceProvider,
       ViewFactory viewFactory) {
     this.gc = gc;
     this.game = game;
-    this.pieceProvider = pieceProvider;
-    this.playerObjectProperty = new ArrayList<>();
-    this.playerPieceObjectProperty = new ArrayList<>();
     this.viewFactory = viewFactory;
     this.game.register(this);
   }

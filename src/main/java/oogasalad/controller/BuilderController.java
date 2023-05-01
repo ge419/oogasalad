@@ -117,7 +117,6 @@ public class BuilderController {
       logger.info("Tried creating a path that already exists.");
       return false;
     }
-    System.out.println("Why hello: " + board.getById(currentId).get().getNextTileIds());
     board.getById(currentId).get().getNextTileIds().add(nextId);
     logger.info("added next attribute to tile");
     return true;
@@ -162,7 +161,7 @@ public class BuilderController {
 
   public PopupForm createPopupForm(GameConstruct construct, ResourceBundle language,
       Pane location) {
-    return new PopupForm(construct, language, location);
+    return new PopupForm(construct, language, location, injector);
   }
 
   /**
@@ -305,7 +304,6 @@ public class BuilderController {
 //            }
 //          }));
       return Optional.of(new BoardImageTile(backendImage));
-
   }
 //  private void readDefaultRules() {
 //    try {

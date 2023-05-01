@@ -86,6 +86,8 @@ public class SaveManager {
           }
         }
     );
+
+    schemaDatabase.setRuleListProperty(game.rulesProperty());
   }
 
   /**

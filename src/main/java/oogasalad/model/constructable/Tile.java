@@ -19,7 +19,6 @@ public class Tile extends AbstractGameConstruct {
   public static final String BASE_SCHEMA_NAME = "tile";
   public static final String VIEW_TYPE_ATTRIBUTE = "viewtype";
   public static final String TYPE_ATTRIBUTE = "type";
-
   public static final String NEXT_ATTRIBUTE = "next";
   public static final String POSITION_ATTRIBUTE = "position";
   public static final String WIDTH_ATTRIBUTE = "width";
@@ -32,6 +31,22 @@ public class Tile extends AbstractGameConstruct {
   @Inject
   public Tile(@JacksonInject SchemaDatabase database) {
     super(BASE_SCHEMA_NAME, database);
+    typeAttribute().valueProperty()
+        .addListener((observable, oldValue, newValue) -> setTileSchemas());
+    viewTypeAttribute().valueProperty()
+        .addListener((observable, oldValue, newValue) -> setTileSchemas());
+  }
+
+  private void setTileSchemas() {
+    setBuiltinSchemas(List.of(BASE_SCHEMA_NAME));
+
+    if (!getViewType().isEmpty()) {
+      addSchema(getViewType());
+    }
+
+    if (!getType().isEmpty()) {
+      addSchema(getType());
+    }
   }
 
   @JsonIgnore
@@ -170,9 +185,17 @@ public class Tile extends AbstractGameConstruct {
     return viewTypeAttribute().getValue();
   }
 
+  public void setViewType(String type) {
+    viewTypeAttribute().setValue(type);
+  }
+
   @JsonIgnore
   public String getType() {
-    return viewTypeAttribute().getValue();
+    return typeAttribute().getValue();
+  }
+
+  public void setType(String type) {
+    typeAttribute().setValue(type);
   }
 
   @JsonIgnore

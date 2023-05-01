@@ -43,8 +43,8 @@ public class Main extends Application {
     TabExplorer launcher = injector.getInstance(TabExplorer.class);
     launcher.render();
 
-//    GameController gc = new GameController(Languages.ENGLISH.getLocaleStr(), Paths.get("data", "games","0hbvOqXKOQdhpgu3aLIO"));
-//    gc.setGame(primaryStage);
+    GameController gc = new GameController(Languages.ENGLISH.getLocaleStr(), Paths.get("data", "games","0hbvOqXKOQdhpgu3aLIO"));
+    gc.setGame(primaryStage);
 //    new BuilderController(Languages.ENGLISH.getLocaleStr(), Paths.get("data", "0TTYFzGUPQG2HXB2BsB4"));
   }
 }

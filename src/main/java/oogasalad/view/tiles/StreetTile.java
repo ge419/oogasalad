@@ -41,15 +41,11 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
   @Inject
   public StreetTile(@Assisted Tile BTile) {
     this.modelTile = BTile;
-
     getChildren().addAll((createBarBox(BTile.getWidth(), BTile.getHeight(),
             StringAttribute.from(BTile.getAttribute(COLOR_ATTRIBUTE).get()).getValue())),
         createTextBox(List.of(BTile.getInfo(), BTile.getPrice()), BTile.getHeight(),
             BTile.getWidth()));
-    setPosition(BTile.getCoordinate());
-
-    //TODO: change this temporary behavior when tile is bought
-    //TODO: depend on if attribute is present
+    setPosition(BTile);
   }
 
   private VBox createBarBox(double width, double height, String color) {
@@ -112,10 +108,10 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
     return this.modelTile.getId();
   }
 
-  private void setPosition(Coordinate coord) {
-    this.setLayoutX(coord.getXCoor());
-    this.setLayoutY(coord.getYCoor());
-    this.getTransforms().add(new Rotate(coord.getAngle(), Rotate.Z_AXIS));
+  private void setPosition(Tile BTile) {
+    this.setLayoutX(BTile.getCoordinate().getXCoor());
+    this.setLayoutY(BTile.getCoordinate().getYCoor());
+    this.setRotate(BTile.getCoordinate().getAngle());
   }
 
 }

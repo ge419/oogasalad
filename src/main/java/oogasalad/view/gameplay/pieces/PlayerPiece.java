@@ -31,6 +31,7 @@ public class PlayerPiece extends GamePiece {
 
   public void moveToTile(Tile tile) {
     modelPiece.setTile(tile);
+    System.out.println(tile.getCoordinate().toString());
     moveDirectly(tile.getCoordinate(), this);
   }
 

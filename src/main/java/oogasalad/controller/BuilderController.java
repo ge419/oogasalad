@@ -223,7 +223,7 @@ public class BuilderController {
       logger.info("Chose to edit rule " + ruleAsString);
       Class<? extends EditableRule> clazz = (Class<? extends EditableRule>) Class.forName(ruleAsString);
       EditableRule rule = injector.getInstance(clazz);
-      System.out.println(rule.toString());
+      logger.info("New rule created");
       createPopupForm(rule, builderView.getLanguage(), builderView.getPopupPane());
       gameHolder.getRules().add(rule);
       logger.info("New rule added to GameHolder");

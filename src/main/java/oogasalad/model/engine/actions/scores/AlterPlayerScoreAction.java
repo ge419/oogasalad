@@ -9,11 +9,23 @@ import oogasalad.model.constructable.Player;
 import oogasalad.model.engine.EngineResourceBundle;
 import oogasalad.model.engine.actions.Action;
 import oogasalad.model.engine.actions.ActionParams;
+import oogasalad.model.engine.actions.removal.PlayerRemovalStrategy;
+import oogasalad.model.engine.actions.removal.TileResetStrategy;
+import oogasalad.model.engine.events.PlayerRemovalEvent;
 import oogasalad.model.engine.prompt.PromptOption;
 import oogasalad.model.engine.prompt.StringPromptOption;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Action for updating Player score.
+ * <p>
+ *   Updates the player score residing in GameHolder
+ *   Added to the engine action queue by ex. {@link oogasalad.model.engine.rules.ScoreTileRule}
+ * </p>
+ *
+ * @Author Jay Yoon
+ */
 public class AlterPlayerScoreAction implements Action {
 
   private static final Logger LOGGER = LogManager.getLogger(AlterPlayerScoreAction.class);
@@ -34,6 +46,15 @@ public class AlterPlayerScoreAction implements Action {
     this.bundle = bundle;
   }
 
+  /**
+   * executed action: updates player score with given score change value
+   * <p>
+   *   constructs String prompter option to be validated by the user
+   *   upon validation it will increment/decrement player score by the appropriate amount
+   * </p>
+   *
+   * @param actionParams incl. prompter
+   */
   @Override
   public void runAction(ActionParams actionParams) {
     List<StringPromptOption> validation = new ArrayList<>();

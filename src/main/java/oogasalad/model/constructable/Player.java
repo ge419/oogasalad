@@ -12,6 +12,11 @@ import oogasalad.model.attribute.ImageAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.attribute.StringAttribute;
 
+/**
+ * GameObject that represents a player
+ *
+ * @author Jay Yoon
+ */
 public class Player extends AbstractGameConstruct {
 
   public static final String BASE_SCHEMA_NAME = "player";

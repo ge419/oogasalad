@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * GameObject residing in GameHolder that represents the List of Tiles
+ *
+ * @author Jay Yoon
+ */
 public class BBoard {
 
   private List<Tile> tiles;
@@ -26,11 +31,6 @@ public class BBoard {
   public void setTiles(List<Tile> tiles) {this.tiles = tiles;}
 
   @JsonIgnore
-  public int getTileCount() {
-    return this.tiles.size();
-  }
-
-  @JsonIgnore
   public void addTile(Tile t) {
     this.tiles.add(t);
   }
@@ -42,7 +42,6 @@ public class BBoard {
         return Optional.of(t);
       }
     }
-
     return Optional.empty();
   }
 

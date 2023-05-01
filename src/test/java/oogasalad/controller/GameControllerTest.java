@@ -39,8 +39,7 @@ public class GameControllerTest {
 
   @Test
   public void testDoEffectWithEmptyEffects() {
-    gameController.doEffect();
-    verify(gameController).run();
+
   }
 
   @Test

@@ -15,6 +15,13 @@ import oogasalad.model.engine.rules.Rule;
 import oogasalad.model.observers.GameObserver;
 import oogasalad.model.observers.Observable;
 
+/**
+ * GameHolder that holds game status and information including:
+ * list of tiles, players, pieces, rules
+ * current player, previous player, and general game information
+ *
+ * @author Jay Yoon, Dominic Martinez, Changmin Shin
+ */
 @Singleton
 public class GameHolder implements Observable<GameObserver> {
 

@@ -13,8 +13,6 @@ import oogasalad.model.engine.actions.removal.LowScoreRemovalStrategy;
 import oogasalad.model.engine.actions.removal.PlayerRemovalStrategy;
 import oogasalad.model.engine.actions.removal.RemovedPlayerTileResetStrategy;
 import oogasalad.model.engine.actions.removal.TileResetStrategy;
-import oogasalad.model.engine.actions.wins.StandingWinningStrategy;
-import oogasalad.model.engine.events.PlayerRemovalEvent;
 import oogasalad.model.engine.events.StartTurnEvent;
 
 /**
@@ -41,10 +39,11 @@ public class RemovePlayerRule extends AbstractGameConstruct implements EditableR
    * Listens for a {@link StartTurnEvent} to run {@link #removePlayers(EventHandlerParams)}
    *
    * <p>
-   *   retrieves the lower score bound for player to continue playing game
-   *   uses {@link PlayerRemovalStrategy} to update GameHolder Players
-   *   uses {@link TileResetStrategy} to set tiles unowned
-   *   adds {@link oogasalad.model.engine.actions.removal.CheckAndRemovePlayerAction} to action queue for potential players removal
+   * retrieves the lower score bound for player to continue playing game uses
+   * {@link PlayerRemovalStrategy} to update GameHolder Players uses {@link TileResetStrategy} to
+   * set tiles unowned adds
+   * {@link oogasalad.model.engine.actions.removal.CheckAndRemovePlayerAction} to action queue for
+   * potential players removal
    * </p>
    *
    * @param registrar provides event registration methods
@@ -58,6 +57,8 @@ public class RemovePlayerRule extends AbstractGameConstruct implements EditableR
     int scoreMinBound = IntAttribute.from(this.getAttribute(SCORE_MIN_BOUND).get()).getValue();
     PlayerRemovalStrategy playerRemovalStrategy = new LowScoreRemovalStrategy();
     TileResetStrategy tileResetStrategy = new RemovedPlayerTileResetStrategy();
-    eventEventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(), actionFactory.makeCheckAndRemovePlayerAction(scoreMinBound, playerRemovalStrategy, tileResetStrategy));
+    eventEventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(),
+        actionFactory.makeCheckAndRemovePlayerAction(scoreMinBound, playerRemovalStrategy,
+            tileResetStrategy));
   }
 }

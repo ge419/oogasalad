@@ -10,10 +10,9 @@ import org.junit.jupiter.api.Test;
 
 class StringAttributeTest {
 
-  private StringAttribute testStringAttribute;
   private static final String KEY = "testStringAttribute";
   private static final String VALUE = "testTileAttribute";
-
+  private StringAttribute testStringAttribute;
 
   @BeforeEach
   void setValue() {
@@ -28,9 +27,9 @@ class StringAttributeTest {
   @Test
   void testEquals() {
     StringAttribute same = new StringAttribute(KEY, VALUE);
-    assertTrue(testStringAttribute.equals(same));
+    assertEquals(testStringAttribute, same);
     same.setValue("something");
-    assertFalse(testStringAttribute.equals(same));
+    assertNotEquals(testStringAttribute, same);
   }
 
   @Test

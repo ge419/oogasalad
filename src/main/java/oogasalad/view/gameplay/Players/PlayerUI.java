@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -50,10 +48,10 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
   private static final Color MARKER_FILL = Color.TRANSPARENT;
   private static final Color UI_STROKE_COLOR = Color.BLACK;
   private final Player modelPlayer;
-  private BooleanProperty current;
+  private final BooleanProperty current;
   private HandDisplayPopup popup;
-  private ViewFactory viewFactory;
-  private GameHolder game;
+  private final ViewFactory viewFactory;
+  private final GameHolder game;
 
   public PlayerUI(Player BPlayer, Coordinate coordinate, ViewFactory viewFactory, GameHolder game) {
     modelPlayer = BPlayer;
@@ -72,18 +70,20 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
             UI_STROKE_COLOR),
         playerIcon,
         createTextBox(List.of(BPlayer.getName(), BPlayer.getScore()), PLAYER_HEIGHT, PLAYER_WIDTH));
-    this.setMargin(playerIcon, new Insets(0, PLAYER_WIDTH / 2, 0, 0));
+    setMargin(playerIcon, new Insets(0, PLAYER_WIDTH / 2, 0, 0));
 
     markCurrentPlayer();
     this.setOnMouseClicked(this::displayPlayerHand);
   }
 
   private void displayPlayerHand(MouseEvent event) {
-    if (popup != null) {popup.hideHand();}
+    if (popup != null) {
+      popup.hideHand();
+    }
     popup = new HandDisplayPopup();
     //TODO: only pass in Player cards
     List<Tile> tiles = new ArrayList<>();
-    for (Tile tile: game.getBoard().getTiles()) {
+    for (Tile tile : game.getBoard().getTiles()) {
       if (tile.getOwnerId().equals(modelPlayer.getId())) {
         tiles.add(tile);
       }

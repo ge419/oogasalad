@@ -1,6 +1,9 @@
 package oogasalad.model.exception;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class ResourceReadExceptionTest {
 
@@ -33,7 +36,8 @@ public class ResourceReadExceptionTest {
     Exception cause = new Exception(TEST_CAUSE);
     boolean enableSuppression = false;
     boolean writableStackTrace = false;
-    ResourceReadException exception = new ResourceReadException(TEST_MESSAGE, cause, enableSuppression, writableStackTrace);
+    ResourceReadException exception = new ResourceReadException(TEST_MESSAGE, cause,
+        enableSuppression, writableStackTrace);
     assertEquals(TEST_MESSAGE, exception.getMessage());
     assertEquals(cause, exception.getCause());
     assertFalse(exception.getSuppressed().length > 0);

@@ -32,8 +32,8 @@ public class SaveManager {
   public static final String SCHEMA_FILE_NAME = "schemas.json";
   public static final String INFO_FILE_NAME = "info.json";
   public static final String ASSETS_DIR_NAME = "assets";
-  private static final Logger LOGGER = LogManager.getLogger(SaveManager.class);
   public static final int MAX_DUP_SEARCH = 500;
+  private static final Logger LOGGER = LogManager.getLogger(SaveManager.class);
   private final Path saveDir;
   private final Path assetsDir;
   private final SchemaDatabase schemaDatabase;

@@ -22,6 +22,10 @@ public class PositionMetadata extends AbstractMetadata {
     defaultAngle = new SimpleDoubleProperty(0);
   }
 
+  public static PositionMetadata from(Metadata meta) {
+    return getAs(meta, PositionMetadata.class);
+  }
+
   @Override
   protected boolean checkPreconditions(Attribute attribute) {
     Coordinate coord = PositionAttribute.from(attribute).getCoordinate();
@@ -41,10 +45,6 @@ public class PositionMetadata extends AbstractMetadata {
   public boolean isValidCoordinate(Coordinate coordinate) {
     // No preconditions on position
     return true;
-  }
-
-  public static PositionMetadata from(Metadata meta) {
-    return getAs(meta, PositionMetadata.class);
   }
 
   public PositionAttribute makeCoordinateAttribute() {
@@ -109,7 +109,7 @@ public class PositionMetadata extends AbstractMetadata {
     }
     PositionMetadata that = (PositionMetadata) o;
     return Objects.equals(getDefaultX(), that.getDefaultX()) && Objects.equals(getDefaultY(),
-        that.getDefaultY()) && Objects.equals(getDefaultAngle(), that.defaultAngle) ;
+        that.getDefaultY()) && Objects.equals(getDefaultAngle(), that.defaultAngle);
   }
 
   @Override

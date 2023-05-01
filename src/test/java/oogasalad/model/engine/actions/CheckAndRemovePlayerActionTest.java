@@ -1,8 +1,6 @@
 package oogasalad.model.engine.actions;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -31,10 +29,13 @@ public class CheckAndRemovePlayerActionTest {
   public static final String PLAYER_1 = "player1";
   public static final String PLAYER_2 = "player2";
   private GameHolder gameHolder;
-  @Mock private Player player1;
-  @Mock private Player player2;
+  @Mock
+  private Player player1;
+  @Mock
+  private Player player2;
   private Players players;
-  @Mock private EventEmitter emitter;
+  @Mock
+  private EventEmitter emitter;
   private ActionParams actionParams;
   private CheckAndRemovePlayerAction action;
 
@@ -47,7 +48,8 @@ public class CheckAndRemovePlayerActionTest {
     actionParams = new ActionParams(emitter, null);
     PlayerRemovalStrategy removalStrategy = new LowScoreRemovalStrategy();
     TileResetStrategy tileResetStrategy = new RemovedPlayerTileResetStrategy();
-    action = new CheckAndRemovePlayerAction(gameHolder, SCORE_MIN_BOUND, removalStrategy, tileResetStrategy);
+    action = new CheckAndRemovePlayerAction(gameHolder, SCORE_MIN_BOUND, removalStrategy,
+        tileResetStrategy);
     players = new Players(List.of(player1, player2));
     gameHolder.setPlayers(players);
 

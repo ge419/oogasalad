@@ -57,6 +57,7 @@ public interface ViewTile extends Nodeable {
 
   /**
    * Returns the backend tile contained within the frontend tile.
+   *
    * @return backend tile
    */
   Tile getTile();
@@ -70,14 +71,16 @@ public interface ViewTile extends Nodeable {
 
   /**
    * Sets the width and height of the given ViewTile
-   * @param width width as a double
+   *
+   * @param width  width as a double
    * @param height height as a double
    */
   void setSize(double width, double height);
 
   default void createCardPopup(MouseEvent mouseEvent) {
     String title = StringAttribute.from(this.getTile().getAttribute("info").get()).getValue();
-    String description = StringAttribute.from(this.getTile().getAttribute("description").get()).getValue();
+    String description = StringAttribute.from(this.getTile().getAttribute("description").get())
+        .getValue();
     System.out.println(title + " " + description);
     CardDisplayPopup cardPopup = new CardDisplayPopup(title, description);
     cardPopup.showCard();

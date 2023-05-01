@@ -40,6 +40,7 @@ import oogasalad.view.tabexplorer.tabs.Tab;
 import oogasalad.view.tabexplorer.tabs.TabFactory;
 
 public class SocialCenterTab implements Tab {
+
   private final TabExplorer tabExplorer;
   private final AuthenticationHandler authHandler;
   private final UserDao userDao;
@@ -49,11 +50,11 @@ public class SocialCenterTab implements Tab {
   private ObservableList<String> gameEntries;
   private List<String> allGames;
   //  private List<Map<String, String>> allGames;
-  private TabFactory tabFactory;
+  private final TabFactory tabFactory;
 
   @Inject
   public SocialCenterTab(@Assisted TabExplorer tabExplorer, AuthenticationHandler authHandler,
-      UserDao userDao, GameDao gameDao, TabFactory tabFactory){
+      UserDao userDao, GameDao gameDao, TabFactory tabFactory) {
     this.tabExplorer = tabExplorer;
     this.authHandler = authHandler;
     this.tabFactory = tabFactory;
@@ -69,18 +70,21 @@ public class SocialCenterTab implements Tab {
     BorderPane root = new BorderPane();
     VBox vbox = new VBox();
     vbox.setPrefWidth(200);
-    vbox.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+    vbox.setBorder(new Border(
+        new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY,
+            BorderWidths.DEFAULT)));
     vbox.getChildren().add(new Label("Online Users"));
 
     VBox vbox2 = new VBox();
     vbox2.setPrefWidth(150);
-    vbox2.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-
+    vbox2.setBorder(new Border(
+        new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY,
+            BorderWidths.DEFAULT)));
 
     mostPlayedGames = getMostPlayedGames();
     VBox container = new VBox(mostPlayedGames);
 
-    container.setPadding(new Insets(0,50,0,50));
+    container.setPadding(new Insets(0, 50, 0, 50));
 
 //    mostPlayedGames.prefWidthProperty().bind(root.widthProperty());
 //    mostPlayedGames.setPrefWidth(200);
@@ -95,8 +99,7 @@ public class SocialCenterTab implements Tab {
   }
 
 
-
-  private ListView<String> getMostPlayedGames(){
+  private ListView<String> getMostPlayedGames() {
     gameEntries = FXCollections.observableArrayList();
     allGames = gameDao.getAllGames(); // todo should prob return a List<String>, mostly so that i can have access to the gameID to then do things like clone
     //System.out.println("all game ID: "+ allGames);
@@ -133,12 +136,12 @@ public class SocialCenterTab implements Tab {
         col1.setHgrow(Priority.NEVER); // do not allow the first column to grow
 
         ColumnConstraints col2 = new ColumnConstraints();
-        col2.setHgrow(Priority.ALWAYS); // allow the second column to grow to fill the remaining space
+        col2.setHgrow(
+            Priority.ALWAYS); // allow the second column to grow to fill the remaining space
 
         gridPane.getColumnConstraints().addAll(col1, col2);
         gridPane.setHgap(5);
         gridPane.setVgap(5);
-
 
         // Populate the GridPane with the necessary information
         // (e.g. game image, title, author, description)
@@ -149,15 +152,16 @@ public class SocialCenterTab implements Tab {
 
         HBox container = new HBox();
         Button cloneButton = new Button("Clone");
-        cloneButton.setOnAction(e->{
+        cloneButton.setOnAction(e -> {
           System.out.println(gameEntryID);
           userDao.subscribeToGame(authHandler.getActiveUserID(), gameEntryID);
           renderTabContent();
         });
 
-        List<String> userGames = (List<String>) userDao.getUserData(authHandler.getActiveUserID()).get(
-            UserSchema.GAMES.getFieldName());
-        if(userGames.contains(gameEntryID)){
+        List<String> userGames = (List<String>) userDao.getUserData(authHandler.getActiveUserID())
+            .get(
+                UserSchema.GAMES.getFieldName());
+        if (userGames.contains(gameEntryID)) {
           cloneButton.setDisable(true);
           cloneButton.setText("Cloned");
         }
@@ -171,7 +175,6 @@ public class SocialCenterTab implements Tab {
         container.getChildren().addAll(titleLabel, spacer, cloneButton);
         gridPane.add(container, 1, 0);
 
-
         String description = (String) gameEntryMetadata.get(GameSchema.DESCRIPTION.getFieldName());
         Label descriptionLabel = new Label(description);
         descriptionLabel.setWrapText(true);
@@ -181,9 +184,9 @@ public class SocialCenterTab implements Tab {
         descriptionLabel.setPrefHeight(50);
         gridPane.add(descriptionLabel, 1, 1);
 
-
         String author = (String) gameEntryMetadata.get("author");
-        String authorUserName = (String) userDao.getUserData(author).get(UserSchema.USERNAME.getFieldName());
+        String authorUserName = (String) userDao.getUserData(author)
+            .get(UserSchema.USERNAME.getFieldName());
         Label authorLabel = new Label("By " + authorUserName);
         authorLabel.setFont(Font.font("Arial", 14));
         gridPane.add(authorLabel, 1, 2);
@@ -191,13 +194,14 @@ public class SocialCenterTab implements Tab {
         // for some reason makes gridpane bound to listview width
         // and also makes text not overflow requiring horizontal scrollbar to view
         gridPane.setPrefWidth(0);
-        gridPane.setPadding(new Insets(0,30,0,30));
+        gridPane.setPadding(new Insets(0, 30, 0, 30));
 //        gridPane.setMaxHeight(150);
 
         this.setOnMouseClicked(event -> {
               int selectedIndex = getListView().getSelectionModel().getSelectedIndex();
-              System.out.println("Selected Index: "+selectedIndex);
-              tabFactory.makeGameDetailsTab(tabExplorer).renderGameDetail(gameEntryID, selectedIndex+1);
+              System.out.println("Selected Index: " + selectedIndex);
+              tabFactory.makeGameDetailsTab(tabExplorer)
+                  .renderGameDetail(gameEntryID, selectedIndex + 1);
             }
         );
 

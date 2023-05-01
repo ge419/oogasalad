@@ -18,6 +18,10 @@ public class StringMetadata extends AbstractMetadata {
     this.defaultValue = new SimpleStringProperty("");
   }
 
+  public static StringMetadata from(Metadata meta) {
+    return getAs(meta, StringMetadata.class);
+  }
+
   @Override
   protected boolean checkPreconditions(Attribute attribute) {
     String val = StringAttribute.from(attribute).getValue();
@@ -38,10 +42,6 @@ public class StringMetadata extends AbstractMetadata {
   @JsonIgnore
   public Class<? extends Attribute> getAttributeClass() {
     return ATTRIBUTE_CLASS;
-  }
-
-  public static StringMetadata from(Metadata meta) {
-    return getAs(meta, StringMetadata.class);
   }
 
   public StringAttribute makeStringAttribute() {

@@ -1,14 +1,15 @@
 package oogasalad.model.engine.prompt;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import org.junit.Before;
+import org.junit.Test;
 
 public class AIPrompterTest {
 

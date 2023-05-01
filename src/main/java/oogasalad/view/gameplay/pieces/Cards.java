@@ -11,8 +11,8 @@ import oogasalad.view.tiles.TileRenderStrategy;
 import oogasalad.view.tiles.ViewTile;
 
 /**
- * This class represents a collection of cards, each of which is a visual representation of a tile in
- * the game. It provides a method for rendering the cards on a JavaFX BorderPane.
+ * This class represents a collection of cards, each of which is a visual representation of a tile
+ * in the game. It provides a method for rendering the cards on a JavaFX BorderPane.
  *
  * @author ajo24
  */
@@ -25,7 +25,7 @@ public class Cards implements Renderable {
   /**
    * Constructs a new Cards object with the given list of tiles and render strategy.
    *
-   * @param t the list of tiles to be rendered as cards
+   * @param t              the list of tiles to be rendered as cards
    * @param renderStrategy the strategy to use for rendering the cards
    * @throws NullPointerException if either t or renderStrategy is null
    */

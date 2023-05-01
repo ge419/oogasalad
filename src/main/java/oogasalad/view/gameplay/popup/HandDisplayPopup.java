@@ -12,9 +12,9 @@ import javafx.stage.Stage;
 import oogasalad.view.tiles.ViewTile;
 
 /**
- * Represents a popup window that displays a list of cards in the user's hand.
- * This class provides functionality for creating and displaying a scene with a scrollable list
- * of cards, as well as showing and hiding the popup window.
+ * Represents a popup window that displays a list of cards in the user's hand. This class provides
+ * functionality for creating and displaying a scene with a scrollable list of cards, as well as
+ * showing and hiding the popup window.
  *
  * <p>Assumptions:
  * <ul>

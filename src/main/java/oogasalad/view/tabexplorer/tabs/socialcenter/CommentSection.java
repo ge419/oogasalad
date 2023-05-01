@@ -34,14 +34,14 @@ public class CommentSection extends VBox {
   private final AuthenticationHandler authHandler;
   private final UserDao userDao;
   private final GameDao gameDao;
-  private ObservableList<Map<String, Object>> comments;
-  private TextArea commentField;
-  private Button submitButton;
-  private ListView<Map<String, Object>> commentList;
   private final String gameID;
   private final String userID;
   private final GameDetailsTab gameDetailsTab;
   private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy hh:mm:ss a");
+  private ObservableList<Map<String, Object>> comments;
+  private TextArea commentField;
+  private Button submitButton;
+  private ListView<Map<String, Object>> commentList;
 
   public CommentSection(AuthenticationHandler authHandler,
       UserDao userDao, GameDao gameDao, String gameID, GameDetailsTab gameDetailsTab) {
@@ -75,8 +75,9 @@ public class CommentSection extends VBox {
 
     comments = FXCollections.observableArrayList();
     // get all comments from DB
-    List<Map<String, Object>> allComments = (List<Map<String, Object>>) gameDao.getGameData(gameID).get(
-        GameSchema.REVIEWS.getFieldName()); // we want this reversed
+    List<Map<String, Object>> allComments = (List<Map<String, Object>>) gameDao.getGameData(gameID)
+        .get(
+            GameSchema.REVIEWS.getFieldName()); // we want this reversed
     Collections.reverse(allComments);
     comments.addAll(allComments);
     commentList.setItems(comments);

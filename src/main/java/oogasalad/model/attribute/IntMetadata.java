@@ -22,6 +22,10 @@ public class IntMetadata extends AbstractMetadata {
     maxValue = new SimpleIntegerProperty(Integer.MAX_VALUE);
   }
 
+  public static IntMetadata from(Metadata meta) {
+    return getAs(meta, IntMetadata.class);
+  }
+
   @Override
   protected boolean checkPreconditions(Attribute attribute) {
     int val = IntAttribute.from(attribute).getValue();
@@ -41,10 +45,6 @@ public class IntMetadata extends AbstractMetadata {
 
   public boolean isValidValue(int value) {
     return getMinValue() <= value && value <= getMaxValue();
-  }
-
-  public static IntMetadata from(Metadata meta) {
-    return getAs(meta, IntMetadata.class);
   }
 
   public IntAttribute makeIntAttribute() {

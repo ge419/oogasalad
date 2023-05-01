@@ -11,9 +11,6 @@ import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.Priority;
 import oogasalad.model.engine.actions.ActionFactory;
-import oogasalad.model.engine.actions.removal.PlayerRemovalStrategy;
-import oogasalad.model.engine.actions.removal.TileResetStrategy;
-import oogasalad.model.engine.events.StartTurnEvent;
 import oogasalad.model.engine.events.TileLandedEvent;
 
 /**
@@ -43,9 +40,10 @@ public class ScoreTileRule extends AbstractGameConstruct implements EditableRule
    * Listens for a {@link TileLandedEvent} to run {@link #alterPlayerScore(EventHandlerParams)}
    *
    * <p>
-   *   access landed tile through event handler parameters and current player through GameHolder
-   *   if landed tile is owned by another player, scores are incremented for owner and decremented for landed player
-   *   adds {@link oogasalad.model.engine.actions.scores.AlterPlayerScoreAction} to action queue for potential players removal
+   * access landed tile through event handler parameters and current player through GameHolder if
+   * landed tile is owned by another player, scores are incremented for owner and decremented for
+   * landed player adds {@link oogasalad.model.engine.actions.scores.AlterPlayerScoreAction} to
+   * action queue for potential players removal
    * </p>
    *
    * @param registrar provides event registration methods
@@ -63,8 +61,10 @@ public class ScoreTileRule extends AbstractGameConstruct implements EditableRule
       Player ownerPlayer = gameholder.getPlayers().getById(ownerId).get();
       double deltaScore = tile.getPrice();
       eventHandlerParams.actionQueue().add(
-          Priority.HIGH.getValue(), actionFactory.makeAlterPlayerScoreAction(currentPlayer, deltaScore* NEG));
-      eventHandlerParams.actionQueue().add(Priority.HIGH.getValue(), actionFactory.makeAlterPlayerScoreAction(ownerPlayer, deltaScore));
+          Priority.HIGH.getValue(),
+          actionFactory.makeAlterPlayerScoreAction(currentPlayer, deltaScore * NEG));
+      eventHandlerParams.actionQueue().add(Priority.HIGH.getValue(),
+          actionFactory.makeAlterPlayerScoreAction(ownerPlayer, deltaScore));
     }
   }
 }

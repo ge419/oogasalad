@@ -10,16 +10,11 @@ import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.scene.transform.Rotate;
-import oogasalad.model.attribute.PlayerAttribute;
 import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.Tile;
-import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.view.Backgroundable;
-import oogasalad.view.Coordinate;
 import oogasalad.view.Textable;
 
 /**
@@ -34,8 +29,8 @@ import oogasalad.view.Textable;
 
 public class StreetTile extends StackPane implements ViewTile, Textable, Backgroundable {
 
-  private static final double TEXT_SCALE = 8;
   public static final String COLOR_ATTRIBUTE = "color";
+  private static final double TEXT_SCALE = 8;
   private final Tile modelTile;
 
   @Inject
@@ -69,7 +64,7 @@ public class StreetTile extends StackPane implements ViewTile, Textable, Backgro
     streetText.setLayoutY(this.getLayoutY());
     Text priceText = new Text(info.get(1).toString());
     resizeText(priceText, height, TEXT_SCALE, width);
-    textBox.setMargin(priceText, new Insets((height / 4 - streetTextBounds.getMaxY()), 0, 0, 0));
+    VBox.setMargin(priceText, new Insets((height / 4 - streetTextBounds.getMaxY()), 0, 0, 0));
     textBox.setAlignment(Pos.CENTER);
     textBox.getChildren().addAll(streetText, priceText);
     return textBox;

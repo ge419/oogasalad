@@ -31,11 +31,11 @@ public class BuyTileRule extends AbstractGameConstruct implements EditableRule {
   public static final String APPLIED_SCHEMA_NAME = "buyTileRule-tile";
   public static final String PRICE_ATTRIBUTE = "price";
   public static final String OWNER_ATTRIBUTE = "owner";
-  private static final Logger LOGGER = LogManager.getLogger(BuyTileRule.class);
   public static final String IMAGE = "image";
-  private ListProperty<SchemaBinding> appliedSchemaProperty;
+  private static final Logger LOGGER = LogManager.getLogger(BuyTileRule.class);
   private final GameHolder gameHolder;
   private final ResourceBundle bundle;
+  private ListProperty<SchemaBinding> appliedSchemaProperty;
 
   @Inject
   public BuyTileRule(

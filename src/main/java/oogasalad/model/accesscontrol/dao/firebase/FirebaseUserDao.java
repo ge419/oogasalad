@@ -7,7 +7,6 @@ import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.FieldValue;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
-import com.google.cloud.firestore.WriteResult;
 import com.google.inject.Inject;
 import java.util.Date;
 import java.util.HashMap;
@@ -26,6 +25,7 @@ public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
   public FirebaseUserDao(FirebaseAccessor firebaseAccessor) {
     super(firebaseAccessor);
   }
+
   @Override
   public String registerNewUser(String username, String password) {
     Map<String, Object> docData = getDefaultUserEntry(username, password);
@@ -123,12 +123,12 @@ public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
   public void deleteGame(String gameID) {
     // delete the game document
     deleteDocument(GAMES_COLLECTION, gameID);
-    try{
+    try {
       // now delete all references to this gameID from users
-      for (String userID: getAllDocumentsInCollection(USERS_COLLECTION)){
+      for (String userID : getAllDocumentsInCollection(USERS_COLLECTION)) {
         removeGameForUser(userID, gameID);
       }
-    }catch (Exception e){
+    } catch (Exception e) {
       LOG.debug("Game deletion process ran into errors");
       throw new InvalidDatabaseExecutionException("Could not delete game properly", e);
     }
@@ -171,7 +171,7 @@ public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
     docRef.update(PREF_LANG_KEY, preferredLang);
   }
 
-  private Map<String, Object> getDefaultUserEntry(String username, String password){
+  private Map<String, Object> getDefaultUserEntry(String username, String password) {
     Map<String, Object> docData = new HashMap<>();
     docData.put(USERNAME_KEY, username);
     docData.put(NAME_KEY, "");
@@ -191,7 +191,8 @@ public class FirebaseUserDao extends FirebaseAbstractDao implements UserDao {
   private void removeGameForUser(String userID, String gameID) {
     // Remove the specified value from the array field
     updateDocument(USERS_COLLECTION, userID, createMap(GAMES_KEY, FieldValue.arrayRemove(gameID)));
-    LOG.info(String.format("Deleted Game with ID: %s from User with ID: %s list of games", gameID, userID));
+    LOG.info(String.format("Deleted Game with ID: %s from User with ID: %s list of games", gameID,
+        userID));
   }
 }
 

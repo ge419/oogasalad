@@ -85,8 +85,6 @@ public class SecuritySettings extends SettingsOptions {
     confirmNewPwdField = new PasswordField();
     VBox confirmPwdContainer = createGroup(emailLabel, confirmNewPwdField);
 
-
-
     updatePwd = new Button("Change Password");
     updatePwd.setOnAction(e -> handlePwdChange());
 
@@ -99,29 +97,29 @@ public class SecuritySettings extends SettingsOptions {
 
   }
 
-  private VBox createGroup(Node label, Node inputMedium){
+  private VBox createGroup(Node label, Node inputMedium) {
     VBox container = new VBox(label, inputMedium);
     container.setSpacing(3);
     return container;
 
   }
 
-  private void handlePwdChange(){
+  private void handlePwdChange() {
     String userID = authHandler.getActiveUserID();
     String oldPwdFieldText = oldPwdField.getText();
     String newPwdFieldText = newPwdField.getText();
     String confirmNewPwdFieldText = confirmNewPwdField.getText();
-    String currPwd = (String)userDao.getUserData(userID).get(UserSchema.PASSWORD.getFieldName());
+    String currPwd = (String) userDao.getUserData(userID).get(UserSchema.PASSWORD.getFieldName());
 
-    if (!currPwd.equals(oldPwdFieldText) || !newPwdFieldText.equals(confirmNewPwdFieldText)){
+    if (!currPwd.equals(oldPwdFieldText) || !newPwdFieldText.equals(confirmNewPwdFieldText)) {
       Alert alert = new Alert(AlertType.ERROR);
       alert.setTitle("Invalid input(s)");
       alert.setHeaderText(null);
       alert.setContentText(
           "Check that:\n 1) Old password is correct \n 2) New passwords match\n");
       alert.showAndWait();
-    } else{
-      userDao.updatePassword(userID,newPwdFieldText);
+    } else {
+      userDao.updatePassword(userID, newPwdFieldText);
       Alert alert = new Alert(AlertType.CONFIRMATION);
       alert.setTitle("Success!");
       alert.setHeaderText(null);

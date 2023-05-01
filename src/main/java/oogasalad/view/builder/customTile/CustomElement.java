@@ -1,6 +1,12 @@
 package oogasalad.view.builder.customTile;
 
 import com.google.gson.JsonObject;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -10,100 +16,91 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import oogasalad.model.attribute.Metadata;
 
-import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
-
 public interface CustomElement {
-    JsonObject save(Path folderPath) throws IOException;
 
-    static CustomElement load(JsonObject jsonObject) {
-        String type = jsonObject.get("type").getAsString().strip();
-        try {
-            Class<?> clazz = Class.forName(CustomElement.class.getPackage().getName() +"." + type);
-            if (!CustomElement.class.isAssignableFrom(clazz)) {
-                throw new RuntimeException("Class " + type + " does not implement CustomElement interface");
-            }
-            Constructor<?> constructor = clazz.getConstructor(JsonObject.class);
-            return (CustomElement) constructor.newInstance(jsonObject);
-        } catch (Exception e) {
-            throw new RuntimeException("Error loading CustomElement", e);
-        }
+  static CustomElement load(JsonObject jsonObject) {
+    String type = jsonObject.get("type").getAsString().strip();
+    try {
+      Class<?> clazz = Class.forName(CustomElement.class.getPackage().getName() + "." + type);
+      if (!CustomElement.class.isAssignableFrom(clazz)) {
+        throw new RuntimeException("Class " + type + " does not implement CustomElement interface");
+      }
+      Constructor<?> constructor = clazz.getConstructor(JsonObject.class);
+      return (CustomElement) constructor.newInstance(jsonObject);
+    } catch (Exception e) {
+      throw new RuntimeException("Error loading CustomElement", e);
     }
-    VBox getInfo(ResourceBundle languageBundle);
+  }
 
-    void setLocation();
+  JsonObject save(Path folderPath) throws IOException;
 
-    int getIndex();
+  VBox getInfo(ResourceBundle languageBundle);
 
-    String getName();
+  void setLocation();
 
-    void setName(String text);
+  int getIndex();
 
-    boolean isEditable();
+  String getName();
 
-    void setEditable(boolean selected);
+  void setName(String text);
 
-    Metadata getMetaData();
+  boolean isEditable();
 
-    void setValue(String loadedValue);
+  void setEditable(boolean selected);
 
-    default VBox makeVbox(CustomElement thisCustomElement, List<Node> imageSpecificNodes) {
-        VBox infoBox = new VBox();
+  Metadata getMetaData();
 
-        // Create a label for the image name field
-        Label nameLabel = new Label("Name this element");
+  void setValue(String loadedValue);
 
-        // Create a text field to edit the image name
-        TextField nameField = new TextField(thisCustomElement.getName());
-        nameField.setOnKeyReleased(event -> thisCustomElement.setName(nameField.getText()));
+  default VBox makeVbox(CustomElement thisCustomElement, List<Node> imageSpecificNodes) {
+    VBox infoBox = new VBox();
 
-        infoBox.getChildren().add(nameLabel);
-        infoBox.getChildren().add(nameField);
+    // Create a label for the image name field
+    Label nameLabel = new Label("Name this element");
 
-        infoBox.getChildren().addAll(imageSpecificNodes);
+    // Create a text field to edit the image name
+    TextField nameField = new TextField(thisCustomElement.getName());
+    nameField.setOnKeyReleased(event -> thisCustomElement.setName(nameField.getText()));
 
-        // Create buttons to send image to front or back
-        Button toFrontButton = new Button("Send to Front");
-        toFrontButton.setOnAction(event -> ((Node) thisCustomElement).toFront());
-        Button toBackButton = new Button("Send to Back");
-        toBackButton.setOnAction(event -> ((Node) thisCustomElement).toBack());
+    infoBox.getChildren().add(nameLabel);
+    infoBox.getChildren().add(nameField);
 
-        Button deleteButton = new Button("Delete Element");
-        deleteButton.setOnAction(event -> delete(thisCustomElement));
+    infoBox.getChildren().addAll(imageSpecificNodes);
 
-        CheckBox editableCheckBox = createEditableCheckBox(thisCustomElement, nameField);
-        infoBox.getChildren().addAll(Arrays.asList(toFrontButton, toBackButton, editableCheckBox, deleteButton));
+    // Create buttons to send image to front or back
+    Button toFrontButton = new Button("Send to Front");
+    toFrontButton.setOnAction(event -> ((Node) thisCustomElement).toFront());
+    Button toBackButton = new Button("Send to Back");
+    toBackButton.setOnAction(event -> ((Node) thisCustomElement).toBack());
 
+    Button deleteButton = new Button("Delete Element");
+    deleteButton.setOnAction(event -> delete(thisCustomElement));
 
-        return infoBox;
-    }
+    CheckBox editableCheckBox = createEditableCheckBox(thisCustomElement, nameField);
+    infoBox.getChildren()
+        .addAll(Arrays.asList(toFrontButton, toBackButton, editableCheckBox, deleteButton));
 
-    private void delete(CustomElement customElement) {
-        ((StackPane) ((Node) customElement).getParent()).getChildren().remove(customElement);
-    }
+    return infoBox;
+  }
 
-    private CheckBox createEditableCheckBox(CustomElement customElement, TextField namefield) {
-        CheckBox editableCheckBox = new CheckBox("Editable");
-        editableCheckBox.setSelected(customElement.isEditable() && !customElement.getName().isEmpty());
-        editableCheckBox.setVisible(!customElement.getName().isEmpty());
+  private void delete(CustomElement customElement) {
+    ((StackPane) ((Node) customElement).getParent()).getChildren().remove(customElement);
+  }
 
-        editableCheckBox.setOnAction(event -> {
-            boolean selected = editableCheckBox.isSelected();
-            customElement.setEditable(selected);
-        });
+  private CheckBox createEditableCheckBox(CustomElement customElement, TextField namefield) {
+    CheckBox editableCheckBox = new CheckBox("Editable");
+    editableCheckBox.setSelected(customElement.isEditable() && !customElement.getName().isEmpty());
+    editableCheckBox.setVisible(!customElement.getName().isEmpty());
 
-        namefield.setOnAction(e -> {
-            if (namefield.getText().isEmpty()) {
-                editableCheckBox.setVisible(false);
-            } else {
-                editableCheckBox.setVisible(true);
-            }
-        });
-        return editableCheckBox;
-    }
+    editableCheckBox.setOnAction(event -> {
+      boolean selected = editableCheckBox.isSelected();
+      customElement.setEditable(selected);
+    });
+
+    namefield.setOnAction(e -> {
+      editableCheckBox.setVisible(!namefield.getText().isEmpty());
+    });
+    return editableCheckBox;
+  }
 
 }

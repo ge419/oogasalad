@@ -12,12 +12,12 @@ import javafx.stage.Stage;
  * A popup window that displays a card title and description to the user.
  *
  * <p>
- * This popup window is designed to display a card title and description to the user. It creates a new
- * {@link Stage} and a {@link BorderPane} that holds a label with the description of the card. The
- * title of the card is displayed in the window's title bar. The user can view the card by calling
- * {@link #showCard()}.
+ * This popup window is designed to display a card title and description to the user. It creates a
+ * new {@link Stage} and a {@link BorderPane} that holds a label with the description of the card.
+ * The title of the card is displayed in the window's title bar. The user can view the card by
+ * calling {@link #showCard()}.
  * <p>
- *
+ * <p>
  * Assumptions:
  * <ul>
  * <li>The card title and description passed to the constructor are not null.</li>
@@ -48,6 +48,7 @@ import javafx.stage.Stage;
  * @author ajo24
  */
 public class CardDisplayPopup {
+
   private final Stage stage;
   private final BorderPane root;
   private final String cardTitle;

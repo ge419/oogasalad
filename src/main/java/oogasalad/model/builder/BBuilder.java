@@ -22,7 +22,7 @@ import oogasalad.view.builder.gameholder.ImmutableGameHolder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class BBuilder implements BBuilderAPI{
+public class BBuilder implements BBuilderAPI {
 
   private static final Logger log = LogManager.getLogger(BBuilder.class);
 
@@ -46,7 +46,7 @@ public class BBuilder implements BBuilderAPI{
   protected Map<String, Object> extractData(ImmutableGameHolder holder, BBoard board) {
     //List<Map<String, Object>> dataMapList = new ArrayList<>();
     Map<String, Object> dataMap = new HashMap<>();
-    ImmutableBoardInfo boardInfo =  holder.getBoardInfo();
+    ImmutableBoardInfo boardInfo = holder.getBoardInfo();
     //title = boardInfo.getTitle();
     //TODO: ask frontend builder to pass directory path as String
     //String directoryPath = boardInfo.getPath();
@@ -65,7 +65,7 @@ public class BBuilder implements BBuilderAPI{
   private void saveSettings(Map<String, Object> dataMap, String path) throws IOException {
     Map<String, Object> settingsMap = new HashMap<>();
     List<String> pathList = new ArrayList<>();
-    for(BoardImage b: (List<BoardImage>) dataMap.get("Images")) {
+    for (BoardImage b : (List<BoardImage>) dataMap.get("Images")) {
       pathList.add(b.imagePath());
     }
     settingsMap.put("BoardWidth", dataMap.get("BoardWidth"));
@@ -86,6 +86,7 @@ public class BBuilder implements BBuilderAPI{
   /**
    * Code for reading and writing image files from link below:
    * https://mkyong.com/java/how-to-write-an-image-to-file-imageio/
+   *
    * @param path
    */
   private void saveAsset(List<BoardImage> imageList, String path) throws IOException {
@@ -95,7 +96,7 @@ public class BBuilder implements BBuilderAPI{
     for (BoardImage image : imageList) {
       Path imagePath = Paths.get(image.imagePath());
       BufferedImage bufferedImage = ImageIO.read(new File(image.imagePath()));
-      ImageIO.write(bufferedImage , "png",
+      ImageIO.write(bufferedImage, "png",
           new File(path + "/images/" + imagePath.getFileName() + ".png"));
     }
   }

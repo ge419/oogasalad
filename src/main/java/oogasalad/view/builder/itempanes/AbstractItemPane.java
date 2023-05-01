@@ -20,7 +20,7 @@ public abstract class AbstractItemPane implements ReflectiveMethodGetter {
 
   private static final String BASE_RESOURCE_PACKAGE = "view.builder.";
 
-  private BuilderView myBuilder;
+  private final BuilderView myBuilder;
   private ResourceBundle myLanguageResource;
 
   /**
@@ -68,21 +68,21 @@ public abstract class AbstractItemPane implements ReflectiveMethodGetter {
   abstract public Node asNode();
 
   /**
-   * <p>Set the resource file used for the items.</p>
-   *
-   * @param resourceFile desired resource file
-   */
-  protected void setLanguage(ResourceBundle resourceFile) {
-    myLanguageResource = resourceFile;
-  }
-
-  /**
    * <p>Basic getter for the ResourceBundle that contains the language</p>
    *
    * @return ResourceBundle currently used for the language of the itempane
    */
   protected ResourceBundle getLanguage() {
     return myLanguageResource;
+  }
+
+  /**
+   * <p>Set the resource file used for the items.</p>
+   *
+   * @param resourceFile desired resource file
+   */
+  protected void setLanguage(ResourceBundle resourceFile) {
+    myLanguageResource = resourceFile;
   }
 
   /**

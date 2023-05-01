@@ -11,10 +11,9 @@ import org.junit.jupiter.api.Test;
 
 public class GameConstructAttributeTest {
 
-  private GameConstructAttribute gameConstructAttribute;
   private static final String ID = "test_id";
   private static final String NEW_ID = "new_id";
-
+  private GameConstructAttribute gameConstructAttribute;
 
   @BeforeEach
   public void setUp() {

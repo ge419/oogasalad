@@ -34,20 +34,21 @@ import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.tabs.Tab;
 import oogasalad.view.tabexplorer.tabs.TabFactory;
 
-public class GameDetailsTab  implements Tab {
+public class GameDetailsTab implements Tab {
+
   private final TabExplorer tabExplorer;
   private final AuthenticationHandler authHandler;
   private final UserDao userDao;
   private final GameDao gameDao;
   private Map<String, Object> gameEntryMetadata;
   private String gameID;
-  private SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
+  private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
   private int popularityIndex;
-  private TabFactory tabFactory;
+  private final TabFactory tabFactory;
 
   @Inject
   public GameDetailsTab(@Assisted TabExplorer tabExplorer, AuthenticationHandler authHandler,
-      UserDao userDao, GameDao gameDao, TabFactory tabFactory){
+      UserDao userDao, GameDao gameDao, TabFactory tabFactory) {
     this.tabExplorer = tabExplorer;
     this.authHandler = authHandler;
     this.userDao = userDao;
@@ -67,8 +68,6 @@ public class GameDetailsTab  implements Tab {
     String date_created = dateFormat.format(timestamp.toDate());
 //    String date_created = (String) gameEntryMetadata.get("date_created"); //todo should prob return error
 
-
-
     VBox mainLayout = new VBox();
 
     // First section: game ranking
@@ -76,7 +75,7 @@ public class GameDetailsTab  implements Tab {
 //    gameRankingSection.setBorder(new Border(
 //        new BorderStroke(Color.CYAN, BorderStrokeStyle.SOLID, CornerRadii.EMPTY,
 //            BorderWidths.DEFAULT)));
-    Label gameRankingLabel = new Label("#" + popularityIndex+" most played game");
+    Label gameRankingLabel = new Label("#" + popularityIndex + " most played game");
     gameRankingLabel.setFont(Font.font(15));
 // Set the height of the label to 10% of the parent node
     gameRankingLabel.prefHeightProperty().bind(mainLayout.heightProperty().multiply(0.075));
@@ -120,9 +119,9 @@ public class GameDetailsTab  implements Tab {
     thumbnail.setFitHeight(175);
     thumbnail.setFitWidth(175);
     VBox labels = new VBox();
-    Label authorLabel = new Label("Author: "+author);
-    Label dateLabel = new Label("Date Created: "+ date_created);
-    Label genreLabel = new Label("Genre: "+genre);
+    Label authorLabel = new Label("Author: " + author);
+    Label dateLabel = new Label("Date Created: " + date_created);
+    Label genreLabel = new Label("Genre: " + genre);
     labels.getChildren().addAll(authorLabel, dateLabel, genreLabel);
     gameDetails.setAlignment(Pos.CENTER);
     gameDetails.getChildren()
@@ -142,7 +141,6 @@ public class GameDetailsTab  implements Tab {
     Region hey = (Region) commentSection.getCommentSection();
     hey.prefHeightProperty().bind(mainLayout.heightProperty().multiply(0.675));
 
-
 // Add the three sections to the main layout
     mainLayout.getChildren().addAll(gameRankingSection, container, gridPane, hey);
 
@@ -150,7 +148,6 @@ public class GameDetailsTab  implements Tab {
     ScrollPane scrollPane = new ScrollPane(mainLayout);
     scrollPane.setFitToWidth(true);
     scrollPane.setFitToHeight(true);
-
 
 // Add the ScrollPane to the main layout
 //    mainLayout.getChildren().add(scrollPane);
@@ -181,7 +178,7 @@ public class GameDetailsTab  implements Tab {
     tabExplorer.setCurrentTab(root);
   }
 
-  public void renderGameDetail(String gameID, int popularityIndex){
+  public void renderGameDetail(String gameID, int popularityIndex) {
     this.gameID = gameID;
     this.popularityIndex = popularityIndex;
     gameEntryMetadata = gameDao.getGameData(gameID);

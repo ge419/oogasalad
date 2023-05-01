@@ -1,8 +1,7 @@
 package oogasalad.controller;
 
 /**
- * Stores information about the game
- * Currently stores width and height of the game board
+ * Stores information about the game Currently stores width and height of the game board
  *
  * @author Changmin Shin
  */
@@ -13,7 +12,8 @@ public class GameInfo {
 
   /**
    * Getter method for board width
-   * @return  Width as double
+   *
+   * @return Width as double
    */
   public double getWidth() {
     return width;
@@ -21,8 +21,9 @@ public class GameInfo {
 
   /**
    * Setter method for board width
+   *
    * @param width Width of the board
-   * @return      GameInfo object with updated board width
+   * @return GameInfo object with updated board width
    */
   public GameInfo setWidth(double width) {
     this.width = width;
@@ -31,7 +32,8 @@ public class GameInfo {
 
   /**
    * Getter method for board height
-   * @return    Height as double
+   *
+   * @return Height as double
    */
   public double getHeight() {
     return height;
@@ -39,8 +41,9 @@ public class GameInfo {
 
   /**
    * Setter method for board height
-   * @param height  Height of the board
-   * @return        GameInfo object with updated board width
+   *
+   * @param height Height of the board
+   * @return GameInfo object with updated board width
    */
   public GameInfo setHeight(double height) {
     this.height = height;

@@ -10,16 +10,18 @@ import oogasalad.view.tabexplorer.tabs.settings.options.SettingsOptionsFactory;
 import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
 /**
- * This module defines the dependency injections for the tab explorer view.
- * It installs the {@link AccessControlModule} and the {@link TabFactory} and defines bindings for
- * controllers that are used by the tab explorer view.
+ * This module defines the dependency injections for the tab explorer view. It installs the
+ * {@link AccessControlModule} and the {@link TabFactory} and defines bindings for controllers that
+ * are used by the tab explorer view.
  */
 public class TabModule extends AbstractModule {
+
   private final ResourceBundle resourceBundle;
 
   public TabModule(ResourceBundle resourceBundle) {
     this.resourceBundle = resourceBundle;
   }
+
   @Override
   protected void configure() {
     bind(ResourceBundle.class).toInstance(resourceBundle);

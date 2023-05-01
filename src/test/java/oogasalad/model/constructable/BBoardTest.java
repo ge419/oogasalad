@@ -1,6 +1,7 @@
 package oogasalad.model.constructable;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
@@ -8,7 +9,6 @@ import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.attribute.SimpleSchemaDatabase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 class BBoardTest {
 
@@ -18,9 +18,9 @@ class BBoardTest {
   Tile testTile;
 
   @BeforeEach
-  void setup(){
+  void setup() {
     testObjectMapper = new ObjectMapper();
-    testSchemaDB =new SimpleSchemaDatabase(testObjectMapper);
+    testSchemaDB = new SimpleSchemaDatabase(testObjectMapper);
     testTile = new Tile(testSchemaDB);
     testBoard = new BBoard();
     testBoard.setTiles(List.of(testTile, testTile));
@@ -28,10 +28,11 @@ class BBoardTest {
 
   @Test
   void addTile() {
-    Tile diffTile= new Tile(testSchemaDB);
+    Tile diffTile = new Tile(testSchemaDB);
     testBoard.addTile(diffTile);
     assertEquals(testBoard.getTiles().size(), 3);
   }
+
   @Test
   void getById() {
     assertTrue(testBoard.getById("null").isEmpty());

@@ -86,6 +86,8 @@ public class SaveManager {
           }
         }
     );
+
+    schemaDatabase.setRuleListProperty(game.rulesProperty());
   }
 
   /**
@@ -98,12 +100,16 @@ public class SaveManager {
   public String saveAsset(Path assetPath) throws IOException {
     ensureAssetsDir();
 
+    System.out.println("Path: " + assetPath);
     String filename = assetPath.getFileName().toString();
+    System.out.println(filename);
     if (Files.exists(assetsDir.resolve(filename))) {
       filename = generateUniqueAssetFilename(filename);
+      System.out.println(filename);
     }
 
     Path newAssetPath = assetsDir.resolve(filename);
+    System.out.println(newAssetPath);
     Files.copy(assetPath, newAssetPath);
 
     return filename;

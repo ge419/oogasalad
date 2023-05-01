@@ -68,12 +68,12 @@ public class LoginTab implements Tab {
     grid.setAlignment(Pos.CENTER);
 
     tabExplorer.setCurrentTab(grid);
-
   }
 
   private void login() throws ExecutionException, InterruptedException {
-    String username = tfName.getText();
+    String username = tfName.getText().trim().toLowerCase();
     String password = pfPwd.getText();
+
     if (username.length()== 0 || password.length() == 0){
       AlertPopUp.show(AlertType.ERROR, "Login failed","The username or password is invalid" );
     } else{

@@ -36,7 +36,7 @@ public class ScoreTileRule extends AbstractGameConstruct implements EditableRule
     registrar.registerHandler(TileLandedEvent.class, this::alterPlayerScore);
   }
 
-  private void alterPlayerScore(EventHandlerParams<TileLandedEvent> eventHandlerParams) {
+  protected void alterPlayerScore(EventHandlerParams<TileLandedEvent> eventHandlerParams) {
     Tile tile = eventHandlerParams.event().landedTile();
     Player currentPlayer = gameholder.getCurrentPlayer();
     String ownerId = tile.getOwnerId();

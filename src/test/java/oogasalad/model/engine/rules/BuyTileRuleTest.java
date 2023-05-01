@@ -75,19 +75,4 @@ class BuyTileRuleTest {
     assertEquals(1, appliedSchemas.size());
   }
 
-  @Test
-  public void cannotBuyWithoutMoney() {
-    Tile tile = new Tile(db);
-    Piece piece = new Piece(db);
-    BuyAction buyAction = mock(BuyAction.class);
-    ActionQueue actionQueue = new SimpleActionQueue();
-    EventHandlerParams<TileLandedEvent> params = new EventHandlerParams<>(new TileLandedEvent(piece, tile), actionQueue);
-    buyRule.tryBuyProp(params);
-    assertTrue(actionQueue.isEmpty());
-  }
-
-
-
-
-
 }

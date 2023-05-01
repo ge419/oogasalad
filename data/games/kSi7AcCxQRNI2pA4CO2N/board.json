@@ -1,0 +1,58 @@
+{
+  "tiles" : [ {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "d78e6498-b234-426e-a9be-5acaf5bae7ec",
+    "schemas" : [ "tile", "customTile", "4d4b36a4-ae19-486c-9b62-fd7f66c2804f" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "Caption",
+      "value" : "Hello"
+    }, {
+      "@class" : "oogasalad.model.attribute.ImageAttribute",
+      "key" : "SoccerPhoto.png",
+      "value" : "/Users/matthew/oogasalad_team03/data/customObjects/Test1/morning-glory.jpg"
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "customJson",
+      "value" : "/Users/matthew/oogasalad_team03/data/customObjects/Test1/Test1.json"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 50.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 6.5,
+      "y" : 12.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "viewtype",
+      "value" : "custom"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 50.0
+    } ]
+  } ]
+}

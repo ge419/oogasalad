@@ -151,7 +151,7 @@ public class SocialCenterTab implements Tab {
         Button cloneButton = new Button("Clone");
         cloneButton.setOnAction(e->{
           System.out.println(gameEntryID);
-          userDao.cloneGame(authHandler.getActiveUserID(), gameEntryID);
+          userDao.subscribeToGame(authHandler.getActiveUserID(), gameEntryID);
           renderTabContent();
         });
 

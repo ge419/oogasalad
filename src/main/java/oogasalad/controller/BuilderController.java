@@ -67,9 +67,10 @@ public class BuilderController {
   private final Injector injector;
   private String gameID;
   private GameDao gameDao;
-  private Map<String, String> rules;
   private static final String RULE_NAME_KEY = "name";
   private static final String RULE_DESCRIPTION_KEY = "description";
+  private static final String RESOURCE_PATH = "engine/ClassPath";
+  private static final ResourceBundle resources = ResourceBundle.getBundle(RESOURCE_PATH);;
 
   public BuilderController(String language, String gameID, GameDao gameDao) {
     injector = Guice.createInjector(
@@ -160,10 +161,6 @@ public class BuilderController {
     return new PopupForm(construct, language, location);
   }
 
-  private void defaultRules() {
-//    saveManager.loadDefRules();
-  }
-
   /**
    * Creates a map of Key:Value pairs corresponding to Name:Filepath of all CSS files in the default
    * stylesheet directory
@@ -201,15 +198,21 @@ public class BuilderController {
   }
 
   public List<String> getListOfRules() {
-//    return rules.keySet().stream().toList();
-    return List.of(
-        "Hello",
-        "This",
-        "Is",
-        "A",
-        "Test"
-    );
+    return resources.keySet().stream().toList();
+//    return List.of(
+//        "Hello",
+//        "This",
+//        "Is",
+//        "A",
+//        "Test"
+//    );
   }
+
+  public String getClassForRule(String ruleClass) {
+//    resources.getKeys();
+    return resources.getString(ruleClass);
+  }
+
 
   public List<String> getCurrentTiletypes() {
     return List.of(
@@ -219,11 +222,16 @@ public class BuilderController {
     );
   }
 
-  public void makeRulesPopup(String tiletype, String ruleAsString) {
-    logger.info("Chose to edit rule " + ruleAsString + " for tiletype " + tiletype);
-    // todo: change this to get the rule from whatever string was provided
-    EditableRule rule = injector.getInstance(BuyTileRule.class);
-    createPopupForm(rule, builderView.getLanguage(), builderView.getPopupPane());
+  public void makeRulesPopup(String ruleAsString){
+    try {
+      logger.info("Chose to edit rule " + ruleAsString);
+      Class<? extends EditableRule> clazz = (Class<? extends EditableRule>) Class.forName(ruleAsString);
+      EditableRule rule = injector.getInstance(clazz);
+      createPopupForm(rule, builderView.getLanguage(), builderView.getPopupPane());
+    } catch (ClassNotFoundException e) {
+      logger.fatal("Failed to create rule classes", e);
+//      throw new Exception(e);
+    }
   }
 
   public void removeRuleFromTiletype(String tiletype, String ruleAsString) {
@@ -303,26 +311,26 @@ public class BuilderController {
 
   }
 
-  private void readDefaultRules() {
-    try {
-      rules = new HashMap<>();
-      for (File file : FileReader.readFiles("rules")) {
-        EditableRule rule = readRulesFile(file.toPath());
-        String name = StringAttribute.from(rule.getAttribute(RULE_NAME_KEY).get()).getValue();
-        String desc = StringAttribute.from(rule.getAttribute(RULE_DESCRIPTION_KEY).get())
-            .getValue();
-        rules.putIfAbsent(name, desc);
-      }
-    } catch (FileReaderException | IOException e) {
-      logger.fatal("Failed to read resource rule files", e);
-      throw new ResourceReadException(e);
-    }
-  }
-
-  private EditableRule readRulesFile(Path path) throws IOException {
-    ObjectMapper mapper = new ObjectMapper();
-    return mapper.readValue(path.toFile(), EditableRule.class);
-  }
+//  private void readDefaultRules() {
+//    try {
+//      rules = new HashMap<>();
+//      for (File file : FileReader.readFiles("rules")) {
+//        EditableRule rule = readRulesFile(file.toPath());
+//        String name = StringAttribute.from(rule.getAttribute(RULE_NAME_KEY).get()).getValue();
+//        String desc = StringAttribute.from(rule.getAttribute(RULE_DESCRIPTION_KEY).get())
+//            .getValue();
+//        rules.putIfAbsent(name, desc);
+//      }
+//    } catch (FileReaderException | IOException e) {
+//      logger.fatal("Failed to read resource rule files", e);
+//      throw new ResourceReadException(e);
+//    }
+//  }
+//
+//  private EditableRule readRulesFile(Path path) throws IOException {
+//    ObjectMapper mapper = new ObjectMapper();
+//    return mapper.readValue(path.toFile(), EditableRule.class);
+//  }
 
   private boolean savePathAsAsset(String path) {
     try {
@@ -333,10 +341,10 @@ public class BuilderController {
       return false;
     }
   }
-  public String getRuleDescription(String ruleAsString){
+//  public String getRuleDescription(String ruleAsString){
 //    return "This is a test string! Selected rule: " + ruleAsString;
-    return rules.get(ruleAsString);
-  }
+//    return rules.get(ruleAsString);
+//  }
   public String getGameID() {
     return gameID;
   }

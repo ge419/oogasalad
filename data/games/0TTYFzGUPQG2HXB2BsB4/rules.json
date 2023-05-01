@@ -33,7 +33,7 @@
   "attributes" : [ {
     "@class" : "oogasalad.model.attribute.StringAttribute",
     "key" : "tileType",
-    "value" : "tile"
+    "value": "tile"
   } ]
 }, {
   "@class" : "oogasalad.model.engine.rules.DieMoveRule",

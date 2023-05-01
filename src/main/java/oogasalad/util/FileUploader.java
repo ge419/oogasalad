@@ -12,19 +12,15 @@ import javafx.stage.FileChooser.ExtensionFilter;
 public class FileUploader {
 
   public static void uploadUserAvatar(String userID){
-    String dirPath = "data/users/"+userID+"/";
-    String defaultFileName = "/avatar.jpeg";
-    uploadFile(dirPath,defaultFileName);
+    uploadFile(PathFinder.getUserAvatarPath(userID));
   }
 
   public static void uploadGameThumbnail(String gameID){
-    String dirPath = "data/games/"+gameID+"/";
-    String defaultFileName = "/thumbnail.jpeg";
-    uploadFile(dirPath,defaultFileName);
+    uploadFile(PathFinder.getGameThumbnailPath(gameID));
   }
 
 
-  private static void uploadFile(String dirPath, String fileName){
+  private static void uploadFile(String dirPath){
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Upload an Image");
 
@@ -46,7 +42,7 @@ public class FileUploader {
       if (!directory.exists()) {
         directory.mkdirs();
       }
-      Path userAvatarPath = Paths.get(directory.toPath()  + fileName);
+      Path userAvatarPath = Paths.get(directory.toPath().toUri());
       // Copy the selected file to the newly created directory
       try {
         Files.copy(selectedFile.toPath(), userAvatarPath, StandardCopyOption.REPLACE_EXISTING);

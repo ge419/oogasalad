@@ -1,18 +1,16 @@
 package oogasalad.model.accesscontrol.dao;
 
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 public interface UserDao {
 
-  String getUserID(String userName) throws ExecutionException, InterruptedException;
+  String getUserID(String userName);
 
   Map<String, Object> getUserData(String userID);
 
   boolean isUserRegistered(String username);
 
-  String registerNewUser(String username, String password)
-      throws ExecutionException, InterruptedException;
+  String registerNewUser(String username, String password);
 
   void incrementNumberOfGamesPlayed(String userID);
 
@@ -22,11 +20,11 @@ public interface UserDao {
 
   //todo should throw an exception if game already exists for user
   //or rather button should be disabled and display, "game cloned"
-  void cloneGame(String userID, String gameID);
+  void subscribeToGame(String userID, String gameID);
 
-  void unCloneGame(String userID, String gameID); // can only unclone if not creator
+  void unsubscribeToGame(String userID, String gameID); // can only unclone if not creator
 
-  void deleteGame(String userID, String gameID); // has to be creator to delete
+  void deleteGame(String gameID); // has to be creator to delete
 
   void updatePassword(String userID, String newPwd);
 

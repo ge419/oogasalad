@@ -10,6 +10,8 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.transform.Transform;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 // another very helpful stack overflow post: https://stackoverflow.com/questions/57751706/why-does-some-nodes-have-a-x-and-y-position-and-others-not
 
@@ -24,10 +26,13 @@ import javafx.scene.transform.Transform;
  * <p>This was heavily inspired by <a href="https://edencoding.com/drag-shapes-javafx/">this
  * dragging tutorial</a> by Ed Eden-Rump. Thank you!</p>
  *
+ * @see DraggerAPI
+ *
  * @author tmh85
  */
 public class Dragger implements DraggerAPI {
 
+  private static final Logger LOG = LogManager.getLogger(Dragger.class);
   private static final int ACTIVE = 1;
   private static final int INACTIVE = 0;
   private static final double ORIGIN = 0.0;
@@ -119,7 +124,7 @@ public class Dragger implements DraggerAPI {
   }
 
   /**
-   * Initialize our draggable property by connecting it to our created event handlers.
+   * <p>Initialize our draggable property by connecting it to our created event handlers.</p>
    */
   private void initializeDraggableProperty() {
     myDraggable = new SimpleBooleanProperty();
@@ -272,7 +277,7 @@ public class Dragger implements DraggerAPI {
   private Dimension checkForBounds(MouseEvent event, double defaultXTranslation, double defaultYTranslation){
     Dimension ans = new Dimension();
     Dimension currMouseLocation = getLocationRelativeToParent(event.getSceneX(), event.getSceneY());
-    System.out.println(String.format("Current location: {%f,%f} and max is {%f,%f}", currMouseLocation.getWidth(), currMouseLocation.getHeight(),
+    LOG.debug(String.format("Current location: {%f,%f} and max is {%f,%f}", currMouseLocation.getWidth(), currMouseLocation.getHeight(),
         myMaxWidthAtStartOfDrag, myMaxHeightAtStartOfDrag));
     checkTopAndLeftSides(ans, currMouseLocation.getWidth(), currMouseLocation.getHeight(), defaultXTranslation, defaultYTranslation);
     checkRightAndBottomSides(ans, currMouseLocation.getWidth(), currMouseLocation.getHeight(), ans.getWidth(), ans.getHeight());

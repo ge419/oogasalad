@@ -33,6 +33,7 @@ public class SaveManager {
   public static final String INFO_FILE_NAME = "info.json";
   public static final String ASSETS_DIR_NAME = "assets";
   private static final Logger LOGGER = LogManager.getLogger(SaveManager.class);
+  public static final int MAX_DUP_SEARCH = 500;
   private final Path saveDir;
   private final Path assetsDir;
   private final SchemaDatabase schemaDatabase;
@@ -55,6 +56,9 @@ public class SaveManager {
     this.mapper.enable(SerializationFeature.INDENT_OUTPUT);
   }
 
+  /**
+   * Saves the current {@link GameHolder} to the save directory.
+   */
   public void saveGame() {
     ensureSaveDir();
 
@@ -64,6 +68,9 @@ public class SaveManager {
     writeFile(SCHEMA_FILE_NAME, schemaDatabase.getCustomSchemas().toArray(ObjectSchema[]::new));
   }
 
+  /**
+   * Loads the game into the current {@link GameHolder}
+   */
   public void loadGame() {
     ensureSaveDir();
 
@@ -81,24 +88,66 @@ public class SaveManager {
     );
   }
 
-  public void saveAsset(Path assetPath) throws IOException {
+  /**
+   * Given a path, copy the file to the current asset directory and return the asset filename.
+   *
+   * @param assetPath path to external asset
+   * @return filename to use with {@link #getAssetPath(String)}
+   * @throws IOException on IO failure
+   */
+  public String saveAsset(Path assetPath) throws IOException {
     ensureAssetsDir();
 
     String filename = assetPath.getFileName().toString();
-    int extensionIndex = filename.lastIndexOf('.');
-    String newFilename = UUID.randomUUID().toString();
-
-    if (extensionIndex != -1) {
-      newFilename += filename.substring(extensionIndex);
+    if (Files.exists(assetsDir.resolve(filename))) {
+      filename = generateUniqueAssetFilename(filename);
     }
 
-    Path newAssetPath = assetsDir.resolve(newFilename);
-
+    Path newAssetPath = assetsDir.resolve(filename);
     Files.copy(assetPath, newAssetPath);
+
+    return filename;
   }
 
-  public Path getAssetPath(String assetName) {
-    return assetsDir.resolve(assetName);
+  /**
+   * Given an asset filename, return the full filepath if it exists.
+   *
+   * @param assetName filename of asset
+   * @return path if file exists, {@link Optional#empty()} otherwise
+   */
+  public Optional<Path> getAssetPath(String assetName) {
+    Path path = assetsDir.resolve(assetName);
+    if (Files.exists(path)) {
+      return Optional.of(path);
+    }
+    return Optional.empty();
+  }
+
+  private String generateUniqueAssetFilename(String filename) {
+    int extensionIndex = filename.indexOf('.');
+    if (extensionIndex == -1) {
+      extensionIndex = filename.length();
+    }
+
+    String basename = filename.substring(0, extensionIndex);
+    String extension = filename.substring(extensionIndex);
+
+    for (int i = 1; i < MAX_DUP_SEARCH; i++) {
+      String newName = basename + "_" + i + extension;
+
+      if (!Files.exists(assetsDir.resolve(newName))) {
+        return newName;
+      }
+    }
+
+    // Resort to UUID
+    String newName = UUID.randomUUID() + extension;
+    if (Files.exists(assetsDir.resolve(newName))) {
+      // Give up
+      throw new SaveManagerException("unable to generate unique asset filename");
+    }
+
+    return newName;
   }
 
   private void writeFile(String relativePath, Object object) {
@@ -138,10 +187,10 @@ public class SaveManager {
       Files.createDirectories(dir);
     } catch (FileAlreadyExistsException e) {
       LOGGER.warn("save directory exists as file", e);
-      throw new RuntimeException("save directory exists as file", e);
+      throw new SaveManagerException("save directory exists as file", e);
     } catch (IOException e) {
       LOGGER.error("unrecoverable IO exception", e);
-      throw new RuntimeException(e);
+      throw new SaveManagerException("unrecoverable IO exception", e);
     }
   }
 }

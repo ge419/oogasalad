@@ -53,7 +53,7 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
       throw new ResourceReadException(displayMessageWithArguments(
           getLanguage(),
           "ResourceReadError",
-          bundle.toString()
+          bundle.getBaseBundleName()
       ));
     }
   }
@@ -150,5 +150,9 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
 
   private void toggleNextRemoval(){
     getBuilder().toggleNextRemoval();
+  }
+
+  private void uploadImage(){
+    getBuilder().uploadImage();
   }
 }

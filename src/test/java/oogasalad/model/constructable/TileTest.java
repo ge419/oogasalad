@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.NoSuchElementException;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.attribute.SimpleSchemaDatabase;
+import oogasalad.view.Coordinate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -24,19 +25,29 @@ class TileTest {
 
   @Test
   void testDefaultValue(){
-    assertNotNull(testTile.getHeight());
-    assertNotNull(testTile.getWidth());
     assertNotNull(testTile.getNextTileIds());
     assertNotNull(testTile.getInfo());
     assertNotNull(testTile.getCoordinate());
-    assertNotNull(testTile.getY());
-    assertNotNull(testTile.getX());
-    assertNotNull(testTile.getAngle());
     assertNotNull(testTile.getAllAttributes());
     assertNotNull(testTile.viewTypeAttribute());
     assertNotNull(testTile.typeAttribute());
     assertNotNull(testTile.colorAttribute());
+    assertNotNull(testTile.getViewType());
+    assertNotNull(testTile.getType());
+  }
 
+  @Test
+  void testSettingDefaultAttributes(){
+    testTile.setX(32.8);
+    testTile.setY(31.8);
+    testTile.setAngle(7.6);
+    testTile.setCoordinate(new Coordinate(3.4,5.6));
+    testTile.setHeight(5.6);
+    testTile.setWidth(3.7);
+    assertEquals(testTile.getX(), 3.4);
+    assertEquals(testTile.getY(), 5.6);
+    assertNotEquals(testTile.getAngle(), 0.0);
+    assertTrue(testTile.getHeight() == 5.6 && testTile.getWidth() == 3.7);
   }
 
   @Test

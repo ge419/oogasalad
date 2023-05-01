@@ -3,7 +3,7 @@
   "name": "tile",
   "fields": [
     {
-      "@class": "oogasalad.model.attribute.StringMetadata",
+      "@class": "oogasalad.model.attribute.BindingMetadata",
       "key": "viewtype",
       "name": "View type",
       "description": "View type of tile.",
@@ -12,7 +12,7 @@
       "viewable": true
     },
     {
-      "@class": "oogasalad.model.attribute.StringMetadata",
+      "@class": "oogasalad.model.attribute.BindingMetadata",
       "key": "type",
       "name": "Type",
       "description": "Type of tile.",

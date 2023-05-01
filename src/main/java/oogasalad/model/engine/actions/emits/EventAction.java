@@ -1,7 +1,9 @@
-package oogasalad.model.engine.actions;
+package oogasalad.model.engine.actions.emits;
 
 import java.util.Objects;
 import oogasalad.model.engine.Event;
+import oogasalad.model.engine.actions.Action;
+import oogasalad.model.engine.actions.ActionParams;
 
 /**
  * Simple action that just emits an event.

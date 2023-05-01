@@ -16,7 +16,7 @@ import java.util.List;
 import oogasalad.model.attribute.AttributeModule;
 import oogasalad.model.engine.actions.Action;
 import oogasalad.model.engine.actions.ActionParams;
-import oogasalad.model.engine.actions.EventAction;
+import oogasalad.model.engine.actions.emits.EventAction;
 import oogasalad.model.engine.events.AttributeEvent;
 import oogasalad.model.engine.events.StartGameEvent;
 import oogasalad.model.engine.prompt.Prompter;

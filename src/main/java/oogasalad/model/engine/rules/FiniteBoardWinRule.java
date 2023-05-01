@@ -4,15 +4,14 @@ import com.fasterxml.jackson.annotation.JacksonInject;
 import com.google.inject.Inject;
 import java.util.List;
 import oogasalad.model.attribute.SchemaDatabase;
-import oogasalad.model.attribute.TileAttribute;
 import oogasalad.model.attribute.TileListAttribute;
 import oogasalad.model.constructable.AbstractGameConstruct;
-import oogasalad.model.constructable.GameHolder;
-import oogasalad.model.constructable.Tile;
 import oogasalad.model.engine.EventHandlerParams;
 import oogasalad.model.engine.EventRegistrar;
 import oogasalad.model.engine.Priority;
 import oogasalad.model.engine.actions.ActionFactory;
+import oogasalad.model.engine.actions.wins.TileWinningStrategy;
+import oogasalad.model.engine.actions.wins.WinningConditionStrategy;
 import oogasalad.model.engine.events.TileLandedEvent;
 
 public class FiniteBoardWinRule extends AbstractGameConstruct implements EditableRule {
@@ -38,6 +37,7 @@ public class FiniteBoardWinRule extends AbstractGameConstruct implements Editabl
   protected void checkTileWin(EventHandlerParams<TileLandedEvent> eventEventHandlerParams) {
     List<String> winningTileIds = TileListAttribute.from(this.getAttribute(WINNING_TILES).get()).getTileIds();
     String landedTileId = eventEventHandlerParams.event().landedTile().getId();
-    eventEventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(), actionFactory.makeCheckTileWinAction(landedTileId, winningTileIds));
+    WinningConditionStrategy winningCondition = new TileWinningStrategy(landedTileId, winningTileIds);
+    eventEventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(), actionFactory.makeCheckWinStateAction(winningCondition));
   }
 }

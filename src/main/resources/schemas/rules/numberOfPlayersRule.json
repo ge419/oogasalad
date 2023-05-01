@@ -19,6 +19,15 @@
       "editable": true,
       "viewable": true,
       "defaultValue": 4
+    },
+    {
+      "@class": "oogasalad.model.attribute.IntMetadata",
+      "key": "piecePerPlayer",
+      "name": "piece number",
+      "description": "number of pieces a player gets in a game",
+      "editable": true,
+      "viewable": true,
+      "defaultValue": 1
     }
   ]
 }

@@ -12,8 +12,10 @@ import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Player;
 import oogasalad.model.constructable.Players;
 import oogasalad.model.engine.EventEmitter;
+import oogasalad.model.engine.actions.wins.CheckWinAndEndAction;
+import oogasalad.model.engine.actions.wins.StandingWinningStrategy;
+import oogasalad.model.engine.actions.wins.WinningConditionStrategy;
 import oogasalad.model.engine.events.GameEndEvent;
-import oogasalad.model.engine.events.PlayerRemovalEvent;
 import oogasalad.model.engine.prompt.AIPrompter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +23,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
-class CheckStandingWinActionTest {
+class CheckWinAndEndActionTest {
 
   public static final int LAST_N_STANDING = 3;
   private GameHolder gameHolder;
@@ -32,7 +34,7 @@ class CheckStandingWinActionTest {
   private Players players;
   @Mock private EventEmitter emitter;
   private ActionParams actionParams;
-  private CheckStandingWinAction action;
+  private CheckWinAndEndAction action;
   private ResourceBundle bundle;
 
   @BeforeEach
@@ -48,7 +50,8 @@ class CheckStandingWinActionTest {
     bundle = mock(ResourceBundle.class);
     when(bundle.getString(any(String.class))).thenReturn("");
     actionParams = new ActionParams(emitter, new AIPrompter());
-    action = new CheckStandingWinAction(gameHolder, LAST_N_STANDING, bundle);
+    WinningConditionStrategy winningConditionStrategy = new StandingWinningStrategy(gameHolder, LAST_N_STANDING);
+    action = new CheckWinAndEndAction(gameHolder, winningConditionStrategy, bundle);
   }
 
   @Test
@@ -66,7 +69,8 @@ class CheckStandingWinActionTest {
     players = new Players(List.of(player1, player2, player3, player4));
     gameHolder.setPlayers(players);
 
-    action = new CheckStandingWinAction(gameHolder, LAST_N_STANDING, bundle);
+    WinningConditionStrategy winningConditionStrategy = new StandingWinningStrategy(gameHolder, LAST_N_STANDING);
+    action = new CheckWinAndEndAction(gameHolder, winningConditionStrategy, bundle);
     action.runAction(actionParams);
 
     ArgumentCaptor<GameEndEvent> argument = ArgumentCaptor.forClass(GameEndEvent.class);

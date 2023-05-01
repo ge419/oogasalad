@@ -39,7 +39,7 @@ class TileMetadataTest {
   @Test
   void testGetAttributeClass() {
     assertNotEquals(testTileMetadata.getAttributeClass(), ColorAttribute.class);
-    assertEquals(testTileMetadata.getAttributeClass(), PositionAttribute.class);
+    assertEquals(testTileMetadata.getAttributeClass(), TileAttribute.class);
   }
 
   @Test

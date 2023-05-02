@@ -1,0 +1,110 @@
+/* https://coolors.co/palette/7400b8-6930c3-5e60ce-5390d9-4ea8de-48bfe3-56cfe1-64dfdf-72efdd-80ffdb */
+.root {
+  -fx-font-size: 12pt;
+  -fx-font-family: "Courier New";
+  button-color: rgb(1, 49, 156);
+  background-color: rgb(1, 33, 105);
+  text-color: rgb(220, 220, 220);
+  board-color: white;
+  title-color: #4EA8DE;
+  delete-color: #6930C3;
+  tile-info-text-color: #5E60CE;
+  -fx-base: button-color;
+  -fx-background: background-color;
+  -fx-text-fill: text-color;
+}
+Text {
+    -fx-text-fill: rgb(220, 220, 220);
+    -fx-fill: rgb(220, 220, 220);
+}
+.button {
+  -fx-border-color: black;
+  -fx-border-width: 1;
+  -fx-border-radius: 4;
+}
+
+.vBox {
+  -fx-spacing: 10px;
+  -fx-fill: rgb(220, 220, 220);
+}
+
+.hBox {
+  -fx-spacing: 5px;
+  -fx-fill: rgb(220, 220, 220);
+}
+
+.clickable {
+  -fx-cursor: hand;
+}
+
+.text {
+  -fx-text-fill: rgb(220, 220, 220);
+  -fx-border-width: 0.2;
+  -fx-alignment: center-left;
+}
+
+/*------------------------------------------------------------------------------------------------*/
+
+#TopBar {
+  -fx-alignment: center-left;
+  -fx-spacing: 100;
+}
+
+#BoardPane {
+  -fx-background-color: board-color;
+  -fx-border-color: black;
+  -fx-border-width: 1;
+  -fx-border-radius: 4;
+}
+
+#RulePane {
+  -fx-background-color: title-color;
+  -fx-border-color: black;
+  -fx-border-width: 1;
+  -fx-border-radius: 4;
+}
+
+#sideBar {
+  -fx-word-wrap: break-word;
+}
+
+#BuilderHeader {
+  -fx-fill: title-color;
+  -fx-stroke: text-color;
+  -fx-font-size: 28px;
+  -fx-stroke-width: 0.5px;
+  -fx-alignment: baseline-left;
+}
+
+#DeleteMode {
+  -fx-fill: delete-color;
+  -fx-underline: true;
+}
+
+#TileAdditionMode {
+  -fx-fill: tile-info-text-color;
+}
+
+#TileSelectMode {
+  -fx-fill: tile-info-text-color;
+}
+
+#TileNextRemovalModePart1 {
+  -fx-fill: delete-color;
+}
+
+#TileNextRemovalModePart2 {
+  -fx-fill: delete-color;
+  -fx-underline: true;
+}
+
+#About {
+  -fx-alignment: center;
+  -fx-spacing: 15px;
+  -fx-padding: 10px;
+}
+
+#AboutText {
+  -fx-alignment: center;
+  -fx-spacing: 20px;
+}

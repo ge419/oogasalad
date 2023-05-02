@@ -30,6 +30,7 @@ import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.attribute.SimpleObjectSchema;
 import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.Tile;
+import oogasalad.util.SaveManager;
 import oogasalad.view.Coordinate;
 import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
@@ -42,10 +43,13 @@ public class CustomTile extends Group implements ViewTile {
   private Color color;
   private Map<String, CustomElement> customElementMap;
   private String name;
+  private SaveManager saveManager;
 
   @Inject
-  public CustomTile(@Assisted Tile BTile, SchemaDatabase database) {
+  public CustomTile(@Assisted Tile BTile, SchemaDatabase database, SaveManager saveManager) {
     this.modelTile = BTile;
+    this.saveManager = saveManager;
+
     modelTile.addSchema("customTile");
 
     StringAttribute jsonFileAttribute = StringAttribute.from(
@@ -91,7 +95,7 @@ public class CustomTile extends Group implements ViewTile {
       StringAttribute attribute = StringAttribute.from(modelTile.getAttribute(name).get());
       CustomElement node = customElementMap.get(name);
       attribute.valueProperty().addListener((observable, oldValue, newValue) -> {
-        node.setValue(newValue);
+        node.setValue(newValue, saveManager);
       });
     }
   }
@@ -112,7 +116,7 @@ public class CustomTile extends Group implements ViewTile {
       String loadedValue = StringAttribute.from(
           modelTile.getAttribute(loadedObject.getName()).get()).getValue();
       if (!loadedValue.isEmpty()) {
-        loadedObject.setValue(loadedValue);
+        loadedObject.setValue(loadedValue, saveManager);
       }
       if (loadedObject.getIndex() != -1) {
         s.getChildren().add(loadedObject.getIndex(), (Node) loadedObject);

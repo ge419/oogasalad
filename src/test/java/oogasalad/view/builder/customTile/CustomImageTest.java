@@ -1,13 +1,16 @@
 package oogasalad.view.builder.customTile;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import javafx.application.Platform;
-import javafx.scene.Group;
-import javafx.scene.Scene;
+
 import javafx.stage.Stage;
 import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.constructable.GameHolder;
@@ -22,15 +25,12 @@ import org.testfx.framework.junit5.ApplicationTest;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.concurrent.CountDownLatch;
+import java.util.Optional;
 
 
 import org.mockito.Mock;
-
-import javax.swing.text.html.ImageView;
 
 public class CustomImageTest extends ApplicationTest {
 
@@ -67,6 +67,8 @@ public class CustomImageTest extends ApplicationTest {
 
     Ideally the test would be more modular and actually test the output of the pop-up form saving so that further changes but testing this integration
     to how the popup form works would be caught but initializing the imageStrategyPattern directly has its own set of injection problems.
+
+    Further on the save manager will handle further changes to the interface and throw its own errors if it is unable to find files
      */
     @Test
     public void testSetValue() throws InterruptedException, URISyntaxException {
@@ -78,21 +80,16 @@ public class CustomImageTest extends ApplicationTest {
         Path path = Paths.get(filePath);
         Assertions.assertTrue(new File(path.toUri()).exists(), "Image file path is not valid: " + filePath);
 
-        customImage.setValue(fileName);
+        //customImage.setValue(fileName);
 
         //The test below would trivially fail
-        //customImage.setValue(fileName, saveManager);
+        customImage.setValue(fileName, saveManager);
 
 
         filePath = new URI(customImage.getImage().getUrl());
         path = Paths.get(filePath);
         Assertions.assertTrue(new File(path.toUri()).exists(), "Image file path is not valid: " + filePath);
 
-
-//        Assertions.assertTrue(Files.exists(Paths.get(filePath2)), "Image file path is not valid: " + filePath2);
-
-
-        System.out.println(customImage.getImage().toString());
-//        Assertions.assertNotNull(customImage.getImage());
     }
+
 }

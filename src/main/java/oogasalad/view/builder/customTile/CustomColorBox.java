@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import oogasalad.model.attribute.ColorMetadata;
 import oogasalad.model.attribute.Metadata;
+import oogasalad.util.SaveManager;
 import oogasalad.view.builder.BuilderUtility;
 
 public class CustomColorBox extends Rectangle implements CustomElement, BuilderUtility {
@@ -151,8 +152,14 @@ public class CustomColorBox extends Rectangle implements CustomElement, BuilderU
     return metadata;
   }
 
+  //Original setValue (or introducing Mockito as a dependency) needed for internal call
+  private void setValue(String loadedValue) {
+    this.defaultColor = loadedValue;
+    this.setFill(Color.web(defaultColor));
+  }
+
   @Override
-  public void setValue(String loadedValue) {
+  public void setValue(String loadedValue, SaveManager easiestBugFix) {
     this.defaultColor = loadedValue;
     this.setFill(Color.web(defaultColor));
   }

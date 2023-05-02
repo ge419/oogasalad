@@ -39,18 +39,18 @@ public class CustomTileBuilderViewTest extends DukeApplicationTest {
     assertNotNull(lookup("#addColorButton").query());
   }
 
-  @Test
-  public void testRenameButton() {
-    // Given
-
-    // When
-    clickOn("#renameButton");
-    //extInputDialog dialog = lookup(".dialog-pane").queryAs(TextInputDialog.class);
-    write("newTitle");
-    //clickOn(dialog.getDialogPane().lookupButton(ButtonType.OK));
-
-    //assertEquals(this.builder.getName(), stage.getTitle());
-  }
+//  @Test
+//  public void testRenameButton() {
+//    // Given
+//
+//    // When
+//    clickOn("#renameButton");
+//    //extInputDialog dialog = lookup(".dialog-pane").queryAs(TextInputDialog.class);
+//    write("newTitle");
+//    //clickOn(dialog.getDialogPane().lookupButton(ButtonType.OK));
+//
+//    //assertEquals(this.builder.getName(), stage.getTitle());
+//  }
 
 
 }

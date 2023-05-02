@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import oogasalad.model.attribute.Metadata;
+import oogasalad.util.SaveManager;
 
 public interface CustomElement {
 
@@ -50,7 +51,7 @@ public interface CustomElement {
 
   Metadata getMetaData();
 
-  void setValue(String loadedValue);
+  void setValue(String loadedValue, SaveManager saveManager);
 
   default VBox makeVbox(CustomElement thisCustomElement, List<Node> imageSpecificNodes) {
     VBox infoBox = new VBox();

@@ -123,6 +123,7 @@ public class SaveManager {
    */
   public Optional<Path> getAssetPath(String assetName) {
     Path path = assetsDir.resolve(assetName);
+    System.out.println("path.toString() = " + path.toString());
     if (Files.exists(path)) {
       return Optional.of(path);
     }

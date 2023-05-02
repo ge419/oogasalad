@@ -66,9 +66,13 @@ public class CustomImage extends ImageView implements CustomElement, BuilderUtil
 
   @Override
   public void setValue(String loadedValue, SaveManager saveManager) {
-    Path path = saveManager.getAssetPath(loadedValue).orElse(this.destinationPath);
+    Path path = saveManager.getAssetPath(loadedValue).orElse(null);
+    System.out.println("loadedValue = " + loadedValue);
+    System.out.println("loadedValue = " + path);
+
     this.originalFile = path.toFile();
     this.destinationPath = path;
+    this.setImage(new Image(originalFile.toURI().toString()));
 
     try {
       URI filePath = new URI(this.getImage().getUrl());

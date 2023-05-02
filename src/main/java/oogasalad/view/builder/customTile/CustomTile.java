@@ -56,10 +56,6 @@ public class CustomTile extends Group implements ViewTile {
         modelTile.getAttribute("customJson").get());
     String jsonFile = jsonFileAttribute.getValue();
 
-        /*
-        If jsonFile is empty this is coming from the builder
-         */
-    System.out.println("Fizz");
     if (jsonFile.isEmpty()) {
       jsonFile = chooseJsonFile().toString();
       jsonFileAttribute.setValue(jsonFile);
@@ -68,20 +64,10 @@ public class CustomTile extends Group implements ViewTile {
       ArrayList<String> names = new ArrayList<>(modelTile.getSchemaNames());
       names.add(newSchema.getName());
       modelTile.setSchemaNames(names);
-//            for (String name : names){
-//                modelTile.addSchema(name);
-//            }
-      for (String name : names) {
-        System.out.println("name = " + name);
-      }
-      for (Attribute a : modelTile.getAllAttributes()) {
-        System.out.println(a.getKey() + " " + a);
-      }
       bindListeners(newSchema.getAllMetadata().stream().map(Metadata::getKey).toList());
 
     } else {
       try {
-        System.out.println("Buzz");
         loadForGamePlay(jsonFile);
       } catch (IOException e) {
         throw new RuntimeException(e); //F-off
@@ -170,9 +156,6 @@ public class CustomTile extends Group implements ViewTile {
     return new SimpleObjectSchema(UUID.randomUUID().toString(), List.of());
   }
 
-//    private Metadata makeNameMetadata() {
-//    }
-
   private JsonObject readJsonFromFile(File file) throws IOException {
     try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
       return JsonParser.parseReader(reader).getAsJsonObject();
@@ -197,13 +180,11 @@ public class CustomTile extends Group implements ViewTile {
     this.getTransforms().add(new Rotate(coord.getAngle(), Rotate.Z_AXIS));
   }
 
-  //could connect to color box element
   public Paint getColor() {
     return color;
   }
 
   public void setColor(Color color) {
-    //this.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
     this.color = color;
   }
 

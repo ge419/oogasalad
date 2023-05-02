@@ -2,8 +2,8 @@
 .root {
   -fx-font-size: 12pt;
   -fx-font-family: "Courier New";
-  button-color: rgb(190, 190, 190);
-  background-color: rgb(100, 100, 100);
+  button-color: rgb(1, 49, 156);
+  background-color: rgb(1, 33, 105);
   text-color: rgb(220, 220, 220);
   board-color: rgb(245, 245, 245);
   title-color: #4EA8DE;
@@ -25,10 +25,12 @@ Text {
 
 .vBox {
   -fx-spacing: 10px;
+  -fx-fill: rgb(220, 220, 220);
 }
 
 .hBox {
   -fx-spacing: 5px;
+  -fx-fill: rgb(220, 220, 220);
 }
 
 .clickable {
@@ -36,6 +38,7 @@ Text {
 }
 
 .text {
+  -fx-text-fill: rgb(220, 220, 220);
   -fx-border-width: 0.2;
   -fx-alignment: center-left;
 }
@@ -75,12 +78,33 @@ Text {
 
 #DeleteMode {
   -fx-fill: delete-color;
+  -fx-underline: true;
 }
 
 #TileAdditionMode {
   -fx-fill: tile-info-text-color;
 }
 
-#TileNextMode {
+#TileSelectMode {
   -fx-fill: tile-info-text-color;
+}
+
+#TileNextRemovalModePart1 {
+  -fx-fill: delete-color;
+}
+
+#TileNextRemovalModePart2 {
+  -fx-fill: delete-color;
+  -fx-underline: true;
+}
+
+#About {
+  -fx-alignment: center;
+  -fx-spacing: 15px;
+  -fx-padding: 10px;
+}
+
+#AboutText {
+  -fx-alignment: center;
+  -fx-spacing: 20px;
 }

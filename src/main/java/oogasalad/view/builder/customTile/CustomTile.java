@@ -30,6 +30,7 @@ import oogasalad.model.attribute.SchemaDatabase;
 import oogasalad.model.attribute.SimpleObjectSchema;
 import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.Tile;
+import oogasalad.util.SaveManager;
 import oogasalad.view.Coordinate;
 import oogasalad.view.tiles.ViewTile;
 import org.apache.logging.log4j.LogManager;
@@ -42,20 +43,19 @@ public class CustomTile extends Group implements ViewTile {
   private Color color;
   private Map<String, CustomElement> customElementMap;
   private String name;
+  private SaveManager saveManager;
 
   @Inject
-  public CustomTile(@Assisted Tile BTile, SchemaDatabase database) {
+  public CustomTile(@Assisted Tile BTile, SchemaDatabase database, SaveManager saveManager) {
     this.modelTile = BTile;
+    this.saveManager = saveManager;
+
     modelTile.addSchema("customTile");
 
     StringAttribute jsonFileAttribute = StringAttribute.from(
         modelTile.getAttribute("customJson").get());
     String jsonFile = jsonFileAttribute.getValue();
 
-        /*
-        If jsonFile is empty this is coming from the builder
-         */
-    System.out.println("Fizz");
     if (jsonFile.isEmpty()) {
       jsonFile = chooseJsonFile().toString();
       jsonFileAttribute.setValue(jsonFile);
@@ -64,20 +64,10 @@ public class CustomTile extends Group implements ViewTile {
       ArrayList<String> names = new ArrayList<>(modelTile.getSchemaNames());
       names.add(newSchema.getName());
       modelTile.setSchemaNames(names);
-//            for (String name : names){
-//                modelTile.addSchema(name);
-//            }
-      for (String name : names) {
-        System.out.println("name = " + name);
-      }
-      for (Attribute a : modelTile.getAllAttributes()) {
-        System.out.println(a.getKey() + " " + a);
-      }
       bindListeners(newSchema.getAllMetadata().stream().map(Metadata::getKey).toList());
 
     } else {
       try {
-        System.out.println("Buzz");
         loadForGamePlay(jsonFile);
       } catch (IOException e) {
         throw new RuntimeException(e); //F-off
@@ -91,7 +81,7 @@ public class CustomTile extends Group implements ViewTile {
       StringAttribute attribute = StringAttribute.from(modelTile.getAttribute(name).get());
       CustomElement node = customElementMap.get(name);
       attribute.valueProperty().addListener((observable, oldValue, newValue) -> {
-        node.setValue(newValue);
+        node.setValue(newValue, saveManager);
       });
     }
   }
@@ -112,7 +102,7 @@ public class CustomTile extends Group implements ViewTile {
       String loadedValue = StringAttribute.from(
           modelTile.getAttribute(loadedObject.getName()).get()).getValue();
       if (!loadedValue.isEmpty()) {
-        loadedObject.setValue(loadedValue);
+        loadedObject.setValue(loadedValue, saveManager);
       }
       if (loadedObject.getIndex() != -1) {
         s.getChildren().add(loadedObject.getIndex(), (Node) loadedObject);
@@ -166,9 +156,6 @@ public class CustomTile extends Group implements ViewTile {
     return new SimpleObjectSchema(UUID.randomUUID().toString(), List.of());
   }
 
-//    private Metadata makeNameMetadata() {
-//    }
-
   private JsonObject readJsonFromFile(File file) throws IOException {
     try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
       return JsonParser.parseReader(reader).getAsJsonObject();
@@ -193,13 +180,11 @@ public class CustomTile extends Group implements ViewTile {
     this.getTransforms().add(new Rotate(coord.getAngle(), Rotate.Z_AXIS));
   }
 
-  //could connect to color box element
   public Paint getColor() {
     return color;
   }
 
   public void setColor(Color color) {
-    //this.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
     this.color = color;
   }
 

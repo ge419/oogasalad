@@ -16,6 +16,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import oogasalad.model.attribute.Metadata;
 import oogasalad.model.attribute.StringMetadata;
+import oogasalad.util.SaveManager;
 import oogasalad.view.builder.BuilderUtility;
 
 public class CustomText extends Label implements CustomElement, BuilderUtility {
@@ -171,7 +172,7 @@ public class CustomText extends Label implements CustomElement, BuilderUtility {
   }
 
   @Override
-  public void setValue(String loadedValue) {
+  public void setValue(String loadedValue, SaveManager easiestBugSolution) {
     this.setText(loadedValue);
     this.defaultContents = loadedValue;
   }

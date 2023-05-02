@@ -2,7 +2,10 @@ package oogasalad.view.builder.customTile;
 
 import com.google.gson.JsonObject;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,6 +21,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import oogasalad.model.attribute.ImageMetadata;
 import oogasalad.model.attribute.Metadata;
+import oogasalad.util.SaveManager;
 import oogasalad.view.builder.BuilderUtility;
 
 public class CustomImage extends ImageView implements CustomElement, BuilderUtility {
@@ -61,10 +65,24 @@ public class CustomImage extends ImageView implements CustomElement, BuilderUtil
   }
 
   @Override
-  public void setValue(String loadedValue) {
-    this.originalFile = new File(loadedValue);
-    this.destinationPath = Paths.get(loadedValue);
+  public void setValue(String loadedValue, SaveManager saveManager) {
+    Path path = saveManager.getAssetPath(loadedValue).orElse(null);
+
+    this.originalFile = path.toFile();
+    this.destinationPath = path;
     this.setImage(new Image(originalFile.toURI().toString()));
+
+    try {
+      URI filePath = new URI(this.getImage().getUrl());
+      Path imageFilePath = Paths.get(filePath);
+      if (!new File(imageFilePath.toUri()).exists()) {
+        throw new FileNotFoundException("Image file does not exist: " + imageFilePath);
+      }
+    }
+    catch (URISyntaxException | FileNotFoundException e) {
+      e.printStackTrace();
+    }
+
   }
 
   public VBox getInfo(ResourceBundle languageBundle) {

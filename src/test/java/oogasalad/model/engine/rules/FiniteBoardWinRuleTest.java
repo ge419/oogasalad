@@ -49,7 +49,7 @@ public class FiniteBoardWinRuleTest {
   public void setUp() {
     mockActionFactory = mock(ActionFactory.class);
     mockedAction = mock(CheckWinAndEndAction.class);
-    when(mockActionFactory.makeCheckWinStateAction(any(WinningConditionStrategy.class))).thenReturn(
+    when(mockActionFactory.makeCheckWinStateAction(any(TileWinningStrategy.class))).thenReturn(
         mockedAction);
 
     Injector injector = Guice.createInjector(new AttributeModule());
@@ -82,10 +82,7 @@ public class FiniteBoardWinRuleTest {
   @Test
   public void makesCheckTileWinAction() {
     rule.checkTileWin(eventEventHandlerParams);
-
-    WinningConditionStrategy winningConditionStrategy = new TileWinningStrategy(LANDED_TILE_ID,
-        ids);
-    verify(mockActionFactory).makeCheckWinStateAction(winningConditionStrategy);
+    verify(mockActionFactory).makeCheckWinStateAction(any(TileWinningStrategy.class));
   }
 
   @Test

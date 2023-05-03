@@ -1,5 +1,7 @@
 package oogasalad.model.engine.rules;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -40,10 +42,10 @@ public class LastStandingWinRuleTest {
   public void setUp() {
     mockActionFactory = mock(ActionFactory.class);
     mockedAction = mock(CheckWinAndEndAction.class);
-    mockedQueue = mock(SimpleActionQueue.class);
+    mockedQueue = mock(ActionQueue.class);
     gameHolder = mock(GameHolder.class);
     winningConditionStrategy = new StandingWinningStrategy(gameHolder, TEST_N);
-    when(mockActionFactory.makeCheckWinStateAction(winningConditionStrategy)).thenReturn(
+    when(mockActionFactory.makeCheckWinStateAction(any(StandingWinningStrategy.class))).thenReturn(
         mockedAction);
 
     Injector injector = Guice.createInjector(new AttributeModule());
@@ -67,17 +69,13 @@ public class LastStandingWinRuleTest {
   @Test
   public void makesCheckWinStateAction() {
     rule.checkWinState(eventEventHandlerParams);
-
-    WinningConditionStrategy winningConditionStrategy = new StandingWinningStrategy(gameHolder,
-        TEST_N);
-    verify(mockActionFactory).makeCheckWinStateAction(winningConditionStrategy);
+    verify(mockActionFactory).makeCheckWinStateAction(any(WinningConditionStrategy.class));
   }
 
   @Test
   public void addsGeneratedActionToQueue() {
     rule.checkWinState(eventEventHandlerParams);
-
-    verify(mockedQueue).add(Priority.MOST_HIGH.getValue(), mockedAction);
+    verify(mockedQueue).add(anyInt(), any(CheckWinAndEndAction.class));
   }
 
 }

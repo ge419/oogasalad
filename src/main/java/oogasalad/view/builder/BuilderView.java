@@ -284,7 +284,7 @@ public class BuilderView implements BuilderUtility, BuilderAPI {
    * Saves the Game Info to the database using the BuilderController
    */
   public void saveGameInfo() {
-//    myBuilderController.saveInfo(genreInput.getCharacters().toString(), descriptionInput.getCharacters().toString());
+    myBuilderController.saveInfo(genreInput.getCharacters().toString(), descriptionInput.getCharacters().toString());
     //TODO: update board dimension
   }
 

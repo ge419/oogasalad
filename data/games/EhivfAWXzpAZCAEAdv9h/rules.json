@@ -57,14 +57,4 @@
     "key" : "minPlayer",
     "value" : 1
   } ]
-}, {
-  "@class" : "oogasalad.model.engine.rules.FiniteBoardWinRule",
-  "id" : "8a104387-e6e1-4986-a410-2e7a60d4c721",
-  "schemas" : [ "finiteBoardWinRule" ],
-  "attributes" : [ {
-    "@class" : "oogasalad.model.attribute.TileListAttribute",
-    "key" : "winningTiles",
-    "ids" : [ "6" ]
-  } ]
-}
-]
+} ]

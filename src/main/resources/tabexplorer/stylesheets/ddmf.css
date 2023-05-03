@@ -4,7 +4,7 @@
   -fx-font-family: "Helvetica";
   /* Set the background color of the scene to black */
 
-  -fx-background-color: #484545;
+  -fx-background-color: #00539B;
 
 
   /* Set the color of all text nodes to white */
@@ -22,7 +22,7 @@
 }
 
 ListView, GridPane, VBox {
-  -fx-background-color: #484545;
+  -fx-background-color: #00539B;
 }
 
 /*ListView{*/
@@ -36,8 +36,13 @@ Text {
 }
 
 Button {
-  -fx-background-color: black;
+  -fx-background-color: #012169;
   -fx-text-fill: white;
+}
+
+#welcome-text {
+  -fx-fill: #b6b6b6;
+  -fx-font-size: 30px;
 }
 
 
@@ -47,16 +52,11 @@ Label, RadioButton, Hyperlink {
 
 
 .game-box {
-  -fx-background-color: #3f3333;
+  -fx-background-color: #021a2f;
   -fx-alignment: center;
   -fx-spacing: 15;
   -fx-pref-width: 100;
   -fx-pref-height: 100;
-}
-
-#welcome-text {
-  -fx-fill: #d0d0d0;
-  -fx-font-size: 30px;
 }
 
 .game-box:hover {
@@ -66,7 +66,7 @@ Label, RadioButton, Hyperlink {
 #top-navbar {
   -fx-spacing: 10;
   -fx-alignment: center;
-  -fx-background-color: #100f0f;
+  -fx-background-color: #012169;
 }
 
 #left-navbar {
@@ -74,14 +74,13 @@ Label, RadioButton, Hyperlink {
   -fx-padding: 30 0 30 0;
   -fx-pref-width: 150;
   -fx-spacing: 15;
-  -fx-background-color: #343434;
+  -fx-background-color: #031b52;
 }
 
+
 MenuButton{
-  -fx-background-color: #100f0f;
+  -fx-background-color: #012169;
 }
 MenuButton:hover, MenuItem:hover{
   -fx-cursor: hand;
 }
-
-

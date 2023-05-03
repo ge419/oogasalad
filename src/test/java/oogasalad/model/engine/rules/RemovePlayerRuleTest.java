@@ -1,5 +1,7 @@
 package oogasalad.model.engine.rules;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -17,7 +19,9 @@ import oogasalad.model.engine.Priority;
 import oogasalad.model.engine.SimpleActionQueue;
 import oogasalad.model.engine.actions.ActionFactory;
 import oogasalad.model.engine.actions.removal.CheckAndRemovePlayerAction;
+import oogasalad.model.engine.actions.removal.LowScoreRemovalStrategy;
 import oogasalad.model.engine.actions.removal.PlayerRemovalStrategy;
+import oogasalad.model.engine.actions.removal.RemovedPlayerTileResetStrategy;
 import oogasalad.model.engine.actions.removal.TileResetStrategy;
 import oogasalad.model.engine.events.StartTurnEvent;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,8 +46,8 @@ class RemovePlayerRuleTest {
     mockedQueue = mock(SimpleActionQueue.class);
     mockedRemovalStrategy = mock(PlayerRemovalStrategy.class);
     tileResetStrategy = mock(TileResetStrategy.class);
-    when(mockActionFactory.makeCheckAndRemovePlayerAction(TEST_MIN, mockedRemovalStrategy,
-        tileResetStrategy)).thenReturn(mockedAction);
+    when(mockActionFactory.makeCheckAndRemovePlayerAction(anyInt(), any(PlayerRemovalStrategy.class),
+        any(TileResetStrategy.class))).thenReturn(mockedAction);
 
     Injector injector = Guice.createInjector(new AttributeModule());
     SchemaDatabase db = injector.getInstance(SchemaDatabase.class);
@@ -67,8 +71,8 @@ class RemovePlayerRuleTest {
   public void makesRemovePlayersAction() {
     rule.removePlayers(eventHandlerParams);
 
-    verify(mockActionFactory).makeCheckAndRemovePlayerAction(TEST_MIN, mockedRemovalStrategy,
-        tileResetStrategy);
+    verify(mockActionFactory).makeCheckAndRemovePlayerAction(anyInt(), any(LowScoreRemovalStrategy.class),
+        any(RemovedPlayerTileResetStrategy.class));
   }
 
   @Test

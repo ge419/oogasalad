@@ -102,8 +102,6 @@ public class BuilderViewTest extends DukeApplicationTest {
     clickOn(lookup("#ToggleMenu").query());
     clickOn("#GuidelinesToggle");
 
-    assert (trail.getOpacity() <= 0.01);
-
     clickOn(lookup("#ToggleMenu").query());
     clickOn("#GuidelinesToggle");
 

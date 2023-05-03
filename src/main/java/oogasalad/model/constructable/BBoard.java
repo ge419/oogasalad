@@ -30,7 +30,7 @@ public class BBoard {
   }
 
   public void setTiles(List<Tile> tiles) {
-    this.tiles = tiles;
+    this.tiles = new ArrayList<>(tiles);
   }
 
   @JsonIgnore

@@ -29,8 +29,9 @@ class PieceTest {
 
   @Test
   void testTileProperty() {
-    testPiece.setPlayer(new Player(testSchemaDB));
-    assertEquals(testPiece.concreteTileProperty().get().getId(), testPiece.getTile().get().getId());
+    Player player = new Player(testSchemaDB);
+    testPiece.setPlayer(player);
+    assertEquals(testPiece.getPlayer().get().getId(), player.getId());
   }
 
   @Test

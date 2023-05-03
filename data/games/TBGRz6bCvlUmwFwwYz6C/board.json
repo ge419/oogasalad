@@ -1,0 +1,381 @@
+{
+  "tiles" : [ {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "d6a7dd25-7b3e-479b-bf00-7c5d0121f8af",
+    "schemas" : [ "tile", "customTile", "794b07d7-bae4-434f-806b-40cfc9ef322a", "customTile", "customTile" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.ImageAttribute",
+      "key" : "City Image.png",
+      "value" : "mts-best-views-new-york-skyline_2.jpg"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "City Name",
+      "value" : "New York"
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "Colorbox-1c664023-fdc8-45b2-948b-c8fb9f1d3d9b",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.ImageAttribute",
+      "key" : "Mr. Monopoly.jpg.png",
+      "value" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "Textfield-a9a1905f-a919-4652-a03e-3a3ef25428f3",
+      "value" : "Hello world"
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "customJson",
+      "value" : "/Users/matthew/oogasalad_team03/data/customObjects/CityTile/CityTile.json"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "no description provided"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 200.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : -261.6251220703125,
+      "y" : -276.3363952636719,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "custom"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 200.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "b6423661-68a3-4dcc-9096-cd3f5511c26d",
+    "schemas" : [ "tile", "customTile", "ce502bda-52b2-499e-affe-5bb027c83d67" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.ImageAttribute",
+      "key" : "City Image.png",
+      "value" : "Miami_3.jpg"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "City Name",
+      "value" : "Miami"
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "Colorbox-f07c13e5-8178-45bd-988c-eaedab9050bc",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.ImageAttribute",
+      "key" : "Mr. Monopoly.jpg.png",
+      "value" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "Textfield-fe91f20a-aa6c-4951-a036-60a5316c27a3",
+      "value" : "Hello world"
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "customJson",
+      "value" : "/Users/matthew/oogasalad_team03/data/customObjects/CityTile/CityTile.json"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "no description provided"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 200.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : -26.5,
+      "y" : -277.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "custom"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 200.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "012a5f89-b41f-4f25-8397-d291297bf81e",
+    "schemas" : [ "tile" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "#FFFFFF"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "no description provided"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 50.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ "3f33a550-5c97-426c-9761-fe4f877f1d73" ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 274.5,
+      "y" : 275.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "basic"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 50.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "3f33a550-5c97-426c-9761-fe4f877f1d73",
+    "schemas" : [ "tile" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "#FFFFFF"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "no description provided"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 50.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ "d6a7dd25-7b3e-479b-bf00-7c5d0121f8af" ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 145.5,
+      "y" : 273.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "basic"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 50.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "3a80867d-ce69-4aec-a011-42f96e386206",
+    "schemas" : [ "tile", "custom", "default", "customTile", "faef371e-a244-4297-8101-57161ebbef17" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.ImageAttribute",
+      "key" : "City Image.png",
+      "value" : "mts-best-views-new-york-skyline_3.jpg"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "City Name",
+      "value" : "New York"
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "Colorbox-0ab95a6c-e1fc-47e3-98f0-1e33b6f77c1f",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.ImageAttribute",
+      "key" : "Mr. Monopoly.jpg.png",
+      "value" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "Textfield-c896f84c-3335-4b10-afc6-2fcc028a5c6f",
+      "value" : "Hello world"
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "customJson",
+      "value" : "/Users/matthew/oogasalad_team03/data/customObjects/CityTile/CityTile.json"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "no description provided"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 200.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : -263.6251220703125,
+      "y" : -278.3363952636719,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "custom"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 200.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "360e27b0-220f-41d6-ac00-e9f7d45d451c",
+    "schemas" : [ "tile", "custom", "default", "customTile", "20cba3dd-60a0-4011-884c-59894e57aba5" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.ImageAttribute",
+      "key" : "City Image.png",
+      "value" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "City Name",
+      "value" : "Add a city name"
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "Colorbox-50a16a63-9cef-4c9b-822e-66fc56a6e9f8",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.ImageAttribute",
+      "key" : "Mr. Monopoly.jpg.png",
+      "value" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "Textfield-ca33644e-0638-4bf4-a528-3f0f52626431",
+      "value" : "Hello world"
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "#FFFFFF"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "customJson",
+      "value" : "/Users/matthew/oogasalad_team03/data/customObjects/CityTile/CityTile.json"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "no description provided"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 50.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : -255.5,
+      "y" : -258.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "custom"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 50.0
+    } ]
+  } ]
+}

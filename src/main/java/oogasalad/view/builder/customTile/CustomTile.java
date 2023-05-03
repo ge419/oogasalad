@@ -111,6 +111,7 @@ public class CustomTile extends Group implements ViewTile {
       }
       loadedObject.setLocation();
       customElementMap.put(loadedObject.getName(), loadedObject);
+      this.getChildren().clear();
       this.getChildren().add(s);
     }
   }

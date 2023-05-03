@@ -48,7 +48,7 @@ public class CustomImageTest extends ApplicationTest {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Path saveDirectory = Paths.get("data/games/mTAXDJfsEvYbP7lsInhB");
+        Path saveDirectory = Paths.get("data/games/TBGRz6bCvlUmwFwwYz6C"); //Any path with an image in the assets
         schemaDatabase = mock(SchemaDatabase.class);
         gameHolder = mock(GameHolder.class);
         objectMapper = mock(ObjectMapper.class);
@@ -72,8 +72,7 @@ public class CustomImageTest extends ApplicationTest {
      */
     @Test
     public void testSetValue() throws InterruptedException, URISyntaxException {
-        String fileName = "morning-glory_5.jpg";
-
+        String fileName = "Miami_3.jpg";
 
         customImage = new CustomImage(new File("data/customObjects/Test1/morning-glory.jpg"));
         URI filePath = new URI(customImage.getImage().getUrl());

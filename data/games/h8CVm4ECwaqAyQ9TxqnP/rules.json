@@ -1,0 +1,32 @@
+[ {
+  "@class" : "oogasalad.model.engine.rules.TurnRule",
+  "id" : "24224fc6-be95-471a-8f50-05cafc0ef137",
+  "schemas" : [ "turnRule" ],
+  "attributes" : [ ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.DieMoveRule",
+  "id" : "6f69804c-c1c1-45c9-9dbe-3c2a165ab927",
+  "schemas" : [ "dieRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "numberOfDice",
+    "value" : 1
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.NumberOfPlayersRule",
+  "id" : "368953d0-97ce-4155-88bd-d8e27512d6f5",
+  "schemas" : [ "numberOfPlayersRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "maxPlayer",
+    "value" : 4
+  }, {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "minPlayer",
+    "value" : 1
+  }, {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "piecePerPlayer",
+    "value" : 1
+  } ]
+} ]

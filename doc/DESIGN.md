@@ -221,21 +221,25 @@ as well.
 - `UserInterface`: Defines the methods and properties required for a user interface, such as menus, buttons, and other graphical elements.
 - `InputListener`: Defines the methods and properties required for an input listener, which listens for user input and triggers appropriate actions.
 - `GamePiece`: Defines the methods that set the properties of each game piece and controls the use of it
-- Player: Defines the methods and properties required for a player in the game, such as their name, score, and other relevant data.
+- `Player`: Defines the methods and properties required for a player in the game, such as their name, score, and other relevant data.
 
 ## Assumptions or Simplifications
 * For authentication, one simplification made was user sign-ups occur when a user tries to login with a username that doesn't exist. For example, if you try logging in with `user123`(username) and `pwd123`(password), our system first checks if `user123` already exists; if it does, then it validates the password, but if it doesn't it creates a new account with the credentials inputted by user. 
 
 
 ## Changes from the Plan
-* One major change that the database accessor API had was delivering all the data to a user as a `Map<String, Object>` object, vs exposing inidiviudal method calls to access different fields in the DB. For example, the API originally had a bunch of API methods that looked something like 
+* One major change that the database accessor API had was delivering all the data to a user as a `Map<String, Object>` object, vs exposing individual method calls to access different fields in the DB. For example, the API originally included methods such as:
   ```java
+    // for user
     public String getUserPronouns(String userID);
     public String getUserEmail(String userID);
     public Double getUserAge(String userID);
-  
+    ...
+    
+    // for game
     public String getGameTitle(String gameID);
     public String getGameDescription(String gameID);
+    ...
     ```
   But we then changed it to simply have one method to retrieve all the values in a document and then make the user get the specific value they wanted
   ```java

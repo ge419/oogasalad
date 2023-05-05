@@ -68,7 +68,9 @@ public interface AuthenticationHandler {
 }
 ```
 #### Database
-Similar to authentication, we also designed our DB accessors through interfaces. We utilized the Data Access Object (DAO) design pattern, to provide a clean and modular way to hide the specific implementation details of the database and provide a consistent interface to the frontend consuming the APIs. We also provide `Schema` enums which essentially serve as a contract on what fields are currently accessible from the DB. This way we provide a centralized source of truth for the client to use when retrieving data from database reads.
+Similar to authentication, we also designed our DB accessors through interfaces. We utilized the Data Access Object (DAO) design pattern, to provide a clean and modular way to hide the specific implementation details of the database and provide a consistent interface to the frontend consuming the APIs. Based on our design, we decided to have two DAOs—`UserDao` and `GameDao`.<br>
+We also provide `Schema` enums which essentially serve as a contract on what fields are currently accessible from the DB. This way we provide a centralized source of truth for the client to use when retrieving data from database reads.
+
 ```java
 //GameDao.java
 public interface GameDao {
@@ -120,7 +122,7 @@ represented by the following rules:
 
 ```java
 class StartTurnRule {
-  
+
   void registerEventHandlers(EventEmitter emitter) {
     emitter.onEvent(START_TURN, this::onTurnStart);
   }
@@ -180,7 +182,7 @@ clicked and have their metadata modified. The majority of game data is kept this
 
 ### Frontend
 #### Extensions
- The `TabExplorer` class is at the core entry point to the game player, game builder, and other extensions; it basically serves as a controller of sorts between navigating to the different parts of the application. The main APIs for this class, includes:
+The `TabExplorer` class is at the core entry point to the game player, game builder, and other extensions; it basically serves as a controller of sorts between navigating to the different parts of the application. The main APIs for this class, includes:
 * `render()`: This is called at the start of the program launch, to set the stage and scene.
 * `displayDefaultTab()`: This method basically checks whether a user is logs in or not. If the former, then it allows a user to access the various parts of the application (`GameLauncher`, `SocialCenter`, `Settings`); but, if the user isn't logged in, it prompts a user to then login.
 * `setCurrentTab()`: This method is called by the various `Tab`s `renderTabContent()` method to display a `Tab`s node on selection.
@@ -224,7 +226,7 @@ as well.
 - `Player`: Defines the methods and properties required for a player in the game, such as their name, score, and other relevant data.
 
 ## Assumptions or Simplifications
-* For authentication, one simplification made was user sign-ups occur when a user tries to login with a username that doesn't exist. For example, if you try logging in with `user123`(username) and `pwd123`(password), our system first checks if `user123` already exists; if it does, then it validates the password, but if it doesn't it creates a new account with the credentials inputted by user. 
+* For authentication, one simplification made was user sign-ups occur when a user tries to login with a username that doesn't exist. For example, if you try logging in with `user123`(username) and `pwd123`(password), our system first checks if `user123` already exists; if it does, then it validates the password, but if it doesn't it creates a new account with the credentials inputted by user.
 
 
 ## Changes from the Plan
@@ -248,9 +250,9 @@ as well.
   //for game
   Map<String, Object> getGameData(String gameID);
   ```
-    We noticed that the former approach had a couple of problems in our context:
-    1.  It was not efficient: The way our DB is structured is such that getting the value of just a single field vs getting the value of all the fields are about the same latency. This means that for scenes where you need to get different values from the database, a user would have to make API calls multiple times to the DB to access info, when they could simply make one call and get all the values they need.
-    2. This choice also made our interface bloated, because it resulted in having interfaces with a lot of methods that were really doing the same thing for the most part, just with different parameters.
+  We noticed that the former approach had a couple of problems in our context:
+  1.  It was not efficient: The way our DB is structured is such that getting the value of just a single field vs getting the value of all the fields are about the same latency. This means that for scenes where you need to get different values from the database, a user would have to make API calls multiple times to the DB to access info, when they could simply make one call and get all the values they need.
+  2. This choice also made our interface bloated, because it resulted in having interfaces with a lot of methods that were really doing the same thing for the most part, just with different parameters.
 
 * **TODO @everyone, add more changes you made if any**
 

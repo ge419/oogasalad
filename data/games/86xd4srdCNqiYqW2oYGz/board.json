@@ -1,0 +1,903 @@
+{
+  "tiles" : [ {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "c77264a2-22d8-401f-8107-2cd1a34430f7",
+    "schemas" : [ "tile", "street", "default" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.TileAttribute",
+      "key" : "card",
+      "id" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "A popular hit from J. Cole's 2014 Forest Hills Drive album, \"No Role Modelz\" is a smooth and catchy track that touches on the topic of finding role models in the entertainment industry."
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 100.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : "No Role Modelz"
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ "f08b46d2-2666-42e1-823f-239276773c50" ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PlayerAttribute",
+      "key" : "owner",
+      "id" : "",
+      "idValue" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 45.0,
+      "y" : 121.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "price",
+      "value" : 300.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "street"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "street"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 100.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "f08b46d2-2666-42e1-823f-239276773c50",
+    "schemas" : [ "tile", "street", "default" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.TileAttribute",
+      "key" : "card",
+      "id" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "This song, also from 2014 Forest Hills Drive, is a fun and upbeat track that samples Paula Abdul's hit song \"Straight Up\" and explores themes of love and relationships."
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 100.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : "Work Out"
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ "152d08ee-e355-4664-b930-8fa494bb33bc" ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PlayerAttribute",
+      "key" : "owner",
+      "id" : "",
+      "idValue" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 160.0,
+      "y" : 121.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "price",
+      "value" : 290.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "street"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 100.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "152d08ee-e355-4664-b930-8fa494bb33bc",
+    "schemas" : [ "tile", "street", "default" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.TileAttribute",
+      "key" : "card",
+      "id" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "Released in 2019, \"Middle Child\" is a powerful and introspective song that speaks to J. Cole's experience as a middle child and the struggles he has faced in his life and career."
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 100.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : "Middle Child"
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ "0c8a99fd-a5fd-400a-bf92-64209cb19375" ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PlayerAttribute",
+      "key" : "owner",
+      "id" : "",
+      "idValue" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 272.0,
+      "y" : 120.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "price",
+      "value" : 280.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "street"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 100.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "0c8a99fd-a5fd-400a-bf92-64209cb19375",
+    "schemas" : [ "tile", "street", "default" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.TileAttribute",
+      "key" : "card",
+      "id" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "no From his 2018 album KOD, \"ATM\" is an energetic and fast-paced track that critiques the materialistic values of modern society and the obsession with money. provided"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 100.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : "ATM"
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ "bc9cefce-a809-43ab-a712-c2de7ab04c13" ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PlayerAttribute",
+      "key" : "owner",
+      "id" : "",
+      "idValue" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 160.0,
+      "y" : 227.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "price",
+      "value" : 270.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "street"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 100.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "bc9cefce-a809-43ab-a712-c2de7ab04c13",
+    "schemas" : [ "tile", "street", "default" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.TileAttribute",
+      "key" : "card",
+      "id" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "This song, featuring TLC, is a heartfelt and motivational track that encourages listeners to love and accept themselves, flaws and all."
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 100.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : "Crooked Smile"
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ "ce530d51-2a6b-4ed8-a995-722990bf718a" ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PlayerAttribute",
+      "key" : "owner",
+      "id" : "",
+      "idValue" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 161.0,
+      "y" : 333.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "price",
+      "value" : 260.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "street"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 100.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "ce530d51-2a6b-4ed8-a995-722990bf718a",
+    "schemas" : [ "tile", "street", "default" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.TileAttribute",
+      "key" : "card",
+      "id" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "Another introspective song from 2014 Forest Hills Drive, \"Love Yourz\" is a beautiful and uplifting track that reminds listeners to appreciate the important things in life and not to compare themselves to others."
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 100.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : "Love Yourz"
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ "79516c8a-4d3b-4930-ac83-6ca9a4e46f25" ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PlayerAttribute",
+      "key" : "owner",
+      "id" : "",
+      "idValue" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 139.0,
+      "y" : 445.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "price",
+      "value" : 250.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "street"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 100.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "a8a3452b-9e2d-4997-8a02-f186cdfe9de5",
+    "schemas" : [ "tile", "street", "default" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.TileAttribute",
+      "key" : "card",
+      "id" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "A collaboration with R&B singer Miguel, \"Power Trip\" is a melancholy and emotional song that explores the ups and downs of a romantic relationship."
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 100.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : "Power Trip"
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ "2e8c5642-c10d-4b39-87e4-8ffd2a6bdd08" ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PlayerAttribute",
+      "key" : "owner",
+      "id" : "",
+      "idValue" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 22.0,
+      "y" : 308.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "price",
+      "value" : 230.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "street"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 100.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "c75c4b76-d9c7-4412-8ec3-1402cce00de6",
+    "schemas" : [ "tile", "street", "default" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.TileAttribute",
+      "key" : "card",
+      "id" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "Another track from KOD, \"Kevin's Heart\" is a poignant and introspective song that addresses the pitfalls of fame and the struggles of staying true to oneself in the public eye."
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 100.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : "Kevin's Heart"
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ "4168f23c-8582-4889-849f-98533fa61f34" ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PlayerAttribute",
+      "key" : "owner",
+      "id" : "",
+      "idValue" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 496.0,
+      "y" : 85.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "price",
+      "value" : 210.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "street"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 100.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "4168f23c-8582-4889-849f-98533fa61f34",
+    "schemas" : [ "tile", "street", "default" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.TileAttribute",
+      "key" : "card",
+      "id" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "From his 2018 album KOD, \"Immortal\" is a hard-hitting and socially conscious track that examines the impact of drug culture on society and the struggles of growing up in a disadvantaged community."
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 100.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : "Immortal"
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ "1cf15f71-14e8-40e3-8f19-1b822c23b854" ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PlayerAttribute",
+      "key" : "owner",
+      "id" : "",
+      "idValue" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 392.0,
+      "y" : 140.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "price",
+      "value" : 200.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "street"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 100.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "1192e107-0619-4b1f-b414-abb56626651e",
+    "schemas" : [ "tile", "street", "default" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.TileAttribute",
+      "key" : "card",
+      "id" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "A standout track from 2016's 4 Your Eyez Only album, \"Neighbors\" is a reflective and politically charged song that addresses the issue of racial profiling and police brutality."
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 100.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : "Neighbors"
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ "281d6b2d-4b71-43a6-b447-f4a479d51dc8" ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PlayerAttribute",
+      "key" : "owner",
+      "id" : "",
+      "idValue" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 386.0,
+      "y" : 379.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "price",
+      "value" : 180.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "street"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 100.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "1cf15f71-14e8-40e3-8f19-1b822c23b854",
+    "schemas" : [ "tile", "street", "default" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.TileAttribute",
+      "key" : "card",
+      "id" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "The title track of J. Cole's 2018 album, \"KOD\" is a powerful and thought-provoking song that critiques drug addiction and the negative effects it has on society."
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 100.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : "KOD"
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ "1192e107-0619-4b1f-b414-abb56626651e" ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PlayerAttribute",
+      "key" : "owner",
+      "id" : "",
+      "idValue" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 385.0,
+      "y" : 257.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "price",
+      "value" : 190.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "street"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 100.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "281d6b2d-4b71-43a6-b447-f4a479d51dc8",
+    "schemas" : [ "tile", "street", "default" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.TileAttribute",
+      "key" : "card",
+      "id" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "From his debut album Cole World: The Sideline Story, \"Lost Ones\" is a deeply personal and emotional track that explores the topic of abortion and the difficult decisions that come with it."
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 100.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : "Lost Ones"
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ "1d84a378-f511-4ccc-9be3-adc87f67e7b8" ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PlayerAttribute",
+      "key" : "owner",
+      "id" : "",
+      "idValue" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 493.0,
+      "y" : 448.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "price",
+      "value" : 170.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "street"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 100.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "79516c8a-4d3b-4930-ac83-6ca9a4e46f25",
+    "schemas" : [ "tile", "street", "default" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.TileAttribute",
+      "key" : "card",
+      "id" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : " A standout track from 2014 Forest Hills Drive, \"Wet Dreamz\" is a nostalgic and humorous song that tells the story of J. Cole's first sexual experience."
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 100.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : "Wet Dreamz"
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ "a8a3452b-9e2d-4997-8a02-f186cdfe9de5" ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PlayerAttribute",
+      "key" : "owner",
+      "id" : "",
+      "idValue" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 26.0,
+      "y" : 427.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "price",
+      "value" : 240.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "street"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 100.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "1d84a378-f511-4ccc-9be3-adc87f67e7b8",
+    "schemas" : [ "tile", "street", "default" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.TileAttribute",
+      "key" : "card",
+      "id" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "Released in 2020, \"Change\" is a socially conscious and uplifting track that addresses the issue of police brutality and the need for change in society.Released in 2020, \"Change\" is a socially conscious and uplifting track that addresses the issue of police brutality and the need for change in society."
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 100.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : "Change"
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ "c77264a2-22d8-401f-8107-2cd1a34430f7" ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PlayerAttribute",
+      "key" : "owner",
+      "id" : "",
+      "idValue" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 600.0,
+      "y" : 387.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "price",
+      "value" : 160.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "street"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 100.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "2e8c5642-c10d-4b39-87e4-8ffd2a6bdd08",
+    "schemas" : [ "tile", "street", "default" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.TileAttribute",
+      "key" : "card",
+      "id" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0xffffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "From 2014 Forest Hills Drive, \"Apparently\" is a reflective and soulful song that touches on themes of regret, self-doubt, and the importance of staying true to oneself."
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 100.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : "Apparently"
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ "c75c4b76-d9c7-4412-8ec3-1402cce00de6" ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PlayerAttribute",
+      "key" : "owner",
+      "id" : "",
+      "idValue" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 600.0,
+      "y" : 148.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "price",
+      "value" : 220.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "street"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 100.0
+    } ]
+  } ]
+}

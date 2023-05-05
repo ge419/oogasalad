@@ -1,10 +1,14 @@
-# Authors
+# OOGASalad Design Final
+### TEAM NUMBER: 03
+
+# Team Members and Role(s)
 * Dominic Martinez (dcm67)
 * Woonggyu Jin (wj61)
 * Trevon Helm (tmh85)
 * Jason Fitzpatrick (jf295)
 * Jay Yoon (jy320)
 * Chika Dueke-Eze (cgd19)
+  * Worked on all things extensions-related, e.g Authentication/DB, `GameLauncher`, `SocialCenter`, `UserProfiles` etc
 * Nathaniel Wullar (nkw14)
 * Changmin Shin (cs521)
 * Aloye Oshotse (ajo24)
@@ -51,6 +55,52 @@ However, for the purposes of the design goals, we **do not** assume that:
 ## Design Details: Classes and APIs
 
 ### Backend
+#### Authentication
+We designed our authentication process through interfaces; we have a simple `AuthenticationHandler` interface which any concrete auth impl has to implement. This allows for flexibility in what authentication solutions we use in the backend, while enabling our frontend (or whichever client uses the authentication modules) to not have to worry about any changes.
+```java
+public interface AuthenticationHandler {
+  void login(String username, String password);
+  void logout();
+  void register(String username, String password);
+  boolean getUserLogInStatus();
+  String getActiveUserName();
+  String getActiveUserID();
+}
+```
+#### Database
+Similar to authentication, we also designed our DB accessors through interfaces. We utilized the Data Access Object (DAO) design pattern, to provide a clean and modular way to hide the specific implementation details of the database and provide a consistent interface to the frontend consuming the APIs. We also provide `Schema` enums which essentially serve as a contract on what fields are currently accessible from the DB. This way we provide a centralized source of truth for the client to use when retrieving data from database reads.
+```java
+//GameDao.java
+public interface GameDao {
+  Map<String, Object> getGameData(String gameID);
+  String createGame(String username);
+  void updateGame(String gameID, Map<String, Object> game);
+  List<String> getAllGames();
+  void postGameReview(String review, String gameID, String userID);
+  void deleteAllGames();
+}
+
+//UserDao.java
+public interface UserDao {
+  String getUserID(String userName);
+  Map<String, Object> getUserData(String userID);
+  boolean isUserRegistered(String username);
+  String registerNewUser(String username, String password);
+  void incrementNumberOfGamesPlayed(String userID);
+  void updateUserName(String userID, String newUsername);
+  void updateUserFullName(String userID, String newUserFullName);
+  void subscribeToGame(String userID, String gameID);
+  void unsubscribeToGame(String userID, String gameID);
+  void deleteGame(String gameID);
+  void updatePassword(String userID, String newPwd);
+  void updateEmailAddress(String userID, String email);
+  void updateUserPronouns(String userID, String pronouns);
+  void updateAge(String userID, int age);
+  void updatePreferredTheme(String userID, String preferredTheme);
+  void updatedPreferredLanguage(String userID, String preferredLang);
+  void deleteAllUsers();
+}
+```
 
 #### Board
 
@@ -129,7 +179,17 @@ This metadata is used for the frontend’s generic options pane, where any edita
 clicked and have their metadata modified. The majority of game data is kept this way.
 
 ### Frontend
+#### Extensions
+ The `TabExplorer` class is at the core entry point to the game player, game builder, and other extensions; it basically serves as a controller of sorts between navigating to the different parts of the application. The main APIs for this class, includes:
+* `render()`: This is called at the start of the program launch, to set the stage and scene.
+* `displayDefaultTab()`: This method basically checks whether a user is logs in or not. If the former, then it allows a user to access the various parts of the application (`GameLauncher`, `SocialCenter`, `Settings`); but, if the user isn't logged in, it prompts a user to then login.
+* `setCurrentTab()`: This method is called by the various `Tab`s `renderTabContent()` method to display a `Tab`s node on selection.
 
+These are the core APIs that power the `TabExplorer`, but each individual `Tab` has flexibility in how they choose to implement their display or navigation within their own tab. For example, the `SettingsTab` which is a high-level `Tab` (i.e. can be accessed from the `NavBar`) has multiple 'sub-tabs' within it. If you go to the `SettingsTab` you'll see that you can choose to go to any of the various settings option (Accounts, Region/Language, Appearance), however, the `SettingsTab` chooses how it wants that 'internal' navigation to work and not the `TabExplorer`.
+
+In essence, the `TabExplorer` is responsible for navigating to `Tab`s accessible from the `NavBar` and utilizes simple publics APIs and design patterns like `Factory` to do this.
+
+#### Builder
 From an API perspective, the Builder’s capabilities are limited– you can only load in a game file
 and save the created game to a file. Since our builder creates the game file, it does not need to
 communicate much with the rest of the project, so its API is more limited.
@@ -149,18 +209,49 @@ games, and it should also provide a clearer path to what these abstractions repr
 as well.
 
 
-- GameView: Defines the structure and specifications of the window of the game
-- GameBoard: Defines the methods and properties required for a game board, such as its size, layout, and any components.
-- UserInterface: Defines the methods and properties required for a user interface, such as menus, buttons, and other graphical elements.
-- InputListener: Defines the methods and properties required for an input listener, which listens for user input and triggers appropriate actions.
-- GamePiece: Defines the methods that set the properties of each game piece and controls the use of it
+- `GameView`: Defines the structure and specifications of the window of the game
+- `GameBoard`: Defines the methods and properties required for a game board, such as its size, layout, and any components.
+- `UserInterface`: Defines the methods and properties required for a user interface, such as menus, buttons, and other graphical elements.
+- `InputListener`: Defines the methods and properties required for an input listener, which listens for user input and triggers appropriate actions.
+- `GamePiece`: Defines the methods that set the properties of each game piece and controls the use of it
+- `Player`: Defines the methods and properties required for a player in the game, such as their name, score, and other relevant data.
+
+- `GameView`: Defines the structure and specifications of the window of the game
+- `GameBoard`: Defines the methods and properties required for a game board, such as its size, layout, and any components.
+- `UserInterface`: Defines the methods and properties required for a user interface, such as menus, buttons, and other graphical elements.
+- `InputListener`: Defines the methods and properties required for an input listener, which listens for user input and triggers appropriate actions.
+- `GamePiece`: Defines the methods that set the properties of each game piece and controls the use of it
 - Player: Defines the methods and properties required for a player in the game, such as their name, score, and other relevant data.
 
+## Assumptions or Simplifications
+* For authentication, one simplification made was user sign-ups occur when a user tries to login with a username that doesn't exist. For example, if you try logging in with `user123`(username) and `pwd123`(password), our system first checks if `user123` already exists; if it does, then it validates the password, but if it doesn't it creates a new account with the credentials inputted by user. 
 
-- GameView: Defines the structure and specifications of the window of the game
-- GameBoard: Defines the methods and properties required for a game board, such as its size, layout, and any components.
-- UserInterface: Defines the methods and properties required for a user interface, such as menus, buttons, and other graphical elements.
-- InputListener: Defines the methods and properties required for an input listener, which listens for user input and triggers appropriate actions.
-- GamePiece: Defines the methods that set the properties of each game piece and controls the use of it
-- Player: Defines the methods and properties required for a player in the game, such as their name, score, and other relevant data.
 
+## Changes from the Plan
+* One major change that the database accessor API had was delivering all the data to a user as a `Map<String, Object>` object, vs exposing inidiviudal method calls to access different fields in the DB. For example, the API originally had a bunch of API methods that looked something like 
+  ```java
+    public String getUserPronouns(String userID);
+    public String getUserEmail(String userID);
+    public Double getUserAge(String userID);
+  
+    public String getGameTitle(String gameID);
+    public String getGameDescription(String gameID);
+    ```
+  But we then changed it to simply have one method to retrieve all the values in a document and then make the user get the specific value they wanted
+  ```java
+  // for user
+  Map<String, Object> getUserData(String userID);
+  //for game
+  Map<String, Object> getGameData(String gameID);
+  ```
+    We noticed that the former approach had a couple of problems in our context:
+    1.  It was not efficient: The way our DB is structured is such that getting the value of just a single field vs getting the value of all the fields are about the same latency. This means that for scenes where you need to get different values from the database, a user would have to make API calls multiple times to the DB to access info, when they could simply make one call and get all the values they need.
+    2. This choice also made our interface bloated, because it resulted in having interfaces with a lot of methods that were really doing the same thing for the most part, just with different parameters.
+
+* **TODO @everyone, add more changes you made if any**
+
+
+
+## How to Add New Features
+* If you wanted to add a new tab, let's call it `NewTab` to the `TabExplorer` to display info on something, you would create a new `NewTab` class that implements `Tab` and then implement the `renderTabContent()` for the node you want displayed. Depending on specifics, you'll probably also have to add it to the `NavBar` and add the `setOnAction()` method. Also, you would have to add this to the `TabFactory` so that the `TabExplorer` can create an instance of it.
+* To add a new field to the database, you simply have to create a new entry in either the `UserSchema` or `GameSchema`. If this field is something that you want the client to be able to update, you also need to include an update method for it in the `GameDao`/`UserDao`.

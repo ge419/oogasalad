@@ -7,14 +7,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ResourceBundle;
-
+import oogasalad.model.engine.EventEmitter;
 import oogasalad.model.engine.actions.scores.BuyAction;
 import oogasalad.model.engine.prompt.TestPrompterNegative;
 import oogasalad.model.engine.prompt.TestPrompterPositive;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import oogasalad.model.engine.EventEmitter;
 
 public class BuyActionTest {
 

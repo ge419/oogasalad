@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 
 class TileAttributeTest {
 
-  private TileAttribute tileAttribute;
   private static final String KEY = "testTileAttribute";
   private static final String ID = "0";
+  private TileAttribute tileAttribute;
 
   @BeforeEach
   public void setUp() {

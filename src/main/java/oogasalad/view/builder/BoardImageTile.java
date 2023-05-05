@@ -11,7 +11,7 @@ import oogasalad.model.constructable.BoardImage;
  */
 public class BoardImageTile extends ImageView {
 
-  private BoardImage myBoardImage;
+  private final BoardImage myBoardImage;
 
   public BoardImageTile(BoardImage boardImage) {
     super();

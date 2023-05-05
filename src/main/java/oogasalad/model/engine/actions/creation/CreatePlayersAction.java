@@ -23,6 +23,15 @@ import oogasalad.model.exception.ResourceReadException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Action for creating players upon user selection after launching game.
+ * <p>
+ * User selects from the prompt the number of players to play the game Added to the engine action
+ * queue by {@link oogasalad.model.engine.rules.NumberOfPlayersRule}
+ * </p>
+ *
+ * @Author Jay Yoon
+ */
 public class CreatePlayersAction implements Action {
 
   private static final Logger LOGGER = LogManager.getLogger(CreatePlayersAction.class);
@@ -53,6 +62,20 @@ public class CreatePlayersAction implements Action {
     this.bundle = bundle;
   }
 
+  /**
+   * executed action: creation of specific number of players, updating GameHolder Players
+   * accordingly constructs mandatory integer selection options to be presented by prompter to user
+   *
+   * <p>
+   * randomize player color and piece image, and binds the corresponding game piece to player
+   * updates the GameHolder with newly generated Players and List of Pieces
+   * </p>
+   * <p>
+   * emits {@link PlayerCreationEvent} that triggers other rules ex.
+   * {@link oogasalad.model.engine.rules.TurnRule}
+   *
+   * @param actionParams incl. emitter, prompter
+   */
   @Override
   public void runAction(ActionParams actionParams) {
     List<IntegerPromptOption> options = new ArrayList<>();

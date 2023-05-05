@@ -11,10 +11,18 @@ import oogasalad.model.engine.EngineModule;
 import oogasalad.view.ViewFactory;
 import oogasalad.view.tiles.TileModule;
 
+/**
+ * Module for constructing {@link GameController} used for dependency injection
+ * <p>
+ * includes other modules used in controller, including AttributeModule for SchemaDatabase
+ * factorymodulebuilder to support constructing prompters, engine module to construct the engine
+ *
+ * @Author Jay Yoon
+ */
 public class GameControllerModule extends AbstractModule {
 
   private final Path saveDir;
-  private String language;
+  private final String language;
 
   public GameControllerModule(Path saveDir, String language) {
     this.saveDir = saveDir;

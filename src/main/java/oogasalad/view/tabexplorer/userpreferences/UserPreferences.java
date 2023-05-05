@@ -8,23 +8,25 @@ import oogasalad.model.accesscontrol.authentication.AuthenticationHandler;
 import oogasalad.model.accesscontrol.dao.UserDao;
 import oogasalad.model.accesscontrol.database.schema.UserSchema;
 
+/**
+ * This class serves as a Publisher (based on the observer pattern) to notify subscribers when there
+ * are changes made to user preferences (e.g. language, theme).
+ *
+ * @author cgd19
+ */
 public class UserPreferences {
 
   public static String LANGUAGE_PROPERTIES_PATH = "tabexplorer.languages.";
-  private static final String DEFAULT_LANGUAGE_PROPERTY = LANGUAGE_PROPERTIES_PATH + "en_US";
-
-  private UserDao userDao;
-  private AuthenticationHandler authHandler;
+  private final UserDao userDao;
+  private final AuthenticationHandler authHandler;
+  private final List<Consumer<String>> observers = new ArrayList<>();
+  private String preferredLanguage;
 
   @Inject
-  public UserPreferences(UserDao userDao, AuthenticationHandler authHandler){
+  public UserPreferences(UserDao userDao, AuthenticationHandler authHandler) {
     this.userDao = userDao;
     this.authHandler = authHandler;
   }
-
-
-  private String preferredLanguage;
-  private List<Consumer<String>> observers = new ArrayList<>();
 
   public void setPreferredLanguage(String updatedLanguage) {
     String userID = authHandler.getActiveUserID();
@@ -34,7 +36,8 @@ public class UserPreferences {
 
   public String getPreferredLanguagePath() {
     String userID = authHandler.getActiveUserID();
-    preferredLanguage = (String)userDao.getUserData(userID).get(UserSchema.PREFERRED_LANGUAGE.getFieldName());
+    preferredLanguage = (String) userDao.getUserData(userID)
+        .get(UserSchema.PREFERRED_LANGUAGE.getFieldName());
     return LANGUAGE_PROPERTIES_PATH + preferredLanguage;
   }
 

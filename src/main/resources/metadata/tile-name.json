@@ -1,7 +1,7 @@
 {
   "@class": "oogasalad.model.attribute.StringAttributeMetadata",
   "key": "tileName",
-  "name":"Name of Tile",
+  "name": "Name of Tile",
   "description": "Holds the name of a tile",
   "editable": true,
   "viewable": true,

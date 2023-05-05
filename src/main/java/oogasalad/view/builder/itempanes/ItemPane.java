@@ -3,16 +3,11 @@ package oogasalad.view.builder.itempanes;
 import java.io.IOException;
 import java.util.ResourceBundle;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import oogasalad.model.exception.ResourceReadException;
 import oogasalad.view.builder.BuilderUtility;
 import oogasalad.view.builder.BuilderView;
-import oogasalad.view.builder.customTile.CustomObjectBuilder;
+import oogasalad.view.builder.customTile.CustomTileBuilder;
 import oogasalad.view.builder.exceptions.MethodReflectionException;
 
 /**
@@ -28,7 +23,7 @@ import oogasalad.view.builder.exceptions.MethodReflectionException;
  */
 public class ItemPane extends AbstractItemPane implements BuilderUtility {
 
-  private Pane myPane;
+  private final Pane myPane;
   private String myCurrentBundleName;
 
   /**
@@ -43,14 +38,13 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
   }
 
   @Override
-  public void addItems(String functionFileName) throws MethodReflectionException{
+  public void addItems(String functionFileName) throws MethodReflectionException {
     myCurrentBundleName = functionFileName;
     ResourceBundle bundle = getResource(functionFileName);
     try {
       forEachResourceKey(bundle,
           key -> createButton(key, bundle.getString(key)));
-    }
-    catch(Exception e){
+    } catch (Exception e) {
       throw new ResourceReadException(displayMessageWithArguments(
           getLanguage(),
           "ResourceReadError",
@@ -61,14 +55,14 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
 
   @Override
   public void refreshItems(String newFunctionFileName)
-  throws MethodReflectionException, ResourceReadException{
+      throws MethodReflectionException, ResourceReadException {
     myPane.getChildren().clear();
     addItems(newFunctionFileName);
   }
 
   @Override
   public void updateLanguage(String fileName)
-  throws MethodReflectionException, ResourceReadException{
+      throws MethodReflectionException, ResourceReadException {
     setLanguage(getResource(fileName));
     refreshItems(myCurrentBundleName);
   }
@@ -80,16 +74,16 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
 
   /**
    * <p>Reflectively create a button and add it to a pane</p>
-   * @param key resource file key
+   *
+   * @param key                   resource file key
    * @param buttonClickMethodName method name as a string
    */
-  private void createButton(String key, String buttonClickMethodName){
+  private void createButton(String key, String buttonClickMethodName) {
     try {
       Node button = makeButton(key, getLanguage(),
           e -> runMethodFromString(buttonClickMethodName));
       myPane.getChildren().add(button);
-    }
-    catch(RuntimeException e){
+    } catch (RuntimeException e) {
       throw new MethodReflectionException(displayMessageWithArguments(
           getLanguage(),
           "ReflectionMethodError",
@@ -111,12 +105,12 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
     refreshItems("SideBar1");
   }
 
-  private void backFromRules(){
+  private void backFromRules() {
     backToSidebarMenu();
     getBuilder().switchToBoard();
   }
 
-  private void rulesMenu(){
+  private void rulesMenu() {
     refreshItems("RulesSideMenu");
     getBuilder().switchToRules();
   }
@@ -132,24 +126,27 @@ public class ItemPane extends AbstractItemPane implements BuilderUtility {
   private void cancelAction() {
     getBuilder().cancelAction();
   }
+
   private void displayGameInfoForm() {
     myPane.getChildren().clear();
     getBuilder().displayGameInfoForm(myPane);
     addItems("GameInfoMenu");
   }
+
   private void saveGameInfo() {
     getBuilder().saveGameInfo();
   }
+
   private void uploadThumbnailImage() {
     getBuilder().uploadThumbnailImage();
   }
 
-  private void createCustomTile(){
+  private void createCustomTile() {
     getBuilder().cancelAction();
-    new CustomObjectBuilder().start(null);
+    new CustomTileBuilder().start(null);
   }
 
-  private void toggleNextRemoval(){
+  private void toggleNextRemoval() {
     getBuilder().toggleNextRemoval();
   }
 

@@ -2,6 +2,7 @@ package oogasalad.view.tabexplorer.tabs.settings.options;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import java.util.ResourceBundle;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -19,7 +20,13 @@ import oogasalad.model.accesscontrol.dao.UserDao;
 import oogasalad.model.accesscontrol.database.schema.UserSchema;
 import oogasalad.view.tabexplorer.TabExplorer;
 import oogasalad.view.tabexplorer.tabs.settings.SettingsTab;
+import oogasalad.view.tabexplorer.userpreferences.UserPreferences;
 
+/**
+ * Class for security settings options.
+ *
+ * @author cgd19
+ */
 public class SecuritySettings extends SettingsOptions {
 
   private TextField oldPwdField;
@@ -42,8 +49,9 @@ public class SecuritySettings extends SettingsOptions {
       @Assisted TabExplorer tabExplorer,
       AuthenticationHandler authHandler,
       UserDao userDao,
-      GameDao gameDao) {
-    super(settingsTab, tabExplorer, authHandler, userDao, gameDao);
+      GameDao gameDao, UserPreferences userPref, ResourceBundle languageResourceBundle) {
+    super(settingsTab, tabExplorer, authHandler, userDao, gameDao, userPref,
+        languageResourceBundle);
   }
 
   @Override
@@ -70,6 +78,11 @@ public class SecuritySettings extends SettingsOptions {
 
   }
 
+  @Override
+  public void onLanguageChange(String pathToBundle) {
+
+  }
+
   private VBox getPwdForm() {
 
 //     create labels and text fields to display and edit the values
@@ -85,43 +98,40 @@ public class SecuritySettings extends SettingsOptions {
     confirmNewPwdField = new PasswordField();
     VBox confirmPwdContainer = createGroup(emailLabel, confirmNewPwdField);
 
-
-
     updatePwd = new Button("Change Password");
     updatePwd.setOnAction(e -> handlePwdChange());
 
-// add the controls to a VBox
+    // add the controls to a VBox
     VBox personalSettingsContainer = new VBox(oldPwdContainer, pwdContainer,
         confirmPwdContainer, updatePwd);
     personalSettingsContainer.setSpacing(15);
-//    personalSettingsContainer.setPadding(new Insets(0,0,0,20));
     return personalSettingsContainer;
 
   }
 
-  private VBox createGroup(Node label, Node inputMedium){
+  private VBox createGroup(Node label, Node inputMedium) {
     VBox container = new VBox(label, inputMedium);
     container.setSpacing(3);
     return container;
 
   }
 
-  private void handlePwdChange(){
+  private void handlePwdChange() {
     String userID = authHandler.getActiveUserID();
     String oldPwdFieldText = oldPwdField.getText();
     String newPwdFieldText = newPwdField.getText();
     String confirmNewPwdFieldText = confirmNewPwdField.getText();
-    String currPwd = (String)userDao.getUserData(userID).get(UserSchema.PASSWORD.getFieldName());
+    String currPwd = (String) userDao.getUserData(userID).get(UserSchema.PASSWORD.getFieldName());
 
-    if (!currPwd.equals(oldPwdFieldText) || !newPwdFieldText.equals(confirmNewPwdFieldText)){
+    if (!currPwd.equals(oldPwdFieldText) || !newPwdFieldText.equals(confirmNewPwdFieldText)) {
       Alert alert = new Alert(AlertType.ERROR);
       alert.setTitle("Invalid input(s)");
       alert.setHeaderText(null);
       alert.setContentText(
           "Check that:\n 1) Old password is correct \n 2) New passwords match\n");
       alert.showAndWait();
-    } else{
-      userDao.updatePassword(userID,newPwdFieldText);
+    } else {
+      userDao.updatePassword(userID, newPwdFieldText);
       Alert alert = new Alert(AlertType.CONFIRMATION);
       alert.setTitle("Success!");
       alert.setHeaderText(null);

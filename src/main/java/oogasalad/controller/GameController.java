@@ -20,6 +20,12 @@ import oogasalad.view.gameplay.SetDieRule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Initially sets up the engine with a set of {@link Rule} Controls the engine to run the next
+ * action on action queue by turn Presents UI effects to {@link Gameview}
+ *
+ * @Author Jay Yoon
+ */
 public class GameController implements GameObserver {
 
   private static final Logger LOGGER = LogManager.getLogger(GameController.class);
@@ -44,6 +50,12 @@ public class GameController implements GameObserver {
     game.register(this);
   }
 
+  /**
+   * sets the Gameview stage to gameStage sets the engine with the list of backend rules and
+   * creates/adds frontend rules starts the engine
+   *
+   * @param gameStage
+   */
   public void setGame(Stage gameStage) {
     try {
       gv.renderGameview(gameStage);
@@ -57,22 +69,22 @@ public class GameController implements GameObserver {
     this.run();
   }
 
+  /**
+   * runs the next Action on engine action queue if there is pending effect, runs the UI effect
+   *
+   * @see GameController#doEffect()
+   */
   public void run() {
     engine.runNextAction(prompter);
     this.doEffect();
   }
 
-  public void doEffect() {
+  private void doEffect() {
     if (!effects.isEmpty()) {
       effects.poll().present(this::doEffect);
     } else {
       this.run();
     }
-  }
-
-  @Override
-  public void updateOnGameEnd() {
-
   }
 }
 

@@ -30,14 +30,14 @@ public abstract class GameConstructAttribute extends AbstractAttribute {
     return idProperty().get();
   }
 
-  @JsonGetter("id")
-  public String getUncheckedId() {
-    return idProperty().get().orElse("");
-  }
-
   @JsonSetter("id")
   public void setId(String id) {
     idProperty().set(formId(id));
+  }
+
+  @JsonGetter("id")
+  public String getUncheckedId() {
+    return idProperty().get().orElse("");
   }
 
   private Optional<String> formId(String id) {

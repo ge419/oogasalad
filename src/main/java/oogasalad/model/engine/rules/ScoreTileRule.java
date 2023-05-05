@@ -13,6 +13,11 @@ import oogasalad.model.engine.Priority;
 import oogasalad.model.engine.actions.ActionFactory;
 import oogasalad.model.engine.events.TileLandedEvent;
 
+/**
+ * Rule that outlines score interactions with the Tile.
+ *
+ * @Author Jay Yoon
+ */
 public class ScoreTileRule extends AbstractGameConstruct implements EditableRule {
 
   public static final String SCHEMA_NAME = "scoreTileRule";
@@ -31,6 +36,18 @@ public class ScoreTileRule extends AbstractGameConstruct implements EditableRule
     this.gameholder = gameholder;
   }
 
+  /**
+   * Listens for a {@link TileLandedEvent} to run {@link #alterPlayerScore(EventHandlerParams)}
+   *
+   * <p>
+   * access landed tile through event handler parameters and current player through GameHolder if
+   * landed tile is owned by another player, scores are incremented for owner and decremented for
+   * landed player adds {@link oogasalad.model.engine.actions.scores.AlterPlayerScoreAction} to
+   * action queue for potential players removal
+   * </p>
+   *
+   * @param registrar provides event registration methods
+   */
   @Override
   public void registerEventHandlers(EventRegistrar registrar) {
     registrar.registerHandler(TileLandedEvent.class, this::alterPlayerScore);
@@ -44,8 +61,10 @@ public class ScoreTileRule extends AbstractGameConstruct implements EditableRule
       Player ownerPlayer = gameholder.getPlayers().getById(ownerId).get();
       double deltaScore = tile.getPrice();
       eventHandlerParams.actionQueue().add(
-          Priority.HIGH.getValue(), actionFactory.makeAlterPlayerScoreAction(currentPlayer, deltaScore* NEG));
-      eventHandlerParams.actionQueue().add(Priority.HIGH.getValue(), actionFactory.makeAlterPlayerScoreAction(ownerPlayer, deltaScore));
+          Priority.HIGH.getValue(),
+          actionFactory.makeAlterPlayerScoreAction(currentPlayer, deltaScore * NEG));
+      eventHandlerParams.actionQueue().add(Priority.HIGH.getValue(),
+          actionFactory.makeAlterPlayerScoreAction(ownerPlayer, deltaScore));
     }
   }
 }

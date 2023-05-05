@@ -3,8 +3,6 @@ package oogasalad.view.gameplay;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.NoSuchFileException;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -25,11 +23,12 @@ public class Board extends Canvas implements Renderable {
 
   //TODO: refactor to read from property file
   private static final int BOARD_SIZE = 500;
+  private static final String BOARD_PATH = "data/example/monopoly_board.jpg";
 
   public Board() {
     super(BOARD_SIZE, BOARD_SIZE);
 
-    File imageFile = new File("data/example/monopoly_board.jpg");
+    File imageFile = new File(BOARD_PATH);
     try {
       Image image = new Image(new FileInputStream(imageFile));
       int imageWidth = (int) image.getWidth();
@@ -60,11 +59,12 @@ public class Board extends Canvas implements Renderable {
    * <p>Assumptions: Board is at the center of the window
    *
    * <p>Parameters:
+   *
    * @param pane the BorderPane that the board is to be added to
    *
-   * <p>Exceptions: none
+   *             <p>Exceptions: none
    *
-   * <p>Other details: None
+   *             <p>Other details: None
    */
   @Override
   public void render(BorderPane pane) {

@@ -1,21 +1,29 @@
 package oogasalad.view.gameplay.Players;
 
+import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
+import oogasalad.model.constructable.GameHolder;
 import oogasalad.model.constructable.Player;
+import oogasalad.model.constructable.Tile;
 import oogasalad.view.Backgroundable;
 import oogasalad.view.Coordinate;
 import oogasalad.view.Imageable;
 import oogasalad.view.Textable;
+import oogasalad.view.ViewFactory;
+import oogasalad.view.gameplay.pieces.Cards;
+import oogasalad.view.gameplay.popup.HandDisplayPopup;
+import oogasalad.view.tiles.ViewTile;
 
 /**
  * <p> JavaFX rendering of Player UI (information such as Player's score, icon, color)
@@ -40,12 +48,17 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
   private static final Color MARKER_FILL = Color.TRANSPARENT;
   private static final Color UI_STROKE_COLOR = Color.BLACK;
   private final Player modelPlayer;
-  private BooleanProperty current;
+  private final BooleanProperty current;
+  private HandDisplayPopup popup;
+  private final ViewFactory viewFactory;
+  private final GameHolder game;
 
-  public PlayerUI(Player BPlayer, Coordinate coordinate) {
+  public PlayerUI(Player BPlayer, Coordinate coordinate, ViewFactory viewFactory, GameHolder game) {
     modelPlayer = BPlayer;
     current = modelPlayer.getCurrentAttribute().valueProperty();
 
+    this.game = game;
+    this.viewFactory = viewFactory;
     this.setPrefSize(PLAYER_WIDTH, PLAYER_HEIGHT);
     this.setLayoutX(coordinate.getXCoor());
     this.setLayoutY(coordinate.getYCoor());
@@ -57,11 +70,35 @@ public class PlayerUI extends StackPane implements Textable, Backgroundable, Ima
             UI_STROKE_COLOR),
         playerIcon,
         createTextBox(List.of(BPlayer.getName(), BPlayer.getScore()), PLAYER_HEIGHT, PLAYER_WIDTH));
-    this.setMargin(playerIcon, new Insets(0, PLAYER_WIDTH / 2, 0, 0));
+    setMargin(playerIcon, new Insets(0, PLAYER_WIDTH / 2, 0, 0));
 
     markCurrentPlayer();
+    this.setOnMouseClicked(this::displayPlayerHand);
   }
 
+  private void displayPlayerHand(MouseEvent event) {
+    if (popup != null) {
+      popup.hideHand();
+    }
+    popup = new HandDisplayPopup();
+    //TODO: only pass in Player cards
+    List<Tile> tiles = new ArrayList<>();
+    for (Tile tile : game.getBoard().getTiles()) {
+      if (tile.getOwnerId().equals(modelPlayer.getId())) {
+        tiles.add(tile);
+      }
+    }
+    Cards cards = viewFactory.makeCards(tiles);
+    cards.render(popup);
+    List<ViewTile> cardList = cards.getCardList();
+    popup.addCards(cardList);
+    popup.showHand();
+  }
+
+
+  /**
+   * @see Textable
+   */
   @Override
   public VBox createTextBox(List info, double height, double width) {
     VBox textBox = new VBox();

@@ -12,7 +12,7 @@ import oogasalad.model.engine.rules.Rule;
  * Holds the available {@link oogasalad.model.constructable.GameConstruct} schemas. Consumers are
  * expected to subscribe to the {@link #databaseProperty()} and listen for changes in schemas.
  *
- * @author Dominic Martinez
+ * @author Dominic Martinez, Jay Yoon
  */
 public interface SchemaDatabase {
 

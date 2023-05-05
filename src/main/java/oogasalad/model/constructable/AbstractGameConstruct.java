@@ -37,10 +37,10 @@ public abstract class AbstractGameConstruct implements GameConstruct {
   @JsonIgnore
   private final SchemaDatabase database;
   private final Map<String, Attribute> attributeMap;
-  private List<String> schemaNames;
   private final String baseSchema;
-  private String id;
   private final ObjectProperty<ObjectSchema> schemaProperty;
+  private List<String> schemaNames;
+  private String id;
 
   protected AbstractGameConstruct(String baseSchema, SchemaDatabase database) {
     this.id = UUID.randomUUID().toString();
@@ -54,20 +54,40 @@ public abstract class AbstractGameConstruct implements GameConstruct {
     setAttributeListeners();
   }
 
+  /**
+   * Get a unique ID identifying this construct
+   */
   @Override
   public String getId() {
     return id;
   }
 
+  /**
+   * Set the unique ID that identifies this construct
+   *
+   * @param id string ID to set
+   */
   public void setId(String id) {
     this.id = id;
   }
 
+  /**
+   * Returns a list of all the attributes present on this construct
+   */
   @JsonGetter("attributes")
   public List<Attribute> getAllAttributes() {
     return attributeMap.values().stream().toList();
   }
 
+  /**
+   * Set all the attributes on this construct. Note the following caveats:
+   * <p>
+   *   <ul>Doing this clears all current listeners; use with caution</ul>
+   *   <ul>Attributes that conflict with the schema will be ignored</ul>
+   * </p>
+   *
+   * @param attributeList set the attributes for this construct
+   */
   @JsonSetter("attributes")
   public void setAllAttributes(List<Attribute> attributeList) {
     for (Attribute attribute : attributeList) {
@@ -85,11 +105,15 @@ public abstract class AbstractGameConstruct implements GameConstruct {
     return Optional.ofNullable(attributeMap.get(key));
   }
 
+  /**
+   * Get the list of schemas applied to this construct.
+   */
   @JsonGetter("schemas")
   public List<String> getSchemaNames() {
     return Collections.unmodifiableList(schemaNames);
   }
 
+  @Override
   @JsonSetter("schemas")
   public void setSchemaNames(List<String> newSchemaNames) {
     // Ensure base schema is covered
@@ -194,6 +218,9 @@ public abstract class AbstractGameConstruct implements GameConstruct {
     }
   }
 
+  /**
+   * Returns true if an attribute can be migrated to a metadata field, false otherwise.
+   */
   private boolean canMigrateAttribute(Attribute attribute, Metadata metadata) {
     if (!metadata.isCorrectType(attribute)) {
       LOGGER.info("tried to set {} to {} when schema requires {}",

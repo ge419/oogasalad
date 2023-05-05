@@ -1,7 +1,6 @@
 package oogasalad.model.attribute;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -11,9 +10,8 @@ import org.junit.jupiter.api.Test;
 
 class StringMetadataTest {
 
-  StringMetadata testStringMetaData;
   private static final String KEY = "testStringMetadata";
-
+  StringMetadata testStringMetaData;
 
   @BeforeEach
   public void setUp() {
@@ -44,10 +42,10 @@ class StringMetadataTest {
   @Test
   void testEquals() {
     StringMetadata same = new StringMetadata(KEY);
-    assertTrue(testStringMetaData.equals(same));
+    assertEquals(testStringMetaData, same);
     same.setDefaultValue("54.0");
-    assertFalse((testStringMetaData.equals(same)));
-    assertFalse((testStringMetaData.equals(null)));
+    assertNotEquals(testStringMetaData, same);
+    assertNotEquals(null, testStringMetaData);
 
   }
 

@@ -1,11 +1,11 @@
 [ {
   "@class" : "oogasalad.model.engine.rules.ScoreTileRule",
-  "id" : "22d3e341-d06c-4341-ad93-14db65723a39",
+  "id" : "eccc4f78-6901-4cf9-859d-65a54b633af0",
   "schemas" : [ "scoreTileRule" ],
   "attributes" : [ ]
 }, {
   "@class" : "oogasalad.model.engine.rules.RemovePlayerRule",
-  "id" : "5ee45cfa-f160-4fe5-b810-9cef171c2844",
+  "id" : "1b38f01f-469b-4429-84d7-9d78051e6e36",
   "schemas" : [ "removePlayerRule" ],
   "attributes" : [ {
     "@class" : "oogasalad.model.attribute.IntAttribute",
@@ -14,7 +14,7 @@
   } ]
 }, {
   "@class" : "oogasalad.model.engine.rules.LastStandingWinRule",
-  "id" : "e4ee53a1-e3f5-4dfa-bfdb-1bbccd8308e7",
+  "id" : "27cb9eed-49bb-4f25-bdbc-d70cb19ac0eb",
   "schemas" : [ "lastStandingRule" ],
   "attributes" : [ {
     "@class" : "oogasalad.model.attribute.IntAttribute",
@@ -22,8 +22,31 @@
     "value" : 1
   } ]
 }, {
+  "@class" : "oogasalad.model.engine.rules.TurnRule",
+  "id" : "9ae1f498-1b6e-40c6-b0aa-cc9a423a5c4c",
+  "schemas" : [ "turnRule" ],
+  "attributes" : [ ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.BuyTileRule",
+  "id" : "d832fae7-3ca7-4ed8-886a-2ccc56b6a291",
+  "schemas" : [ "buyTileRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.StringAttribute",
+    "key" : "tileType",
+    "value" : "tile"
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.DieMoveRule",
+  "id" : "63a0eaec-2d17-42d1-bb53-959dd2fd94f1",
+  "schemas" : [ "dieRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "numberOfDice",
+    "value" : 1
+  } ]
+}, {
   "@class" : "oogasalad.model.engine.rules.NumberOfPlayersRule",
-  "id" : "6905a61d-a086-4e06-a1e9-cae83d6e77b9",
+  "id" : "6d104387-e6e1-4986-b410-2e7a60d4c721",
   "schemas" : [ "numberOfPlayersRule" ],
   "attributes" : [ {
     "@class" : "oogasalad.model.attribute.IntAttribute",
@@ -35,31 +58,13 @@
     "value" : 1
   } ]
 }, {
-  "@class" : "oogasalad.model.engine.rules.NumberOfPieceRule",
-  "id" : "58f98080-5c45-4bb2-abc7-f3552dcdd013",
-  "schemas" : [ "numberOfPiecesPerPlayerRule" ],
-  "attributes" : [ ]
-}, {
-  "@class" : "oogasalad.model.engine.rules.TurnRule",
-  "id" : "7cb79d26-24eb-4f49-9d06-fc19f97325cf",
-  "schemas" : [ "turnRule" ],
-  "attributes" : [ ]
-}, {
-  "@class" : "oogasalad.model.engine.rules.BuyTileRule",
-  "id" : "9b442882-a63f-400c-a3a7-044416041c49",
-  "schemas" : [ "buyTileRule" ],
+  "@class" : "oogasalad.model.engine.rules.FiniteBoardWinRule",
+  "id" : "8a104387-e6e1-4986-a410-2e7a60d4c721",
+  "schemas" : [ "finiteBoardWinRule" ],
   "attributes" : [ {
-    "@class" : "oogasalad.model.attribute.StringAttribute",
-    "key" : "tileType",
-    "value" : "tile"
+    "@class" : "oogasalad.model.attribute.TileListAttribute",
+    "key" : "winningTiles",
+    "ids" : [ "6" ]
   } ]
-}, {
-  "@class" : "oogasalad.model.engine.rules.DieMoveRule",
-  "id" : "34d480fb-7645-40b2-b82a-cb0f63bb9401",
-  "schemas" : [ "dieRule" ],
-  "attributes" : [ {
-    "@class" : "oogasalad.model.attribute.IntAttribute",
-    "key" : "numberOfDice",
-    "value" : 1
-  } ]
-} ]
+}
+]

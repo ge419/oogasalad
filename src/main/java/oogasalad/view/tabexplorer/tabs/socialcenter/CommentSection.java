@@ -29,19 +29,24 @@ import oogasalad.model.accesscontrol.database.schema.GameSchema;
 import oogasalad.model.accesscontrol.database.schema.UserSchema;
 import oogasalad.util.PathFinder;
 
+/**
+ * Commention section class represents the comment box in social center {@link GameDetailsTab}.
+ *
+ * @author cgd19
+ */
 public class CommentSection extends VBox {
 
   private final AuthenticationHandler authHandler;
   private final UserDao userDao;
   private final GameDao gameDao;
-  private ObservableList<Map<String, Object>> comments;
-  private TextArea commentField;
-  private Button submitButton;
-  private ListView<Map<String, Object>> commentList;
   private final String gameID;
   private final String userID;
   private final GameDetailsTab gameDetailsTab;
   private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy hh:mm:ss a");
+  private ObservableList<Map<String, Object>> comments;
+  private TextArea commentField;
+  private Button submitButton;
+  private ListView<Map<String, Object>> commentList;
 
   public CommentSection(AuthenticationHandler authHandler,
       UserDao userDao, GameDao gameDao, String gameID, GameDetailsTab gameDetailsTab) {
@@ -75,8 +80,9 @@ public class CommentSection extends VBox {
 
     comments = FXCollections.observableArrayList();
     // get all comments from DB
-    List<Map<String, Object>> allComments = (List<Map<String, Object>>) gameDao.getGameData(gameID).get(
-        GameSchema.REVIEWS.getFieldName()); // we want this reversed
+    List<Map<String, Object>> allComments = (List<Map<String, Object>>) gameDao.getGameData(gameID)
+        .get(
+            GameSchema.REVIEWS.getFieldName()); // we want this reversed
     Collections.reverse(allComments);
     comments.addAll(allComments);
     commentList.setItems(comments);
@@ -102,11 +108,9 @@ public class CommentSection extends VBox {
           commentMetaDataBox.setVgap(10); // sets vertical gap between rows
 
           ColumnConstraints col1 = new ColumnConstraints();
-//          col1.setPercentWidth(20); // sets the width of the first column to 50% of the gridpane width
           col1.setHgrow(Priority.NEVER); // do not allow the first column to grow
 
           ColumnConstraints col2 = new ColumnConstraints();
-//          col2.setPercentWidth(80); // sets the width of the second column to 50% of the gridpane width
           col2.setHgrow(Priority.ALWAYS); // do not allow the first column to grow
 
           RowConstraints row1 = new RowConstraints();
@@ -133,8 +137,6 @@ public class CommentSection extends VBox {
           Region spacer = new Region();
           HBox.setHgrow(spacer, Priority.ALWAYS);
 
-//          userNameContainer.getChildren().addAll(container, ellipsis);
-
           userNameContainer.getChildren().addAll(container, spacer, ellipsis);
 
           commentMetaDataBox.add(imageView, 0, 0);
@@ -159,10 +161,7 @@ public class CommentSection extends VBox {
     // call DB to post comment
     gameDao.postGameReview(comment, gameID, userID);
     commentField.clear();
-//    commentList.refresh();
     gameDetailsTab.renderTabContent();
 
-
   }
-
 }

@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import java.util.concurrent.ExecutionException;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,16 +17,23 @@ import oogasalad.model.accesscontrol.database.schema.UserSchema;
 import oogasalad.util.AlertPopUp;
 import oogasalad.view.tabexplorer.TabExplorer;
 
+/**
+ * This class represents the login tab for logging/signing in.
+ *
+ * @author cgd19
+ */
 public class LoginTab implements Tab {
-  private TabExplorer tabExplorer;
+
+  private final TabExplorer tabExplorer;
+  private final AuthenticationHandler authHandler;
+  private final UserDao userDao;
   private GridPane grid;
-  private AuthenticationHandler authHandler;
   private TextField tfName;
   private PasswordField pfPwd;
-  private UserDao userDao;
 
   @Inject
-  public LoginTab(@Assisted TabExplorer tabExplorer, AuthenticationHandler authHandler, UserDao userDao){
+  public LoginTab(@Assisted TabExplorer tabExplorer, AuthenticationHandler authHandler,
+      UserDao userDao) {
     this.tabExplorer = tabExplorer;
     this.authHandler = authHandler;
     this.userDao = userDao;
@@ -44,7 +50,7 @@ public class LoginTab implements Tab {
 
     Button loginBtn = new Button("Login");
 
-    loginBtn.setOnAction(e->{
+    loginBtn.setOnAction(e -> {
       try {
         login();
       } catch (ExecutionException ex) {
@@ -74,21 +80,23 @@ public class LoginTab implements Tab {
     String username = tfName.getText().trim().toLowerCase();
     String password = pfPwd.getText();
 
-    if (username.length()== 0 || password.length() == 0){
-      AlertPopUp.show(AlertType.ERROR, "Login failed","The username or password is invalid" );
-    } else{
+    if (username.length() == 0 || password.length() == 0) {
+      AlertPopUp.show(AlertType.ERROR, "Login failed", "The username or password is invalid");
+    } else {
       // user is not registered so just signed them up
-      if (!userDao.isUserRegistered(username)){
-        authHandler.register(username,  password);
-      } else{
+      if (!userDao.isUserRegistered(username)) {
+        authHandler.register(username, password);
+      } else {
         String userID = userDao.getUserID(username);
-        String userPwd = (String) userDao.getUserData(userID).get(UserSchema.PASSWORD.getFieldName());
+        String userPwd = (String) userDao.getUserData(userID)
+            .get(UserSchema.PASSWORD.getFieldName());
         // password is correct
-        if (userPwd.equals(password)){
+        if (userPwd.equals(password)) {
           authHandler.login(username, password);
           tabExplorer.displayDefaultTab();
-        } else{ // password incorrect
-          AlertPopUp.show(AlertType.ERROR, "Incorrect login detail","The username or password is incorrect");
+        } else { // password incorrect
+          AlertPopUp.show(AlertType.ERROR, "Incorrect login detail",
+              "The username or password is incorrect");
         }
       }
     }

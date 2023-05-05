@@ -9,16 +9,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.scene.transform.Rotate;
-import oogasalad.model.attribute.PlayerAttribute;
 import oogasalad.model.attribute.StringAttribute;
 import oogasalad.model.constructable.Tile;
-import oogasalad.model.engine.rules.BuyTileRule;
 import oogasalad.view.Backgroundable;
-import oogasalad.view.Coordinate;
 import oogasalad.view.Imageable;
 import oogasalad.view.Textable;
 
@@ -34,18 +29,16 @@ import oogasalad.view.Textable;
 
 public class ImageTile extends StackPane implements ViewTile, Textable, Imageable, Backgroundable {
 
+  public static final String IMAGE_ATTRIBUTE = "image";
   private static final double TEXT_SCALE = 8;
   private static final double MARGIN_SCALE = 10;
   private static final double IMAGE_SCALE = 1.5;
   private static final Color TILE_BACKGROUND = Color.WHITE;
   private static final Color TILE_STROKE_COLOR = Color.BLACK;
-
-  public static final String IMAGE_ATTRIBUTE = "image";
   private final Tile modelTile;
 
   @Inject
   public ImageTile(@Assisted Tile BTile) {
-    this.setPosition(BTile.getCoordinate());
     this.modelTile = BTile;
     BTile.addSchema("ImageTile");
 
@@ -107,12 +100,5 @@ public class ImageTile extends StackPane implements ViewTile, Textable, Imageabl
   public String getTileId() {
     return this.modelTile.getId();
   }
-
-  private void setPosition(Coordinate coord) {
-    this.setLayoutX(coord.getXCoor());
-    this.setLayoutY(coord.getYCoor());
-    this.getTransforms().add(new Rotate(coord.getAngle(), Rotate.Z_AXIS));
-  }
-
 
 }

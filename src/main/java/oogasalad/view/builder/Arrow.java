@@ -15,16 +15,14 @@ import javafx.scene.shape.Line;
  */
 public class Arrow extends Group {
 
+  private static final double arrowLength = 20;
+  private static final double arrowWidth = 7;
   private final Line line;
   private final Line myArrow1;
   private final Line myArrow2;
-
   public Arrow() {
     this(new Line(), new Line(), new Line());
   }
-
-  private static final double arrowLength = 20;
-  private static final double arrowWidth = 7;
 
   private Arrow(Line line, Line arrow1, Line arrow2) {
     super(line, arrow1, arrow2);
@@ -77,62 +75,62 @@ public class Arrow extends Group {
 
   // start/end properties
 
-  public final void setStartX(double value) {
-    line.setStartX(value);
-  }
-
   public final double getStartX() {
     return line.getStartX();
+  }
+
+  public final void setStartX(double value) {
+    line.setStartX(value);
   }
 
   public final DoubleProperty startXProperty() {
     return line.startXProperty();
   }
 
-  public final void setStartY(double value) {
-    line.setStartY(value);
-  }
-
   public final double getStartY() {
     return line.getStartY();
+  }
+
+  public final void setStartY(double value) {
+    line.setStartY(value);
   }
 
   public final DoubleProperty startYProperty() {
     return line.startYProperty();
   }
 
-  public final void setEndX(double value) {
-    line.setEndX(value);
-  }
-
   public final double getEndX() {
     return line.getEndX();
+  }
+
+  public final void setEndX(double value) {
+    line.setEndX(value);
   }
 
   public final DoubleProperty endXProperty() {
     return line.endXProperty();
   }
 
-  public final void setEndY(double value) {
-    line.setEndY(value);
-  }
-
   public final double getEndY() {
     return line.getEndY();
+  }
+
+  public final void setEndY(double value) {
+    line.setEndY(value);
   }
 
   public final DoubleProperty endYProperty() {
     return line.endYProperty();
   }
 
+  public Paint getFill() {
+    return line.getFill();
+  }
+
   public void setFill(Color color) {
     line.setFill(color);
     myArrow1.setFill(color);
     myArrow2.setFill(color);
-  }
-
-  public Paint getFill() {
-    return line.getFill();
   }
 
 }

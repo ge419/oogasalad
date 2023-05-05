@@ -17,18 +17,31 @@ import oogasalad.model.engine.actions.turns.SetCurrentPlayerAction;
 import oogasalad.model.engine.actions.wins.CheckWinAndEndAction;
 import oogasalad.model.engine.actions.wins.WinningConditionStrategy;
 
+/**
+ * The primary abstraction for making Engine {@link Action} by Rules
+ *
+ * @author Dominic Martinez, Jay Yoon
+ */
 public interface ActionFactory {
 
   SetCurrentPlayerAction makeSetCurrentPlayerAction(Player player);
+
   RollDieAction makeRollDieAction(int[] dieResults);
+
   MoveAction makeMoveAction(Piece piece, List<Tile> moveSequence);
+
   CreatePlayersAction makeCreatePlayersAction(
       @Assisted("min") int min,
       @Assisted("max") int max,
       @Assisted("piecePerPlayer") int piecePerPlayer)
       ;
+
   CreatePlayerPieceAction makeCreatePlayerPieceAction();
-  CheckAndRemovePlayerAction makeCheckAndRemovePlayerAction(int scoreMinBound, PlayerRemovalStrategy playerRemovalStrategy, TileResetStrategy tileResetStrategy);
+
+  CheckAndRemovePlayerAction makeCheckAndRemovePlayerAction(int scoreMinBound,
+      PlayerRemovalStrategy playerRemovalStrategy, TileResetStrategy tileResetStrategy);
+
   CheckWinAndEndAction makeCheckWinStateAction(WinningConditionStrategy strategy);
+
   AlterPlayerScoreAction makeAlterPlayerScoreAction(Player player, double delta);
 }

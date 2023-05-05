@@ -15,6 +15,10 @@ public class TileListMetadata extends AbstractMetadata {
     super(key);
   }
 
+  public static TileListMetadata from(Metadata meta) {
+    return getAs(meta, TileListMetadata.class);
+  }
+
   @Override
   protected boolean checkPreconditions(Attribute attribute) {
     List<String> val = TileListAttribute.from(attribute).getTileIds();
@@ -35,10 +39,6 @@ public class TileListMetadata extends AbstractMetadata {
   @JsonIgnore
   public Class<? extends Attribute> getAttributeClass() {
     return ATTRIBUTE_CLASS;
-  }
-
-  public static TileListMetadata from(Metadata meta) {
-    return getAs(meta, TileListMetadata.class);
   }
 
   public TileListAttribute makeTileListAttribute() {

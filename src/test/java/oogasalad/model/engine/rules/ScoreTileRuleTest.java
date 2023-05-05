@@ -31,6 +31,7 @@ import org.mockito.ArgumentCaptor;
 
 class ScoreTileRuleTest {
 
+  private static final double TEST_SCORE = 0;
   private ActionFactory mockActionFactory;
   private AlterPlayerScoreAction mockedAction;
   private ActionQueue mockedQueue;
@@ -41,7 +42,6 @@ class ScoreTileRuleTest {
   private EventHandlerParams<TileLandedEvent> eventHandlerParams;
   private ScoreTileRule rule;
   private GameHolder gameholder;
-  private static final double TEST_SCORE = 0;
 
   @BeforeEach
   public void setUp() {

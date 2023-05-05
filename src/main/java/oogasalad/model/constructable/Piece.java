@@ -8,11 +8,16 @@ import javafx.beans.property.SimpleObjectProperty;
 import oogasalad.model.attribute.ImageAttribute;
 import oogasalad.model.attribute.SchemaDatabase;
 
+/**
+ * GameObject that represents a game piece on board.
+ *
+ * @author Jay Yoon
+ */
 public class Piece extends AbstractGameConstruct {
 
   public static final String SCHEMA_NAME = "piece";
   public static final String ICON_ATTRIBUTE = "icon";
-  private ObjectProperty<Optional<Tile>> tile;
+  private final ObjectProperty<Optional<Tile>> tile;
   private Player player;
 
   @Inject

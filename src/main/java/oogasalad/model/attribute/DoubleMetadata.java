@@ -22,6 +22,10 @@ public class DoubleMetadata extends AbstractMetadata {
     maxValue = new SimpleDoubleProperty(Double.MAX_VALUE);
   }
 
+  public static DoubleMetadata from(Metadata meta) {
+    return getAs(meta, DoubleMetadata.class);
+  }
+
   @Override
   protected boolean checkPreconditions(Attribute attribute) {
     double val = DoubleAttribute.from(attribute).getValue();
@@ -41,10 +45,6 @@ public class DoubleMetadata extends AbstractMetadata {
 
   public boolean isValidValue(double value) {
     return getMinValue() <= value && value <= getMaxValue();
-  }
-
-  public static DoubleMetadata from(Metadata meta) {
-    return getAs(meta, DoubleMetadata.class);
   }
 
   public DoubleAttribute makeDoubleAttribute() {

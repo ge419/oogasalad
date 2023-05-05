@@ -18,6 +18,10 @@ public class TileMetadata extends AbstractMetadata {
     defaultValue = new SimpleStringProperty("");
   }
 
+  public static TileMetadata from(Metadata meta) {
+    return getAs(meta, TileMetadata.class);
+  }
+
   @Override
   protected boolean checkPreconditions(Attribute attribute) {
     Optional<String> id = TileAttribute.from(attribute).getId();
@@ -32,10 +36,10 @@ public class TileMetadata extends AbstractMetadata {
   public String getDefaultValue() {
     return defaultValue.get();
   }
+
   public void setDefaultValue(String defaultValue) {
     this.defaultValue.set(defaultValue);
   }
-
 
   @Override
   public Attribute makeAttribute() {
@@ -45,10 +49,6 @@ public class TileMetadata extends AbstractMetadata {
   @Override
   public Class<? extends Attribute> getAttributeClass() {
     return ATTRIBUTE_CLASS;
-  }
-
-  public static TileMetadata from(Metadata meta) {
-    return getAs(meta, TileMetadata.class);
   }
 
   public TileAttribute makeTileAttribute() {

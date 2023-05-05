@@ -10,6 +10,7 @@ import oogasalad.view.builder.exceptions.InvalidSizeException;
 
 /**
  * Class used to keep track of images in the game and the board size
+ *
  * @author Trevon Helm
  */
 public class BoardInfo implements BoardInfoInterface, MutableBoardInfo {
@@ -20,6 +21,7 @@ public class BoardInfo implements BoardInfoInterface, MutableBoardInfo {
 
   /**
    * Creates a new instance of BoardInfo with no images, and a size of 0
+   *
    * @param inputResource ResourceBundle used to get error messages for the user
    */
   public BoardInfo(ResourceBundle inputResource) {
@@ -29,12 +31,12 @@ public class BoardInfo implements BoardInfoInterface, MutableBoardInfo {
   }
 
   /**
-   * Adds an image to the list of images associated with a game.
-   * Throws InvalidSizeException if width or height is negative
-   * Throws InvalidLocationException if Coordinate has negative values
-   * @param path String representation of the path to the image
+   * Adds an image to the list of images associated with a game. Throws InvalidSizeException if
+   * width or height is negative Throws InvalidLocationException if Coordinate has negative values
+   *
+   * @param path          String representation of the path to the image
    * @param startLocation Coordinate location of the image on the board
-   * @param imageSize Dimension size of the image (width, height)
+   * @param imageSize     Dimension size of the image (width, height)
    */
   @Override
   public void addImage(String path, Coordinate startLocation, Dimension imageSize) {
@@ -49,6 +51,7 @@ public class BoardInfo implements BoardInfoInterface, MutableBoardInfo {
 
   /**
    * Returns the list of BoardImages associated with the game
+   *
    * @return List of BoardImage
    */
   @Override
@@ -58,6 +61,7 @@ public class BoardInfo implements BoardInfoInterface, MutableBoardInfo {
 
   /**
    * Returns the size of the board as a Dimension
+   *
    * @return Dimension size of board
    */
   @Override
@@ -67,6 +71,7 @@ public class BoardInfo implements BoardInfoInterface, MutableBoardInfo {
 
   /**
    * Sets the size of the board
+   *
    * @param size Dimension
    */
   @Override

@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 
 class PlayerListMetadataTest {
 
+  private static final String KEY = "playerKey";
   private PlayerListMetadata playerMetadata;
   private PlayerListAttribute listAttribute;
-  private static final String KEY = "playerKey";
 
   @BeforeEach
   public void setUp() {

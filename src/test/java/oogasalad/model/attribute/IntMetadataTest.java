@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 
 public class IntMetadataTest {
 
-  private IntMetadata metadata;
   private static final String KEY = "intMetaKey";
+  private IntMetadata metadata;
 
   @BeforeEach
   void setUp() {

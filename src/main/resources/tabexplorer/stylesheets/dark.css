@@ -1,5 +1,5 @@
 
-.root{
+.root {
   -fx-font-size: 12pt;
   -fx-font-family: "Helvetica";
   /* Set the background color of the scene to black */
@@ -9,43 +9,78 @@
 
   /* Set the color of all text nodes to white */
 
-  /*button-color: rgb(200, 200, 200);*/
-  /*background-color: rgb(235, 235, 235);*/
-  /*text-color: rgb(255, 0, 0);*/
-  /*board-color: white;*/
-  /*title-color: #4EA8DE;*/
-  /*delete-color: #6930C3;*/
-  /*tile-info-text-color: #5E60CE;*/
-  /*-fx-base: button-color;*/
+  button-color: rgb(200, 200, 200);
+  background-color: rgb(235, 235, 235);
+  text-color: rgb(255, 0, 0);
+  board-color: white;
+  title-color: #4EA8DE;
+  delete-color: #6930C3;
+  tile-info-text-color: #5E60CE;
+  -fx-base: button-color;
   /*-fx-background: background-color;*/
-  /*-fx-text-fill: text-color;*/
+  -fx-text-fill: text-color;
 }
+
+ListView, GridPane, VBox {
+  -fx-background-color: #484545;
+}
+
+/*ListView{*/
+/*  -fx-background-color: #484545;*/
+
+/*}*/
 
 
 Text {
   -fx-fill: white;
 }
 
-Label {
+Button {
+  -fx-background-color: black;
   -fx-text-fill: white;
 }
 
 
-#welcome-text {
-  -fx-text-fill: red;
-  -fx-font-size: 30px;
+Label, RadioButton, Hyperlink {
+  -fx-text-fill: white;
 }
 
 
 .game-box {
-  -fx-background-color: red;
+  -fx-background-color: #3f3333;
   -fx-alignment: center;
   -fx-spacing: 15;
   -fx-pref-width: 100;
   -fx-pref-height: 100;
 }
 
+#welcome-text {
+  -fx-fill: #d0d0d0;
+  -fx-font-size: 30px;
+}
+
 .game-box:hover {
+  -fx-cursor: hand;
+}
+
+#top-navbar {
+  -fx-spacing: 10;
+  -fx-alignment: center;
+  -fx-background-color: #100f0f;
+}
+
+#left-navbar {
+  -fx-alignment: top-left;
+  -fx-padding: 30 0 30 0;
+  -fx-pref-width: 150;
+  -fx-spacing: 15;
+  -fx-background-color: #343434;
+}
+
+MenuButton{
+  -fx-background-color: #100f0f;
+}
+MenuButton:hover, MenuItem:hover{
   -fx-cursor: hand;
 }
 

@@ -24,21 +24,22 @@ import org.mockito.ArgumentCaptor;
 
 class NumberOfPlayersRuleTest {
 
+  private static final int TEST_MIN = 1;
+  private static final int TEST_MAX = 4;
+  private static final int TEST_PIECE = 1;
   private ActionFactory mockActionFactory = mock(ActionFactory.class);
   private CreatePlayersAction mockedAction = mock(CreatePlayersAction.class);
   private ActionQueue mockedQueue;
   private EventHandlerParams<StartGameEvent> eventHandlerParams;
   private NumberOfPlayersRule rule;
-  private static final int TEST_MIN = 1;
-  private static final int TEST_MAX = 4;
-  private static final int TEST_PIECE = 1;
 
   @BeforeEach
   public void setUp() {
     mockActionFactory = mock(ActionFactory.class);
     mockedAction = mock(CreatePlayersAction.class);
     mockedQueue = mock(SimpleActionQueue.class);
-    when(mockActionFactory.makeCreatePlayersAction(TEST_MIN, TEST_MAX, TEST_PIECE)).thenReturn(mockedAction);
+    when(mockActionFactory.makeCreatePlayersAction(TEST_MIN, TEST_MAX, TEST_PIECE)).thenReturn(
+        mockedAction);
 
     Injector injector = Guice.createInjector(new AttributeModule());
     SchemaDatabase db = injector.getInstance(SchemaDatabase.class);

@@ -12,16 +12,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import oogasalad.view.Coordinate;
 import oogasalad.view.builder.Arrow;
-import oogasalad.view.builder.BuilderView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
  * <p>TrailMaker creates trails between two selected nodes by placing an arrow between them.</p>
- * @see TrailMakerAPI
  *
  * @author tmh85
  * @author dcm67
+ * @see TrailMakerAPI
  */
 public class TrailMaker implements TrailMakerAPI {
 
@@ -62,9 +61,9 @@ public class TrailMaker implements TrailMakerAPI {
   }
 
   @Override
-  public void removeTrail(Node node){
-    for (LineHolder trail : myMap.values()){
-      if (trail.startNode().equals(node) || trail.endNode().equals(node)){
+  public void removeTrail(Node node) {
+    for (LineHolder trail : myMap.values()) {
+      if (trail.startNode().equals(node) || trail.endNode().equals(node)) {
         removeTrail(getTrailID(trail.startNode(), trail.endNode()));
       }
     }
@@ -95,7 +94,8 @@ public class TrailMaker implements TrailMakerAPI {
         }
       }
     }
-    LOG.warn("Could not find trail ID for start node ID " + entry1.getId() + " and end node ID " + entry2.getId());
+    LOG.warn("Could not find trail ID for start node ID " + entry1.getId() + " and end node ID "
+        + entry2.getId());
     return null;
   }
 
@@ -178,4 +178,4 @@ public class TrailMaker implements TrailMakerAPI {
  */
 record LineHolder(Arrow line, Node startNode, Node endNode) {
 
-};
+}

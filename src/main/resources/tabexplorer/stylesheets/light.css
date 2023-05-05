@@ -1,5 +1,5 @@
 
-.root{
+.root {
   -fx-font-size: 12pt;
   -fx-font-family: "Helvetica";
   /* Set the background color of the scene to black */
@@ -12,12 +12,18 @@ Text {
   -fx-fill: #1f1d1d;
 }
 
-Label {
+Label, RadioButton, Hyperlink {
   -fx-text-fill: #1f1d1d;
 }
 
-Button{
+
+Gridpane {
+
+}
+
+Button {
   -fx-cursor: hand;
+  -fx-background-color: #dbdbdb;
 }
 
 #welcome-text {
@@ -25,9 +31,16 @@ Button{
   -fx-font-size: 30px;
 }
 
+MenuButton{
+  -fx-background-color: #dbdbdb;
+}
+MenuButton:hover, MenuItem:hover{
+  -fx-cursor: hand;
+}
+
 
 .game-box {
-  -fx-background-color: red;
+  -fx-background-color: #a9a8a8;
   -fx-alignment: center;
   -fx-spacing: 15;
   -fx-pref-width: 100;
@@ -38,4 +51,16 @@ Button{
   -fx-cursor: hand;
 }
 
+#top-navbar {
+  -fx-spacing: 10;
+  -fx-alignment: center;
+  -fx-background-color: #dbdbdb;
+}
 
+#left-navbar {
+  -fx-alignment: top-left;
+  -fx-padding: 30 0 30 0;
+  -fx-pref-width: 150;
+  -fx-spacing: 15;
+  -fx-background-color: #c2c2c2;
+}

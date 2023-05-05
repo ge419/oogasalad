@@ -18,9 +18,9 @@ public class BuilderControllerModule extends AbstractModule {
 
   private final Path saveDir;
 
-  private String myLanguage;
-  private String gameID;
-  private GameDao gameDao;
+  private final String myLanguage;
+  private final String gameID;
+  private final GameDao gameDao;
 
   public BuilderControllerModule(String givenLanguage, String gameID, GameDao gameDao) {
     this.myLanguage = givenLanguage;

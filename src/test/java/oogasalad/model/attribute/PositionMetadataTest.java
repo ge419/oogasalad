@@ -1,7 +1,6 @@
 package oogasalad.model.attribute;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -11,8 +10,8 @@ import org.junit.jupiter.api.Test;
 
 class PositionMetadataTest {
 
-  private PositionMetadata positionMetadata;
   private static final String KEY = "testPosition";
+  private PositionMetadata positionMetadata;
 
   @BeforeEach
   public void setUp() {
@@ -58,9 +57,9 @@ class PositionMetadataTest {
   void testEquals() {
     PositionMetadata same = positionMetadata;
     PositionMetadata diff = new PositionMetadata("diff");
-    assertTrue(positionMetadata.equals(same));
+    assertEquals(positionMetadata, same);
     same.setDefaultX(54.0);
-    assertFalse((positionMetadata.equals(diff)));
+    assertNotEquals(positionMetadata, diff);
   }
 
   @Test

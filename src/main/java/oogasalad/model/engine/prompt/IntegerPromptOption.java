@@ -1,6 +1,7 @@
 package oogasalad.model.engine.prompt;
 
 public class IntegerPromptOption implements PromptOption {
+
   private final int value;
 
   public IntegerPromptOption(int value) {

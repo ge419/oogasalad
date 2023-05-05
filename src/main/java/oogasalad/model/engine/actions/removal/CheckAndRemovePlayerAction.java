@@ -11,13 +11,22 @@ import oogasalad.model.engine.events.PlayerRemovalEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Action for removing players and updating GameHolder Players.
+ * <p>
+ * Players whose scores are below given lower bound are removed from the GameHolder. Added to the
+ * engine action queue by {@link oogasalad.model.engine.rules.RemovePlayerRule}
+ * </p>
+ *
+ * @Author Jay Yoon
+ */
 public class CheckAndRemovePlayerAction implements Action {
 
   private static final Logger LOGGER = LogManager.getLogger(CheckAndRemovePlayerAction.class);
   private final GameHolder gameholder;
-  private PlayerRemovalStrategy removalStrategy;
-  private TileResetStrategy tileResetStrategy;
   private final int scoreMinBound;
+  private final PlayerRemovalStrategy removalStrategy;
+  private final TileResetStrategy tileResetStrategy;
 
   @Inject
   public CheckAndRemovePlayerAction(
@@ -32,6 +41,18 @@ public class CheckAndRemovePlayerAction implements Action {
     this.tileResetStrategy = tileResetStrategy;
   }
 
+  /**
+   * executed action: removal of players from the game, updating GameHolder accordingly.*
+   * <p>
+   * uses {@link PlayerRemovalStrategy} to remove players from the game with given conditions uses
+   * {@link TileResetStrategy} to set the tiles of the list of removed players to unowned
+   * </p>
+   * <p>
+   * emits {@link PlayerRemovalEvent} that triggers other rules ex.
+   * {@link oogasalad.model.engine.actions.wins.CheckWinAndEndAction}
+   *
+   * @param actionParams
+   */
   @Override
   public void runAction(ActionParams actionParams) {
     List<Player> playersToRemove = removalStrategy.removePlayers(gameholder, scoreMinBound);

@@ -1,0 +1,45 @@
+[ {
+  "@class" : "oogasalad.model.attribute.SimpleObjectSchema",
+  "name" : "cc5164d3-efb7-4238-adf6-010aa222303f",
+  "fields" : [ {
+    "@class" : "oogasalad.model.attribute.ImageMetadata",
+    "key" : "City Image.png",
+    "name" : "City Image.png",
+    "description" : "",
+    "defaultValue" : "data/customObjects/CityTile/City Image.png",
+    "editable" : true,
+    "viewable" : true
+  }, {
+    "@class" : "oogasalad.model.attribute.StringMetadata",
+    "key" : "City Name",
+    "name" : "City Name",
+    "description" : "",
+    "defaultValue" : "Add a city name",
+    "editable" : true,
+    "viewable" : true
+  }, {
+    "@class" : "oogasalad.model.attribute.ColorMetadata",
+    "key" : "Colorbox-d43dfc27-a0cb-40d6-a503-5a8b409c1f0c",
+    "name" : "",
+    "description" : "A custom colorbox",
+    "defaultValue" : "0xffffffff",
+    "editable" : false,
+    "viewable" : false
+  }, {
+    "@class" : "oogasalad.model.attribute.ImageMetadata",
+    "key" : "Mr. Monopoly.jpg.png",
+    "name" : "Mr. Monopoly.jpg.png",
+    "description" : "",
+    "defaultValue" : "data/customObjects/CityTile/Mr. Monopoly.jpg.png",
+    "editable" : false,
+    "viewable" : false
+  }, {
+    "@class" : "oogasalad.model.attribute.StringMetadata",
+    "key" : "Textfield-5b4d6b8e-491b-489e-b14e-02176201b0c0",
+    "name" : "",
+    "description" : "",
+    "defaultValue" : "Hello world",
+    "editable" : false,
+    "viewable" : false
+  } ]
+} ]

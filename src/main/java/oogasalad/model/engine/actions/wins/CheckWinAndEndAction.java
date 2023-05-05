@@ -15,13 +15,23 @@ import oogasalad.model.engine.prompt.StringPromptOption;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Action for checking winning conditions and ending the Game if satisfied.
+ * <p>
+ * notifies the {@link oogasalad.controller.GameController} and
+ * {@link oogasalad.view.gameplay.Gameview} to trigger appropriate actions Added to the engine
+ * action queue by ex. {@link oogasalad.model.engine.rules.RemovePlayerRule}
+ * </p>
+ *
+ * @Author Jay Yoon
+ */
 public class CheckWinAndEndAction implements Action {
 
   private static final Logger LOGGER = LogManager.getLogger(CheckWinAndEndAction.class);
+  private static final String VALIDATION_OPTION = "Prompt1";
   private final WinningConditionStrategy winningCondition;
   private final ResourceBundle bundle;
   private final GameHolder gameHolder;
-  private static final String VALIDATION_OPTION = "Prompt1";
 
   @Inject
   public CheckWinAndEndAction(
@@ -34,14 +44,29 @@ public class CheckWinAndEndAction implements Action {
     this.bundle = bundle;
   }
 
+  /**
+   * executed action: checks winning condition and ends game if satisfied*
+   * <p>
+   * constructs mandatory String prompter selection option for user to validate notifies
+   * {@link oogasalad.controller.GameController} and {@link oogasalad.view.gameplay.Gameview} to
+   * trigger appropriate actions including automatically exiting current window
+   * </p>
+   * <p>
+   * emits {@link GameEndEvent} that triggers end of game
+   *
+   * @param actionParams incl. emitter, prompter
+   */
   @Override
   public void runAction(ActionParams actionParams) {
     LOGGER.info("Checking if Current Game Player Status Satisfies Winning Condition");
     if (winningCondition.isSatisfied()) {
       LOGGER.info("Satisfied Condition, Ending Game");
       List<StringPromptOption> validation = new ArrayList<>();
-      validation.add(new StringPromptOption(bundle.getString(getClass().getSimpleName()+VALIDATION_OPTION)));
-      actionParams.prompter().selectSingleOption(String.format(bundle.getString(getClass().getSimpleName())), validation, this::notifyEnd);
+      validation.add(
+          new StringPromptOption(bundle.getString(getClass().getSimpleName() + VALIDATION_OPTION)));
+      actionParams.prompter()
+          .selectSingleOption(String.format(bundle.getString(getClass().getSimpleName())),
+              validation, this::notifyEnd);
       actionParams.emitter().emit(new GameEndEvent());
     }
   }

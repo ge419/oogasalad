@@ -1,0 +1,68 @@
+{
+  "name": "CityTile",
+  "width": 791.0,
+  "height": 798.0,
+  "customObjects": [
+    {
+      "type": "CustomColorBox",
+      "name": "",
+      "color": "0xffffffff",
+      "opacity": 1.0,
+      "index": 0,
+      "translatex": -2.0,
+      "translatey": -5.0,
+      "width": 776.9789103690686,
+      "height": 798.0,
+      "editable": false,
+      "viewable": false
+    },
+    {
+      "type": "CustomImage",
+      "x": -2.0,
+      "y": -183.0,
+      "name": "City Image.png",
+      "height": 420.8375,
+      "width": 771.0,
+      "filePath": "data/customObjects/CityTile/City Image.png",
+      "index": 1,
+      "editable": true,
+      "viewable": true
+    },
+    {
+      "name": "City Name",
+      "defaultContents": "Add a city name",
+      "fontSize": 29,
+      "bold": true,
+      "translateX": 3.0,
+      "translateY": 75.0,
+      "type": "CustomText",
+      "index": 2,
+      "editable": true,
+      "viewable": true
+    },
+    {
+      "name": "",
+      "defaultContents": "Hello world",
+      "fontSize": 14,
+      "bold": false,
+      "translateX": -345.0,
+      "translateY": 371.0,
+      "type": "CustomText",
+      "index": 3,
+      "editable": false,
+      "viewable": false
+    },
+    {
+      "type": "CustomImage",
+      "x": 311.0,
+      "y": 297.0,
+      "name": "Mr. Monopoly.jpg.png",
+      "height": 149.26358826579533,
+      "width": 110.79060911976673,
+      "filePath": "data/customObjects/CityTile/Mr. Monopoly.jpg.png",
+      "index": 4,
+      "editable": false,
+      "viewable": false
+    }
+  ]
+}

@@ -17,6 +17,10 @@ public class BooleanMetadata extends AbstractMetadata {
     this.defaultValue = new SimpleBooleanProperty(false);
   }
 
+  public static BooleanMetadata from(Metadata meta) {
+    return getAs(meta, BooleanMetadata.class);
+  }
+
   @Override
   protected boolean checkPreconditions(Attribute attribute) {
     boolean val = BooleanAttribute.from(attribute).getValue();
@@ -39,10 +43,6 @@ public class BooleanMetadata extends AbstractMetadata {
     return true;
   }
 
-  public static BooleanMetadata from(Metadata meta) {
-    return getAs(meta, BooleanMetadata.class);
-  }
-
   public BooleanAttribute makeBooleanAttribute() {
     return new BooleanAttribute(getKey(), getDefaultValue());
   }
@@ -53,9 +53,5 @@ public class BooleanMetadata extends AbstractMetadata {
 
   public void setDefaultValue(boolean defaultValue) {
     this.defaultValue.set(defaultValue);
-  }
-
-  public BooleanProperty defaultValueProperty() {
-    return defaultValue;
   }
 }

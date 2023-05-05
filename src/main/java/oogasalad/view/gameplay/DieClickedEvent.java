@@ -7,7 +7,7 @@ public class DieClickedEvent extends Event {
 
   public static final EventType<DieClickedEvent> DIE_CLICKED = new EventType<>(Event.ANY, "ANY");
 
-  private Die die;
+  private final Die die;
 
   public DieClickedEvent(EventType<? extends Event> eventType, Die die) {
     super(eventType);

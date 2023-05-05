@@ -11,14 +11,11 @@ class PositionAttributeTest {
 
   public static final String KEY = "Pos";
   public static final double ANGLE = 50.0;
-  private PositionAttribute positionAttribute;
   private static final Double X_CORD = 0.0;
-
   private static final Double Y_CORD = 6.0;
   private static final Double NEW_X_CORD = 4.0;
-
   private static final Double NEW_Y_CORD = 5.0;
-
+  private PositionAttribute positionAttribute;
 
   @BeforeEach
   void setUp() {
@@ -42,7 +39,6 @@ class PositionAttributeTest {
   @Test
   void testGetCoordinate() {
     PositionAttribute testAttribute = new PositionAttribute("Pos", X_CORD, Y_CORD, ANGLE);
-    ;
     assertEquals(testAttribute.toString(), positionAttribute.toString());
     testAttribute.setCoordinate(new Coordinate(5.0, 70.5, 30.4));
     assertEquals(testAttribute.getCoordinate().getXCoor(), 5.0);

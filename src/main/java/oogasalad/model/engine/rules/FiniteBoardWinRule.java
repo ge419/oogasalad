@@ -14,10 +14,15 @@ import oogasalad.model.engine.actions.wins.TileWinningStrategy;
 import oogasalad.model.engine.actions.wins.WinningConditionStrategy;
 import oogasalad.model.engine.events.TileLandedEvent;
 
+/**
+ * Rule that outlines winning status of finite board game.
+ *
+ * @Author Jay Yoon
+ */
 public class FiniteBoardWinRule extends AbstractGameConstruct implements EditableRule {
 
-  private static final String SCHEMA_NAME = "finiteBoardWinRule";
   public static final String WINNING_TILES = "winningTiles";
+  private static final String SCHEMA_NAME = "finiteBoardWinRule";
   private final ActionFactory actionFactory;
 
   @Inject
@@ -29,15 +34,30 @@ public class FiniteBoardWinRule extends AbstractGameConstruct implements Editabl
     this.actionFactory = actionFactory;
   }
 
+  /**
+   * Listens for a {@link TileLandedEvent} to run {@link #checkTileWin(EventHandlerParams)}
+   *
+   * <p>
+   * retrieves list of winning tiles IDs from rule attribute and compares with landed tile uses
+   * {@link TileWinningStrategy} as winning condition strategy to check for winning condition adds
+   * {@link oogasalad.model.engine.actions.wins.CheckWinAndEndAction} to action queue for potential
+   * game end
+   * </p>
+   *
+   * @param registrar provides event registration methods
+   */
   @Override
   public void registerEventHandlers(EventRegistrar registrar) {
     registrar.registerHandler(TileLandedEvent.class, this::checkTileWin);
   }
 
   protected void checkTileWin(EventHandlerParams<TileLandedEvent> eventEventHandlerParams) {
-    List<String> winningTileIds = TileListAttribute.from(this.getAttribute(WINNING_TILES).get()).getTileIds();
+    List<String> winningTileIds = TileListAttribute.from(this.getAttribute(WINNING_TILES).get())
+        .getTileIds();
     String landedTileId = eventEventHandlerParams.event().landedTile().getId();
-    WinningConditionStrategy winningCondition = new TileWinningStrategy(landedTileId, winningTileIds);
-    eventEventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(), actionFactory.makeCheckWinStateAction(winningCondition));
+    WinningConditionStrategy winningCondition = new TileWinningStrategy(landedTileId,
+        winningTileIds);
+    eventEventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(),
+        actionFactory.makeCheckWinStateAction(winningCondition));
   }
 }

@@ -14,6 +14,11 @@ import oogasalad.model.engine.actions.wins.StandingWinningStrategy;
 import oogasalad.model.engine.actions.wins.WinningConditionStrategy;
 import oogasalad.model.engine.events.PlayerRemovalEvent;
 
+/**
+ * Rule that outlines winning status of survival type board game.
+ *
+ * @Author Jay Yoon
+ */
 public class LastStandingWinRule extends AbstractGameConstruct implements EditableRule {
 
   private static final String SCHEMA_NAME = "lastStandingRule";
@@ -32,6 +37,18 @@ public class LastStandingWinRule extends AbstractGameConstruct implements Editab
     this.gameHolder = gameHolder;
   }
 
+  /**
+   * Listens for a {@link PlayerRemovalEvent} to run {@link #checkWinState(EventHandlerParams)} )}
+   *
+   * <p>
+   * retrieves the number of winners from the rule attribute uses {@link StandingWinningStrategy} as
+   * winning condition strategy to check for winning condition adds
+   * {@link oogasalad.model.engine.actions.wins.CheckWinAndEndAction} to action queue for potential
+   * game end
+   * </p>
+   *
+   * @param registrar provides event registration methods
+   */
   @Override
   public void registerEventHandlers(EventRegistrar registrar) {
     registrar.registerHandler(PlayerRemovalEvent.class, this::checkWinState);
@@ -40,6 +57,7 @@ public class LastStandingWinRule extends AbstractGameConstruct implements Editab
   protected void checkWinState(EventHandlerParams<PlayerRemovalEvent> eventEventHandlerParams) {
     int lastN = IntAttribute.from(this.getAttribute(NUM_WIN_PLAYER).get()).getValue();
     WinningConditionStrategy winningCondition = new StandingWinningStrategy(gameHolder, lastN);
-    eventEventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(), actionFactory.makeCheckWinStateAction(winningCondition));
+    eventEventHandlerParams.actionQueue().add(Priority.MOST_HIGH.getValue(),
+        actionFactory.makeCheckWinStateAction(winningCondition));
   }
 }

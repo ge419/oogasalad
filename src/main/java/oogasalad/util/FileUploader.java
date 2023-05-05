@@ -9,24 +9,36 @@ import java.nio.file.StandardCopyOption;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
+/**
+ * Util class to help with file uploading
+ *
+ * @author cgd19
+ */
 public class FileUploader {
-
-  public static void uploadUserAvatar(String userID){
+  /**
+   * Uploads a user avatar to a folder. Creates folder if DNE.
+   *
+   * @param userID
+   */
+  public static void uploadUserAvatar(String userID) {
     uploadFile(PathFinder.getUserAvatarPath(userID));
   }
 
-  public static void uploadGameThumbnail(String gameID){
+  /**
+   * Uploads a game thumbnail to a folder. Creates folder if DNE.
+   *
+   * @param gameID
+   */
+  public static void uploadGameThumbnail(String gameID) {
     uploadFile(PathFinder.getGameThumbnailPath(gameID));
   }
 
 
-  private static void uploadFile(String dirPath){
+  private static void uploadFile(String dirPath) {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Upload an Image");
 
     String initialDir = System.getProperty("user.home") + "/Documents";
-    System.out.println(initialDir);
-    //    System.out.println(System.getProperty("user.home"));
     // Set the initial directory to the user's home directory
     fileChooser.setInitialDirectory(new File(initialDir));
     // Add a filter to show only image files

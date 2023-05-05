@@ -1,10 +1,11 @@
 package oogasalad.model.engine.prompt;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
 public class IntegerPromptOptionTest {
+
   @Test
   void testPrompt() {
     IntegerPromptOption option = new IntegerPromptOption(42);

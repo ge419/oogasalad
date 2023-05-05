@@ -1,0 +1,144 @@
+{
+  "tiles" : [ {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "e84f491a-1f63-4c49-a11c-1c8e2df10feb",
+    "schemas" : [ "tile" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "0x00ffffff"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "no description provided"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 100.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ "2bd241fa-9b87-45a6-9163-b84a4b2a2571" ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 441.5,
+      "y" : 225.5,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "basic"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 100.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "2bd241fa-9b87-45a6-9163-b84a4b2a2571",
+    "schemas" : [ "tile" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "#FFFFFF"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "no description provided"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 50.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ "9d0a0cd7-91e0-4509-b0e2-b6162db565c0" ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 117.0,
+      "y" : 98.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "basic"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 50.0
+    } ]
+  }, {
+    "@class" : "oogasalad.model.constructable.Tile",
+    "id" : "9d0a0cd7-91e0-4509-b0e2-b6162db565c0",
+    "schemas" : [ "tile" ],
+    "attributes" : [ {
+      "@class" : "oogasalad.model.attribute.ColorAttribute",
+      "key" : "color",
+      "value" : "#FFFFFF"
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "description",
+      "value" : "no description provided"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "height",
+      "value" : 50.0
+    }, {
+      "@class" : "oogasalad.model.attribute.StringAttribute",
+      "key" : "info",
+      "value" : ""
+    }, {
+      "@class" : "oogasalad.model.attribute.TileListAttribute",
+      "key" : "next",
+      "ids" : [ "e84f491a-1f63-4c49-a11c-1c8e2df10feb" ]
+    }, {
+      "@class" : "oogasalad.model.attribute.BooleanAttribute",
+      "key" : "owned",
+      "value" : false
+    }, {
+      "@class" : "oogasalad.model.attribute.PositionAttribute",
+      "key" : "position",
+      "x" : 358.0,
+      "y" : 266.0,
+      "angle" : 0.0
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "type",
+      "value" : "default"
+    }, {
+      "@class" : "oogasalad.model.attribute.BindingAttribute",
+      "key" : "viewtype",
+      "value" : "basic"
+    }, {
+      "@class" : "oogasalad.model.attribute.DoubleAttribute",
+      "key" : "width",
+      "value" : 50.0
+    } ]
+  } ]
+}

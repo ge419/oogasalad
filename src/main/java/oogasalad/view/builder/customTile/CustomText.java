@@ -136,6 +136,7 @@ public class CustomText extends Label implements CustomElement, BuilderUtility {
     boldCheckbox.setSelected(this.isBold());
     boldCheckbox.setOnAction(event -> setBold(boldCheckbox.isSelected()));
     nodes.add(makeLabel("Bold", languageBundle));
+    nodes.add(boldCheckbox); //During refactoring I forgot this line
 
     return makeVbox(this, nodes);
   }

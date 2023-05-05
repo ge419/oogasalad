@@ -1,0 +1,41 @@
+[ {
+  "@class" : "oogasalad.model.engine.rules.NumberOfPlayersRule",
+  "id" : "03c51766-e6f3-4533-a1cf-9f5eeab03957",
+  "schemas" : [ "numberOfPlayersRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "maxPlayer",
+    "value" : 4
+  }, {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "minPlayer",
+    "value" : 1
+  }, {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "piecePerPlayer",
+    "value" : 1
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.NumberOfPieceRule",
+  "id" : "fa0cc1af-28ef-41e4-b785-2b0557dad2bb",
+  "schemas" : [ "numberOfPiecesPerPlayerRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "numberOfPiecesPerPlayer",
+    "value" : 1
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.TurnRule",
+  "id" : "fb21b150-9171-4c58-bc76-01b210242eac",
+  "schemas" : [ "turnRule" ],
+  "attributes" : [ ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.DieMoveRule",
+  "id" : "411ca09f-d33a-44a6-a44a-a85fc17c0d8c",
+  "schemas" : [ "dieRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "numberOfDice",
+    "value" : 1
+  } ]
+} ]

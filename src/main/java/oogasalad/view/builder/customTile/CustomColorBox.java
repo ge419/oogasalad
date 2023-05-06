@@ -60,6 +60,7 @@ public class CustomColorBox extends Rectangle implements CustomElement, BuilderU
   public JsonObject save(Path folderPath) throws IOException {
     JsonObject jsonObject = new JsonObject();
     jsonObject.addProperty("type", "CustomColorBox");
+    name = name.isEmpty() ? "Colorbox-" + UUID.randomUUID() : name;
     jsonObject.addProperty("name", name);
     jsonObject.addProperty("color", this.getFill().toString());
     jsonObject.addProperty("opacity", this.getOpacity());
@@ -142,8 +143,7 @@ public class CustomColorBox extends Rectangle implements CustomElement, BuilderU
 
   @Override
   public Metadata getMetaData() {
-    ColorMetadata metadata = new ColorMetadata(
-        name.isEmpty() ? "Colorbox-" + UUID.randomUUID() : name);
+    ColorMetadata metadata = new ColorMetadata(name);
     metadata.setName(name);
     metadata.setDefaultValue(this.defaultColor);
     metadata.setEditable(editable);

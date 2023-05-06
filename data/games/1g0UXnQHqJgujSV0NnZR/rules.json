@@ -1,0 +1,117 @@
+[ {
+  "@class" : "oogasalad.model.engine.rules.TurnRule",
+  "id" : "0d3a47dc-0c13-4eca-bbcb-771c9c32a9b4",
+  "schemas" : [ "turnRule" ],
+  "attributes" : [ ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.LastStandingWinRule",
+  "id" : "11303fdd-6e73-4175-9020-b26f034099eb",
+  "schemas" : [ "lastStandingRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "numWinPlayer",
+    "value" : 11
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.BuyTileRule",
+  "id" : "271de812-5f60-47cc-b8c5-5ba02c9807b5",
+  "schemas" : [ "buyTileRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.StringAttribute",
+    "key" : "tileType",
+    "value" : "tile"
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.DieMoveRule",
+  "id" : "706164ac-bb5b-437f-9cf3-5cef46599c2a",
+  "schemas" : [ "dieRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "numberOfDice",
+    "value" : 2
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.DieMoveRule",
+  "id" : "e82161c0-515c-49bd-8856-2f94a442ae45",
+  "schemas" : [ "dieRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "numberOfDice",
+    "value" : 1
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.ScoreTileRule",
+  "id" : "3d543861-d606-4676-ae03-97cb179f092c",
+  "schemas" : [ "scoreTileRule" ],
+  "attributes" : [ ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.RemovePlayerRule",
+  "id" : "7b44890e-0145-4f8f-b694-ba6a62bc986b",
+  "schemas" : [ "removePlayerRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "scoreMinBound",
+    "value" : 0
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.FiniteBoardWinRule",
+  "id" : "c36da2fc-1119-4e11-9a1e-07528ff581d5",
+  "schemas" : [ "finiteBoardWinRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.TileListAttribute",
+    "key" : "winningTiles",
+    "ids" : [ ]
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.NumberOfPieceRule",
+  "id" : "adcd5ade-5efb-43d9-b7d3-587b57c7ae4f",
+  "schemas" : [ "numberOfPiecesPerPlayerRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "numberOfPiecesPerPlayer",
+    "value" : 1
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.NumberOfPlayersRule",
+  "id" : "dc39949f-8da7-495d-bba3-deb45b278ffc",
+  "schemas" : [ "numberOfPlayersRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "maxPlayer",
+    "value" : 8
+  }, {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "minPlayer",
+    "value" : 1
+  }, {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "piecePerPlayer",
+    "value" : 1
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.DieMoveRule",
+  "id" : "d76720d9-1c2c-43f7-b5d9-3db059097707",
+  "schemas" : [ "dieRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "numberOfDice",
+    "value" : 1
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.NumberOfPlayersRule",
+  "id" : "b37bace5-42ca-4371-bbfb-aa5dcfe872be",
+  "schemas" : [ "numberOfPlayersRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "maxPlayer",
+    "value" : 8
+  }, {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "minPlayer",
+    "value" : 1
+  }, {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "piecePerPlayer",
+    "value" : 1
+  } ]
+} ]

@@ -1,6 +1,16 @@
 # B-CUBED Project: oogasalad
 
-## NAMES
+##  NAMES
+* Dominic Martinez (dcm67)
+* Woonggyu Jin (wj61)
+* Trevon Helm (tmh85)
+* Jason Fitzpatrick (jf295)
+* Jay Yoon (jy320)
+* Chika Dueke-Eze (cgd19)
+* Nathaniel Wullar (nkw14)
+* Changmin Shin (cs521)
+* Aloye Oshotse (ajo24)
+* Matthew Traum (mnt20)
 
 
 This project implements an authoring environment and player for multiple related games.

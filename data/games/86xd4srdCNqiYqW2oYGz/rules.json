@@ -1,0 +1,91 @@
+[ {
+  "@class" : "oogasalad.model.engine.rules.TurnRule",
+  "id" : "75bf83e4-3128-4b4b-b39f-95294413d4d7",
+  "schemas" : [ "turnRule" ],
+  "attributes" : [ ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.LastStandingWinRule",
+  "id" : "ed240eed-2a18-46c0-bd17-52e0c8c2ad71",
+  "schemas" : [ "lastStandingRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "numWinPlayer",
+    "value" : 21
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.BuyTileRule",
+  "id" : "0ab73014-5cde-4499-b609-79ecc9134a26",
+  "schemas" : [ "buyTileRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.StringAttribute",
+    "key" : "tileType",
+    "value" : "tile"
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.ScoreTileRule",
+  "id" : "7c95c1f9-2c97-4b46-85ea-c4b164710067",
+  "schemas" : [ "scoreTileRule" ],
+  "attributes" : [ ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.RemovePlayerRule",
+  "id" : "06395d75-15c0-4343-b8d9-4d355c2be2e3",
+  "schemas" : [ "removePlayerRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "scoreMinBound",
+    "value" : -500
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.FiniteBoardWinRule",
+  "id" : "b47a22cf-bdc8-4fe9-882b-011b6b5f2892",
+  "schemas" : [ "finiteBoardWinRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.TileListAttribute",
+    "key" : "winningTiles",
+    "ids" : [ ]
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.NumberOfPieceRule",
+  "id" : "aa2e0656-2078-4154-a741-cf50fbe6159f",
+  "schemas" : [ "numberOfPiecesPerPlayerRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "numberOfPiecesPerPlayer",
+    "value" : 1
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.NumberOfPlayersRule",
+  "id" : "6add8ae0-f697-4fc5-a714-c19bddbcef1a",
+  "schemas" : [ "numberOfPlayersRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "maxPlayer",
+    "value" : 5
+  }, {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "minPlayer",
+    "value" : 2
+  }, {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "piecePerPlayer",
+    "value" : 1
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.DieMoveRule",
+  "id" : "3943c87c-17b3-4a73-b289-1b56db9a7589",
+  "schemas" : [ "dieRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "numberOfDice",
+    "value" : 1
+  } ]
+}, {
+  "@class" : "oogasalad.model.engine.rules.LastStandingWinRule",
+  "id" : "db28380b-1630-44c9-b626-c3b3ff787e9e",
+  "schemas" : [ "lastStandingRule" ],
+  "attributes" : [ {
+    "@class" : "oogasalad.model.attribute.IntAttribute",
+    "key" : "numWinPlayer",
+    "value" : 11
+  } ]
+} ]
